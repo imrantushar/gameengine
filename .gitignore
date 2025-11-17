@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+vendor/
+library/vendor/
+!library/deps
+!assets/scss/vendor
+assets/js/*.txt
+.git
+.idea
+**/*.map
+prepros.config
+.DS_Store

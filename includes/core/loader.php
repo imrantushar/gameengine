@@ -30,6 +30,10 @@ final class Loader
     private function get_services_list()
     {
         return [
+            'assets' => [
+                'class'     => \Gamify\Assets::class,
+                'condition' => is_admin(),
+            ],
             'admin_menu' => [
                 'class'     => \Gamify\Admin\Menu::class,
                 'condition' => is_admin(),

@@ -14,9 +14,6 @@ class Menu
     public function __construct()
     {
         add_action('admin_menu', [$this, 'register_menus']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_assets']);
-
-
         add_action('admin_init', [$this, 'register_load_hooks_for_all_pages']);
     }
 
@@ -89,14 +86,6 @@ class Menu
     public function render_app()
     {
         echo '<div id="gamify-admin-app"></div>';
-    }
-
-    public function enqueue_assets($hook)
-    {
-
-        if (! in_array($hook, $this->page_hooks, true)) {
-            return;
-        }
     }
 
     /**
