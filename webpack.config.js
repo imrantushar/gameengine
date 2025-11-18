@@ -17,6 +17,7 @@ module.exports = {
             ...defaultConfig.resolve.alias,
             '@Components': path.resolve(__dirname, 'dev_gamify/components/'),
             '@Utils': path.resolve(__dirname, 'dev_gamify/utils/'),
+			'@Pages': path.resolve( __dirname, 'src/containers/pages/' ),
         },
     },
 };
