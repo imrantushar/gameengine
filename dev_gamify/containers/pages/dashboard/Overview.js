@@ -61,12 +61,22 @@ function Overview(props) {
                         h='130px'
                     >
                         <Box>
-                            <Text fontSize="2xl" margin="0" fontWeight="bold">
-                                {__(card.value, 'gamify')}
-                            </Text>
-                            <Text fontSize="sm" margin={0} color="gray.600">
-                                {__(card.label, 'gamify')}
-                            </Text>
+                            <GFLabel
+                                type="title"
+                                label={__(card.value, 'gamify')}
+                                fontSize="3xl"
+                                fontWeight="700"
+                                color='var(--gamify-font-color)'
+                                margin="0"
+                            />
+                             <GFLabel
+                                type="subtitle"
+                                label={__(card.label, 'gamify')}
+                                fontSize="md"
+                                fontWeight="500"
+                                color='var(--gamify-font-color)'
+                                margin="0"
+                            />
                         </Box>
 
 

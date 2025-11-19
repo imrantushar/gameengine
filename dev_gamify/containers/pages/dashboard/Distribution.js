@@ -51,7 +51,7 @@ function Distribution() {
             },
             {
                 label: "Achievements",
-                data: [1, 1, 1, 1, 1, 1, 1, 1], // always 1 like screenshot
+                data: [1, 1, 1, 1, 1, 1, 1, 1], 
                 borderColor: "#4DB8FF",
                 backgroundColor: "transparent",
                 pointRadius: 0,
@@ -61,7 +61,7 @@ function Distribution() {
             },
             {
                 label: "Levels",
-                data: [1, 1, 1, 1, 1, 1, 1, 1], // always 1 like screenshot
+                data: [1, 1, 1, 1, 1, 1, 1, 1], 
                 borderColor: "#3CB371",
                 backgroundColor: "transparent",
                 pointRadius: 0,
