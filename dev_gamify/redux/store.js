@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 // Import all the reducers you have created
-import appReducer from './features/appSlice';
-import logsReducer from './features/logsSlice';
+import appReducer from './Slices/appSlice';
+import logsReducer from './Slices/logsSlice';
 
 /**
  * The main Redux store for the Gamify application.
