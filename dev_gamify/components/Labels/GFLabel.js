@@ -14,6 +14,7 @@ const GFLabel = ( {
 	padding = '',
 	href = null,
 	color,
+	...rest 
 } ) => {
 	const variantStyles = {
 		title: {
@@ -43,6 +44,7 @@ const GFLabel = ( {
 		fontFamily: 'var(--gamify-font)',
 		as,
 		color: color || styles.color,
+		...rest 
 	};
 
 	return (

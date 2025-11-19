@@ -2,6 +2,7 @@ import { Box, Text, Icon, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar } from "react-icons/fi";
+import GFLabel from '@Components/Labels/GFLabel';
 const cards = [
     {
         label: "Points Given",
@@ -36,17 +37,16 @@ const cards = [
 function Overview(props) {
     return (
         <Box p={6} background="var( --gamify-background)" borderRadius="4px">
-            <Text
+            <GFLabel
+                type="title"
+                label={__('Overview', 'gamify')}
                 fontSize="xl"
-                fontWeight="bold"
-                p='16px 0'
-                mb='24px'
-                borderBottomWidth="1px"
-                borderBottomStyle="solid"
-                borderBottomColor="var(--gamify-border-color)"
-            >
-                {__('Overview', 'gamify')}
-            </Text>
+                fontWeight="600"
+                p="16px 0"
+                mb="24px"
+                borderBottom="1px solid var(--gamify-border-color)"
+            />
+
             <Flex gap={6}>
                 {cards.map((card, i) => (
                     <Flex
@@ -62,10 +62,10 @@ function Overview(props) {
                     >
                         <Box>
                             <Text fontSize="2xl" margin="0" fontWeight="bold">
-                                {card.value}
+                                {__(card.value, 'gamify')}
                             </Text>
                             <Text fontSize="sm" margin={0} color="gray.600">
-                                {card.label}
+                                {__(card.label, 'gamify')}
                             </Text>
                         </Box>
 

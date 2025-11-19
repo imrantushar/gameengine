@@ -12,6 +12,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { Line } from "react-chartjs-2";
 import { Box, Text } from "@chakra-ui/react";
+import GFLabel from "@Components/Labels/GFLabel";
 
 ChartJS.register(
     LineElement,
@@ -100,7 +101,7 @@ function Distribution() {
                             fillStyle: customColors[label.text] || label.fillStyle,
                             strokeStyle: customColors[label.text] || label.strokeStyle,
                             pointStyle: "circle",
-                             yOffset: 30, 
+                            yOffset: 30,
                             text: " " + label.text
                         }));
                     }
@@ -141,9 +142,13 @@ function Distribution() {
 
     return (
         <Box p={6} w='100%' background="var( --gamify-background)" borderRadius="4px">
-            <Text fontSize="xl" fontWeight="bold" mb={4}>
-                {__(' Point Distribution Chart', 'gamify')}
-            </Text>
+            <GFLabel
+                type="title"
+                fontWeight="600"
+                fontSize="xl"
+                mb='4'
+                label={__(`Point Distribution Chart`, 'gamify')}
+            />
             <Box w="100%" h="320px">
                 <Line data={data} options={options} />
             </Box>
