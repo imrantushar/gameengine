@@ -156,7 +156,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/table/table.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -164,30 +169,62 @@ __webpack_require__.r(__webpack_exports__);
 const cards = [{
   label: "Points Given",
   value: "12,000",
-  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiStar,
+  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiStar,
   bg: "yellow.50",
   iconColor: "yellow.500"
 }, {
   label: "Achievements Given",
   value: "64",
-  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiAward,
+  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiAward,
   bg: "blue.50",
   iconColor: "blue.500"
 }, {
   label: "Levels Given",
   value: "64",
-  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiTrendingUp,
+  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiTrendingUp,
   bg: "green.50",
   iconColor: "green.500"
 }, {
   label: "Active Users",
   value: "192",
-  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiUser,
+  icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiUser,
   bg: "red.50",
   iconColor: "red.500"
 }];
+const users = [{
+  rank: "#1",
+  name: "Christopher Hayes",
+  points: "10,000",
+  achievements: 5,
+  level: "Diamond"
+}, {
+  rank: "#2",
+  name: "Nicholas Grant",
+  points: "9,400",
+  achievements: 4,
+  level: "Platinum"
+}, {
+  rank: "#3",
+  name: "Alexander Pierce",
+  points: "9,200",
+  achievements: 4,
+  level: "Platinum"
+}, {
+  rank: "#4",
+  name: "Nathaniel Brooks",
+  points: "8,000",
+  achievements: 2,
+  level: "Gold"
+}, {
+  rank: "#5",
+  name: "Frederick Adams",
+  points: "6,000",
+  achievements: 1,
+  level: "Silver"
+}];
 const Dashboard = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.VStack, {
+    gap: "24px",
     w: "1320px",
     margin: "0 auto"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
@@ -198,7 +235,7 @@ const Dashboard = () => {
     fontSize: "xl",
     fontWeight: "bold",
     mb: 4
-  }, "Overview"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Overview', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     gap: 6
   }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     key: i,
@@ -222,7 +259,66 @@ const Dashboard = () => {
     as: card.icon,
     boxSize: 8,
     color: card.iconColor
-  }))))));
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    p: 6,
+    w: "100%",
+    background: "var( --gamify-background)",
+    borderRadius: "4px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    fontSize: "xl",
+    fontWeight: "bold",
+    mb: 4
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Top 5 Users', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableRoot, {
+    variant: "simple"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableHeader, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableRow, {
+    background: "var(--gamify-second-primary)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableColumnHeader, {
+    width: "6.21%",
+    borderLeftRadius: "4px",
+    color: "var(--gamify-background)",
+    paddingLeft: "24px"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Rank', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableColumnHeader, {
+    width: "27.62%",
+    color: "var(--gamify-background)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('User', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableColumnHeader, {
+    width: "22.06%",
+    color: "var(--gamify-background)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Points', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableColumnHeader, {
+    width: "22.06%",
+    color: "var(--gamify-background)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Achievements', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableColumnHeader, {
+    borderRightRadius: "4px",
+    width: "22.06%",
+    color: "var(--gamify-background)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Levels', 'gamify')))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableBody, null, users.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableRow, {
+    borderRadius: "4px",
+    key: index,
+    background: index % 2 === 0 ? 'var(--gamify-background)' : 'var(--gamify-body-background)'
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableCell, {
+    // width="10%"
+    borderLeftRadius: index % 2 !== 0 ? '4px' : '',
+    paddingLeft: "24px",
+    textTransform: "capitalize"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    direction: "column"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    as: "span",
+    fontSize: "14px"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item?.rank, 'gamify')))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableCell, {
+    // width="20%"
+    borderRightRadius: index % 2 !== 0 ? '4px' : ''
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item?.name, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableCell, {
+    // width="20%"
+    borderRightRadius: index % 2 !== 0 ? '4px' : ''
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item?.points, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableCell, {
+    // width="20%"
+    borderRightRadius: index % 2 !== 0 ? '4px' : '',
+    fontWeight: "500"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item.achievements, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.TableCell, {
+    // width="20%"
+    borderRightRadius: index % 2 !== 0 ? '4px' : ''
+    // fontWeight="500"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item.level, 'gamify'))))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Dashboard);
 
@@ -1206,6 +1302,282 @@ const Icon = react__WEBPACK_IMPORTED_MODULE_1__.forwardRef(
 );
 Icon.displayName = "Icon";
 const IconPropsProvider = PropsProvider;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/stack/get-separator-style.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/stack/get-separator-style.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   getSeparatorStyles: () => (/* binding */ getSeparatorStyles)
+/* harmony export */ });
+/* harmony import */ var _utils_walk_object_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/walk-object.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/walk-object.js");
+
+
+
+function getSeparatorStyles(options) {
+  const { gap, direction } = options;
+  const styles = {
+    column: {
+      marginY: gap,
+      marginX: 0,
+      borderInlineStartWidth: 0,
+      borderTopWidth: "1px"
+    },
+    "column-reverse": {
+      marginY: gap,
+      marginX: 0,
+      borderInlineStartWidth: 0,
+      borderTopWidth: "1px"
+    },
+    row: {
+      marginX: gap,
+      marginY: 0,
+      borderInlineStartWidth: "1px",
+      borderTopWidth: 0
+    },
+    "row-reverse": {
+      marginX: gap,
+      marginY: 0,
+      borderInlineStartWidth: "1px",
+      borderTopWidth: 0
+    }
+  };
+  return {
+    "&": (0,_utils_walk_object_js__WEBPACK_IMPORTED_MODULE_0__.mapObject)(direction, (value) => styles[value])
+  };
+}
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/stack/stack.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/stack/stack.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Stack: () => (/* binding */ Stack)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
+/* harmony import */ var _utils_cx_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/cx.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/cx.js");
+/* harmony import */ var _get_separator_style_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./get-separator-style.js */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/get-separator-style.js");
+
+"use client";
+
+
+
+
+
+
+function getValidChildren(children) {
+  return react__WEBPACK_IMPORTED_MODULE_1__.Children.toArray(children).filter(
+    (child) => (0,react__WEBPACK_IMPORTED_MODULE_1__.isValidElement)(child)
+  );
+}
+const Stack = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+  function Stack2(props, ref) {
+    const {
+      direction = "column",
+      align,
+      justify,
+      gap = "0.5rem",
+      wrap,
+      children,
+      separator,
+      className,
+      ...rest
+    } = props;
+    const separatorStyle = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+      () => (0,_get_separator_style_js__WEBPACK_IMPORTED_MODULE_4__.getSeparatorStyles)({ gap, direction }),
+      [gap, direction]
+    );
+    const clones = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
+      if (!(0,react__WEBPACK_IMPORTED_MODULE_1__.isValidElement)(separator)) return children;
+      return getValidChildren(children).map((child, index, arr) => {
+        const key = typeof child.key !== "undefined" ? child.key : index;
+        const typedSep = separator;
+        const sep = (0,react__WEBPACK_IMPORTED_MODULE_1__.cloneElement)(typedSep, {
+          css: [separatorStyle, typedSep.props.css]
+        });
+        return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, { children: [
+          child,
+          index === arr.length - 1 ? null : sep
+        ] }, key);
+      });
+    }, [children, separator, separatorStyle]);
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_2__.chakra.div,
+      {
+        ref,
+        display: "flex",
+        alignItems: align,
+        justifyContent: justify,
+        flexDirection: direction,
+        flexWrap: wrap,
+        gap: separator ? void 0 : gap,
+        className: (0,_utils_cx_js__WEBPACK_IMPORTED_MODULE_3__.cx)("chakra-stack", className),
+        ...rest,
+        children: clones
+      }
+    );
+  }
+);
+Stack.displayName = "Stack";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   VStack: () => (/* binding */ VStack)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _stack_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stack.js */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/stack.js");
+
+"use client";
+
+
+
+
+const VStack = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+  function VStack2(props, ref) {
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_stack_js__WEBPACK_IMPORTED_MODULE_2__.Stack, { align: "center", ...props, direction: "column", ref });
+  }
+);
+VStack.displayName = "VStack";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/table/table.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/table/table.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   TableBody: () => (/* binding */ TableBody),
+/* harmony export */   TableCaption: () => (/* binding */ TableCaption),
+/* harmony export */   TableCell: () => (/* binding */ TableCell),
+/* harmony export */   TableColumn: () => (/* binding */ TableColumn),
+/* harmony export */   TableColumnGroup: () => (/* binding */ TableColumnGroup),
+/* harmony export */   TableColumnHeader: () => (/* binding */ TableColumnHeader),
+/* harmony export */   TableFooter: () => (/* binding */ TableFooter),
+/* harmony export */   TableHeader: () => (/* binding */ TableHeader),
+/* harmony export */   TableRoot: () => (/* binding */ TableRoot),
+/* harmony export */   TableRootPropsProvider: () => (/* binding */ TableRootPropsProvider),
+/* harmony export */   TableRow: () => (/* binding */ TableRow),
+/* harmony export */   TableScrollArea: () => (/* binding */ TableScrollArea),
+/* harmony export */   useTableStyles: () => (/* binding */ useTableStyles)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
+/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
+/* harmony import */ var _utils_cx_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/cx.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/cx.js");
+
+"use client";
+
+
+
+
+
+
+const {
+  StylesProvider,
+  ClassNamesProvider,
+  useRecipeResult,
+  withContext,
+  useStyles: useTableStyles,
+  PropsProvider
+} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_2__.createSlotRecipeContext)({ key: "table" });
+const TableRoot = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+  function TableRoot2({ native, ...props }, ref) {
+    const { styles, props: rootProps, classNames } = useRecipeResult(props);
+    const rootCss = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
+      if (!native) return styles.root;
+      return {
+        ...styles.root,
+        "& thead": styles.header,
+        "& tbody": styles.body,
+        "& tfoot": styles.footer,
+        "& thead th": styles.columnHeader,
+        "& tr": styles.row,
+        "& td": styles.cell,
+        "& caption": styles.caption
+      };
+    }, [styles, native]);
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ClassNamesProvider, { value: classNames, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(StylesProvider, { value: styles, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_3__.chakra.table,
+      {
+        ref,
+        ...rootProps,
+        css: [rootCss, props.css],
+        className: (0,_utils_cx_js__WEBPACK_IMPORTED_MODULE_4__.cx)(classNames?.["root"], props.className)
+      }
+    ) }) });
+  }
+);
+const TableRootPropsProvider = PropsProvider;
+const TableRow = withContext(
+  "tr",
+  "row"
+);
+const TableScrollArea = (0,_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_3__.chakra)("div", {
+  base: {
+    display: "block",
+    whiteSpace: "nowrap",
+    WebkitOverflowScrolling: "touch",
+    overflow: "auto",
+    maxWidth: "100%"
+  }
+});
+const TableHeader = withContext("thead", "header");
+const TableFooter = withContext("tfoot", "footer");
+const TableColumnHeader = withContext("th", "columnHeader");
+const TableCell = withContext(
+  "td",
+  "cell"
+);
+const TableCaption = withContext("caption", "caption", {
+  defaultProps: {
+    captionSide: "bottom"
+  }
+});
+const TableBody = withContext(
+  "tbody",
+  "body"
+);
+const TableColumnGroup = withContext("colgroup");
+const TableColumn = withContext(
+  "col"
+);
 
 
 
@@ -2980,6 +3352,154 @@ function createRecipeContext(options) {
     useRecipeResult
   };
 }
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   createSlotRecipeContext: () => (/* binding */ createSlotRecipeContext)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _create_context_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../create-context.js */ "./node_modules/@chakra-ui/react/dist/esm/create-context.js");
+/* harmony import */ var _merge_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../merge-props.js */ "./node_modules/@chakra-ui/react/dist/esm/merge-props.js");
+/* harmony import */ var _utils_cx_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/cx.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/cx.js");
+/* harmony import */ var _empty_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./empty.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/empty.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
+/* harmony import */ var _use_slot_recipe_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-slot-recipe.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/use-slot-recipe.js");
+
+"use client";
+
+
+
+
+
+
+
+
+
+const upperFirst = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+const createSlotRecipeContext = (options) => {
+  const { key: recipeKey, recipe: recipeConfig } = options;
+  const contextName = upperFirst(
+    recipeKey || recipeConfig.className || "Component"
+  );
+  const [StylesProvider, useStyles] = (0,_create_context_js__WEBPACK_IMPORTED_MODULE_2__.createContext)({
+    name: `${contextName}StylesContext`,
+    errorMessage: `use${contextName}Styles returned is 'undefined'. Seems you forgot to wrap the components in "<${contextName}.Root />" `
+  });
+  const [ClassNamesProvider, useClassNames] = (0,_create_context_js__WEBPACK_IMPORTED_MODULE_2__.createContext)({
+    name: `${contextName}ClassNameContext`,
+    errorMessage: `use${contextName}ClassNames returned is 'undefined'. Seems you forgot to wrap the components in "<${contextName}.Root />" `,
+    strict: false
+  });
+  const [PropsProvider, usePropsContext] = (0,_create_context_js__WEBPACK_IMPORTED_MODULE_2__.createContext)({
+    strict: false,
+    name: `${contextName}PropsContext`,
+    providerName: `${contextName}PropsContext`,
+    defaultValue: {}
+  });
+  function useRecipeResult(props) {
+    const { unstyled, ...restProps } = props;
+    const slotRecipe = (0,_use_slot_recipe_js__WEBPACK_IMPORTED_MODULE_7__.useSlotRecipe)({
+      key: recipeKey,
+      recipe: restProps.recipe || recipeConfig
+    });
+    const [variantProps, otherProps] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+      () => slotRecipe.splitVariantProps(restProps),
+      [restProps, slotRecipe]
+    );
+    const styles = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+      () => unstyled ? _empty_js__WEBPACK_IMPORTED_MODULE_5__.EMPTY_SLOT_STYLES : slotRecipe(variantProps),
+      [unstyled, variantProps, slotRecipe]
+    );
+    return {
+      styles,
+      classNames: slotRecipe.classNameMap,
+      props: otherProps
+    };
+  }
+  function withRootProvider(Component, options2 = {}) {
+    const { defaultProps } = options2;
+    const StyledComponent = (inProps) => {
+      const propsContext = usePropsContext();
+      const props = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+        () => (0,_merge_props_js__WEBPACK_IMPORTED_MODULE_3__.mergeProps)(defaultProps, propsContext, inProps),
+        [propsContext, inProps]
+      );
+      const { styles, classNames, props: rootProps } = useRecipeResult(props);
+      return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(StylesProvider, { value: styles, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ClassNamesProvider, { value: classNames, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Component, { ...rootProps }) }) });
+    };
+    StyledComponent.displayName = Component.displayName || Component.name;
+    return StyledComponent;
+  }
+  const withProvider = (Component, slot, options2) => {
+    const { defaultProps, ...restOptions } = options2 ?? {};
+    const SuperComponent = (0,_factory_js__WEBPACK_IMPORTED_MODULE_6__.chakra)(Component, {}, restOptions);
+    const StyledComponent = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((inProps, ref) => {
+      const propsContext = usePropsContext();
+      const props = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(
+        () => (0,_merge_props_js__WEBPACK_IMPORTED_MODULE_3__.mergeProps)(defaultProps ?? {}, propsContext, inProps),
+        [propsContext, inProps]
+      );
+      const { styles, props: rootProps, classNames } = useRecipeResult(props);
+      const className = classNames[slot];
+      const element = /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(StylesProvider, { value: styles, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ClassNamesProvider, { value: classNames, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+        SuperComponent,
+        {
+          ref,
+          ...rootProps,
+          css: [styles[slot], props.css],
+          className: (0,_utils_cx_js__WEBPACK_IMPORTED_MODULE_4__.cx)(props.className, className)
+        }
+      ) }) });
+      return options2?.wrapElement?.(element, props) ?? element;
+    });
+    StyledComponent.displayName = Component.displayName || Component.name;
+    return StyledComponent;
+  };
+  const withContext = (Component, slot, options2) => {
+    const SuperComponent = (0,_factory_js__WEBPACK_IMPORTED_MODULE_6__.chakra)(Component, {}, options2);
+    const StyledComponent = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, ref) => {
+      const { unstyled, ...restProps } = props;
+      const styles = useStyles();
+      const classNames = useClassNames();
+      const className = classNames?.[slot];
+      return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+        SuperComponent,
+        {
+          ...restProps,
+          css: [!unstyled && slot ? styles[slot] : void 0, props.css],
+          ref,
+          className: (0,_utils_cx_js__WEBPACK_IMPORTED_MODULE_4__.cx)(props.className, className)
+        }
+      );
+    });
+    StyledComponent.displayName = Component.displayName || Component.name;
+    return StyledComponent;
+  };
+  return {
+    StylesProvider,
+    ClassNamesProvider,
+    PropsProvider,
+    usePropsContext,
+    useRecipeResult,
+    withProvider,
+    withContext,
+    withRootProvider,
+    useStyles,
+    useClassNames
+  };
+};
 
 
 
@@ -5666,6 +6186,37 @@ const toArray = (val) => {
   const res = Array.isArray(val) ? val : [val];
   return res.filter(Boolean).flat();
 };
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/styled-system/use-slot-recipe.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/styled-system/use-slot-recipe.js ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useSlotRecipe: () => (/* binding */ useSlotRecipe)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _provider_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./provider.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/provider.js");
+
+"use client";
+
+
+
+function useSlotRecipe(options) {
+  const { key, recipe: recipeProp } = options;
+  const sys = (0,_provider_js__WEBPACK_IMPORTED_MODULE_1__.useChakraContext)();
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    const recipe = recipeProp || (key != null ? sys.getSlotRecipe(key) : {});
+    return sys.sva(structuredClone(recipe));
+  }, [key, recipeProp, sys]);
+}
 
 
 
@@ -72352,6 +72903,16 @@ if (false) // removed by dead control flow
   module.exports = __webpack_require__(/*! ./cjs/use-sync-external-store-with-selector.development.js */ "./node_modules/use-sync-external-store/cjs/use-sync-external-store-with-selector.development.js");
 }
 
+
+/***/ }),
+
+/***/ "@wordpress/i18n":
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["i18n"];
 
 /***/ }),
 

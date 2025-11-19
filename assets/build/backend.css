@@ -1,1 +1,22 @@
-:root{--gamify-font:"Roboto",sans-serif;--gamify-primary:#006bff;--gamify-border-color:#cbd1d7;--gamify-body-background:#f6f7f8;--gamify-background:#fff;--gamify-font-color:#141a24;--gamify-secondary:#738496;--gamify-warn-muted:#738496;--gamify-placing:#f15b50;--gamify-warning:#fdb022;--gamify-placeholder:#a2adb9;--gamify-shadow:0px 0px 1px 0px rgba(20,26,36,.2),0px 1px 2px 0px rgba(20,26,36,.1);--gamify-shadow-2:0px 0px 1px 0px rgba(16,24,40,.15),0px 8px 16px 0px rgba(20,26,36,.1);--gamify-gray:#f6f7f8}
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/backend.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+:root {
+  --gamify-font: "Roboto", sans-serif;
+  --gamify-primary: #006BFF;
+  --gamify-second-primary: #8F7EE7;
+  --gamify-border-color: #CBD1D7;
+  --gamify-body-background: #F6F7F8;
+  --gamify-background: #FFFFFF;
+  --gamify-font-color: #141A24;
+  --gamify-secondary: #738496;
+  --gamify-warn-muted: #738496;
+  --gamify-placing: #F15B50;
+  --gamify-warning: #FDB022;
+  --gamify-placeholder: #A2ADB9;
+  --gamify-shadow: 0px 0px 1px 0px rgba(20, 26, 36, 0.2), 0px 1px 2px 0px rgba(20, 26, 36, 0.1);
+  --gamify-shadow-2: 0px 0px 1px 0px rgba(16, 24, 40, 0.15), 0px 8px 16px 0px rgba(20, 26, 36, 0.1);
+  --gamify-gray: #F6F7F8;
+}
+
+/*# sourceMappingURL=backend.css.map*/
