@@ -1,3 +1,11 @@
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/TopBar/styles.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+.gamify-topbar-logo {
+  background: #E2E0FF;
+  padding: 6px;
+  border-radius: 50%;
+}
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/backend.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************/
@@ -17,6 +25,247 @@
   --gamify-shadow: 0px 0px 1px 0px rgba(20, 26, 36, 0.2), 0px 1px 2px 0px rgba(20, 26, 36, 0.1);
   --gamify-shadow-2: 0px 0px 1px 0px rgba(16, 24, 40, 0.15), 0px 8px 16px 0px rgba(20, 26, 36, 0.1);
   --gamify-gray: #F6F7F8;
+}
+
+#wpbody-content {
+  padding: 0;
+}
+
+.gamify-admin-content {
+  margin-left: -20px;
+  background: var(--gamify-body-background);
+  height: "auto";
+}
+
+.gamify-btn-group {
+  display: flex;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+}
+
+.gamify-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  text-decoration: none;
+  background: #fff;
+  color: #444;
+  cursor: pointer;
+  text-align: center;
+  padding: 15px;
+  height: auto;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 0;
+  border: 0;
+  overflow: hidden !important;
+  transition: all 0.3 ease;
+  white-space: nowrap;
+}
+.gamify-btn::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: -100%;
+  top: 0;
+  background: rgba(0, 0, 0, 0.1);
+  transition: all 0.25s cubic-bezier(0.66, 0.36, 0.17, 0.91);
+}
+.gamify-btn:hover::after {
+  left: 0;
+}
+.gamify-btn:hover, .gamify-btn:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.gamify-btn--label {
+  padding: 0 4px;
+}
+.gamify-btn--circle {
+  border-radius: 50%;
+}
+.gamify-btn--inline-block {
+  display: inline-block;
+  width: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.gamify-btn--inline-flex {
+  display: inline-flex;
+  width: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+  -moz-column-gap: 10px;
+       column-gap: 10px;
+}
+.gamify-btn--bg-red, .gamify-btn--preset-red {
+  background: #f94d4d;
+  color: #fff;
+}
+.gamify-btn--bg-red:hover, .gamify-btn--bg-red:focus, .gamify-btn--preset-red:hover, .gamify-btn--preset-red:focus {
+  background: #f94d4d;
+  color: #fff;
+}
+.gamify-btn--preset-error {
+  background: #f94d4d !important;
+  color: #fff !important;
+}
+.gamify-btn--bg-light-red, .gamify-btn--preset-light-red {
+  background: rgba(249, 77, 77, 0.2);
+  color: #f94d4d;
+}
+.gamify-btn--bg-light-red .gamify-icon:before, .gamify-btn--preset-light-red .gamify-icon:before {
+  color: #f94d4d;
+}
+.gamify-btn--bg-light-red:hover, .gamify-btn--bg-light-red:focus, .gamify-btn--preset-light-red:hover, .gamify-btn--preset-light-red:focus {
+  background: rgba(249, 77, 77, 0.2);
+  color: #f94d4d;
+}
+.gamify-btn--bg-purple, .gamify-btn--preset-purple {
+  background: var(--gamify-primary-color);
+  color: #fff;
+}
+.gamify-btn--bg-purple:hover, .gamify-btn--bg-purple:focus, .gamify-btn--preset-purple:hover, .gamify-btn--preset-purple:focus {
+  background: var(--gamify-primary-color);
+  color: #fff;
+}
+.gamify-btn--bg-light-purple, .gamify-btn--preset-light-purple {
+  background: var(--gamify-secondary-color);
+  color: var(--gamify-primary-color);
+}
+.gamify-btn--bg-light-purple .gamify-icon:before, .gamify-btn--preset-light-purple .gamify-icon:before {
+  color: var(--gamify-primary-color);
+}
+.gamify-btn--bg-light-purple:hover, .gamify-btn--bg-light-purple:focus, .gamify-btn--preset-light-purple:hover, .gamify-btn--preset-light-purple:focus {
+  background: var(--gamify-secondary-color);
+  color: var(--gamify-primary-color);
+}
+.gamify-btn--bg-white-border, .gamify-btn--preset-white-border {
+  border: 2px solid var(--gamify-border-color);
+}
+.gamify-btn--bg-white-border:hover, .gamify-btn--bg-white-border:focus, .gamify-btn--preset-white-border:hover, .gamify-btn--preset-white-border:focus {
+  border: 2px solid var(--gamify-border-color);
+}
+.gamify-btn--bg-gray, .gamify-btn--preset-gray {
+  background: var(--gamify-border-color);
+}
+.gamify-btn--bg-gray:hover, .gamify-btn--bg-gray:focus, .gamify-btn--preset-gray:hover, .gamify-btn--preset-gray:focus {
+  background: var(--gamify-gray-color);
+}
+.gamify-btn--preset-white {
+  background: #fff;
+  color: #000000;
+}
+.gamify-btn--preset-white:hover, .gamify-btn--preset-white:focus {
+  background: #fff;
+  color: #000000;
+}
+.gamify-btn--preset-transparent {
+  background: transparent;
+}
+.gamify-btn--preset-transparent::after {
+  background: transparent;
+}
+.gamify-btn--preset-transparent:hover, .gamify-btn--preset-transparent:focus {
+  background-color: transparent;
+}
+.gamify-btn--border-rounded {
+  border-radius: 4px;
+}
+.gamify-btn--preset-border-purple, .gamify-btn--border-purple {
+  background: transparent;
+  border: 1px solid var(--gamify-primary-color);
+  color: var(--gamify-primary-color);
+}
+.gamify-btn--preset-border-purple:hover, .gamify-btn--preset-border-purple:focus, .gamify-btn--border-purple:hover, .gamify-btn--border-purple:focus {
+  background: #F5F5F5;
+  color: var(--gamify-primary-color);
+}
+.gamify-btn--border-gray {
+  border: 1px solid var(--gamify-border-color);
+}
+.gamify-btn--border-gray:hover, .gamify-btn--border-gray:focus {
+  border: 1px solid var(--gamify-border-color);
+}
+.gamify-btn--border-red {
+  border: 1px solid #f94d4d;
+}
+.gamify-btn--border-red:hover, .gamify-btn--border-red:focus {
+  border: 1px solid #f94d4d;
+}
+.gamify-btn--border-black {
+  border: 1px solid var(--gamify-primary-color);
+}
+.gamify-btn--border-black:hover, .gamify-btn--border-black:focus {
+  border: 1px solid var(--gamify-primary-color);
+}
+.gamify-btn--mini {
+  padding: 4px 6px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+}
+.gamify-btn--xs {
+  padding: 8px;
+  font-size: 12px;
+}
+.gamify-btn--sm {
+  padding: 8px 16px;
+  font-size: 12px;
+}
+.gamify-btn--md {
+  padding: 10px 20px;
+  font-size: 14px;
+}
+.gamify-btn--lg {
+  padding: 12px 24px;
+  font-size: 14px;
+}
+.gamify-btn--disabled {
+  background: #E5E5E6 !important;
+  color: var(--gamify-text-disable) !important;
+  cursor: not-allowed !important;
+}
+.gamify-btn--disabled .gamify-icon::before {
+  color: var(--gamify-secondary-gray-color) !important;
+}
+.gamify-btn--add-rule-group {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.gamify-btn .gamify-icon {
+  font-size: 14px;
+}
+.gamify-btn--icon-left {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.gamify-btn--icon-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.gamify-btn--icon-bottom {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+.gamify-btn--icon-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gamify-btn--icon-center .gamify-icon {
+  font-size: 14px;
+}
+.gamify-btn svg {
+  overflow: visible;
 }
 
 /*# sourceMappingURL=backend.css.map*/
