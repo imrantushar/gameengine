@@ -4,18 +4,24 @@ import { HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'; // Import the Provider
 
 import { store } from './redux/store'; // Import your store
-import App from '@Components/App';
+import App from './containers/pages';
+import './../assets/scss/backend.scss';
+import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from '../assets/scss/chakra/theme';
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const rootEl = document.getElementById('gamify-admin-app');
     if (rootEl) {
         const root = createRoot(rootEl);
         root.render(
-            // Wrap the entire application with the Provider and pass the store
             <Provider store={store}>
-                <HashRouter>
-                    <App />
-                </HashRouter>
+                <ChakraProvider value={theme}>
+                    <HashRouter>
+                        <App />
+                    </HashRouter>
+                </ChakraProvider>
+
             </Provider>
         );
     }

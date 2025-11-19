@@ -1,12 +1,10 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-
-import Dashboard from './Dashboard';
-import Points from './Points';
-import Logs from './Logs';
-import Settings from './Settings';
-
-import WPMenuSync from './WPMenuSync';
+import WPMenuSync from '../../components/WPMenuSync';
+import Dashboard from './dashboard';
+import Points from './points';
+import Logs from './logs';
+import Settings from './settings';
 
 const App = () => {
     return (

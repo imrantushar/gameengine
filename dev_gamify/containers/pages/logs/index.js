@@ -1,16 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogs } from '../redux/features/logsSlice'; // Import the async thunk
+import { fetchLogs } from '../../../redux/features/logsSlice';
+
 
 const Logs = () => {
     const dispatch = useDispatch();
-
-    // Select data from the Redux store using the useSelector hook
     const { items: logs, status, error, pagination } = useSelector((state) => state.logs);
-
-    // Fetch the logs when the component mounts
     useEffect(() => {
-        // Only fetch if the status is 'idle' to prevent re-fetching on every render
         if (status === 'idle') {
             dispatch(fetchLogs({ page: 1 }));
         }
