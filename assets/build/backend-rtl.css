@@ -6,6 +6,250 @@
   padding: 6px;
   border-radius: 50%;
 }
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Loader/preloader.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.gamify-preloader {
+  overflow: visible;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.gamify-preloader svg {
+  width: 45px;
+  height: 45px;
+  overflow: visible !important;
+  margin: 15px !important;
+}
+.gamify-preloader svg circle {
+  stroke-width: 4px;
+}
+.gamify-preloader svg path {
+  stroke-width: 4px;
+  color: var(--ecm-primary);
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Oops/styles.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+.gamify-oops__icon {
+  display: flex;
+  justify-content: center;
+}
+.gamify-oops__icon img {
+  width: 100%;
+}
+.gamify-oops__message {
+  padding: 0 0 40px 0;
+}
+.gamify-oops__message svg {
+  width: 100%;
+}
+.gamify-oops__message .gamify-oops__heading {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: center;
+  padding-top: 12px;
+  margin: 0;
+  color: var(--gamify-font-color);
+}
+.gamify-oops__message .gamify-oops__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  margin: 0;
+  padding-top: 4px;
+  color: var(--gamify-text-muted);
+}
+.gamify-oops__content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.gamify-oops__button {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin-top: 24px;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Pagination/styles.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+.quizpress-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.quizpress-pagination .quizpress-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.08);
+  padding: 0;
+}
+.quizpress-pagination .quizpress-btn:hover {
+  background: var(--quizpress-primary);
+}
+.quizpress-pagination .quizpress-btn .quizpress-icon {
+  font-size: 14px;
+}
+.quizpress-pagination .quizpress-pagination-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px;
+  margin: 0;
+}
+.quizpress-pagination .quizpress-pagination-list__item {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 36px;
+  color: var(--quizpress-font-color);
+  border: 1px solid var(--quizpress-border-color);
+}
+.quizpress-pagination .quizpress-pagination-list__item:hover {
+  background: var(--quizpress-body-background);
+}
+.quizpress-pagination .quizpress-pagination-list__item-dots {
+  letter-spacing: 4px;
+  font-weight: 500;
+  padding-right: 4px;
+  color: none;
+  pointer-events: none;
+}
+.quizpress-pagination .quizpress-pagination-list__item-dots:hover {
+  background: none;
+  color: none;
+  border-radius: unset;
+}
+.quizpress-pagination .quizpress-pagination-list__item-active {
+  background: var(--quizpress-primary);
+  color: #fff;
+  cursor: default;
+}
+.quizpress-pagination .quizpress-pagination-list__item-active:hover {
+  background: var(--quizpress-primary);
+  color: #fff;
+}
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/OptionMenu/styles.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+.gamify-dropdown-menu {
+  position: relative;
+  border-radius: 4px;
+  border: 1px solid var(--gamify-border-color) !important;
+  cursor: pointer;
+  background: transparent;
+  padding: 5px 12px !important;
+}
+.gamify-dropdown-menu:focus, .gamify-dropdown-menu:hover {
+  background: var(--gamify-body-background);
+  color: none;
+}
+.gamify-dropdown-menu svg {
+  height: 16px;
+  pointer-events: none;
+}
+.gamify-dropdown-menu__lists .gamify-more-options {
+  position: relative;
+  min-width: 175px;
+  z-index: 99999;
+  border-radius: 4px;
+  border: 1px solid var(--gamify-border-color);
+  background: var(--gamify-background);
+  margin: 0;
+  padding: 8px 8px 4px 8px;
+  box-shadow: 0px 12px 24px -4px rgba(16, 24, 40, 0.08);
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item {
+  cursor: pointer;
+  margin-bottom: 0;
+  border-radius: 6px;
+  list-style: none;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a, .gamify-dropdown-menu__lists .gamify-more-options__item button {
+  cursor: pointer;
+  border: none;
+  width: 100%;
+  color: var(--gamify-font-color);
+  border-radius: 6px;
+  padding: 8px 10px 8px 10px;
+  display: flex;
+  margin-bottom: 4px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a:hover, .gamify-dropdown-menu__lists .gamify-more-options__item button:hover {
+  background: var(--gamify-body-background);
+  color: var(--gamify-font-color);
+  border-radius: 4px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-icon-slash, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-icon-slash {
+  width: 18px;
+  margin-left: 10px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-icon, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-icon {
+  margin-left: 10px;
+  font-size: 20px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-icon--reset, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-icon--reset {
+  font-size: 14px;
+  font-weight: 500;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-icon--edit, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-icon--edit {
+  font-size: 20px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-icon--delete::before, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-icon--delete::before {
+  color: #fff;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .gamify-btn--label, .gamify-dropdown-menu__lists .gamify-more-options__item button .gamify-btn--label {
+  pointer-events: none;
+  font-size: 12px;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item a .dashicons, .gamify-dropdown-menu__lists .gamify-more-options__item button .dashicons {
+  font-size: 16px;
+  height: auto;
+  width: auto;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item .gamify-btn--trash {
+  color: #FF4D4D;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item .gamify-btn--trash .gamify-icon::before {
+  color: #FF4D4D;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item .gamify-btn--trash:hover {
+  color: #FF4D4D;
+}
+.gamify-dropdown-menu__lists .gamify-more-options__item .gamify-option-separator {
+  margin: 4px 0;
+}
+.gamify-dropdown-menu__inline {
+  display: flex;
+}
+.gamify-dropdown-menu__inline-form:not(.gamify-dropdown-menu__inline-form:last-child) {
+  border-left: 1px solid var(--gamify-border-color);
+  padding-left: 2px;
+  margin-left: 2px;
+}
+.gamify-dropdown-menu__inline-form .gamify-btn--inline {
+  padding: 0;
+  color: var(--gamify-warn-muted);
+}
+.gamify-dropdown-menu__inline-form .gamify-btn--trash {
+  padding: 0;
+  color: var(--gamify-placing);
+}
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/backend.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************/
@@ -266,4 +510,459 @@
 }
 .gamify-btn svg {
   overflow: visible;
+}
+
+.gamify-table {
+  border: 1px solid var(--gamify-border-color);
+  border-radius: 4px;
+  box-shadow: 0px 0.5px 2px 0px rgba(16, 24, 40, 0.15);
+  background: var(--gamify-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+.gamify-table p {
+  margin: 0;
+}
+.gamify-table__container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1280px;
+}
+.gamify-table__sub-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--gamify-border-color);
+  padding-bottom: 10px;
+}
+.gamify-table__sub-header-left {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.gamify-table__sub-header-left .tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0px 18px 0px 18px;
+  color: var(--gamify-font-color);
+  cursor: pointer;
+  position: relative;
+}
+.gamify-table__sub-header-left .tab:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -21px;
+  width: 0;
+  height: 1px;
+  background: var(--gamify-primary);
+  transition: width 0.3s ease, right 0.3s ease, background 0.3s ease;
+}
+.gamify-table__sub-header-left .tab--total {
+  background: var(--gamify-secondary);
+  padding: 0px 8px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--gamify-font-color);
+  border-radius: 60px;
+}
+.gamify-table__sub-header-left .tab:hover::after {
+  width: 100%;
+  right: 0;
+}
+.gamify-table__sub-header-left .tab:hover {
+  color: var(--gamify-font-color);
+}
+.gamify-table__sub-header-left .is-active {
+  cursor: default;
+}
+.gamify-table__sub-header-left .is-active:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: -21px;
+  width: 100%;
+  height: 1px;
+  background: var(--gamify-primary);
+  transition: width 0.3s ease, right 0.3s ease, background 0.3s ease;
+}
+.gamify-table__sub-header-left .is-active:hover::after {
+  width: 100%;
+  right: 0;
+  background: var(--gamify-primary);
+}
+.gamify-table__sub-header-left .is-active:hover {
+  color: var(--gamify-font-color);
+}
+.gamify-table__sub-header-right .gamify-table__sub-header-filter-icon {
+  position: relative;
+}
+.gamify-table-sub-header-actions-right {
+  display: flex;
+}
+.gamify-table-sub-header-actions-right--border, .gamify-table-sub-header-actions-right--border-double {
+  margin: 0 10px;
+  height: 38px;
+  width: 1px;
+  background: var(--gamify-border-color);
+}
+.gamify-table--has-slider {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.gamify-table__table {
+  padding: 24px 0 0 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.gamify-table__head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: var(--gamify-font-color);
+  border-radius: 4px 4px 0 0;
+}
+.gamify-table__head-cell {
+  flex: 1;
+  padding: 10px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  background: var(--gamify-body-background);
+  padding-left: 16px;
+}
+.gamify-table__head-cell:nth-child(2) {
+  justify-content: flex-start !important;
+}
+.gamify-table__head-cell:not(:first-child) {
+  justify-content: center;
+}
+.gamify-table__head-cell-width {
+  min-width: 132px;
+}
+.gamify-table__head-cell-checkbox {
+  padding: 11px 14px;
+  background: var(--gamify-body-background);
+}
+.gamify-table__head-cell-checkbox input {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid var(--gamify-font-color);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+.gamify-table__head-cell-checkbox input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.gamify-table__head-cell-checkbox input::before {
+  content: "";
+  position: absolute;
+  top: 75%;
+  right: 57%;
+  width: 4px !important;
+  height: 8px !important;
+  margin: -3px -5px 0 0 !important;
+  border: solid var(--gamify-font-color);
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg) translate(50%, -60%);
+  opacity: 0;
+}
+.gamify-table__head-cell-checkbox input:checked::before {
+  opacity: 1;
+}
+.gamify-table__body-wrap {
+  display: flex;
+  flex-direction: column;
+}
+.gamify-table__body-wrap .gamify-oops {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.gamify-table__body-row-wrap {
+  width: 100%;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+}
+.gamify-table__body-row-cell {
+  flex: 1;
+  padding: 10px 0px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  color: var(--gamify-font-color);
+}
+.gamify-table__body-row-cell a {
+  color: var(--gamify-font-color);
+}
+.gamify-table__body-row-cell:not(:first-child) {
+  justify-content: center;
+}
+.gamify-table__body-row-cell:nth-child(2) {
+  justify-content: flex-start !important;
+}
+.gamify-table__body-row-cell .gamify-dropdown-menu .gamify-icon--three-dots-menu {
+  padding: 4px 5px;
+  border: 1px solid var(--gamify-border-color);
+  border-radius: 4px;
+}
+.gamify-table__body-row-cell .gamify-dropdown-menu:focus {
+  outline: none;
+}
+.gamify-table__body-row-cell .gamify-tooltip {
+  position: relative;
+  cursor: pointer;
+  margin-right: 0;
+}
+.gamify-table__body-row-cell .gamify-tooltip::after {
+  content: attr(data-tooltip);
+  background: var(--gamify-primary);
+  position: absolute;
+  white-space: nowrap;
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  height: auto;
+  font-size: 14px;
+  top: -50px;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+  border: 1px solid var(--gamify-primary);
+  text-align: justify;
+  min-width: 40px;
+  line-height: 24px;
+  right: 0;
+}
+.gamify-table__body-row-cell .gamify-tooltip::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -13px;
+  right: 20px;
+  transform: translateX(50%);
+  border-width: 10px;
+  border-style: solid;
+  border-color: var(--gamify-primary) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1;
+}
+.gamify-table__body-row-cell .gamify-tooltip:hover::after, .gamify-table__body-row-cell .gamify-tooltip:hover::before {
+  opacity: 1;
+  visibility: visible;
+}
+.gamify-table__body-row-cell-width {
+  min-width: 130px;
+}
+.gamify-table__row-cell-hovered {
+  display: flex;
+  flex-direction: column;
+}
+.gamify-table__row-cell-hovered:first-child {
+  align-items: flex-start;
+}
+.gamify-table__row-cell-hovered .gamify-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gamify-table__row-cell-hovered .gamify-title-wrap__title {
+  color: var(--gamify-font-color);
+}
+.gamify-table__row-cell-hovered .gamify-title-wrap__inactive {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--gamify-text-muted);
+}
+.gamify-table__row-cell-checkbox {
+  max-width: 20px;
+  min-width: 20px;
+  padding: 5px 0 5px 10px;
+}
+.gamify-table__row-cell-checkbox input {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid var(--gamify-font-color);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+.gamify-table__row-cell-checkbox input:focus {
+  outline: none;
+  box-shadow: none;
+}
+.gamify-table__row-cell-checkbox input::before {
+  content: "";
+  position: absolute;
+  top: 75%;
+  right: 57%;
+  width: 4px !important;
+  height: 8px !important;
+  margin: -3px -5px 0 0 !important;
+  border: 1px solid var(--gamify-font-color);
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg) translate(50%, -60%);
+  opacity: 0;
+}
+.gamify-table__row-cell-checkbox input:checked::before {
+  opacity: 1;
+}
+.gamify-table__loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gamify-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 32px 0 0 0;
+}
+.gamify-table__footer .gamify-table__footer-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gamify-table__footer .gamify-table__footer-pagination, .gamify-table__footer .gamify-table__footer-pagination, .gamify-table__footer .gamify-table__footer-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gamify-table__filter-modal__top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--gamify-border-color);
+  padding-bottom: 16px;
+}
+.gamify-table__filter-modal__top-bar .gamify-btn {
+  color: var(--gamify-primary-color);
+  padding: 0;
+}
+.gamify-table__filter-modal__footer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  align-items: center;
+  border-top: 1px solid var(--gamify-border-color);
+  padding: 16px 0 0 0;
+}
+.gamify-table__filter-items {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gamify-border-color);
+  margin-bottom: 16px;
+}
+
+.gamify-table__filter-checked-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--gamify-border-color);
+  border-radius: 4px;
+  z-index: 9999;
+  pointer-events: none;
+}
+.gamify-table__filter-checked-item input {
+  margin-top: 2px;
+  pointer-events: visible;
+}
+.gamify-table__filter-checked-item .gamify-table-filter-item-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.gamify-table__filter-checked-item .gamify-table-filter-item-left .gamify-table-filter-item-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--gamify-font-color);
+}
+.gamify-table__filter-checked-item .gamify-table-filter-item-left .gamify-icon {
+  pointer-events: visible;
+  cursor: pointer;
+}
+.gamify-table__filter-checked-item .gamify-table-filter-item-left .gamify-icon::before {
+  font-size: 14px;
+}
+
+.gamify-table__body-row-hovered {
+  position: relative;
+}
+
+.gamify-table__row-cell-hovered:nth-child(2) {
+  align-items: flex-start !important;
+}
+
+.gamify-table__hover-action {
+  position: absolute;
+  right: 51px;
+  top: 50%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0s 0.3s;
+}
+
+.gamify-title-wrap {
+  transition: transform 0.3s ease;
+}
+
+.gamify-table__body-row-hovered:hover .gamify-title-wrap {
+  transform: translateY(-16px);
+  transition: transform 0.3s ease;
+}
+
+.gamify-table__body-row-hovered:hover .gamify-table__hover-action {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.3s ease, visibility 0s 0s;
+}
+
+.gamify-table__body-row-hovered:hover {
+  background: var(--gamify-secondary);
+}
+
+.gamify-table__body-wrap > .gamify-table__body-row-wrap {
+  border-bottom: 1px solid var(--gamify-border-color);
+  width: -moz-max-content;
+  width: max-content;
+  min-width: 100%;
 }
