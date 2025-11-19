@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchLogs } from '../../../redux/features/logsSlice';
+import { fetchLogs } from '../../../redux/Slices/logsSlice';
 
 
 const Logs = () => {
