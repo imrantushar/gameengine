@@ -281,6 +281,416 @@
   height: "auto";
 }
 
+.gamify-content-wrap {
+  width: 100%;
+  padding: 24px;
+  background: var(--gamify-background);
+  border-radius: 4px;
+}
+.gamify-content-wrap__left {
+  width: 70%;
+}
+.gamify-content-wrap__right {
+  width: 30%;
+}
+
+a {
+  color: var(--gamify-font-color);
+}
+a:hover, a:focus {
+  color: var(--gamify-primary);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.gamify-subtitle-link {
+  color: var(--gamify-primary) !important;
+  text-decoration: underline;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.gamify-heading-label {
+  color: var(--gamify-font-color);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 28px;
+  margin: 0;
+}
+.gamify-heading-border {
+  width: 100%;
+  margin: 0 0 24px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--gamify-border-color);
+}
+
+.gamify-title-subtitle {
+  color: var(--gamify-font-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  margin: 0;
+}
+.gamify-title {
+  color: var(--gamify-font-color);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  margin: 0;
+}
+.gamify-sub-title {
+  color: var(--gamify-font-color);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+}
+.gamify-sub-title-muted {
+  color: var(--gamify-warn-muted);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  margin: 0;
+}
+.gamify-title-required {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.gamify-title-required--sign {
+  color: var(--gamify-placing);
+}
+
+.gamify-width--320 {
+  width: 320px;
+}
+.gamify-width--200 {
+  width: 200px;
+}
+.gamify-width-25 {
+  width: 25%;
+}
+.gamify-width-50 {
+  width: 50%;
+}
+.gamify-width-75 {
+  width: 75%;
+}
+.gamify-width-full {
+  width: 100%;
+}
+.gamify-width-custom-32 {
+  width: calc(100% - 32px);
+}
+
+.gamify-min-w--240 {
+  min-width: 240px;
+}
+
+.gamify-mb-6 {
+  margin-bottom: 24px;
+}
+.gamify-m-0 {
+  margin: 0;
+}
+.gamify-mb-2 {
+  margin-bottom: 8px;
+}
+.gamify-mb-1 {
+  margin-bottom: 4px;
+}
+.gamify-mt-1 {
+  margin-top: 4px;
+}
+.gamify-mt-6 {
+  margin-top: 24px;
+}
+.gamify-mt-2 {
+  margin-top: 8px;
+}
+.gamify-mb-0 {
+  margin-bottom: 0;
+}
+.gamify-mr-12 {
+  margin-left: 32px;
+}
+
+.gamify-pt-1 {
+  padding-top: 4px;
+}
+.gamify-pt-3 {
+  padding-top: 12px;
+}
+.gamify-pt-4 {
+  padding-top: 16px;
+}
+.gamify-pt-6 {
+  padding-top: 24px;
+}
+.gamify-pb-6 {
+  padding-top: 24px;
+}
+.gamify-pb-4 {
+  padding-bottom: 1rem;
+}
+.gamify-pb-1 {
+  padding-bottom: 4px;
+}
+.gamify-ptb-3 {
+  padding: 12px 12px;
+}
+.gamify-p-0 {
+  padding: 0;
+}
+.gamify-p-02 {
+  padding: 8px 12px;
+}
+.gamify-p-04 {
+  padding: 12px 16px;
+}
+.gamify-p-06 {
+  padding: 12px 24px;
+}
+
+.gamify--pointer {
+  cursor: pointer;
+}
+
+.gamify-separator {
+  border-bottom: 1px solid var(--gamify-border-color);
+  margin: 24px 0;
+  width: 100%;
+}
+
+.gamify-heading {
+  color: var(--gamify-font-color);
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 24px;
+  margin: 0 0 24px 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--gamify-border-color);
+  width: 100%;
+}
+
+.gamify-required {
+  color: #FF4D4D;
+  padding: 0 8px;
+}
+
+.gamify-warning {
+  color: var(--gamify-warning);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.gamify-border {
+  border: 1px solid var(--gamify-border-color);
+}
+
+.gamify-item-center {
+  display: flex;
+  justify-content: center;
+}
+
+.gamify-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.gamify-flex-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.gamify-flex-24 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.gamify-flex-16 {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gamify-flex-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.gamify-column-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  width: 100%;
+}
+
+.gamify-row-items {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.gamify-input {
+  border: 1px solid var(--gamify-border-color) !important;
+  height: 36px;
+  width: 100%;
+  padding: 0 8px;
+  border-radius: 4px;
+  margin: 0;
+  background: transparent !important;
+  color: var(--gamify-font-color) !important;
+}
+.gamify-input:hover, .gamify-input:focus, .gamify-input:focus-within, .gamify-input:focus-visible, .gamify-input:active {
+  box-shadow: none !important;
+  outline: none !important;
+}
+.gamify-input-320 {
+  max-width: 320px;
+}
+.gamify-input--error {
+  border-color: var(--gamify-placing) !important;
+}
+.gamify-input--disabled:focus, .gamify-input--disabled:focus-within, .gamify-input--disabled:focus-visible, .gamify-input--disabled:active, .gamify-input--disabled:hover {
+  border: 1px solid var(--gamify-border-color);
+}
+.gamify-input::-moz-placeholder {
+  color: var(--gamify-placeholder) !important;
+  opacity: 1; /* Firefox */
+}
+.gamify-input::placeholder {
+  color: var(--gamify-placeholder) !important;
+  opacity: 1; /* Firefox */
+}
+.gamify-textarea {
+  border: 1px solid var(--gamify-border-color);
+  height: 100px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  margin: 0;
+  background: transparent !important;
+  color: var(--gamify-font-color) !important;
+}
+.gamify-textarea:hover, .gamify-textarea:focus {
+  border: 1px solid var(--gamify-gray) !important;
+  box-shadow: none !important;
+  outline: none;
+}
+.gamify-textarea::-moz-placeholder {
+  color: var(--gamify-placeholder) !important;
+  opacity: 1; /* Firefox */
+}
+.gamify-textarea::placeholder {
+  color: var(--gamify-placeholder) !important;
+  opacity: 1; /* Firefox */
+}
+.gamify-textarea--error {
+  border-color: var(--gamify-placing) !important;
+}
+
+.gamify-select .gamify-select__control {
+  border: 1px solid var(--gamify-border-color);
+  background: var(--gamify-background);
+  border-radius: 5px;
+  box-shadow: none;
+}
+.gamify-select .gamify-select__control .gamify-select__input-container .gamify-select__input {
+  box-shadow: none;
+  height: 100%;
+  min-height: unset;
+}
+.gamify-select .gamify-select__menu {
+  background: var(--gamify-background);
+}
+.gamify-select .gamify-select__option {
+  color: var(--gamify-font-color);
+}
+.gamify-select .gamify-select__option:hover, .gamify-select .gamify-select__option:active {
+  background: var(--gamify-primary) !important;
+  -webkit-tap-highlight-color: none !important;
+}
+.gamify-select .gamify-select__option--is-focused {
+  background: var(--gamify-primary) !important;
+  color: #fff !important;
+}
+.gamify-select .gamify-select__option--is-focused .easy-gamify-icon::before {
+  color: #fff !important;
+}
+.gamify-select .gamify-select__option--is-disabled:hover {
+  background: transparent !important;
+  color: var(--gamify-warn-muted) !important;
+}
+.gamify-select .gamify-select__option--is-disabled {
+  color: var(--gamify-warn-muted) !important;
+}
+.gamify-select .gamify-select__option--is-disabled .easy-gamify-icon::before {
+  color: var(--gamify-warn-muted) !important;
+}
+.gamify-select .gamify-select__option--is-selected {
+  background: var(--gamify-primary) !important;
+  color: #fff !important;
+}
+.gamify-select .gamify-select__option--is-selected .easy-gamify-icon::before {
+  color: #fff !important;
+}
+.gamify-select .gamify-select__multi-value__remove {
+  color: var(--gamify-warning);
+}
+.gamify-select .gamify-select__single-value {
+  color: var(--gamify-font-color);
+}
+.gamify-select .gamify-select__group {
+  padding: 0 !important;
+}
+.gamify-select .gamify-select__group-heading {
+  padding: 6px 12px !important;
+  margin: 0 !important;
+  border-top: 1px solid var(--gamify-border-color) !important;
+  border-bottom: 1px solid var(--gamify-border-color) !important;
+  background: var(--gamify-body-background) !important;
+}
+
+.gamify-animate {
+  animation: gamifyFadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes gamifyFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media all and (max-width: 1500px) {
+  .gamify-page-content {
+    max-width: 1170px;
+    padding: 0;
+  }
+}
+@media all and (max-width: 1300px) {
+  .gamify-page-content {
+    max-width: 1090px;
+    padding: 0 15px;
+  }
+}
 .gamify-btn-group {
   display: flex;
   -moz-column-gap: 15px;
