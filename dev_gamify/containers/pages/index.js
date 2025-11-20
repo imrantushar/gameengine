@@ -5,6 +5,7 @@ import Dashboard from './dashboard';
 import Points from './points';
 import Logs from './logs';
 import Settings from './settings';
+import PointType from './points/PointType';
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                     <Route path="/points" element={<Points />} />
                     <Route path="/logs" element={<Logs />} />
                     <Route path="/settings" element={<Settings />} />
+                    <Route path="/point-type" element={<PointType />} />
                     <Route path="*" element={<Dashboard />} />
                 </Routes>
             </div>

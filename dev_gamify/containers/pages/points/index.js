@@ -8,6 +8,8 @@ import OptionMenu from '@Components/OptionMenu';
 import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
+import PointType from './PointType';
+import { useNavigate } from 'react-router-dom';
 
 
 const staticData = [
@@ -56,6 +58,7 @@ const columns = [
 ];
 
 const Points = () => {
+    const navigate = useNavigate();
     return (
         <>
             <TopBar
@@ -74,21 +77,22 @@ const Points = () => {
                 )}
             />
             <Box width="1174px" margin="0 auto" height="100vh">
-            <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                <GFLabel
-                    type="title"
-                    fontWeight="500"
-                    fontSize="xl"
-                    label={__(`Point Types`, 'gamify')}
-                />
-                <Button
-						{...primaryBtn}
-						
-					>
-						{__('+ Add new point types', 'gamify')}
-						<span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
-					</Button>
-            </Flex>
+                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                    <GFLabel
+                        type="title"
+                        fontWeight="500"
+                        fontSize="xl"
+                        label={__(`Point Types`, 'gamify')}
+                    />
+                    <Button
+                        {...primaryBtn}
+                        onClick={() => navigate("/point-type")}
+
+                    >
+                        {__('+ Add new point types', 'gamify')}
+                        <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
+                    </Button>
+                </Flex>
                 <ListTable
                     columns={columns}
                     data={staticData}
@@ -99,7 +103,7 @@ const Points = () => {
                     noDataText="No data found"
                 />
             </Box>
-            
+
         </>
     );
 };
