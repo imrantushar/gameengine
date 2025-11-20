@@ -31,32 +31,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   transparentMiniBtn: () => (/* binding */ transparentMiniBtn)
 /* harmony export */ });
 const primaryBtn = {
-  bg: "var(--quizpress-primary)",
+  bg: "var(--gamify-primary)",
   color: "#fff"
 };
 const primaryClearBtn = {
   fontSize: "14px",
   fontWeight: "500",
-  color: "var(--quizpress-primary)",
+  color: "var(--gamify-primary)",
   background: "transparent",
   padding: "0",
   height: "auto"
 };
 const outlineBtn = {
   bg: "transparent",
-  color: "var(--quizpress-font-color)",
-  borderColor: "var(--quizpress-border-color)",
+  color: "var(--gamify-font-color)",
+  borderColor: "var(--gamify-border-color)",
   borderWidth: "1px"
 };
 const removeBtn = {
-  bg: "var(--quizpress-placing)",
+  bg: "var(--gamify-placing)",
   color: "#fff"
 };
 const transparentMiniBtn = {
   bg: "transparent",
   fontSize: "12px",
-  color: "var(--quizpress-font-color)",
-  borderColor: "var(--quizpress-border-color)",
+  color: "var(--gamify-font-color)",
+  borderColor: "var(--gamify-border-color)",
   borderWidth: "1px",
   padding: "2px 8px",
   lineHeight: "16px",
@@ -66,7 +66,7 @@ const transparentMiniBtn = {
 const clearBtn = {
   bg: "transparent",
   fontSize: "12px",
-  color: "var(--quizpress-font-color)",
+  color: "var(--gamify-font-color)",
   height: "auto",
   padding: "0"
 };
@@ -133,6 +133,144 @@ const theme = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.createSystem)(_ch
     }
   }
 });
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Button/index.js":
+/*!***********************************************!*\
+  !*** ./dev_gamify/components/Button/index.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+
+
+
+
+
+const propTypes = {
+  label: prop_types__WEBPACK_IMPORTED_MODULE_1___default().oneOfType([(prop_types__WEBPACK_IMPORTED_MODULE_1___default().object), (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)]),
+  size: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  className: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  preset: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  bg: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  onClick: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func),
+  type: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  link: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  isLoading: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+  loadingLabel: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  loadingStatus: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  icon: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().any),
+  iconPosition: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  border: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  borderRadius: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  isCircle: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+  isDisabled: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool),
+  style: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().object),
+  suffix: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  prefix: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  target: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  isPro: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool)
+};
+const Button = ({
+  label = '',
+  size = 'md',
+  className = '',
+  preset = 'purple',
+  onClick = () => {},
+  type = 'button',
+  link = '#',
+  isLoading = false,
+  loadingLabel = null,
+  icon = null,
+  iconPosition = null,
+  isCircle = false,
+  border = null,
+  isDisabled = false,
+  borderRadius = null,
+  style = {},
+  suffix = '',
+  target = '',
+  isPro = true,
+  id,
+  prefix = ''
+}) => {
+  const buttonClasses = [`gamify-btn gamify-btn--${size}`];
+  if (preset) {
+    buttonClasses.push('gamify-btn--preset-' + preset);
+  }
+  if (iconPosition) {
+    buttonClasses.push('gamify-btn--icon-' + iconPosition);
+  }
+  if (isCircle) {
+    buttonClasses.push('gamify-btn--circle');
+  }
+  if (border) {
+    buttonClasses.push('gamify-btn--border-' + border);
+  }
+  if (borderRadius) {
+    buttonClasses.push('gamify-btn--border-' + borderRadius);
+  }
+  if (isDisabled) {
+    buttonClasses.push('gamify-btn--disabled');
+  }
+  if (suffix) {
+    buttonClasses.push('gamify-btn--' + suffix);
+  }
+  if (prefix) {
+    buttonClasses.push('gamify-btn--' + prefix);
+  }
+  if ('link' === type) {
+    const targetAttribute = target ? {
+      target
+    } : {};
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+      href: link,
+      className: className ? className : buttonClasses.join(' '),
+      type: type,
+      onClick: onClick,
+      disabled: isDisabled || isLoading,
+      style: style,
+      rel: "noreferrer",
+      id: id,
+      ...targetAttribute
+    }, iconPosition !== 'right' && icon, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), loadingLabel && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-btn--label"
+    }, loadingLabel)) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-btn--label"
+    }, label)), iconPosition === 'right' && icon, !isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-pro-badge"
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('PRO', 'gamify')));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: className ? className : buttonClasses.join(' '),
+    type: type,
+    onClick: onClick,
+    disabled: isDisabled || isLoading,
+    style: style,
+    id: id
+  }, iconPosition !== 'right' && !isLoading && icon, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null), loadingLabel && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-btn--label"
+  }, loadingLabel)) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-btn--label"
+  }, label)), iconPosition === 'right' && !isLoading && icon, !isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-pro-badge"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('PRO', 'gamify')));
+};
+Button.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
 
 /***/ }),
 
@@ -216,6 +354,1177 @@ const GFLabel = ({
   }, `${label}`));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GFLabel);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/SortableColumns.js":
+/*!************************************************************!*\
+  !*** ./dev_gamify/components/ListTable/SortableColumns.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+// import { sortableContainer, sortableElement } from 'react-sortable-hoc';
+// import { arrayMoveImmutable } from 'array-move';
+// import ReactModal from '@Components/Modal/ReactModal';
+
+// const SortableColumnItem = sortableElement(
+// 	( { copyColumn, itemIndex, checkedChange } ) => {
+// 		return (
+// 			<div
+// 				className="gamify-table__filter-checked-item"
+// 				key={ `column-${ itemIndex }` }
+// 			>
+// 				<span className="gamify-table-filter-item-left">
+// 					<span className="gamify-icon gamify-icon--move" />
+// 					<span className="gamify-table-filter-item-title">
+// 						{ copyColumn.name }
+// 					</span>
+// 				</span>
+// 				<input
+// 					id={ copyColumn.name }
+// 					type="checkbox"
+// 					checked={ copyColumn.visible }
+// 					onChange={ ( event ) =>
+// 						checkedChange( {
+// 							id: copyColumn.id,
+// 							visible: event.target.checked,
+// 						} )
+// 					}
+// 				/>
+// 			</div>
+// 		);
+// 	}
+// );
+
+// const SortableColumnItemContainer = sortableContainer( ( props ) => {
+// 	return (
+// 		<ul className="gamify-table__filter-items">{ props.children }</ul>
+// 	);
+// } );
+
+const SortableColumns = ({
+  setTempCopyColumns,
+  tempCopyColumns,
+  showColumnFilter,
+  checkedChange,
+  setCopyColumns,
+  copyColumns,
+  suffix
+}) => {
+  const [modalOpen, isModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [defaultColumns, setDefaultColumns] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setDefaultColumns([...tempCopyColumns]);
+  }, []);
+  const onRequestClose = () => {
+    isModalOpen(false);
+  };
+
+  // const onSortEnd = ( { oldIndex, newIndex } ) => {
+  // 	const sortedColumn = arrayMoveImmutable(
+  // 		tempCopyColumns,
+  // 		oldIndex,
+  // 		newIndex
+  // 	);
+  // 	setTempCopyColumns( sortedColumn );
+  // };
+
+  const handleToggle = () => {
+    isModalOpen(!modalOpen);
+  };
+  const handleReset = () => {
+    setTempCopyColumns([...defaultColumns]);
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__sub-header-filter-icon"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    color: "var(--gamify-font-color)",
+    borderColor: "var(--gamify-border-color)",
+    borderWidth: "1px",
+    bg: "transparent",
+    onClick: handleToggle,
+    _hover: {
+      bg: 'var(--gamify-body-background)'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--columns"
+  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Columns', 'gamify'))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SortableColumns);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/TableBody.js":
+/*!******************************************************!*\
+  !*** ./dev_gamify/components/ListTable/TableBody.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Components_Loader_Preloader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components/Loader/Preloader */ "./dev_gamify/components/Loader/Preloader.js");
+/* harmony import */ var _Components_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Components/Oops/CustomTableMessage */ "./dev_gamify/components/Oops/CustomTableMessage.js");
+
+
+
+
+
+const TableBody = ({
+  dataFetchingStatus,
+  copyDataArr,
+  visibleColumn,
+  isCheckboxColumnVisible,
+  selectRowChange,
+  noDataText,
+  loadingHeight,
+  bodyRef,
+  button,
+  hoverAction
+}) => {
+  const isLoading = dataFetchingStatus || !copyDataArr;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__body-wrap",
+    ref: bodyRef
+  }, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__loader",
+    style: {
+      minHeight: loadingHeight
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Loader_Preloader__WEBPACK_IMPORTED_MODULE_2__["default"], null)) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, copyDataArr?.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, copyDataArr?.map((row, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    key: index,
+    className: `gamify-table__body-row-wrap ${hoverAction ? 'gamify-table__body-row-hovered' : ''}`
+  }, isCheckboxColumnVisible && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__row-cell gamify-table__row-cell-checkbox "
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    checked: row.select,
+    onChange: event => selectRowChange({
+      row,
+      select: event.target.checked
+    })
+  })), visibleColumn.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, visibleColumn?.map((copyColumn, copyColumnIndex) => {
+    var _copyColumn$isWidth;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: `gamify-table__body-row-cell ${hoverAction ? 'gamify-table__row-cell-hovered' : ''} ${(_copyColumn$isWidth = copyColumn.isWidth) !== null && _copyColumn$isWidth !== void 0 ? _copyColumn$isWidth : 'gamify-table__body-row-cell-width'}`,
+      key: copyColumnIndex
+    }, copyColumn?.cell(row, index), copyColumnIndex === 0 && hoverAction && typeof hoverAction.cell === 'function' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-table__hover-action"
+    }, hoverAction.cell(row, index))));
+  })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No visible columns available!!', 'gamify')
+  })))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No Data Available!!!', 'gamify'),
+    subText: noDataText,
+    button: button
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableBody);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/TableFooter.js":
+/*!********************************************************!*\
+  !*** ./dev_gamify/components/ListTable/TableFooter.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _Components_Pagination__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @Components/Pagination */ "./dev_gamify/components/Pagination/index.js");
+
+
+
+
+
+// import Select from 'react-select';
+
+const options = [{
+  value: '10',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('10', 'gamify')
+}, {
+  value: '15',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('15', 'gamify')
+}, {
+  value: '20',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('20', 'gamify')
+}, {
+  value: '25',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('25', 'gamify')
+}, {
+  value: '30',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('30', 'gamify')
+}];
+const TableFooter = ({
+  data,
+  totalItems,
+  paginationPerPageChange,
+  rowsPerPage,
+  onChangePage,
+  currentPageNumber
+}) => {
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(() => {
+    const selector = document.getElementById('gamify-table-row-per-page-selector');
+    selector.childNodes.forEach(function (element) {
+      if (element.className.includes('gamify-select__control')) {
+        return element.id = 'gamify-table-row-per-page-selector-control';
+      }
+      return element;
+    });
+    const selectorControl = document.getElementById('gamify-table-row-per-page-selector-control');
+    selectorControl.childNodes.forEach(function (element) {
+      if (element.className.includes('gamify-select__indicators')) {
+        return element.id = 'gamify-table-row-per-page-selector-indicators';
+      }
+      return element;
+    });
+    const selectorIndicators = document.getElementById('gamify-table-row-per-page-selector-indicators');
+    selectorIndicators.removeChild(selectorIndicators.childNodes[0]);
+    selectorIndicators.childNodes[0].style.padding = '0 8px 0 0';
+    selectorControl.childNodes[0].style.padding = '2px 0px 0px 8px';
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__footer"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    color: "var(--gamify-font-color)",
+    fontSize: "sm",
+    fontWeight: "normal"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.sprintf)(
+  // translators: %s: totalItems
+  (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Showing result %s out of %s', 'gamify'), data?.length, totalItems)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__footer-right"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__footer-pagination per__page"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    color: "var(--gamify-font-color)",
+    fontSize: "sm",
+    fontWeight: "normal"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Rows per page', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__footer-pagination-pages icons"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Pagination__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    totalItems: totalItems,
+    fetchHandler: onChangePage,
+    currentPageNumber: currentPageNumber,
+    rowsPerPage: rowsPerPage
+  }))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableFooter);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/TableHeader.js":
+/*!********************************************************!*\
+  !*** ./dev_gamify/components/ListTable/TableHeader.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const TableHeader = ({
+  visibleColumn,
+  isCheckboxColumnVisible,
+  copyDataArr,
+  selectAllRow,
+  data
+}) => {
+  const isCheckboxChecked = data.length > 0 && copyDataArr;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__head"
+  }, isCheckboxColumnVisible && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__head-cell-checkbox"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    checked: isCheckboxChecked && copyDataArr?.every(row => row.select),
+    type: "checkbox",
+    onChange: selectAllRow
+  })), visibleColumn?.map((column, index) => {
+    var _column$isWidth;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: `gamify-table__head-cell ${(_column$isWidth = column.isWidth) !== null && _column$isWidth !== void 0 ? _column$isWidth : 'gamify-table__head-cell-width'}`,
+      key: index
+    }, column.name);
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableHeader);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/TableSubHeader.js":
+/*!***********************************************************!*\
+  !*** ./dev_gamify/components/ListTable/TableSubHeader.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _SortableColumns__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SortableColumns */ "./dev_gamify/components/ListTable/SortableColumns.js");
+
+
+
+const TableSubHeader = ({
+  subHeaderComponent,
+  setTempCopyColumns,
+  tempCopyColumns,
+  showColumnFilter,
+  checkedChange,
+  setCopyColumns,
+  copyColumns,
+  suffix
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__sub-header"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__sub-header-left"
+  }, subHeaderComponent && subHeaderComponent), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__sub-header-right"
+  }, showColumnFilter && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_SortableColumns__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    setTempCopyColumns: setTempCopyColumns,
+    tempCopyColumns: tempCopyColumns,
+    showColumnFilter: showColumnFilter,
+    checkedChange: checkedChange,
+    setCopyColumns: setCopyColumns,
+    copyColumns: copyColumns,
+    suffix: suffix
+  })));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TableSubHeader);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/ListTable/index.js":
+/*!**************************************************!*\
+  !*** ./dev_gamify/components/ListTable/index.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Utils_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Utils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _TableSubHeader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./TableSubHeader */ "./dev_gamify/components/ListTable/TableSubHeader.js");
+/* harmony import */ var _TableHeader__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./TableHeader */ "./dev_gamify/components/ListTable/TableHeader.js");
+/* harmony import */ var _TableBody__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TableBody */ "./dev_gamify/components/ListTable/TableBody.js");
+/* harmony import */ var _TableFooter__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TableFooter */ "./dev_gamify/components/ListTable/TableFooter.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lodash */ "lodash");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_8__);
+
+
+
+
+
+// component
+
+
+
+
+
+const propTypes = {
+  columns: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().array),
+  data: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().array),
+  isRowSelectable: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  getSelectRowValue: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  showSubHeader: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  subHeaderComponent: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  showColumnFilter: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  showPagination: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  onChangePage: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  onChangeItemsPerPage: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().func),
+  suffix: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  noDataText: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().string),
+  currentPageNumber: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  totalItems: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  dataFetchingStatus: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  resetSelected: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool),
+  rowsPerPage: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().number),
+  Button: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().node),
+  hoverAction: (prop_types__WEBPACK_IMPORTED_MODULE_3___default().bool)
+};
+const ListTable = props => {
+  const {
+    columns = [],
+    data = [],
+    isRowSelectable = true,
+    getSelectRowValue,
+    showSubHeader = true,
+    subHeaderComponent,
+    showColumnFilter = true,
+    showPagination = false,
+    onChangePage,
+    onChangeItemsPerPage,
+    suffix = '',
+    noDataText = (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please, create data to see the available list here.', 'gamify'),
+    totalItems = 0,
+    dataFetchingStatus = false,
+    resetSelected = false,
+    currentPageNumber = 1,
+    rowsPerPage = 10,
+    Button = false,
+    hoverAction = false
+  } = props;
+  const bodyRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+
+  // ListTable state
+  // eslint-disable-next-line
+  const [isRowsPerPage, setIsRowsPerPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('10');
+  const [loadingHeight, setLoadingHeight] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('0px');
+  const [copyDataArr, setCopyDataArr] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [copyColumns, setCopyColumns] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(columns?.map((copyColumn, index) => ({
+    ...copyColumn,
+    visible: true,
+    id: `column-${index}`
+  })));
+  const shouldRerender = lodash__WEBPACK_IMPORTED_MODULE_8___default().isEqual(data, copyDataArr);
+  const [visibleColumn, setVisibleColumn] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(copyColumns?.filter(copyColumn => copyColumn.visible));
+  const [tempCopyColumns, setTempCopyColumns] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([...copyColumns]);
+  const [showSlider, setShowSlider] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
+  const selectRowChange = ({
+    row,
+    select
+  }) => {
+    const updatedDataArr = copyDataArr.map(dataItem => {
+      if (dataItem.rowId === row.rowId) {
+        return {
+          ...dataItem,
+          select
+        };
+      }
+      return dataItem;
+    });
+    setCopyDataArr(updatedDataArr);
+  };
+  const selectAllRow = event => setCopyDataArr(prev => prev.map(prevData => ({
+    ...prevData,
+    select: event.target.checked
+  })));
+  const checkedChange = ({
+    id,
+    visible
+  }) => {
+    let updatedColumns;
+    if (id === 'reset') {
+      updatedColumns = tempCopyColumns.map(column => ({
+        ...column,
+        visible: true
+      }));
+    } else {
+      updatedColumns = tempCopyColumns.map(column => {
+        if (column.id === id) {
+          return {
+            ...column,
+            visible
+          };
+        }
+        return column;
+      });
+    }
+    setTempCopyColumns(updatedColumns);
+  };
+  const paginationPerPageChange = option => {
+    setIsRowsPerPage(option.value);
+    setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
+    onChangeItemsPerPage(Number(option.value), Number(currentPageNumber));
+  };
+
+  // Reset copyDataArr if shouldRerender is false
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!shouldRerender) {
+      setCopyDataArr(data?.map((row, index) => ({
+        ...row,
+        rowId: `row-${index}`,
+        select: false
+      })));
+    }
+  }, [shouldRerender, data]);
+
+  //side effect
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setCopyDataArr(data && data?.map((row, index) => ({
+      ...row,
+      rowId: `row-${index}`,
+      select: false
+    })));
+  }, [data?.length]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (0 === data.length || false === data) {
+      setLoadingHeight('400px');
+    } else if (bodyRef.current.offsetHeight < 100) {
+      setLoadingHeight(`100px`);
+    } else {
+      setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
+    }
+  }, [data?.length, bodyRef, rowsPerPage]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const visibleColumns = copyColumns.filter(item => item.visible === true);
+    function handleResponsiveSlideShow() {
+      if (window.innerWidth < 1280 || visibleColumns.length > 6) {
+        setShowSlider(true);
+      } else {
+        setShowSlider(false);
+      }
+    }
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResponsiveSlideShow);
+
+    // Initial check on component mount
+    handleResponsiveSlideShow();
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('resize', handleResponsiveSlideShow);
+    };
+  }, [window.innerWidth, copyColumns]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setVisibleColumn(copyColumns?.filter(copyColumn => copyColumn.visible));
+    setLoadingHeight(false);
+  }, [copyColumns]);
+
+  // get Local storage data every time page refresh
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    const localColumns = JSON.parse(localStorage.getItem(suffix));
+    if (localColumns) {
+      const mergeColumns = copyColumns.reduce((acc, column) => {
+        localColumns.forEach(item => {
+          if (item.id === column.id) {
+            acc.push({
+              ...item,
+              cell: column.cell
+            });
+          }
+        });
+        return acc;
+      }, []);
+      const sortColumn = localColumns.reduce((acc, column) => {
+        mergeColumns.forEach(item => {
+          if (column.id === item.id) {
+            acc.push({
+              ...item
+            });
+          }
+        });
+        return acc;
+      }, []);
+      setTempCopyColumns(sortColumn);
+      setCopyColumns(sortColumn);
+    }
+  }, []);
+
+  // current select row
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (typeof getSelectRowValue === 'function') {
+      getSelectRowValue(copyDataArr && copyDataArr?.filter(copyRow => copyRow.select));
+    }
+  }, [copyDataArr]);
+
+  // reset selected
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (resetSelected && copyDataArr) {
+      setCopyDataArr(copyDataArr && copyDataArr?.map(row => ({
+        ...row,
+        select: false
+      })));
+    }
+  }, [resetSelected]);
+  const showPaginationData = showPagination && copyDataArr?.length > 0;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gamify-table ${suffix && 'gamify-table--' + suffix} ${!_Utils_helper__WEBPACK_IMPORTED_MODULE_2__.is_admin ? 'gamify-dashboard__content' : ''}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-table__container"
+  }, showSubHeader && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TableSubHeader__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    subHeaderComponent: subHeaderComponent,
+    setTempCopyColumns: setTempCopyColumns,
+    tempCopyColumns: tempCopyColumns,
+    showColumnFilter: showColumnFilter,
+    checkedChange: checkedChange,
+    setCopyColumns: setCopyColumns,
+    copyColumns: copyColumns,
+    suffix: suffix
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gamify-table__table ${showSlider && 'gamify-table--has-slider'}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TableHeader__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    data: data,
+    visibleColumn: visibleColumn,
+    copyDataArr: copyDataArr,
+    selectAllRow: selectAllRow,
+    isCheckboxColumnVisible: isCheckboxColumnVisible
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TableBody__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    dataFetchingStatus: dataFetchingStatus,
+    copyDataArr: copyDataArr,
+    visibleColumn: visibleColumn,
+    isCheckboxColumnVisible: isCheckboxColumnVisible,
+    selectRowChange: selectRowChange,
+    noDataText: noDataText,
+    button: Button,
+    hoverAction: hoverAction,
+    loadingHeight: loadingHeight,
+    bodyRef: bodyRef
+  })), showPaginationData && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TableFooter__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    data: data,
+    totalItems: totalItems,
+    paginationPerPageChange: paginationPerPageChange,
+    rowsPerPage: rowsPerPage,
+    onChangePage: onChangePage,
+    currentPageNumber: currentPageNumber
+  })));
+};
+ListTable.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (ListTable);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Loader/Preloader.js":
+/*!***************************************************!*\
+  !*** ./dev_gamify/components/Loader/Preloader.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Preloader)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _preloader_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./preloader.scss */ "./dev_gamify/components/Loader/preloader.scss");
+
+
+
+
+
+const propTypes = {
+  size: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)
+};
+function Preloader({
+  size = 'md'
+}) {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gamify-preloader gamify-preloader--${size}`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Spinner, null));
+}
+Preloader.propTypes = propTypes;
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Loader/preloader.scss":
+/*!*****************************************************!*\
+  !*** ./dev_gamify/components/Loader/preloader.scss ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Oops/CustomTableMessage.js":
+/*!**********************************************************!*\
+  !*** ./dev_gamify/components/Oops/CustomTableMessage.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Utils_helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @Utils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles.scss */ "./dev_gamify/components/Oops/styles.scss");
+
+
+
+
+const CustomTableMessage = ({
+  title,
+  subText,
+  button
+}) => {
+  const [isImageLoaded, setIsImageLoaded] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const handleImageLoad = () => {
+    setIsImageLoaded(true);
+  };
+  const imageSrc = _Utils_helper__WEBPACK_IMPORTED_MODULE_1__.plugin_root_url + 'assets/images/' + 'NoDataAvailable.svg';
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gamify-oops gamify-oops__message`
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-oops__icon"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: imageSrc,
+    alt: "",
+    onLoad: handleImageLoad
+  })), isImageLoaded && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-oops__content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "gamify-oops__heading"
+  }, title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("h3", {
+    className: "gamify-oops__text"
+  }, subText), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-oops__button"
+  }, button)));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CustomTableMessage);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Oops/styles.scss":
+/*!************************************************!*\
+  !*** ./dev_gamify/components/Oops/styles.scss ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./dev_gamify/components/OptionMenu/index.js":
+/*!***************************************************!*\
+  !*** ./dev_gamify/components/OptionMenu/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./styles.scss */ "./dev_gamify/components/OptionMenu/styles.scss");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Components_Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Components/Button */ "./dev_gamify/components/Button/index.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+
+
+
+
+
+
+
+
+const propTypes = {
+  icon: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  suffix: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string),
+  options: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().array),
+  iconClass: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().node),
+  alwaysShowOptions: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().bool)
+};
+const OptionMenu = props => {
+  const {
+    icon = 'menu',
+    options = [],
+    iconClass,
+    suffix = '',
+    alwaysShowOptions = false
+  } = props;
+  const [itemSelected, setItemSelected] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const menuItemRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const relativeTo = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  const handleClick = e => {
+    if (menuItemRef?.current && !menuItemRef?.current?.contains(e.target) && !relativeTo.current.contains(e.target)) {
+      setItemSelected(false);
+    }
+  };
+  const handleMenuToggle = () => {
+    setItemSelected(!itemSelected);
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!alwaysShowOptions) {
+      document.addEventListener('mousedown', handleClick);
+      return () => document.removeEventListener('mousedown', handleClick);
+    }
+  }, [alwaysShowOptions]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (alwaysShowOptions) {
+      return;
+    }
+    if (itemSelected && relativeTo.current) {
+      const rect = relativeTo.current.getBoundingClientRect();
+      const x = rect.left + window.pageXOffset;
+      const y = rect.top + window.pageYOffset;
+      const buttonHeight = relativeTo.current.offsetHeight;
+      menuItemRef.current.style.position = 'absolute';
+      menuItemRef.current.style.left = `${x - 155}px`;
+      menuItemRef.current.style.top = `${y + buttonHeight - 25}px`;
+      document.body.appendChild(menuItemRef.current);
+    } else if (menuItemRef.current && menuItemRef.current.parentNode === document.body) {
+      document.body.removeChild(menuItemRef.current);
+    }
+  }, [itemSelected, alwaysShowOptions]);
+  const renderOptions = () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: `gamify-dropdown-menu__lists  ${alwaysShowOptions ? 'gamify-dropdown-menu--inline' : ''} ${suffix && `gamify-dropdown-menu--list-${suffix}`}`,
+    ref: menuItemRef
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: `${alwaysShowOptions ? 'gamify-dropdown-menu__inline' : 'gamify-more-options'}`
+  }, options.map((item, itemIndex) => {
+    const handleItemClick = () => {
+      setItemSelected(false);
+      if ('button' === item.type) {
+        return item?.onClick();
+      }
+      return null;
+    };
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+      key: itemIndex
+    }, item.action ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("form", {
+      className: `${alwaysShowOptions ? 'gamify-dropdown-menu__inline-form' : 'gamify-more-options__item'}`,
+      action: item.action,
+      method: item.method
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Button__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      preset: "transparent",
+      iconPosition: "left",
+      ...item,
+      suffix: `${alwaysShowOptions ? 'inline' : 'block'}`
+    }), item.hasBorder && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
+      className: "gamify-option-separator"
+    })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      className: `${alwaysShowOptions ? 'gamify-dropdown-menu__inline-form' : 'gamify-more-options__item'}`
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Button__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      preset: "transparent",
+      iconPosition: "left",
+      ...item,
+      onClick: handleItemClick
+      // suffix={`${alwaysShowOptions ? 'inline' : 'block'}`}
+    }), item.hasBorder && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
+      className: "gamify-option-separator"
+    })));
+  })));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, !alwaysShowOptions && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: `gamify-dropdown-menu ${suffix && `gamify-dropdown-menu--${suffix}`}`,
+    type: "button",
+    ref: relativeTo,
+    onClick: handleMenuToggle
+  }, iconClass ? iconClass : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+    as: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiMoreHorizontal
+  })), alwaysShowOptions ? renderOptions() : itemSelected && (0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)(renderOptions(), document.body));
+};
+OptionMenu.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OptionMenu);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/OptionMenu/styles.scss":
+/*!******************************************************!*\
+  !*** ./dev_gamify/components/OptionMenu/styles.scss ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Pagination/index.js":
+/*!***************************************************!*\
+  !*** ./dev_gamify/components/Pagination/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.scss */ "./dev_gamify/components/Pagination/styles.scss");
+
+
+
+
+
+const propTypes = {
+  totalItems: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+  currentPageNumber: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number),
+  fetchHandler: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().func),
+  rowsPerPage: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().number)
+};
+const Pagination = ({
+  totalItems = 0,
+  currentPageNumber = 1,
+  fetchHandler = () => {},
+  rowsPerPage = 10
+}) => {
+  const [page, setPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(currentPageNumber ? currentPageNumber : 1);
+  const totalPages = Math.ceil(totalItems / rowsPerPage) || 0;
+  const renderFirstPage = rowsPerPage >= totalItems ? 1 : currentPageNumber;
+  const pageNumbers = Array.from({
+    length: totalPages
+  }, (_, index) => index + 1);
+  const showNextButton = page < pageNumbers.length && totalItems > rowsPerPage;
+  const showPrevButton = page > 1 && totalItems > rowsPerPage;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setPage(renderFirstPage);
+  }, [rowsPerPage]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    if (currentPageNumber !== page) {
+      setPage(currentPageNumber);
+    }
+  }, [currentPageNumber]);
+  const handlePageChange = newPage => {
+    setPage(newPage);
+    fetchHandler(newPage, rowsPerPage);
+  };
+  const renderPageNumbers = () => {
+    const renderedPages = [];
+    if (pageNumbers.length <= 5) {
+      // when total number of pages is less than or equal to 5, render all the page numbers
+      pageNumbers.forEach((item, index) => {
+        const pageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+          className: `gamify-pagination-list__item ${item === page && 'gamify-pagination-list__item-active'}`,
+          key: index,
+          onClick: () => {
+            handlePageChange(item);
+          },
+          role: "presentation"
+        }, item);
+        renderedPages.push(pageItem);
+      });
+    } else if (page <= 3) {
+      // when current page is within the first three pages
+      for (let i = 1; i <= 3; i++) {
+        const pageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+          className: `gamify-pagination-list__item ${i === page && 'gamify-pagination-list__item-active'}`,
+          key: i,
+          onClick: () => {
+            handlePageChange(i);
+          },
+          role: "presentation"
+        }, i);
+        renderedPages.push(pageItem);
+      }
+      renderedPages.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item gamify-pagination-list__item-dots",
+        key: "dots"
+      }, "..."));
+      const lastPageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item",
+        key: totalPages,
+        onClick: () => {
+          handlePageChange(totalPages);
+        },
+        role: "presentation"
+      }, totalPages);
+      renderedPages.push(lastPageItem);
+    } else if (page >= totalPages - 2) {
+      // when current page is within the last three pages
+      const firstPageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item",
+        key: 1,
+        onClick: () => {
+          handlePageChange(1);
+        },
+        role: "presentation"
+      }, 1);
+      renderedPages.push(firstPageItem);
+      renderedPages.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item gamify-pagination-list__item-dots",
+        key: "dots"
+      }, "..."));
+      for (let i = totalPages - 2; i <= totalPages; i++) {
+        const pageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+          className: `gamify-pagination-list__item ${i === page && 'gamify-pagination-list__item-active'}`,
+          key: i,
+          onClick: () => {
+            handlePageChange(i);
+          },
+          role: "presentation"
+        }, i);
+        renderedPages.push(pageItem);
+      }
+    } else {
+      // If the current page is in the middle range
+      const firstPageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item",
+        key: 1,
+        onClick: () => {
+          handlePageChange(1);
+        },
+        role: "presentation"
+      }, 1);
+      renderedPages.push(firstPageItem);
+      renderedPages.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item gamify-pagination-list__item-dots",
+        key: "dots-start"
+      }, "..."));
+      for (let i = page - 1; i <= page + 1; i++) {
+        const pageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+          className: `gamify-pagination-list__item ${i === page && 'gamify-pagination-list__item-active'}`,
+          key: i,
+          onClick: () => {
+            handlePageChange(i);
+          },
+          role: "presentation"
+        }, i);
+        renderedPages.push(pageItem);
+      }
+      renderedPages.push((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item gamify-pagination-list__item-dots",
+        key: "dots-end"
+      }, "..."));
+      const lastPageItem = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+        className: "gamify-pagination-list__item",
+        key: totalPages,
+        onClick: () => {
+          handlePageChange(totalPages);
+        },
+        role: "presentation"
+      }, totalPages);
+      renderedPages.push(lastPageItem);
+    }
+    return renderedPages;
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-pagination"
+  }, showPrevButton && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    color: "var(--gamify-font-color)",
+    borderColor: "var(--gamify-border-color)",
+    borderWidth: "1px",
+    bg: "transparent",
+    _hover: {
+      bg: 'var(--gamify-body-background)'
+    },
+    height: "auto",
+    padding: "6px",
+    onClick: () => {
+      handlePageChange(1);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-left"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-left"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    color: "var(--gamify-font-color)",
+    borderColor: "var(--gamify-border-color)",
+    borderWidth: "1px",
+    bg: "transparent",
+    _hover: {
+      bg: 'var(--gamify-body-background)'
+    },
+    height: "auto",
+    padding: "6px",
+    onClick: () => {
+      handlePageChange(page - 1);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-left"
+  }))), pageNumbers.length > 1 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    className: "gamify-pagination-list"
+  }, renderPageNumbers()), showNextButton && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    color: "var(--gamify-font-color)",
+    borderColor: "var(--gamify-border-color)",
+    borderWidth: "1px",
+    bg: "transparent",
+    _hover: {
+      bg: 'var(--gamify-body-background)'
+    },
+    height: "auto",
+    padding: "6px",
+    onClick: () => {
+      handlePageChange(page + 1);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-right"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    color: "var(--gamify-font-color)",
+    borderColor: "var(--gamify-border-color)",
+    borderWidth: "1px",
+    bg: "transparent",
+    _hover: {
+      bg: 'var(--gamify-body-background)'
+    },
+    height: "auto",
+    padding: "6px",
+    onClick: () => {
+      handlePageChange(pageNumbers.length);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-right"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--angle-right"
+  })))));
+};
+Pagination.propTypes = propTypes;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Pagination);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/Pagination/styles.scss":
+/*!******************************************************!*\
+  !*** ./dev_gamify/components/Pagination/styles.scss ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -951,10 +2260,124 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @Components/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Components_ListTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Components/ListTable */ "./dev_gamify/components/ListTable/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _Components_OptionMenu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @Components/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 
 
+
+
+
+
+
+
+
+
+
+const staticData = [{
+  id: 1,
+  name: "John Doe",
+  pluralName: "John Does",
+  date: "2025-01-10"
+}, {
+  id: 2,
+  name: "Emma Watson",
+  pluralName: "Emma Watsons",
+  date: "2025-01-12"
+}, {
+  id: 3,
+  name: "Mark Tailor",
+  pluralName: "Mark Tailors",
+  date: "2025-01-15"
+}, {
+  id: 4,
+  name: "Sarah Lee",
+  pluralName: "Sarah Lees",
+  date: "2025-01-18"
+}, {
+  id: 5,
+  name: "David Kim",
+  pluralName: "David Kims",
+  date: "2025-01-20"
+}];
+const columns = [{
+  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'gamify'),
+  cell: row => row.name
+}, {
+  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plural Name', 'gamify'),
+  cell: row => row.pluralName
+}, {
+  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Date', 'gamify'),
+  cell: row => row.date
+}, {
+  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Action', 'gamify'),
+  cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_OptionMenu__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    options: [{
+      type: 'button',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit', 'gamify'),
+      icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
+        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiEdit
+      }),
+      onClick: () => console.log(`Edit ID: ${row.id}`)
+    }, {
+      type: 'button',
+      suffix: 'trash',
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'gamify'),
+      icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
+        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiTrash2
+      }),
+      onClick: () => console.log(`Delete ID: ${row.id}`)
+    }]
+  })
+}];
 const Points = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "this is point");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-icon gamify-icon--angle-right"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      as: "h2",
+      color: "#4F46E5",
+      type: "subtitle",
+      fontWeight: "medium",
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Dashboard`, 'gamify')
+    }))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
+    width: "1174px",
+    margin: "0 auto",
+    height: "100vh"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    justifyContent: "space-between",
+    alignItems: "center",
+    p: "24px 0"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    type: "title",
+    fontWeight: "500",
+    fontSize: "xl",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Point Types`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__.primaryBtn
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('+ Add new point types', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_ListTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    columns: columns,
+    data: staticData,
+    showSubHeader: false,
+    showColumnFilter: false,
+    isRowSelectable: false,
+    showPagination: false,
+    noDataText: "No data found"
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Points);
 
@@ -1156,6 +2579,48 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
   }
   // Redux DevTools are automatically enabled in development mode
 });
+
+/***/ }),
+
+/***/ "./dev_gamify/utils/helper.js":
+/*!************************************!*\
+  !*** ./dev_gamify/utils/helper.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+
+
+
+
+// export const {
+// 	// plugin_root_url,
+// 	// nonce,
+// 	// ajaxurl,
+// 	// menu,
+// 	// route_path,
+// 	// rest_url,
+// 	// admin_url,
+// 	// namespace,
+// 	// gamify_nonce,
+// 	// user_id,
+// 	// _quiz_settings,
+// 	// is_plain_permalink,
+// } = window?.GamifyGlobal;
+
+// export const isPlainPermalink = Boolean(is_plain_permalink);
+// export const userId = Boolean(user_id);
+// export const API = axios.create({
+// 	baseURL: rest_url,
+// 	headers: {
+// 		'content-type': 'application/json',
+// 		'X-WP-Nonce': nonce,
+// 		'Cache-Control': 'no-cache', // Prevent caching
+// 	},
+// });
 
 /***/ }),
 
@@ -90493,6 +91958,17 @@ if (false) // removed by dead control flow
 
 /***/ }),
 
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["components"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -90501,6 +91977,17 @@ if (false) // removed by dead control flow
 
 "use strict";
 module.exports = window["wp"]["i18n"];
+
+/***/ }),
+
+/***/ "lodash":
+/*!*************************!*\
+  !*** external "lodash" ***!
+  \*************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["lodash"];
 
 /***/ }),
 
