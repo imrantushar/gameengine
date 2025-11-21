@@ -2507,6 +2507,8 @@ const PointType = props => {
   const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const collapsible = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.useCollapsible)();
   const [selectedHook, setSelectedHook] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const [pointAwards, setPointAwards] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [pointDeductions, setDeductions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const renderActionHook = selected => {
     switch (selected) {
       case "daily-visits":
@@ -2529,8 +2531,7 @@ const PointType = props => {
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "1174px",
-    margin: "0 auto",
-    height: "100vh"
+    margin: "0 auto"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
     type: "title",
     fontWeight: "500",
@@ -2586,28 +2587,140 @@ const PointType = props => {
       value: 'skill-tones'
     },
     onChange: opt => console.log(opt)
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Automatic Point Awards",
+    isOpen: pointAwards,
+    onClick: () => setPointAwards(!pointAwards)
+  }), pointAwards && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+    width: "50%",
+    p: "24px",
+    borderRadius: "4px",
+    border: "1px solid var(--gamify-border-color)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+    flexDirection: "column",
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    type: "title",
+    fontWeight: "500",
+    fontSize: "1.25rem",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Available Hooks`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    type: "subtitle",
+    fontWeight: "500",
+    fontSize: "1rem",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, 'gamify')
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     as: "label",
     direction: "column",
     gap: 2
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    p: "24px",
+    borderRadius: "4px",
+    border: "1px solid var(--gamify-border-color)"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     fontWeight: "500",
     fontSize: "0.875rem",
-    margin: 0
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Automatic Point Awards', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Select question type', 'gamify'),
-    className: "gamify-select",
+    margin: "0 0 8px 0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    isMulti: true,
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select hook type", "gamify"),
     classNamePrefix: "gamify-select",
     options: [{
-      label: 'Skill Tones',
-      value: 'skill-tones'
-    }],
-    value: {
-      label: 'Skill Tones',
-      value: 'skill-tones'
-    },
-    onChange: opt => console.log(opt)
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+      label: "Gamify",
+      value: "gamify"
+    }, {
+      label: "WordPress",
+      value: "wordpress"
+    }]
+    // value={''}
+    ,
+    onChange: opt => console.log(opt),
+    styles: {
+      control: base => ({
+        ...base,
+        minHeight: "48px",
+        borderRadius: "6px",
+        borderColor: "#d0d5dd",
+        boxShadow: "none",
+        "&:hover": {
+          borderColor: "#d0d5dd"
+        }
+      }),
+      multiValue: base => ({
+        ...base,
+        background: "#F8FAFC",
+        padding: "2px 6px",
+        borderRadius: "6px"
+      }),
+      multiValueLabel: base => ({
+        ...base,
+        color: "#1E293B",
+        fontSize: "14px"
+      }),
+      multiValueRemove: base => ({
+        ...base,
+        color: "#64748B",
+        ":hover": {
+          backgroundColor: "transparent",
+          color: "#334155"
+        }
+      })
+    }
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for daily visits",
+    desc: "Award points for visiting your website on a daily basis.",
+    isOpen: selectedHook === "daily-visits",
+    onClick: () => setSelectedHook("daily-visits")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for viewing content",
+    desc: "Award points for viewing content on the website.",
+    isOpen: selectedHook === "view-content",
+    onClick: () => setSelectedHook("view-content")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for publishing content",
+    desc: "Award points for publishing posts or pages.",
+    isOpen: selectedHook === "point-publishing-content",
+    onClick: () => setSelectedHook("point-publishing-content")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for comments",
+    desc: "Award points for user comments.",
+    isOpen: selectedHook === "point-comments",
+    onClick: () => setSelectedHook("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for referrals",
+    desc: "Award points for user referrals.",
+    isOpen: selectedHook === "point-referrals",
+    onClick: () => setSelectedHook("point-referrals")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Points for birthday",
+    desc: "Award points on user's birthday.",
+    isOpen: selectedHook === "point-birthday",
+    onClick: () => setSelectedHook("point-birthday")
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    width: "50%",
+    borderRadius: "4px",
+    border: "1px solid var(--gamify-border-color)",
+    p: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+    flexDirection: "column",
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    type: "title",
+    fontWeight: "500",
+    fontSize: "1.25rem",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Action Hook`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    type: "subtitle",
+    fontWeight: "500",
+    fontSize: "1rem",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`The following hooks are used for all users.`, 'gamify')
+  })), renderActionHook(selectedHook)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: "Automatic Point Deductions",
+    isOpen: pointDeductions,
+    onClick: () => setDeductions(!pointDeductions)
+  }), pointDeductions && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     gap: "24px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     width: "50%",
