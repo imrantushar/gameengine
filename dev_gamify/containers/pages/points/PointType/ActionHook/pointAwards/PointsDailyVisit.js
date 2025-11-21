@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PointsDailyVisit(props) {
+const PointsDailyVisit=(props) =>{
     return (
         <div>
             daily visit point

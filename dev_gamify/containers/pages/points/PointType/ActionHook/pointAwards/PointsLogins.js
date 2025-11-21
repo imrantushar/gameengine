@@ -3,9 +3,9 @@ import CustomCollapsible from '@Components/Collapsible';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import Select from 'react-select';
-import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 
-function PointsLogins(props) {
+const PointsLogins=(props)=> {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <Box>

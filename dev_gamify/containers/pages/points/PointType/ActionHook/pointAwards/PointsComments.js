@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PointsComments(props) {
+const PointsComments=(props) =>{
     return (
         <div>
             this is point commnet

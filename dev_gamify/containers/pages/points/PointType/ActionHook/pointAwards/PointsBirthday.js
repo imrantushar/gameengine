@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PointsBirthday(props) {
+const PointsBirthday=(props)=> {
     return (
         <div>
             this is point birthday

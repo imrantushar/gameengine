@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PointsPublishingContent(props) {
+const PointsPublishingContent=(props)=>{
     return (
         <div>
             poitn  table content

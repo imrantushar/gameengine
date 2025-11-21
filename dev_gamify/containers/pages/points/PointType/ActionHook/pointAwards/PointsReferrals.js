@@ -1,6 +1,6 @@
 import React from 'react';
 
-function PointsReferrals(props) {
+const PointsReferrals=(props)=> {
     return (
         <div>
             this is point referrals

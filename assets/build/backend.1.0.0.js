@@ -2316,10 +2316,10 @@ const Logs = () => {
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsBirthday.js":
-/*!***********************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsBirthday.js ***!
-  \***********************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsBirthday.js":
+/*!***********************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsBirthday.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2331,17 +2331,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function PointsBirthday(props) {
+const PointsBirthday = props => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "this is point birthday");
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsBirthday);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsComments.js":
-/*!***********************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsComments.js ***!
-  \***********************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsComments.js":
+/*!***********************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsComments.js ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2353,17 +2353,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function PointsComments(props) {
+const PointsComments = props => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "this is point commnet");
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsComments);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsDailyVisit.js":
-/*!*************************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsDailyVisit.js ***!
-  \*************************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsDailyVisit.js":
+/*!*************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsDailyVisit.js ***!
+  \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2375,17 +2375,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function PointsDailyVisit(props) {
+const PointsDailyVisit = props => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "daily visit point");
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsDailyVisit);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsLogins.js":
-/*!*********************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsLogins.js ***!
-  \*********************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsLogins.js":
+/*!*********************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsLogins.js ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2403,7 +2403,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 
 
 
@@ -2411,7 +2411,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function PointsLogins(props) {
+const PointsLogins = props => {
   const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_1__["default"], {
     label: "Points for Logins",
@@ -2479,15 +2479,15 @@ function PointsLogins(props) {
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Save', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
   })))));
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsLogins);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsPublishingContent.js":
-/*!********************************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsPublishingContent.js ***!
-  \********************************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsPublishingContent.js":
+/*!********************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsPublishingContent.js ***!
+  \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2499,17 +2499,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function PointsPublishingContent(props) {
+const PointsPublishingContent = props => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "poitn  table content");
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsPublishingContent);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsReferrals.js":
-/*!************************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsReferrals.js ***!
-  \************************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsReferrals.js":
+/*!************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsReferrals.js ***!
+  \************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2521,17 +2521,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
-function PointsReferrals(props) {
+const PointsReferrals = props => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "this is point referrals");
-}
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsReferrals);
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsViewingContent.js":
-/*!*****************************************************************************************!*\
-  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/PointsViewingContent.js ***!
-  \*****************************************************************************************/
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsViewingContent.js":
+/*!*****************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsViewingContent.js ***!
+  \*****************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2547,6 +2547,50 @@ const PointsViewingContent = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "daily points viewing content");
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PointsViewingContent);
+
+/***/ }),
+
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsBirthday.js":
+/*!****************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsBirthday.js ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const DeductsBirthday = props => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "DeductsBirthday");
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeductsBirthday);
+
+/***/ }),
+
+/***/ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsLogins.js":
+/*!**************************************************************************************************!*\
+  !*** ./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsLogins.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const DeductsLogins = props => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "DeductsLogins");
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DeductsLogins);
 
 /***/ }),
 
@@ -2571,14 +2615,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
 /* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _ActionHook_PointsDailyVisit__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./ActionHook/PointsDailyVisit */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsDailyVisit.js");
-/* harmony import */ var _ActionHook_PointsViewingContent__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ActionHook/PointsViewingContent */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsViewingContent.js");
-/* harmony import */ var _ActionHook_PointsLogins__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ActionHook/PointsLogins */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsLogins.js");
-/* harmony import */ var _ActionHook_PointsPublishingContent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ActionHook/PointsPublishingContent */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsPublishingContent.js");
-/* harmony import */ var _ActionHook_PointsComments__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ActionHook/PointsComments */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsComments.js");
-/* harmony import */ var _ActionHook_PointsReferrals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ActionHook/PointsReferrals */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsReferrals.js");
-/* harmony import */ var _ActionHook_PointsBirthday__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ActionHook/PointsBirthday */ "./dev_gamify/containers/pages/points/PointType/ActionHook/PointsBirthday.js");
-/* harmony import */ var _Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @Components/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
+/* harmony import */ var _Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @Components/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsDailyVisit__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsDailyVisit */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsDailyVisit.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsViewingContent__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsViewingContent */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsViewingContent.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsPublishingContent__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsPublishingContent */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsPublishingContent.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsComments__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsComments */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsComments.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsReferrals__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsReferrals */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsReferrals.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsBirthday__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsBirthday */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsBirthday.js");
+/* harmony import */ var _ActionHook_pointAwards_PointsLogins__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./ActionHook/pointAwards/PointsLogins */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointAwards/PointsLogins.js");
+/* harmony import */ var _ActionHook_pointDeductions_DeductsBirthday__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./ActionHook/pointDeductions/DeductsBirthday */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsBirthday.js");
+/* harmony import */ var _ActionHook_pointDeductions_DeductsLogins__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./ActionHook/pointDeductions/DeductsLogins */ "./dev_gamify/containers/pages/points/PointType/ActionHook/pointDeductions/DeductsLogins.js");
+
+
 
 
 
@@ -2606,19 +2654,23 @@ const PointType = () => {
   const renderActionHook = id => {
     switch (id) {
       case "daily-visits":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsDailyVisit__WEBPACK_IMPORTED_MODULE_8__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsDailyVisit__WEBPACK_IMPORTED_MODULE_9__["default"], null);
       case "view-content":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsViewingContent__WEBPACK_IMPORTED_MODULE_9__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsViewingContent__WEBPACK_IMPORTED_MODULE_10__["default"], null);
       case "points-login":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsLogins__WEBPACK_IMPORTED_MODULE_10__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsLogins__WEBPACK_IMPORTED_MODULE_15__["default"], null);
       case "point-publishing-content":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsPublishingContent__WEBPACK_IMPORTED_MODULE_11__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsPublishingContent__WEBPACK_IMPORTED_MODULE_11__["default"], null);
       case "point-comments":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsComments__WEBPACK_IMPORTED_MODULE_12__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsComments__WEBPACK_IMPORTED_MODULE_12__["default"], null);
       case "point-referrals":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsReferrals__WEBPACK_IMPORTED_MODULE_13__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsReferrals__WEBPACK_IMPORTED_MODULE_13__["default"], null);
       case "point-birthday":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_PointsBirthday__WEBPACK_IMPORTED_MODULE_14__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointAwards_PointsBirthday__WEBPACK_IMPORTED_MODULE_14__["default"], null);
+      case "deducts-birthday":
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointDeductions_DeductsBirthday__WEBPACK_IMPORTED_MODULE_16__["default"], null);
+      case "deducts-login":
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_ActionHook_pointDeductions_DeductsLogins__WEBPACK_IMPORTED_MODULE_17__["default"], null);
       default:
         return null;
     }
@@ -2689,7 +2741,7 @@ const PointType = () => {
       value: 'skill-tones'
     },
     onChange: opt => console.log(opt)
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Automatic Point Awards",
     isOpen: pointAwards,
     onClick: () => setPointAwards(!pointAwards)
@@ -2766,32 +2818,32 @@ const PointType = () => {
         }
       })
     }
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for daily visits",
     desc: "Award points for visiting your website on a daily basis.",
     isOpen: selectedAwardHook.includes("daily-visits"),
     onClick: () => handleAwardHookSelect("daily-visits")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for viewing content",
     desc: "Award points for viewing content.",
     isOpen: selectedAwardHook.includes("view-content"),
     onClick: () => handleAwardHookSelect("view-content")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for publishing content",
     desc: "Award points for publishing posts.",
     isOpen: selectedAwardHook.includes("point-publishing-content"),
     onClick: () => handleAwardHookSelect("point-publishing-content")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for Logins",
     desc: "Award points for logging in.",
     isOpen: selectedAwardHook.includes("points-login"),
     onClick: () => handleAwardHookSelect("points-login")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for referrals",
     desc: "Award points for referrals.",
     isOpen: selectedAwardHook.includes("point-referrals"),
     onClick: () => handleAwardHookSelect("point-referrals")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Points for birthday",
     desc: "Award points on user's birthday.",
     isOpen: selectedAwardHook.includes("point-birthday"),
@@ -2812,7 +2864,7 @@ const PointType = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Action Hook`, 'gamify')
   }), selectedAwardHook.map(hookId => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     key: hookId
-  }, renderActionHook(hookId)))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }, renderActionHook(hookId)))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
     label: "Automatic Point Deductions",
     isOpen: pointDeductions,
     onClick: () => setPointDeductions(!pointDeductions)
@@ -2832,24 +2884,106 @@ const PointType = () => {
     fontWeight: "500",
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Available Hooks`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    label: "Points for daily visits",
-    desc: "Deduct points",
-    isOpen: selectedDeductHook === "daily-visits",
-    onClick: () => handleDeductHookSelect("daily-visits")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    label: "Points for viewing content",
-    desc: "Deduct points",
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    as: "label",
+    direction: "column",
+    gap: 2
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    p: "24px",
+    borderRadius: "4px",
+    border: "1px solid var(--gamify-border-color)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    fontWeight: "500",
+    fontSize: "0.875rem",
+    margin: "0 0 8px 0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    isMulti: true,
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Select hook type", "gamify"),
+    classNamePrefix: "gamify-select",
+    options: [{
+      label: "Gamify",
+      value: "gamify"
+    }, {
+      label: "WordPress",
+      value: "wordpress"
+    }]
+    // value={''}
+    ,
+    onChange: opt => console.log(opt),
+    styles: {
+      control: base => ({
+        ...base,
+        minHeight: "48px",
+        borderRadius: "6px",
+        borderColor: "#d0d5dd",
+        boxShadow: "none",
+        "&:hover": {
+          borderColor: "#d0d5dd"
+        }
+      }),
+      multiValue: base => ({
+        ...base,
+        background: "#F8FAFC",
+        padding: "2px 6px",
+        borderRadius: "6px"
+      }),
+      multiValueLabel: base => ({
+        ...base,
+        color: "#1E293B",
+        fontSize: "14px"
+      }),
+      multiValueRemove: base => ({
+        ...base,
+        color: "#64748B",
+        ":hover": {
+          backgroundColor: "transparent",
+          color: "#334155"
+        }
+      })
+    }
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for daily visits",
+    desc: "The user loses points for visiting your website on a daily basis.",
+    isOpen: selectedDeductHook === "deducts-login",
+    onClick: () => handleDeductHookSelect("deducts-login")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for viewing content",
+    desc: "The user loses points for viewing content.",
     isOpen: selectedDeductHook === "view-content",
     onClick: () => handleDeductHookSelect("view-content")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    label: "Points for publishing content",
-    desc: "Deduct points",
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for Logins",
+    desc: "The user loses points for logging in.",
     isOpen: selectedDeductHook === "point-publishing-content",
     onClick: () => handleDeductHookSelect("point-publishing-content")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
-    label: "Points for comments",
-    desc: "Deduct points",
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for comments",
+    desc: "The user loses points for making comments.",
+    isOpen: selectedDeductHook === "point-comments",
+    onClick: () => handleDeductHookSelect("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for Logins",
+    desc: "The user loses points for logging in.",
+    isOpen: selectedDeductHook === "point-comments",
+    onClick: () => handleDeductHookSelect("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for publishing content",
+    desc: "The user loses points for publishing content.",
+    isOpen: selectedDeductHook === "point-comments",
+    onClick: () => handleDeductHookSelect("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for comments",
+    desc: "The user loses points for making comments.",
+    isOpen: selectedDeductHook === "point-comments",
+    onClick: () => handleDeductHookSelect("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for referrals",
+    desc: "The user loses points for signup or visitor referrals..",
+    isOpen: selectedDeductHook === "point-comments",
+    onClick: () => handleDeductHookSelect("point-comments")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Deducts for birthday",
+    desc: "The user loses points on their birthday.",
     isOpen: selectedDeductHook === "point-comments",
     onClick: () => handleDeductHookSelect("point-comments")
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
