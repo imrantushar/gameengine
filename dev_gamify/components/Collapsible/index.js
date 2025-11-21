@@ -1,11 +1,12 @@
 import React from "react";
-import { Box, Flex, Text, Icon } from "@chakra-ui/react";
+import { Box, Flex , Icon, Text,  } from "@chakra-ui/react";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
 import { __ } from '@wordpress/i18n';
 
-const CustomCollapsible = ({ label, desc, isOpen, onClick }) => {
+const CustomCollapsible = ({ label, desc, isOpen, onClick, children }) => {
     return (
-        <Box>
+        <Box width="100%">
+            {/* Header */}
             <Flex
                 padding="10px"
                 border="1px solid var(--gamify-border-color)"
@@ -15,20 +16,28 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick }) => {
                 cursor="pointer"
                 onClick={onClick}
             >
-                <Text margin='0' fontSize="1rem" fontWeight="500">
+                <Text fontSize="1rem" fontWeight="500" margin={0}>
                     {__(label, 'gamify')}
                 </Text>
-
-                <Icon>
-                    {isOpen ? <LuChevronRight /> : <LuChevronDown />}
-                </Icon>
+                <Icon as={isOpen ?  LuChevronRight : LuChevronDown} boxSize={5} />
             </Flex>
-
+            {isOpen && children && (
+                <Flex
+                    flexDirection="column"
+                    gap="12px"
+                    padding="16px"
+                    border="1px solid var(--gamify-border-color)"
+                    borderRadius="4px"
+                >
+                    {children}
+                </Flex>
+            )}
             {desc && (
-                <Text margin="0" fontSize="0.875rem" marginTop="6px">
-                     {__(desc, 'gamify')}
+                <Text fontSize="0.875rem" marginTop="6px">
+                    {__(desc, 'gamify')}
                 </Text>
             )}
+
         </Box>
     );
 };
