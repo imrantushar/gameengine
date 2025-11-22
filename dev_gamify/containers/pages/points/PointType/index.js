@@ -18,30 +18,36 @@ import PointsBirthday from './ActionHook/pointAwards/PointsBirthday';
 import PointsLogins from './ActionHook/pointAwards/PointsLogins';
 import DeductsBirthday from './ActionHook/pointDeductions/DeductsBirthday';
 import DeductsLogins from './ActionHook/pointDeductions/DeductsLogins';
+import DeductsComments from './ActionHook/pointDeductions/DeductsComments';
+import DeductsDailyVisits from './ActionHook/pointDeductions/DeductsDailyVisits';
+import DeductsPublishingContent from './ActionHook/pointDeductions/DeductsPublishingContent';
+import DeductsReferrals from './ActionHook/pointDeductions/DeductsReferrals';
+import DeductsViewingContent from './ActionHook/pointDeductions/DeductsViewingContent';
 
 const PointType = () => {
-
-    // MULTI-SELECT FOR AWARD HOOKS
     const [selectedAwardHook, setSelectedAwardHook] = useState(['points-login']);
 
-    // SINGLE SELECT FOR DEDUCTION HOOK
-    const [selectedDeductHook, setSelectedDeductHook] = useState(null);
+    const [selectedDeductHook, setSelectedDeductHook] = useState(['deducts-login']);
 
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
 
-    // MAP ID → COMPONENT
     const renderActionHook = (id) => {
         switch (id) {
             case "daily-visits": return <PointsDailyVisit />;
             case "view-content": return <PointsViewingContent />;
-            case "points-login": return <PointsLogins/>;
+            case "points-login": return <PointsLogins />;
             case "point-publishing-content": return <PointsPublishingContent />;
             case "point-comments": return <PointsComments />;
             case "point-referrals": return <PointsReferrals />;
             case "point-birthday": return <PointsBirthday />;
             case "deducts-birthday": return <DeductsBirthday />;
-            case "deducts-login": return <DeductsLogins/>;
+            case "deducts-login": return <DeductsLogins />;
+            case "deducts-comments": return <DeductsComments />;
+            case "deducts-daily-visit": return <DeductsDailyVisits />;
+            case "deducts-published-content": return <DeductsPublishingContent />;
+            case "deducts-view-content": return <DeductsViewingContent  />;
+            case "deducts-referrals": return <DeductsReferrals />;
             default: return null;
         }
     };
@@ -56,11 +62,20 @@ const PointType = () => {
             setSelectedAwardHook([...selectedAwardHook, hook]);
         }
     };
-
-    // SINGLE SELECT (DEDUCT)
     const handleDeductHookSelect = (hook) => {
-        setSelectedDeductHook(selectedDeductHook === hook ? null : hook);
+        if (selectedDeductHook.includes(hook)) {
+            // remove
+            setSelectedDeductHook(selectedDeductHook.filter(h => h !== hook));
+        } else {
+            // add
+            setSelectedDeductHook([...selectedDeductHook, hook]);
+        }
     };
+
+    // // SINGLE SELECT (DEDUCT)
+    // const handleDeductHookSelect = (hook) => {
+    //     setSelectedDeductHook(selectedDeductHook === hook ? null : hook);
+    // };
     console.log(selectedAwardHook);
     return (
         <Box width="1174px" margin="0 auto">
@@ -336,7 +351,7 @@ const PointType = () => {
                                         />
                                     </Box>
                                 </Flex>
-                                <CustomCollapsible
+                                {/* <CustomCollapsible
                                     label="Deducts for daily visits"
                                     desc="The user loses points for visiting your website on a daily basis."
                                     isOpen={selectedDeductHook === "deducts-login"}
@@ -376,12 +391,6 @@ const PointType = () => {
                                     onClick={() => handleDeductHookSelect("point-comments")}
                                 />
                                 <CustomCollapsible
-                                    label="Deducts for comments"
-                                    desc="The user loses points for making comments."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                />
-                                <CustomCollapsible
                                     label="Deducts for referrals"
                                     desc="The user loses points for signup or visitor referrals.."
                                     isOpen={selectedDeductHook === "point-comments"}
@@ -392,6 +401,54 @@ const PointType = () => {
                                     desc="The user loses points on their birthday."
                                     isOpen={selectedDeductHook === "point-comments"}
                                     onClick={() => handleDeductHookSelect("point-comments")}
+                                /> */}
+                                <CustomCollapsible
+                                    label="Deducts for daily visits"
+                                    desc="The user loses points for visiting your website on a daily basis."
+                                    isOpen={selectedDeductHook === "deducts-daily-visit"}
+                                    onClick={() => handleDeductHookSelect("deducts-daily-visit")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for viewing content"
+                                    desc="The user loses points for viewing content."
+                                    isOpen={selectedDeductHook === "deducts-view-content"}
+                                    onClick={() => handleDeductHookSelect("deducts-view-content")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for logins"
+                                    desc="The user loses points for logging in."
+                                    isOpen={selectedDeductHook === "deducts-login"}
+                                    onClick={() => handleDeductHookSelect("deducts-login")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for comments"
+                                    desc="The user loses points for making comments."
+                                    isOpen={selectedDeductHook === "deducts-comments"}
+                                    onClick={() => handleDeductHookSelect("deducts-comments")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for publishing content"
+                                    desc="The user loses points for publishing posts."
+                                    isOpen={selectedDeductHook === "deducts-published-content"}
+                                    onClick={() => handleDeductHookSelect("deducts-published-content")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for referrals"
+                                    desc="The user loses points for visitor or signup referrals."
+                                    isOpen={selectedDeductHook === "deducts-referrals"}
+                                    onClick={() => handleDeductHookSelect("deducts-referrals")}
+                                />
+
+                                <CustomCollapsible
+                                    label="Deducts for birthday"
+                                    desc="The user loses points on their birthday."
+                                    isOpen={selectedDeductHook === "deducts-birthday"}
+                                    onClick={() => handleDeductHookSelect("deducts-birthday")}
                                 />
 
                             </Flex>
@@ -408,7 +465,11 @@ const PointType = () => {
                                     label={__(`Action Hook`, 'gamify')}
                                 />
 
-                                {renderActionHook(selectedDeductHook)}
+                                {selectedDeductHook.map((hookId) => (
+                                    <Box key={hookId}>
+                                        {renderActionHook(hookId)}
+                                    </Box>
+                                ))}
 
                             </Flex>
                         </Box>

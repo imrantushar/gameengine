@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
 
-const  DeductsDailyVisits =(props)=> {
+const DeductsDailyVisits = (props) => {
+    const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            DeductsDailyVisits
-        </div>
+        <CustomCollapsible
+            label="Deducts for daily visits"
+            desc="The user loses points for visiting your website on a daily basis."
+            isOpen={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+        />
     );
 }
 

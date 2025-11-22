@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
 
-const DeductsBirthday=(props) =>{
+const DeductsBirthday = (props) => {
+    const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            DeductsBirthday
-        </div>
+        <CustomCollapsible
+            label="Deducts for birthday"
+            desc="The user loses points on their birthday."
+            isOpen={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+        />
     );
 }
 

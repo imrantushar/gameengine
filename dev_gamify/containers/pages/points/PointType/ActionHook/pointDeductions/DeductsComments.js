@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
 
-const DeductsComments=(props) =>{
+const DeductsComments = (props) => {
+    const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-           DeductsComments 
-        </div>
+        <CustomCollapsible
+            label="Deducts for comments"
+            desc="The user loses points for making comments."
+            isOpen={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+        />
     );
 }
 
