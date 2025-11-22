@@ -278,7 +278,7 @@
 .gamify-admin-content {
   margin-right: -20px;
   background: var(--gamify-body-background);
-  height: "auto";
+  min-height: 100vh;
 }
 
 .gamify-content-wrap {
