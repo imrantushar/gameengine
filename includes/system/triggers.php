@@ -9,16 +9,16 @@ if (! defined('ABSPATH')) {
 
 /**
  * Main Triggers service class.
- * Initializes the trigger system.
+ * Initializes the trigger system by registering triggers and attaching handlers.
  */
 class Triggers
 {
     public function __construct()
     {
-        // Register all available triggers
-        TriggerRegistry::register();
+        // 1. Initialize the registry (load default & external triggers)
+        TriggerRegistry::init();
 
-        // Attach the hooks to WordPress
+        // 2. Attach the hook listeners
         $handler = new TriggerHandler();
         $handler->attach_hooks();
     }
