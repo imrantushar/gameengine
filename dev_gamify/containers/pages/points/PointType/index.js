@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
     Box,
     Flex,
+    Icon,
     Input,
     Text,
 } from '@chakra-ui/react';
@@ -24,15 +25,86 @@ import DeductsPublishingContent from './ActionHook/pointDeductions/DeductsPublis
 import DeductsReferrals from './ActionHook/pointDeductions/DeductsReferrals';
 import DeductsViewingContent from './ActionHook/pointDeductions/DeductsViewingContent';
 import TopBar from '@Components/TopBar';
+import { FaArrowRotateRight } from 'react-icons/fa6';
+import {
+    DndContext,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    useDraggable,
+    useDroppable
+} from '@dnd-kit/core';
+
+const awardHooks = [
+    { id: 'daily-visits', label: 'Points for daily visits' },
+    { id: 'view-content', label: 'Points for viewing content' },
+    { id: 'point-publishing-content', label: 'Points for publishing content' },
+    { id: 'points-login', label: 'Points for Logins' },
+    { id: 'point-referrals', label: 'Points for referrals' },
+    { id: 'point-birthday', label: 'Points for birthday' },
+];
+
+const deductHooks = [
+    { id: 'deducts-daily-visit', label: 'Deducts for daily visits' },
+    { id: 'deducts-view-content', label: 'Deducts for viewing content' },
+    { id: 'deducts-login', label: 'Deducts for logins' },
+    { id: 'deducts-comments', label: 'Deducts for comments' },
+    { id: 'deducts-published-content', label: 'Deducts for publishing content' },
+    { id: 'deducts-referrals', label: 'Deducts for referrals' },
+    { id: 'deducts-birthday', label: 'Deducts for birthday' },
+];
+
+const DraggableItem = ({ id, children }) => {
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
+    const style = {
+        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+        opacity: isDragging ? 0.85 : 1,
+        cursor: "grab",
+    };
+    return (
+        <Box
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
+            style={style}
+            padding="12px"
+            borderRadius="6px"
+            border="1px solid var(--gamify-border-color)"
+            background="white"
+            marginBottom="8px"
+        >
+            {children}
+        </Box>
+    );
+};
+
+const DroppableArea = ({ id, children, title }) => {
+    const { setNodeRef, isOver } = useDroppable({ id });
+    return (
+        <Box
+            ref={setNodeRef}
+            minHeight="120px"
+            borderRadius="6px"
+            padding="12px"
+            border="1px dashed var(--gamify-border-color)"
+            background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
+        >
+            <GFLabel type="title" fontWeight="500" fontSize="1rem" label={title} />
+            <Box marginTop="12px">{children}</Box>
+        </Box>
+    );
+};
 
 const PointType = () => {
     const [selectedAwardHook, setSelectedAwardHook] = useState(['points-login']);
-
     const [selectedDeductHook, setSelectedDeductHook] = useState(['deducts-login']);
-
+    const [availableAwards, setAvailableAwards] = useState(awardHooks.filter(h => !selectedAwardHook.includes(h.id)));
+    const [availableDeductions, setAvailableDeductions] = useState(deductHooks.filter(h => !selectedDeductHook.includes(h.id)));
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
-
+    const sensors = useSensors(
+        useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
+    );
     const renderActionHook = (id) => {
         switch (id) {
             case "daily-visits": return <PointsDailyVisit />;
@@ -52,55 +124,58 @@ const PointType = () => {
             default: return null;
         }
     };
-
-    // MULTI SELECT (AWARDS)
-    const handleAwardHookSelect = (hook) => {
-        if (selectedAwardHook.includes(hook)) {
-            // remove
-            setSelectedAwardHook(selectedAwardHook.filter(h => h !== hook));
-        } else {
-            // add
-            setSelectedAwardHook([...selectedAwardHook, hook]);
+    const handleDragEnd = ({ active, over }) => {
+        if (!over) return;
+        const id = active.id;
+        if (availableAwards.some(i => i.id === id) && over.id === 'awards-sidebar') {
+            const item = availableAwards.find(i => i.id === id);
+            setAvailableAwards(prev => prev.filter(i => i.id !== id));
+            setSelectedAwardHook(prev => [...prev, item.id]);
+            return;
+        }
+        if (selectedAwardHook.includes(id) && over.id === 'awards-available') {
+            setSelectedAwardHook(prev => prev.filter(x => x !== id));
+            const item = awardHooks.find(i => i.id === id);
+            setAvailableAwards(prev => [...prev, item]);
+            return;
+        }
+        if (availableDeductions.some(i => i.id === id) && over.id === 'deductions-sidebar') {
+            const item = availableDeductions.find(i => i.id === id);
+            setAvailableDeductions(prev => prev.filter(i => i.id !== id));
+            setSelectedDeductHook(prev => [...prev, item.id]);
+            return;
+        }
+        if (selectedDeductHook.includes(id) && over.id === 'deduct-available') {
+            setSelectedDeductHook(prev => prev.filter(x => x !== id));
+            const item = deductHooks.find(i => i.id === id);
+            setAvailableDeductions(prev => [...prev, item]);
+            return;
         }
     };
-    const handleDeductHookSelect = (hook) => {
-        if (selectedDeductHook.includes(hook)) {
-            // remove
-            setSelectedDeductHook(selectedDeductHook.filter(h => h !== hook));
-        } else {
-            // add
-            setSelectedDeductHook([...selectedDeductHook, hook]);
-        }
+    const removeAward = (id) => {
+        setSelectedAwardHook(prev => prev.filter(x => x !== id));
+        const item = awardHooks.find(i => i.id === id);
+        setAvailableAwards(prev => [...prev, item]);
+    };
+    const removeDeduct = (id) => {
+        setSelectedDeductHook(prev => prev.filter(x => x !== id));
+        const item = deductHooks.find(i => i.id === id);
+        setAvailableDeductions(prev => [...prev, item]);
     };
 
-    // // SINGLE SELECT (DEDUCT)
-    // const handleDeductHookSelect = (hook) => {
-    //     setSelectedDeductHook(selectedDeductHook === hook ? null : hook);
-    // };
-    console.log(selectedAwardHook);
     return (
         <>
             <TopBar
                 leftContent={() => (
                     <>
-                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
-                        <span className="gamify-icon gamify-icon--angle-right" />
-                        <GFLabel
-                            as="h2"
-                            color="#4F46E5"
-                            type="subtitle"
-                            fontWeight="medium"
-                            label={__(`Dashboard`, 'gamify')}
-
-                        />
+                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify"></span>
+                        <span className="gamify-icon gamify-icon--angle-right"></span>
+                        <GFLabel as="h2" color="#4F46E5" type="subtitle" fontWeight="medium" label={__("Dashboard", "gamify")} />
                     </>
                 )}
-
             />
+
             <Box width="1174px" margin="0 auto">
-
-
-
                 <Flex
                     width="100%"
                     direction="column"
@@ -130,7 +205,7 @@ const PointType = () => {
                         </Text>
                         <Input
                             className="gamify-input"
-                            type="number"
+                            type="text"
                             placeholder={__('Academy Lms ', 'gamify')}
 
                         />
@@ -143,175 +218,143 @@ const PointType = () => {
                             margin={0}
                         >
                             {__(
-                                'Point Name',
+                                'Plural Name',
                                 'gamify'
                             )}
                         </Text>
-                        <Select
-                            placeholder={__('Select question type', 'gamify')}
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={[
-                                { label: 'Skill Tones', value: 'skill-tones' },
-                            ]}
-                            value={{
-                                label: 'Skill Tones', value: 'skill-tones'
-                            }}
-                            onChange={(opt) =>
-                                console.log(opt)
-                            }
+                        <Input
+                            className="gamify-input"
+                            type="text"
+                            placeholder={__('Plural Name ', 'gamify')}
+
                         />
                     </Flex>
-                    <CustomCollapsible
-                        label="Automatic Point Awards"
-                        isOpen={pointAwards}
-                        onClick={() => setPointAwards(!pointAwards)}
-                    />
+                </Flex>
+                <Flex width="100%" direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
 
+                    {/* POINT AWARDS */}
+                    <CustomCollapsible label="Automatic Point Awards" isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
                     {pointAwards && (
-                        <Flex gap="24px">
-                            <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                                <Flex flexDirection="column" gap="24px" width='100%'>
+                        <>
+                            <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                                <Flex gap="24px">
+                                    {/* AVAILABLE */}
+                                    <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+                                        <GFLabel
+                                            type="title"
+                                            fontWeight="500"
+                                            fontSize="1.25rem"
+                                            label={__(`Available Hooks`, 'gamify')}
+                                        />
+                                        <Flex as="label" direction="column" gap={2}>
+                                            <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                                <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                                    {__("Filter Hooks Type", "gamify")}
+                                                </Text>
 
-                                    <GFLabel
-                                        type="title"
-                                        fontWeight="500"
-                                        fontSize="1.25rem"
-                                        label={__(`Available Hooks`, 'gamify')}
-                                    />
-                                    <Flex as="label" direction="column" gap={2}>
-                                        <Box p='24px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                            <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
-                                                {__("Filter Hooks Type", "gamify")}
-                                            </Text>
-
-                                            <Select
-                                                isMulti
-                                                placeholder={__("Select hook type", "gamify")}
-                                                classNamePrefix="gamify-select"
-                                                options={[
-                                                    { label: "Gamify", value: "gamify" },
-                                                    { label: "WordPress", value: "wordpress" },
-                                                ]}
-                                                // value={''}
-                                                onChange={(opt) => console.log(opt)}
-                                                styles={{
-                                                    control: (base) => ({
-                                                        ...base,
-                                                        minHeight: "48px",
-                                                        borderRadius: "6px",
-                                                        borderColor: "#d0d5dd",
-                                                        boxShadow: "none",
-                                                        "&:hover": {
+                                                <Select
+                                                    isMulti
+                                                    placeholder={__("Select hook type", "gamify")}
+                                                    classNamePrefix="gamify-select"
+                                                    options={[
+                                                        { label: "Gamify", value: "gamify" },
+                                                        { label: "WordPress", value: "wordpress" },
+                                                    ]}
+                                                    // value={''}
+                                                    onChange={(opt) => console.log(opt)}
+                                                    styles={{
+                                                        control: (base) => ({
+                                                            ...base,
+                                                            minHeight: "48px",
+                                                            borderRadius: "6px",
                                                             borderColor: "#d0d5dd",
-                                                        },
-                                                    }),
+                                                            boxShadow: "none",
+                                                            "&:hover": {
+                                                                borderColor: "#d0d5dd",
+                                                            },
+                                                        }),
 
-                                                    multiValue: (base) => ({
-                                                        ...base,
-                                                        background: "#F8FAFC",
-                                                        padding: "2px 6px",
-                                                        borderRadius: "6px",
-                                                    }),
+                                                        multiValue: (base) => ({
+                                                            ...base,
+                                                            background: "#F8FAFC",
+                                                            padding: "2px 6px",
+                                                            borderRadius: "6px",
+                                                        }),
 
-                                                    multiValueLabel: (base) => ({
-                                                        ...base,
-                                                        color: "#1E293B",
-                                                        fontSize: "14px",
-                                                    }),
+                                                        multiValueLabel: (base) => ({
+                                                            ...base,
+                                                            color: "#1E293B",
+                                                            fontSize: "14px",
+                                                        }),
 
-                                                    multiValueRemove: (base) => ({
-                                                        ...base,
-                                                        color: "#64748B",
-                                                        ":hover": {
-                                                            backgroundColor: "transparent",
-                                                            color: "#334155",
-                                                        },
-                                                    }),
-                                                }}
-                                            />
-                                        </Box>
+                                                        multiValueRemove: (base) => ({
+                                                            ...base,
+                                                            color: "#64748B",
+                                                            ":hover": {
+                                                                backgroundColor: "transparent",
+                                                                color: "#334155",
+                                                            },
+                                                        }),
+                                                    }}
+                                                />
+                                            </Box>
+                                        </Flex>
+                                        <DroppableArea id="awards-available">
+                                            {availableAwards.map(item => (
+                                                <DraggableItem key={item.id} id={item.id}>
+                                                    <Flex justify="space-between" align="center">
+                                                        <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                        <Box
+                                                            bg="green.500"
+                                                            borderRadius="full"
+                                                            width="24px"
+                                                            height="24px"
+                                                            display="flex"
+                                                            alignItems="center"
+                                                            justifyContent="center"
+                                                            color="white"
+
+                                                        >
+                                                            <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                        </Box>
+                                                    </Flex>
+                                                </DraggableItem>
+                                            ))}
+                                        </DroppableArea>
                                     </Flex>
-                                    <CustomCollapsible
-                                        label="Points for daily visits"
-                                        desc="Award points for visiting your website on a daily basis."
-                                        isOpen={selectedAwardHook.includes("daily-visits")}
-                                        onClick={() => handleAwardHookSelect("daily-visits")}
-                                    />
 
-                                    <CustomCollapsible
-                                        label="Points for viewing content"
-                                        desc="Award points for viewing content."
-                                        isOpen={selectedAwardHook.includes("view-content")}
-                                        onClick={() => handleAwardHookSelect("view-content")}
-                                    />
+                                    {/* SELECTED */}
+                                    <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
+                                        <GFLabel
+                                            type="title"
+                                            fontWeight="500"
+                                            fontSize="1.25rem"
+                                            label={__(`Action Hook`, 'gamify')}
+                                        />
+                                        <DroppableArea id="awards-sidebar">
+                                            <Flex direction="column" gap="12px" marginTop="8px">
 
-                                    <CustomCollapsible
-                                        label="Points for publishing content"
-                                        desc="Award points for publishing posts."
-                                        isOpen={selectedAwardHook.includes("point-publishing-content")}
-                                        onClick={() => handleAwardHookSelect("point-publishing-content")}
-                                    />
+                                                {selectedAwardHook.map(hookId => (
+                                                    <DraggableItem key={hookId} id={hookId}>
+                                                        {renderActionHook(hookId)}
 
-                                    <CustomCollapsible
-                                        label="Points for Logins"
-                                        desc="Award points for logging in."
-                                        isOpen={selectedAwardHook.includes("points-login")}
-                                        onClick={() => handleAwardHookSelect("points-login")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Points for referrals"
-                                        desc="Award points for referrals."
-                                        isOpen={selectedAwardHook.includes("point-referrals")}
-                                        onClick={() => handleAwardHookSelect("point-referrals")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Points for birthday"
-                                        desc="Award points on user's birthday."
-                                        isOpen={selectedAwardHook.includes("point-birthday")}
-                                        onClick={() => handleAwardHookSelect("point-birthday")}
-                                    />
-
+                                                    </DraggableItem>
+                                                ))}
+                                            </Flex>
+                                        </DroppableArea>
+                                    </Box>
                                 </Flex>
-                            </Flex>
-
-                            {/* Right Side: SHOW MULTIPLE AWARD HOOKS */}
-                            <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                <Flex flexDirection="column" gap="24px" width='100%'>
-                                    <GFLabel
-                                        type="title"
-                                        fontWeight="500"
-                                        fontSize="1.25rem"
-                                        label={__(`Action Hook`, 'gamify')}
-                                    />
-
-                                    {selectedAwardHook.map((hookId) => (
-                                        <Box key={hookId}>
-                                            {renderActionHook(hookId)}
-                                        </Box>
-                                    ))}
-
-                                </Flex>
-                            </Box>
-
-                        </Flex>
+                            </DndContext>
+                        </>
                     )}
 
-                    <CustomCollapsible
-                        label="Automatic Point Deductions"
-                        isOpen={pointDeductions}
-                        onClick={() => setPointDeductions(!pointDeductions)}
-                    />
-
+                    {/* POINT DEDUCTIONS */}
+                    <CustomCollapsible label="Automatic Point Deductions" isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
                     {pointDeductions && (
-                        <Flex gap="24px">
-
-                            {/* Deduction List */}
-                            <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                                <Flex flexDirection="column" gap="24px" width='100%'>
-
+                        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                            <Flex gap="24px">
+                                {/* AVAILABLE */}
+                                <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <GFLabel
                                         type="title"
                                         fontWeight="500"
@@ -319,7 +362,7 @@ const PointType = () => {
                                         label={__(`Available Hooks`, 'gamify')}
                                     />
                                     <Flex as="label" direction="column" gap={2}>
-                                        <Box p='24px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
                                             <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
                                                 {__("Filter Hooks Type", "gamify")}
                                             </Text>
@@ -371,137 +414,55 @@ const PointType = () => {
                                             />
                                         </Box>
                                     </Flex>
-                                    {/* <CustomCollapsible
-                                    label="Deducts for daily visits"
-                                    desc="The user loses points for visiting your website on a daily basis."
-                                    isOpen={selectedDeductHook === "deducts-login"}
-                                    onClick={() => handleDeductHookSelect("deducts-login")}
-                                />
-
-                                <CustomCollapsible
-                                    label="Deducts for viewing content"
-                                    desc="The user loses points for viewing content."
-                                    isOpen={selectedDeductHook === "view-content"}
-                                    onClick={() => handleDeductHookSelect("view-content")}
-                                />
-
-                                <CustomCollapsible
-                                    label="Deducts for Logins"
-                                    desc="The user loses points for logging in."
-                                    isOpen={selectedDeductHook === "point-publishing-content"}
-                                    onClick={() => handleDeductHookSelect("point-publishing-content")}
-                                />
-
-                                <CustomCollapsible
-                                    label="Deducts for comments"
-                                    desc="The user loses points for making comments."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                />
-                                <CustomCollapsible
-                                    label="Deducts for Logins"
-                                    desc="The user loses points for logging in."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                />
-                                <CustomCollapsible
-                                    label="Deducts for publishing content"
-                                    desc="The user loses points for publishing content."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                />
-                                <CustomCollapsible
-                                    label="Deducts for referrals"
-                                    desc="The user loses points for signup or visitor referrals.."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                />
-                                <CustomCollapsible
-                                    label="Deducts for birthday"
-                                    desc="The user loses points on their birthday."
-                                    isOpen={selectedDeductHook === "point-comments"}
-                                    onClick={() => handleDeductHookSelect("point-comments")}
-                                /> */}
-                                    <CustomCollapsible
-                                        label="Deducts for daily visits"
-                                        desc="The user loses points for visiting your website on a daily basis."
-                                        isOpen={selectedDeductHook === "deducts-daily-visit"}
-                                        onClick={() => handleDeductHookSelect("deducts-daily-visit")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for viewing content"
-                                        desc="The user loses points for viewing content."
-                                        isOpen={selectedDeductHook === "deducts-view-content"}
-                                        onClick={() => handleDeductHookSelect("deducts-view-content")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for logins"
-                                        desc="The user loses points for logging in."
-                                        isOpen={selectedDeductHook === "deducts-login"}
-                                        onClick={() => handleDeductHookSelect("deducts-login")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for comments"
-                                        desc="The user loses points for making comments."
-                                        isOpen={selectedDeductHook === "deducts-comments"}
-                                        onClick={() => handleDeductHookSelect("deducts-comments")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for publishing content"
-                                        desc="The user loses points for publishing posts."
-                                        isOpen={selectedDeductHook === "deducts-published-content"}
-                                        onClick={() => handleDeductHookSelect("deducts-published-content")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for referrals"
-                                        desc="The user loses points for visitor or signup referrals."
-                                        isOpen={selectedDeductHook === "deducts-referrals"}
-                                        onClick={() => handleDeductHookSelect("deducts-referrals")}
-                                    />
-
-                                    <CustomCollapsible
-                                        label="Deducts for birthday"
-                                        desc="The user loses points on their birthday."
-                                        isOpen={selectedDeductHook === "deducts-birthday"}
-                                        onClick={() => handleDeductHookSelect("deducts-birthday")}
-                                    />
-
+                                    <DroppableArea id="deduct-available">
+                                        {availableDeductions.map(item => (
+                                            <DraggableItem key={item.id} id={item.id}>
+                                                <Flex justify="space-between" align="center">
+                                                    <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                    <Box
+                                                        bg="green.500"
+                                                        borderRadius="full"
+                                                        width="24px"
+                                                        height="24px"
+                                                        display="flex"
+                                                        alignItems="center"
+                                                        justifyContent="center"
+                                                        color="white"
+                                                    >
+                                                        <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                    </Box>
+                                                </Flex>
+                                            </DraggableItem>
+                                        ))}
+                                    </DroppableArea>
                                 </Flex>
+
+                                {/* SELECTED */}
+                                <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
+                                      <GFLabel
+                                                type="title"
+                                                fontWeight="500"
+                                                fontSize="1.25rem"
+                                                label={__(`Action Hook`, 'gamify')}
+                                            />
+                                    <DroppableArea id="deductions-sidebar" >
+                                        <Flex direction="column" gap="12px" marginTop="8px">
+                                          
+                                            {selectedDeductHook.map(hookId => (
+                                                <DraggableItem key={hookId} id={hookId}>
+                                                    {renderActionHook(hookId)}
+                                                </DraggableItem>
+                                            ))}
+                                        </Flex>
+                                    </DroppableArea>
+                                </Box>
                             </Flex>
-
-                            {/* Right Deduction Hook Content */}
-                            <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                <Flex flexDirection="column" gap="24px">
-
-                                    <GFLabel
-                                        type="title"
-                                        fontWeight="500"
-                                        fontSize="1.25rem"
-                                        label={__(`Action Hook`, 'gamify')}
-                                    />
-
-                                    {selectedDeductHook.map((hookId) => (
-                                        <Box key={hookId}>
-                                            {renderActionHook(hookId)}
-                                        </Box>
-                                    ))}
-
-                                </Flex>
-                            </Box>
-
-                        </Flex>
+                        </DndContext>
                     )}
 
                 </Flex>
             </Box>
         </>
-
-
     );
 };
 
