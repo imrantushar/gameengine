@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import {
     Box,
+    Button,
     Flex,
+    HStack,
     Icon,
     Input,
     Text,
+    VStack,
 } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import GFLabel from '@Components/Labels/GFLabel';
@@ -34,14 +37,19 @@ import {
     useDraggable,
     useDroppable
 } from '@dnd-kit/core';
+import LabeledInput from '@Components/LabeledInput';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Divider from '@Components/Divider';
+
 
 const awardHooks = [
-    { id: 'daily-visits', label: 'Points for daily visits' },
-    { id: 'view-content', label: 'Points for viewing content' },
-    { id: 'point-publishing-content', label: 'Points for publishing content' },
-    { id: 'points-login', label: 'Points for Logins' },
-    { id: 'point-referrals', label: 'Points for referrals' },
-    { id: 'point-birthday', label: 'Points for birthday' },
+    { id: 'daily-visits', label: 'Points for daily visits', subTitle: 'Award points for visiting your website on a daily basis.' },
+    { id: 'view-content', label: 'Points for viewing content', subTitle: 'Award points for viewing content.' },
+    { id: 'point-publishing-content', label: 'Points for publishing content', subTitle: 'Award points for publishing content.' },
+    { id: 'point-comments', label: 'Points for comments', subTitle: 'Award points for making comments.' },
+    { id: 'points-login', label: 'Points for Logins', subTitle: 'Award points for logging in.' },
+    { id: 'point-referrals', label: 'Points for referrals', subTitle: 'Award points for signup or visitor referrals.' },
+    { id: 'point-birthday', label: 'Points for birthday', subTitle: 'Reward users with points on their birthday' },
 ];
 
 const deductHooks = [
@@ -67,9 +75,9 @@ const DraggableItem = ({ id, children }) => {
             {...listeners}
             {...attributes}
             style={style}
-            padding="12px"
-            borderRadius="6px"
-            border="1px solid var(--gamify-border-color)"
+            // padding="12px"
+            // borderRadius="6px"
+            // border="1px solid var(--gamify-border-color)"
             background="white"
             marginBottom="8px"
         >
@@ -83,10 +91,7 @@ const DroppableArea = ({ id, children, title }) => {
     return (
         <Box
             ref={setNodeRef}
-            minHeight="120px"
-            borderRadius="6px"
-            padding="12px"
-            border="1px dashed var(--gamify-border-color)"
+            minHeight="295px"
             background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
         >
             <GFLabel type="title" fontWeight="500" fontSize="1rem" label={title} />
@@ -192,46 +197,15 @@ const PointType = () => {
                         label={__(`Point Types`, 'gamify')}
                     />
 
-                    <Flex as="label" direction="column" gap={2}>
-                        <Text
-                            fontWeight='500'
-                            fontSize='0.875rem'
-                            margin={0}
-                        >
-                            {__(
-                                'Point Name',
-                                'gamify'
-                            )}
-                        </Text>
-                        <Input
-                            className="gamify-input"
-                            type="text"
-                            placeholder={__('Academy Lms ', 'gamify')}
+                    <LabeledInput
+                        label="Point Name"
+                        placeholder="Academy Lms"
+                    />
 
-                        />
-
-                    </Flex>
-                    <Flex as="label" direction="column" gap={2}>
-                        <Text
-                            fontWeight='500'
-                            fontSize='0.875rem'
-                            margin={0}
-                        >
-                            {__(
-                                'Plural Name',
-                                'gamify'
-                            )}
-                        </Text>
-                        <Input
-                            className="gamify-input"
-                            type="text"
-                            placeholder={__('Plural Name ', 'gamify')}
-
-                        />
-                    </Flex>
-                </Flex>
-                <Flex width="100%" direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
-
+                    <LabeledInput
+                        label="Plural Name"
+                        placeholder="Plural Name"
+                    />
                     {/* POINT AWARDS */}
                     <CustomCollapsible label="Automatic Point Awards" isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
                     {pointAwards && (
@@ -240,12 +214,23 @@ const PointType = () => {
                                 <Flex gap="24px">
                                     {/* AVAILABLE */}
                                     <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                        <GFLabel
-                                            type="title"
-                                            fontWeight="500"
-                                            fontSize="1.25rem"
-                                            label={__(`Available Hooks`, 'gamify')}
-                                        />
+                                        <Flex flexDirection='column' gap='12px'>
+                                            <GFLabel
+                                                type="title"
+                                                fontWeight="500"
+                                                fontSize="1.25rem"
+                                                label={__(`Available Hooks`, 'gamify')}
+                                            />
+                                            <GFLabel
+                                                type="subtitle"
+                                                fontWeight="400"
+                                                fontSize="12px"
+                                                lineHeight='16px'
+                                                color={'var(--gamify-font-color)'}
+
+                                                label={__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, 'gamify')}
+                                            />
+                                        </Flex>
                                         <Flex as="label" direction="column" gap={2}>
                                             <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
                                                 <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
@@ -300,37 +285,60 @@ const PointType = () => {
                                             </Box>
                                         </Flex>
                                         <DroppableArea id="awards-available">
-                                            {availableAwards.map(item => (
+                                            {availableAwards.map(item => (<>
                                                 <DraggableItem key={item.id} id={item.id}>
-                                                    <Flex justify="space-between" align="center">
-                                                        <Text margin='0' fontWeight="600">{item.label}</Text>
-                                                        <Box
-                                                            bg="green.500"
-                                                            borderRadius="full"
-                                                            width="24px"
-                                                            height="24px"
-                                                            display="flex"
-                                                            alignItems="center"
-                                                            justifyContent="center"
-                                                            color="white"
+                                                    <Box
+                                                        padding="12px"
+                                                        borderRadius="6px"
+                                                        border="1px solid var(--gamify-border-color)">
+                                                        <Flex justify="space-between" align="center">
 
-                                                        >
-                                                            <Icon as={FaArrowRotateRight} boxSize={4} />
-                                                        </Box>
-                                                    </Flex>
+                                                            <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                            <Box
+                                                                bg="green.500"
+                                                                borderRadius="full"
+                                                                width="24px"
+                                                                height="24px"
+                                                                display="flex"
+                                                                alignItems="center"
+                                                                justifyContent="center"
+                                                                color="white"
+
+                                                            >
+                                                                <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                            </Box>
+                                                        </Flex>
+                                                    </Box>
                                                 </DraggableItem>
+                                                <Text fontSize="0.875rem" margin='6px 0 24px 0' color='var(--gamify-secondary)'>
+                                                    {__(item.subTitle, 'gamify')}
+                                                </Text>
+                                            </>
+
                                             ))}
                                         </DroppableArea>
                                     </Flex>
 
                                     {/* SELECTED */}
                                     <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                        <GFLabel
-                                            type="title"
-                                            fontWeight="500"
-                                            fontSize="1.25rem"
-                                            label={__(`Action Hook`, 'gamify')}
-                                        />
+                                        <Flex flexDirection='column' gap='12px'>
+                                            <GFLabel
+                                                type="title"
+                                                fontWeight="500"
+                                                fontSize="1.25rem"
+                                                label={__(`Action Hook`, 'gamify')}
+                                            />
+                                            <GFLabel
+                                                type="subtitle"
+                                                fontWeight="400"
+                                                fontSize="12px"
+                                                lineHeight='16px'
+                                                color={'var(--gamify-font-color)'}
+
+                                                label={__(`The following hooks are used for all users.`, 'gamify')}
+                                            />
+                                        </Flex>
+
                                         <DroppableArea id="awards-sidebar">
                                             <Flex direction="column" gap="12px" marginTop="8px">
 
@@ -347,6 +355,7 @@ const PointType = () => {
                             </DndContext>
                         </>
                     )}
+                    <Divider />
 
                     {/* POINT DEDUCTIONS */}
                     <CustomCollapsible label="Automatic Point Deductions" isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
@@ -355,12 +364,25 @@ const PointType = () => {
                             <Flex gap="24px">
                                 {/* AVAILABLE */}
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <GFLabel
+                                    <Box flexDirection="column" gap='12px'>
+                                        <GFLabel
                                         type="title"
                                         fontWeight="500"
                                         fontSize="1.25rem"
                                         label={__(`Available Hooks`, 'gamify')}
                                     />
+                                     <GFLabel
+                                            type="subtitle"
+                                            fontWeight="400"
+                                            fontSize="12px"
+                                            lineHeight='16px'
+                                            color={'var(--gamify-font-color)'}
+                                            
+                                            label={__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, 'gamify')}
+                                        />
+
+                                    </Box>
+                                    
                                     <Flex as="label" direction="column" gap={2}>
                                         <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
                                             <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
@@ -416,39 +438,65 @@ const PointType = () => {
                                     </Flex>
                                     <DroppableArea id="deduct-available">
                                         {availableDeductions.map(item => (
-                                            <DraggableItem key={item.id} id={item.id}>
-                                                <Flex justify="space-between" align="center">
-                                                    <Text margin='0' fontWeight="600">{item.label}</Text>
+                                            <>
+                                                <DraggableItem key={item.id} id={item.id}>
                                                     <Box
-                                                        bg="green.500"
-                                                        borderRadius="full"
-                                                        width="24px"
-                                                        height="24px"
-                                                        display="flex"
-                                                        alignItems="center"
-                                                        justifyContent="center"
-                                                        color="white"
-                                                    >
-                                                        <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                        padding="12px"
+                                                        borderRadius="6px"
+                                                        border="1px solid var(--gamify-border-color)">
+                                                        <Flex justify="space-between" align="center">
+
+                                                            <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                            <Box
+                                                                bg="green.500"
+                                                                borderRadius="full"
+                                                                width="24px"
+                                                                height="24px"
+                                                                display="flex"
+                                                                alignItems="center"
+                                                                justifyContent="center"
+                                                                color="white"
+
+                                                            >
+                                                                <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                            </Box>
+                                                        </Flex>
                                                     </Box>
-                                                </Flex>
-                                            </DraggableItem>
+                                                </DraggableItem>
+                                                <Text fontSize="0.875rem" margin='6px 0 24px 0' color='var(--gamify-secondary)'>
+                                                    {__(item.subTitle, 'gamify')}
+                                                </Text></>
+
                                         ))}
                                     </DroppableArea>
                                 </Flex>
 
                                 {/* SELECTED */}
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                      <GFLabel
-                                                type="title"
-                                                fontWeight="500"
-                                                fontSize="1.25rem"
-                                                label={__(`Action Hook`, 'gamify')}
-                                            />
+                                    <Box flexDirection='column' gap="12px">
+                                        <GFLabel
+                                        type="title"
+                                        fontWeight="500"
+                                        fontSize="1.25rem"
+                                        label={__(`Action Hook`, 'gamify')}
+                                    />
+                                     <GFLabel
+                                            type="subtitle"
+                                            fontWeight="400"
+                                            fontSize="12px"
+                                            lineHeight='16px'
+                                            color={'var(--gamify-font-color)'}
+                                            
+                                            label={__(`The following hooks are used for all users.`, 'gamify')}
+                                        />
+
+                                    </Box>
+                                    
                                     <DroppableArea id="deductions-sidebar" >
                                         <Flex direction="column" gap="12px" marginTop="8px">
-                                          
+
                                             {selectedDeductHook.map(hookId => (
+
                                                 <DraggableItem key={hookId} id={hookId}>
                                                     {renderActionHook(hookId)}
                                                 </DraggableItem>
@@ -459,9 +507,22 @@ const PointType = () => {
                             </Flex>
                         </DndContext>
                     )}
+                    <Flex
+                        padding="24px 0"
+                        justifyContent='flex-end'
+                        borderTop='1px solid var(--gamify-border-color)'>
 
+                        <Button
+                            {...primaryBtn}
+                            width='121px'
+
+                        >
+                            {__('Save Changes', 'gamify')}
+                        </Button>
+                    </Flex>
                 </Flex>
             </Box>
+
         </>
     );
 };

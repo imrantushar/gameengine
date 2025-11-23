@@ -9,6 +9,7 @@ const DeductsPublishingContent = (props) => {
       desc="The user loses points for publishing content."
       isOpen={isOpen}
       onClick={() => setIsOpen(!isOpen)}
+       singleIcon={true}
     />
   );
 }

@@ -9,6 +9,7 @@ const DeductsDailyVisits = (props) => {
             desc="The user loses points for visiting your website on a daily basis."
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
+             singleIcon={true}
         />
     );
 }

@@ -12,6 +12,7 @@ const DeductsLogins = (props) => {
             desc="The user loses points for logging in."
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
+             singleIcon={true}
         >
             <Flex gap='12px' >
                 <Flex as="label" direction="column" gap={2} width="30%">

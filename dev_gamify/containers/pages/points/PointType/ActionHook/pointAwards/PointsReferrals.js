@@ -9,6 +9,7 @@ const PointsReferrals = (props) => {
             desc="The user loses points for signup or visitor referrals.."
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
+             singleIcon={true}
         />
     );
 }

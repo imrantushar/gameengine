@@ -9,6 +9,7 @@ const PointsViewingContent = () => {
             desc="The user loses points for viewing content."
             isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
         />
     );
 };
