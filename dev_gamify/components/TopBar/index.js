@@ -24,50 +24,17 @@ const TopBar = ({
 	topBarStyles = {},
 }) => {
 	// if (!is_admin) return null;
-	const isPlainPermalink=''
 	return (
 		<React.Fragment>
-			{isPlainPermalink && (
-				<Flex
-					px={6}
-					py={4}
-					alignItems="center"
-					gap={4}
-					width="100%"
-					boxShadowColor={'var(--gamify-shadow)'}
-					bg="var(--gamify-background)"
-				>
-					<Box
-						bg="var(--gamify-warning)"
-						borderRadius="full"
-						p="12px 14px"
-					>
-						<Span className='gamify-icon gamify-icon--circle-alert has-gamify-blue-bg' _before={{ fontSize: '20px' }} />
-					</Box>
-					<Text
-						m={0}
-						dangerouslySetInnerHTML={{
-							__html: __(
-								'Your permalink settings is set to <code>plain</code>. Please update your permalink settings. gamify works better with search engine friendly permalink.',
-								'gamify'
-							),
-						}}
-					/>
-
-					<Button {...primaryBtn} onClick={() => window.location.href = `${window.location.origin}/wp-admin/options-permalink.php`}>
-						{__('Update permalink', 'gamify')}
-					</Button>
-				</Flex>
-			)}
 			<Flex
 				style={topBarStyles}
 				direction={{ base: 'column', md: 'row' }}
 				justifyContent="space-between"
 				align={{ base: 'flex-start', md: 'center' }}
+				height='80px'
 				px={6}
 				py={4}
 				mb={6}
-				borderTop={isPlainPermalink ? "1px solid var(--gamify-border-color)" : "none"}
 				top="32px"
 				borderBottomWidth="1px"
 				borderColor="var(--gamify-border-color)"
