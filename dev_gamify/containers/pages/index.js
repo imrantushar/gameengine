@@ -21,6 +21,9 @@ const App = () => {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/point-type" element={<PointType />} />
                     <Route path="*" element={<Dashboard />} />
+                    {/* <Route path="/achievements" element={<Achievements />} /> */}
+                    {/* <Route path="/levels" element={<Levels />} />
+                    <Route path="/leaderboards" element={<Leaderboards />} /> */}
                 </Routes>
             </div>
         </div>

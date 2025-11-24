@@ -19,7 +19,7 @@ class Menu
 
     public function register_menus()
     {
-        // Main Gamify Menu (Dashboard)
+        // Main Gamify Menu (Acts as the container)
         $this->page_hooks[] = add_menu_page(
             __('Gamify Dashboard', 'gamify'),
             'Gamify',
@@ -30,27 +30,47 @@ class Menu
             20
         );
 
-        // Submenu: Dashboard (acts as the main page)
+        // Submenu 1: Dashboard
         $this->page_hooks[] = add_submenu_page(
-            'gamify', // Parent Slug
+            'gamify',
             __('Dashboard', 'gamify'),
             __('Dashboard', 'gamify'),
             'manage_options',
-            'gamify', // Same slug as parent to link correctly
+            'gamify', // Same slug as parent
             [$this, 'render_app']
         );
 
-        // Submenu: Points System
+        // Submenu 2: Points System (Renamed from Points to match UI?) or just "Points System"
         $this->page_hooks[] = add_submenu_page(
-            'gamify', // Parent Slug
-            __('Points', 'gamify'),
-            __('Points', 'gamify'),
+            'gamify',
+            __('Points System', 'gamify'),
+            __('Points System', 'gamify'),
             'manage_options',
-            'gamify-points', // Unique slug for this page
+            'gamify-points',
             [$this, 'render_app']
         );
 
-        // Submenu: Logs
+        // Submenu 3: Achievements (NEW)
+        $this->page_hooks[] = add_submenu_page(
+            'gamify',
+            __('Achievements', 'gamify'),
+            __('Achievements', 'gamify'),
+            'manage_options',
+            'gamify-achievements',
+            [$this, 'render_app']
+        );
+
+        // Submenu 4: Levels (NEW)
+        $this->page_hooks[] = add_submenu_page(
+            'gamify',
+            __('Levels', 'gamify'),
+            __('Levels', 'gamify'),
+            'manage_options',
+            'gamify-levels',
+            [$this, 'render_app']
+        );
+
+        // Submenu 5: Logs
         $this->page_hooks[] = add_submenu_page(
             'gamify',
             __('Logs', 'gamify'),
@@ -60,7 +80,17 @@ class Menu
             [$this, 'render_app']
         );
 
-        // Submenu: Settings
+        // Submenu 6: Leaderboards (NEW)
+        $this->page_hooks[] = add_submenu_page(
+            'gamify',
+            __('Leaderboards', 'gamify'),
+            __('Leaderboards', 'gamify'),
+            'manage_options',
+            'gamify-leaderboards',
+            [$this, 'render_app']
+        );
+
+        // Submenu 7: Settings
         $this->page_hooks[] = add_submenu_page(
             'gamify',
             __('Settings', 'gamify'),
@@ -77,7 +107,7 @@ class Menu
     public function register_load_hooks_for_all_pages()
     {
         foreach ($this->page_hooks as $hook) {
-            if ($hook) { // Ensure the hook is valid
+            if ($hook) {
                 add_action('load-' . $hook, [$this, 'remove_all_notices_and_footer']);
             }
         }
@@ -90,7 +120,6 @@ class Menu
 
     /**
      * Removes all admin notices and the WordPress footer for a clean SPA experience.
-     * This method is now called for all our custom admin pages.
      */
     public function remove_all_notices_and_footer()
     {

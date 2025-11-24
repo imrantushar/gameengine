@@ -8,7 +8,10 @@ const WPMenuSync = () => {
     const slugToPathMap = {
         'gamify': '/',
         'gamify-points': '/points',
+        'gamify-achievements': '/achievements',
+        'gamify-levels': '/levels',
         'gamify-logs': '/logs',
+        'gamify-leaderboards': '/leaderboards',
         'gamify-settings': '/settings',
     };
 
