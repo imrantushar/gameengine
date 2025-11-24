@@ -6,6 +6,8 @@ import Points from './points';
 import Logs from './logs';
 import Settings from './settings';
 import PointType from './points/PointType';
+import Achievements from './achievements/'
+import AchievementsType from './achievements/AchievementTypes'
 
 const App = () => {
     return (
@@ -21,7 +23,8 @@ const App = () => {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/point-type" element={<PointType />} />
                     <Route path="*" element={<Dashboard />} />
-                    {/* <Route path="/achievements" element={<Achievements />} /> */}
+                    <Route path="/achievements" element={<Achievements />} />
+                    <Route path="/achievementsType" element={<AchievementsType />} />
                     {/* <Route path="/levels" element={<Levels />} />
                     <Route path="/leaderboards" element={<Leaderboards />} /> */}
                 </Routes>
