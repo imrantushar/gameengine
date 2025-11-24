@@ -157,16 +157,7 @@ const PointType = () => {
             return;
         }
     };
-    const removeAward = (id) => {
-        setSelectedAwardHook(prev => prev.filter(x => x !== id));
-        const item = awardHooks.find(i => i.id === id);
-        setAvailableAwards(prev => [...prev, item]);
-    };
-    const removeDeduct = (id) => {
-        setSelectedDeductHook(prev => prev.filter(x => x !== id));
-        const item = deductHooks.find(i => i.id === id);
-        setAvailableDeductions(prev => [...prev, item]);
-    };
+  
 
     return (
         <>

@@ -1,10 +1,17 @@
-import React from 'react';
 
-const UnlockAllAchievementOfType=(props) =>{
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
+
+const UnlockAllAchievementOfType = (props) => {
+     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            UnlockAllAchievementOfType
-        </div>
+        <CustomCollapsible
+            label="Unlock all Achievement of type "
+            desc="Award points for visiting your website on a daily basis."
+            isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
+        />
     );
 }
 

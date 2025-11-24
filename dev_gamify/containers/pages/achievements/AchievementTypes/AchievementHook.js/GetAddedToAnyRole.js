@@ -1,10 +1,18 @@
-import React from 'react';
 
-const GetAddedToAnyRole=(props)=> {
+;
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
+
+const GetAddedToAnyRole = (props) => {
+     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            GetAddedToAnyRole
-        </div>
+        <CustomCollapsible
+            label="Get added to any role"
+            desc="Award points for making comments."
+            isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
+        />
     );
 }
 

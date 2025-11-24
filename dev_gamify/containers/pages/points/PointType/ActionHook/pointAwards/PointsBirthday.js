@@ -7,7 +7,7 @@ const PointsBirthday = (props) => {
         <CustomCollapsible
             label="Deducts for birthday"
             desc="The user loses points on their birthday."
-          isOpen={isOpen}
+            isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                  singleIcon={true}
         />

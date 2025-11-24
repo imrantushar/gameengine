@@ -1,10 +1,17 @@
-import React from 'react';
+;
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
 
-const ExpendAmountOfPoints=(props)=>{
+const ExpendAmountOfPoints = (props) => {
+     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            ExpendAmountOfPoints
-        </div>
+        <CustomCollapsible
+            label="Expend an amount of points "
+            desc="Reward users with points on their birthday."
+            isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
+        />
     );
 }
 

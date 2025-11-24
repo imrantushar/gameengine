@@ -1,10 +1,17 @@
-import React from 'react';
 
-const GetAnyAchievementOfTypeRevoked=(props)=>{
+import React, { useState } from 'react';
+import CustomCollapsible from '@Components/Collapsible';
+
+const GetAnyAchievementOfTypeRevoked = (props) => {
+     const [isOpen, setIsOpen] = useState(false)
     return (
-        <div>
-            GetAnyAchievementOfTypeRevoked
-        </div>
+        <CustomCollapsible
+            label="Get any achievement of type revoked"
+            desc="Award points for logging in.."
+            isOpen={isOpen}
+                onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
+        />
     );
 }
 
