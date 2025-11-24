@@ -9,6 +9,7 @@ const PointsBirthday = (props) => {
             desc="The user loses points on their birthday."
           isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
+                 singleIcon={true}
         />
     );
 }

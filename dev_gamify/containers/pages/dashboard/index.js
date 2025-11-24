@@ -37,6 +37,7 @@ const Dashboard = () => {
                             type="subtitle"
                             fontWeight="medium"
                             label={__(`Dashboard`, 'gamify')}
+                            
                         />
                     </>
                 )}

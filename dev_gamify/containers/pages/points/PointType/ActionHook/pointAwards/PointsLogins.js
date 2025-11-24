@@ -14,6 +14,7 @@ const PointsLogins=(props)=> {
                 desc="Award points for logging in."
                 isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
+                singleIcon={true}
             >
                 <Flex gap='12px' >
                     <Flex as="label" direction="column" gap={2}>
@@ -94,7 +95,7 @@ const PointsLogins=(props)=> {
 
                 </Flex>
               <Flex
-              padding="24px"
+              padding="24px 0"
               justifyContent='flex-end'>
                   <Button
                     {...primaryBtn}
@@ -102,7 +103,6 @@ const PointsLogins=(props)=> {
 
                 >
                     {__('Save', 'gamify')}
-                    <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
                 </Button>
               </Flex>
             </CustomCollapsible>

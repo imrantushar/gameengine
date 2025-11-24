@@ -1,6 +1,8 @@
 export const primaryBtn = {
     bg: "var(--gamify-primary)",
     color: "#fff",
+    fontWeight: "600",
+
 }
 
 export const primaryClearBtn = {

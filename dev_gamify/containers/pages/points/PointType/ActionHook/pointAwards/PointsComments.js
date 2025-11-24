@@ -9,6 +9,7 @@ const PointsComments = (props) => {
             desc="The user loses points for making comments."
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
+             singleIcon={true}
         />
     );
 }
