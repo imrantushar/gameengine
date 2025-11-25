@@ -1063,7 +1063,7 @@ input.gamify-checkbox:checked::before {
   overflow-y: hidden;
 }
 .gamify-table__table {
-  padding: 24px 0 0 0;
+  padding: 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1084,7 +1084,8 @@ input.gamify-checkbox:checked::before {
   min-height: 30px;
   display: flex;
   align-items: center;
-  background: var(--gamify-body-background);
+  color: var(--gamify-secondary);
+  border-bottom: 1px solid var(--gamify-border-color);
   padding-left: 16px;
 }
 .gamify-table__head-cell:nth-child(2) {
@@ -1147,7 +1148,6 @@ input.gamify-checkbox:checked::before {
   min-height: 74px;
   display: flex;
   align-items: center;
-  padding-right: 12px;
 }
 .gamify-table__body-row-cell {
   flex: 1;

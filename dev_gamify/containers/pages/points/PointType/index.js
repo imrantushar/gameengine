@@ -41,6 +41,7 @@ import {
     removeDeductHook,
     updateHookSettings
 } from '../../../../redux/Slices/pointTypeSlice';
+import GFSelect from '../../../../components/Select';
 
 // --- Draggable Item ---
 const DraggableItem = ({ id, children }) => {
@@ -100,57 +101,45 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 singleIcon={true}
             >
                 <Flex gap='12px'>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Points', 'gamify')}</Text>
-                        <Input
-                            className="gamify-input"
-                            type="number"
-                            placeholder={__('100', 'gamify')}
-                            value={settings.points}
-                            onChange={(e) => handleChange('points', e.target.value)}
-                        />
-                    </Flex>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Limit', 'gamify')}</Text>
-                        <Select
-                            placeholder={__('Select limit', 'gamify')}
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={[
-                                { label: 'Unlimited', value: 'unlimited' },
-                                { label: '1 per day', value: '1_per_day' },
-                                { label: '1 time only', value: '1_time' },
-                            ]}
-                            value={settings.limit ? { label: settings.limit, value: settings.limit } : null}
-                            onChange={(opt) => handleChange('limit', opt.value)}
-                        />
-                    </Flex>
-                </Flex>
+                    <LabeledInput
+                        label="Points"
+                        placeholder="100"
+                        type="number"
+                        value={settings.points}
+                        onChange={(e) => handleChange('points', e.target.value)}
 
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Log Label', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('e.g. Daily Login Bonus', 'gamify')}
-                        value={settings.label}
-                        onChange={(e) => handleChange('label', e.target.value)}
+                    />
+                    <GFSelect
+                        label="Choose the Points Type"
+                        placeholder="Choose one"
+                        items={[
+                            { label: 'Unlimited', value: 'unlimited' },
+                            { label: '1 per day', value: '1_per_day' },
+                            { label: '1 time only', value: '1_time' },
+                        ]}
+                        value={settings.limit ?? []}
+                        onChange={(opt) => handleChange('limit', opt.value)}
                     />
                 </Flex>
+                <LabeledInput
+                    label="Log Label"
+                    placeholder={__('e.g. Daily Login Bonus', 'gamify')}
+                    type="text"
+                    value={settings?.label}
+                    onChange={(e) => handleChange('label', e.target.value)}
 
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Reference URL (Optional)', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('https://...', 'gamify')}
-                        value={settings.url}
-                        onChange={(e) => handleChange('url', e.target.value)}
-                    />
-                </Flex>
-               <Divider width='497px' margin='24px -16px 24px -16px'/>
+                />
+                <LabeledInput
+                    label="Reference URL (Optional)"
+                    type="text"
+                    placeholder={__('https://...', 'gamify')}
+                    value={settings.url}
+                    onChange={(e) => handleChange('url', e.target.value)}
+
+                />
+                <Divider width='497px' margin='24px -16px 24px -16px' />
                 {/* The Save button inside individual item is visual, as state updates instantly */}
-                <Flex  justifyContent='flex-end'>
+                <Flex justifyContent='flex-end'>
                     <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                         {__('Done', 'gamify')}
                     </Button>
@@ -358,7 +347,7 @@ const PointType = () => {
                                                     <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                         <Flex justify="space-between" align="center">
                                                             <Text margin='0' fontSize='1rem' fontWeight="600">{__(item.label, 'gamify')}</Text>
-                                                            <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+                                                            <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                         </Flex>
                                                     </Box>
                                                 </DraggableItem>
