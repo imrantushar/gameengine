@@ -286,6 +286,57 @@ const PointType = () => {
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
                                         <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                            {__("Filter Hooks Type", "gamify")}
+                                        </Text>
+
+                                        <Select
+                                            isMulti
+                                            placeholder={__("Select hook type", "gamify")}
+                                            classNamePrefix="gamify-select"
+                                            options={[
+                                                { label: "Gamify", value: "gamify" },
+                                                { label: "WordPress", value: "wordpress" },
+                                            ]}
+                                            // value={''}
+                                            onChange={(opt) => console.log(opt)}
+                                            styles={{
+                                                control: (base) => ({
+                                                    ...base,
+                                                    minHeight: "48px",
+                                                    borderRadius: "6px",
+                                                    borderColor: "#d0d5dd",
+                                                    boxShadow: "none",
+                                                    "&:hover": {
+                                                        borderColor: "#d0d5dd",
+                                                    },
+                                                }),
+
+                                                multiValue: (base) => ({
+                                                    ...base,
+                                                    background: "#F8FAFC",
+                                                    padding: "2px 6px",
+                                                    borderRadius: "6px",
+                                                }),
+
+                                                multiValueLabel: (base) => ({
+                                                    ...base,
+                                                    color: "#1E293B",
+                                                    fontSize: "14px",
+                                                }),
+
+                                                multiValueRemove: (base) => ({
+                                                    ...base,
+                                                    color: "#64748B",
+                                                    ":hover": {
+                                                        backgroundColor: "transparent",
+                                                        color: "#334155",
+                                                    },
+                                                }),
+                                            }}
+                                        />
+                                    </Box>
                                     <DroppableArea id="awards-available">
                                         {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
                                             availableAwardHooks.map(item => (
@@ -340,6 +391,57 @@ const PointType = () => {
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
                                         <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                            {__("Filter Hooks Type", "gamify")}
+                                        </Text>
+
+                                        <Select
+                                            isMulti
+                                            placeholder={__("Select hook type", "gamify")}
+                                            classNamePrefix="gamify-select"
+                                            options={[
+                                                { label: "Gamify", value: "gamify" },
+                                                { label: "WordPress", value: "wordpress" },
+                                            ]}
+                                            // value={''}
+                                            onChange={(opt) => console.log(opt)}
+                                            styles={{
+                                                control: (base) => ({
+                                                    ...base,
+                                                    minHeight: "48px",
+                                                    borderRadius: "6px",
+                                                    borderColor: "#d0d5dd",
+                                                    boxShadow: "none",
+                                                    "&:hover": {
+                                                        borderColor: "#d0d5dd",
+                                                    },
+                                                }),
+
+                                                multiValue: (base) => ({
+                                                    ...base,
+                                                    background: "#F8FAFC",
+                                                    padding: "2px 6px",
+                                                    borderRadius: "6px",
+                                                }),
+
+                                                multiValueLabel: (base) => ({
+                                                    ...base,
+                                                    color: "#1E293B",
+                                                    fontSize: "14px",
+                                                }),
+
+                                                multiValueRemove: (base) => ({
+                                                    ...base,
+                                                    color: "#64748B",
+                                                    ":hover": {
+                                                        backgroundColor: "transparent",
+                                                        color: "#334155",
+                                                    },
+                                                }),
+                                            }}
+                                        />
+                                    </Box>
                                     <DroppableArea id="deductions-available">
                                         {availableDeductHooks.map(item => (
                                             <Box key={item.id}>
