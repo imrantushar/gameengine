@@ -41,7 +41,7 @@ import {
     removeDeductHook,
     updateHookSettings
 } from '../../../../redux/Slices/pointTypeSlice';
-import GFSelect from '../../../../components/Select';
+import GFSelect from '@Components/Select';
 
 // --- Draggable Item ---
 const DraggableItem = ({ id, children }) => {
