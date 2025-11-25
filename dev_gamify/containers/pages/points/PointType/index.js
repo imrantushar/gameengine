@@ -64,10 +64,9 @@ const DroppableArea = ({ id, children }) => {
     return (
         <Box
             ref={setNodeRef}
-            minHeight="275px"
-            background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
+            minHeight="100%"
             borderRadius="4px"
-            border={isOver ? "1px dashed #4F46E5" : "1px solid transparent"}
+            border='none'
             transition="all 0.2s"
         >
             <Box>{children}</Box>
@@ -305,7 +304,7 @@ const PointType = () => {
                                                     <DraggableItem id={item.id}>
                                                         <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                             <Flex justify="space-between" align="center">
-                                                                <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                                <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
                                                                 <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                             </Flex>
                                                         </Box>
@@ -358,7 +357,7 @@ const PointType = () => {
                                                 <DraggableItem id={item.id}>
                                                     <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                         <Flex justify="space-between" align="center">
-                                                            <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                            <Text margin='0' fontSize='1rem' fontWeight="600">{__(item.label, 'gamify')}</Text>
                                                             <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                         </Flex>
                                                     </Box>

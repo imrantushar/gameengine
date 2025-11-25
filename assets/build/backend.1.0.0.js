@@ -3371,10 +3371,9 @@ const DroppableArea = ({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     ref: setNodeRef,
-    minHeight: "275px",
-    background: isOver ? "rgba(79,70,229,0.04)" : "transparent",
+    minHeight: "100%",
     borderRadius: "4px",
-    border: isOver ? "1px dashed #4F46E5" : "1px solid transparent",
+    border: "none",
     transition: "all 0.2s"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, null, children));
 };
@@ -3688,8 +3687,9 @@ const PointType = () => {
     align: "center"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     margin: "0",
+    fontSize: "1rem",
     fontWeight: "600"
-  }, item.label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(item.label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     bg: "green.500",
     borderRadius: "full",
     width: "24px",
@@ -3775,8 +3775,9 @@ const PointType = () => {
     align: "center"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     margin: "0",
+    fontSize: "1rem",
     fontWeight: "600"
-  }, item.label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(item.label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     bg: "red.500",
     borderRadius: "full",
     width: "24px",
