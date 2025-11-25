@@ -92,7 +92,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
     };
 
     return (
-        <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+        <Box background="white">
             <CustomCollapsible
                 label={hookInfo?.label || hookId}
                 desc={hookInfo?.subTitle}
@@ -149,7 +149,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                         onChange={(e) => handleChange('url', e.target.value)}
                     />
                 </Flex>
-
+               <Divider width='497px' margin='24px -16px 24px -16px'/>
                 {/* The Save button inside individual item is visual, as state updates instantly */}
                 <Flex  justifyContent='flex-end'>
                     <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
