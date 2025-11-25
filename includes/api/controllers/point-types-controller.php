@@ -37,55 +37,78 @@ class PointTypesController extends BaseController
     public function create_item($request)
     {
         global $wpdb;
-        $table_points = $wpdb->prefix . 'gamify_point_types';
-        $table_requirements = $wpdb->prefix . 'gamify_requirements';
 
-        $name = sanitize_text_field($request->get_param('name'));
-        $plural_name = sanitize_text_field($request->get_param('plural_name'));
-        $requirements = $request->get_param('requirements'); // This is the array of hooks
+        // প্যারামিটারগুলো নিরাপদে গ্রহণ করা
+        $params = $request->get_json_params();
 
-        // 1. Validation
+        // ডিবাগিং: লগে ডাটা প্রিন্ট করা (wp-content/debug.log চেক করুন)
+        error_log('Gamify Save Data: ' . print_r($params, true));
+
+        $name = isset($params['name']) ? sanitize_text_field($params['name']) : '';
+        $plural_name = isset($params['plural_name']) ? sanitize_text_field($params['plural_name']) : '';
+        $requirements = isset($params['requirements']) ? $params['requirements'] : [];
+
+        // ১. ভ্যালিডেশন
         if (empty($name)) {
             return new \WP_Error('invalid_data', 'Point Name is required.', ['status' => 400]);
         }
 
+        $table_points = $wpdb->prefix . 'gamify_point_types';
+        $table_requirements = $wpdb->prefix . 'gamify_requirements';
         $slug = sanitize_title($name);
 
-        // 2. Insert Point Type
-        $result = $wpdb->insert($table_points, [
-            'name'        => $name,
-            'plural_name' => $plural_name,
-            'slug'        => $slug,
-            'created_at'  => current_time('mysql')
-        ]);
+        // ২. পয়েন্ট টাইপ ইনসার্ট করা
+        $inserted = $wpdb->insert(
+            $table_points,
+            [
+                'name'        => $name,
+                'plural_name' => $plural_name,
+                'slug'        => $slug,
+                'created_at'  => current_time('mysql')
+            ],
+            ['%s', '%s', '%s', '%s']
+        );
 
-        if ($result === false) {
-            return new \WP_Error('db_error', 'Could not save point type. DB Error: ' . $wpdb->last_error, ['status' => 500]);
+        if ($inserted === false) {
+            error_log('Gamify DB Error (Point Type): ' . $wpdb->last_error);
+            return new \WP_Error('db_error', 'Could not save point type. ' . $wpdb->last_error, ['status' => 500]);
         }
 
         $point_type_id = $wpdb->insert_id;
 
-        // 3. Insert Requirements (Hooks)
+        // ৩. রিকোয়ারমেন্টস (Hooks) ইনসার্ট করা
         if (!empty($requirements) && is_array($requirements)) {
             foreach ($requirements as $req) {
-                $trigger_key = sanitize_text_field($req['trigger_key']);
-                $action_type = sanitize_text_field($req['action_type']); // 'award' or 'deduct'
-                $parameters  = isset($req['parameters']) ? json_encode($req['parameters']) : '{}';
+                // ডাটা স্যানিটাইজেশন
+                $trigger_key = isset($req['trigger_key']) ? sanitize_text_field($req['trigger_key']) : '';
+                $action_type = isset($req['action_type']) ? sanitize_text_field($req['action_type']) : 'award';
 
-                $wpdb->insert($table_requirements, [
-                    'reward_type' => 'point_type',
-                    'reward_id'   => $point_type_id,
-                    'trigger_key' => $trigger_key,
-                    'action_type' => $action_type,
-                    'parameters'  => $parameters,
-                    'is_active'   => 1,
-                    'created_at'  => current_time('mysql')
-                ]);
+                // প্যারামিটার এনকোড করা (JSON)
+                $parameters = isset($req['parameters']) ? json_encode($req['parameters']) : '{}';
+
+                $req_inserted = $wpdb->insert(
+                    $table_requirements,
+                    [
+                        'reward_type' => 'point_type',
+                        'reward_id'   => $point_type_id,
+                        'trigger_key' => $trigger_key,
+                        'action_type' => $action_type,
+                        'parameters'  => $parameters,
+                        'is_active'   => 1,
+                        'created_at'  => current_time('mysql')
+                    ],
+                    ['%s', '%d', '%s', '%s', '%s', '%d', '%s']
+                );
+
+                if ($req_inserted === false) {
+                    error_log('Gamify DB Error (Requirement): ' . $wpdb->last_error);
+                    // আমরা এখানে রিটার্ন করছি না যাতে একটি ফেইল হলেও বাকিগুলো সেভ হয়
+                }
             }
         }
 
         return new \WP_REST_Response([
-            'message' => 'Point Type and Hooks saved successfully.',
+            'message' => 'Point Type saved successfully.',
             'id' => $point_type_id
         ], 201);
     }

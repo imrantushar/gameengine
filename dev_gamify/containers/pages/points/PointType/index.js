@@ -237,17 +237,19 @@ const PointType = () => {
             return;
         }
 
-        // Prepare Data Payload
+        // ডাটা প্রস্তুত করা
         const payload = {
             name,
             plural_name: pluralName,
-            // Combine awards and deductions into requirements list
             requirements: [
+                // Awards Hooks
                 ...selectedAwardHookIds.map(id => ({
                     trigger_key: id,
                     action_type: 'award',
+                    // হুকের সেটিংস রিডাক্স থেকে নেওয়া হচ্ছে
                     parameters: hookSettings[`award_${id}`] || {}
                 })),
+                // Deduction Hooks
                 ...selectedDeductHookIds.map(id => ({
                     trigger_key: id,
                     action_type: 'deduct',
@@ -256,13 +258,14 @@ const PointType = () => {
             ]
         };
 
+        // API কল করা
         const resultAction = await dispatch(savePointType(payload));
 
         if (savePointType.fulfilled.match(resultAction)) {
             alert("Saved Successfully!");
         } else {
             console.error("Save failed:", resultAction.payload);
-            alert("Error saving.");
+            alert("Error saving. See console for details.");
         }
     };
 
