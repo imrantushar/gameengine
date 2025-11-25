@@ -28,6 +28,7 @@ import LabeledInput from '@Components/LabeledInput';
 import CustomCollapsible from '@Components/Collapsible';
 import Divider from '@Components/Divider';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import GFSelect from "@Components/Select";
 
 // Redux Actions
 import {
@@ -100,58 +101,42 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 onClick={() => setIsOpen(!isOpen)}
                 singleIcon={true}
             >
-                <Flex gap='12px'>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Points', 'gamify')}</Text>
-                        <Input
-                            className="gamify-input"
-                            type="number"
-                            placeholder={__('100', 'gamify')}
-                            value={settings.points}
-                            onChange={(e) => handleChange('points', e.target.value)}
-                        />
-                    </Flex>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Limit', 'gamify')}</Text>
-                        <Select
-                            placeholder={__('Select limit', 'gamify')}
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={[
+                <Flex gap='12px' >
+                    <LabeledInput
+                        label="Points"
+                        placeholder="100"
+                        type='number'
+                        value={settings.points}
+                        onChange={(e) => handleChange('points', e.target.value)}
+                    />
+                    <GFSelect
+                        label="Choose the Points Type"
+                        placeholder="Choose one"
+                        items={[
                                 { label: 'Unlimited', value: 'unlimited' },
                                 { label: '1 per day', value: '1_per_day' },
                                 { label: '1 time only', value: '1_time' },
                             ]}
-                            value={settings.limit ? { label: settings.limit, value: settings.limit } : null}
+                            value={settings.limit ?? ""}
                             onChange={(opt) => handleChange('limit', opt.value)}
-                        />
-                    </Flex>
+                    />
                 </Flex>
-
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Log Label', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('e.g. Daily Login Bonus', 'gamify')}
-                        value={settings.label}
+                  <LabeledInput
+                        label="Log Label"
+                        placeholder="e.g. Daily Login Bonus"
+                        type='text'
+                        value={settings?.labe}
                         onChange={(e) => handleChange('label', e.target.value)}
                     />
-                </Flex>
-
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Reference URL (Optional)', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
+                    <LabeledInput
+                        label="Reference URL (Optional)"
                         placeholder={__('https://...', 'gamify')}
-                        value={settings.url}
+                        value={settings?.url}
                         onChange={(e) => handleChange('url', e.target.value)}
                     />
-                </Flex>
 
                 {/* The Save button inside individual item is visual, as state updates instantly */}
-                <Flex  justifyContent='flex-end'>
+                <Flex justifyContent='flex-end'>
                     <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                         {__('Done', 'gamify')}
                     </Button>

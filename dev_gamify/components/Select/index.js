@@ -6,14 +6,25 @@ const GFSelect = ({
   label = "Select option",
   placeholder = "Select option",
   items = [],
+  value,
+  onChange,
   size = "sm",
   width = "100%",
   style
 }) => {
+
   const collection = createListCollection({ items });
 
   return (
-    <Select.Root marginTop="2px" style={{...style}} collection={collection} size={size} width={width}>
+    <Select.Root
+      marginTop="2px"
+      style={{ ...style }}
+      collection={collection}
+      size={size}
+      width={width}
+      value={value ?? ""}                     // ← controlled value
+      onValueChange={(v) => onChange?.(v)}    // ← update parent
+    >
       <Select.HiddenSelect />
 
       <Select.Label>{label}</Select.Label>
