@@ -38,17 +38,14 @@ class PointTypesController extends BaseController
     {
         global $wpdb;
 
-        // প্যারামিটারগুলো নিরাপদে গ্রহণ করা
         $params = $request->get_json_params();
 
-        // ডিবাগিং: লগে ডাটা প্রিন্ট করা (wp-content/debug.log চেক করুন)
         error_log('Gamify Save Data: ' . print_r($params, true));
 
         $name = isset($params['name']) ? sanitize_text_field($params['name']) : '';
         $plural_name = isset($params['plural_name']) ? sanitize_text_field($params['plural_name']) : '';
         $requirements = isset($params['requirements']) ? $params['requirements'] : [];
 
-        // ১. ভ্যালিডেশন
         if (empty($name)) {
             return new \WP_Error('invalid_data', 'Point Name is required.', ['status' => 400]);
         }
@@ -57,7 +54,6 @@ class PointTypesController extends BaseController
         $table_requirements = $wpdb->prefix . 'gamify_requirements';
         $slug = sanitize_title($name);
 
-        // ২. পয়েন্ট টাইপ ইনসার্ট করা
         $inserted = $wpdb->insert(
             $table_points,
             [
@@ -76,14 +72,11 @@ class PointTypesController extends BaseController
 
         $point_type_id = $wpdb->insert_id;
 
-        // ৩. রিকোয়ারমেন্টস (Hooks) ইনসার্ট করা
         if (!empty($requirements) && is_array($requirements)) {
             foreach ($requirements as $req) {
-                // ডাটা স্যানিটাইজেশন
                 $trigger_key = isset($req['trigger_key']) ? sanitize_text_field($req['trigger_key']) : '';
                 $action_type = isset($req['action_type']) ? sanitize_text_field($req['action_type']) : 'award';
 
-                // প্যারামিটার এনকোড করা (JSON)
                 $parameters = isset($req['parameters']) ? json_encode($req['parameters']) : '{}';
 
                 $req_inserted = $wpdb->insert(
@@ -102,7 +95,6 @@ class PointTypesController extends BaseController
 
                 if ($req_inserted === false) {
                     error_log('Gamify DB Error (Requirement): ' . $wpdb->last_error);
-                    // আমরা এখানে রিটার্ন করছি না যাতে একটি ফেইল হলেও বাকিগুলো সেভ হয়
                 }
             }
         }

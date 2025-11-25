@@ -237,7 +237,6 @@ const PointType = () => {
             return;
         }
 
-        // ডাটা প্রস্তুত করা
         const payload = {
             name,
             plural_name: pluralName,
@@ -246,7 +245,6 @@ const PointType = () => {
                 ...selectedAwardHookIds.map(id => ({
                     trigger_key: id,
                     action_type: 'award',
-                    // হুকের সেটিংস রিডাক্স থেকে নেওয়া হচ্ছে
                     parameters: hookSettings[`award_${id}`] || {}
                 })),
                 // Deduction Hooks
@@ -258,7 +256,6 @@ const PointType = () => {
             ]
         };
 
-        // API কল করা
         const resultAction = await dispatch(savePointType(payload));
 
         if (savePointType.fulfilled.match(resultAction)) {
