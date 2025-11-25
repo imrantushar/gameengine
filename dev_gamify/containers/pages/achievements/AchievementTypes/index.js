@@ -174,7 +174,7 @@ const AchievementsType = () => {
                         <span className="gamify-icon gamify-icon--angle-right"></span>
                         <GFLabel
                             as="h2"
-                            color="#4F46E5"
+                            color="var(--gamify-font-color)"
                             type="subtitle"
                             fontWeight="medium"
                             label={__("Game Engine", "gamify")}

@@ -2358,7 +2358,7 @@ const AchievementsType = () => {
       className: "gamify-icon gamify-icon--angle-right"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
       as: "h2",
-      color: "#4F46E5",
+      color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Game Engine", "gamify")
@@ -2663,7 +2663,20 @@ const staticData = [{
 }];
 const columns = [{
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'gamify'),
-  cell: row => row.name
+  cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    align: "center",
+    gap: "10px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: "gamify-checkbox",
+    type: "checkbox",
+    style: {
+      width: "16px",
+      height: "16px",
+      cursor: "pointer",
+      marginTop: '1px'
+    },
+    onChange: e => console.log("Selected:", row.id, e.target.checked)
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.name))
 }, {
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plural Name', 'gamify'),
   cell: row => row.pluralName
@@ -2700,7 +2713,7 @@ const Achievements = () => {
       className: "gamify-icon gamify-icon--angle-right"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
       as: "h2",
-      color: "#4F46E5",
+      color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Game Engine`, 'gamify')
@@ -3144,7 +3157,7 @@ const Dashboard = () => {
       className: "gamify-icon gamify-icon--angle-right"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_5__["default"], {
       as: "h2",
-      color: "#4F46E5",
+      color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)(`Game Engine`, 'gamify')
@@ -3574,7 +3587,7 @@ const PointType = () => {
       className: "gamify-icon gamify-icon--angle-right"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_13__["default"], {
       as: "h2",
-      color: "#4F46E5",
+      color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("Game Engine", "gamify")
@@ -4027,7 +4040,7 @@ const Points = () => {
       className: "gamify-icon gamify-icon--angle-right"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
       as: "h2",
-      color: "#4F46E5",
+      color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Game Engine`, 'gamify')
