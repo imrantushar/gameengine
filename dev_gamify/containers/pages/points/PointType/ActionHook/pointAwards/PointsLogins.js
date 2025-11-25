@@ -24,16 +24,7 @@ const PointsLogins = (props) => {
                         placeholder="100"
                         type='number'
                     />
-                    <GFSelect
-                        label="Choose the Points Type"
-                        placeholder="Choose one"
-                        items={[
-                            { label: "React.js", value: "react" },
-                            { label: "Vue.js", value: "vue" },
-                            { label: "Angular", value: "angular" },
-                            { label: "Svelte", value: "svelte" },
-                        ]}
-                    />
+                  
                 </Flex>
                 <LabeledInput
                     label="Label"

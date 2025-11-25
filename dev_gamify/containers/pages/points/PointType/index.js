@@ -41,6 +41,7 @@ import {
     removeDeductHook,
     updateHookSettings
 } from '../../../../redux/Slices/pointTypeSlice';
+import GFSelect from '@Components/Select';
 
 // --- Draggable Item ---
 const DraggableItem = ({ id, children }) => {
@@ -64,13 +65,12 @@ const DroppableArea = ({ id, children }) => {
     return (
         <Box
             ref={setNodeRef}
-            minHeight="200px"
-            background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
+            minHeight="100%"
             borderRadius="4px"
-            border={isOver ? "1px dashed #4F46E5" : "1px solid transparent"}
+            border='none'
             transition="all 0.2s"
         >
-            <Box marginTop="12px">{children}</Box>
+            <Box>{children}</Box>
         </Box>
     );
 };
@@ -92,7 +92,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
     };
 
     return (
-        <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+        <Box background="white">
             <CustomCollapsible
                 label={hookInfo?.label || hookId}
                 desc={hookInfo?.subTitle}
@@ -101,57 +101,45 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 singleIcon={true}
             >
                 <Flex gap='12px'>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Points', 'gamify')}</Text>
-                        <Input
-                            className="gamify-input"
-                            type="number"
-                            placeholder={__('100', 'gamify')}
-                            value={settings.points}
-                            onChange={(e) => handleChange('points', e.target.value)}
-                        />
-                    </Flex>
-                    <Flex as="label" direction="column" gap={2} width="50%">
-                        <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Limit', 'gamify')}</Text>
-                        <Select
-                            placeholder={__('Select limit', 'gamify')}
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={[
-                                { label: 'Unlimited', value: 'unlimited' },
-                                { label: '1 per day', value: '1_per_day' },
-                                { label: '1 time only', value: '1_time' },
-                            ]}
-                            value={settings.limit ? { label: settings.limit, value: settings.limit } : null}
-                            onChange={(opt) => handleChange('limit', opt.value)}
-                        />
-                    </Flex>
-                </Flex>
+                    <LabeledInput
+                        label="Points"
+                        placeholder="100"
+                        type="number"
+                        value={settings.points}
+                        onChange={(e) => handleChange('points', e.target.value)}
 
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Log Label', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('e.g. Daily Login Bonus', 'gamify')}
-                        value={settings.label}
-                        onChange={(e) => handleChange('label', e.target.value)}
+                    />
+                    <GFSelect
+                        label="Choose the Points Type"
+                        placeholder="Choose one"
+                        items={[
+                            { label: 'Unlimited', value: 'unlimited' },
+                            { label: '1 per day', value: '1_per_day' },
+                            { label: '1 time only', value: '1_time' },
+                        ]}
+                        value={settings.limit ?? []}
+                        onChange={(opt) => handleChange('limit', opt.value)}
                     />
                 </Flex>
+                <LabeledInput
+                    label="Log Label"
+                    placeholder={__('e.g. Daily Login Bonus', 'gamify')}
+                    type="text"
+                    value={settings?.label}
+                    onChange={(e) => handleChange('label', e.target.value)}
 
-                <Flex direction="column" gap={2}>
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Reference URL (Optional)', 'gamify')}</Text>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('https://...', 'gamify')}
-                        value={settings.url}
-                        onChange={(e) => handleChange('url', e.target.value)}
-                    />
-                </Flex>
+                />
+                <LabeledInput
+                    label="Reference URL (Optional)"
+                    type="text"
+                    placeholder={__('https://...', 'gamify')}
+                    value={settings.url}
+                    onChange={(e) => handleChange('url', e.target.value)}
 
+                />
+                <Divider width='497px' margin='24px -16px 24px -16px' />
                 {/* The Save button inside individual item is visual, as state updates instantly */}
-                <Flex  justifyContent='flex-end'>
+                <Flex justifyContent='flex-end'>
                     <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                         {__('Done', 'gamify')}
                     </Button>
@@ -273,7 +261,7 @@ const PointType = () => {
                     <>
                         <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify"></span>
                         <span className="gamify-icon gamify-icon--angle-right"></span>
-                        <GFLabel as="h2" color="#4F46E5" type="subtitle" fontWeight="medium" label={__("Dashboard", "gamify")} />
+                        <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
                     </>
                 )}
             />
@@ -296,8 +284,59 @@ const PointType = () => {
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500" margin='0'>{__(`Drag hooks to the right to activate.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                            {__("Filter Hooks Type", "gamify")}
+                                        </Text>
+
+                                        <Select
+                                            isMulti
+                                            placeholder={__("Select hook type", "gamify")}
+                                            classNamePrefix="gamify-select"
+                                            options={[
+                                                { label: "Gamify", value: "gamify" },
+                                                { label: "WordPress", value: "wordpress" },
+                                            ]}
+                                            // value={''}
+                                            onChange={(opt) => console.log(opt)}
+                                            styles={{
+                                                control: (base) => ({
+                                                    ...base,
+                                                    minHeight: "48px",
+                                                    borderRadius: "6px",
+                                                    borderColor: "#d0d5dd",
+                                                    boxShadow: "none",
+                                                    "&:hover": {
+                                                        borderColor: "#d0d5dd",
+                                                    },
+                                                }),
+
+                                                multiValue: (base) => ({
+                                                    ...base,
+                                                    background: "#F8FAFC",
+                                                    padding: "2px 6px",
+                                                    borderRadius: "6px",
+                                                }),
+
+                                                multiValueLabel: (base) => ({
+                                                    ...base,
+                                                    color: "#1E293B",
+                                                    fontSize: "14px",
+                                                }),
+
+                                                multiValueRemove: (base) => ({
+                                                    ...base,
+                                                    color: "#64748B",
+                                                    ":hover": {
+                                                        backgroundColor: "transparent",
+                                                        color: "#334155",
+                                                    },
+                                                }),
+                                            }}
+                                        />
+                                    </Box>
                                     <DroppableArea id="awards-available">
                                         {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
                                             availableAwardHooks.map(item => (
@@ -305,7 +344,7 @@ const PointType = () => {
                                                     <DraggableItem id={item.id}>
                                                         <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                             <Flex justify="space-between" align="center">
-                                                                <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                                <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
                                                                 <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                             </Flex>
                                                         </Box>
@@ -321,7 +360,7 @@ const PointType = () => {
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
-                                        <GFLabel type="subtitle" color="gray.500" label="Drag hooks to the right to activate." />
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`The following hooks are used for all users`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="awards-sidebar">
                                         {activeAwardHooks.map(hook => (
@@ -350,16 +389,67 @@ const PointType = () => {
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Drag hooks to the right to activate deductions.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                            {__("Filter Hooks Type", "gamify")}
+                                        </Text>
+
+                                        <Select
+                                            isMulti
+                                            placeholder={__("Select hook type", "gamify")}
+                                            classNamePrefix="gamify-select"
+                                            options={[
+                                                { label: "Gamify", value: "gamify" },
+                                                { label: "WordPress", value: "wordpress" },
+                                            ]}
+                                            // value={''}
+                                            onChange={(opt) => console.log(opt)}
+                                            styles={{
+                                                control: (base) => ({
+                                                    ...base,
+                                                    minHeight: "48px",
+                                                    borderRadius: "6px",
+                                                    borderColor: "#d0d5dd",
+                                                    boxShadow: "none",
+                                                    "&:hover": {
+                                                        borderColor: "#d0d5dd",
+                                                    },
+                                                }),
+
+                                                multiValue: (base) => ({
+                                                    ...base,
+                                                    background: "#F8FAFC",
+                                                    padding: "2px 6px",
+                                                    borderRadius: "6px",
+                                                }),
+
+                                                multiValueLabel: (base) => ({
+                                                    ...base,
+                                                    color: "#1E293B",
+                                                    fontSize: "14px",
+                                                }),
+
+                                                multiValueRemove: (base) => ({
+                                                    ...base,
+                                                    color: "#64748B",
+                                                    ":hover": {
+                                                        backgroundColor: "transparent",
+                                                        color: "#334155",
+                                                    },
+                                                }),
+                                            }}
+                                        />
+                                    </Box>
                                     <DroppableArea id="deductions-available">
                                         {availableDeductHooks.map(item => (
                                             <Box key={item.id}>
                                                 <DraggableItem id={item.id}>
                                                     <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                         <Flex justify="space-between" align="center">
-                                                            <Text margin='0' fontWeight="600">{item.label}</Text>
-                                                            <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+                                                            <Text margin='0' fontSize='1rem' fontWeight="600">{__(item.label, 'gamify')}</Text>
+                                                            <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                         </Flex>
                                                     </Box>
                                                 </DraggableItem>
@@ -373,7 +463,7 @@ const PointType = () => {
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Configure deductions for these actions.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`The following hooks are used for all users`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="deductions-sidebar">
                                         {activeDeductHooks.map(hook => (

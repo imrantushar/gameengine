@@ -8,7 +8,6 @@ import OptionMenu from '@Components/OptionMenu';
 import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import PointType from './PointType';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -70,7 +69,7 @@ const columns = [
 ];
 
 
-const Points = () => {
+const Levels = () => {
     const navigate = useNavigate();
     return (
         <>
@@ -95,11 +94,11 @@ const Points = () => {
                         type="title"
                         fontWeight="500"
                         fontSize="xl"
-                        label={__(`Point Types`, 'gamify')}
+                        label={__(`Levels Types`, 'gamify')}
                     />
                     <Button
                         {...primaryBtn}
-                        onClick={() => navigate("/point-type")}
+                        // onClick={() => navigate("/point-type")}
 
                     >
                         {__('+ Add new point types', 'gamify')}
@@ -121,4 +120,4 @@ const Points = () => {
     );
 };
 
-export default Points;
+export default Levels;

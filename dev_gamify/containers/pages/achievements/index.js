@@ -22,7 +22,19 @@ const staticData = [
 const columns = [
     {
         name: __('Name', 'gamify'),
-        cell: (row) => row.name,
+        cell: (row) => (
+            <Flex align="center" gap="10px">
+                <input
+                    className='gamify-checkbox'
+                    type="checkbox"
+                    style={{ width: "16px", height: "16px", cursor: "pointer", marginTop: '1px' }}
+                    onChange={(e) =>
+                        console.log("Selected:", row.id, e.target.checked)
+                    }
+                />
+                <span>{row.name}</span>
+            </Flex>
+        ),
     },
     {
         name: __('Plural Name', 'gamify'),
@@ -67,10 +79,10 @@ const Achievements = () => {
                         <span className="gamify-icon gamify-icon--angle-right" />
                         <GFLabel
                             as="h2"
-                            color="#4F46E5"
+                            color="var(--gamify-font-color)"
                             type="subtitle"
                             fontWeight="medium"
-                            label={__(`Dashboard`, 'gamify')}
+                            label={__(`Game Engine`, 'gamify')}
                         />
                     </>
                 )}
