@@ -36,7 +36,7 @@ const Dashboard = () => {
                             color="#4F46E5"
                             type="subtitle"
                             fontWeight="medium"
-                            label={__(`Dashboard`, 'gamify')}
+                            label={__(`Game Engine`, 'gamify')}
                             
                         />
                     </>

@@ -2361,7 +2361,7 @@ const AchievementsType = () => {
       color: "#4F46E5",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Dashboard", "gamify")
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Game Engine", "gamify")
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "1174px",
@@ -2703,7 +2703,7 @@ const Achievements = () => {
       color: "#4F46E5",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Dashboard`, 'gamify')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Game Engine`, 'gamify')
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
     width: "1174px",
@@ -3147,7 +3147,7 @@ const Dashboard = () => {
       color: "#4F46E5",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)(`Dashboard`, 'gamify')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)(`Game Engine`, 'gamify')
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.VStack, {
     gap: "24px",
@@ -3577,7 +3577,7 @@ const PointType = () => {
       color: "#4F46E5",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("Dashboard", "gamify")
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("Game Engine", "gamify")
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     width: "1174px",
@@ -4030,7 +4030,7 @@ const Points = () => {
       color: "#4F46E5",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Dashboard`, 'gamify')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Game Engine`, 'gamify')
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
     width: "1174px",
