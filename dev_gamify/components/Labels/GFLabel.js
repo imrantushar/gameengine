@@ -108,6 +108,7 @@ const GFLabel = ({
 		truncate: truncate,
 		lineClamp: lineClamp,
 		lineHeight: lineHeight,
+		margin:'0'
 	};
 
 	const needsSlicing = enableSlice && label && label.length > sliceLength;
@@ -154,7 +155,7 @@ const GFLabel = ({
 
 	return (
 		<>
-			<Text {...textProps}>
+			<Text  {...textProps}>
 				{renderContent()}
 
 				{enableSlice && needsSlicing && showToggle && !href && (

@@ -1,12 +1,14 @@
+
+;
 import React, { useState } from 'react';
 import CustomCollapsible from '@Components/Collapsible';
 
-const PointsBirthday = (props) => {
+const GetAddedToAnyRole = (props) => {
      const [isOpen, setIsOpen] = useState(false)
     return (
         <CustomCollapsible
-            label="Deducts for birthday"
-            desc="The user loses points on their birthday."
+            label="Get added to any role"
+            desc="Award points for making comments."
             isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                  singleIcon={true}
@@ -14,4 +16,4 @@ const PointsBirthday = (props) => {
     );
 }
 
-export default PointsBirthday;
+export default GetAddedToAnyRole;

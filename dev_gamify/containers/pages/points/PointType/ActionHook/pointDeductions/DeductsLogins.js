@@ -4,6 +4,8 @@ import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import Select from 'react-select';
+import GFSelect from "@Components/Select";
+import LabeledInput from '@Components/LabeledInput';
 const DeductsLogins = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
@@ -12,70 +14,36 @@ const DeductsLogins = (props) => {
             desc="The user loses points for logging in."
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
-             singleIcon={true}
+            singleIcon={true}
         >
             <Flex gap='12px' >
-                <Flex as="label" direction="column" gap={2} width="30%">
-                    <p
-                        className='gamify-title'
-                    >
-                        {__(
-                            'Deducts',
-                            'gamify'
-                        )}
-                    </p>
-                    <Input
-                        className="gamify-input"
-                        type="number"
-                        placeholder={__('05', 'gamify')}
-                    />
-
-
-                </Flex>
-                <Flex as="label" direction="column" gap={2} width="30%">
-                    <p
-                        className='gamify-title'
-                    >
-                        {__(
-                            'Limit',
-                            'gamify'
-                        )}
-                    </p>
-                    <Input
-                        className="gamify-input"
-                        type="number"
-                        placeholder={__('10', 'gamify')}
-                    />
-
-
-                </Flex>
-                <Flex as="label" direction="column" gap={2} width="40%" >
-                    <p
-                        className='gamify-title'
-                    >
-                        {__(
-                            'Point Name',
-                            'gamify'
-                        )}
-                    </p>
-                    <Select
-                        placeholder={__('Select question type', 'gamify')}
-                        className="gamify-select"
-                        classNamePrefix="gamify-select"
-                        options={[
-                            { label: 'Unlimited', value: 'unlimited' },
-                        ]}
-                        value={{
-                            label: 'Unlimited', value: 'unlimited'
-                        }}
-                        onChange={(opt) =>
-                            console.log(opt)
-                        }
-                    />
-                </Flex>
+                
+                <LabeledInput
+                    label="Deducts"
+                    placeholder="05"
+                    type='number'
+                    style={{width:"30%"}}
+                />
+                <LabeledInput
+                    label="Limit"
+                    placeholder="10"
+                    type='number'
+                    style={{width:"30%"}}
+                />
+                <GFSelect
+                    style={{width:"40%"}}
+                    label="Point Name"
+                    placeholder="Choose one"
+                    items={[
+                        { label: "React.js", value: "react" },
+                        { label: "Vue.js", value: "vue" },
+                        { label: "Angular", value: "angular" },
+                        { label: "Svelte", value: "svelte" },
+                    ]}
+                />
             </Flex>
             <Flex
-                padding="24px"
+                padding="24px 0"
                 justifyContent='flex-end'>
                 <Button
                     {...primaryBtn}
@@ -83,7 +51,7 @@ const DeductsLogins = (props) => {
 
                 >
                     {__('Save', 'gamify')}
-                    <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
+                    
                 </Button>
             </Flex>
         </CustomCollapsible>

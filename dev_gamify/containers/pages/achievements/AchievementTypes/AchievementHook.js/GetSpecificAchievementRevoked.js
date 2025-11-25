@@ -1,12 +1,13 @@
+
 import React, { useState } from 'react';
 import CustomCollapsible from '@Components/Collapsible';
 
-const PointsBirthday = (props) => {
+const ExpendAmountOfPoints = (props) => {
      const [isOpen, setIsOpen] = useState(false)
     return (
         <CustomCollapsible
-            label="Deducts for birthday"
-            desc="The user loses points on their birthday."
+            label="Get a specific achievement revoked"
+            desc="Award points for viewing content.."
             isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
                  singleIcon={true}
@@ -14,4 +15,4 @@ const PointsBirthday = (props) => {
     );
 }
 
-export default PointsBirthday;
+export default ExpendAmountOfPoints;

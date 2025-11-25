@@ -4,8 +4,10 @@ import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import Select from 'react-select';
 import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
+import LabeledInput from '@Components/LabeledInput';
+import GFSelect from "@Components/Select";
 
-const PointsLogins=(props)=> {
+const PointsLogins = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <Box>
@@ -17,94 +19,44 @@ const PointsLogins=(props)=> {
                 singleIcon={true}
             >
                 <Flex gap='12px' >
-                    <Flex as="label" direction="column" gap={2}>
-                        <p
-                            className='gamify-title'
-                        >
-                            {__(
-                                'Points',
-                                'gamify'
-                            )}
-                        </p>
-                        <Input
-                            className="gamify-input"
-                            type="number"
-                            placeholder={__('100', 'gamify')}
-                        />
-
-
-                    </Flex>
-                    <Flex as="label" direction="column" gap={2} width="100%" >
-                        <p
-                            className='gamify-title'
-                        >
-                            {__(
-                                'Point Name',
-                                'gamify'
-                            )}
-                        </p>
-                        <Select
-                            placeholder={__('Select question type', 'gamify')}
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={[
-                                { label: 'Unlimited', value: 'unlimited' },
-                            ]}
-                            value={{
-                                label: 'Unlimited', value: 'unlimited'
-                            }}
-                            onChange={(opt) =>
-                                console.log(opt)
-                            }
-                        />
-                    </Flex>
-                </Flex>
-                <Flex as="label" direction="column" gap={2}>
-                    <p
-                        className='gamify-title'
-                    >
-                        {__(
-                            'Label',
-                            'gamify'
-                        )}
-                    </p>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('ABC', 'gamify')}
-
+                    <LabeledInput
+                        label="Points"
+                        placeholder="100"
+                        type='number'
                     />
-
-
-                </Flex>
-                <Flex as="label" direction="column" gap={2}>
-                    <p
-                        className='gamify-title'
-                    >
-                        {__(
-                            'Url',
-                            'gamify'
-                        )}
-                    </p>
-                    <Input
-                        className="gamify-input"
-                        type="text"
-                        placeholder={__('gdreyt.net', 'gamify')}
+                    <GFSelect
+                        label="Choose the Points Type"
+                        placeholder="Choose one"
+                        items={[
+                            { label: "React.js", value: "react" },
+                            { label: "Vue.js", value: "vue" },
+                            { label: "Angular", value: "angular" },
+                            { label: "Svelte", value: "svelte" },
+                        ]}
                     />
-
-
                 </Flex>
-              <Flex
-              padding="24px 0"
-              justifyContent='flex-end'>
-                  <Button
-                    {...primaryBtn}
-                    width='63px'
+                <LabeledInput
+                    label="Label"
+                    placeholder="ABC"
 
-                >
-                    {__('Save', 'gamify')}
-                </Button>
-              </Flex>
+                />
+                <LabeledInput
+                    label="Url"
+                    placeholder="gdreyt.net"
+                    type="url"
+
+                />
+                <Flex
+                    padding="24px 0"
+                    justifyContent='flex-end'>
+                    <Button
+                        {...primaryBtn}
+                        width='63px'
+
+                    >
+                        {__('Save', 'gamify')}
+                    </Button>
+                </Flex>
             </CustomCollapsible>
 
         </Box>
