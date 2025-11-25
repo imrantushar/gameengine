@@ -2,48 +2,28 @@
 
 namespace Gamify\Core;
 
-// Exit if accessed directly.
-if (! defined('ABSPATH')) {
-    exit;
-}
+if (! defined('ABSPATH')) exit;
 
-/**
- * Defines the database schema for the Gamify plugin.
- * Centralizes all table structures for easier maintenance.
- */
 final class Schema
 {
-    /**
-     * Get all table schemas.
-     *
-     * @return array An associative array of table schemas.
-     */
     public static function get_tables()
     {
         global $wpdb;
-
         $charset_collate = $wpdb->get_charset_collate();
         $prefix = $wpdb->prefix;
 
         return [
-            // Resource Tables
             self::get_point_types_table_schema($prefix, $charset_collate),
             self::get_achievements_table_schema($prefix, $charset_collate),
             self::get_levels_table_schema($prefix, $charset_collate),
-
-            // Engine Tables (Requirements & Logic)
             self::get_requirements_table_schema($prefix, $charset_collate),
             self::get_requirement_progress_table_schema($prefix, $charset_collate),
-
-            // User Data & Log Tables
             self::get_points_log_table_schema($prefix, $charset_collate),
             self::get_user_achievements_table_schema($prefix, $charset_collate),
-            self::get_user_levels_table_schema($prefix, $charset_collate), // New Table Added
+            self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
         ];
     }
-
-    // --- RESOURCE TABLES ---
 
     private static function get_point_types_table_schema($prefix, $charset_collate)
     {
@@ -65,7 +45,7 @@ final class Schema
             title VARCHAR(255) NOT NULL,
             description TEXT,
             badge_image VARCHAR(255),
-            secret_achievement TINYINT(1) DEFAULT 0, -- Updated based on new docs
+            secret_achievement TINYINT(1) DEFAULT 0,
             max_earnings_per_user INT(11) DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
             required_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
@@ -83,7 +63,7 @@ final class Schema
             title VARCHAR(255) NOT NULL,
             description TEXT,
             icon VARCHAR(255),
-            priority INT(11) NOT NULL DEFAULT 0, -- Added priority for sorting levels
+            priority INT(11) NOT NULL DEFAULT 0,
             point_type_id BIGINT(20) UNSIGNED NOT NULL,
             min_points INT(11) NOT NULL DEFAULT 0,
             max_points INT(11) DEFAULT NULL,
@@ -93,16 +73,14 @@ final class Schema
         ) $charset_collate;";
     }
 
-    // --- ENGINE TABLES ---
-
     private static function get_requirements_table_schema($prefix, $charset_collate)
     {
         return "CREATE TABLE {$prefix}gamify_requirements (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            reward_type VARCHAR(50) NOT NULL, -- 'point_type', 'achievement', 'level'
+            reward_type VARCHAR(50) NOT NULL,
             reward_id BIGINT(20) UNSIGNED NOT NULL,
             trigger_key VARCHAR(255) NOT NULL,
-            action_type ENUM('award', 'deduct') NOT NULL DEFAULT 'award', -- Added action_type
+            action_type ENUM('award', 'deduct') NOT NULL DEFAULT 'award',
             parameters JSON,
             is_active TINYINT(1) NOT NULL DEFAULT 1,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -125,15 +103,13 @@ final class Schema
         ) $charset_collate;";
     }
 
-    // --- USER DATA & LOG TABLES ---
-
     private static function get_points_log_table_schema($prefix, $charset_collate)
     {
         return "CREATE TABLE {$prefix}gamify_points_log (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
             point_type_id BIGINT(20) UNSIGNED NOT NULL,
-            points INT(11) NOT NULL, -- Can be negative for deductions
+            points INT(11) NOT NULL,
             context VARCHAR(100) NOT NULL,
             requirement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             description TEXT,
@@ -159,7 +135,6 @@ final class Schema
 
     private static function get_user_levels_table_schema($prefix, $charset_collate)
     {
-        // New table to track current level for users
         return "CREATE TABLE {$prefix}gamify_user_levels (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
