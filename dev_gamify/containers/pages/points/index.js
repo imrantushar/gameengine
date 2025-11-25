@@ -23,7 +23,19 @@ const staticData = [
 const columns = [
     {
         name: __('Name', 'gamify'),
-        cell: (row) => row.name,
+        cell: (row) => (
+            <Flex align="center" gap="10px">
+                <input
+                   className='gamify-checkbox'
+                    type="checkbox"
+                    style={{ width: "16px", height: "16px", cursor: "pointer", marginTop:'1px'}}
+                    onChange={(e) =>
+                        console.log("Selected:", row.id, e.target.checked)
+                    }
+                />
+                <span>{row.name}</span>
+            </Flex>
+        ),
     },
     {
         name: __('Plural Name', 'gamify'),
@@ -39,23 +51,24 @@ const columns = [
             <OptionMenu
                 options={[
                     {
-                        type: 'button',
+                        type: "button",
                         label: __('Edit', 'gamify'),
                         icon: <Icon as={FiEdit} />,
-                        onClick: () => console.log(`Edit ID: ${row.id}`)
+                        onClick: () => console.log(`Edit ID: ${row.id}`),
                     },
                     {
-                        type: 'button',
-                        suffix: 'trash',
+                        type: "button",
+                        suffix: "trash",
                         label: __('Delete', 'gamify'),
                         icon: <Icon as={FiTrash2} />,
-                        onClick: () => console.log(`Delete ID: ${row.id}`)
+                        onClick: () => console.log(`Delete ID: ${row.id}`),
                     },
                 ]}
             />
         ),
     },
 ];
+
 
 const Points = () => {
     const navigate = useNavigate();

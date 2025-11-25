@@ -362,6 +362,40 @@ a:hover, a:focus {
   color: var(--gamify-placing);
 }
 
+input.gamify-checkbox {
+  width: 16px;
+  height: 16px;
+  position: relative;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: 1px solid var(--gamify-border-color);
+  border-radius: 3px;
+  background: transparent;
+  cursor: pointer;
+}
+input.gamify-checkbox:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: var(--gamify-border-color);
+}
+input.gamify-checkbox::before {
+  content: "";
+  position: absolute;
+  top: 74%;
+  right: 60%;
+  width: 4px !important;
+  height: 8px !important;
+  margin: -3px -5px 0 0 !important;
+  border: solid var(--gamify-font-color);
+  border-width: 0 0 2px 2px;
+  transform: rotate(-45deg) translate(50%, -60%);
+  opacity: 0;
+}
+input.gamify-checkbox:checked::before {
+  opacity: 1;
+}
+
 .gamify-width--320 {
   width: 320px;
 }
@@ -570,11 +604,13 @@ a:hover, a:focus {
 }
 .gamify-input::-moz-placeholder {
   color: var(--gamify-placeholder) !important;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  /* Firefox */
 }
 .gamify-input::placeholder {
   color: var(--gamify-placeholder) !important;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  /* Firefox */
 }
 .gamify-textarea {
   border: 1px solid var(--gamify-border-color);
@@ -593,11 +629,13 @@ a:hover, a:focus {
 }
 .gamify-textarea::-moz-placeholder {
   color: var(--gamify-placeholder) !important;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  /* Firefox */
 }
 .gamify-textarea::placeholder {
   color: var(--gamify-placeholder) !important;
-  opacity: 1; /* Firefox */
+  opacity: 1;
+  /* Firefox */
 }
 .gamify-textarea--error {
   border-color: var(--gamify-placing) !important;

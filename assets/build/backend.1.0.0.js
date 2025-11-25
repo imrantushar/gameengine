@@ -3371,14 +3371,12 @@ const DroppableArea = ({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     ref: setNodeRef,
-    minHeight: "200px",
+    minHeight: "275px",
     background: isOver ? "rgba(79,70,229,0.04)" : "transparent",
     borderRadius: "4px",
     border: isOver ? "1px dashed #4F46E5" : "1px solid transparent",
     transition: "all 0.2s"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    marginTop: "12px"
-  }, children));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, null, children));
 };
 
 // --- Reusable Hook Configuration Form ---
@@ -3669,10 +3667,11 @@ const PointType = () => {
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Available Hooks`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontSize: "12px",
-    color: "gray.500",
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "var(--gamify-font-color)",
     margin: "0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Drag hooks to the right to activate.`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-available"
   }, status === 'loading' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     justify: "center"
@@ -3719,11 +3718,12 @@ const PointType = () => {
     fontWeight: "500",
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Active Hooks`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    type: "subtitle",
-    color: "gray.500",
-    label: "Drag hooks to the right to activate."
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "var(--gamify-font-color)",
+    margin: "0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`The following hooks are used for all users`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
   }, activeAwardHooks.map(hook => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
     key: hook.id,
@@ -3756,9 +3756,11 @@ const PointType = () => {
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Available Hooks`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontSize: "12px",
-    color: "gray.500"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Drag hooks to the right to activate deductions.`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "var(--gamify-font-color)",
+    margin: "0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "deductions-available"
   }, availableDeductHooks.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     key: item.id
@@ -3804,9 +3806,11 @@ const PointType = () => {
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Active Deduction Hooks`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontSize: "12px",
-    color: "gray.500"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Configure deductions for these actions.`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+    fontSize: "14px",
+    fontWeight: "400",
+    color: "var(--gamify-font-color)",
+    margin: "0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`The following hooks are used for all users`, 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "deductions-sidebar"
   }, activeDeductHooks.map(hook => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
     key: hook.id,
@@ -3900,7 +3904,20 @@ const staticData = [{
 }];
 const columns = [{
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'gamify'),
-  cell: row => row.name
+  cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    align: "center",
+    gap: "10px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: "gamify-checkbox",
+    type: "checkbox",
+    style: {
+      width: "16px",
+      height: "16px",
+      cursor: "pointer",
+      marginTop: '1px'
+    },
+    onChange: e => console.log("Selected:", row.id, e.target.checked)
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.name))
 }, {
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plural Name', 'gamify'),
   cell: row => row.pluralName
@@ -3911,15 +3928,15 @@ const columns = [{
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Action', 'gamify'),
   cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_OptionMenu__WEBPACK_IMPORTED_MODULE_9__["default"], {
     options: [{
-      type: 'button',
+      type: "button",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit', 'gamify'),
       icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiEdit
       }),
       onClick: () => console.log(`Edit ID: ${row.id}`)
     }, {
-      type: 'button',
-      suffix: 'trash',
+      type: "button",
+      suffix: "trash",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'gamify'),
       icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiTrash2

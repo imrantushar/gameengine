@@ -64,13 +64,13 @@ const DroppableArea = ({ id, children }) => {
     return (
         <Box
             ref={setNodeRef}
-            minHeight="200px"
+            minHeight="275px"
             background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
             borderRadius="4px"
             border={isOver ? "1px dashed #4F46E5" : "1px solid transparent"}
             transition="all 0.2s"
         >
-            <Box marginTop="12px">{children}</Box>
+            <Box>{children}</Box>
         </Box>
     );
 };
@@ -296,7 +296,7 @@ const PointType = () => {
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500" margin='0'>{__(`Drag hooks to the right to activate.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="awards-available">
                                         {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
@@ -321,7 +321,7 @@ const PointType = () => {
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
-                                        <GFLabel type="subtitle" color="gray.500" label="Drag hooks to the right to activate." />
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`The following hooks are used for all users`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="awards-sidebar">
                                         {activeAwardHooks.map(hook => (
@@ -350,7 +350,7 @@ const PointType = () => {
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Drag hooks to the right to activate deductions.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back..`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="deductions-available">
                                         {availableDeductHooks.map(item => (
@@ -373,7 +373,7 @@ const PointType = () => {
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Configure deductions for these actions.`, 'gamify')}</Text>
+                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`The following hooks are used for all users`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="deductions-sidebar">
                                         {activeDeductHooks.map(hook => (
