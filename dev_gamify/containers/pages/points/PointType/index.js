@@ -100,7 +100,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 onClick={() => setIsOpen(!isOpen)}
                 singleIcon={true}
             >
-                <Flex gap='12px' padding="0 24px">
+                <Flex gap='12px'>
                     <Flex as="label" direction="column" gap={2} width="50%">
                         <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Points', 'gamify')}</Text>
                         <Input
@@ -128,7 +128,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                     </Flex>
                 </Flex>
 
-                <Flex direction="column" gap={2} padding="12px 24px">
+                <Flex direction="column" gap={2}>
                     <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Log Label', 'gamify')}</Text>
                     <Input
                         className="gamify-input"
@@ -139,7 +139,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                     />
                 </Flex>
 
-                <Flex direction="column" gap={2} padding="0 24px 24px 24px">
+                <Flex direction="column" gap={2}>
                     <Text className='gamify-title' fontSize="sm" fontWeight="500">{__('Reference URL (Optional)', 'gamify')}</Text>
                     <Input
                         className="gamify-input"
@@ -151,7 +151,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 </Flex>
 
                 {/* The Save button inside individual item is visual, as state updates instantly */}
-                <Flex padding="0 24px 24px" justifyContent='flex-end'>
+                <Flex  justifyContent='flex-end'>
                     <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                         {__('Done', 'gamify')}
                     </Button>
@@ -296,7 +296,7 @@ const PointType = () => {
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Drag hooks to the right to activate.`, 'gamify')}</Text>
+                                        <Text fontSize="12px" color="gray.500" margin='0'>{__(`Drag hooks to the right to activate.`, 'gamify')}</Text>
                                     </Flex>
                                     <DroppableArea id="awards-available">
                                         {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
@@ -321,7 +321,7 @@ const PointType = () => {
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
                                     <Flex flexDirection='column' gap='12px'>
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
-                                        <Text fontSize="12px" color="gray.500">{__(`Configure points for these actions.`, 'gamify')}</Text>
+                                        <GFLabel type="subtitle" color="gray.500" label="Drag hooks to the right to activate." />
                                     </Flex>
                                     <DroppableArea id="awards-sidebar">
                                         {activeAwardHooks.map(hook => (
