@@ -30,48 +30,13 @@ import { primaryBtn } from "../../../../../assets/scss/chakra/recipe";
 import Divider from "@Components/Divider";
 import { Switch } from "@chakra-ui/react";
 import GFSelect from "@Components/Select";
-import UnlockAllAchievementOfType from "./AchievementHook.js/UnlockAllAchievementOfType";
-import GetSpecificAchievementRevoked from "./AchievementHook.js/GetSpecificAchievementRevoked";
-import UnlockSpecificAchievement from "./AchievementHook.js/UnlockSpecificAchievement";
-import GetAddedToAnyRole from "./AchievementHook.js/GetAddedToAnyRole";
-import ExpendAmountOfPoints from "./AchievementHook.js/ExpendAmountOfPoints";
-import LoginWebsite from "./AchievementHook.js/LoginWebsite";
+import UnlockSpecialAchievements from "./levelHooks/UnlockSpecialAchievements";
 
-const achievementHooks = [
+const levelHooks = [
     {
-        id: "unlock-all-achievement-of-type",
-        label: "Unlock all Achievement of type",
-        subTitle: "Award points for visiting your website on a daily basis.",
-    },
-    {
-        id: "get-specific-achievement-revoked",
-        label: "Get a specific achievement revoked",
-        subTitle: "Award points for viewing content.",
-    },
-    {
-        id: "get-any-achievement-of-type-revoked",
-        label: "Get any achievement of type revoked",
-        subTitle: "Award points for logging in.",
-    },
-    {
-        id: "unlock-specific-achievement",
-        label: "Unlock a specific achievement",
-        subTitle: "Award points for publishing content.",
-    },
-    {
-        id: "get-added-to-any-role",
-        label: "Get added to any role",
-        subTitle: "Award points for making comments.",
-    },
-    {
-        id: "expend-amount-of-points",
-        label: "Expend an amount of points",
-        subTitle: "Reward users with points on their birthday.",
-    },
-    {
-        id: "login-website",
-        label: "Login to website",
-        subTitle: "Reward users with points on their birthday.",
+        id: "unlock-special-achievements",
+        label: "Unlock a special Achievements",
+        subTitle: "Award points for visiting your website on a daily basis..",
     },
 ];
 
@@ -104,7 +69,6 @@ const DroppableArea = ({ id, children, title }) => {
             borderRadius="4px"
             border='none'
             transition="all 0.2s"
-            
         >
             {title && (
                 <GFLabel type="title" fontWeight="500" fontSize="1rem" label={title} />
@@ -115,10 +79,10 @@ const DroppableArea = ({ id, children, title }) => {
     );
 };
 
-const AchievementsType = () => {
-    const [achievementHook, setAchievementHook] = useState([]);
-    const [availableAchievement, setAvailableAchievement] = useState(
-        achievementHooks
+const LevelType = () => {
+    const [levelHook, setLevelHook] = useState([]);
+    const [availableLevel, setAvailableLevel] = useState(
+        levelHooks
     );
     const [achievement, setAchievement] = useState(true);
     const sensors = useSensors(
@@ -126,25 +90,8 @@ const AchievementsType = () => {
     );
     const renderActionHook = (id) => {
         switch (id) {
-            case "unlock-all-achievement-of-type":
-                return <UnlockAllAchievementOfType />;
-
-            case "get-specific-achievement-revoked":
-                return <GetSpecificAchievementRevoked />;
-
-            case "get-any-achievement-of-type-revoked":
-                return <GetSpecificAchievementRevoked />;
-
-            case "unlock-specific-achievement":
-                return <UnlockSpecificAchievement />;
-
-            case "get-added-to-any-role":
-                return <GetAddedToAnyRole />;
-
-            case "expend-amount-of-points":
-                return <ExpendAmountOfPoints />;
-            case "login-website":
-                return <LoginWebsite />;
+            case "unlock-special-achievements":
+                return <UnlockSpecialAchievements />
 
             default:
                 return null;
@@ -158,20 +105,20 @@ const AchievementsType = () => {
 
         // Move → Selected Sidebar
         if (
-            availableAchievement.some((i) => i.id === id) &&
+            availableLevel.some((i) => i.id === id) &&
             over.id === "awards-sidebar"
         ) {
-            const item = availableAchievement.find((i) => i.id === id);
+            const item = availableLevel.find((i) => i.id === id);
 
-            setAvailableAchievement((prev) => prev.filter((i) => i.id !== id));
-            setAchievementHook((prev) => [...prev, item.id]);
+            setAvailableLevel((prev) => prev.filter((i) => i.id !== id));
+            setLevelHook((prev) => [...prev, item.id]);
             return;
         }
-        if (achievementHook.includes(id) && over.id === "awards-available") {
-            setAchievementHook((prev) => prev.filter((x) => x !== id));
+        if (levelHook.includes(id) && over.id === "awards-available") {
+            setLevelHook((prev) => prev.filter((x) => x !== id));
 
-            const item = achievementHooks.find((i) => i.id === id);
-            setAvailableAchievement((prev) => [...prev, item]);
+            const item = levelHooks.find((i) => i.id === id);
+            setAvailableLevel((prev) => [...prev, item]);
             return;
         }
     };
@@ -207,57 +154,38 @@ const AchievementsType = () => {
                         type="title"
                         fontWeight="500"
                         fontSize="xl"
-                        label={__(`Achievement Types`, "gamify")}
+                        label={__(`Level Type`, "gamify")}
                     />
 
                     <LabeledInput label="Point Name" placeholder="Academy LMS" />
                     <LabeledInput label="Plural Name" placeholder="Plural Name" />
-
-                    <Box>
-                        <LabeledInput label="Earned By" placeholder="Completing Steps" />
-                        <GFLabel
-                            type="miniTitle"
-                            label={__("How this achievement can be earned.", "gamify")}
-                            fontSize="0.875rem"
-                            mt="6px"
-                            color="var(--gamify-secondary)"
+                    <GFLabel
+                        type="title"
+                        fontWeight="500"
+                        fontSize="xl"
+                        label={__(`Level Requirements`, "gamify")}
+                    />
+                    <Switch.Root>
+                        <Switch.HiddenInput />
+                        <Switch.Label>
+                            {__("Allow unlock with points", "gamify")}
+                        </Switch.Label>
+                        <Switch.Control
+                            _checked={{ bg: "var(--gamify-primary)" }}
                         />
-                    </Box>
-
-                    <Box>
-                        <LabeledInput
-                            label="Maximum Earnings Per User :"
-                            placeholder="0"
-                        />
-                        <GFLabel
-                            type="miniTitle"
-                            label={__(
-                                "Number of times a user can earn this badge (0 = unlimited).",
-                                "gamify"
-                            )}
-                            fontSize="0.875rem"
-                            mt="6px"
-                            color="var(--gamify-secondary)"
-                        />
-                    </Box>
-
-                    <Flex>
-                        <Switch.Root>
-                            <Switch.HiddenInput />
-                            <Switch.Label>
-                                {__("Allow unlock with points", "gamify")}
-                            </Switch.Label>
-                            <Switch.Control
-                                _checked={{ bg: "var(--gamify-primary)" }}
-                            />
-                        </Switch.Root>
-                    </Flex>
-
+                    </Switch.Root>
                     <Flex gap="12px">
                         <Box width="50%">
                             <LabeledInput
-                                label="Points"
-                                placeholder="1500"
+                                label="Minimum Balance Requirement"
+                                placeholder="2000"
+                                type="number"
+                            />
+                        </Box>
+                        <Box width="50%">
+                            <LabeledInput
+                                label="Maximum Balance Requirement"
+                                placeholder="1000"
                                 type="number"
                             />
                         </Box>
@@ -265,17 +193,17 @@ const AchievementsType = () => {
                         <Box width="50%">
                             <GFSelect
                                 label="Choose the Points Type"
-                                placeholder="Choose one"
+                                placeholder="Test Point"
                                 items={[
                                     { label: "React.js", value: "react" },
                                     { label: "Vue.js", value: "vue" },
                                     { label: "Angular", value: "angular" },
                                     { label: "Svelte", value: "svelte" },
                                 ]}
+                               
                             />
                         </Box>
                     </Flex>
-
                     <CustomCollapsible
                         label="Achievement Requirements"
                         isOpen={achievement}
@@ -368,7 +296,7 @@ const AchievementsType = () => {
                                     </Flex>
 
                                     <DroppableArea id="awards-available">
-                                        {availableAchievement.map((item) => (
+                                        {availableLevel.map((item) => (
                                             <React.Fragment key={item.id}>
                                                 <DraggableItem id={item.id}>
                                                     <Box
@@ -436,7 +364,7 @@ const AchievementsType = () => {
 
                                     <DroppableArea id="awards-sidebar">
                                         <Flex direction="column" gap="12px" mt="8px">
-                                            {achievementHook.map((hookId) => (
+                                            {levelHook.map((hookId) => (
                                                 <DraggableItem key={hookId} id={hookId}>
                                                     {renderActionHook(hookId)}
                                                 </DraggableItem>
@@ -463,4 +391,4 @@ const AchievementsType = () => {
     );
 };
 
-export default AchievementsType;
+export default LevelType;
