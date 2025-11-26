@@ -24,6 +24,22 @@ class PointTypesController extends BaseController
                 'permission_callback' => [$this, 'admin_permission_check'],
             ],
         ]);
+
+        // --- NEW: DELETE route with ID ---
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/(?P<id>[\d]+)', [
+            [
+                'methods'             => \WP_REST_Server::DELETABLE, // 'DELETE'
+                'callback'            => [$this, 'delete_item'],
+                'permission_callback' => [$this, 'admin_permission_check'],
+                'args'                => [
+                    'id' => [
+                        'validate_callback' => function ($param) {
+                            return is_numeric($param);
+                        }
+                    ],
+                ],
+            ],
+        ]);
     }
 
     public function get_items($request)
@@ -103,5 +119,35 @@ class PointTypesController extends BaseController
             'message' => 'Point Type saved successfully.',
             'id' => $point_type_id
         ], 201);
+    }
+
+    public function delete_item($request)
+    {
+        global $wpdb;
+        $id = $request->get_param('id');
+        $table = $wpdb->prefix . 'gamify_point_types';
+
+        // Check if it exists
+        $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table} WHERE id = %d", $id));
+
+        if (!$exists) {
+            return new \WP_Error('not_found', 'Point type not found.', ['status' => 404]);
+        }
+
+        // Delete the point type
+        $deleted = $wpdb->delete($table, ['id' => $id], ['%d']);
+
+        if ($deleted) {
+            // Optional: Delete associated requirements/hooks
+            $wpdb->delete(
+                $wpdb->prefix . 'gamify_requirements',
+                ['reward_type' => 'point_type', 'reward_id' => $id],
+                ['%s', '%d']
+            );
+
+            return new \WP_REST_Response(['message' => 'Deleted successfully.', 'id' => $id], 200);
+        }
+
+        return new \WP_REST_Response(['message' => 'Could not delete item.'], 500);
     }
 }
