@@ -27,3 +27,12 @@ import axios from 'axios';
 // 		'Cache-Control': 'no-cache', // Prevent caching
 // 	},
 // });
+export const reactDebounce = (callback, wait) => {
+	let timeout;
+	return (...args) => {
+		clearTimeout(timeout);
+		timeout = setTimeout(function () {
+			callback.apply(this, args);
+		}, wait);
+	};
+};

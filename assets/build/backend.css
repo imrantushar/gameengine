@@ -250,6 +250,57 @@
   padding: 0;
   color: var(--gamify-placing);
 }
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Search/styles.scss ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+.gamify-search-component {
+  position: relative;
+  display: inline-block;
+}
+.gamify-search-component input.gamify-search-component__input {
+  height: 38px;
+  padding-left: 40px;
+  padding-right: 20px;
+  max-width: 300px;
+  width: 100%;
+  border: 1px solid var(--gamify-border-color);
+}
+.gamify-search-component input.gamify-search-component__input:hover, .gamify-search-component input.gamify-search-component__input:focus {
+  border-color: var(--gamify-primary);
+}
+.gamify-search-component__search {
+  position: absolute;
+  top: 13px;
+  left: 15px;
+  bottom: 0;
+  cursor: pointer;
+  font-size: 15px;
+  color: #999;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin: 0 !important;
+}
+.gamify-search-component__control {
+  width: 40px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  cursor: pointer;
+  font-size: 15px;
+  color: #999;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+.gamify-search-component__control:hover, .gamify-search-component__control:focus {
+  background: none;
+  color: #f94d4d;
+  border: 0;
+}
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/backend.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************/
