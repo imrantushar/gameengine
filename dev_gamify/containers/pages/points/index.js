@@ -57,19 +57,11 @@ const Points = () => {
     const columns = [
         {
             name: __('Name', 'gamify'),
-             cell: (row) => (
-            <Flex align="center" gap="10px">
-                <input
-                   className='gamify-checkbox'
-                    type="checkbox"
-                    style={{ width: "16px", height: "16px", cursor: "pointer", marginTop:'1px'}}
-                    onChange={(e) =>
-                        console.log("Selected:", row.id, e.target.checked)
-                    }
-                />
-                <span>{row.name}</span>
-            </Flex>
-        ),
+            cell: (row) => (
+                <Flex align="center" gap="10px">
+                    <span>{row.name}</span>
+                </Flex>
+            ),
         },
         {
             name: __('Plural Name', 'gamify'),
@@ -149,7 +141,7 @@ const Points = () => {
                         data={dynamicData}
                         showSubHeader={false}
                         showColumnFilter={false}
-                        isRowSelectable={false}
+                        isRowSelectable={true}
                         showPagination={false}
                         noDataText="No data found"
                     />
