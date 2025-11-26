@@ -2663,20 +2663,7 @@ const staticData = [{
 }];
 const columns = [{
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'gamify'),
-  cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
-    align: "center",
-    gap: "10px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    className: "gamify-checkbox",
-    type: "checkbox",
-    style: {
-      width: "16px",
-      height: "16px",
-      cursor: "pointer",
-      marginTop: '1px'
-    },
-    onChange: e => console.log("Selected:", row.id, e.target.checked)
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.name))
+  cell: row => row.name
 }, {
   name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plural Name', 'gamify'),
   cell: row => row.pluralName
@@ -2741,7 +2728,7 @@ const Achievements = () => {
     data: staticData,
     showSubHeader: false,
     showColumnFilter: false,
-    isRowSelectable: false,
+    isRowSelectable: true,
     showPagination: false,
     noDataText: "No data found"
   })));
