@@ -23,6 +23,7 @@ const TableFooter = ({
 
 	React.useEffect(() => {
 		const selector = document.getElementById('gamify-table-row-per-page-selector');
+		 if (!selector) return;
 		selector.childNodes.forEach(function (element) {
 			if (element.className.includes('gamify-select__control')) {
 				return element.id = 'gamify-table-row-per-page-selector-control';
@@ -30,6 +31,7 @@ const TableFooter = ({
 			return element;
 		})
 		const selectorControl = document.getElementById('gamify-table-row-per-page-selector-control');
+		   if (!selectorControl) return;
 		selectorControl.childNodes.forEach(function (element) {
 			if (element.className.includes('gamify-select__indicators')) {
 				return element.id = 'gamify-table-row-per-page-selector-indicators';
@@ -37,6 +39,7 @@ const TableFooter = ({
 			return element;
 		})
 		const selectorIndicators = document.getElementById('gamify-table-row-per-page-selector-indicators');
+		 if (!selectorIndicators) return;
 		selectorIndicators.removeChild(selectorIndicators.childNodes[0]);
 		selectorIndicators.childNodes[0].style.padding = '0 8px 0 0';
 		selectorControl.childNodes[0].style.padding = '2px 0px 0px 8px';
