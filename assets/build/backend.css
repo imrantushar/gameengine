@@ -1114,7 +1114,7 @@ input.gamify-checkbox:checked::before {
   overflow-y: hidden;
 }
 .gamify-table__table {
-  padding: 0;
+  padding: 24px 0 0 0;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1135,8 +1135,7 @@ input.gamify-checkbox:checked::before {
   min-height: 30px;
   display: flex;
   align-items: center;
-  color: var(--gamify-secondary);
-  border-bottom: 1px solid var(--gamify-border-color);
+  background: var(--gamify-body-background);
   padding-right: 16px;
 }
 .gamify-table__head-cell:nth-child(2) {
@@ -1199,6 +1198,7 @@ input.gamify-checkbox:checked::before {
   min-height: 74px;
   display: flex;
   align-items: center;
+  padding-left: 12px;
 }
 .gamify-table__body-row-cell {
   flex: 1;
@@ -1215,7 +1215,11 @@ input.gamify-checkbox:checked::before {
   color: var(--gamify-font-color);
 }
 .gamify-table__body-row-cell:not(:first-child) {
+  padding-left: 24px;
   justify-content: center;
+}
+.gamify-table__body-row-cell:first-child {
+  padding-left: 16px;
 }
 .gamify-table__body-row-cell:nth-child(2) {
   justify-content: flex-start !important;

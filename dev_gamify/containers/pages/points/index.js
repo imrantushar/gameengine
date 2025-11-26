@@ -1,87 +1,111 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Box, Button, Flex, Icon, Spinner } from '@chakra-ui/react';
+import { __ } from '@wordpress/i18n';
+import { FiEdit, FiTrash2 } from "react-icons/fi";
+import apiFetch from '@wordpress/api-fetch';
+
+// আপনার আগের কম্পোনেন্টগুলো
 import TopBar from "@Components/TopBar";
 import GFLabel from '@Components/Labels/GFLabel';
-import { __ } from '@wordpress/i18n';
-import ListTable from '@Components/ListTable';
-import { Box, Button, Flex, Icon } from '@chakra-ui/react';
-import OptionMenu from '@Components/OptionMenu';
-import { FiEdit } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
+import ListTable from '@Components/ListTable'; // আপনার আগের টেবিল কম্পোনেন্ট
+import OptionMenu from '@Components/OptionMenu'; // আপনার আগের মেনু কম্পোনেন্ট
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import PointType from './PointType';
-import { useNavigate } from 'react-router-dom';
-
-
-const staticData = [
-    { id: 1, name: "John Doe", pluralName: "John Does", date: "2025-01-10" },
-    { id: 2, name: "Emma Watson", pluralName: "Emma Watsons", date: "2025-01-12" },
-    { id: 3, name: "Mark Tailor", pluralName: "Mark Tailors", date: "2025-01-15" },
-    { id: 4, name: "Sarah Lee", pluralName: "Sarah Lees", date: "2025-01-18" },
-    { id: 5, name: "David Kim", pluralName: "David Kims", date: "2025-01-20" },
-];
-
-const columns = [
-    {
-        name: __('Name', 'gamify'),
-        cell: (row) => (
-            <Flex align="center" gap="10px">
-                <input
-                   className='gamify-checkbox'
-                    type="checkbox"
-                    style={{ width: "16px", height: "16px", cursor: "pointer", marginTop:'1px'}}
-                    onChange={(e) =>
-                        console.log("Selected:", row.id, e.target.checked)
-                    }
-                />
-                <span>{row.name}</span>
-            </Flex>
-        ),
-    },
-    {
-        name: __('Plural Name', 'gamify'),
-        cell: (row) => row.pluralName,
-    },
-    {
-        name: __('Date', 'gamify'),
-        cell: (row) => row.date,
-    },
-    {
-        name: __('Action', 'gamify'),
-        cell: (row) => (
-            <OptionMenu
-                options={[
-                    {
-                        type: "button",
-                        label: __('Edit', 'gamify'),
-                        icon: <Icon as={FiEdit} />,
-                        onClick: () => console.log(`Edit ID: ${row.id}`),
-                    },
-                    {
-                        type: "button",
-                        suffix: "trash",
-                        label: __('Delete', 'gamify'),
-                        icon: <Icon as={FiTrash2} />,
-                        onClick: () => console.log(`Delete ID: ${row.id}`),
-                    },
-                ]}
-            />
-        ),
-    },
-];
-
 
 const Points = () => {
     const navigate = useNavigate();
+
+    // ১. ডাইনামিক ডেটা রাখার জন্য স্টেট
+    const [dynamicData, setDynamicData] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // ২. API থেকে ডেটা আনা
+    useEffect(() => {
+        apiFetch({ path: '/gamify/v1/point-types' })
+            .then((res) => {
+                if (Array.isArray(res)) {
+                    // ডেটা ফরম্যাট করা যাতে আপনার ListTable বুঝতে পারে
+                    const formattedData = res.map(item => ({
+                        id: item.id,
+                        name: item.name,
+                        pluralName: item.plural_name,
+                        date: new Date(item.created_at).toLocaleDateString('en-US', {
+                            year: 'numeric', month: 'short', day: 'numeric'
+                        })
+                    }));
+                    setDynamicData(formattedData);
+                }
+                setIsLoading(false);
+            })
+            .catch((err) => {
+                console.error(err);
+                setIsLoading(false);
+            });
+    }, []);
+
+    const handleDelete = (id) => {
+        if (window.confirm('Are you sure?')) {
+            apiFetch({
+                path: `/gamify/v1/point-types/${id}`,
+                method: 'DELETE',
+            }).then(() => {
+                setDynamicData(dynamicData.filter(item => item.id !== id));
+            });
+        }
+    };
+
+    const columns = [
+        {
+            name: __('Name', 'gamify'),
+            cell: (row) => (
+                <Flex align="center" gap="10px">
+                    <span>{row.name}</span>
+                </Flex>
+            ),
+        },
+        {
+            name: __('Plural Name', 'gamify'),
+            cell: (row) => row.pluralName,
+        },
+        {
+            name: __('Date', 'gamify'),
+            cell: (row) => row.date,
+        },
+        {
+            name: __('Action', 'gamify'),
+            cell: (row) => (
+                <OptionMenu
+                    options={[
+                        {
+                            type: 'button',
+                            label: __('Edit', 'gamify'),
+                            icon: <Icon as={FiEdit} />,
+                            onClick: () => navigate(`/point-type?id=${row.id}`)
+                        },
+                        {
+                            type: 'button',
+                            suffix: 'trash',
+                            label: __('Delete', 'gamify'),
+                            icon: <Icon as={FiTrash2} />,
+                            onClick: () => handleDelete(row.id)
+                        },
+                    ]}
+                />
+            ),
+        },
+    ];
+
     return (
         <>
             <TopBar
+
                 leftContent={() => (
                     <>
                         <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
                         <span className="gamify-icon gamify-icon--angle-right" />
                         <GFLabel
                             as="h2"
-                            color="var(--gamify-font-color)"
+                            color="#4F46E5"
                             type="subtitle"
                             fontWeight="medium"
                             label={__(`Game Engine`, 'gamify')}
@@ -100,23 +124,29 @@ const Points = () => {
                     <Button
                         {...primaryBtn}
                         onClick={() => navigate("/point-type")}
-
                     >
                         {__('+ Add new point types', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
                     </Button>
                 </Flex>
-                <ListTable
-                    columns={columns}
-                    data={staticData}
-                    showSubHeader={false}
-                    showColumnFilter={false}
-                    isRowSelectable={false}
-                    showPagination={false}
-                    noDataText="No data found"
-                />
-            </Box>
 
+                {isLoading ? (
+                    <Flex justify="center" align="center" height="200px">
+                        <Spinner />
+                    </Flex>
+                ) : (
+
+                    <ListTable
+                        columns={columns}
+                        data={dynamicData}
+                        showSubHeader={false}
+                        showColumnFilter={false}
+                        isRowSelectable={true}
+                        showPagination={false}
+                        noDataText="No data found"
+                    />
+                )}
+            </Box>
         </>
     );
 };

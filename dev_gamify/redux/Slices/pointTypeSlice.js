@@ -1,20 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
-// Fetch Hooks
+// --- Existing Thunks ---
 export const fetchTriggers = createAsyncThunk(
     'pointType/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await apiFetch({ path: '/gamify/v1/triggers' });
-            return response;
+            return await apiFetch({ path: '/gamify/v1/triggers' });
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
-// Save Point Type
 export const savePointType = createAsyncThunk(
     'pointType/save',
     async (pointData, { rejectWithValue }) => {
@@ -30,18 +28,50 @@ export const savePointType = createAsyncThunk(
     }
 );
 
+// --- NEW: Fetch All Point Types ---
+export const fetchPointTypes = createAsyncThunk(
+    'pointType/fetchAll',
+    async (_, { rejectWithValue }) => {
+        try {
+            // GET request to /gamify/v1/point-types
+            return await apiFetch({ path: '/gamify/v1/point-types' });
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+// --- NEW: Delete Point Type ---
+export const deletePointType = createAsyncThunk(
+    'pointType/delete',
+    async (id, { rejectWithValue }) => {
+        try {
+            await apiFetch({
+                path: `/gamify/v1/point-types/${id}`, // Ensure your API supports DELETE
+                method: 'DELETE',
+            });
+            return id; // Return the ID to remove it from state
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const initialState = {
+    // List Data
+    pointTypes: [],
+
+    // Form Data
     name: '',
     pluralName: '',
-    allHooks: [], // Raw hooks from API
-
+    allHooks: [],
     selectedAwardHookIds: [],
     selectedDeductHookIds: [],
-
-    // Stores settings for each hook. Key format: "type_hookId" (e.g., "award_wp_login")
     hookSettings: {},
 
-    status: 'idle',
+    // Statuses
+    status: 'idle',       // General status
+    listStatus: 'idle',   // Specifically for the list table
     saveStatus: 'idle',
     error: null,
 };
@@ -50,59 +80,63 @@ const pointTypeSlice = createSlice({
     name: 'pointType',
     initialState,
     reducers: {
-        setPointName: (state, action) => {
-            state.name = action.payload;
-        },
-        setPluralName: (state, action) => {
-            state.pluralName = action.payload;
-        },
+        setPointName: (state, action) => { state.name = action.payload; },
+        setPluralName: (state, action) => { state.pluralName = action.payload; },
 
-        // --- Awards ---
         addAwardHook: (state, action) => {
-            const hookId = action.payload;
-            if (!state.selectedAwardHookIds.includes(hookId)) {
-                state.selectedAwardHookIds.push(hookId);
+            if (!state.selectedAwardHookIds.includes(action.payload)) {
+                state.selectedAwardHookIds.push(action.payload);
             }
         },
         removeAwardHook: (state, action) => {
             state.selectedAwardHookIds = state.selectedAwardHookIds.filter(id => id !== action.payload);
-            // Optional: cleanup settings
-            delete state.hookSettings[`award_${action.payload}`];
         },
-
-        // --- Deductions ---
         addDeductHook: (state, action) => {
-            const hookId = action.payload;
-            if (!state.selectedDeductHookIds.includes(hookId)) {
-                state.selectedDeductHookIds.push(hookId);
+            if (!state.selectedDeductHookIds.includes(action.payload)) {
+                state.selectedDeductHookIds.push(action.payload);
             }
         },
         removeDeductHook: (state, action) => {
             state.selectedDeductHookIds = state.selectedDeductHookIds.filter(id => id !== action.payload);
-            delete state.hookSettings[`deduct_${action.payload}`];
         },
-
-        // --- Settings Update ---
         updateHookSettings: (state, action) => {
             const { type, hookId, settings } = action.payload;
-            // type is 'award' or 'deduct'
             const key = `${type}_${hookId}`;
-            state.hookSettings[key] = {
-                ...state.hookSettings[key],
-                ...settings
-            };
+            state.hookSettings[key] = { ...state.hookSettings[key], ...settings };
         }
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchTriggers.pending, (state) => { state.status = 'loading'; })
+            // --- Fetch Triggers ---
             .addCase(fetchTriggers.fulfilled, (state, action) => {
-                state.status = 'succeeded';
                 state.allHooks = action.payload;
             })
+
+            // --- Save Point Type ---
             .addCase(savePointType.pending, (state) => { state.saveStatus = 'saving'; })
             .addCase(savePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(savePointType.rejected, (state) => { state.saveStatus = 'failed'; });
+            .addCase(savePointType.rejected, (state, action) => {
+                state.saveStatus = 'failed';
+                state.error = action.payload;
+            })
+
+            // --- Fetch List of Point Types ---
+            .addCase(fetchPointTypes.pending, (state) => {
+                state.listStatus = 'loading';
+            })
+            .addCase(fetchPointTypes.fulfilled, (state, action) => {
+                state.listStatus = 'succeeded';
+                state.pointTypes = action.payload;
+            })
+            .addCase(fetchPointTypes.rejected, (state, action) => {
+                state.listStatus = 'failed';
+                state.error = action.payload;
+            })
+
+            // --- Delete Point Type ---
+            .addCase(deletePointType.fulfilled, (state, action) => {
+                state.pointTypes = state.pointTypes.filter(pt => pt.id !== action.payload);
+            });
     },
 });
 
