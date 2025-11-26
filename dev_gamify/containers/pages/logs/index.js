@@ -364,7 +364,7 @@ const Logs = () => {
                             color="var(--gamify-font-color)"
                             type="subtitle"
                             fontWeight="medium"
-                            label={__(`Game Engine`, 'gamify')}
+                            label={__(`Dashboard`, 'gamify')}
                         />
                     </>
                 )}
