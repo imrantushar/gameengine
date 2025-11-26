@@ -370,21 +370,7 @@ const Logs = () => {
                 )}
             />
 
-            <Box width="1174px" margin="0 auto" height="100vh">
-                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                    <GFLabel
-                        type="title"
-                        fontWeight="500"
-                        fontSize="xl"
-                        label={__(`Logs`, 'gamify')}
-                    />
-
-                    <Button {...primaryBtn}>
-                        {__('+ Add new point types', 'gamify')}
-                        <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
-                    </Button>
-                </Flex>
-
+            <Box width="1174px" margin="0 auto" >
                 <ListTable
                     columns={columns}
                     isRowSelectable={true}
