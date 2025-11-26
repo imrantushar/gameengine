@@ -1,56 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'; // Redux imports
 import { useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Icon, Spinner } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import apiFetch from '@wordpress/api-fetch';
 
-// আপনার আগের কম্পোনেন্টগুলো
+// Components
 import TopBar from "@Components/TopBar";
 import GFLabel from '@Components/Labels/GFLabel';
-import ListTable from '@Components/ListTable'; // আপনার আগের টেবিল কম্পোনেন্ট
-import OptionMenu from '@Components/OptionMenu'; // আপনার আগের মেনু কম্পোনেন্ট
+import ListTable from '@Components/ListTable';
+import OptionMenu from '@Components/OptionMenu';
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
+
+// Import Redux actions
+import { fetchPointTypes, deletePointType } from '../../../redux/Slices/pointTypeSlice';
 
 const Points = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    // ১. ডাইনামিক ডেটা রাখার জন্য স্টেট
-    const [dynamicData, setDynamicData] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    // Select data from Redux store
+    // 'pointTypes' contains the formatted data
+    // 'listStatus' handles the loading state
+    const { pointTypes, listStatus } = useSelector((state) => state.pointType);
 
-    // ২. API থেকে ডেটা আনা
+    // Fetch data on component mount
     useEffect(() => {
-        apiFetch({ path: '/gamify/v1/point-types' })
-            .then((res) => {
-                if (Array.isArray(res)) {
-                    // ডেটা ফরম্যাট করা যাতে আপনার ListTable বুঝতে পারে
-                    const formattedData = res.map(item => ({
-                        id: item.id,
-                        name: item.name,
-                        pluralName: item.plural_name,
-                        date: new Date(item.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric', month: 'short', day: 'numeric'
-                        })
-                    }));
-                    setDynamicData(formattedData);
-                }
-                setIsLoading(false);
-            })
-            .catch((err) => {
-                console.error(err);
-                setIsLoading(false);
-            });
-    }, []);
+        dispatch(fetchPointTypes());
+    }, [dispatch]);
 
+    // Handle delete using Redux action
     const handleDelete = (id) => {
         if (window.confirm('Are you sure?')) {
-            apiFetch({
-                path: `/gamify/v1/point-types/${id}`,
-                method: 'DELETE',
-            }).then(() => {
-                setDynamicData(dynamicData.filter(item => item.id !== id));
-            });
+            dispatch(deletePointType(id));
         }
     };
 
@@ -98,7 +80,6 @@ const Points = () => {
     return (
         <>
             <TopBar
-
                 leftContent={() => (
                     <>
                         <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
@@ -130,19 +111,18 @@ const Points = () => {
                     </Button>
                 </Flex>
 
-                {isLoading ? (
+                {listStatus === 'loading' ? (
                     <Flex justify="center" align="center" height="200px">
                         <Spinner />
                     </Flex>
                 ) : (
-
                     <ListTable
                         columns={columns}
-                        data={dynamicData}
+                        data={pointTypes}
                         showSubHeader={false}
                         showColumnFilter={false}
-                        isRowSelectable={true}
-                        showPagination={false}
+                        isRowSelectable={true} // Maintained as per your code
+                        showPagination={false} // Maintained as per your code
                         noDataText="No data found"
                     />
                 )}

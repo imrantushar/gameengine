@@ -1,56 +1,71 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
-// --- Existing Thunks ---
+// --- 1. Fetch Available Triggers ---
 export const fetchTriggers = createAsyncThunk(
     'pointType/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            return await apiFetch({ path: '/gamify/v1/triggers' });
+            const response = await apiFetch({ path: '/gamify/v1/triggers' });
+            return response;
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
+// --- 2. Save Point Type ---
 export const savePointType = createAsyncThunk(
     'pointType/save',
     async (pointData, { rejectWithValue }) => {
         try {
-            return await apiFetch({
+            const response = await apiFetch({
                 path: '/gamify/v1/point-types',
                 method: 'POST',
                 data: pointData,
             });
+            return response;
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
-// --- NEW: Fetch All Point Types ---
+// --- 3. Fetch All Point Types (List) ---
 export const fetchPointTypes = createAsyncThunk(
     'pointType/fetchAll',
     async (_, { rejectWithValue }) => {
         try {
-            // GET request to /gamify/v1/point-types
-            return await apiFetch({ path: '/gamify/v1/point-types' });
+            const response = await apiFetch({ path: '/gamify/v1/point-types' });
+
+            if (Array.isArray(response)) {
+                // Format data for the frontend table
+                return response.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    pluralName: item.plural_name, // Convert DB column to camelCase for frontend
+                    date: new Date(item.created_at).toLocaleDateString('en-US', {
+                        year: 'numeric', month: 'short', day: 'numeric'
+                    })
+                }));
+            }
+            return [];
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
-// --- NEW: Delete Point Type ---
+// --- 4. Delete Point Type ---
 export const deletePointType = createAsyncThunk(
     'pointType/delete',
     async (id, { rejectWithValue }) => {
         try {
             await apiFetch({
-                path: `/gamify/v1/point-types/${id}`, // Ensure your API supports DELETE
+                path: `/gamify/v1/point-types/${id}`,
                 method: 'DELETE',
             });
-            return id; // Return the ID to remove it from state
+            return id; // Return ID to remove from Redux state
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -71,8 +86,8 @@ const initialState = {
 
     // Statuses
     status: 'idle',       // General status
-    listStatus: 'idle',   // Specifically for the list table
-    saveStatus: 'idle',
+    listStatus: 'idle',   // Status for the list table
+    saveStatus: 'idle',   // Status for saving
     error: null,
 };
 
@@ -108,8 +123,14 @@ const pointTypeSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // --- Fetch Triggers ---
+            .addCase(fetchTriggers.pending, (state) => { state.status = 'loading'; })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
+                state.status = 'succeeded';
                 state.allHooks = action.payload;
+            })
+            .addCase(fetchTriggers.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.payload;
             })
 
             // --- Save Point Type ---
