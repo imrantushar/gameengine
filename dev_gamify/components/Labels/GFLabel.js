@@ -36,8 +36,8 @@ const GFLabel = ({
 
 	const variantStyles = {
 		heading: {
-			fontSize: "24px",
-			fontWeight: "600",
+			fontSize: "20px",
+			fontWeight: "200",
 			color: "var(--gamify-font-color)",
 		},
 		title: {
