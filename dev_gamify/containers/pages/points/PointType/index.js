@@ -8,8 +8,6 @@ import {
     Icon,
     Spinner,
     Text,
-    Input,
-    // useToast // Removed to prevent crash
 } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import { FaArrowRotateRight } from 'react-icons/fa6';
@@ -21,7 +19,7 @@ import {
     useDraggable,
     useDroppable
 } from '@dnd-kit/core';
-import Select from 'react-select'; // Using standard React Select to avoid errors
+import Select from 'react-select';
 
 // Components
 import TopBar from '@Components/TopBar';
@@ -29,9 +27,8 @@ import GFLabel from '@Components/Labels/GFLabel';
 import LabeledInput from '@Components/LabeledInput';
 import CustomCollapsible from '@Components/Collapsible';
 import Divider from '@Components/Divider';
-// import GFSelect from '@Components/Select'; // Removed to use standard Select
 
-// Corrected Imports
+// Imports
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import {
     setPointName,
@@ -81,123 +78,90 @@ const DroppableArea = ({ id, children }) => {
     );
 };
 
-// --- Helper to format value for react-select ---
-const getSelectValue = (options, value) => {
-    if (!value) return null;
-    return options.find(opt => opt.value === value) || null;
+// --- Helper: Dynamic Field Renderer ---
+// This component decides what input to show based on the 'type' in PHP config
+const DynamicField = ({ fieldKey, config, value, onChange }) => {
+
+    // Handle "select" type
+    if (config.type === 'select' && config.options) {
+        const selectOptions = Object.entries(config.options).map(([val, label]) => ({
+            value: val,
+            label: label
+        }));
+
+        const selectedOption = selectOptions.find(opt => opt.value === value) || null;
+
+        return (
+            <Box width="100%">
+                <Text className='gamify-title' fontSize="sm" fontWeight="500" mb="8px">
+                    {config.label} {config.required && <span style={{ color: 'red' }}>*</span>}
+                </Text>
+                <Select
+                    placeholder={__('Select...', 'gamify')}
+                    className="gamify-select"
+                    classNamePrefix="gamify-select"
+                    options={selectOptions}
+                    value={selectedOption}
+                    onChange={(val) => onChange(val ? val.value : '')}
+                />
+            </Box>
+        );
+    }
+
+    // Handle "number" or "text" type (Default)
+    return (
+        <LabeledInput
+            label={config.label}
+            placeholder={config.placeholder || ''}
+            type={config.type === 'number' ? 'number' : 'text'}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            required={config.required}
+        />
+    );
 };
 
-// --- 1. Form for Award Hooks ---
-const AwardHookForm = ({ hookId, hookInfo, settings, handleChange, isOpen, setIsOpen }) => {
-    const limitOptions = [
-        { label: __('Unlimited', 'gamify'), value: 'unlimited' },
-        { label: __('1 per day', 'gamify'), value: '1_per_day' },
-        { label: __('1 time only', 'gamify'), value: '1_time' },
-    ];
+
+// --- Dynamic Form Generator ---
+const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
+
+    // Get correct fields based on type (award or deduct)
+    const fieldsConfig = type === 'award'
+        ? (hookInfo.award_fields || {})
+        : (hookInfo.deduct_fields || {});
+
+    // Convert fields object to array for mapping
+    const fieldKeys = Object.keys(fieldsConfig);
 
     return (
         <CustomCollapsible
-            label={hookInfo?.label || hookId}
+            label={(type === 'deduct' ? __('Deduct: ', 'gamify') : '') + (hookInfo?.label || hookId)}
             desc={hookInfo?.subTitle}
             isOpen={isOpen}
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex gap='12px' padding="0 24px">
-                <LabeledInput
-                    label={__('Points', 'gamify')}
-                    placeholder="100"
-                    type="number"
-                    value={settings.points}
-                    onChange={(e) => handleChange('points', e.target.value)}
-                />
-                <Box width="100%">
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500" mb="8px">{__('Limit', 'gamify')}</Text>
-                    <Select
-                        placeholder={__('Choose limit', 'gamify')}
-                        className="gamify-select"
-                        classNamePrefix="gamify-select"
-                        options={limitOptions}
-                        value={getSelectValue(limitOptions, settings.limit)}
-                        onChange={(val) => handleChange('limit', val.value)}
-                    />
-                </Box>
-            </Flex>
+            <Flex direction="column" gap="16px" padding="0 24px">
+                {/* Dynamically Render Fields */}
+                {fieldKeys.length > 0 ? (
+                    fieldKeys.map((key) => {
+                        const config = fieldsConfig[key];
+                        // Use saved setting or default from config
+                        const currentValue = settings[key] !== undefined ? settings[key] : (config.default || '');
 
-            <Box padding="0 24px">
-                <LabeledInput
-                    label={__('Log Label', 'gamify')}
-                    placeholder={__('e.g. Daily Login Bonus', 'gamify')}
-                    type="text"
-                    value={settings.label}
-                    onChange={(e) => handleChange('label', e.target.value)}
-                />
-            </Box>
-
-            <Box padding="0 24px">
-                <LabeledInput
-                    label={__('Reference URL', 'gamify')}
-                    type="text"
-                    placeholder={__('https://...', 'gamify')}
-                    value={settings.url}
-                    onChange={(e) => handleChange('url', e.target.value)}
-                />
-            </Box>
-
-            <Divider width='100%' margin='24px 0' />
-
-            <Flex padding="0 24px 24px" justifyContent='flex-end'>
-                <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
-                    {__('Done', 'gamify')}
-                </Button>
-            </Flex>
-        </CustomCollapsible>
-    );
-};
-
-// --- 2. Form for Deduct Hooks ---
-const DeductHookForm = ({ hookId, hookInfo, settings, handleChange, isOpen, setIsOpen }) => {
-    const limitOptions = [
-        { label: __('No Limit', 'gamify'), value: 'unlimited' },
-        { label: __('Limited', 'gamify'), value: 'limited' },
-    ];
-
-    return (
-        <CustomCollapsible
-            label={__('Deduct for: ', 'gamify') + (hookInfo?.label || hookId)}
-            desc={hookInfo?.subTitle ? hookInfo.subTitle.replace('Award', 'Deduct') : ''}
-            isOpen={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-            singleIcon={true}
-        >
-            <Flex gap='12px' padding="0 24px">
-                <LabeledInput
-                    label={__('Deduct (Points)', 'gamify')}
-                    placeholder="50"
-                    type="number"
-                    value={settings.points}
-                    onChange={(e) => handleChange('points', e.target.value)}
-                />
-
-                <Box width="100%">
-                    <Text className='gamify-title' fontSize="sm" fontWeight="500" mb="8px">{__('Limit', 'gamify')}</Text>
-                    <Select
-                        placeholder={__('Select limit', 'gamify')}
-                        className="gamify-select"
-                        classNamePrefix="gamify-select"
-                        options={limitOptions}
-                        value={getSelectValue(limitOptions, settings.limit)}
-                        onChange={(val) => handleChange('limit', val.value)}
-                    />
-                </Box>
-
-                <LabeledInput
-                    label={__('Times', 'gamify')}
-                    placeholder="1"
-                    type="number"
-                    value={settings.times}
-                    onChange={(e) => handleChange('times', e.target.value)}
-                />
+                        return (
+                            <DynamicField
+                                key={key}
+                                fieldKey={key}
+                                config={config}
+                                value={currentValue}
+                                onChange={(val) => handleChange(key, val)}
+                            />
+                        );
+                    })
+                ) : (
+                    <Text fontSize="sm" color="gray.500">{__('No configuration fields available.', 'gamify')}</Text>
+                )}
             </Flex>
 
             <Divider width='100%' margin='24px 0' />
@@ -210,17 +174,16 @@ const DeductHookForm = ({ hookId, hookInfo, settings, handleChange, isOpen, setI
         </CustomCollapsible>
     );
 };
+
 
 // --- Main Configuration Wrapper ---
 const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    // Default settings based on type
-    const defaultSettings = type === 'award'
-        ? { points: '', limit: 'unlimited', label: '', url: '' }
-        : { points: '', limit: 'unlimited', times: '1' };
-
-    const settings = currentSettings || defaultSettings;
+    // Initial Defaults Calculation
+    // We don't want to hardcode defaultSettings anymore.
+    // If settings are empty, the DynamicField component handles using the 'default' value from config visually.
+    const settings = currentSettings || {};
 
     const handleChange = (field, value) => {
         dispatch(updateHookSettings({
@@ -232,25 +195,15 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
 
     return (
         <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-            {type === 'award' ? (
-                <AwardHookForm
-                    hookId={hookId}
-                    hookInfo={hookInfo}
-                    settings={settings}
-                    handleChange={handleChange}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                />
-            ) : (
-                <DeductHookForm
-                    hookId={hookId}
-                    hookInfo={hookInfo}
-                    settings={settings}
-                    handleChange={handleChange}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                />
-            )}
+            <DynamicHookForm
+                hookId={hookId}
+                hookInfo={hookInfo}
+                type={type}
+                settings={settings}
+                handleChange={handleChange}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            />
         </Box>
     );
 };
@@ -299,12 +252,10 @@ const PointType = () => {
     }, [editId, dispatch]);
 
     // --- Logic for Award Hooks ---
-    // Filter hooks that are NOT selected in awards
     const availableAwardHooks = allHooks.filter(h => !selectedAwardHookIds.includes(h.id));
     const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
     // --- Logic for Deduct Hooks ---
-    // Filter hooks that are NOT selected in deductions
     const availableDeductHooks = allHooks.filter(h => !selectedDeductHookIds.includes(h.id));
     const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
@@ -338,31 +289,44 @@ const PointType = () => {
             return;
         }
 
+        // Helper to construct parameters based on what fields are available and set
+        const getParameters = (hook, type) => {
+            const settings = hookSettings[`${type}_${hook.id}`] || {};
+            const fieldsConfig = type === 'award' ? (hook.award_fields || {}) : (hook.deduct_fields || {});
+
+            const params = {};
+            // Loop through defined fields to ensure we send defaults if user didn't touch anything
+            Object.keys(fieldsConfig).forEach(key => {
+                const val = settings[key];
+                // Use user value, otherwise default value
+                params[key] = val !== undefined ? val : fieldsConfig[key].default;
+            });
+            return params;
+        };
+
         const payload = {
             name,
             plural_name: pluralName,
             requirements: [
                 // Awards
-                ...selectedAwardHookIds.map(id => ({
-                    trigger_key: id,
+                ...activeAwardHooks.map(hook => ({
+                    trigger_key: hook.id,
                     action_type: 'award',
-                    parameters: hookSettings[`award_${id}`] || {}
+                    parameters: getParameters(hook, 'award')
                 })),
                 // Deductions
-                ...selectedDeductHookIds.map(id => ({
-                    trigger_key: id,
+                ...activeDeductHooks.map(hook => ({
+                    trigger_key: hook.id,
                     action_type: 'deduct',
-                    parameters: hookSettings[`deduct_${id}`] || {}
+                    parameters: getParameters(hook, 'deduct')
                 }))
             ]
         };
 
         let resultAction;
         if (currentPointTypeId) {
-            // Update
             resultAction = await dispatch(updatePointType({ id: currentPointTypeId, data: payload }));
         } else {
-            // Create
             resultAction = await dispatch(savePointType(payload));
         }
 
@@ -410,6 +374,7 @@ const PointType = () => {
                                         <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Drag hooks to activate.`, 'gamify')}</Text>
                                     </Flex>
 
+                                    {/* Filters omitted for brevity, keeping existing structure */}
                                     <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
                                         <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>{__("Filter Hooks Type", "gamify")}</Text>
                                         <Select
@@ -419,16 +384,6 @@ const PointType = () => {
                                             options={[{ label: "Gamify", value: "gamify" }, { label: "WordPress", value: "wordpress" }]}
                                             value={awardFilter}
                                             onChange={(val) => setAwardFilter(val)}
-                                            styles={{
-                                                control: (base) => ({
-                                                    ...base,
-                                                    minHeight: "48px",
-                                                    borderRadius: "6px",
-                                                    borderColor: "#d0d5dd",
-                                                    boxShadow: "none",
-                                                    "&:hover": { borderColor: "#d0d5dd" },
-                                                }),
-                                            }}
                                         />
                                     </Box>
 
@@ -486,28 +441,6 @@ const PointType = () => {
                                         <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
                                         <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Drag hooks to activate deductions.`, 'gamify')}</Text>
                                     </Flex>
-
-                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>{__("Filter Hooks Type", "gamify")}</Text>
-                                        <Select
-                                            isMulti
-                                            placeholder={__("Select hook type", "gamify")}
-                                            classNamePrefix="gamify-select"
-                                            options={[{ label: "Gamify", value: "gamify" }, { label: "WordPress", value: "wordpress" }]}
-                                            value={deductFilter}
-                                            onChange={(val) => setDeductFilter(val)}
-                                            styles={{
-                                                control: (base) => ({
-                                                    ...base,
-                                                    minHeight: "48px",
-                                                    borderRadius: "6px",
-                                                    borderColor: "#d0d5dd",
-                                                    boxShadow: "none",
-                                                    "&:hover": { borderColor: "#d0d5dd" },
-                                                }),
-                                            }}
-                                        />
-                                    </Box>
 
                                     <DroppableArea id="deductions-available">
                                         {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :

@@ -29,10 +29,12 @@ class TriggersController extends BaseController
 
         foreach ($triggers as $key => $config) {
             $formatted[] = [
-                'id'          => $key,
-                'label'       => $config['label'],
-                'subTitle'    => isset($config['description']) ? $config['description'] : '',
-                'type'        => isset($config['type']) ? $config['type'] : 'wordpress',
+                'id'            => $key,
+                'label'         => $config['label'],
+                'subTitle'      => isset($config['description']) ? $config['description'] : '',
+                'type'          => isset($config['type']) ? $config['type'] : 'wordpress',
+                'award_fields'  => isset($config['award_fields']) ? $config['award_fields'] : [],
+                'deduct_fields' => isset($config['deduct_fields']) ? $config['deduct_fields'] : [],
             ];
         }
 
