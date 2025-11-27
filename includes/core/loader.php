@@ -47,6 +47,11 @@ final class Loader
                 'class'     => \Gamify\System\Triggers::class,
                 'hook'      => 'init',
             ],
+
+            'logger' => [
+                'class'     => \Gamify\System\Logger::class,
+                'hook'      => 'init',
+            ],
         ];
     }
 
