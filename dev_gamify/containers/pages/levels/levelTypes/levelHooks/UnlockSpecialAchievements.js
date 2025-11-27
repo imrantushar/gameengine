@@ -2,18 +2,18 @@ import React, { useState } from 'react';
 import CustomCollapsible from '@Components/Collapsible';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-import Select from 'react-select';
+
+import LabeledInput from '@Components/LabeledInput';
 import GFSelect from "@Components/Select";
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
-import LabeledInput from '@Components/LabeledInput';
 import Divider from '@Components/Divider';
 
-const LoginWebsite = (props) => {
+const UnlockSpecialAchievements = (props) => {
     const [isOpen, setIsOpen] = useState(false)
     return (
         <Box>
             <CustomCollapsible
-                label="Login to website"
+                label="Points for Logins"
                 desc="Award points for logging in."
                 isOpen={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
@@ -67,7 +67,6 @@ const LoginWebsite = (props) => {
                     />
                 </Flex>
                 <Divider width='500px' margin='24px -16px 24px -16px' />
-
                 <Flex
                     justifyContent='flex-end'>
                     <Button
@@ -84,4 +83,4 @@ const LoginWebsite = (props) => {
     );
 }
 
-export default LoginWebsite;
+export default UnlockSpecialAchievements;

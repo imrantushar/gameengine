@@ -87,6 +87,7 @@ const GFLabel = ({
 			lineHeight: "20px",
 			color: "var(--gamify-font-color)", 
 		}
+		
 	};
 
 	const styles = variantStyles[type] || variantStyles?.title;
