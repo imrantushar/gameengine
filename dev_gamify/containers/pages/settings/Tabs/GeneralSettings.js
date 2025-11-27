@@ -9,10 +9,9 @@ import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 const GeneralSettings = () => {
     return (
         <Box
-            w="240px"
-            bg="#fff"
-            borderRight="1px solid #E5E7EB"
-            h="275px"
+            bg="var(--gamify-background)"
+            borderRight="1px solid var(--gamify-border-color)"
+            h="auto"
             pos="sticky"
             top="0"
             display={{ base: "none", lg: "flex" }}
@@ -28,9 +27,10 @@ const GeneralSettings = () => {
                 />
                 <Divider width='100%' />
                 <GFLabel
-                    type="inputLabel"
-                    fontWeight="500"
+                    type="inputLevel"
                     label={__(`Level Image Size`, 'gamify')}
+                    fontWeight='500'
+                    fontSize='14px'
                 />
                 <Box>
                     <Flex gap='64px'>

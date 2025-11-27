@@ -408,8 +408,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/textarea/textarea.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -421,28 +422,32 @@ const LabeledInput = ({
   onChange,
   type = 'text',
   style,
-  inputStyle
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
-  as: "label",
-  direction: "column",
-  gap: 2,
-  style: {
-    ...style
-  }
-}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-  fontWeight: "500",
-  fontSize: "0.875rem",
-  margin: 0
-}, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Input, {
-  className: "gamify-input",
-  type: type,
-  placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(placeholder, 'gamify'),
-  value: value,
-  onChange: onChange,
-  style: {
-    ...inputStyle
-  }
-}));
+  inputStyle,
+  textAreaSize
+}) => {
+  const InputComponent = type === 'textarea' ? _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Textarea : _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Input;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    as: "label",
+    direction: "column",
+    gap: 2,
+    style: {
+      ...style
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+    fontWeight: "500",
+    fontSize: "0.875rem",
+    margin: 0
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(InputComponent, {
+    className: "gamify-input",
+    type: type !== "textarea" ? type : undefined,
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(placeholder, 'gamify'),
+    value: value,
+    onChange: onChange,
+    style: {
+      ...inputStyle
+    }
+  }));
+};
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LabeledInput);
 
 /***/ }),
@@ -5571,10 +5576,108 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
+/* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _Components_Divider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @Components/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _Components_LabeledInput__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @Components/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _Components_Select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @Components/Select */ "./dev_gamify/components/Select/index.js");
+
+
+
+
+
+
+
 
 
 const EmailNotice = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "email notice");
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    w: "240px",
+    bg: "var(--gamify-background)",
+    borderRight: "1px solid var(--gamify-border-color)",
+    h: "auto",
+    pos: "sticky",
+    top: "0",
+    display: {
+      base: "none",
+      lg: "flex"
+    },
+    flexDirection: "column",
+    borderRadius: "4px",
+    minWidth: "802px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.VStack, {
+    padding: "32px",
+    width: "100%",
+    align: "stretch",
+    gap: "16px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    type: "heading",
+    fontWeight: "500",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Email Notification`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Divider__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    width: "100%"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: "Format",
+    placeholder: "Plain Text",
+    items: [{
+      label: 'Unlimited',
+      value: 'unlimited'
+    }, {
+      label: '1 per day',
+      value: '1_per_day'
+    }, {
+      label: '1 time only',
+      value: '1_time'
+    }]
+    // value={}
+    // onChange={(opt) => }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: "Schedule",
+    placeholder: "Send mails immediately",
+    items: [{
+      label: 'Unlimited',
+      value: 'unlimited'
+    }, {
+      label: '1 per day',
+      value: '1_per_day'
+    }, {
+      label: '1 time only',
+      value: '1_time'
+    }]
+    // value={}
+    // onChange={(opt) => }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "From Name",
+    placeholder: "StoreEngine",
+    type: "text"
+    // value={}
+    // onChange={(e) => }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "From Address",
+    placeholder: "dev-email@wpengine.local",
+    type: "text"
+    // value={}
+    // onChange={(e) => }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: "Default Email Content",
+    placeholder: "Enter content...",
+    type: "textarea",
+    inputStyle: {
+      height: '80px'
+    }
+    // value={}
+    // onChange={(e) => }
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    justifyContent: "flex-end"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Save Changes', 'gamify')))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EmailNotice);
 
@@ -5614,10 +5717,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const GeneralSettings = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    w: "240px",
-    bg: "#fff",
-    borderRight: "1px solid #E5E7EB",
-    h: "275px",
+    bg: "var(--gamify-background)",
+    borderRight: "1px solid var(--gamify-border-color)",
+    h: "auto",
     pos: "sticky",
     top: "0",
     display: {
@@ -5639,9 +5741,10 @@ const GeneralSettings = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Divider__WEBPACK_IMPORTED_MODULE_8__["default"], {
     width: "100%"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    type: "inputLabel",
+    type: "inputLevel",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Image Size`, 'gamify'),
     fontWeight: "500",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Image Size`, 'gamify')
+    fontSize: "14px"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     gap: "64px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -6515,6 +6618,55 @@ const FieldInput = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref
   return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.input, { ...mergedProps, ref });
 });
 FieldInput.displayName = "FieldInput";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/field/field-textarea.js":
+/*!****************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/field/field-textarea.js ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FieldTextarea: () => (/* binding */ FieldTextarea)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_auto_resize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/auto-resize */ "./node_modules/@zag-js/auto-resize/dist/index.mjs");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/compose-refs.js */ "./node_modules/@ark-ui/react/dist/utils/compose-refs.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_field_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
+'use client';
+
+
+
+
+
+
+
+
+const FieldTextarea = (0,react__WEBPACK_IMPORTED_MODULE_3__.forwardRef)((props, ref) => {
+  const { autoresize, ...textareaProps } = props;
+  const textareaRef = (0,react__WEBPACK_IMPORTED_MODULE_3__.useRef)(null);
+  const field = (0,_use_field_context_js__WEBPACK_IMPORTED_MODULE_6__.useFieldContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_2__.mergeProps)(
+    field?.getTextareaProps(),
+    { style: { resize: autoresize ? "none" : void 0 } },
+    textareaProps
+  );
+  (0,react__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    if (!autoresize) return;
+    return (0,_zag_js_auto_resize__WEBPACK_IMPORTED_MODULE_1__.autoresizeTextarea)(textareaRef.current);
+  }, [autoresize]);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_5__.ark.textarea, { ...mergedProps, ref: (0,_utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_4__.composeRefs)(ref, textareaRef) });
+});
+FieldTextarea.displayName = "FieldTextarea";
 
 
 
@@ -10474,6 +10626,39 @@ const { withContext, PropsProvider } = (0,_styled_system_create_recipe_context_j
 const Text = withContext("p");
 Text.displayName = "Text";
 const TextPropsProvider = PropsProvider;
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/textarea/textarea.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/textarea/textarea.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Textarea: () => (/* binding */ Textarea),
+/* harmony export */   TextareaPropsProvider: () => (/* binding */ TextareaPropsProvider)
+/* harmony export */ });
+/* harmony import */ var _ark_ui_react_field__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ark-ui/react/field */ "./node_modules/@ark-ui/react/dist/components/field/field-textarea.js");
+/* harmony import */ var _styled_system_create_recipe_context_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../styled-system/create-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-recipe-context.js");
+
+"use client";
+
+
+
+const { withContext, PropsProvider } = (0,_styled_system_create_recipe_context_js__WEBPACK_IMPORTED_MODULE_1__.createRecipeContext)({
+  key: "textarea"
+});
+const Textarea = withContext(
+  _ark_ui_react_field__WEBPACK_IMPORTED_MODULE_0__.FieldTextarea
+);
+Textarea.displayName = "Textarea";
+const TextareaPropsProvider = PropsProvider;
 
 
 
