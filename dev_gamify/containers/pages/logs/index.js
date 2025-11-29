@@ -11,9 +11,11 @@ import ListTable from '@Components/ListTable';
 import OptionMenu from '@Components/OptionMenu';
 import Search from '@Components/Search';
 
+import LabeledInput from "@Components/LabeledInput";
 // --- Icons ---
 import { FiEdit, FiTrash2, FiEye, FiClock, FiRefreshCw } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
+import GFSelect from "@Components/Select";
 
 // --- Redux Actions ---
 import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction } from '../../../redux/Slices/logsSlice';
@@ -44,6 +46,7 @@ import {
     Textarea,
     VStack
 } from '@chakra-ui/react';
+import WPModal from '@Components/Modal/WPModal';
 
 const Logs = () => {
     const navigate = useNavigate();
@@ -52,6 +55,7 @@ const Logs = () => {
     // --- Modal & Form State ---
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [manualData, setManualData] = useState({
         user_id: '',
         points: 10,
@@ -222,14 +226,18 @@ const Logs = () => {
                         onChange={(e) => handleSearch(e.target ? e.target.value : e)}
                     />
 
-                    {/* Manual Trigger Button */}
+                    {/* Trigger Button */}
                     <Button
                         {...primaryBtn}
-                        onClick={onOpen}
-                        height='32px'
+                        height="auto"
+                        onClick={() => setIsModalOpen(true)}
                     >
                         {__('Manual Trigger', 'gamify')}
                     </Button>
+
+                    {/* Modal */}
+
+
                 </div>
             </>
         );
@@ -277,6 +285,53 @@ const Logs = () => {
                     />
                 )}
             </Box>
+            {<WPModal
+                title="Manual Trigger Settings"
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                size="medium"
+            >
+                <LabeledInput
+                    label={'User ID'}
+                    placeholder={'e.g. 1'}
+                    value={manualData.user_id}
+                    onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
+                />
+                <GFSelect
+                    label="Action Type"
+                    placeholder="Choose one"
+                    items={[
+                        { label: 'Deduct Points (-)', value: 'deduct_point' },
+                        { label: 'Award Points (+)', value: 'award_point' },
+                    ]}
+                    onChange={(e) => setManualData({ ...manualData, type: e.target.value })}
+                    value={manualData.type}
+                />
+                <LabeledInput
+                    label="Points Amount"
+                    type={"number"}
+                    value={manualData.points}
+                    onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
+                />
+                <LabeledInput
+                    label="Description"
+                    type='textarea'
+                    placeholder="Reason..."
+                    value={manualData.description}
+                    onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
+                />
+                <LabeledInput
+                    label="Date local"
+                    value={manualData.schedule_date}
+                    onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
+                />
+                <Flex justifyContent='flex-end' padding='16px 0'>
+                    <Button variant="ghost" mr={3} onClick={onClose}>{__('Cancel', 'gamify')}</Button>
+                    <Button colorScheme="blue" onClick={handleManualSubmit} isLoading={isSubmitting}>
+                        {__('Process', 'gamify')}
+                    </Button>
+                </Flex>
+            </WPModal>}
 
             {/* --- Manual Trigger Modal --- */}
             {/* <Modal isOpen={isOpen} onClose={onClose} size="md">
