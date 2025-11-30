@@ -19,7 +19,7 @@ const EmailNotice = () => {
             display={{ base: "none", lg: "flex" }}
             flexDirection="column"
             borderRadius='4px'
-            minWidth='802px'
+           width="802px"
         >
             <VStack padding='32px' width="100%" align="stretch" gap='16px'>
                 <GFLabel

@@ -37,6 +37,7 @@ const LeftBar = () => {
 
     return (
         <Box
+            w="240px"
             bg="#fff"
             borderRight="1px solid #E5E7EB"
             h="235px"
@@ -45,7 +46,7 @@ const LeftBar = () => {
             display={{ base: "none", lg: "flex" }}
             flexDirection="column"
             borderRadius='4px'
-            w={'360px'}
+
         >
             <VStack padding='16px' width="100%" align="stretch" spacing={0}>
                 {menuList.map((item, i) => {

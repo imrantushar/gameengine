@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text, VStack ,Link } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, VStack, Link } from '@chakra-ui/react';
 import React from 'react';
 import GFLabel from '@Components/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";
@@ -17,7 +17,7 @@ const HelpSupport = () => {
             display={{ base: "none", lg: "flex" }}
             flexDirection="column"
             borderRadius='4px'
-            minWidth='802px'
+            width="802px"
         >
             <VStack padding='32px' width="100%" align="stretch" gap='16px'>
                 <Box>
@@ -42,10 +42,10 @@ const HelpSupport = () => {
                     <Text fontSize="14px"
                         fontWeight='400'
                         margin='0'>{__(`For complete information about Gamify pro and its collection of add-ons, visit the. `, 'gamify')}
-                        <Link href="#" variant="underline">{__(` official documentation.`, 'gamify')}</Link></Text>
+                        <Link color="var(--gamify-primary)" href="#" variant="underline">{__(` official documentation.`, 'gamify')}</Link></Text>
                 </Box>
                 <Divider width='100%' />
-                 <Box>
+                <Box>
                     <GFLabel
                         type="title"
                         fontWeight="600"
@@ -55,10 +55,10 @@ const HelpSupport = () => {
                     <Text fontSize="14px"
                         fontWeight='400'
                         margin='0'>{__(`Connect with us for support or feature enhancements - myCred Support Forums or `, 'gamify')}
-                        <Link href="#" variant="underline">{__(`Open a support ticket.`, 'gamify')}</Link></Text>
+                        <Link color="var(--gamify-primary)" href="#" variant="underline">{__(`Open a support ticket.`, 'gamify')}</Link></Text>
                 </Box>
                 <Divider width='100%' />
-                 <Box>
+                <Box>
                     <GFLabel
                         type="title"
                         fontWeight="600"
@@ -68,7 +68,7 @@ const HelpSupport = () => {
                     <Text fontSize="14px"
                         fontWeight='400'
                         margin='0'>{__(`Enjoy the best that Gamify Pro has to offer with our collection of premium add-ons that enable you to perform complex tasks such as create a points management system for your all sites `, 'gamify')}
-                        <Link href="#" variant="underline">{__(`View our premium add-ons.`, 'gamify')}</Link></Text>
+                        <Link color="var(--gamify-primary)" href="#" variant="underline">{__(`View our premium add-ons.`, 'gamify')}</Link></Text>
                 </Box>
                 <Divider width='100%' />
                 <Box>
@@ -81,19 +81,15 @@ const HelpSupport = () => {
                     <Text fontSize="14px"
                         fontWeight='400'
                         margin='0'>{__(`If you need to build a custom feature, simply `, 'gamify')}
-                        <Link href="#" variant="underline">{__(`submit a request`, 'gamify')}</Link>{__(`If you need to build a custom feature, simply `, 'gamify')}</Text>
+                        <Link color="var(--gamify-primary)" href="#" variant="underline">{__(`submit a request`, 'gamify')}</Link>{__(`If you need to build a custom feature, simply `, 'gamify')}</Text>
                 </Box>
-
-                <Flex
-                    justifyContent='flex-end'>
-                    <Button
-                        {...primaryBtn}
-
-
-                    >
-                        {__('Save Changes', 'gamify')}
-                    </Button>
-                </Flex>
+                <Divider width='100%' />
+                <Text fontSize="14px"
+                    fontWeight='400'
+                    textAlign="center"
+                    margin='0'>{__(`Or if you don't want to use the automatic service, click here to use the regular servic `, 'gamify')}
+                    <Link color="var(--gamify-primary)" href="#" variant="underline">{__(` visit website.`, 'gamify')}</Link>
+                    </Text>
 
 
             </VStack>
