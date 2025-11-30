@@ -23,12 +23,12 @@ const GeneralSettings = () => {
                 <GFLabel
                     type="heading"
                     fontWeight="500"
-                    label={__(`General Settings`, 'gamify')}
+                    label="General Settings"
                 />
                 <Divider width='100%' />
                 <GFLabel
                     type="inputLevel"
-                    label={__(`Level Image Size`, 'gamify')}
+                    label="Level Image Size"
                     fontWeight='500'
                     fontSize='14px'
                 />
