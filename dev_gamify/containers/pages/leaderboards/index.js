@@ -3,8 +3,9 @@ import TopBar from "@Components/TopBar";
 import GFLabel from '@Components/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@Components/ListTable';
-import { Box } from '@chakra-ui/react';
-import Search from '@Components/Search';
+import { Box, Button, Flex } from '@chakra-ui/react';
+import GFSelect from '@Components/Select';
+import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
 
 const initialData = [
     {
@@ -105,10 +106,40 @@ const Leaderboards = () => {
                     />
                 </div>
 
-                <div className="gamify-table-sub-header-actions-right">
-                    
-                    <Search placeholder={__('Search Items', 'gamify')} />
-                </div>
+                <Flex gap='12px' style={{ width: '600px' }} className="gamify-table-sub-header-actions-right">
+                    <GFSelect
+                        label="Select Points"
+                        placeholder="Choose one"
+                        items={[
+                            { label: 'Unlimited', value: 'unlimited' },
+                            { label: '1 per day', value: '1_per_day' },
+                            { label: '1 time only', value: '1_time' },
+                        ]}
+                        value={['']}
+                        onChange={(opt) => console.log(opt)}
+                    />
+                    <GFSelect
+                        label="Select Points"
+                        placeholder="Choose one"
+                        items={[
+                            { label: 'Unlimited', value: 'unlimited' },
+                            { label: '1 per day', value: '1_per_day' },
+                            { label: '1 time only', value: '1_time' },
+                        ]}
+                        value={['']}
+                        onChange={(opt) => console.log(opt)}
+
+                    />
+                    <Flex
+                        marginTop='25px'>
+                        <Button
+                            {...primaryBtn}
+
+                        >
+                            {__('Search', 'gamify')}
+                        </Button>
+                    </Flex>
+                </Flex>
             </>
         );
     }, []);
