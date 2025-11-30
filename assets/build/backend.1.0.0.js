@@ -3496,6 +3496,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _achievements_AchievementTypes__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./achievements/AchievementTypes */ "./dev_gamify/containers/pages/achievements/AchievementTypes/index.js");
 /* harmony import */ var _levels__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./levels */ "./dev_gamify/containers/pages/levels/index.js");
 /* harmony import */ var _levels_levelTypes__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./levels/levelTypes */ "./dev_gamify/containers/pages/levels/levelTypes/index.js");
+/* harmony import */ var _leaderboards__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./leaderboards */ "./dev_gamify/containers/pages/leaderboards/index.js");
+
 
 
 
@@ -3542,9 +3544,34 @@ const App = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
     path: "/level-type",
     element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_levels_levelTypes__WEBPACK_IMPORTED_MODULE_11__["default"], null)
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Route, {
+    path: "/leaderboards",
+    element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_leaderboards__WEBPACK_IMPORTED_MODULE_12__["default"], null)
   }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (App);
+
+/***/ }),
+
+/***/ "./dev_gamify/containers/pages/leaderboards/index.js":
+/*!***********************************************************!*\
+  !*** ./dev_gamify/containers/pages/leaderboards/index.js ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+const Leaderboards = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "this is leader board");
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Leaderboards);
 
 /***/ }),
 
