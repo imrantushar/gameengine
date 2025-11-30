@@ -3,20 +3,14 @@
 namespace Gamify\API\Controllers;
 
 use Gamify\API\BaseController;
+use Gamify\System\TriggerRegistry;
 
 if (! defined('ABSPATH')) exit;
 
 class LogsController extends BaseController
 {
-    /**
-     * Route base.
-     * @var string
-     */
     protected $rest_base = 'logs';
 
-    /**
-     * Register the routes for this controller.
-     */
     public function register_routes()
     {
         register_rest_route($this->namespace, '/' . $this->rest_base, [
@@ -29,12 +23,6 @@ class LogsController extends BaseController
         ]);
     }
 
-    /**
-     * Get logs from the central gamify_logs table.
-     *
-     * @param \WP_REST_Request $request
-     * @return \WP_REST_Response
-     */
     public function get_items(\WP_REST_Request $request)
     {
         global $wpdb;
@@ -49,12 +37,10 @@ class LogsController extends BaseController
         $search   = $request->get_param('search');
         $offset   = $per_page * ($page - 1);
 
-        // Base Query Structure
-        // We join with users table to get readable names instead of just IDs
         $sql = "SELECT 
                     l.id, 
                     l.user_id, 
-                    l.event_name, 
+                    l.trigger_key, 
                     l.status, 
                     l.message, 
                     l.meta, 
@@ -67,18 +53,17 @@ class LogsController extends BaseController
 
         $prepare_args = [];
 
-        // Search Filter
-        // Searches in User Name, Email, Event Name, or the Message
+        // Search Filter (Update to search in trigger_key)
         if (!empty($search)) {
-            $sql .= " AND (u.display_name LIKE %s OR u.user_email LIKE %s OR l.event_name LIKE %s OR l.message LIKE %s)";
+            $sql .= " AND (u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s)";
             $like_search = '%' . $wpdb->esc_like($search) . '%';
             array_push($prepare_args, $like_search, $like_search, $like_search, $like_search);
         }
 
-        // --- 1. Get Total Count (For Pagination) ---
+        // Count Query
         $count_sql = "SELECT COUNT(l.id) FROM {$table_logs} as l LEFT JOIN {$table_users} as u ON l.user_id = u.ID WHERE 1=1";
         if (!empty($search)) {
-            $count_sql .= " AND (u.display_name LIKE %s OR u.user_email LIKE %s OR l.event_name LIKE %s OR l.message LIKE %s)";
+            $count_sql .= " AND (u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s)";
         }
 
         if (!empty($prepare_args)) {
@@ -87,18 +72,29 @@ class LogsController extends BaseController
             $total_items = $wpdb->get_var($count_sql);
         }
 
-        // --- 2. Get Data ---
+        // Get Data
         $sql .= " ORDER BY l.created_at DESC LIMIT %d OFFSET %d";
         array_push($prepare_args, $per_page, $offset);
 
         $results = $wpdb->get_results($wpdb->prepare($sql, $prepare_args), ARRAY_A);
 
-        // Process Data: Decode JSON 'meta' column
+        // ৩. Process Data: Relation Logic
         foreach ($results as &$row) {
+            // JSON Decode
             if (!empty($row['meta'])) {
                 $row['meta'] = json_decode($row['meta'], true);
             } else {
                 $row['meta'] = [];
+            }
+
+            // --- RELATION LOGIC ---
+            $trigger_config = TriggerRegistry::get($row['trigger_key']);
+
+            if ($trigger_config && isset($trigger_config['label'])) {
+                $row['event_name'] = $trigger_config['label'];
+            } else {
+                $readable = ucwords(str_replace(['_', '-'], ' ', $row['trigger_key']));
+                $row['event_name'] = $readable;
             }
         }
 
@@ -110,10 +106,6 @@ class LogsController extends BaseController
         return $response;
     }
 
-    /**
-     * Get collection parameters.
-     * @return array
-     */
     public function get_collection_params()
     {
         return [

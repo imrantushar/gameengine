@@ -151,13 +151,15 @@ final class Schema
         return "CREATE TABLE {$prefix}gamify_logs (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED DEFAULT NULL,
-            event_name VARCHAR(255) NOT NULL,
+            trigger_key VARCHAR(255) NOT NULL,
             status ENUM('success','failed','skipped') NOT NULL,
+            points_awarded INT(11) DEFAULT 0,
             message TEXT,
             meta JSON,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_id (user_id)
+            KEY user_id (user_id),
+            KEY trigger_key (trigger_key)
         ) $charset_collate;";
     }
 }

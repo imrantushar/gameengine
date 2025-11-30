@@ -10,52 +10,35 @@ import GFLabel from '@Components/Labels/GFLabel';
 import ListTable from '@Components/ListTable';
 import OptionMenu from '@Components/OptionMenu';
 import Search from '@Components/Search';
-
 import LabeledInput from "@Components/LabeledInput";
-// --- Icons ---
+import GFSelect from "@Components/Select";
+import WPModal from '@Components/Modal/WPModal';
+
+// Icons
 import { FiEdit, FiTrash2, FiEye, FiClock, FiRefreshCw } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import GFSelect from "@Components/Select";
 
-// --- Redux Actions ---
+// Redux Actions
 import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction } from '../../../redux/Slices/logsSlice';
 
-// --- CHAKRA UI IMPORTS (সবগুলো একসাথে চেক করুন) ---
+// Chakra UI Imports
 import {
     Box,
     Button,
     Icon,
     Badge,
-    Text,
     Flex,
     Spinner,
-    // মডালের জন্য এইগুলো মাস্ট থাকতে হবে:
-    useDisclosure,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    // ফর্মের জন্য এইগুলো মাস্ট থাকতে হবে:
-    FormControl,
-    FormLabel,
-    Input,
-    Select,
-    Textarea,
-    VStack
 } from '@chakra-ui/react';
-import WPModal from '@Components/Modal/WPModal';
 
 const Logs = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // --- Modal & Form State ---
-    const { isOpen, onOpen, onClose } = useDisclosure();
+    // --- State Management ---
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     const [manualData, setManualData] = useState({
         user_id: '',
         points: 10,
@@ -108,14 +91,16 @@ const Logs = () => {
         setIsSubmitting(false);
 
         if (manualLogAction.fulfilled.match(result)) {
-            onClose();
+            // Success: Close modal and reset form
+            setIsModalOpen(false);
             setManualData({ user_id: '', points: 10, type: 'award', description: '', schedule_date: '' });
         } else {
+            // Error
             alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
         }
     };
 
-    // --- Columns ---
+    // --- Columns Definition ---
     const columns = useMemo(() => [
         {
             name: __('User', 'gamify'),
@@ -135,22 +120,34 @@ const Logs = () => {
         {
             name: __('Message / Details', 'gamify'),
             cell: (row) => {
-                const points = row.meta?.points;
+                let points = 0;
+
+                if (row.points_awarded) {
+                    points = parseInt(row.points_awarded);
+                }
+
+                else if (row.meta && row.meta.points) {
+                    points = parseInt(row.meta.points);
+                }
+
                 const scheduled = row.meta?.scheduled_for;
+
                 return (
                     <div>
                         <div title={row.message}>{row.message}</div>
-                        {points && (
+
+                        {points !== 0 && !isNaN(points) && (
                             <span style={{
                                 display: 'inline-block',
                                 marginTop: '4px',
-                                color: parseInt(points) > 0 ? 'green' : 'red',
+                                color: points > 0 ? 'green' : 'red',
                                 fontWeight: 'bold',
                                 fontSize: '12px'
                             }}>
-                                ({parseInt(points) > 0 ? '+' : ''}{points} Points)
+                                ({points > 0 ? '+' : ''}{points} Points)
                             </span>
                         )}
+
                         {scheduled && (
                             <div style={{ fontSize: '11px', color: 'purple', marginTop: '2px' }}>
                                 <Icon as={FiClock} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
@@ -234,14 +231,10 @@ const Logs = () => {
                     >
                         {__('Manual Trigger', 'gamify')}
                     </Button>
-
-                    {/* Modal */}
-
-
                 </div>
             </>
         );
-    }, [status, onOpen]);
+    }, [status]);
 
     return (
         <>
@@ -285,119 +278,67 @@ const Logs = () => {
                     />
                 )}
             </Box>
-            {<WPModal
+
+            {/* Manual Trigger Modal */}
+            <WPModal
                 title="Manual Trigger Settings"
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 size="medium"
             >
-                <LabeledInput
-                    label={'User ID'}
-                    placeholder={'e.g. 1'}
-                    value={manualData.user_id}
-                    onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
-                />
-                <GFSelect
-                    label="Action Type"
-                    placeholder="Choose one"
-                    items={[
-                        { label: 'Deduct Points (-)', value: 'deduct_point' },
-                        { label: 'Award Points (+)', value: 'award_point' },
-                    ]}
-                    onChange={(e) => setManualData({ ...manualData, type: e.target.value })}
-                    value={manualData.type}
-                />
-                <LabeledInput
-                    label="Points Amount"
-                    type={"number"}
-                    value={manualData.points}
-                    onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
-                />
-                <LabeledInput
-                    label="Description"
-                    type='textarea'
-                    placeholder="Reason..."
-                    value={manualData.description}
-                    onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
-                />
-                <LabeledInput
-                    label="Date local"
-                    value={manualData.schedule_date}
-                    onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
-                />
-                <Flex justifyContent='flex-end' padding='16px 0'>
-                    <Button variant="ghost" mr={3} onClick={onClose}>{__('Cancel', 'gamify')}</Button>
-                    <Button colorScheme="blue" onClick={handleManualSubmit} isLoading={isSubmitting}>
-                        {__('Process', 'gamify')}
-                    </Button>
-                </Flex>
-            </WPModal>}
+                <div style={{ padding: '0 20px' }}>
+                    <LabeledInput
+                        label={'User ID'}
+                        placeholder={'e.g. 1'}
+                        value={manualData.user_id}
+                        onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
+                    />
 
-            {/* --- Manual Trigger Modal --- */}
-            {/* <Modal isOpen={isOpen} onClose={onClose} size="md">
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>{__('Manual Points Adjustment', 'gamify')}</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <VStack spacing={4}>
-                            <FormControl isRequired>
-                                <FormLabel>{__('User ID', 'gamify')}</FormLabel>
-                                <Input
-                                    placeholder="e.g. 1"
-                                    value={manualData.user_id}
-                                    onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
-                                />
-                            </FormControl>
+                    <Box mt={4}>
+                        <GFSelect
+                            label="Action Type"
+                            placeholder="Choose one"
+                            items={[
+                                { label: 'Award Points (+)', value: 'award' },
+                                { label: 'Deduct Points (-)', value: 'deduct' },
+                            ]}
+                            onChange={(e) => setManualData({ ...manualData, type: e.target ? e.target.value : e })}
+                            value={manualData.type}
+                        />
+                    </Box>
 
-                            <FormControl>
-                                <FormLabel>{__('Action Type', 'gamify')}</FormLabel>
-                                <Select
-                                    value={manualData.type}
-                                    onChange={(e) => setManualData({ ...manualData, type: e.target.value })}
-                                >
-                                    <option value="award">Award Points (+)</option>
-                                    <option value="deduct">Deduct Points (-)</option>
-                                </Select>
-                            </FormControl>
+                    <LabeledInput
+                        label="Points Amount"
+                        type={"number"}
+                        value={manualData.points}
+                        onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
+                    />
 
-                            <FormControl isRequired>
-                                <FormLabel>{__('Points Amount', 'gamify')}</FormLabel>
-                                <Input
-                                    type="number"
-                                    value={manualData.points}
-                                    onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
-                                />
-                            </FormControl>
+                    <LabeledInput
+                        label="Description"
+                        type='textarea'
+                        placeholder="Reason..."
+                        value={manualData.description}
+                        onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
+                    />
 
-                            <FormControl>
-                                <FormLabel>{__('Description', 'gamify')}</FormLabel>
-                                <Textarea
-                                    placeholder="Reason..."
-                                    value={manualData.description}
-                                    onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
-                                />
-                            </FormControl>
+                    <LabeledInput
+                        label="Schedule Date (Optional)"
+                        type="datetime-local"
+                        value={manualData.schedule_date}
+                        onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
+                    />
 
-                            <FormControl>
-                                <FormLabel>{__('Schedule (Optional)', 'gamify')}</FormLabel>
-                                <Input
-                                    type="datetime-local"
-                                    value={manualData.schedule_date}
-                                    onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
-                                />
-                                <Text fontSize="xs" color="gray.500">{__('Leave empty to execute immediately.', 'gamify')}</Text>
-                            </FormControl>
-                        </VStack>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button variant="ghost" mr={3} onClick={onClose}>{__('Cancel', 'gamify')}</Button>
+                    <Flex justifyContent='flex-end' padding='20px 0'>
+                        <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
+                            {__('Cancel', 'gamify')}
+                        </Button>
                         <Button colorScheme="blue" onClick={handleManualSubmit} isLoading={isSubmitting}>
                             {__('Process', 'gamify')}
                         </Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal> */}
+                    </Flex>
+                </div>
+            </WPModal>
         </>
     );
 };
