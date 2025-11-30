@@ -119,7 +119,7 @@ const Leaderboards = () => {
                         onChange={(opt) => console.log(opt)}
                     />
                     <GFSelect
-                        label="Select Points"
+                        label="Time Range"
                         placeholder="Choose one"
                         items={[
                             { label: 'Unlimited', value: 'unlimited' },

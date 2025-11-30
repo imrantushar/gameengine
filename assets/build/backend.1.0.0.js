@@ -3674,7 +3674,7 @@ const Leaderboards = () => {
       value: [''],
       onChange: opt => console.log(opt)
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_8__["default"], {
-      label: "Select Points",
+      label: "Time Range",
       placeholder: "Choose one",
       items: [{
         label: 'Unlimited',
