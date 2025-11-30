@@ -10,6 +10,8 @@ if (! defined('ABSPATH')) {
 use Gamify\API\Controllers\LogsController;
 use Gamify\API\Controllers\PointTypesController;
 use Gamify\API\Controllers\TriggersController;
+use Gamify\API\Controllers\AchievementsController;
+use Gamify\API\Controllers\ActionsController;
 
 final class Manager
 {
@@ -24,6 +26,8 @@ final class Manager
             LogsController::class,
             PointTypesController::class,
             TriggersController::class,
+            AchievementsController::class,
+            ActionsController::class,
         ];
     }
 

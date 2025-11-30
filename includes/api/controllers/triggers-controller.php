@@ -18,24 +18,39 @@ class TriggersController extends BaseController
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_items'],
                 'permission_callback' => [$this, 'admin_permission_check'],
+                'args'                => [
+                    'scope' => [
+                        'required' => false,
+                        'type'     => 'string',
+                        'description' => 'Filter triggers by scope (point_type or achievement)',
+                    ]
+                ]
             ],
         ]);
     }
 
     public function get_items($request)
     {
-        $triggers = TriggerRegistry::get_all();
+        // Get the scope from the request (?scope=achievement)
+        $scope = $request->get_param('scope');
+
+        // Pass the scope to the Registry
+        $triggers = TriggerRegistry::get_all($scope);
+
         $formatted = [];
 
         foreach ($triggers as $key => $config) {
             $formatted[] = [
-                'id'          => $key,
-                'label'       => $config['label'],
-                'subTitle'    => isset($config['description']) ? $config['description'] : '',
-                'type'        => isset($config['type']) ? $config['type'] : 'wordpress',
+                'id'            => $key,
+                'label'         => $config['label'],
+                'subTitle'      => isset($config['description']) ? $config['description'] : '',
+                'type'          => isset($config['type']) ? $config['type'] : 'wordpress',
+                'award_fields'  => isset($config['award_fields']) ? $config['award_fields'] : [],
+                'deduct_fields' => isset($config['deduct_fields']) ? $config['deduct_fields'] : [],
             ];
         }
 
-        return new \WP_REST_Response($formatted, 200);
+        // Reset array keys to ensure JSON array, not object
+        return new \WP_REST_Response(array_values($formatted), 200);
     }
 }

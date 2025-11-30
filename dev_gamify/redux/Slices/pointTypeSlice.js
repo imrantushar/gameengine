@@ -6,7 +6,8 @@ export const fetchTriggers = createAsyncThunk(
     'pointType/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await apiFetch({ path: '/gamify/v1/triggers' });
+            // Point Type এর জন্য scope পাঠানো হলো
+            const response = await apiFetch({ path: '/gamify/v1/triggers?scope=point_type' });
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -38,7 +39,7 @@ export const updatePointType = createAsyncThunk(
         try {
             const response = await apiFetch({
                 path: `/gamify/v1/point-types/${id}`,
-                method: 'PUT', // Using PUT for update
+                method: 'PUT',
                 data: data,
             });
             return response;
@@ -69,11 +70,10 @@ export const fetchPointTypes = createAsyncThunk(
             const response = await apiFetch({ path: '/gamify/v1/point-types' });
 
             if (Array.isArray(response)) {
-                // Format data for the frontend table
                 return response.map(item => ({
                     id: item.id,
                     name: item.name,
-                    pluralName: item.plural_name, // Convert DB column to camelCase for frontend
+                    pluralName: item.plural_name,
                     date: new Date(item.created_at).toLocaleDateString('en-US', {
                         year: 'numeric', month: 'short', day: 'numeric'
                     })
@@ -95,7 +95,7 @@ export const deletePointType = createAsyncThunk(
                 path: `/gamify/v1/point-types/${id}`,
                 method: 'DELETE',
             });
-            return id; // Return ID to remove from Redux state
+            return id;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -103,22 +103,17 @@ export const deletePointType = createAsyncThunk(
 );
 
 const initialState = {
-    // List Data
     pointTypes: [],
-
-    // Form Data
-    currentPointTypeId: null, // Stores ID if editing
+    currentPointTypeId: null,
     name: '',
     pluralName: '',
-    allHooks: [],
+    allHooks: [], // This will now contain award_fields & deduct_fields
     selectedAwardHookIds: [],
     selectedDeductHookIds: [],
     hookSettings: {},
-
-    // Statuses
-    status: 'idle',       // General status (hooks)
-    listStatus: 'idle',   // Status for the list table
-    saveStatus: 'idle',   // Status for saving/updating
+    status: 'idle',
+    listStatus: 'idle',
+    saveStatus: 'idle',
     error: null,
 };
 
@@ -129,7 +124,6 @@ const pointTypeSlice = createSlice({
         setPointName: (state, action) => { state.name = action.payload; },
         setPluralName: (state, action) => { state.pluralName = action.payload; },
 
-        // Reset Form (Use when navigating to "Add New")
         resetPointTypeForm: (state) => {
             state.currentPointTypeId = null;
             state.name = '';
@@ -148,8 +142,6 @@ const pointTypeSlice = createSlice({
         },
         removeAwardHook: (state, action) => {
             state.selectedAwardHookIds = state.selectedAwardHookIds.filter(id => id !== action.payload);
-            // Optional: Clean up settings
-            // delete state.hookSettings[`award_${action.payload}`];
         },
         addDeductHook: (state, action) => {
             if (!state.selectedDeductHookIds.includes(action.payload)) {
@@ -162,12 +154,12 @@ const pointTypeSlice = createSlice({
         updateHookSettings: (state, action) => {
             const { type, hookId, settings } = action.payload;
             const key = `${type}_${hookId}`;
+            // Merge existing settings with new updates
             state.hookSettings[key] = { ...state.hookSettings[key], ...settings };
         }
     },
     extraReducers: (builder) => {
         builder
-            // --- Fetch Triggers ---
             .addCase(fetchTriggers.pending, (state) => { state.status = 'loading'; })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.status = 'succeeded';
@@ -178,7 +170,6 @@ const pointTypeSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // --- Save Point Type ---
             .addCase(savePointType.pending, (state) => { state.saveStatus = 'saving'; })
             .addCase(savePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
             .addCase(savePointType.rejected, (state, action) => {
@@ -186,7 +177,6 @@ const pointTypeSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // --- Update Point Type ---
             .addCase(updatePointType.pending, (state) => { state.saveStatus = 'saving'; })
             .addCase(updatePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
             .addCase(updatePointType.rejected, (state, action) => {
@@ -194,19 +184,16 @@ const pointTypeSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // --- Fetch Single Point Type (For Edit) ---
             .addCase(fetchPointTypeById.fulfilled, (state, action) => {
                 const data = action.payload;
                 state.currentPointTypeId = data.id;
                 state.name = data.name;
                 state.pluralName = data.plural_name;
 
-                // Reset arrays
                 state.selectedAwardHookIds = [];
                 state.selectedDeductHookIds = [];
                 state.hookSettings = {};
 
-                // Populate hooks and settings from backend data
                 if (data.requirements && Array.isArray(data.requirements)) {
                     data.requirements.forEach(req => {
                         const key = `${req.action_type}_${req.trigger_key}`;
@@ -220,21 +207,10 @@ const pointTypeSlice = createSlice({
                     });
                 }
             })
-
-            // --- Fetch List of Point Types ---
-            .addCase(fetchPointTypes.pending, (state) => {
-                state.listStatus = 'loading';
-            })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
                 state.listStatus = 'succeeded';
                 state.pointTypes = action.payload;
             })
-            .addCase(fetchPointTypes.rejected, (state, action) => {
-                state.listStatus = 'failed';
-                state.error = action.payload;
-            })
-
-            // --- Delete Point Type ---
             .addCase(deletePointType.fulfilled, (state, action) => {
                 state.pointTypes = state.pointTypes.filter(pt => pt.id !== action.payload);
             });

@@ -4,6 +4,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import appReducer from './Slices/appSlice';
 import logsReducer from './Slices/logsSlice';
 import pointTypeReducer from './Slices/pointTypeSlice';
+import achievementsReducer from './Slices/achievementsSlice';
 /**
  * The main Redux store for the Gamify application.
  *
@@ -17,6 +18,7 @@ export const store = configureStore({
         app: appReducer,
         logs: logsReducer,
         pointType: pointTypeReducer,
+        achievements: achievementsReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
     // Redux DevTools are automatically enabled in development mode

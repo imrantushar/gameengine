@@ -18,7 +18,7 @@ final class PointsManager
      * @param int    $user_id The ID of the user.
      * @param int    $points  The number of points to award (must be a positive integer).
      * @param string $context A key to identify the reason (e.g., 'wp_login').
-     * @param array  $args    Optional arguments like 'reference_id' and 'description'.
+     * @param array  $args    Optional arguments like 'point_type_id' and 'description'.
      * @return int|false Returns the new log ID on success, false on failure.
      */
     public function add(int $user_id, int $points, string $context, array $args = [])
@@ -27,7 +27,7 @@ final class PointsManager
             return false;
         }
 
-        return $this->log_transaction($user_id, $points, $context, $args);
+        return $this->log_transaction($user_id, abs($points), $context, $args);
     }
 
     /**
@@ -49,21 +49,26 @@ final class PointsManager
     }
 
     /**
-     * Get the total points for a specific user.
+     * Get the total points for a specific user and point type.
      *
      * @param int $user_id The ID of the user.
+     * @param int $point_type_id The ID of the point type (default: 1).
      * @return int The user's total points.
      */
-    public function get_total(int $user_id): int
+    public function get_total(int $user_id, int $point_type_id = 1): int
     {
         if ($user_id <= 0) {
             return 0;
         }
 
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points';
+        $table = $wpdb->prefix . 'gamify_points_log';
 
-        $total = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$table} WHERE user_id = %d", $user_id));
+        $total = $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(points) FROM {$table} WHERE user_id = %d AND point_type_id = %d",
+            $user_id,
+            $point_type_id
+        ));
 
         return (int) $total;
     }
@@ -80,15 +85,22 @@ final class PointsManager
     private function log_transaction(int $user_id, int $points_value, string $context, array $args)
     {
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points';
+        $table = $wpdb->prefix . 'gamify_points_log';
 
+        // Extract arguments or set defaults
+        $point_type_id  = isset($args['point_type_id']) ? absint($args['point_type_id']) : 1;
+        $requirement_id = isset($args['requirement_id']) ? absint($args['requirement_id']) : null;
+        $description    = isset($args['description']) ? sanitize_text_field($args['description']) : null;
+
+        // Insert into Points Log table
         $result = $wpdb->insert($table, [
-            'user_id'      => $user_id,
-            'points'       => $points_value,
-            'context'      => sanitize_key($context),
-            'reference_id' => isset($args['reference_id']) ? absint($args['reference_id']) : null,
-            'description'  => isset($args['description']) ? sanitize_textarea_field($args['description']) : null,
-            'created_at'   => current_time('mysql'),
+            'user_id'        => $user_id,
+            'point_type_id'  => $point_type_id,
+            'points'         => $points_value,
+            'context'        => sanitize_key($context),
+            'requirement_id' => $requirement_id,
+            'description'    => $description,
+            'created_at'     => current_time('mysql'),
         ]);
 
         if (! $result) {
@@ -97,11 +109,13 @@ final class PointsManager
 
         $log_id = $wpdb->insert_id;
 
-        // Fire actions for other parts of the plugin to hook into.
+        // Fire actions for the Logger and other hooks.
+        // We pass 5 arguments to ensure the Logger receives the correct context (Trigger Name).
+        // Order: User ID, Points, Context (Event Name), Log ID, Point Type ID
         if ($points_value > 0) {
-            do_action('gamify_points_added', $user_id, $points_value, $context, $log_id);
+            do_action('gamify_points_added', $user_id, $points_value, $context, $log_id, $point_type_id);
         } else {
-            do_action('gamify_points_deducted', $user_id, abs($points_value), $context, $log_id);
+            do_action('gamify_points_deducted', $user_id, abs($points_value), $context, $log_id, $point_type_id);
         }
 
         return $log_id;

@@ -1,63 +1,68 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import TopBar from "@Components/TopBar";
 import GFLabel from '@Components/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@Components/ListTable';
 import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import OptionMenu from '@Components/OptionMenu';
-import { FiEdit } from "react-icons/fi";
-import { FiTrash2 } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import { useNavigate } from 'react-router-dom';
-
-
-const staticData = [
-    { id: 1, name: "John Doe", pluralName: "John Does", date: "2025-01-10" },
-    { id: 2, name: "Emma Watson", pluralName: "Emma Watsons", date: "2025-01-12" },
-    { id: 3, name: "Mark Tailor", pluralName: "Mark Tailors", date: "2025-01-15" },
-    { id: 4, name: "Sarah Lee", pluralName: "Sarah Lees", date: "2025-01-18" },
-    { id: 5, name: "David Kim", pluralName: "David Kims", date: "2025-01-20" },
-];
-
-const columns = [
-    {
-        name: __('Name', 'gamify'),
-        cell: (row) => row.name
-    },
-    {
-        name: __('Plural Name', 'gamify'),
-        cell: (row) => row.pluralName,
-    },
-    {
-        name: __('Date', 'gamify'),
-        cell: (row) => row.date,
-    },
-    {
-        name: __('Action', 'gamify'),
-        cell: (row) => (
-            <OptionMenu
-                options={[
-                    {
-                        type: 'button',
-                        label: __('Edit', 'gamify'),
-                        icon: <Icon as={FiEdit} />,
-                        onClick: () => console.log(`Edit ID: ${row.id}`)
-                    },
-                    {
-                        type: 'button',
-                        suffix: 'trash',
-                        label: __('Delete', 'gamify'),
-                        icon: <Icon as={FiTrash2} />,
-                        onClick: () => console.log(`Delete ID: ${row.id}`)
-                    },
-                ]}
-            />
-        ),
-    },
-];
+import { fetchAchievements, deleteAchievement } from '../../../redux/Slices/achievementsSlice';
 
 const Achievements = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { achievements } = useSelector(state => state.achievements);
+
+    useEffect(() => {
+        dispatch(fetchAchievements());
+    }, [dispatch]);
+
+    const handleDelete = (id) => {
+        if (confirm(__('Are you sure?', 'gamify'))) {
+            dispatch(deleteAchievement(id));
+        }
+    };
+
+    const columns = [
+        {
+            name: __('Name', 'gamify'),
+            cell: (row) => row.title
+        },
+        {
+            name: __('Plural Name', 'gamify'), // Mapped to Description for UI consistency
+            cell: (row) => row.description,
+        },
+        {
+            name: __('Date', 'gamify'),
+            cell: (row) => new Date(row.created_at).toLocaleDateString(),
+        },
+        {
+            name: __('Action', 'gamify'),
+            cell: (row) => (
+                <OptionMenu
+                    options={[
+                        {
+                            type: 'button',
+                            label: __('Edit', 'gamify'),
+                            icon: <Icon as={FiEdit} />,
+                            onClick: () => navigate(`/achievementsType?id=${row.id}`)
+                        },
+                        {
+                            type: 'button',
+                            suffix: 'trash',
+                            label: __('Delete', 'gamify'),
+                            icon: <Icon as={FiTrash2} />,
+                            onClick: () => handleDelete(row.id)
+                        },
+                    ]}
+                />
+            ),
+        },
+    ];
+
     return (
         <>
             <TopBar
@@ -86,15 +91,14 @@ const Achievements = () => {
                     <Button
                         {...primaryBtn}
                         onClick={() => navigate("/achievementsType")}
-
                     >
-                        {__('+ Add new point types', 'gamify')}
+                        {__('+ Add new achievement type', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
                     </Button>
                 </Flex>
                 <ListTable
                     columns={columns}
-                    data={staticData}
+                    data={achievements}
                     showSubHeader={false}
                     showColumnFilter={false}
                     isRowSelectable={true}
@@ -102,7 +106,6 @@ const Achievements = () => {
                     noDataText="No data found"
                 />
             </Box>
-
         </>
     );
 };

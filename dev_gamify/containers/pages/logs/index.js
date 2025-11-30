@@ -1,298 +1,175 @@
-// import React, { useState, useMemo } from 'react';
-// import TopBar from "@Components/TopBar";
-// import GFLabel from '@Components/Labels/GFLabel';
-// import { __ } from '@wordpress/i18n';
-// import ListTable from '@Components/ListTable';
-// import { Box, Button, Flex, Icon } from '@chakra-ui/react';
-// import OptionMenu from '@Components/OptionMenu';
-// import { FiEdit, FiTrash2 } from "react-icons/fi";
-// import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-// import { useNavigate } from 'react-router-dom';
-// import Search from '@Components/Search';
-// import StatusOptions from '@Components/StatusOptions';
-
-
-// const initialData = [
-//     { id: 1, name: "John Doe", pluralName: "John Does", date: "2025-01-10", status: "pending" },
-//     { id: 2, name: "Emma Watson", pluralName: "Emma Watsons", date: "2025-01-12", status: "draft" },
-//     { id: 3, name: "Mark Tailor", pluralName: "Mark Tailors", date: "2025-01-15", status: "publish" },
-//     { id: 4, name: "Sarah Lee", pluralName: "Sarah Lees", date: "2025-01-18", status: "trash" },
-//     { id: 5, name: "David Kim", pluralName: "David Kims", date: "2025-01-20", status: "processing" },
-// ];
-
-
-// const Logs = () => {
-//     const navigate = useNavigate();
-
-//     const [tableData, setTableData] = useState(initialData);
-
-//     const columns = useMemo(() => [
-//         {
-//             name: __('Title', 'gamify'),
-//             cell: (row) => row.name
-//         },
-//         {
-//             name: __('Questions', 'gamify'),
-//             cell: (row) => row.pluralName,
-//         },
-//         {
-//             name: __('Last Modified', 'gamify'),
-//             cell: (row) => row.date,
-//         },
-//         {
-//             name: __('Participants', 'gamify'),
-//             cell: () => 0,
-//         },
-
-//         {
-//             name: __('Status', 'gamify'),
-//             cell: (row) => {
-//                 const scheduleStatus = [
-//                     { label: __('Draft', 'gamify'), value: 'draft' },
-//                     { label: __('Pending', 'gamify'), value: 'pending' },
-//                     { label: __('Trash', 'gamify'), value: 'trash' },
-//                 ];
-
-//                 const restStatus =
-//                     row.status !== 'future'
-//                         ? [{ label: __('Published', 'gamify'), value: 'publish' }]
-//                         : [];
-//                 const handleStatusChange = (id, newStatus) => {
-//                     setTableData(prev =>
-//                         prev.map(item =>
-//                             item.id === id ? { ...item, status: newStatus } : item
-//                         )
-//                     );
-//                 };
-
-//                 return (
-//                     <StatusOptions
-//                         value={row.status}
-//                         options={{ items: [...scheduleStatus, ...restStatus] }}
-//                         onChangeHandler={(newVal) => handleStatusChange(row.id, newVal)}
-//                     />
-//                 );
-//             },
-//         },
-
-//         {
-//             name: __('Action', 'gamify'),
-//             cell: (row) => (
-//                 <OptionMenu
-//                     options={[
-//                         {
-//                             type: "button",
-//                             label: __('Edit', 'gamify'),
-//                             icon: <Icon as={FiEdit} />,
-//                             onClick: () => console.log(`Edit ID: ${row.id}`),
-//                         },
-//                         {
-//                             type: "button",
-//                             suffix: "trash",
-//                             label: __('Delete', 'gamify'),
-//                             icon: <Icon as={FiTrash2} />,
-//                             onClick: () => console.log(`Delete ID: ${row.id}`),
-//                         },
-//                     ]}
-//                 />
-//             ),
-//         },
-//     ], [tableData]);
-
-
-//     const subHeaderComponentMemo = useMemo(() => {
-//         return (
-//             <>
-//                 <div className="gamify-table__sub-header-left">
-//                     <GFLabel
-//                         as="h2"
-//                         color="var(--gamify-font-color)"
-//                         fontWeight="700"
-//                         fontSize='16px'
-//                         label={__(`Logs`, 'gamify')}
-//                     />
-
-//                     <Button
-//                         background='#F6F7F8'
-//                         variant="outline"
-//                         borderRadius="md"
-//                         color="gray.700"
-//                         fontWeight='400'
-//                         fontSize='12px'
-//                         width='54px'
-//                         height='24px'
-//                         marginLeft='5px'
-//                         borderColor="gray.300"
-//                     >
-//                         refresh
-//                     </Button>
-//                 </div>
-
-//                 <div className="gamify-table-sub-header-actions-right">
-//                     <Search placeholder={__('Search Items', 'gamify')} />
-//                 </div>
-//             </>
-//         );
-//     }, []);
-
-
-//     return (
-//         <>
-//             <TopBar
-//                 leftContent={() => (
-//                     <>
-//                         <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
-//                         <span className="gamify-icon gamify-icon--angle-right" />
-//                         <GFLabel
-//                             as="h2"
-//                             color="var(--gamify-font-color)"
-//                             type="subtitle"
-//                             fontWeight="medium"
-//                             label={__(`Game Engine`, 'gamify')}
-//                         />
-//                     </>
-//                 )}
-//             />
-
-//             <Box width="1174px" margin="0 auto" height="100vh">
-//                 <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-//                     <GFLabel
-//                         type="title"
-//                         fontWeight="500"
-//                         fontSize="xl"
-//                         label={__(`Logs`, 'gamify')}
-//                     />
-
-//                     <Button {...primaryBtn}>
-//                         {__('+ Add new point types', 'gamify')}
-//                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
-//                     </Button>
-//                 </Flex>
-
-//                 <ListTable
-//                     columns={columns}
-//                     isRowSelectable={true}
-//                     data={tableData}
-//                     showSubHeader={true}
-//                     subHeaderComponent={subHeaderComponentMemo}
-//                     showColumnFilter={false}
-//                     showPagination={true}
-//                     noDataText="No data found"
-//                 />
-//             </Box>
-//         </>
-//     );
-// };
-
 // export default Logs;
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { __ } from '@wordpress/i18n';
+
+// Custom Components
 import TopBar from "@Components/TopBar";
 import GFLabel from '@Components/Labels/GFLabel';
-import { __ } from '@wordpress/i18n';
 import ListTable from '@Components/ListTable';
-import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import OptionMenu from '@Components/OptionMenu';
-import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import { useNavigate } from 'react-router-dom';
 import Search from '@Components/Search';
-import StatusOptions from '@Components/StatusOptions';
+import LabeledInput from "@Components/LabeledInput";
+import GFSelect from "@Components/Select";
+import WPModal from '@Components/Modal/WPModal';
 
-const initialData = [
-{ id: 1, name: "John Doe", pluralName: "John Does", date: "2025-01-10", status: "pending" },
-{ id: 2, name: "Emma Watson", pluralName: "Emma Watsons", date: "2025-01-12", status: "draft" },
-{ id: 3, name: "Mark Tailor", pluralName: "Mark Tailors", date: "2025-01-15", status: "publish" },
-{ id: 4, name: "Sarah Lee", pluralName: "Sarah Lees", date: "2025-01-18", status: "trash" },
-{ id: 5, name: "David Kim", pluralName: "David Kims", date: "2025-01-20", status: "processing" },
-{ id: 6, name: "Alice Brown", pluralName: "Alice Browns", date: "2025-01-22", status: "pending" },
-{ id: 7, name: "Bob Smith", pluralName: "Bob Smiths", date: "2025-01-25", status: "draft" },
-{ id: 8, name: "Charlie Johnson", pluralName: "Charlie Johnsons", date: "2025-01-28", status: "publish" },
-{ id: 9, name: "Diana White", pluralName: "Diana Whites", date: "2025-02-01", status: "trash" },
-{ id: 10, name: "Ethan Davis", pluralName: "Ethan Davises", date: "2025-02-05", status: "processing" },
-{ id: 11, name: "Fiona Green", pluralName: "Fiona Greens", date: "2025-02-10", status: "pending" },
-{ id: 12, name: "George Harris", pluralName: "George Harrises", date: "2025-02-12", status: "draft" },
-{ id: 13, name: "Hannah Lewis", pluralName: "Hannah Lewises", date: "2025-02-15", status: "publish" },
-{ id: 14, name: "Ian Clark", pluralName: "Ian Clarks", date: "2025-02-18", status: "trash" },
-{ id: 15, name: "Jane Walker", pluralName: "Jane Walkers", date: "2025-02-20", status: "processing" },
-{ id: 16, name: "Kevin Hall", pluralName: "Kevin Halls", date: "2025-02-22", status: "pending" },
-{ id: 17, name: "Laura Allen", pluralName: "Laura Allens", date: "2025-02-25", status: "draft" },
-{ id: 18, name: "Michael Young", pluralName: "Michael Youngs", date: "2025-02-28", status: "publish" },
-{ id: 19, name: "Nina King", pluralName: "Nina Kings", date: "2025-03-01", status: "trash" },
-{ id: 20, name: "Oscar Scott", pluralName: "Oscar Scotts", date: "2025-03-05", status: "processing" },
-];
+// Icons
+import { FiEdit, FiTrash2, FiEye, FiClock, FiRefreshCw } from "react-icons/fi";
+import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
 
+// Redux Actions
+import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction } from '../../../redux/Slices/logsSlice';
+
+// Chakra UI Imports
+import {
+    Box,
+    Button,
+    Icon,
+    Badge,
+    Flex,
+    Spinner,
+} from '@chakra-ui/react';
 
 const Logs = () => {
     const navigate = useNavigate();
-    const [tableData, setTableData] = useState(initialData);
-    const allData = tableData;
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
-    const totalItems = allData.length;
-    const paginatedData = allData.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    );
+    const dispatch = useDispatch();
 
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-    };
+    // --- State Management ---
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [manualData, setManualData] = useState({
+        user_id: '',
+        points: 10,
+        type: 'award',
+        description: '',
+        schedule_date: ''
+    });
+
+    // --- Redux Data ---
+    const {
+        items,
+        totalItems,
+        currentPage,
+        rowsPerPage,
+        searchQuery,
+        status
+    } = useSelector((state) => state.logs);
+
+    // --- Fetch Data ---
+    useEffect(() => {
+        dispatch(fetchLogs({ page: currentPage, per_page: rowsPerPage, search: searchQuery }));
+    }, [dispatch, currentPage, rowsPerPage, searchQuery]);
+
+    // --- Handlers ---
+    const handlePageChange = (newPage) => dispatch(setPage(newPage));
 
     const handlePerPageChange = (newLimit) => {
-        setRowsPerPage(newLimit);
-        setCurrentPage(1);
+        dispatch(setRowsPerPage(newLimit));
+        dispatch(setPage(1));
     };
 
+    const handleRefresh = () => {
+        dispatch(fetchLogs({ page: currentPage, per_page: rowsPerPage, search: searchQuery }));
+    };
+
+    const handleSearch = (value) => {
+        dispatch(setSearchQuery(value));
+        dispatch(setPage(1));
+    };
+
+    // --- Manual Action Submit Handler ---
+    const handleManualSubmit = async () => {
+        if (!manualData.user_id) {
+            alert(__('User ID is required', 'gamify'));
+            return;
+        }
+
+        setIsSubmitting(true);
+        const result = await dispatch(manualLogAction(manualData));
+        setIsSubmitting(false);
+
+        if (manualLogAction.fulfilled.match(result)) {
+            // Success: Close modal and reset form
+            setIsModalOpen(false);
+            setManualData({ user_id: '', points: 10, type: 'award', description: '', schedule_date: '' });
+        } else {
+            // Error
+            alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
+        }
+    };
+
+    // --- Columns Definition ---
     const columns = useMemo(() => [
         {
-            name: __('Title', 'gamify'),
-            cell: (row) => row.name
+            name: __('User', 'gamify'),
+            cell: (row) => (
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <span style={{ fontWeight: 600 }}>{row.user_name || 'Guest'}</span>
+                    <span style={{ fontSize: '12px', color: '#666' }}>{row.user_email || `ID: ${row.user_id}`}</span>
+                </div>
+            )
         },
         {
-            name: __('Questions', 'gamify'),
-            cell: (row) => row.pluralName,
+            name: __('Event', 'gamify'),
+            cell: (row) => (
+                <Badge variant="outline">{row.event_name}</Badge>
+            ),
         },
         {
-            name: __('Last Modified', 'gamify'),
-            cell: (row) => row.date,
-        },
-        {
-            name: __('Participants', 'gamify'),
-            cell: () => 0,
-        },
-
-        {
-            name: __('Status', 'gamify'),
+            name: __('Message / Details', 'gamify'),
             cell: (row) => {
-                const scheduleStatus = [
-                    { label: __('Draft', 'gamify'), value: 'draft' },
-                    { label: __('Pending', 'gamify'), value: 'pending' },
-                    { label: __('Trash', 'gamify'), value: 'trash' },
-                ];
+                let points = 0;
 
-                const restStatus =
-                    row.status !== 'future'
-                        ? [{ label: __('Published', 'gamify'), value: 'publish' }]
-                        : [];
+                if (row.points_awarded) {
+                    points = parseInt(row.points_awarded);
+                }
 
-                const handleStatusChange = (id, newStatus) => {
-                    setTableData(prev =>
-                        prev.map(item =>
-                            item.id === id ? { ...item, status: newStatus } : item
-                        )
-                    );
-                };
+                else if (row.meta && row.meta.points) {
+                    points = parseInt(row.meta.points);
+                }
+
+                const scheduled = row.meta?.scheduled_for;
 
                 return (
-                    <StatusOptions
-                        value={row.status}
-                        options={{ items: [...scheduleStatus, ...restStatus] }}
-                        onChangeHandler={(newVal) => handleStatusChange(row.id, newVal)}
-                    />
+                    <div>
+                        <div title={row.message}>{row.message}</div>
+
+                        {points !== 0 && !isNaN(points) && (
+                            <span style={{
+                                display: 'inline-block',
+                                marginTop: '4px',
+                                color: points > 0 ? 'green' : 'red',
+                                fontWeight: 'bold',
+                                fontSize: '12px'
+                            }}>
+                                ({points > 0 ? '+' : ''}{points} Points)
+                            </span>
+                        )}
+
+                        {scheduled && (
+                            <div style={{ fontSize: '11px', color: 'purple', marginTop: '2px' }}>
+                                <Icon as={FiClock} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                                {new Date(scheduled).toLocaleString()}
+                            </div>
+                        )}
+                    </div>
                 );
             },
         },
-
+        {
+            name: __('Date', 'gamify'),
+            cell: (row) => new Date(row.created_at).toLocaleString(),
+        },
+        {
+            name: __('Status', 'gamify'),
+            cell: (row) => (
+                <Badge colorScheme={row.status === 'success' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}>
+                    {row.status}
+                </Badge>
+            ),
+        },
         {
             name: __('Action', 'gamify'),
             cell: (row) => (
@@ -300,23 +177,17 @@ const Logs = () => {
                     options={[
                         {
                             type: "button",
-                            label: __('Edit', 'gamify'),
-                            icon: <Icon as={FiEdit} />,
-                            onClick: () => console.log(`Edit ID: ${row.id}`),
-                        },
-                        {
-                            type: "button",
-                            suffix: "trash",
-                            label: __('Delete', 'gamify'),
-                            icon: <Icon as={FiTrash2} />,
-                            onClick: () => console.log(`Delete ID: ${row.id}`),
-                        },
+                            label: __('View Details', 'gamify'),
+                            icon: <Icon as={FiEye} />,
+                            onClick: () => console.log('View:', row),
+                        }
                     ]}
                 />
             ),
         },
-    ], [tableData]);
+    ], []);
 
+    // --- SubHeader ---
     const subHeaderComponentMemo = useMemo(() => {
         return (
             <>
@@ -340,17 +211,30 @@ const Logs = () => {
                         height='24px'
                         marginLeft='5px'
                         borderColor="gray.300"
+                        onClick={handleRefresh}
                     >
-                        refresh
+                        {status === 'loading' ? '...' : <Icon as={FiRefreshCw} />}
                     </Button>
                 </div>
 
-                <div className="gamify-table-sub-header-actions-right">
-                    <Search placeholder={__('Search Items', 'gamify')} />
+                <div className="gamify-table-sub-header-actions-right" style={{ display: 'flex', gap: '10px' }}>
+                    <Search
+                        placeholder={__('Search Items', 'gamify')}
+                        onChange={(e) => handleSearch(e.target ? e.target.value : e)}
+                    />
+
+                    {/* Trigger Button */}
+                    <Button
+                        {...primaryBtn}
+                        height="auto"
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        {__('Manual Trigger', 'gamify')}
+                    </Button>
                 </div>
             </>
         );
-    }, []);
+    }, [status]);
 
     return (
         <>
@@ -371,22 +255,90 @@ const Logs = () => {
             />
 
             <Box width="1174px" margin="0 auto" >
-                <ListTable
-                    columns={columns}
-                    isRowSelectable={true}
-                    data={paginatedData}
-                    showSubHeader={true}
-                    subHeaderComponent={subHeaderComponentMemo}
-                    showColumnFilter={false}
-                    showPagination={true}
-                    noDataText="No data found"
-                    totalItems={totalItems}
-                    currentPageNumber={currentPage}
-                    rowsPerPage={rowsPerPage}
-                    onChangePage={handlePageChange}
-                    onChangeItemsPerPage={handlePerPageChange}
-                />
+                {status === 'loading' && (!items || items.length === 0) ? (
+                    <Flex justify="center" align="center" height="200px">
+                        <Spinner />
+                    </Flex>
+                ) : (
+                    <ListTable
+                        columns={columns}
+                        isRowSelectable={false}
+                        data={items}
+                        showSubHeader={true}
+                        subHeaderComponent={subHeaderComponentMemo}
+                        showColumnFilter={false}
+                        showPagination={true}
+                        noDataText="No logs found"
+
+                        totalItems={totalItems}
+                        currentPageNumber={currentPage}
+                        rowsPerPage={rowsPerPage}
+                        onChangePage={handlePageChange}
+                        onChangeItemsPerPage={handlePerPageChange}
+                    />
+                )}
             </Box>
+
+            {/* Manual Trigger Modal */}
+            <WPModal
+                title="Manual Trigger Settings"
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                size="medium"
+            >
+                <div style={{ padding: '0 20px' }}>
+                    <LabeledInput
+                        label={'User ID'}
+                        placeholder={'e.g. 1'}
+                        value={manualData.user_id}
+                        onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
+                    />
+
+                    <Box mt={4}>
+                        <GFSelect
+                            label="Action Type"
+                            placeholder="Choose one"
+                            items={[
+                                { label: 'Award Points (+)', value: 'award' },
+                                { label: 'Deduct Points (-)', value: 'deduct' },
+                            ]}
+                            onChange={(e) => setManualData({ ...manualData, type: e.target ? e.target.value : e })}
+                            value={manualData.type}
+                        />
+                    </Box>
+
+                    <LabeledInput
+                        label="Points Amount"
+                        type={"number"}
+                        value={manualData.points}
+                        onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
+                    />
+
+                    <LabeledInput
+                        label="Description"
+                        type='textarea'
+                        placeholder="Reason..."
+                        value={manualData.description}
+                        onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
+                    />
+
+                    <LabeledInput
+                        label="Schedule Date (Optional)"
+                        type="datetime-local"
+                        value={manualData.schedule_date}
+                        onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
+                    />
+
+                    <Flex justifyContent='flex-end' padding='20px 0'>
+                        <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
+                            {__('Cancel', 'gamify')}
+                        </Button>
+                        <Button colorScheme="blue" onClick={handleManualSubmit} isLoading={isSubmitting}>
+                            {__('Process', 'gamify')}
+                        </Button>
+                    </Flex>
+                </div>
+            </WPModal>
         </>
     );
 };
