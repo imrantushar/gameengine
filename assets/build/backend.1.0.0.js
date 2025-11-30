@@ -3566,10 +3566,124 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @Components/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Components_ListTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @Components/ListTable */ "./dev_gamify/components/ListTable/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _Components_Search__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @Components/Search */ "./dev_gamify/components/Search/index.js");
 
 
+
+
+
+
+
+
+const initialData = [{
+  id: 1,
+  rank: "#1",
+  user: "James Smith",
+  points: "10,000",
+  achievements: 5,
+  level: "Diamond"
+}, {
+  id: 2,
+  rank: "#2",
+  user: "Stive Smith",
+  points: "9,000",
+  achievements: 3,
+  level: "Gold"
+}, {
+  id: 3,
+  rank: "#3",
+  user: "Ajar Lutron",
+  points: "8,000",
+  achievements: 3,
+  level: "Silver"
+}, {
+  id: 4,
+  rank: "#4",
+  user: "Martin Luther",
+  points: "6,000",
+  achievements: 2,
+  level: "Silver"
+}];
 const Leaderboards = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, "this is leader board");
+  const [tableData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialData);
+  const [currentPage, setCurrentPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(1);
+  const [rowsPerPage, setRowsPerPage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(10);
+  const totalItems = tableData.length;
+  const paginatedData = tableData.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
+  const handlePageChange = newPage => {
+    setCurrentPage(newPage);
+  };
+  const handlePerPageChange = newLimit => {
+    setRowsPerPage(newLimit);
+    setCurrentPage(1);
+  };
+  const columns = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => [{
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Rank', 'gamify'),
+    cell: row => row.rank
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('User', 'gamify'),
+    cell: row => row.user
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Points', 'gamify'),
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "\uD83E\uDE99 ", row.points)
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Achievements', 'gamify'),
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "\uD83C\uDFC6 ", row.achievements)
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Level', 'gamify'),
+    cell: row => row.level
+  }], []);
+  const subHeaderComponentMemo = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "gamify-table__sub-header-left"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      as: "h2",
+      color: "var(--gamify-font-color)",
+      fontWeight: "700",
+      fontSize: "16px",
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Gamify Pro Leaderboard`, 'gamify')
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "gamify-table-sub-header-actions-right"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Search__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search Items', 'gamify')
+    })));
+  }, []);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "gamify-icon gamify-icon--angle-right"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      as: "h2",
+      color: "var(--gamify-font-color)",
+      type: "subtitle",
+      fontWeight: "medium",
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Dashboard`, 'gamify')
+    }))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
+    width: "1174px",
+    margin: "0 auto"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_ListTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    columns: columns,
+    isRowSelectable: true,
+    data: paginatedData,
+    showSubHeader: true,
+    subHeaderComponent: subHeaderComponentMemo,
+    showColumnFilter: false,
+    showPagination: true,
+    noDataText: "No data found",
+    totalItems: totalItems,
+    currentPageNumber: currentPage,
+    rowsPerPage: rowsPerPage,
+    onChangePage: handlePageChange,
+    onChangeItemsPerPage: handlePerPageChange
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Leaderboards);
 
