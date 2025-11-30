@@ -15,6 +15,8 @@ import LabeledInput from "@Components/LabeledInput";
 import { primaryBtn } from "../../../../../assets/scss/chakra/recipe";
 import GFSelect from "@Components/Select";
 import Divider from "@Components/Divider";
+import GamifyEditor from "@Components/editor";
+
 
 // Actions
 import {
@@ -94,6 +96,7 @@ const AchievementsType = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const editId = searchParams.get('id');
+    const [message, setMessage] = useState("");
 
     const [achievementCollapsible, setAchievementCollapsible] = useState(true);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
@@ -203,6 +206,17 @@ const AchievementsType = () => {
                         />
                         <GFLabel type="miniTitle" label={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")} fontSize="0.875rem" mt="6px" color="var(--gamify-secondary)" />
                     </Box>
+                    <Box>
+                        <GFLabel mb='24px' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
+                        <GamifyEditor
+                            suffix="congratulations_message"
+                            defaultValue={message}
+                            saveValueHandler={(html) => {
+                                setMessage(html);
+                            }}
+                            isCustomHTML={false}
+                        />
+                    </Box>
 
                     <Flex>
                         <Switch.Root checked={allowUnlockWithPoints} onCheckedChange={(e) => dispatch(setField({ field: 'allowUnlockWithPoints', value: e.checked }))}>
@@ -234,82 +248,89 @@ const AchievementsType = () => {
                             </Box>
                         </Flex>
                     )}
+                    {
+                        !allowUnlockWithPoints && (
+                            <>
+                                <CustomCollapsible
+                                    label="Achievement Requirements"
+                                    isOpen={achievementCollapsible}
+                                    onClick={() => setAchievementCollapsible(!achievementCollapsible)}
+                                />
+                                {achievementCollapsible && (
+                                    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                                        <Flex gap="24px">
+                                            {/* Available Hooks Column */}
+                                            <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+                                                <Flex direction="column" gap="12px">
+                                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} margin='0' />
+                                                    <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} color="var(--gamify-font-color)" margin='0' />
 
-                    <CustomCollapsible
-                        label="Achievement Requirements"
-                        isOpen={achievementCollapsible}
-                        onClick={() => setAchievementCollapsible(!achievementCollapsible)}
-                    />
-
-                    {achievementCollapsible && (
-                        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                            <Flex gap="24px">
-                                {/* Available Hooks Column */}
-                                <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <Flex direction="column" gap="12px">
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} margin='0' />
-                                        <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} color="var(--gamify-font-color)" margin='0' />
-
-                                        <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                            <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>{__("Filter Hooks Type", "gamify")}</Text>
-                                            <Select
-                                                isMulti
-                                                placeholder={__("Select hook type", "gamify")}
-                                                classNamePrefix="gamify-select"
-                                                options={[{ label: "Gamify", value: "gamify" }, { label: "WordPress", value: "wordpress" }]}
-                                            />
-                                        </Box>
-                                    </Flex>
-
-                                    <DroppableArea id="awards-available">
-                                        {availableHooks.map((item) => (
-                                            <Box key={item.id}>
-                                                <DraggableItem id={item.id}>
-                                                    <Box p="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
-                                                        <Flex justify="space-between" align="center">
-                                                            <Text margin='0' fontWeight="600">{item.label}</Text>
-                                                            <Box bg="green.500" borderRadius="full" w="24px" h="24px" display="flex" alignItems="center" justifyContent="center" color="white">
-                                                                <Icon as={FaArrowRotateRight} boxSize={4} />
-                                                            </Box>
-                                                        </Flex>
-                                                    </Box>
-                                                </DraggableItem>
-                                                <Text fontSize="0.875rem" mt="6px" mb="24px" color="var(--gamify-secondary)">{item.subTitle}</Text>
-                                            </Box>
-                                        ))}
-                                    </DroppableArea>
-                                </Flex>
-
-                                {/* Active Hooks Column */}
-                                <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                    <Flex direction="column" gap="12px">
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Action Hook`, "gamify")} margin='0' />
-                                        <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`These hooks will run automatically for all users.`, "gamify")} color="var(--gamify-font-color)" margin='0' />
-                                    </Flex>
-
-                                    <DroppableArea id="awards-sidebar">
-                                        <Flex direction="column" gap="12px" mt="8px">
-                                            {activeHooks.map((hook) => (
-                                                <DraggableItem key={hook.id} id={hook.id}>
-                                                    <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                                                        <DynamicHookForm
-                                                            hookId={hook.id}
-                                                            hookInfo={hook}
-                                                            settings={hookSettings[hook.id] || {}}
-                                                            onChange={(key, val) => dispatch(updateHookSettings({
-                                                                hookId: hook.id,
-                                                                settings: { [key]: val }
-                                                            }))}
+                                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>{__("Filter Hooks Type", "gamify")}</Text>
+                                                        <Select
+                                                            isMulti
+                                                            placeholder={__("Select hook type", "gamify")}
+                                                            classNamePrefix="gamify-select"
+                                                            options={[{ label: "Gamify", value: "gamify" }, { label: "WordPress", value: "wordpress" }]}
                                                         />
                                                     </Box>
-                                                </DraggableItem>
-                                            ))}
+                                                </Flex>
+
+                                                <DroppableArea id="awards-available">
+                                                    {availableHooks.map((item) => (
+                                                        <Box key={item.id}>
+                                                            <DraggableItem id={item.id}>
+                                                                <Box p="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
+                                                                    <Flex justify="space-between" align="center">
+                                                                        <Text margin='0' fontWeight="600">{item.label}</Text>
+                                                                        <Box bg="green.500" borderRadius="full" w="24px" h="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                                                                            <Icon as={FaArrowRotateRight} boxSize={4} />
+                                                                        </Box>
+                                                                    </Flex>
+                                                                </Box>
+                                                            </DraggableItem>
+                                                            <Text fontSize="0.875rem" mt="6px" mb="24px" color="var(--gamify-secondary)">{item.subTitle}</Text>
+                                                        </Box>
+                                                    ))}
+                                                </DroppableArea>
+                                            </Flex>
+
+                                            {/* Active Hooks Column */}
+                                            <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
+                                                <Flex direction="column" gap="12px">
+                                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Action Hook`, "gamify")} margin='0' />
+                                                    <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`These hooks will run automatically for all users.`, "gamify")} color="var(--gamify-font-color)" margin='0' />
+                                                </Flex>
+
+                                                <DroppableArea id="awards-sidebar">
+                                                    <Flex direction="column" gap="12px" mt="8px">
+                                                        {activeHooks.map((hook) => (
+                                                            <DraggableItem key={hook.id} id={hook.id}>
+                                                                <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                                                    <DynamicHookForm
+                                                                        hookId={hook.id}
+                                                                        hookInfo={hook}
+                                                                        settings={hookSettings[hook.id] || {}}
+                                                                        onChange={(key, val) => dispatch(updateHookSettings({
+                                                                            hookId: hook.id,
+                                                                            settings: { [key]: val }
+                                                                        }))}
+                                                                    />
+                                                                </Box>
+                                                            </DraggableItem>
+                                                        ))}
+                                                    </Flex>
+                                                </DroppableArea>
+                                            </Box>
                                         </Flex>
-                                    </DroppableArea>
-                                </Box>
-                            </Flex>
-                        </DndContext>
-                    )}
+                                    </DndContext>
+                                )}
+                            </>
+                        )
+                    }
+
+
+
 
                     <Flex py="24px" justifyContent="flex-end" borderTop="1px solid var(--gamify-border-color)">
                         <Button {...primaryBtn} width="121px" onClick={handleSave} isLoading={saveStatus === 'saving'}>

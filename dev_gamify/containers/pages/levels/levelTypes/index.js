@@ -31,6 +31,7 @@ import Divider from "@Components/Divider";
 import { Switch } from "@chakra-ui/react";
 import GFSelect from "@Components/Select";
 import UnlockSpecialAchievements from "./levelHooks/UnlockSpecialAchievements";
+import GamifyEditor from "@Components/editor";
 
 const levelHooks = [
     {
@@ -84,6 +85,7 @@ const LevelType = () => {
     const [availableLevel, setAvailableLevel] = useState(
         levelHooks
     );
+    const [message, setMessage] = useState("");
     const [achievement, setAchievement] = useState(true);
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
@@ -159,6 +161,17 @@ const LevelType = () => {
 
                     <LabeledInput label="Point Name" placeholder="Academy LMS" />
                     <LabeledInput label="Plural Name" placeholder="Plural Name" />
+                    <Box>
+                        <GFLabel mb='24px' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
+                        <GamifyEditor
+                            suffix="congratulations_message"
+                            defaultValue={message}
+                            saveValueHandler={(html) => {
+                                setMessage(html);
+                            }}
+                            isCustomHTML={false}
+                        />
+                    </Box>
                     <GFLabel
                         type="title"
                         fontWeight="500"
@@ -200,7 +213,7 @@ const LevelType = () => {
                                     { label: "Angular", value: "angular" },
                                     { label: "Svelte", value: "svelte" },
                                 ]}
-                               
+
                             />
                         </Box>
                     </Flex>
