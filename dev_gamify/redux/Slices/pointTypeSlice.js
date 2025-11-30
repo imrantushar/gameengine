@@ -6,7 +6,8 @@ export const fetchTriggers = createAsyncThunk(
     'pointType/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await apiFetch({ path: '/gamify/v1/triggers' });
+            // Point Type এর জন্য scope পাঠানো হলো
+            const response = await apiFetch({ path: '/gamify/v1/triggers?scope=point_type' });
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
