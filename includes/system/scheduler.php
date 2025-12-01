@@ -27,25 +27,45 @@ class Scheduler
     {
         $points_manager = new PointsManager();
 
-        // Prepare arguments for PointsManager
-        $args = [
-            'point_type_id' => isset($meta['point_type_id']) ? $meta['point_type_id'] : 1,
-            'description'   => isset($meta['description']) ? $meta['description'] . ' (Scheduled)' : 'Scheduled Action',
-        ];
+        // Ensure we have a valid description
+        $description = isset($meta['description']) ? $meta['description'] : 'Scheduled Action';
+        $meta['description'] = $description . ' (Executed)';
 
         // Execute the action
+        $log_id = false;
+
         if ($action_type === 'deduct') {
-            $points_manager->deduct($user_id, $points, 'scheduled_action', $args);
+            $log_id = $points_manager->deduct($user_id, $points, 'scheduled_execution', $meta);
         } else {
-            $points_manager->add($user_id, $points, 'scheduled_action', $args);
+            $log_id = $points_manager->add($user_id, $points, 'scheduled_execution', $meta);
         }
 
-        // Optional: Log that the schedule executed successfully
-        Logger::log(
-            'schedule_executed',
-            "Processed scheduled {$action_type} of {$points} points.",
-            $user_id,
-            ['scheduled_time' => current_time('mysql')]
-        );
+        // FIX: Log the execution result explicitly
+        if ($log_id) {
+            $final_points = ($action_type === 'deduct') ? -$points : $points;
+
+            Logger::log(
+                'schedule_executed',
+                "Successfully executed scheduled {$action_type} of {$points} points.",
+                $user_id,
+                $final_points, // Actual points awarded/deducted
+                [
+                    'scheduled_time' => current_time('mysql'),
+                    'original_meta'  => $meta,
+                    'log_id'         => $log_id
+                ],
+                'success'
+            );
+        } else {
+            // Log failure if needed
+            Logger::log(
+                'schedule_failed',
+                "Failed to execute scheduled action for user {$user_id}.",
+                $user_id,
+                0,
+                $meta,
+                'failed'
+            );
+        }
     }
 }
