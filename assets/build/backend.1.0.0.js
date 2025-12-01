@@ -1980,7 +1980,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const GFSelect = ({
-  label = "Select option",
+  label,
   placeholder = "Select option",
   items = [],
   value,
@@ -2002,7 +2002,7 @@ const GFSelect = ({
     width: width,
     value: value !== null && value !== void 0 ? value : "",
     onValueChange: v => onChange?.(v)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectHiddenSelect, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectLabel, null, label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectControl, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectTrigger, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectValueText, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectHiddenSelect, null), label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectLabel, null, label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectControl, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectTrigger, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectValueText, {
     placeholder: placeholder
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectIndicatorGroup, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectIndicator, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Portal, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectPositioner, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectContent, null, collection.items.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectItem, {
     key: item.value,
@@ -4655,14 +4655,21 @@ const Logs = () => {
         display: 'flex',
         gap: '10px'
       }
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      placeholder: "Show all references ",
+      items: [{
+        label: 'Show all references ',
+        value: 'award'
+      }, {
+        label: 'Deduct Points (-)',
+        value: 'deduct'
+      }]
+      // onChange={(e) => }
+      // value={}
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search Items', 'gamify'),
       onChange: e => handleSearch(e.target ? e.target.value : e)
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Button, {
-      ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
-      height: "auto",
-      onClick: () => setIsModalOpen(true)
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Manual Trigger', 'gamify'))));
+    })));
   }, [status]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {

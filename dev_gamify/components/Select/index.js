@@ -3,7 +3,7 @@
 import { Portal, Select, createListCollection } from "@chakra-ui/react";
 
 const GFSelect = ({
-  label = "Select option",
+  label,
   placeholder = "Select option",
   items = [],
   value,
@@ -27,7 +27,7 @@ const GFSelect = ({
     >
       <Select.HiddenSelect />
 
-      <Select.Label>{label}</Select.Label>
+      {label && <Select.Label>{label}</Select.Label>}
 
       <Select.Control>
         <Select.Trigger>

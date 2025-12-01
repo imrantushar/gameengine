@@ -240,19 +240,19 @@ const Logs = () => {
                 </div>
 
                 <div className="gamify-table-sub-header-actions-right" style={{ display: 'flex', gap: '10px' }}>
+                    <GFSelect
+                        placeholder="Show all references "
+                        items={[
+                            { label: 'Show all references ', value: 'award' },
+                            { label: 'Deduct Points (-)', value: 'deduct' },
+                        ]}
+                    // onChange={(e) => }
+                    // value={}
+                    />
                     <Search
                         placeholder={__('Search Items', 'gamify')}
                         onChange={(e) => handleSearch(e.target ? e.target.value : e)}
                     />
-
-                    {/* Trigger Button */}
-                    <Button
-                        {...primaryBtn}
-                        height="auto"
-                        onClick={() => setIsModalOpen(true)}
-                    >
-                        {__('Manual Trigger', 'gamify')}
-                    </Button>
                 </div>
             </>
         );
