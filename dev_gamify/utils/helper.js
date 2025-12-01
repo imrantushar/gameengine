@@ -36,3 +36,6 @@ export const reactDebounce = (callback, wait) => {
 		}, wait);
 	};
 };
+export const useQuery = () => {
+	return new URLSearchParams(window.location.search);
+};

@@ -1,40 +1,68 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import WPMenuSync from '../../components/WPMenuSync';
 import Dashboard from './dashboard';
 import Points from './points';
 import Logs from './logs';
 import Settings from './settings';
 import PointType from './points/PointType';
-import Achievements from './achievements/'
-import AchievementsType from './achievements/AchievementTypes'
+import Achievements from './achievements/';
+import AchievementsType from './achievements/AchievementTypes';
 import Levels from './levels';
 import LevelType from './levels/levelTypes';
 import Leaderboards from './leaderboards';
+import { useQuery } from '@Utils/helper';
 
-const App = () => {
-    return (
-        <div>
+const renderSwitch = (page) => {
+	console.log('PAGE =>', page);
 
-            <WPMenuSync />
+	switch (page) {
+		case 'gamify':
+			return <Dashboard />;
 
-            <div className="gamify-admin-content">
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/points" element={<Points />} />
-                    <Route path="/logs" element={<Logs />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/point-type" element={<PointType />} />
-                    <Route path="*" element={<Dashboard />} />
-                    <Route path="/achievements" element={<Achievements />} />
-                    <Route path="/achievementsType" element={<AchievementsType />} />
-                    <Route path="/levels" element={<Levels />} />
-                    <Route path="/level-type" element={<LevelType/>} />
-                    <Route path="/leaderboards" element={<Leaderboards />} />
-                </Routes>
-            </div>
-        </div>
-    );
+		case 'points':
+			return <Points />;
+
+		case 'logs':
+			return <Logs />;
+
+		case 'settings':
+			return <Settings />;
+
+		case 'point-type':
+			return <PointType />;
+
+		case 'achievements':
+			return <Achievements />;
+
+		case 'achievements-type':
+			return <AchievementsType />;
+
+		case 'levels':
+			return <Levels />;
+
+		case 'level-type':
+			return <LevelType />;
+
+		case 'leaderboards':
+			return <Leaderboards />;
+
+		default:
+			return <>No page found</>;
+	}
 };
 
-export default App;
+export default function BackendDashboard() {
+	const query = useQuery();
+
+	 console.log(query);
+
+	return (
+		<div className="gamify-admin-content">
+			{renderSwitch(
+				query.get('page'),
+				parseInt(query.get('id')),
+				query.get('action'),
+				query.get('path')
+			)}
+		</div>
+	);
+}
