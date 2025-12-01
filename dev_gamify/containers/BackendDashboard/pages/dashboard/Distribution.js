@@ -12,7 +12,7 @@ import {
 import { __ } from '@wordpress/i18n';
 import { Line } from "react-chartjs-2";
 import { Box, Text } from "@chakra-ui/react";
-import GFLabel from "@Components/Labels/GFLabel";
+import GFLabel from "@GFComponents/Labels/GFLabel";
 
 ChartJS.register(
     LineElement,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Flex, Box, Span, Text } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 // import { isPlainPermalink } from '@Utils/helper';
-import GFLabel from '@Components/Labels/GFLabel';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import { primaryBtn } from '../../../assets/scss/chakra/recipe';
 
 import './styles.scss';

@@ -2,7 +2,7 @@ import { Box, Text, Icon, Flex } from '@chakra-ui/react';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar } from "react-icons/fi";
-import GFLabel from '@Components/Labels/GFLabel';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 const cards = [
     {
         label: "Points Given",

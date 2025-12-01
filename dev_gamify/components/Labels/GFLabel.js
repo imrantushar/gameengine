@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Text, Button, Flex } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
-import { sliceString } from '@Utils/helper';
+import { sliceString } from '@GFUtils/helper';
 import { clearBtn, clearPrimaryBtn } from '../../../assets/scss/chakra/recipe';
 
 const GFLabel = ({

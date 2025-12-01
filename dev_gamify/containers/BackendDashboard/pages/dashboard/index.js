@@ -8,8 +8,8 @@ import { __ } from '@wordpress/i18n';
 import React from 'react';
 import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
-import GFLabel from '@Components/Labels/GFLabel';
-import TopBar from "@Components/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import TopBar from "@GFComponents/TopBar";
 import Overview from "./Overview";
 
 

@@ -1,7 +1,7 @@
 import { Box, Text, Table, Flex } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
-import GFLabel from '@Components/Labels/GFLabel';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 function TopUsers(props) {
     const { users } = props
