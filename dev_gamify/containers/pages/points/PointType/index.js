@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
@@ -45,15 +46,18 @@ import {
     updateHookSettings
 } from '../../../../redux/Slices/pointTypeSlice';
 
-// --- Draggable Item ---
+
+// # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
+
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         opacity: isDragging ? 0.85 : 1,
         cursor: "grab",
         zIndex: isDragging ? 999 : 1
     };
+
     return (
         <Box ref={setNodeRef} {...listeners} {...attributes} style={style} marginBottom="8px">
             {children}
@@ -61,9 +65,11 @@ const DraggableItem = ({ id, children }) => {
     );
 };
 
-// --- Droppable Area ---
+
+// # DROPPABLE
 const DroppableArea = ({ id, children }) => {
     const { setNodeRef, isOver } = useDroppable({ id });
+
     return (
         <Box
             ref={setNodeRef}
@@ -78,18 +84,14 @@ const DroppableArea = ({ id, children }) => {
     );
 };
 
-// --- Helper: Dynamic Field Renderer ---
-// This component decides what input to show based on the 'type' in PHP config
-const DynamicField = ({ fieldKey, config, value, onChange }) => {
 
-    // Handle "select" type
+// # DYNAMIC FIELD
+const DynamicField = ({ fieldKey, config, value, onChange }) => {
     if (config.type === 'select' && config.options) {
         const selectOptions = Object.entries(config.options).map(([val, label]) => ({
             value: val,
             label: label
         }));
-
-        const selectedOption = selectOptions.find(opt => opt.value === value) || null;
 
         return (
             <Box width="100%">
@@ -101,14 +103,13 @@ const DynamicField = ({ fieldKey, config, value, onChange }) => {
                     className="gamify-select"
                     classNamePrefix="gamify-select"
                     options={selectOptions}
-                    value={selectedOption}
+                    value={selectOptions.find(opt => opt.value === value) || null}
                     onChange={(val) => onChange(val ? val.value : '')}
                 />
             </Box>
         );
     }
 
-    // Handle "number" or "text" type (Default)
     return (
         <LabeledInput
             label={config.label}
@@ -122,16 +123,11 @@ const DynamicField = ({ fieldKey, config, value, onChange }) => {
 };
 
 
-// --- Dynamic Form Generator ---
+// # HOOK FORM
 const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
-
-    // Get correct fields based on type (award or deduct)
     const fieldsConfig = type === 'award'
         ? (hookInfo.award_fields || {})
         : (hookInfo.deduct_fields || {});
-
-    // Convert fields object to array for mapping
-    const fieldKeys = Object.keys(fieldsConfig);
 
     return (
         <CustomCollapsible
@@ -141,27 +137,22 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex direction="column" gap="16px" padding="0 24px">
-                {/* Dynamically Render Fields */}
-                {fieldKeys.length > 0 ? (
-                    fieldKeys.map((key) => {
-                        const config = fieldsConfig[key];
-                        // Use saved setting or default from config
-                        const currentValue = settings[key] !== undefined ? settings[key] : (config.default || '');
 
-                        return (
-                            <DynamicField
-                                key={key}
-                                fieldKey={key}
-                                config={config}
-                                value={currentValue}
-                                onChange={(val) => handleChange(key, val)}
-                            />
-                        );
-                    })
-                ) : (
-                    <Text fontSize="sm" color="gray.500">{__('No configuration fields available.', 'gamify')}</Text>
-                )}
+            <Flex direction="column" gap="16px" padding="0 24px">
+                {Object.keys(fieldsConfig).map((key) => {
+                    const config = fieldsConfig[key];
+                    const currentValue = settings[key] ?? config.default ?? '';
+
+                    return (
+                        <DynamicField
+                            key={key}
+                            fieldKey={key}
+                            config={config}
+                            value={currentValue}
+                            onChange={(val) => handleChange(key, val)}
+                        />
+                    );
+                })}
             </Flex>
 
             <Divider width='100%' margin='24px 0' />
@@ -176,19 +167,14 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
 };
 
 
-// --- Main Configuration Wrapper ---
+// # WRAPPER
 const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings }) => {
     const [isOpen, setIsOpen] = useState(false);
-
-    // Initial Defaults Calculation
-    // We don't want to hardcode defaultSettings anymore.
-    // If settings are empty, the DynamicField component handles using the 'default' value from config visually.
-    const settings = currentSettings || {};
 
     const handleChange = (field, value) => {
         dispatch(updateHookSettings({
             type: type,
-            hookId: hookId,
+            hookId: hookInfo.id,
             settings: { [field]: value }
         }));
     };
@@ -199,7 +185,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
                 hookId={hookId}
                 hookInfo={hookInfo}
                 type={type}
-                settings={settings}
+                settings={currentSettings || {}}
                 handleChange={handleChange}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
@@ -208,19 +194,18 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
     );
 };
 
+
+
+// # MAIN
 const PointType = () => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const editId = searchParams.get('id');
 
-    // Local UI State
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
-    const [awardFilter, setAwardFilter] = useState([]);
-    const [deductFilter, setDeductFilter] = useState([]);
 
-    // Redux State
     const {
         name,
         pluralName,
@@ -235,71 +220,75 @@ const PointType = () => {
 
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
-    // 1. Load Triggers
+
+    // LOAD TRIGGERS
     useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchTriggers());
-        }
+        if (status === 'idle') dispatch(fetchTriggers());
     }, [status, dispatch]);
 
-    // 2. Handle Edit/Add Mode
+
+    // EDIT MODE
     useEffect(() => {
-        if (editId) {
-            dispatch(fetchPointTypeById(editId));
-        } else {
-            dispatch(resetPointTypeForm());
-        }
+        if (editId) dispatch(fetchPointTypeById(editId));
+        else dispatch(resetPointTypeForm());
     }, [editId, dispatch]);
 
-    // --- Logic for Award Hooks ---
+
+
+    // === FIXED UNIQUE IDs ===
     const availableAwardHooks = allHooks.filter(h => !selectedAwardHookIds.includes(h.id));
     const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
-    // --- Logic for Deduct Hooks ---
     const availableDeductHooks = allHooks.filter(h => !selectedDeductHookIds.includes(h.id));
     const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
-    // Handle Drag End
+
+
+    // # DRAG END FIXED
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
+
         const draggedId = active.id;
-        const dropZoneId = over.id;
 
-        // Awards Dragging
-        if (availableAwardHooks.some(h => h.id === draggedId) && dropZoneId === 'awards-sidebar') {
-            dispatch(addAwardHook(draggedId));
-        }
-        if (selectedAwardHookIds.includes(draggedId) && dropZoneId === 'awards-available') {
-            dispatch(removeAwardHook(draggedId));
+        // ---------------- AWARD ZONE ----------------
+        if (draggedId.startsWith("award_")) {
+            const pureId = draggedId.replace("award_", "");
+
+            if (over.id === "awards-sidebar") {
+                dispatch(addAwardHook(pureId));
+            }
+            if (over.id === "awards-available") {
+                dispatch(removeAwardHook(pureId));
+            }
         }
 
-        // Deductions Dragging
-        if (availableDeductHooks.some(h => h.id === draggedId) && dropZoneId === 'deductions-sidebar') {
-            dispatch(addDeductHook(draggedId));
-        }
-        if (selectedDeductHookIds.includes(draggedId) && dropZoneId === 'deductions-available') {
-            dispatch(removeDeductHook(draggedId));
+        // ---------------- DEDUCT ZONE ----------------
+        if (draggedId.startsWith("deduct_")) {
+            const pureId = draggedId.replace("deduct_", "");
+
+            if (over.id === "deductions-sidebar") {
+                dispatch(addDeductHook(pureId));
+            }
+            if (over.id === "deductions-available") {
+                dispatch(removeDeductHook(pureId));
+            }
         }
     };
 
-    // Save Handler
-    const handleSave = async () => {
-        if (!name) {
-            alert('Please enter a Point Name');
-            return;
-        }
 
-        // Helper to construct parameters based on what fields are available and set
+
+    // SAVE HANDLER
+    const handleSave = async () => {
+        if (!name) return alert('Please enter a Point Name');
+
         const getParameters = (hook, type) => {
             const settings = hookSettings[`${type}_${hook.id}`] || {};
-            const fieldsConfig = type === 'award' ? (hook.award_fields || {}) : (hook.deduct_fields || {});
+            const fieldsConfig =
+                type === 'award' ? (hook.award_fields || {}) : (hook.deduct_fields || {});
 
             const params = {};
-            // Loop through defined fields to ensure we send defaults if user didn't touch anything
             Object.keys(fieldsConfig).forEach(key => {
-                const val = settings[key];
-                // Use user value, otherwise default value
-                params[key] = val !== undefined ? val : fieldsConfig[key].default;
+                params[key] = settings[key] ?? fieldsConfig[key].default;
             });
             return params;
         };
@@ -308,13 +297,12 @@ const PointType = () => {
             name,
             plural_name: pluralName,
             requirements: [
-                // Awards
                 ...activeAwardHooks.map(hook => ({
                     trigger_key: hook.id,
                     action_type: 'award',
                     parameters: getParameters(hook, 'award')
                 })),
-                // Deductions
+
                 ...activeDeductHooks.map(hook => ({
                     trigger_key: hook.id,
                     action_type: 'deduct',
@@ -325,21 +313,23 @@ const PointType = () => {
 
         let resultAction;
         if (currentPointTypeId) {
-            resultAction = await dispatch(updatePointType({ id: currentPointTypeId, data: payload }));
+            resultAction = await dispatch(
+                updatePointType({ id: currentPointTypeId, data: payload })
+            );
         } else {
             resultAction = await dispatch(savePointType(payload));
         }
 
-        if (savePointType.fulfilled.match(resultAction) || updatePointType.fulfilled.match(resultAction)) {
+        if (savePointType.fulfilled.match(resultAction) ||
+            updatePointType.fulfilled.match(resultAction)) {
             alert(currentPointTypeId ? "Updated Successfully!" : "Saved Successfully!");
-            if (!currentPointTypeId) {
-                navigate('/points');
-            }
+            if (!currentPointTypeId) navigate('/points');
         } else {
-            console.error("Save failed:", resultAction.payload);
             alert("Error saving. Check console.");
         }
     };
+
+
 
     return (
         <>
@@ -356,65 +346,50 @@ const PointType = () => {
             <Box width="1174px" margin="0 auto" paddingBottom="50px">
                 <Flex width="100%" direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
 
+
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
 
-                    <LabeledInput label="Point Name" placeholder="Academy Lms" value={name} onChange={(e) => dispatch(setPointName(e.target.value))} />
-                    <LabeledInput label="Plural Name" placeholder="Skill Tones" value={pluralName} onChange={(e) => dispatch(setPluralName(e.target.value))} />
+                    <LabeledInput label="Point Name" value={name} onChange={(e) => dispatch(setPointName(e.target.value))} />
+                    <LabeledInput label="Plural Name" value={pluralName} onChange={(e) => dispatch(setPluralName(e.target.value))} />
 
+
+                    {/* # DND */}
                     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-
-                        {/* ================= AWARDS SECTION ================= */}
                         <CustomCollapsible label="Automatic Point Awards" isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
                         {pointAwards && (
                             <Flex gap="24px" marginBottom="24px">
-                                {/* Available Awards */}
-                                <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <Flex flexDirection='column' gap='12px'>
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Drag hooks to activate.`, 'gamify')}</Text>
-                                    </Flex>
 
-                                    {/* Filters omitted for brevity, keeping existing structure */}
-                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                        <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>{__("Filter Hooks Type", "gamify")}</Text>
-                                        <Select
-                                            isMulti
-                                            placeholder={__("Select hook type", "gamify")}
-                                            classNamePrefix="gamify-select"
-                                            options={[{ label: "Gamify", value: "gamify" }, { label: "WordPress", value: "wordpress" }]}
-                                            value={awardFilter}
-                                            onChange={(val) => setAwardFilter(val)}
-                                        />
-                                    </Box>
+                                {/* LEFT AVAILABLE */}
+                                <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
 
                                     <DroppableArea id="awards-available">
-                                        {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
-                                            availableAwardHooks.map(item => (
-                                                <Box key={item.id}>
-                                                    <DraggableItem id={item.id}>
-                                                        <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
-                                                            <Flex justify="space-between" align="center">
-                                                                <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
-                                                                <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
-                                                            </Flex>
-                                                        </Box>
-                                                    </DraggableItem>
-                                                    <Text fontSize="xs" color="gray.500" mt={1}>{item.subTitle}</Text>
-                                                </Box>
-                                            ))
-                                        }
+                                        {availableAwardHooks.map((item) => (
+                                            <Box key={item.id}>
+                                                <DraggableItem id={`award_${item.id}`}>
+                                                    <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
+                                                        <Flex justify="space-between" align="center">
+                                                            <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
+                                                            <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+                                                        </Flex>
+                                                    </Box>
+                                                </DraggableItem>
+                                                <Text fontSize="xs" color="gray.500" mt={1}>{item.subTitle}</Text>
+                                            </Box>
+                                        ))}
                                     </DroppableArea>
                                 </Flex>
 
-                                {/* Active Awards */}
+
+                                {/* RIGHT ACTIVE */}
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                    <Flex flexDirection='column' gap='12px'>
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
-                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Configure award settings.`, 'gamify')}</Text>
-                                    </Flex>
+
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
+
                                     <DroppableArea id="awards-sidebar">
-                                        {activeAwardHooks.map(hook => (
-                                            <DraggableItem key={hook.id} id={hook.id}>
+                                        {activeAwardHooks.map((hook) => (
+                                            <DraggableItem key={hook.id} id={`award_${hook.id}`}>
                                                 <HookConfigurationForm
                                                     hookId={hook.id}
                                                     type="award"
@@ -425,51 +400,50 @@ const PointType = () => {
                                             </DraggableItem>
                                         ))}
                                     </DroppableArea>
+
                                 </Box>
                             </Flex>
                         )}
 
-                        <Divider />
 
-                        {/* ================= DEDUCTIONS SECTION ================= */}
+
+                        <Divider />
                         <CustomCollapsible label="Automatic Point Deductions" isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
+
                         {pointDeductions && (
                             <Flex gap="24px">
-                                {/* Available Deductions */}
+
+                                {/* LEFT AVAILABLE */}
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <Flex flexDirection='column' gap='12px'>
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Drag hooks to activate deductions.`, 'gamify')}</Text>
-                                    </Flex>
+
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
 
                                     <DroppableArea id="deductions-available">
-                                        {status === 'loading' ? <Flex justify="center"><Spinner /></Flex> :
-                                            availableDeductHooks.map(item => (
-                                                <Box key={item.id}>
-                                                    <DraggableItem id={item.id}>
-                                                        <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
-                                                            <Flex justify="space-between" align="center">
-                                                                <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
-                                                                <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
-                                                            </Flex>
-                                                        </Box>
-                                                    </DraggableItem>
-                                                    <Text fontSize="xs" color="gray.500" mt={1}>{item.subTitle}</Text>
-                                                </Box>
-                                            ))
-                                        }
+                                        {availableDeductHooks.map((item) => (
+                                            <Box key={item.id}>
+                                                <DraggableItem id={`deduct_${item.id}`}>
+                                                    <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
+                                                        <Flex justify="space-between" align="center">
+                                                            <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
+                                                            <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+                                                        </Flex>
+                                                    </Box>
+                                                </DraggableItem>
+                                                <Text fontSize="xs" color="gray.500" mt={1}>{item.subTitle}</Text>
+                                            </Box>
+                                        ))}
                                     </DroppableArea>
                                 </Flex>
 
-                                {/* Active Deductions */}
+
+                                {/* RIGHT ACTIVE */}
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-                                    <Flex flexDirection='column' gap='12px'>
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} />
-                                        <Text fontSize="14px" fontWeight='400' color="var(--gamify-font-color)" margin='0'>{__(`Configure deduction settings.`, 'gamify')}</Text>
-                                    </Flex>
+
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} />
+
                                     <DroppableArea id="deductions-sidebar">
                                         {activeDeductHooks.map(hook => (
-                                            <DraggableItem key={hook.id} id={hook.id}>
+                                            <DraggableItem key={hook.id} id={`deduct_${hook.id}`}>
                                                 <HookConfigurationForm
                                                     hookId={hook.id}
                                                     type="deduct"
@@ -480,12 +454,13 @@ const PointType = () => {
                                             </DraggableItem>
                                         ))}
                                     </DroppableArea>
+
                                 </Box>
                             </Flex>
                         )}
 
-                    </DndContext>
 
+                    </DndContext>
                     <Flex padding="24px 0" justifyContent='flex-end' borderTop='1px solid var(--gamify-border-color)'>
                         <Button
                             {...primaryBtn}
@@ -496,6 +471,8 @@ const PointType = () => {
                             {currentPointTypeId ? __('Update', 'gamify') : __('Save Changes', 'gamify')}
                         </Button>
                     </Flex>
+
+
                 </Flex>
             </Box>
         </>
