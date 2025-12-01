@@ -13,14 +13,13 @@ import Search from '@Components/Search';
 import LabeledInput from "@Components/LabeledInput";
 import GFSelect from "@Components/Select";
 import WPModal from '@Components/Modal/WPModal';
-import { FiMoreHorizontal } from "react-icons/fi";
 
 // Icons
-import { FiEdit, FiTrash2, FiEye, FiClock, FiRefreshCw } from "react-icons/fi";
+import { FiMoreHorizontal, FiEdit, FiClock, FiRefreshCw, FiPlus } from "react-icons/fi";
 import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
 
 // Redux Actions
-import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction } from '../../../redux/Slices/logsSlice';
+import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '../../../redux/Slices/logsSlice';
 
 // Chakra UI Imports
 import {
@@ -30,6 +29,8 @@ import {
     Badge,
     Flex,
     Spinner,
+    Text,
+    Tooltip,
 } from '@chakra-ui/react';
 
 const Logs = () => {
@@ -39,11 +40,15 @@ const Logs = () => {
     // --- State Management ---
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalMode, setModalMode] = useState('create'); // 'create' or 'edit'
 
-    const [manualData, setManualData] = useState({
+    // Form Data
+    const [formData, setFormData] = useState({
+        log_id: null,
         user_id: '',
         points: 10,
         type: 'award',
+        reference: 'manual_adjustment',
         description: '',
         schedule_date: ''
     });
@@ -80,23 +85,82 @@ const Logs = () => {
         dispatch(setPage(1));
     };
 
-    // --- Manual Action Submit Handler ---
-    const handleManualSubmit = async () => {
-        if (!manualData.user_id) {
+    // --- Helper: Open Modal for Create ---
+    const openCreateModal = () => {
+        setModalMode('create');
+        setFormData({
+            log_id: null,
+            user_id: '',
+            points: 10,
+            type: 'award',
+            reference: 'manual_adjustment',
+            description: '',
+            schedule_date: ''
+        });
+        setIsModalOpen(true);
+    };
+
+    // --- Helper: Open Modal for Edit ---
+    const openEditModal = (row) => {
+        // Prevent editing automatic system logs (like level up)
+        const editableTriggers = ['manual_adjustment', 'manual_award', 'manual_deduct'];
+        if (!editableTriggers.includes(row.trigger_key)) {
+            alert('System generated logs cannot be edited manually.');
+            return;
+        }
+
+        const points = parseInt(row.points_awarded || row.meta?.points || 0);
+
+        setModalMode('edit');
+        setFormData({
+            log_id: row.id,
+            user_id: row.user_id, // Usually readonly in edit
+            points: Math.abs(points),
+            type: points >= 0 ? 'award' : 'deduct',
+            reference: row.trigger_key,
+            description: row.message || '',
+            schedule_date: '' // Can't reschedule easily, so keep empty or hide
+        });
+        setIsModalOpen(true);
+    };
+
+    // --- Submit Handler (Create & Update) ---
+    const handleSubmit = async () => {
+        if (!formData.user_id && modalMode === 'create') {
             alert(__('User ID is required', 'gamify'));
             return;
         }
 
         setIsSubmitting(true);
-        const result = await dispatch(manualLogAction(manualData));
+        let result;
+
+        // Prepare Payload
+        const payload = {
+            ...formData,
+            // Map 'reference' to 'trigger_key' for backend compatibility if needed
+            trigger_key: formData.reference
+        };
+
+        if (modalMode === 'edit') {
+            // Update Action
+            result = await dispatch(updateLogAction({
+                id: formData.log_id,
+                data: {
+                    points_awarded: formData.points,
+                    type: formData.type,
+                    message: formData.description
+                }
+            }));
+        } else {
+            // Create Action
+            result = await dispatch(manualLogAction(payload));
+        }
+
         setIsSubmitting(false);
 
-        if (manualLogAction.fulfilled.match(result)) {
-            // Success: Close modal and reset form
+        if (manualLogAction.fulfilled.match(result) || updateLogAction.fulfilled.match(result)) {
             setIsModalOpen(false);
-            setManualData({ user_id: '', points: 10, type: 'award', description: '', schedule_date: '' });
         } else {
-            // Error
             alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
         }
     };
@@ -106,7 +170,7 @@ const Logs = () => {
         {
             name: __('User', 'gamify'),
             cell: (row) => (
-                <div style={{ display: 'flex', flexDirection: 'column', padding: '0' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
                     <span style={{ fontWeight: 600 }}>{row.user_name || 'Guest'}</span>
                     <span style={{ fontSize: '12px', color: '#666' }}>{row.user_email || `ID: ${row.user_id}`}</span>
                 </div>
@@ -115,28 +179,21 @@ const Logs = () => {
         {
             name: __('Event', 'gamify'),
             cell: (row) => (
-                <Badge variant="outline">{row.event_name}</Badge>
+                <Badge variant="outline" colorScheme="purple">{row.event_name}</Badge>
             ),
         },
         {
             name: __('Message / Details', 'gamify'),
             cell: (row) => {
                 let points = 0;
-
-                if (row.points_awarded) {
-                    points = parseInt(row.points_awarded);
-                }
-
-                else if (row.meta && row.meta.points) {
-                    points = parseInt(row.meta.points);
-                }
+                if (row.points_awarded) points = parseInt(row.points_awarded);
+                else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
 
                 const scheduled = row.meta?.scheduled_for;
 
                 return (
                     <div>
                         <div title={row.message}>{row.message}</div>
-
                         {points !== 0 && !isNaN(points) && (
                             <span style={{
                                 display: 'inline-block',
@@ -148,7 +205,6 @@ const Logs = () => {
                                 ({points > 0 ? '+' : ''}{points} Points)
                             </span>
                         )}
-
                         {scheduled && (
                             <div style={{ fontSize: '11px', color: 'purple', marginTop: '2px' }}>
                                 <Icon as={FiClock} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
@@ -166,46 +222,32 @@ const Logs = () => {
         {
             name: __('Status', 'gamify'),
             cell: (row) => (
-                <>
-                    <Badge
-                        width="auto"
-                        display="flex"
-                        justifyContent="center"
-                        alignItems="center"
-                        borderRadius="999px"
-                        background={row.status === "success" ? "#E6F7F0" : row.status === "pending" ? "#FFF7E6" : "#FFE6E6"}
-                        color={row.status === "success" ? "#00A76F" : row.status === "pending" ? "#D48806" : "#D32029"}
-                        px="16px"
-                        py="6px"
-                        fontSize="12px"
-                        fontWeight="500"
-                        textTransform="capitalize"
-                    >
-                        {row.status}
-                    </Badge>
-
-                </>
-
+                <Badge
+                    colorScheme={row.status === 'success' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}
+                    borderRadius="full" px={3}
+                >
+                    {row.status}
+                </Badge>
             ),
         },
         {
             name: __('Action', 'gamify'),
-            cell: (row) => (
-                <Button
-                    onClick={() => setIsModalOpen(true)}
-                    position="relative"
-                    borderRadius="4px"
-                    border="1px solid var(--gamify-border-color)"
-                    background="transparent"
-                    padding="5px 12px"
-                    cursor="pointer"
-                    ml='-25px'
-                >
-                    <Icon color="#141A24" as={FiMoreHorizontal} />
-                </Button>
+            cell: (row) => {
+                // Check if row is editable (Only manual adjustments)
+                const isEditable = ['manual_adjustment', 'manual_award', 'manual_deduct'].includes(row.trigger_key);
 
+                if (!isEditable) return <Text fontSize="xs" color="gray.400">System Log</Text>;
 
-            ),
+                return (
+                    <Button
+                        onClick={() => openEditModal(row)}
+                        size="sm" variant="ghost"
+                        title="Edit Log"
+                    >
+                        <Icon as={FiEdit} />
+                    </Button>
+                );
+            },
         },
     ], []);
 
@@ -214,25 +256,10 @@ const Logs = () => {
         return (
             <>
                 <div className="gamify-table__sub-header-left">
-                    <GFLabel
-                        as="h2"
-                        color="var(--gamify-font-color)"
-                        fontWeight="700"
-                        fontSize='16px'
-                        label={__(`Logs`, 'gamify')}
-                    />
-
+                    <GFLabel as="h2" color="var(--gamify-font-color)" fontWeight="700" fontSize='16px' label={__(`Logs`, 'gamify')} />
                     <Button
-                        background='#F6F7F8'
-                        variant="outline"
-                        borderRadius="md"
-                        color="gray.700"
-                        fontWeight='400'
-                        fontSize='12px'
-                        width='54px'
-                        height='24px'
-                        marginLeft='5px'
-                        borderColor="gray.300"
+                        background='#F6F7F8' variant="outline" borderRadius="md"
+                        color="gray.700" width='54px' height='24px' ml='5px' borderColor="gray.300"
                         onClick={handleRefresh}
                     >
                         {status === 'loading' ? '...' : <Icon as={FiRefreshCw} />}
@@ -240,19 +267,18 @@ const Logs = () => {
                 </div>
 
                 <div className="gamify-table-sub-header-actions-right" style={{ display: 'flex', gap: '10px' }}>
-                    <GFSelect
-                        placeholder="Show all references "
-                        items={[
-                            { label: 'Show all references ', value: 'award' },
-                            { label: 'Deduct Points (-)', value: 'deduct' },
-                        ]}
-                    // onChange={(e) => }
-                    // value={}
-                    />
                     <Search
                         placeholder={__('Search Items', 'gamify')}
                         onChange={(e) => handleSearch(e.target ? e.target.value : e)}
                     />
+                    <Button
+                        {...primaryBtn}
+                        height="32px"
+                        onClick={openCreateModal}
+                        leftIcon={<Icon as={FiPlus} />}
+                    >
+                        {__('Manual Trigger', 'gamify')}
+                    </Button>
                 </div>
             </>
         );
@@ -265,22 +291,14 @@ const Logs = () => {
                     <>
                         <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
                         <span className="gamify-icon gamify-icon--angle-right" />
-                        <GFLabel
-                            as="h2"
-                            color="var(--gamify-font-color)"
-                            type="subtitle"
-                            fontWeight="medium"
-                            label={__(`Dashboard`, 'gamify')}
-                        />
+                        <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__(`Dashboard`, 'gamify')} />
                     </>
                 )}
             />
 
             <Box width="1174px" margin="0 auto" >
                 {status === 'loading' && (!items || items.length === 0) ? (
-                    <Flex justify="center" align="center" height="200px">
-                        <Spinner />
-                    </Flex>
+                    <Flex justify="center" align="center" height="200px"><Spinner /></Flex>
                 ) : (
                     <ListTable
                         columns={columns}
@@ -291,7 +309,6 @@ const Logs = () => {
                         showColumnFilter={false}
                         showPagination={true}
                         noDataText="No logs found"
-
                         totalItems={totalItems}
                         currentPageNumber={currentPage}
                         rowsPerPage={rowsPerPage}
@@ -301,117 +318,88 @@ const Logs = () => {
                 )}
             </Box>
 
-            {/* Manual Trigger Modal */}
-            {/* <WPModal
-                title="Manual Trigger Settings"
+            {/* --- Unified Create/Edit Modal --- */}
+            <WPModal
+                title={modalMode === 'edit' ? `Edit Log #${formData.log_id}` : "Manual Trigger"}
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 size="medium"
             >
-                <div style={{ padding: '0 20px' }}>
-                    <LabeledInput
-                        label={'User ID'}
-                        placeholder={'e.g. 1'}
-                        value={manualData.user_id}
-                        onChange={(e) => setManualData({ ...manualData, user_id: e.target.value })}
-                    />
+                <Box px={4}>
+                    <Flex gap={4} mb={4}>
+                        <Box flex="1">
+                            {/* User ID (ReadOnly in Edit Mode) */}
+                            <LabeledInput
+                                label={'User ID'}
+                                placeholder={'e.g. 1'}
+                                value={formData.user_id}
+                                onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
+                                disabled={modalMode === 'edit'}
+                                style={{ width: '100%', opacity: modalMode === 'edit' ? 0.6 : 1 }}
+                            />
+                        </Box>
+                        <Box flex="1">
+                            {/* Action Type Select - Fixed Handler */}
+                            <GFSelect
+                                label="Action Type"
+                                // placeholder="Select Action"
+                                items={[
+                                    { label: 'Award Points (+)', value: 'award' },
+                                    { label: 'Deduct Points (-)', value: 'deduct' },
+                                ]}
 
-                    <Box mt={4}>
-                        <GFSelect
-                            label="Action Type"
-                            placeholder="Choose one"
-                            items={[
-                                { label: 'Award Points (+)', value: 'award' },
-                                { label: 'Deduct Points (-)', value: 'deduct' },
-                            ]}
-                            onChange={(e) => setManualData({ ...manualData, type: e.target ? e.target.value : e })}
-                            value={manualData.type}
+                                onChange={(val) => setFormData({ ...formData, type: val })}
+                                value={formData.type}
+                            />
+                        </Box>
+                    </Flex>
+
+                    <Flex gap={4} mb={4}>
+                        <Box flex="1">
+                            <LabeledInput
+                                label={'Points Amount'}
+                                type="number"
+                                placeholder={'e.g. 50'}
+                                value={formData.points}
+                                onChange={(e) => setFormData({ ...formData, points: e.target.value })}
+                                style={{ width: '100%' }}
+                            />
+                        </Box>
+                        <Box flex="1">
+                            {/* Only show schedule for new triggers */}
+                            {modalMode === 'create' && (
+                                <LabeledInput
+                                    label="Schedule (Optional)"
+                                    type="datetime-local"
+                                    value={formData.schedule_date}
+                                    onChange={(e) => setFormData({ ...formData, schedule_date: e.target.value })}
+                                    style={{ width: '100%' }}
+                                />
+                            )}
+                        </Box>
+                    </Flex>
+
+                    <Box mb={4}>
+                        <LabeledInput
+                            label="Description / Message"
+                            type='textarea'
+                            placeholder="Reason for adjustment..."
+                            value={formData.description}
+                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                            style={{ width: '100%' }}
                         />
                     </Box>
 
-                    <LabeledInput
-                        label="Points Amount"
-                        type={"number"}
-                        value={manualData.points}
-                        onChange={(e) => setManualData({ ...manualData, points: e.target.value })}
-                    />
-
-                    <LabeledInput
-                        label="Description"
-                        type='textarea'
-                        placeholder="Reason..."
-                        value={manualData.description}
-                        onChange={(e) => setManualData({ ...manualData, description: e.target.value })}
-                    />
-
-                    <LabeledInput
-                        label="Schedule Date (Optional)"
-                        type="datetime-local"
-                        value={manualData.schedule_date}
-                        onChange={(e) => setManualData({ ...manualData, schedule_date: e.target.value })}
-                    />
-
-                    <Flex justifyContent='flex-end' padding='20px 0'>
+                    <Flex justifyContent='flex-end' py={4}>
                         <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
                             {__('Cancel', 'gamify')}
                         </Button>
-                        <Button colorScheme="blue" onClick={handleManualSubmit} isLoading={isSubmitting}>
-                            {__('Process', 'gamify')}
-                        </Button>
-                    </Flex>
-                </div>
-            </WPModal> */}
-            <WPModal
-                title="Edit Log Entry"
-                isOpen={isModalOpen}
-                onRequestClose={() => setIsModalOpen(false)}
-                size="medium"
-            >
-                <Box>
-                    <Flex gap={8}>
-                        <LabeledInput
-                            label={'Point'}
-                            placeholder={'50'}
-                            // value={''}
-                            // onChange={(e) => }
-                            style={{ width: '200px' }}
-                        />
-
-                        <GFSelect
-                            label="Type"
-                            placeholder="Choose one"
-                            items={[
-                                { label: 'Award Points (+)', value: 'award' },
-                                { label: 'Deduct Points (-)', value: 'deduct' },
-                            ]}
-                        // onChange={(e) => }
-                        // value={}
-                        />
-                    </Flex>
-                    <Flex gap={8}>
-                        <LabeledInput
-                            label={'Total Point'}
-                            placeholder={'100'}
-                            // value={''}
-                            // onChange={(e) => }
-                            style={{ width: '200px' }}
-                        />
-                        <GFSelect
-                            label="Reference"
-                            placeholder="Choose one"
-                            items={[
-                                { label: 'Award Points (+)', value: 'award' },
-                                { label: 'Deduct Points (-)', value: 'deduct' },
-                            ]}
-                        // onChange={(e) => }
-                        // value={}
-                        />
-                    </Flex>
-                    <Flex justifyContent='flex-end' padding='20px 0'>
                         <Button
                             {...primaryBtn}
+                            onClick={handleSubmit}
+                            isLoading={isSubmitting}
                         >
-                            {__('Save Changes', 'gamify')}
+                            {modalMode === 'edit' ? __('Update Log', 'gamify') : __('Process Trigger', 'gamify')}
                         </Button>
                     </Flex>
                 </Box>

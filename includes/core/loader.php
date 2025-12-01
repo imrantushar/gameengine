@@ -52,6 +52,10 @@ final class Loader
                 'class'     => \Gamify\System\Logger::class,
                 'hook'      => 'init',
             ],
+            'scheduler' => [
+                'class'     => \Gamify\System\Scheduler::class,
+                'hook'      => 'init',
+            ],
         ];
     }
 

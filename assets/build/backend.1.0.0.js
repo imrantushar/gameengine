@@ -4422,11 +4422,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../redux/Slices/logsSlice */ "./dev_gamify/redux/Slices/logsSlice.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/spinner/spinner.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/spinner/spinner.js");
 
 // export default Logs;
 
@@ -4435,7 +4436,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Custom Components
-
 
 
 
@@ -4461,10 +4461,15 @@ const Logs = () => {
   // --- State Management ---
   const [isSubmitting, setIsSubmitting] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [isModalOpen, setIsModalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const [manualData, setManualData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+  const [modalMode, setModalMode] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('create'); // 'create' or 'edit'
+
+  // Form Data
+  const [formData, setFormData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+    log_id: null,
     user_id: '',
     points: 10,
     type: 'award',
+    reference: 'manual_adjustment',
     description: '',
     schedule_date: ''
   });
@@ -4506,27 +4511,77 @@ const Logs = () => {
     dispatch((0,_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.setPage)(1));
   };
 
-  // --- Manual Action Submit Handler ---
-  const handleManualSubmit = async () => {
-    if (!manualData.user_id) {
+  // --- Helper: Open Modal for Create ---
+  const openCreateModal = () => {
+    setModalMode('create');
+    setFormData({
+      log_id: null,
+      user_id: '',
+      points: 10,
+      type: 'award',
+      reference: 'manual_adjustment',
+      description: '',
+      schedule_date: ''
+    });
+    setIsModalOpen(true);
+  };
+
+  // --- Helper: Open Modal for Edit ---
+  const openEditModal = row => {
+    // Prevent editing automatic system logs (like level up)
+    const editableTriggers = ['manual_adjustment', 'manual_award', 'manual_deduct'];
+    if (!editableTriggers.includes(row.trigger_key)) {
+      alert('System generated logs cannot be edited manually.');
+      return;
+    }
+    const points = parseInt(row.points_awarded || row.meta?.points || 0);
+    setModalMode('edit');
+    setFormData({
+      log_id: row.id,
+      user_id: row.user_id,
+      // Usually readonly in edit
+      points: Math.abs(points),
+      type: points >= 0 ? 'award' : 'deduct',
+      reference: row.trigger_key,
+      description: row.message || '',
+      schedule_date: '' // Can't reschedule easily, so keep empty or hide
+    });
+    setIsModalOpen(true);
+  };
+
+  // --- Submit Handler (Create & Update) ---
+  const handleSubmit = async () => {
+    if (!formData.user_id && modalMode === 'create') {
       alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('User ID is required', 'gamify'));
       return;
     }
     setIsSubmitting(true);
-    const result = await dispatch((0,_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.manualLogAction)(manualData));
-    setIsSubmitting(false);
-    if (_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.manualLogAction.fulfilled.match(result)) {
-      // Success: Close modal and reset form
-      setIsModalOpen(false);
-      setManualData({
-        user_id: '',
-        points: 10,
-        type: 'award',
-        description: '',
-        schedule_date: ''
-      });
+    let result;
+
+    // Prepare Payload
+    const payload = {
+      ...formData,
+      // Map 'reference' to 'trigger_key' for backend compatibility if needed
+      trigger_key: formData.reference
+    };
+    if (modalMode === 'edit') {
+      // Update Action
+      result = await dispatch((0,_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.updateLogAction)({
+        id: formData.log_id,
+        data: {
+          points_awarded: formData.points,
+          type: formData.type,
+          message: formData.description
+        }
+      }));
     } else {
-      // Error
+      // Create Action
+      result = await dispatch((0,_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.manualLogAction)(payload));
+    }
+    setIsSubmitting(false);
+    if (_redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.manualLogAction.fulfilled.match(result) || _redux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_14__.updateLogAction.fulfilled.match(result)) {
+      setIsModalOpen(false);
+    } else {
       alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error: ', 'gamify') + (result.payload || 'Failed'));
     }
   };
@@ -4537,8 +4592,7 @@ const Logs = () => {
     cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       style: {
         display: 'flex',
-        flexDirection: 'column',
-        padding: '0'
+        flexDirection: 'column'
       }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       style: {
@@ -4552,18 +4606,15 @@ const Logs = () => {
     }, row.user_email || `ID: ${row.user_id}`))
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Event', 'gamify'),
-    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Badge, {
-      variant: "outline"
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Badge, {
+      variant: "outline",
+      colorScheme: "purple"
     }, row.event_name)
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Message / Details', 'gamify'),
     cell: row => {
       let points = 0;
-      if (row.points_awarded) {
-        points = parseInt(row.points_awarded);
-      } else if (row.meta && row.meta.points) {
-        points = parseInt(row.meta.points);
-      }
+      if (row.points_awarded) points = parseInt(row.points_awarded);else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
       const scheduled = row.meta?.scheduled_for;
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         title: row.message
@@ -4581,7 +4632,7 @@ const Logs = () => {
           color: 'purple',
           marginTop: '2px'
         }
-      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Icon, {
+      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__.Icon, {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiClock,
         style: {
           verticalAlign: 'middle',
@@ -4594,35 +4645,29 @@ const Logs = () => {
     cell: row => new Date(row.created_at).toLocaleString()
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Status', 'gamify'),
-    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Badge, {
-      width: "auto",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      borderRadius: "999px",
-      background: row.status === "success" ? "#E6F7F0" : row.status === "pending" ? "#FFF7E6" : "#FFE6E6",
-      color: row.status === "success" ? "#00A76F" : row.status === "pending" ? "#D48806" : "#D32029",
-      px: "16px",
-      py: "6px",
-      fontSize: "12px",
-      fontWeight: "500",
-      textTransform: "capitalize"
-    }, row.status))
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Badge, {
+      colorScheme: row.status === 'success' ? 'green' : row.status === 'pending' ? 'yellow' : 'red',
+      borderRadius: "full",
+      px: 3
+    }, row.status)
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Action', 'gamify'),
-    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Button, {
-      onClick: () => setIsModalOpen(true),
-      position: "relative",
-      borderRadius: "4px",
-      border: "1px solid var(--gamify-border-color)",
-      background: "transparent",
-      padding: "5px 12px",
-      cursor: "pointer",
-      ml: "-25px"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Icon, {
-      color: "#141A24",
-      as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiMoreHorizontal
-    }))
+    cell: row => {
+      // Check if row is editable (Only manual adjustments)
+      const isEditable = ['manual_adjustment', 'manual_award', 'manual_deduct'].includes(row.trigger_key);
+      if (!isEditable) return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Text, {
+        fontSize: "xs",
+        color: "gray.400"
+      }, "System Log");
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Button, {
+        onClick: () => openEditModal(row),
+        size: "sm",
+        variant: "ghost",
+        title: "Edit Log"
+      }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__.Icon, {
+        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiEdit
+      }));
+    }
   }], []);
 
   // --- SubHeader ---
@@ -4635,19 +4680,17 @@ const Logs = () => {
       fontWeight: "700",
       fontSize: "16px",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Logs`, 'gamify')
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Button, {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Button, {
       background: "#F6F7F8",
       variant: "outline",
       borderRadius: "md",
       color: "gray.700",
-      fontWeight: "400",
-      fontSize: "12px",
       width: "54px",
       height: "24px",
-      marginLeft: "5px",
+      ml: "5px",
       borderColor: "gray.300",
       onClick: handleRefresh
-    }, status === 'loading' ? '...' : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Icon, {
+    }, status === 'loading' ? '...' : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__.Icon, {
       as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiRefreshCw
     }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "gamify-table-sub-header-actions-right",
@@ -4655,21 +4698,17 @@ const Logs = () => {
         display: 'flex',
         gap: '10px'
       }
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-      placeholder: "Show all references ",
-      items: [{
-        label: 'Show all references ',
-        value: 'award'
-      }, {
-        label: 'Deduct Points (-)',
-        value: 'deduct'
-      }]
-      // onChange={(e) => }
-      // value={}
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search Items', 'gamify'),
       onChange: e => handleSearch(e.target ? e.target.value : e)
-    })));
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Button, {
+      ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
+      height: "32px",
+      onClick: openCreateModal,
+      leftIcon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__.Icon, {
+        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiPlus
+      })
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Manual Trigger', 'gamify'))));
   }, [status]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
@@ -4686,11 +4725,11 @@ const Logs = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
     width: "1174px",
     margin: "0 auto"
-  }, status === 'loading' && (!items || items.length === 0) ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Flex, {
+  }, status === 'loading' && (!items || items.length === 0) ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
     justify: "center",
     align: "center",
     height: "200px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__.Spinner, null)) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_ListTable__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_21__.Spinner, null)) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_ListTable__WEBPACK_IMPORTED_MODULE_6__["default"], {
     columns: columns,
     isRowSelectable: false,
     data: items,
@@ -4705,62 +4744,104 @@ const Logs = () => {
     onChangePage: handlePageChange,
     onChangeItemsPerPage: handlePerPageChange
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Modal_WPModal__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    title: "Edit Log Entry",
+    title: modalMode === 'edit' ? `Edit Log #${formData.log_id}` : "Manual Trigger",
     isOpen: isModalOpen,
     onRequestClose: () => setIsModalOpen(false),
     size: "medium"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Flex, {
-    gap: 8
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    px: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
+    gap: 4,
+    mb: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    flex: "1"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    label: 'Point',
-    placeholder: '50'
-    // value={''}
-    // onChange={(e) => }
-    ,
+    label: 'User ID',
+    placeholder: 'e.g. 1',
+    value: formData.user_id,
+    onChange: e => setFormData({
+      ...formData,
+      user_id: e.target.value
+    }),
+    disabled: modalMode === 'edit',
     style: {
-      width: '200px'
+      width: '100%',
+      opacity: modalMode === 'edit' ? 0.6 : 1
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Type",
-    placeholder: "Choose one",
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    flex: "1"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: "Action Type"
+    // placeholder="Select Action"
+    ,
     items: [{
       label: 'Award Points (+)',
       value: 'award'
     }, {
       label: 'Deduct Points (-)',
       value: 'deduct'
-    }]
-    // onChange={(e) => }
-    // value={}
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Flex, {
-    gap: 8
+    }],
+    onChange: val => setFormData({
+      ...formData,
+      type: val
+    }),
+    value: formData.type
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
+    gap: 4,
+    mb: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    flex: "1"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    label: 'Total Point',
-    placeholder: '100'
-    // value={''}
-    // onChange={(e) => }
-    ,
+    label: 'Points Amount',
+    type: "number",
+    placeholder: 'e.g. 50',
+    value: formData.points,
+    onChange: e => setFormData({
+      ...formData,
+      points: e.target.value
+    }),
     style: {
-      width: '200px'
+      width: '100%'
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Reference",
-    placeholder: "Choose one",
-    items: [{
-      label: 'Award Points (+)',
-      value: 'award'
-    }, {
-      label: 'Deduct Points (-)',
-      value: 'deduct'
-    }]
-    // onChange={(e) => }
-    // value={}
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Flex, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    flex: "1"
+  }, modalMode === 'create' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    label: "Schedule (Optional)",
+    type: "datetime-local",
+    value: formData.schedule_date,
+    onChange: e => setFormData({
+      ...formData,
+      schedule_date: e.target.value
+    }),
+    style: {
+      width: '100%'
+    }
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
+    mb: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    label: "Description / Message",
+    type: "textarea",
+    placeholder: "Reason for adjustment...",
+    value: formData.description,
+    onChange: e => setFormData({
+      ...formData,
+      description: e.target.value
+    }),
+    style: {
+      width: '100%'
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
     justifyContent: "flex-end",
-    padding: "20px 0"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Save Changes', 'gamify'))))));
+    py: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Button, {
+    variant: "ghost",
+    mr: 3,
+    onClick: () => setIsModalOpen(false)
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Cancel', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
+    onClick: handleSubmit,
+    isLoading: isSubmitting
+  }, modalMode === 'edit' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Update Log', 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Process Trigger', 'gamify'))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Logs);
 
@@ -6254,7 +6335,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   resetActionStatus: () => (/* binding */ resetActionStatus),
 /* harmony export */   setPage: () => (/* binding */ setPage),
 /* harmony export */   setRowsPerPage: () => (/* binding */ setRowsPerPage),
-/* harmony export */   setSearchQuery: () => (/* binding */ setSearchQuery)
+/* harmony export */   setSearchQuery: () => (/* binding */ setSearchQuery),
+/* harmony export */   updateLogAction: () => (/* binding */ updateLogAction)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
 /* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
@@ -6262,7 +6344,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// --- 1. Fetch Logs (With Pagination & Search) ---
+// --- 1. Fetch Logs ---
 const fetchLogs = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('logs/fetchLogs', async ({
   page,
   per_page,
@@ -6271,10 +6353,7 @@ const fetchLogs = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncTh
   rejectWithValue
 }) => {
   try {
-    // Construct Query Params
     const path = `/gamify/v1/logs?page=${page}&per_page=${per_page}&search=${search}`;
-
-    // parse: false is needed to access Headers for pagination counts
     const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
       path,
       parse: false
@@ -6290,7 +6369,7 @@ const fetchLogs = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncTh
   }
 });
 
-// --- 2. Manual Action Trigger ---
+// --- 2. Manual Action Trigger (Create) ---
 const manualLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('logs/manualAction', async (formData, {
   rejectWithValue,
   dispatch
@@ -6301,8 +6380,33 @@ const manualLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
       method: 'POST',
       data: formData
     });
+    dispatch(fetchLogs({
+      page: 1,
+      per_page: 10
+    }));
+    return response;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
 
-    // Refresh logs list immediately after successful action
+// --- 3. Update Log Action (NEW) ---
+const updateLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('logs/updateLog', async ({
+  id,
+  data
+}, {
+  rejectWithValue,
+  dispatch
+}) => {
+  try {
+    const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      path: `/gamify/v1/logs/${id}`,
+      method: 'PUT',
+      // or PATCH
+      data: data
+    });
+
+    // Refresh logs to reflect changes
     dispatch(fetchLogs({
       page: 1,
       per_page: 10
@@ -6316,16 +6420,12 @@ const logsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)(
   name: 'logs',
   initialState: {
     items: [],
-    // The logs list
     totalItems: 0,
-    // Total count from DB
     currentPage: 1,
     rowsPerPage: 10,
     searchQuery: '',
     status: 'idle',
-    // 'idle' | 'loading' | 'succeeded' | 'failed'
     actionStatus: 'idle',
-    // For the manual action modal
     error: null
   },
   reducers: {
@@ -6344,7 +6444,7 @@ const logsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)(
   },
   extraReducers: builder => {
     builder
-    // --- Fetch Logs ---
+    // Fetch Logs
     .addCase(fetchLogs.pending, state => {
       state.status = 'loading';
     }).addCase(fetchLogs.fulfilled, (state, action) => {
@@ -6356,12 +6456,19 @@ const logsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)(
       state.error = action.payload;
     })
 
-    // --- Manual Action ---
+    // Manual & Update Actions (Share same loading logic)
     .addCase(manualLogAction.pending, state => {
       state.actionStatus = 'loading';
     }).addCase(manualLogAction.fulfilled, state => {
       state.actionStatus = 'succeeded';
     }).addCase(manualLogAction.rejected, (state, action) => {
+      state.actionStatus = 'failed';
+      state.error = action.payload;
+    }).addCase(updateLogAction.pending, state => {
+      state.actionStatus = 'loading';
+    }).addCase(updateLogAction.fulfilled, state => {
+      state.actionStatus = 'succeeded';
+    }).addCase(updateLogAction.rejected, (state, action) => {
       state.actionStatus = 'failed';
       state.error = action.payload;
     });
