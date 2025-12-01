@@ -238,12 +238,13 @@ const AchievementsType = () => {
                                 />
                             </Box>
                             <Box width="50%">
+                                {console.log(selectedPointTypeId,availablePointTypes)}
                                 <GFSelect
                                     label="Choose the Points Type"
                                     placeholder="Choose one"
                                     items={availablePointTypes}
                                     value={selectedPointTypeId}
-                                    onChange={(e) => dispatch(setField({ field: 'selectedPointTypeId', value: e.target.value }))}
+                                    onChange={(e) => dispatch(setField({ field: 'selectedPointTypeId', value: e.value }))}
                                 />
                             </Box>
                         </Flex>

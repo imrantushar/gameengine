@@ -2780,14 +2780,14 @@ const AchievementsType = () => {
     }))
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }, console.log(selectedPointTypeId, availablePointTypes), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Choose the Points Type",
     placeholder: "Choose one",
     items: availablePointTypes,
     value: selectedPointTypeId,
     onChange: e => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
       field: 'selectedPointTypeId',
-      value: e.target.value
+      value: e.value
     }))
   }))), !allowUnlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "Achievement Requirements",
