@@ -8,6 +8,7 @@ import {
     Input,
     Text,
     VStack,
+    FileUpload
 } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import GFLabel from "@Components/Labels/GFLabel";
@@ -15,6 +16,7 @@ import Select from "react-select";
 import CustomCollapsible from "@Components/Collapsible";
 import TopBar from "@Components/TopBar";
 import { FaArrowRotateRight } from "react-icons/fa6";
+import { HiUpload } from "react-icons/hi"
 
 import {
     DndContext,
@@ -388,6 +390,34 @@ const LevelType = () => {
                             </Flex>
                         </DndContext>
                     )}
+                    <Box border="1px solid var(--gamify-border-color)" borderRadius="4px">
+                        <GFLabel
+                            padding="16px"
+                            type="inputLabel"
+                            color="var(--gamify-font-color)"
+                            margin="0"
+                            label={__(`Levels Logo`, "gamify")}
+                        />
+
+                        <Box borderTop='1px solid var(--gamify-border-color)' borderRadius="4px" padding="16px" mt="10px">
+                            <FileUpload.Root>
+                                <FileUpload.HiddenInput />
+
+                                <FileUpload.Trigger asChild>
+                                    <Text
+                                       textDecoration='underline'
+                                       color="var(--gamify-primary)"
+                                       margin='0'
+                                    >
+                                       {__(`Set Level Logo`, "gamify")} 
+                                    </Text>
+                                </FileUpload.Trigger>
+
+                                <FileUpload.List />
+                            </FileUpload.Root>
+
+                        </Box>
+                    </Box>
 
                     <Flex
                         py="24px"
