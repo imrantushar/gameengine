@@ -13,11 +13,13 @@ if (! defined('ABSPATH')) {
 final class TriggerHandler
 {
     private $points_manager;
+    private $achievements_manager;
 
     public function __construct()
     {
-        // Load PointsManager
+        // Load Managers
         $this->points_manager = new PointsManager();
+        $this->achievements_manager = new AchievementsManager();
     }
 
     /**
@@ -60,18 +62,19 @@ final class TriggerHandler
 
         // 3. Process Rules
         foreach ($rules as $rule) {
-            $this->process_single_rule($rule, $user_id, $config);
+            $this->process_single_rule($rule, $user_id, $config, $hook_args);
         }
     }
 
     /**
      * Process a single requirement rule.
      *
-     * @param object $rule    The rule object from the database.
-     * @param int    $user_id The user ID.
-     * @param array  $config  The trigger configuration.
+     * @param object $rule      The rule object from the database.
+     * @param int    $user_id   The user ID.
+     * @param array  $config    The trigger configuration.
+     * @param array  $hook_args Arguments passed from the hook (for advanced checks).
      */
-    private function process_single_rule($rule, $user_id, $config)
+    private function process_single_rule($rule, $user_id, $config, $hook_args)
     {
         $params = json_decode($rule->parameters, true);
 
@@ -81,6 +84,9 @@ final class TriggerHandler
             return;
         }
 
+        $success = false;
+
+        // --- CASE A: POINT TYPE REWARD ---
         if ($rule->reward_type === 'point_type') {
 
             $points = isset($params['points']) ? intval($params['points']) : 0;
@@ -98,24 +104,37 @@ final class TriggerHandler
                 'point_type_id'  => $rule->reward_id
             ];
 
-            // --- STEP 2: Award or Deduct Points ---
-            $transaction_id = false;
+            // Award or Deduct Points
             if ($action_type === 'deduct') {
-                $transaction_id = $this->points_manager->deduct($user_id, $points, $rule->trigger_key, $args);
+                $success = $this->points_manager->deduct($user_id, $points, $rule->trigger_key, $args);
             } else {
-                $transaction_id = $this->points_manager->add($user_id, $points, $rule->trigger_key, $args);
+                $success = $this->points_manager->add($user_id, $points, $rule->trigger_key, $args);
             }
+        }
 
-            // --- STEP 3: Update Progress Tracking ---
-            // If the transaction was successful, update the progress table to enforce limits next time.
-            if ($transaction_id) {
-                $this->update_requirement_progress($user_id, $rule->id);
-            }
+        // --- CASE B: ACHIEVEMENT REWARD ---
+        elseif ($rule->reward_type === 'achievement') {
+            $achievement_id = $rule->reward_id;
+
+            // Note: Achievements are usually 'awarded', revocation is typically manual or penalty-based.
+            // We pass the context (trigger key) and requirement ID for logging.
+            $success = $this->achievements_manager->award(
+                $user_id,
+                $achievement_id,
+                $rule->trigger_key,
+                ['requirement_id' => $rule->id]
+            );
+        }
+
+        // --- STEP 2: Update Progress Tracking ---
+        // If the transaction (Point or Achievement) was successful, update the progress table.
+        if ($success) {
+            $this->update_requirement_progress($user_id, $rule->id);
         }
     }
 
     /**
-     * Checks if the user is eligible for points based on the configured limit.
+     * Checks if the user is eligible for the reward based on the configured limit.
      *
      * @param int   $user_id        The user ID.
      * @param int   $requirement_id The requirement/rule ID.
@@ -161,7 +180,6 @@ final class TriggerHandler
         }
 
         // 4. Limited (Specific number of times)
-        // Usually used for Deductions or specific campaigns.
         if ($limit_type === 'limited') {
             $max_times = isset($params['times']) ? intval($params['times']) : 1;
             if ($progress && $progress->progress_count >= $max_times) {
