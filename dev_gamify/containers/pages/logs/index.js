@@ -13,6 +13,7 @@ import Search from '@Components/Search';
 import LabeledInput from "@Components/LabeledInput";
 import GFSelect from "@Components/Select";
 import WPModal from '@Components/Modal/WPModal';
+import { FiMoreHorizontal } from "react-icons/fi";
 
 // Icons
 import { FiEdit, FiTrash2, FiEye, FiClock, FiRefreshCw } from "react-icons/fi";
@@ -105,7 +106,7 @@ const Logs = () => {
         {
             name: __('User', 'gamify'),
             cell: (row) => (
-                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', padding: '0' }}>
                     <span style={{ fontWeight: 600 }}>{row.user_name || 'Guest'}</span>
                     <span style={{ fontSize: '12px', color: '#666' }}>{row.user_email || `ID: ${row.user_id}`}</span>
                 </div>
@@ -165,24 +166,45 @@ const Logs = () => {
         {
             name: __('Status', 'gamify'),
             cell: (row) => (
-                <Badge colorScheme={row.status === 'success' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}>
-                    {row.status}
-                </Badge>
+                <>
+                    <Badge
+                        width="auto"
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                        borderRadius="999px"
+                        background={row.status === "success" ? "#E6F7F0" : row.status === "pending" ? "#FFF7E6" : "#FFE6E6"}
+                        color={row.status === "success" ? "#00A76F" : row.status === "pending" ? "#D48806" : "#D32029"}
+                        px="16px"
+                        py="6px"
+                        fontSize="12px"
+                        fontWeight="500"
+                        textTransform="capitalize"
+                    >
+                        {row.status}
+                    </Badge>
+
+                </>
+
             ),
         },
         {
             name: __('Action', 'gamify'),
             cell: (row) => (
-                <OptionMenu
-                    options={[
-                        {
-                            type: "button",
-                            label: __('View Details', 'gamify'),
-                            icon: <Icon as={FiEye} />,
-                            onClick: () => console.log('View:', row),
-                        }
-                    ]}
-                />
+                <Button
+                    onClick={() => setIsModalOpen(true)}
+                    position="relative"
+                    borderRadius="4px"
+                    border="1px solid var(--gamify-border-color)"
+                    background="transparent"
+                    padding="5px 12px"
+                    cursor="pointer"
+                    ml='-25px'
+                >
+                    <Icon color="#141A24" as={FiMoreHorizontal} />
+                </Button>
+
+
             ),
         },
     ], []);
@@ -280,7 +302,7 @@ const Logs = () => {
             </Box>
 
             {/* Manual Trigger Modal */}
-            <WPModal
+            {/* <WPModal
                 title="Manual Trigger Settings"
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
@@ -338,6 +360,61 @@ const Logs = () => {
                         </Button>
                     </Flex>
                 </div>
+            </WPModal> */}
+            <WPModal
+                title="Edit Log Entry"
+                isOpen={isModalOpen}
+                onRequestClose={() => setIsModalOpen(false)}
+                size="medium"
+            >
+                <Box>
+                    <Flex gap={8}>
+                        <LabeledInput
+                            label={'Point'}
+                            placeholder={'50'}
+                            // value={''}
+                            // onChange={(e) => }
+                            style={{ width: '200px' }}
+                        />
+
+                        <GFSelect
+                            label="Type"
+                            placeholder="Choose one"
+                            items={[
+                                { label: 'Award Points (+)', value: 'award' },
+                                { label: 'Deduct Points (-)', value: 'deduct' },
+                            ]}
+                        // onChange={(e) => }
+                        // value={}
+                        />
+                    </Flex>
+                    <Flex gap={8}>
+                        <LabeledInput
+                            label={'Total Point'}
+                            placeholder={'100'}
+                            // value={''}
+                            // onChange={(e) => }
+                            style={{ width: '200px' }}
+                        />
+                        <GFSelect
+                            label="Reference"
+                            placeholder="Choose one"
+                            items={[
+                                { label: 'Award Points (+)', value: 'award' },
+                                { label: 'Deduct Points (-)', value: 'deduct' },
+                            ]}
+                        // onChange={(e) => }
+                        // value={}
+                        />
+                    </Flex>
+                    <Flex justifyContent='flex-end' padding='20px 0'>
+                        <Button
+                            {...primaryBtn}
+                        >
+                            {__('Save Changes', 'gamify')}
+                        </Button>
+                    </Flex>
+                </Box>
             </WPModal>
         </>
     );
