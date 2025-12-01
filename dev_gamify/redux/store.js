@@ -5,6 +5,7 @@ import appReducer from './Slices/appSlice';
 import logsReducer from './Slices/logsSlice';
 import pointTypeReducer from './Slices/pointTypeSlice';
 import achievementsReducer from './Slices/achievementsSlice';
+import menuReducer from './Slices/menuSlice/menuSlice';
 /**
  * The main Redux store for the Gamify application.
  *
@@ -15,6 +16,7 @@ import achievementsReducer from './Slices/achievementsSlice';
 export const store = configureStore({
     reducer: {
         // Register the reducer from each slice here
+        adminmenu: menuReducer,
         app: appReducer,
         logs: logsReducer,
         pointType: pointTypeReducer,

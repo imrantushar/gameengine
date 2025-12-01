@@ -55,9 +55,6 @@ const renderSwitch = (page, id, action, path) => {
 
 export default function BackendDashboard() {
 	const query = useQuery();
-
-	 console.log(query);
-
 	return (
 		<div className="gamify-admin-content">
 			{renderSwitch(

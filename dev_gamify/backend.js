@@ -30,33 +30,27 @@ import { createPortal } from 'react-dom';
 //     }
 // });
 document.addEventListener( 'DOMContentLoaded', () => {
-    console.log('tram cont');
 	const container = document.getElementById( 'gamify-admin-app' );
 	if ( container ) {
-        console.log('content load');
 		const root = createRoot( container );
 		const menuPage = document.getElementById( 'toplevel_page_gamify' );
-        console.log({menuPage});
 		function MenuPortal( { children } ) {
-            console.log('protal menu');
+			console.log('iam here')
 			menuPage.innerHTML = '';
 			return createPortal( children, menuPage );
 		}
 		root.render(
-			<Provider store={ store }>
-               {console.log('prodiver')}
-				<ChakraProvider value={ theme }>
-                      {console.log('theme')}
-					<Router>
-                          {console.log('router')}
-						<MenuPortal>
-                              {console.log('menu')}
-							<AdminMenu />
-						</MenuPortal>
-						<BackendDashboard />
-					</Router>
-				</ChakraProvider>
-			</Provider>
+			<Provider store={store}>
+        <ChakraProvider value={theme}>
+            <MenuPortal>
+                <AdminMenu />
+            </MenuPortal>
+
+            <Router>
+                <BackendDashboard />
+            </Router>
+        </ChakraProvider>
+    </Provider>
 		);
 	}
 } );
