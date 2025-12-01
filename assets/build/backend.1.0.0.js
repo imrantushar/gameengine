@@ -3900,23 +3900,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _Components_Collapsible__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @Components/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
-/* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @Components/TopBar */ "./dev_gamify/components/TopBar/index.js");
-/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
-/* harmony import */ var _Components_LabeledInput__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @Components/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _Components_Divider__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @Components/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
-/* harmony import */ var _Components_Select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @Components/Select */ "./dev_gamify/components/Select/index.js");
-/* harmony import */ var _levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./levelHooks/UnlockSpecialAchievements */ "./dev_gamify/containers/pages/levels/levelTypes/levelHooks/UnlockSpecialAchievements.js");
-/* harmony import */ var _Components_editor__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @Components/editor */ "./dev_gamify/components/editor/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @Components/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var _Components_Collapsible__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @Components/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
+/* harmony import */ var _Components_TopBar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @Components/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _Components_LabeledInput__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @Components/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _Components_Divider__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @Components/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
+/* harmony import */ var _Components_Select__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @Components/Select */ "./dev_gamify/components/Select/index.js");
+/* harmony import */ var _levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./levelHooks/UnlockSpecialAchievements */ "./dev_gamify/containers/pages/levels/levelTypes/levelHooks/UnlockSpecialAchievements.js");
+/* harmony import */ var _Components_editor__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @Components/editor */ "./dev_gamify/components/editor/index.js");
+
 
 
 
@@ -3949,7 +3951,7 @@ const DraggableItem = ({
     setNodeRef,
     transform,
     isDragging
-  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.useDraggable)({
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useDraggable)({
     id
   });
   const style = {
@@ -3974,7 +3976,7 @@ const DroppableArea = ({
   const {
     setNodeRef,
     isOver
-  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.useDroppable)({
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useDroppable)({
     id
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
@@ -3983,7 +3985,7 @@ const DroppableArea = ({
     borderRadius: "4px",
     border: "none",
     transition: "all 0.2s"
-  }, title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1rem",
@@ -3997,7 +3999,7 @@ const LevelType = () => {
   const [availableLevel, setAvailableLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(levelHooks);
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [achievement, setAchievement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
-  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.PointerSensor, {
+  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.PointerSensor, {
     activationConstraint: {
       distance: 5
     }
@@ -4005,7 +4007,7 @@ const LevelType = () => {
   const renderActionHook = id => {
     switch (id) {
       case "unlock-special-achievements":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_18__["default"], null);
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_19__["default"], null);
       default:
         return null;
     }
@@ -4031,76 +4033,76 @@ const LevelType = () => {
       return;
     }
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_11__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-icon gamify-icon--angle-right"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
       as: "h2",
       color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Game Engine", "gamify")
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Game Engine", "gamify")
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "1174px",
     margin: "0 auto"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
     bg: "var(--gamify-background)",
     p: 6,
     borderRadius: "4px",
     boxShadow: "var(--gamify-shadow)",
     gap: 6
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Level Type`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Type`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Point Name",
     placeholder: "Academy LMS"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Plural Name",
     placeholder: "Plural Name"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     mb: "24px",
     type: "inputLabel",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Congratulations Message:`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_editor__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Congratulations Message:`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_editor__WEBPACK_IMPORTED_MODULE_20__["default"], {
     suffix: "congratulations_message",
     defaultValue: message,
     saveValueHandler: html => {
       setMessage(html);
     },
     isCustomHTML: false
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Level Requirements`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.SwitchRoot, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.SwitchLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.SwitchControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Requirements`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.SwitchRoot, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.SwitchLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.SwitchControl, {
     _checked: {
       bg: "var(--gamify-primary)"
     }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Minimum Balance Requirement",
     placeholder: "2000",
     type: "number"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Maximum Balance Requirement",
     placeholder: "1000",
     type: "number"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_17__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Choose the Points Type",
     placeholder: "Test Point",
     items: [{
@@ -4116,40 +4118,40 @@ const LevelType = () => {
       label: "Svelte",
       value: "svelte"
     }]
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_10__["default"], {
     label: "Achievement Requirements",
     isOpen: achievement,
     onClick: () => setAchievement(!achievement)
-  }), achievement && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_12__.DndContext, {
+  }), achievement && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     width: "50%",
     p: "24px",
     borderRadius: "4px",
     border: "1px solid var(--gamify-border-color)",
     direction: "column",
     gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
     gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1.25rem",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Available Hooks`, "gamify"),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Available Hooks`, "gamify"),
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "subtitle",
     fontWeight: "400",
     fontSize: "12px",
     lineHeight: "16px",
     color: "var(--gamify-font-color)",
     margin: "0",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     as: "label",
     direction: "column",
     gap: 2
@@ -4161,9 +4163,9 @@ const LevelType = () => {
     fontWeight: "500",
     fontSize: "0.875rem",
     margin: "0 0 8px 0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_9__["default"], {
     isMulti: true,
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Select hook type", "gamify"),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Select hook type", "gamify"),
     classNamePrefix: "gamify-select",
     options: [{
       label: "Gamify",
@@ -4214,7 +4216,7 @@ const LevelType = () => {
     p: "12px",
     borderRadius: "6px",
     border: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     justify: "space-between",
     align: "center"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
@@ -4229,53 +4231,73 @@ const LevelType = () => {
     alignItems: "center",
     justifyContent: "center",
     color: "white"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_11__.FaArrowRotateRight,
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_12__.FaArrowRotateRight,
     boxSize: 4
   }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
     fontSize: "0.875rem",
     mt: "6px",
     mb: "24px",
     color: "var(--gamify-secondary)"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(item.subTitle, "gamify")))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(item.subTitle, "gamify")))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: "50%",
     borderRadius: "4px",
     border: "1px solid var(--gamify-border-color)",
     p: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
     gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1.25rem",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Action Hook`, "gamify"),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Action Hook`, "gamify"),
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "subtitle",
     fontWeight: "400",
     fontSize: "12px",
     lineHeight: "16px",
     margin: "0",
     color: "var(--gamify-font-color)",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`These hooks will run automatically for all users.`, "gamify")
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`These hooks will run automatically for all users.`, "gamify")
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
     gap: "12px",
     mt: "8px"
   }, levelHook.map(hookId => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
     key: hookId,
     id: hookId
-  }, renderActionHook(hookId)))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }, renderActionHook(hookId)))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    border: "1px solid var(--gamify-border-color)",
+    borderRadius: "4px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    padding: "16px",
+    type: "inputLabel",
+    color: "var(--gamify-font-color)",
+    margin: "0",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Levels Logo`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    borderTop: "1px solid var(--gamify-border-color)",
+    borderRadius: "4px",
+    padding: "16px",
+    mt: "10px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadRoot, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadTrigger, {
+    asChild: true
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    textDecoration: "underline",
+    color: "var(--gamify-primary)",
+    margin: "0"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Set Level Logo`, "gamify"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadList, null)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     py: "24px",
     justifyContent: "flex-end",
     borderTop: "1px solid var(--gamify-border-color)"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__.primaryBtn,
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_15__.primaryBtn,
     width: "121px"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Save Changes", "gamify"))))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Save Changes", "gamify"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LevelType);
 
@@ -7200,6 +7222,730 @@ const parts = fieldsetAnatomy.build();
 
 /***/ }),
 
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadClearTrigger: () => (/* binding */ FileUploadClearTrigger)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+const FileUploadClearTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getClearTriggerProps(), props);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
+});
+FileUploadClearTrigger.displayName = "FileUploadClearTrigger";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadContext: () => (/* binding */ FileUploadContext)
+/* harmony export */ });
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+const FileUploadContext = (props) => props.children((0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_0__.useFileUploadContext)());
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadDropzone: () => (/* binding */ FileUploadDropzone)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadDropzone = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const [dropzoneProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["disableClick"]);
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getDropzoneProps(dropzoneProps), localProps);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref });
+});
+FileUploadDropzone.displayName = "FileUploadDropzone";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadHiddenInput: () => (/* binding */ FileUploadHiddenInput)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadHiddenInput = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getHiddenInputProps(), props);
+  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__.useFieldContext)();
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.input, { "aria-describedby": field?.ariaDescribedby, ...mergedProps, ref });
+});
+FileUploadHiddenInput.displayName = "FileUploadHiddenInput";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js":
+/*!***************************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemDeleteTrigger: () => (/* binding */ FileUploadItemDeleteTrigger)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadItemDeleteTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
+  (props, ref) => {
+    const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+    const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
+    const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemDeleteTriggerProps(itemProps), props);
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
+  }
+);
+FileUploadItemDeleteTrigger.displayName = "FileUploadItemDeleteTrigger";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js":
+/*!******************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemGroup: () => (/* binding */ FileUploadItemGroup)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-item-group-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js");
+'use client';
+
+
+
+
+
+
+
+
+const FileUploadItemGroup = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const [itemGroupProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["type"]);
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemGroupProps(itemGroupProps), localProps);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__.FileUploadItemGroupPropsProvider, { value: itemGroupProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.ul, { ...mergedProps, ref }) });
+});
+FileUploadItemGroup.displayName = "FileUploadItemGroup";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js":
+/*!*****************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js ***!
+  \*****************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemName: () => (/* binding */ FileUploadItemName)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadItemName = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const { children, ...rest } = props;
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemNameProps(itemProps), rest);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref, children: children || itemProps.file.name });
+});
+FileUploadItemName.displayName = "FileUploadItemName";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js":
+/*!**************************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemPreviewImage: () => (/* binding */ FileUploadItemPreviewImage)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadItemPreviewImage = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
+  (props, ref) => {
+    const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
+    const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+    const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
+    const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemPreviewImageProps({ ...itemProps, url }), props);
+    (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
+      return fileUpload.createFileUrl(itemProps.file, (url2) => setUrl(url2));
+    }, [itemProps, fileUpload]);
+    if (!url) return null;
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.img, { ...mergedProps, ref });
+  }
+);
+FileUploadItemPreviewImage.displayName = "FileUploadItemPreviewImage";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js":
+/*!********************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemPreview: () => (/* binding */ FileUploadItemPreview)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadItemPreview = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemPreviewProps(itemProps), props);
+  if (!itemProps.file.type.match(props.type ?? ".*")) return null;
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
+});
+FileUploadItemPreview.displayName = "FileUploadItemPreview";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js":
+/*!**********************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemSizeText: () => (/* binding */ FileUploadItemSizeText)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadItemSizeText = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const { children, ...rest } = props;
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemSizeTextProps(itemProps), rest);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref, children: children || fileUpload.getFileSize(itemProps.file) });
+});
+FileUploadItemSizeText.displayName = "FileUploadItemSizeText";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItem: () => (/* binding */ FileUploadItem)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-item-group-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js");
+/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
+'use client';
+
+
+
+
+
+
+
+
+
+const FileUploadItem = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const [itemProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["file"]);
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
+  const itemGroupProps = (0,_use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__.useFileUploadItemGroupPropsContext)();
+  const itemPropsWithType = { ...itemProps, type: itemGroupProps.type };
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemProps(itemPropsWithType), localProps);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__.FileUploadItemPropsProvider, { value: itemPropsWithType, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.li, { ...mergedProps, ref }) });
+});
+FileUploadItem.displayName = "FileUploadItem";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js":
+/*!*************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadLabel: () => (/* binding */ FileUploadLabel)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+const FileUploadLabel = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getLabelProps(), props);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.label, { ...mergedProps, ref });
+});
+FileUploadLabel.displayName = "FileUploadLabel";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js":
+/*!*********************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadRootProvider: () => (/* binding */ FileUploadRootProvider)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+
+const FileUploadRootProvider = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const [{ value: fileUpload }, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["value"]);
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getRootProps(), localProps);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.FileUploadProvider, { value: fileUpload, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) });
+});
+FileUploadRootProvider.displayName = "FileUploadRootProvider";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadRoot: () => (/* binding */ FileUploadRoot)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+
+
+const FileUploadRoot = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const [useFileUploadProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, [
+    "accept",
+    "acceptedFiles",
+    "allowDrop",
+    "capture",
+    "defaultAcceptedFiles",
+    "directory",
+    "disabled",
+    "id",
+    "ids",
+    "invalid",
+    "locale",
+    "maxFiles",
+    "maxFileSize",
+    "minFileSize",
+    "name",
+    "onFileAccept",
+    "onFileChange",
+    "onFileReject",
+    "preventDocumentDrop",
+    "required",
+    "translations",
+    "transformFiles",
+    "validate"
+  ]);
+  const fileUpload = (0,_use_file_upload_js__WEBPACK_IMPORTED_MODULE_5__.useFileUpload)(useFileUploadProps);
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getRootProps(), localProps);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_6__.FileUploadProvider, { value: fileUpload, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) });
+});
+FileUploadRoot.displayName = "FileUploadRoot";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js":
+/*!***************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js ***!
+  \***************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadTrigger: () => (/* binding */ FileUploadTrigger)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
+/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+'use client';
+
+
+
+
+
+
+const FileUploadTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
+  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
+  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getTriggerProps(), props);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
+});
+FileUploadTrigger.displayName = "FileUploadTrigger";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js":
+/*!*******************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadProvider: () => (/* binding */ FileUploadProvider),
+/* harmony export */   useFileUploadContext: () => (/* binding */ useFileUploadContext)
+/* harmony export */ });
+/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
+'use client';
+
+
+const [FileUploadProvider, useFileUploadContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  name: "FileUploadContext",
+  hookName: "useFileUploadContext",
+  providerName: "<FileUploadProvider />"
+});
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js":
+/*!************************************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js ***!
+  \************************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemGroupPropsProvider: () => (/* binding */ FileUploadItemGroupPropsProvider),
+/* harmony export */   useFileUploadItemGroupPropsContext: () => (/* binding */ useFileUploadItemGroupPropsContext)
+/* harmony export */ });
+/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
+'use client';
+
+
+const [FileUploadItemGroupPropsProvider, useFileUploadItemGroupPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  name: "FileUploadItemGroupPropsContext",
+  hookName: "useFileUploadItemGroupPropsContext",
+  providerName: "<FileUploadItemGroupPropsProvider />"
+});
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js":
+/*!******************************************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadItemPropsProvider: () => (/* binding */ FileUploadItemPropsProvider),
+/* harmony export */   useFileUploadItemPropsContext: () => (/* binding */ useFileUploadItemPropsContext)
+/* harmony export */ });
+/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
+'use client';
+
+
+const [FileUploadItemPropsProvider, useFileUploadItemPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  name: "FileUploadItemPropsContext",
+  hookName: "useFileUploadItemPropsContext",
+  providerName: "<FileUploadItemPropsProvider />"
+});
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js":
+/*!***********************************************************************************!*\
+  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   useFileUpload: () => (/* binding */ useFileUpload)
+/* harmony export */ });
+/* harmony import */ var _zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/file-upload */ "./node_modules/@zag-js/file-upload/dist/index.mjs");
+/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
+/* harmony import */ var _providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/locale/use-locale-context.js */ "./node_modules/@ark-ui/react/dist/providers/locale/use-locale-context.js");
+/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
+'use client';
+
+
+
+
+
+
+
+const useFileUpload = (props) => {
+  const id = (0,react__WEBPACK_IMPORTED_MODULE_2__.useId)();
+  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__.useEnvironmentContext)();
+  const { dir, locale } = (0,_providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__.useLocaleContext)();
+  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__.useFieldContext)();
+  const machineProps = {
+    id,
+    ids: {
+      label: field?.ids.label,
+      hiddenInput: field?.ids.control
+    },
+    dir,
+    disabled: field?.disabled,
+    locale,
+    required: field?.required,
+    invalid: field?.invalid,
+    getRootNode,
+    ...props
+  };
+  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.useMachine)(_zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__.machine, machineProps);
+  return _zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_1__.normalizeProps);
+};
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@ark-ui/react/dist/components/listbox/listbox.anatomy.js":
 /*!*******************************************************************************!*\
   !*** ./node_modules/@ark-ui/react/dist/components/listbox/listbox.anatomy.js ***!
@@ -10033,6 +10779,171 @@ const ButtonPropsProvider = PropsProvider;
 
 /***/ }),
 
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FileUploadClearTrigger: () => (/* binding */ FileUploadClearTrigger),
+/* harmony export */   FileUploadContext: () => (/* binding */ FileUploadContext),
+/* harmony export */   FileUploadDropzone: () => (/* binding */ FileUploadDropzone),
+/* harmony export */   FileUploadDropzoneContent: () => (/* binding */ FileUploadDropzoneContent),
+/* harmony export */   FileUploadFileText: () => (/* binding */ FileUploadFileText),
+/* harmony export */   FileUploadHiddenInput: () => (/* binding */ FileUploadHiddenInput),
+/* harmony export */   FileUploadItem: () => (/* binding */ FileUploadItem),
+/* harmony export */   FileUploadItemContent: () => (/* binding */ FileUploadItemContent),
+/* harmony export */   FileUploadItemDeleteTrigger: () => (/* binding */ FileUploadItemDeleteTrigger),
+/* harmony export */   FileUploadItemGroup: () => (/* binding */ FileUploadItemGroup),
+/* harmony export */   FileUploadItemName: () => (/* binding */ FileUploadItemName),
+/* harmony export */   FileUploadItemPreview: () => (/* binding */ FileUploadItemPreview),
+/* harmony export */   FileUploadItemPreviewImage: () => (/* binding */ FileUploadItemPreviewImage),
+/* harmony export */   FileUploadItemSizeText: () => (/* binding */ FileUploadItemSizeText),
+/* harmony export */   FileUploadItems: () => (/* binding */ FileUploadItems),
+/* harmony export */   FileUploadLabel: () => (/* binding */ FileUploadLabel),
+/* harmony export */   FileUploadList: () => (/* binding */ FileUploadList),
+/* harmony export */   FileUploadPropsProvider: () => (/* binding */ FileUploadPropsProvider),
+/* harmony export */   FileUploadRoot: () => (/* binding */ FileUploadRoot),
+/* harmony export */   FileUploadRootProvider: () => (/* binding */ FileUploadRootProvider),
+/* harmony export */   FileUploadTrigger: () => (/* binding */ FileUploadTrigger),
+/* harmony export */   useFileUploadStyles: () => (/* binding */ useFileUploadStyles)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js");
+/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
+/* harmony import */ var _icons_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../icons.js */ "./node_modules/@chakra-ui/react/dist/esm/components/icons.js");
+/* harmony import */ var _span_index_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../span/index.js */ "./node_modules/@chakra-ui/react/dist/esm/components/span/index.js");
+/* harmony import */ var _for_for_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../for/for.js */ "./node_modules/@chakra-ui/react/dist/esm/components/for/for.js");
+
+"use client";
+
+
+
+
+
+
+
+
+const {
+  withProvider,
+  withContext,
+  useStyles: useFileUploadStyles,
+  PropsProvider
+} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_18__.createSlotRecipeContext)({ key: "fileUpload" });
+const FileUploadRootProvider = withProvider(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_2__.FileUploadRootProvider, "root", { forwardAsChild: true });
+const FileUploadRoot = withProvider(
+  _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_3__.FileUploadRoot,
+  "root",
+  { forwardAsChild: true }
+);
+const FileUploadPropsProvider = PropsProvider;
+const FileUploadClearTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_4__.FileUploadClearTrigger, "clearTrigger", { forwardAsChild: true });
+const FileUploadDropzone = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_5__.FileUploadDropzone, "dropzone", { forwardAsChild: true });
+const FileUploadDropzoneContent = withContext("div", "dropzoneContent");
+const FileUploadItem = withContext(
+  _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_6__.FileUploadItem,
+  "item",
+  { forwardAsChild: true }
+);
+const FileUploadItemContent = withContext("div", "itemContent");
+const FileUploadItemDeleteTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_7__.FileUploadItemDeleteTrigger, "itemDeleteTrigger", {
+  forwardAsChild: true,
+  defaultProps: {
+    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_19__.CloseIcon, {})
+  }
+});
+const FileUploadItemGroup = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_8__.FileUploadItemGroup, "itemGroup", { forwardAsChild: true });
+const FileUploadItemName = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_9__.FileUploadItemName, "itemName", { forwardAsChild: true });
+const FileUploadItemPreview = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_10__.FileUploadItemPreview, "itemPreview", {
+  forwardAsChild: true,
+  defaultProps: {
+    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_19__.FileIcon, {})
+  }
+});
+const FileUploadItemPreviewImage = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_11__.FileUploadItemPreviewImage, "itemPreviewImage", { forwardAsChild: true });
+const FileUploadItemSizeText = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_12__.FileUploadItemSizeText, "itemSizeText", { forwardAsChild: true });
+const FileUploadLabel = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_13__.FileUploadLabel, "label", { forwardAsChild: true });
+const FileUploadTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_14__.FileUploadTrigger, "trigger", { forwardAsChild: true });
+const FileUploadItems = (props) => {
+  const { showSize, clearable, files, ...rest } = props;
+  const fileUpload = (0,_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__.useFileUploadContext)();
+  const acceptedFiles = files ?? fileUpload.acceptedFiles;
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_for_for_js__WEBPACK_IMPORTED_MODULE_21__.For, { each: acceptedFiles, children: (file) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(FileUploadItem, { file, ...rest, children: [
+    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemPreview, {}),
+    showSize ? /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(FileUploadItemContent, { children: [
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemName, {}),
+      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemSizeText, {})
+    ] }) : /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemName, { flex: "1" }),
+    clearable && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemDeleteTrigger, {})
+  ] }, file.name) });
+};
+const FileUploadList = (0,react__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
+  function FileUploadList2(props, ref) {
+    const { showSize, clearable, files, ...rest } = props;
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemGroup, { ref, ...rest, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      FileUploadItems,
+      {
+        showSize,
+        clearable,
+        files
+      }
+    ) });
+  }
+);
+const FileUploadFileText = (0,react__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(function FileUploadFileText2(props, ref) {
+  const { fallback = "Select file(s)", ...rest } = props;
+  const fileUpload = (0,_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__.useFileUploadContext)();
+  const styles = useFileUploadStyles();
+  const acceptedFiles = fileUpload.acceptedFiles;
+  const fileText = (0,react__WEBPACK_IMPORTED_MODULE_17__.useMemo)(() => {
+    if (acceptedFiles.length === 1) {
+      return acceptedFiles[0].name;
+    }
+    if (acceptedFiles.length > 1) {
+      return `${acceptedFiles.length} files`;
+    }
+    return fallback;
+  }, [acceptedFiles, fallback]);
+  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+    _span_index_js__WEBPACK_IMPORTED_MODULE_20__.Span,
+    {
+      ref,
+      "data-placeholder": fileText === fallback ? "" : void 0,
+      "data-scope": "file-upload",
+      "data-part": "file-text",
+      ...rest,
+      css: [styles.fileText, props.css],
+      children: fileText
+    }
+  );
+});
+const FileUploadContext = _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_15__.FileUploadContext;
+const FileUploadHiddenInput = _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_16__.FileUploadHiddenInput;
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js":
 /*!************************************************************************!*\
   !*** ./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js ***!
@@ -10087,6 +10998,31 @@ const Flex = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
   }
 );
 Flex.displayName = "Flex";
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/for/for.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/for/for.js ***!
+  \**********************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   For: () => (/* binding */ For)
+/* harmony export */ });
+
+function For(props) {
+  const { each, fallback, children } = props;
+  if (each?.length === 0) {
+    return fallback || null;
+  }
+  return each?.map(children);
+}
 
 
 
