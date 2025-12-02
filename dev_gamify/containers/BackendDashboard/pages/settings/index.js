@@ -15,7 +15,6 @@ const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const tab = tabMatch ? tabMatch[1] : 'general-settings';
-    console.log(tab);
     return (
         <>
             <TopBar

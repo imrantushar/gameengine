@@ -7,7 +7,6 @@ export const fetchAdminMenuItems = createAsyncThunk(
 	( thunkAPI ) => {
 		try {
 			return makeRequest( 'get_admin_menu_items' ).then( ( res ) => {
-				console.log(res);
 				return JSON.parse( res?.data?.data );
 			} );
 		} catch ( error ) {

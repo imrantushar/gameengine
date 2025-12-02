@@ -117,7 +117,6 @@ const Leaderboards = () => {
                             { label: '1 time only', value: '1_time' },
                         ]}
                         value={['']}
-                        onChange={(opt) => console.log(opt)}
                     />
                     <GFSelect
                         label="Time Range"
@@ -128,7 +127,6 @@ const Leaderboards = () => {
                             { label: '1 time only', value: '1_time' },
                         ]}
                         value={['']}
-                        onChange={(opt) => console.log(opt)}
 
                     />
                     <Flex

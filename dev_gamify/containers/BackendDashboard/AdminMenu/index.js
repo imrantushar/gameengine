@@ -13,7 +13,6 @@ import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
 
 const AdminMenu = () => {
-	console.log('iam in admin menu');
 	const adminmenu = useSelector( ( state ) => state.adminmenu.data );
 	const location = useQuery();
 	const page = location.get( 'page' );

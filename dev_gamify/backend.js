@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const root = createRoot(container);
 		const menuPage = document.getElementById('toplevel_page_gamify');
 		function MenuPortal({ children }) {
-			console.log('iam here')
 			menuPage.innerHTML = '';
 			return createPortal(children, menuPage);
 		}

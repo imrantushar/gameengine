@@ -2457,7 +2457,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AdminMenu = () => {
-  console.log('iam in admin menu');
   const adminmenu = (0,react_redux__WEBPACK_IMPORTED_MODULE_4__.useSelector)(state => state.adminmenu.data);
   const location = (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.useQuery)();
   const page = location.get('page');
@@ -2544,7 +2543,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderSwitch = (page, id, action, path) => {
-  console.log(page, path);
   switch (page) {
     case 'gamify':
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], null);
@@ -3770,8 +3768,7 @@ const Leaderboards = () => {
         label: '1 time only',
         value: '1_time'
       }],
-      value: [''],
-      onChange: opt => console.log(opt)
+      value: ['']
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_8__["default"], {
       label: "Time Range",
       placeholder: "Choose one",
@@ -3785,8 +3782,7 @@ const Leaderboards = () => {
         label: '1 time only',
         value: '1_time'
       }],
-      value: [''],
-      onChange: opt => console.log(opt)
+      value: ['']
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       marginTop: "25px"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Button, {
@@ -6178,7 +6174,6 @@ const Settings = () => {
   const locationQuery = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useLocation)();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
   const tab = tabMatch ? tabMatch[1] : 'general-settings';
-  console.log(tab);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
@@ -6635,7 +6630,6 @@ __webpack_require__.r(__webpack_exports__);
 const fetchAdminMenuItems = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchAdminMenuItems', thunkAPI => {
   try {
     return (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_1__.makeRequest)('get_admin_menu_items').then(res => {
-      console.log(res);
       return JSON.parse(res?.data?.data);
     });
   } catch (error) {
@@ -150413,7 +150407,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function MenuPortal({
       children
     }) {
-      console.log('iam here');
       menuPage.innerHTML = '';
       return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_9__.createPortal)(children, menuPage);
     }

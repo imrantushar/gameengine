@@ -12,7 +12,6 @@ import Logs from './pages/logs';
 import Points from './pages/points';
 
 const renderSwitch = (page, id, action, path) => {
-	console.log( page,path);
 
 	switch (page) {
 		case 'gamify':
