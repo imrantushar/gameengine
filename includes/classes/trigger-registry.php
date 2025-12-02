@@ -16,8 +16,7 @@ final class TriggerRegistry
     private static $initialized = false;
 
     /**
-     * Initialize the registry and load default triggers.
-     * This is called by the main plugin file.
+     * Initialize the registry.
      */
     public static function init()
     {
@@ -28,6 +27,32 @@ final class TriggerRegistry
         self::register_defaults();
         self::$triggers = apply_filters('gamify_available_triggers', self::$triggers);
         self::$initialized = true;
+    }
+
+    /**
+     * Helper to fetch Point Types for Select Dropdown.
+     */
+    private static function get_point_type_list()
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'gamify_point_types';
+
+        $options = ['1' => __('Default', 'gamify')];
+
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
+            return $options;
+        }
+
+        $results = $wpdb->get_results("SELECT id, name FROM $table");
+
+        if (!empty($results)) {
+            $options = [];
+            foreach ($results as $type) {
+                $options[$type->id] = $type->name;
+            }
+        }
+
+        return $options;
     }
 
     /**
@@ -52,6 +77,14 @@ final class TriggerRegistry
                 return $user->ID;
             },
             'award_fields' => [
+                // Point Type Selection (Only for Achievements)
+                'point_type_id' => [
+                    'type'    => 'select',
+                    'label'   => __('Point Type', 'gamify'),
+                    'options' => self::get_point_type_list(),
+                    'default' => 1,
+                    'scope'   => ['achievement'],
+                ],
                 'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 10, 'required' => true],
                 'limit'  => [
                     'type'    => 'select',
@@ -59,9 +92,17 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day', '1_time' => '1 Time Only'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('Daily Login Bonus', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Daily Login Bonus', 'gamify')],
             ],
             'deduct_fields' => [
+                // Point Type Selection (Only for Achievements)
+                'point_type_id' => [
+                    'type'    => 'select',
+                    'label'   => __('Point Type', 'gamify'),
+                    'options' => self::get_point_type_list(),
+                    'default' => 1,
+                    'scope'   => ['achievement'],
+                ],
                 'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 5, 'required' => true],
                 'limit'  => [
                     'type'    => 'select',
@@ -69,7 +110,7 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', 'limited' => 'Limited Times'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('Login Penalty', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Login Penalty', 'gamify')],
             ]
         ]);
 
@@ -97,7 +138,7 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('New Post Published', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('New Post Published', 'gamify')],
             ],
             'deduct_fields' => [
                 'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 10, 'required' => true],
@@ -107,7 +148,7 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', 'limited' => 'Limited Times'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('Post Penalty', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Post Penalty', 'gamify')],
             ]
         ]);
 
@@ -132,7 +173,7 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('New Comment', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('New Comment', 'gamify')],
             ],
             'deduct_fields' => [
                 'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 2, 'required' => true],
@@ -142,7 +183,7 @@ final class TriggerRegistry
                     'options' => ['unlimited' => 'Unlimited', 'limited' => 'Limited Times'],
                     'default' => 'unlimited'
                 ],
-                'label'  => ['type' => 'text', 'label' => __('Log Label', 'gamify'), 'default' => __('Comment Penalty', 'gamify')],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Comment Penalty', 'gamify')],
             ]
         ]);
 
@@ -181,8 +222,17 @@ final class TriggerRegistry
                 return $user_id;
             },
             'award_fields' => [
-                'points_needed' => ['type' => 'number', 'label' => __('Points to expend', 'gamify'), 'default' => 100],
-                'point_type_id' => ['type' => 'number', 'label' => __('Point Type ID', 'gamify'), 'default' => 1]
+                'points_needed' => [
+                    'type' => 'number',
+                    'label' => __('Points to expend', 'gamify'),
+                    'default' => 100
+                ],
+                'point_type_id' => [
+                    'type'    => 'select',
+                    'label'   => __('Point Type', 'gamify'),
+                    'options' => self::get_point_type_list(),
+                    'default' => 1
+                ]
             ]
         ]);
 

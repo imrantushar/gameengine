@@ -103,7 +103,7 @@ const DynamicField = ({ fieldKey, config, value, onChange }) => {
                     className="gamify-select"
                     classNamePrefix="gamify-select"
                     options={selectOptions}
-                    value={selectOptions.find(opt => opt.value === value) || null}
+                    value={selectOptions.find(opt => opt.value == value) || null}
                     onChange={(val) => onChange(val ? val.value : '')}
                 />
             </Box>
@@ -141,6 +141,12 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             <Flex direction="column" gap="16px" padding="0 24px">
                 {Object.keys(fieldsConfig).map((key) => {
                     const config = fieldsConfig[key];
+
+
+                    if (config.scope && !config.scope.includes('point_type')) {
+                        return null;
+                    }
+
                     const currentValue = settings[key] ?? config.default ?? '';
 
                     return (

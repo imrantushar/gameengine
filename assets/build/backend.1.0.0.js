@@ -2488,7 +2488,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+ // Import react-select
 
 
 
@@ -2545,7 +2545,55 @@ const DroppableArea = ({
   }, children);
 };
 
-// --- Dynamic Hook Settings Form (Generic) ---
+// --- NEW: Helper Component for Dynamic Fields (Select + Input) ---
+const DynamicAchievementField = ({
+  fieldKey,
+  config,
+  value,
+  onChange
+}) => {
+  // 1. Handle Select Dropdown
+  if (config.type === 'select' && config.options) {
+    // Convert PHP associative array/object to React-Select format
+    const selectOptions = Object.entries(config.options).map(([val, label]) => ({
+      value: val,
+      label: label
+    }));
+
+    // Find selected object for react-select
+    const selectedOption = selectOptions.find(opt => opt.value == value) || null;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+      width: "100%"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+      fontSize: "14px",
+      fontWeight: "500",
+      mb: "8px",
+      color: "var(--gamify-font-color)"
+    }, config.label, " ", config.required && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      style: {
+        color: "red"
+      }
+    }, "*")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Select...", "gamify"),
+      className: "gamify-select",
+      classNamePrefix: "gamify-select",
+      options: selectOptions,
+      value: selectedOption,
+      onChange: selected => onChange(selected ? selected.value : '')
+    }));
+  }
+
+  // 2. Handle Number/Text Input
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    label: config.label,
+    type: config.type === 'number' ? 'number' : 'text',
+    value: value,
+    onChange: e => onChange(e.target.value),
+    required: config.required
+  });
+};
+
+// --- UPDATED: Dynamic Hook Settings Form ---
 const DynamicHookForm = ({
   hookId,
   hookInfo,
@@ -2553,8 +2601,6 @@ const DynamicHookForm = ({
   onChange
 }) => {
   const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
-  // Achievement triggers typically use 'award_fields' from config
   const fieldsConfig = hookInfo.award_fields || {};
   const fieldKeys = Object.keys(fieldsConfig);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -2565,17 +2611,25 @@ const DynamicHookForm = ({
     singleIcon: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
-    gap: "12px",
+    gap: "16px",
     padding: "0 24px"
   }, fieldKeys.map(key => {
     const config = fieldsConfig[key];
+
+    // --- NEW LOGIC START: SCOPE CHECK ---
+    // যদি scope ডিফাইন করা থাকে এবং তাতে 'achievement' না থাকে, তাহলে এটি স্কিপ করো।
+    if (config.scope && !config.scope.includes('achievement')) {
+      return null;
+    }
+    // --- NEW LOGIC END ---
+
     const val = settings[key] !== undefined ? settings[key] : config.default || '';
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicAchievementField, {
       key: key,
-      label: config.label,
-      type: config.type === 'number' ? 'number' : 'text',
+      fieldKey: key,
+      config: config,
       value: val,
-      onChange: e => onChange(key, e.target.value)
+      onChange: newValue => onChange(key, newValue)
     });
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Divider__WEBPACK_IMPORTED_MODULE_19__["default"], {
     width: "100%",
@@ -2620,6 +2674,7 @@ const AchievementsType = () => {
 
   // Initial Load
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    // Fetch triggers specifically for achievements
     dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.fetchTriggers)());
     dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.fetchPointTypes)());
     if (editId) {
@@ -2654,6 +2709,8 @@ const AchievementsType = () => {
       unlock_with_points_enabled: allowUnlockWithPoints,
       required_points_amount: pointsAmount,
       required_point_type_id: selectedPointTypeId,
+      congratulations_message: message,
+      // Save message
       requirements: activeHooks.map(hook => ({
         trigger_key: hook.id,
         parameters: hookSettings[hook.id] || {}
@@ -2701,8 +2758,7 @@ const AchievementsType = () => {
     fontSize: "xl",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Achievement Types`, "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    label: "Point Name" // Mapped to Title
-    ,
+    label: "Point Name",
     placeholder: "Academy LMS",
     value: title,
     onChange: e => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
@@ -2710,8 +2766,7 @@ const AchievementsType = () => {
       value: e.target.value
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    label: "Plural Name" // Mapped to Description
-    ,
+    label: "Plural Name",
     placeholder: "Plural Name",
     value: description,
     onChange: e => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
@@ -2719,17 +2774,6 @@ const AchievementsType = () => {
       value: e.target.value
     }))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    label: "Earned By",
-    placeholder: "Completing Steps",
-    readOnly: true,
-    value: "Completing Steps"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    type: "miniTitle",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("How this achievement can be earned.", "gamify"),
-    fontSize: "0.875rem",
-    mt: "6px",
-    color: "var(--gamify-secondary)"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
     label: "Maximum Earnings Per User :",
     placeholder: "0",
     type: "number",
@@ -2780,7 +2824,7 @@ const AchievementsType = () => {
     }))
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%"
-  }, console.log(selectedPointTypeId, availablePointTypes), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Choose the Points Type",
     placeholder: "Choose one",
     items: availablePointTypes,
@@ -2821,26 +2865,7 @@ const AchievementsType = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`Drag hooks to activate.`, "gamify"),
     color: "var(--gamify-font-color)",
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    p: "16px",
-    borderRadius: "4px",
-    border: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-    fontWeight: "500",
-    fontSize: "0.875rem",
-    margin: "0 0 8px 0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    isMulti: true,
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Select hook type", "gamify"),
-    classNamePrefix: "gamify-select",
-    options: [{
-      label: "Gamify",
-      value: "gamify"
-    }, {
-      label: "WordPress",
-      value: "wordpress"
-    }]
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-available"
   }, availableHooks.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     key: item.id
@@ -2891,7 +2916,7 @@ const AchievementsType = () => {
     type: "subtitle",
     fontWeight: "400",
     fontSize: "12px",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`These hooks will run automatically for all users.`, "gamify"),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)(`These hooks will run automatically.`, "gamify"),
     color: "var(--gamify-font-color)",
     margin: "0"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
@@ -5002,7 +5027,7 @@ const DynamicField = ({
       className: "gamify-select",
       classNamePrefix: "gamify-select",
       options: selectOptions,
-      value: selectOptions.find(opt => opt.value === value) || null,
+      value: selectOptions.find(opt => opt.value == value) || null,
       onChange: val => onChange(val ? val.value : '')
     }));
   }
@@ -5040,6 +5065,9 @@ const DynamicHookForm = ({
   }, Object.keys(fieldsConfig).map(key => {
     var _ref, _settings$key;
     const config = fieldsConfig[key];
+    if (config.scope && !config.scope.includes('point_type')) {
+      return null;
+    }
     const currentValue = (_ref = (_settings$key = settings[key]) !== null && _settings$key !== void 0 ? _settings$key : config.default) !== null && _ref !== void 0 ? _ref : '';
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicField, {
       key: key,
