@@ -3,8 +3,8 @@
 namespace Gamify\API\Controllers;
 
 use Gamify\API\BaseController;
-use Gamify\System\PointsManager;
-use Gamify\System\Logger;
+use Gamify\Classes\PointsManager;
+use Gamify\Classes\Logger;
 
 if (! defined('ABSPATH')) exit;
 
@@ -40,34 +40,41 @@ class ActionsController extends BaseController
 
         $meta_args = [
             'description'   => $desc,
-            'point_type_id' => 1 // Default to first currency, can be dynamic later
+            'point_type_id' => 1
         ];
 
-        // 2. Schedule Logic (Future Execution)
+        // 2. Schedule Logic (Timezone Hard Fix)
         if ($date) {
-            $timestamp = strtotime($date);
+            if (! function_exists('as_schedule_single_action')) {
+                return new \WP_Error('dependency_missing', 'Action Scheduler required.', ['status' => 500]);
+            }
 
-            // Check if date is in the future
-            if ($timestamp > time()) {
-                // Schedule the single event
-                wp_schedule_single_event($timestamp, 'gamify_execute_scheduled_action', [
-                    $user_id,
-                    $points,
-                    $type,
-                    $meta_args
-                ]);
+            $gmt_offset = get_option('gmt_offset') * 3600;
 
-                // Log "Pending" Status
+            $local_timestamp = strtotime($date);
+
+
+            $utc_timestamp = $local_timestamp - $gmt_offset;
+
+            if ($utc_timestamp > time()) {
+                as_schedule_single_action(
+                    $utc_timestamp,
+                    'gamify_execute_scheduled_action',
+                    [$user_id, $points, $type, $meta_args],
+                    'gamify-events'
+                );
+
                 Logger::log(
                     'action_scheduled',
                     "Scheduled to {$type} {$points} points on {$date}",
                     $user_id,
-                    ['scheduled_for' => $date, 'points' => $points],
+                    0,
+                    ['scheduled_for' => $date, 'utc_timestamp' => $utc_timestamp],
                     'pending'
                 );
 
                 return new \WP_REST_Response([
-                    'message' => 'Action scheduled successfully for ' . $date,
+                    'message' => 'Scheduled successfully.',
                     'status' => 'scheduled'
                 ], 200);
             }

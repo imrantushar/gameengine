@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Modal } from '@wordpress/components';
+import './styles.scss'
 
 const propTypes = {
 	title: PropTypes.string,

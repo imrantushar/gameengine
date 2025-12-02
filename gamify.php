@@ -20,38 +20,29 @@ if (! defined('ABSPATH')) {
 
 /**
  * The main Gamify plugin class.
- *
- * This final class acts as the main bootstrap for the plugin. It defines constants,
- * loads dependencies, registers hooks, and initializes the core service loader.
- * It follows the Singleton pattern to ensure it is loaded only once.
- *
  * @final
  */
 final class Gamify
 {
     /**
      * The single instance of the class.
-     *
      * @var Gamify|null
      */
     private static $instance = null;
 
     /**
      * Private constructor to prevent direct instantiation.
-     * This is where the plugin's initialization sequence begins.
      */
     private function __construct()
     {
         $this->define_constants();
         $this->load_dependencies();
-        $this->init_loader();
         $this->register_hooks();
     }
 
     /**
      * Get the single instance of the class.
-     *
-     * @return Gamify The single instance of the Gamify class.
+     * @return Gamify
      */
     public static function instance()
     {
@@ -74,45 +65,81 @@ final class Gamify
     }
 
     /**
-     * Load the plugin's dependencies, including the autoloader and helper functions.
+     * Load the plugin's dependencies.
      */
     private function load_dependencies()
     {
-        require_once GAMIFY_INCLUDES . 'autoload.php';
-        require_once GAMIFY_INCLUDES . 'functions.php';
+        // Load the Autoloader
+        require_once GAMIFY_INCLUDES . 'Autoload.php';
+
+        // Initialize the Autoloader (QuizPress Style)
+        // Note: Make sure your Autoload class has get_instance() method as discussed before.
+        if (class_exists('\Gamify\Autoload')) {
+            \Gamify\Autoload::get_instance();
+        }
+
+        // Load Helper functions if any
+        if (file_exists(GAMIFY_INCLUDES . 'functions.php')) {
+            require_once GAMIFY_INCLUDES . 'functions.php';
+        }
     }
 
     /**
-     * Register the core WordPress hooks for the plugin.
+     * Register the core WordPress hooks.
+     * Note: We do NOT initialize classes here directly to prevent translation errors.
      */
     private function register_hooks()
     {
-        // Register the activation hook to run the installer.
+        // Activation Hook
         register_activation_hook(GAMIFY_FILE, [__CLASS__, 'activate']);
 
-        // Register the hook for loading the plugin's text domain.
-        add_action('init', [$this, 'load_textdomain']);
+        // 1. Load Text Domain (Priority 0 - Run Early)
+        add_action('init', [$this, 'load_textdomain'], 0);
+
+        // 2. Initialize Plugin Modules (Priority 10 - Run after textdomain is loaded)
+        add_action('init', [$this, 'init_modules'], 10);
     }
 
     /**
-     * Initialize the plugin's core service loader.
-     * The Loader is responsible for initializing all other modules (services) of the plugin.
+     * Initialize Plugin Hooks and Classes.
+     * This runs inside the 'init' hook, safe for translations.
      */
-    private function init_loader()
+    public function init_modules()
     {
-        \Gamify\Core\Loader::instance();
+        // Global Assets (Frontend & Backend Scripts)
+        \Gamify\Assets::init();
+
+        // API Manager (Registers REST API Routes)
+        \Gamify\API\Manager::init();
+
+        // System Services (Loggers, Schedulers, Triggers)
+        \Gamify\Classes\Scheduler::init();
+        \Gamify\Classes\Logger::init();
+
+        // Triggers contain translatable strings, so it MUST load here
+        \Gamify\Classes\Triggers::init();
+
+        // Admin Only Modules
+        if (is_admin()) {
+            \Gamify\Admin::init();
+        }
     }
 
     /**
-     * The callback function for the plugin activation hook.
-     * This method is static because it's called when the plugin is activated,
-     * before the main plugin object might be instantiated.
+     * Plugin Activation Hook.
      */
     public static function activate()
     {
-        // Manually require the autoloader as it might not be loaded yet during activation.
-        require_once plugin_dir_path(__FILE__) . 'includes/autoload.php';
-        (new \Gamify\Core\Installer())->run();
+        // Ensure Autoloader is loaded during activation context
+        if (!class_exists('\Gamify\Autoload')) {
+            require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
+            \Gamify\Autoload::get_instance();
+        }
+
+        // Run Installer
+        if (class_exists('\Gamify\Core\Installer')) {
+            (new \Gamify\Core\Installer())->run();
+        }
     }
 
     /**
@@ -129,18 +156,15 @@ final class Gamify
 }
 
 /**
- * The main function for returning the Loader instance.
+ * Global accessor function.
+ * Since we removed the Loader class, we return the main instance.
  *
- * This function acts as a global accessor to the plugin's service container (the Loader),
- * allowing other parts of the codebase to interact with the plugin's modules easily.
- * For example: `gamify()->get_service('api_manager')`.
- *
- * @return \Gamify\Core\Loader The Loader instance.
+ * @return Gamify
  */
 function gamify()
 {
-    return \Gamify\Core\Loader::instance();
+    return Gamify::instance();
 }
 
-// Kickstart the plugin by calling the instance method.
+// Kickstart the plugin.
 Gamify::instance();

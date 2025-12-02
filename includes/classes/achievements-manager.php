@@ -1,16 +1,18 @@
 <?php
 
-namespace Gamify\System;
+namespace Gamify\Classes;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;
 }
 
+use Gamify\Classes\Logger;
+
 /**
  * Manages all achievement-related database operations.
  */
-final class AchievementsManager
+class AchievementsManager
 {
     /**
      * Unlock an achievement for a user.
@@ -19,7 +21,7 @@ final class AchievementsManager
      * @param int    $achievement_id The ID of the achievement to unlock.
      * @param string $context        The context/reason (e.g., 'trigger', 'manual', 'points_unlock').
      * @param array  $args           Additional arguments (optional).
-     * @return int|false             Log ID/User Achievement ID on success, false on failure.
+     * @return int|false             User Achievement ID on success, false on failure.
      */
     public function award(int $user_id, int $achievement_id, string $context = 'system', array $args = [])
     {
@@ -31,8 +33,6 @@ final class AchievementsManager
 
         // 1. Check if user already has this achievement
         if ($this->has_achievement($user_id, $achievement_id)) {
-            // Check max earnings logic if needed (e.g. if multi-earn is allowed)
-            // For now, assuming standard achievements are earned once.
             return false;
         }
 
@@ -51,9 +51,20 @@ final class AchievementsManager
 
         $user_achievement_id = $wpdb->insert_id;
 
-        // 3. Log the event in gamify_logs (Audit Trail)
-        // This keeps the logging consistent with PointsManager
-        $this->log_achievement_event($user_id, $achievement_id, 'award', $context);
+        // 3. Log the event using our centralized Logger class
+        Logger::log(
+            'achievement_unlocked',
+            "Achievement ID #{$achievement_id} unlocked.",
+            $user_id,
+            0, // Achievements usually don't have direct points here, separate transaction handles points
+            [
+                'achievement_id'      => $achievement_id,
+                'user_achievement_id' => $user_achievement_id,
+                'context'             => $context,
+                'args'                => $args
+            ],
+            'success'
+        );
 
         // 4. Fire Action Hook (for notifications, emails, etc.)
         do_action('gamify_achievement_unlocked', $user_id, $achievement_id, $user_achievement_id);
@@ -79,7 +90,16 @@ final class AchievementsManager
         ], ['%d', '%d']);
 
         if ($deleted) {
-            $this->log_achievement_event($user_id, $achievement_id, 'revoke', 'manual_or_penalty');
+            // Log the revocation using Logger
+            Logger::log(
+                'achievement_revoked',
+                "Achievement ID #{$achievement_id} revoked.",
+                $user_id,
+                0,
+                ['achievement_id' => $achievement_id, 'reason' => 'manual_or_penalty'],
+                'success'
+            );
+
             do_action('gamify_achievement_revoked', $user_id, $achievement_id);
             return true;
         }
@@ -120,6 +140,7 @@ final class AchievementsManager
         $table_user_ach = $wpdb->prefix . 'gamify_user_achievements';
         $table_ach      = $wpdb->prefix . 'gamify_achievements';
 
+        // Join to get achievement details (Title, Badge, etc.)
         return $wpdb->get_results($wpdb->prepare(
             "SELECT ua.*, a.title, a.badge_image 
              FROM {$table_user_ach} ua
@@ -128,28 +149,5 @@ final class AchievementsManager
              ORDER BY ua.achieved_at DESC",
             $user_id
         ), ARRAY_A);
-    }
-
-    /**
-     * Internal helper to log achievement events to the main audit log.
-     */
-    private function log_achievement_event($user_id, $achievement_id, $type, $context)
-    {
-        global $wpdb;
-        $table_logs = $wpdb->prefix . 'gamify_logs';
-
-        $message = ($type === 'award')
-            ? "Achievement ID #{$achievement_id} unlocked."
-            : "Achievement ID #{$achievement_id} revoked.";
-
-        $wpdb->insert($table_logs, [
-            'user_id'     => $user_id,
-            'trigger_key' => "achievement_{$type}",
-            'status'      => 'success',
-            'points_awarded' => 0, // Achievements don't directly award points here usually
-            'message'     => $message,
-            'meta'        => json_encode(['achievement_id' => $achievement_id, 'context' => $context]),
-            'created_at'  => current_time('mysql')
-        ]);
     }
 }

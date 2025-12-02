@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\System;
+namespace Gamify\Classes;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
@@ -9,8 +9,9 @@ if (! defined('ABSPATH')) {
 
 /**
  * Manages all point-related database operations.
+ * This class is instantiated by Controllers and Schedulers to manipulate points.
  */
-final class PointsManager
+class PointsManager
 {
     /**
      * Add points to a user and log the transaction.
@@ -64,6 +65,8 @@ final class PointsManager
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_points_log';
 
+        // Check table exists logic can be added here if needed, but usually handled by installer.
+
         $total = $wpdb->get_var($wpdb->prepare(
             "SELECT SUM(points) FROM {$table} WHERE user_id = %d AND point_type_id = %d",
             $user_id,
@@ -110,8 +113,7 @@ final class PointsManager
         $log_id = $wpdb->insert_id;
 
         // Fire actions for the Logger and other hooks.
-        // We pass 5 arguments to ensure the Logger receives the correct context (Trigger Name).
-        // Order: User ID, Points, Context (Event Name), Log ID, Point Type ID
+        // We ensure 5 arguments are passed so Logger::handle_points_added catches them correctly.
         if ($points_value > 0) {
             do_action('gamify_points_added', $user_id, $points_value, $context, $log_id, $point_type_id);
         } else {
