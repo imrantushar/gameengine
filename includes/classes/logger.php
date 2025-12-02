@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\System;
+namespace Gamify\Classes;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
@@ -13,15 +13,17 @@ if (! defined('ABSPATH')) {
 class Logger
 {
     /**
-     * Constructor.
-     * Automatically registers hooks when the class is instantiated.
+     * Initialize the Logger.
+     * Registers hooks for automatic logging of point transactions.
      */
-    public function __construct()
+    public static function init()
     {
+        $self = new self();
+
         // Listen for points added/deducted hooks.
         // Important: '5' indicates we expect 5 arguments from the do_action call.
-        add_action('gamify_points_added', [$this, 'handle_points_added'], 10, 5);
-        add_action('gamify_points_deducted', [$this, 'handle_points_deducted'], 10, 5);
+        add_action('gamify_points_added', [$self, 'handle_points_added'], 10, 5);
+        add_action('gamify_points_deducted', [$self, 'handle_points_deducted'], 10, 5);
     }
 
     /**
@@ -91,6 +93,11 @@ class Logger
 
         if (!$user_id) {
             $user_id = get_current_user_id();
+        }
+
+        // Check if table exists (Optional safety check if DB setup failed)
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
+            return;
         }
 
         $wpdb->insert($table, [

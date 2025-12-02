@@ -3,8 +3,8 @@
 namespace Gamify\API\Controllers;
 
 use Gamify\API\BaseController;
-use Gamify\System\PointsManager;
-use Gamify\System\Logger;
+use Gamify\Classes\PointsManager;
+use Gamify\Classes\Logger;
 
 if (! defined('ABSPATH')) exit;
 
@@ -51,7 +51,6 @@ class ActionsController extends BaseController
 
             $gmt_offset = get_option('gmt_offset') * 3600;
 
-            // ২. ইনপুট ডেটকে টাইমস্ট্যাম্পে কনভার্ট করা (এটি লোকাল টাইম হিসেবে আসবে)
             $local_timestamp = strtotime($date);
 
 

@@ -1,18 +1,27 @@
 <?php
 
-namespace Gamify\System;
+namespace Gamify\Classes;
 
-if (! defined('ABSPATH')) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+use Gamify\Classes\PointsManager;
+use Gamify\Classes\Logger;
 
 /**
- * Handles Async/Scheduled tasks using WP Cron.
+ * Handles Async/Scheduled tasks using WP Cron / Action Scheduler.
  */
 class Scheduler
 {
-    public function __construct()
+    /**
+     * Initialize the Scheduler.
+     * This registers the hook for Action Scheduler.
+     */
+    public static function init()
     {
-        // Register the hook that WP Cron will fire
-        add_action('gamify_execute_scheduled_action', [$this, 'process_scheduled_action'], 10, 4);
+        $self = new self();
+        add_action('gamify_execute_scheduled_action', [$self, 'process_scheduled_action'], 10, 4);
     }
 
     /**
@@ -25,6 +34,7 @@ class Scheduler
      */
     public function process_scheduled_action($user_id, $points, $action_type, $meta)
     {
+        // Ensure PointsManager is loaded via Autoloader
         $points_manager = new PointsManager();
 
         // Ensure we have a valid description
@@ -40,7 +50,7 @@ class Scheduler
             $log_id = $points_manager->add($user_id, $points, 'scheduled_execution', $meta);
         }
 
-        // FIX: Log the execution result explicitly
+        // Log the execution result explicitly
         if ($log_id) {
             $final_points = ($action_type === 'deduct') ? -$points : $points;
 
