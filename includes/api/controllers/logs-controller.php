@@ -3,7 +3,7 @@
 namespace Gamify\API\Controllers;
 
 use Gamify\API\BaseController;
-use Gamify\System\TriggerRegistry;
+use Gamify\Classes\TriggerRegistry;
 
 if (! defined('ABSPATH')) exit;
 

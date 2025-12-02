@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\System;
+namespace Gamify\Classes;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
@@ -9,7 +9,6 @@ if (! defined('ABSPATH')) {
 
 /**
  * A central registry for all available system triggers.
- * Handles configuration for both Point Types and Achievements.
  */
 final class TriggerRegistry
 {
@@ -18,10 +17,13 @@ final class TriggerRegistry
 
     /**
      * Initialize the registry and load default triggers.
+     * This is called by the main plugin file.
      */
     public static function init()
     {
-        if (self::$initialized) return;
+        if (self::$initialized) {
+            return;
+        }
 
         self::register_defaults();
         self::$triggers = apply_filters('gamify_available_triggers', self::$triggers);
@@ -204,13 +206,9 @@ final class TriggerRegistry
 
     /**
      * Add a new trigger to the registry.
-     *
-     * @param string $key    Unique key for the trigger.
-     * @param array  $config Configuration array.
      */
     public static function add(string $key, array $config)
     {
-        // Default scope is point_type if not provided
         if (!isset($config['supports'])) {
             $config['supports'] = ['point_type'];
         }
@@ -218,14 +216,13 @@ final class TriggerRegistry
     }
 
     /**
-     * Get all triggers, optionally filtered by scope.
-     *
-     * @param string|null $scope 'point_type', 'achievement', or null for all.
-     * @return array
+     * Get all triggers.
      */
     public static function get_all($scope = null): array
     {
-        if (! self::$initialized) self::init();
+        if (! self::$initialized) {
+            self::init();
+        }
 
         if ($scope) {
             return array_filter(self::$triggers, function ($trigger) use ($scope) {
@@ -238,13 +235,12 @@ final class TriggerRegistry
 
     /**
      * Get a specific trigger by key.
-     *
-     * @param string $key
-     * @return array|null
      */
     public static function get(string $key)
     {
-        $triggers = self::get_all();
-        return $triggers[$key] ?? null;
+        if (! self::$initialized) {
+            self::init();
+        }
+        return self::$triggers[$key] ?? null;
     }
 }
