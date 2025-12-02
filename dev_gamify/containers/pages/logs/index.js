@@ -32,6 +32,7 @@ import {
     Text,
     Tooltip,
 } from '@chakra-ui/react';
+import Select from 'react-select';
 
 const Logs = () => {
     const navigate = useNavigate();
@@ -283,6 +284,11 @@ const Logs = () => {
             </>
         );
     }, [status]);
+    const userOptions = [
+        { value: 1, label: "User 1" },
+        { value: 2, label: "User 2" },
+        { value: 3, label: "User 3" },
+    ];
 
     return (
         <>
@@ -329,28 +335,69 @@ const Logs = () => {
                     <Flex gap={4} mb={4}>
                         <Box flex="1">
                             {/* User ID (ReadOnly in Edit Mode) */}
-                            <LabeledInput
+                            {/* <LabeledInput
                                 label={'User ID'}
                                 placeholder={'e.g. 1'}
                                 value={formData.user_id}
                                 onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
                                 disabled={modalMode === 'edit'}
                                 style={{ width: '100%', opacity: modalMode === 'edit' ? 0.6 : 1 }}
+                            /> */}
+                            <Text
+                              fontWeight="500" fontSize="0.875rem" margin={0}
+                            >
+                                {__(`User ID`, "gamify")}
+                            </Text>
+
+                            <Select
+                                placeholder="e.g. 1"
+                                options={userOptions}
+                                value={userOptions.find(opt => opt.value === formData.user_id)}
+                                onChange={(selected) =>
+                                    setFormData({
+                                        ...formData,
+                                        user_id: selected ? selected.value : ""
+                                    })
+                                }
+                                isDisabled={modalMode === "edit"}
+                                styles={{
+                                    container: (base) => ({
+                                        ...base,
+                                        width: "100%",
+                                        opacity: modalMode === "edit" ? 0.6 : 1,
+                                    }),
+                                }}
                             />
                         </Box>
                         <Box flex="1">
                             {/* Action Type Select - Fixed Handler */}
-                            <GFSelect
+                            {/* <GFSelect
                                 label="Action Type"
-                                // placeholder="Select Action"
                                 items={[
                                     { label: 'Award Points (+)', value: 'award' },
                                     { label: 'Deduct Points (-)', value: 'deduct' },
                                 ]}
+                                value={'award'}
+                                // onChange={(val) => setFormData({ ...formData, type: val?.value })}
+                            />*/}
+                            <Text
+                                fontWeight="500" fontSize="0.875rem" margin={0}
+                            >
+                                {__(`Action Type`, "gamify")}
+                            </Text>
 
-                                onChange={(val) => setFormData({ ...formData, type: val })}
-                                value={formData.type}
+                            <Select
+                                classNamePrefix='gamify-logs'
+                                className='gamify-select'
+                                defaultValue={formData?.type ?? formData?.type?.items?.label}
+                                onChange={(val) => setFormData({ ...formData, type: val?.value })}
+                                options={[
+                                    { label: 'Award Points (+)', value: 'award' },
+                                    { label: 'Deduct Points (-)', value: 'deduct' },
+                                ]}
                             />
+
+
                         </Box>
                     </Flex>
 
@@ -387,6 +434,7 @@ const Logs = () => {
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                             style={{ width: '100%' }}
+                            inputStyle={{ height: '70px' }}
                         />
                     </Box>
 

@@ -4475,6 +4475,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/spinner/spinner.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 
 // export default Logs;
 
@@ -4501,7 +4502,9 @@ __webpack_require__.r(__webpack_exports__);
 
 // Chakra UI Imports
 
+
 const Logs = () => {
+  var _formData$type;
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
@@ -4757,6 +4760,16 @@ const Logs = () => {
       })
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Manual Trigger', 'gamify'))));
   }, [status]);
+  const userOptions = [{
+    value: 1,
+    label: "User 1"
+  }, {
+    value: 2,
+    label: "User 2"
+  }, {
+    value: 3,
+    label: "User 3"
+  }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
@@ -4802,37 +4815,47 @@ const Logs = () => {
     mb: 4
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
     flex: "1"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    label: 'User ID',
-    placeholder: 'e.g. 1',
-    value: formData.user_id,
-    onChange: e => setFormData({
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Text, {
+    fontWeight: "500",
+    fontSize: "0.875rem",
+    margin: 0
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`User ID`, "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    placeholder: "e.g. 1",
+    options: userOptions,
+    value: userOptions.find(opt => opt.value === formData.user_id),
+    onChange: selected => setFormData({
       ...formData,
-      user_id: e.target.value
+      user_id: selected ? selected.value : ""
     }),
-    disabled: modalMode === 'edit',
-    style: {
-      width: '100%',
-      opacity: modalMode === 'edit' ? 0.6 : 1
+    isDisabled: modalMode === "edit",
+    styles: {
+      container: base => ({
+        ...base,
+        width: "100%",
+        opacity: modalMode === "edit" ? 0.6 : 1
+      })
     }
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.Box, {
     flex: "1"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Action Type"
-    // placeholder="Select Action"
-    ,
-    items: [{
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Text, {
+    fontWeight: "500",
+    fontSize: "0.875rem",
+    margin: 0
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Action Type`, "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_22__["default"], {
+    classNamePrefix: "gamify-logs",
+    className: "gamify-select",
+    defaultValue: (_formData$type = formData?.type) !== null && _formData$type !== void 0 ? _formData$type : formData?.type?.items?.label,
+    onChange: val => setFormData({
+      ...formData,
+      type: val?.value
+    }),
+    options: [{
       label: 'Award Points (+)',
       value: 'award'
     }, {
       label: 'Deduct Points (-)',
       value: 'deduct'
-    }],
-    onChange: val => setFormData({
-      ...formData,
-      type: val
-    }),
-    value: formData.type
+    }]
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
     gap: 4,
     mb: 4
@@ -4876,6 +4899,9 @@ const Logs = () => {
     }),
     style: {
       width: '100%'
+    },
+    inputStyle: {
+      height: '70px'
     }
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_19__.Flex, {
     justifyContent: "flex-end",

@@ -461,6 +461,184 @@
   padding: 0;
 }
 
+.gamify-select--width-full {
+  width: 100%;
+}
+.gamify-select--120 {
+  width: 120px;
+}
+.gamify-select--136 {
+  width: 136px;
+}
+.gamify-select--140 {
+  width: 140px;
+}
+.gamify-select--150 {
+  width: 150px;
+}
+.gamify-select--164 {
+  width: 164px;
+}
+.gamify-select--214 {
+  width: 214px;
+}
+.gamify-select--200 {
+  width: 200px;
+}
+.gamify-select--250 {
+  width: 250px;
+}
+.gamify-select--300 {
+  width: 300px;
+}
+.gamify-select {
+  font-size: 14px;
+}
+.gamify-select .gamify-select__control {
+  border: 1px solid #CBD1D7;
+  background: #FFF;
+  border-radius: 4px;
+  box-shadow: none;
+}
+.gamify-select .gamify-select__control .gamify-select__input-container .gamify-select__input {
+  box-shadow: none;
+  height: 100%;
+  min-height: unset;
+}
+.gamify-select .gamify-select__menu {
+  background: #fff;
+  min-width: 100%;
+  box-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.3), 0 8px 16px 0 rgba(20, 26, 36, 0.1);
+}
+.gamify-select .gamify-select__option {
+  color: var(--zencom-font-color);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.gamify-select .gamify-select__option:hover, .gamify-select .gamify-select__option:active {
+  background: var(--zencom-primary-color) !important;
+  -webkit-tap-highlight-color: none !important;
+}
+.gamify-select .gamify-select__option {
+  width: calc(100% - 16px);
+  margin: 4px auto;
+  border-radius: 4px;
+}
+.gamify-select .gamify-select__option--is-focused {
+  background: var(--zencom-primary-color) !important;
+  color: #fff !important;
+}
+.gamify-select .gamify-select__option--is-selected {
+  background: var(--zencom-primary-color) !important;
+  color: #fff !important;
+}
+.gamify-select .gamify-select__multi-value {
+  background: var(--zencom-primary-color) !important;
+}
+.gamify-select .gamify-select__multi-value__label {
+  color: #fff !important;
+}
+.gamify-select .gamify-select__multi-value__remove {
+  color: #E2483D;
+}
+.gamify-select .gamify-select__single-value {
+  color: #141A24;
+}
+.gamify-select--transparent .gamify-select__control {
+  border: none;
+}
+.gamify-select--transparent .gamify-select__placeholder {
+  font-size: 14px;
+  color: var(--zencom-font-color);
+  font-weight: 500;
+}
+.gamify-select--transparent .gamify-select__indicator-separator {
+  display: none;
+}
+.gamify-select--transparent .gamify-select__dropdown-indicator {
+  padding: 8px 8px 8px 0;
+  color: var(--zencom-font-color);
+  font-weight: 500;
+}
+
+.zencom-radio-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.zencom-radio-input {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--zencom-border-color);
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.zencom-radio-input:checked {
+  border-color: var(--zencom-primary-color);
+  background-color: var(--zencom-primary-color);
+}
+
+.zencom-radio-input:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.zencom-radio-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
+}
+
+.zencom-radio-input:hover {
+  border-color: var(--zencom-primary-color);
+}
+
+.zencom-radio-label {
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.zencom-radio-option {
+  color: var(--zencom-gray-color);
+}
+
+.zencom-radio-option.active {
+  color: var(--zencom-primary-color);
+}
+
+.zencom-radio-option.active .zencom-radio-label {
+  color: var(--zencom-primary-color);
+}
+
+@media (max-width: 768px) {
+  .zencom-ticket-table td > p {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
+  .zencom-ticket-table table td, .zencom-ticket-table table tr {
+    display: revert;
+  }
+}
 .gamify-admin-content {
   margin-left: -20px;
   background: var(--gamify-body-background);
