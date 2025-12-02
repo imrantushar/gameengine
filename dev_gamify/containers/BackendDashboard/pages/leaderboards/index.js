@@ -1,11 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import TopBar from "@Components/TopBar";
-import GFLabel from '@Components/Labels/GFLabel';
+import TopBar from "@GFComponents/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
-import ListTable from '@Components/ListTable';
+import ListTable from '@GFComponents/ListTable';
 import { Box, Button, Flex } from '@chakra-ui/react';
-import GFSelect from '@Components/Select';
-import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
+import GFSelect from '@GFComponents/Select';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+
 
 const initialData = [
     {

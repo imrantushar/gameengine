@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { reactDebounce } from '@Utils/helper';
+import { reactDebounce } from '@GFUtils/helper';
 import './styles.scss';
 
 const propTypes = {

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
-import { is_admin } from '@Utils/helper';
+import { is_admin } from '@GFUtils/helper';
 import PropTypes from 'prop-types';
 // component
 import TableSubHeader from './TableSubHeader';

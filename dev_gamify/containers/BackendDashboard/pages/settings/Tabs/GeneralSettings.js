@@ -1,10 +1,11 @@
 import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
-import GFLabel from '@Components/Labels/GFLabel';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";
-import Divider from '@Components/Divider';
-import LabeledInput from '@Components/LabeledInput';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Divider from '@GFComponents/Divider';
+import LabeledInput from '@GFComponents/LabeledInput';
+import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+
 
 const GeneralSettings = () => {
     return (

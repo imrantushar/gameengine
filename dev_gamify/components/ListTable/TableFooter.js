@@ -1,7 +1,7 @@
 import React from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Text } from '@chakra-ui/react';
-import Pagination from '@Components/Pagination';
+import Pagination from '@GFComponents/Pagination';
 // import Select from 'react-select';
 
 const options = [

@@ -1,6 +1,6 @@
 import React from 'react';
-import TopBar from '@Components/TopBar';
-import GFLabel from '@Components/Labels/GFLabel';
+import TopBar from '@GFComponents/TopBar';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';

@@ -6,14 +6,12 @@ import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 // Components
-import TopBar from "@Components/TopBar";
-import GFLabel from '@Components/Labels/GFLabel';
-import ListTable from '@Components/ListTable';
-import OptionMenu from '@Components/OptionMenu';
-import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-
-// Import Redux actions
-import { fetchPointTypes, deletePointType } from '../../../redux/Slices/pointTypeSlice';
+import TopBar from "@GFComponents/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import ListTable from '@GFComponents/ListTable';
+import OptionMenu from '@GFComponents/OptionMenu';
+import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypeSlice';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 
 const Points = () => {
     const navigate = useNavigate();

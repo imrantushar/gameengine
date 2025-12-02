@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import CustomCollapsible from '@Components/Collapsible';
+import CustomCollapsible from '@GFComponents/Collapsible';
 import { Box, Button, Flex, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 
-import LabeledInput from '@Components/LabeledInput';
-import GFSelect from "@Components/Select";
-import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
-import Divider from '@Components/Divider';
+import LabeledInput from '@GFComponents/LabeledInput';
+import GFSelect from "@GFComponents/Select";
+import Divider from '@GFComponents/Divider';
+import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 
 const UnlockSpecialAchievements = (props) => {
     const [isOpen, setIsOpen] = useState(false)

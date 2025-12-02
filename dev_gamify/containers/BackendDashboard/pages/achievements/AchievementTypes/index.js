@@ -5,17 +5,16 @@ import {
     Box, Button, Flex, Icon, Text, Switch
 } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
-import GFLabel from "@Components/Labels/GFLabel";
+import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select"; // Import react-select
-import CustomCollapsible from "@Components/Collapsible";
-import TopBar from "@Components/TopBar";
+import CustomCollapsible from "@GFComponents/Collapsible";
+import TopBar from "@GFComponents/TopBar";
 import { FaArrowRotateRight } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
-import LabeledInput from "@Components/LabeledInput";
-import { primaryBtn } from "../../../../../assets/scss/chakra/recipe";
-import GFSelect from "@Components/Select";
-import Divider from "@Components/Divider";
-import GamifyEditor from "@Components/editor";
+import LabeledInput from "@GFComponents/LabeledInput";
+import GFSelect from "@GFComponents/Select";
+import Divider from "@GFComponents/Divider";
+import GamifyEditor from "@GFComponents/editor";
 
 // Actions
 import {
@@ -29,7 +28,8 @@ import {
     addHook,
     removeHook,
     updateHookSettings
-} from "../../../../redux/Slices/achievementsSlice";
+} from "@GFRedux/Slices/achievementsSlice";
+import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 
 // --- Draggable Components ---
 const DraggableItem = ({ id, children }) => {

@@ -11,10 +11,10 @@ import {
     FileUpload
 } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
-import GFLabel from "@Components/Labels/GFLabel";
+import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
-import CustomCollapsible from "@Components/Collapsible";
-import TopBar from "@Components/TopBar";
+import CustomCollapsible from "@GFComponents/Collapsible";
+import TopBar from "@GFComponents/TopBar";
 import { FaArrowRotateRight } from "react-icons/fa6";
 import { HiUpload } from "react-icons/hi"
 
@@ -27,13 +27,13 @@ import {
     useDroppable,
 } from "@dnd-kit/core";
 
-import LabeledInput from "@Components/LabeledInput";
-import { primaryBtn } from "../../../../../assets/scss/chakra/recipe";
-import Divider from "@Components/Divider";
+import LabeledInput from "@GFComponents/LabeledInput";
 import { Switch } from "@chakra-ui/react";
-import GFSelect from "@Components/Select";
+import GFSelect from "@GFComponents/Select";
 import UnlockSpecialAchievements from "./levelHooks/UnlockSpecialAchievements";
-import GamifyEditor from "@Components/editor";
+import GamifyEditor from "@GFComponents/editor";
+import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+
 
 const levelHooks = [
     {

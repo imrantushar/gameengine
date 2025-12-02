@@ -5,21 +5,20 @@ import { useNavigate } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
 
 // Custom Components
-import TopBar from "@Components/TopBar";
-import GFLabel from '@Components/Labels/GFLabel';
-import ListTable from '@Components/ListTable';
-import OptionMenu from '@Components/OptionMenu';
-import Search from '@Components/Search';
-import LabeledInput from "@Components/LabeledInput";
-import GFSelect from "@Components/Select";
-import WPModal from '@Components/Modal/WPModal';
+import TopBar from "@GFComponents/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import ListTable from '@GFComponents/ListTable';
+import OptionMenu from '@GFComponents/OptionMenu';
+import Search from '@GFComponents/Search';
+import LabeledInput from "@GFComponents/LabeledInput";
+import WPModal from '@GFComponents/Modal/WPModal';
 
 // Icons
 import { FiMoreHorizontal, FiEdit, FiClock, FiRefreshCw, FiPlus } from "react-icons/fi";
-import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
+
 
 // Redux Actions
-import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '../../../redux/Slices/logsSlice';
+import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice';
 
 // Chakra UI Imports
 import {
@@ -33,6 +32,7 @@ import {
     Tooltip,
 } from '@chakra-ui/react';
 import Select from 'react-select';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 
 const Logs = () => {
     const navigate = useNavigate();

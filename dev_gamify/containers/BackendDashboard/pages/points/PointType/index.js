@@ -23,14 +23,14 @@ import {
 import Select from 'react-select';
 
 // Components
-import TopBar from '@Components/TopBar';
-import GFLabel from '@Components/Labels/GFLabel';
-import LabeledInput from '@Components/LabeledInput';
-import CustomCollapsible from '@Components/Collapsible';
-import Divider from '@Components/Divider';
+import TopBar from '@GFComponents/TopBar';
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import LabeledInput from '@GFComponents/LabeledInput';
+import CustomCollapsible from '@GFComponents/Collapsible';
+import Divider from '@GFComponents/Divider';
 
 // Imports
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+
 import {
     setPointName,
     setPluralName,
@@ -44,7 +44,8 @@ import {
     addDeductHook,
     removeDeductHook,
     updateHookSettings
-} from '../../../../redux/Slices/pointTypeSlice';
+} from '@GFRedux/Slices/pointTypeSlice';
+import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 
 
 // # DRAGGABLE

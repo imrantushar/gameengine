@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import TopBar from "@Components/TopBar";
-import GFLabel from '@Components/Labels/GFLabel';
+import TopBar from "@GFComponents/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
-import ListTable from '@Components/ListTable';
+import ListTable from '@GFComponents/ListTable';
 import { Box, Button, Flex, Icon } from '@chakra-ui/react';
-import OptionMenu from '@Components/OptionMenu';
+import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { primaryBtn } from '../../../../assets/scss/chakra/recipe';
-import { fetchAchievements, deleteAchievement } from '../../../redux/Slices/achievementsSlice';
+
+import { fetchAchievements, deleteAchievement } from '@GFRedux/Slices/achievementsSlice';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 
 const Achievements = () => {
     const dispatch = useDispatch();
