@@ -287,12 +287,8 @@ const AchievementsType = () => {
                                 />
                             </Box>
                             <Box width="50%">
-                                {/* Debugging Log */}
-                                {console.log("Current Selected ID:", selectedPointTypeId)}
-                                {console.log("Available Types:", availablePointTypes)}
-
                                 <Box width="100%">
-                                    <Text fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">
+                                    <Text margin='1' fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">
                                         {__("Choose the Points Type", "gamify")}
                                     </Text>
                                     <Select
@@ -300,7 +296,6 @@ const AchievementsType = () => {
                                         className="gamify-select"
                                         classNamePrefix="gamify-select"
                                         options={availablePointTypes}
-                                        // FIX: Find the matching object safely (String/Number safe comparison)
                                         value={
                                             availablePointTypes.find(
                                                 opt => String(opt.value) === String(selectedPointTypeId)
@@ -310,6 +305,13 @@ const AchievementsType = () => {
                                             dispatch(setField({ field: 'selectedPointTypeId', value: selected ? selected.value : null }))
                                         }
                                     />
+                                      <GFSelect
+                                    label="Choose the Points Type"
+                                    placeholder="Choose one"
+                                    items={availablePointTypes}
+                                    value={selectedPointTypeId}
+                                    onChange={(e) => dispatch(setField({ field: 'selectedPointTypeId', value: e.value }))}
+                                />
                                 </Box>
                             </Box>
                         </Flex>

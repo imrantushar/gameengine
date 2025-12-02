@@ -2824,9 +2824,10 @@ const AchievementsType = () => {
     }))
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%"
-  }, console.log("Current Selected ID:", selectedPointTypeId), console.log("Available Types:", availablePointTypes), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "100%"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+    margin: "1",
     fontSize: "14px",
     fontWeight: "500",
     mb: "8px",
@@ -2835,13 +2836,20 @@ const AchievementsType = () => {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Choose one", "gamify"),
     className: "gamify-select",
     classNamePrefix: "gamify-select",
-    options: availablePointTypes
-    // FIX: Find the matching object safely (String/Number safe comparison)
-    ,
+    options: availablePointTypes,
     value: availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null,
     onChange: selected => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
       field: 'selectedPointTypeId',
       value: selected ? selected.value : null
+    }))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    label: "Choose the Points Type",
+    placeholder: "Choose one",
+    items: availablePointTypes,
+    value: selectedPointTypeId,
+    onChange: e => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
+      field: 'selectedPointTypeId',
+      value: e.value
     }))
   })))), !allowUnlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "Achievement Requirements",
