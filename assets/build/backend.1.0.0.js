@@ -2824,16 +2824,26 @@ const AchievementsType = () => {
     }))
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Select__WEBPACK_IMPORTED_MODULE_18__["default"], {
-    label: "Choose the Points Type",
-    placeholder: "Choose one",
-    items: availablePointTypes,
-    value: selectedPointTypeId,
-    onChange: e => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
+  }, console.log("Current Selected ID:", selectedPointTypeId), console.log("Available Types:", availablePointTypes), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    width: "100%"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+    fontSize: "14px",
+    fontWeight: "500",
+    mb: "8px",
+    color: "var(--gamify-font-color)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Choose the Points Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Choose one", "gamify"),
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    options: availablePointTypes
+    // FIX: Find the matching object safely (String/Number safe comparison)
+    ,
+    value: availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null,
+    onChange: selected => dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.setField)({
       field: 'selectedPointTypeId',
-      value: e.value
+      value: selected ? selected.value : null
     }))
-  }))), !allowUnlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })))), !allowUnlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "Achievement Requirements",
     isOpen: achievementCollapsible,
     onClick: () => setAchievementCollapsible(!achievementCollapsible)
@@ -6304,7 +6314,7 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
     }).addCase(fetchPointTypes.fulfilled, (state, action) => {
       state.availablePointTypes = action.payload.map(pt => ({
         label: pt.name,
-        value: pt.id
+        value: String(pt.id)
       }));
     }).addCase(fetchAchievementById.fulfilled, (state, action) => {
       const data = action.payload;

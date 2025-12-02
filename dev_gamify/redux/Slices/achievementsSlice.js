@@ -108,7 +108,7 @@ const achievementsSlice = createSlice({
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
                 state.availablePointTypes = action.payload.map(pt => ({
                     label: pt.name,
-                    value: pt.id
+                    value: String(pt.id)
                 }));
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
