@@ -12,6 +12,7 @@ import ListTable from '@GFComponents/ListTable';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypeSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { route_path } from '@GFUtils/helper';
 
 const Points = () => {
     const navigate = useNavigate();
@@ -102,7 +103,7 @@ const Points = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        onClick={() => navigate("/point-type")}
+                        onClick={() => navigate(`${ route_path }admin.php?page=gamify-points&path=points-types`)}
                     >
                         {__('+ Add new point types', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />

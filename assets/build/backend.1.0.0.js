@@ -2533,16 +2533,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import Points from './points';
-// import Logs from './logs';
-// import Settings from './settings';
-// import PointType from './points/PointType';
-// import Achievements from './achievements/';
-// import AchievementsType from './achievements/AchievementTypes';
-// import Levels from './levels';
-// import LevelType from './levels/levelTypes';
-// import Leaderboards from './leaderboards';
-
 
 
 
@@ -2554,16 +2544,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const renderSwitch = (page, id, action, path) => {
-  console.log('PAGE =>', page, id, action, path);
+  console.log(page, path);
   switch (page) {
     case 'gamify':
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_dashboard__WEBPACK_IMPORTED_MODULE_2__["default"], null);
     case 'gamify-points':
-      if (action || id) {
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_points_PointType__WEBPACK_IMPORTED_MODULE_8__["default"], {
-          action: action,
-          id: id
-        });
+      if (path === "points-types") {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_points_PointType__WEBPACK_IMPORTED_MODULE_8__["default"], null);
       }
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_points__WEBPACK_IMPORTED_MODULE_11__["default"], null);
     case 'gamify-logs':
@@ -2573,13 +2560,15 @@ const renderSwitch = (page, id, action, path) => {
     case 'point-type':
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_points_PointType__WEBPACK_IMPORTED_MODULE_8__["default"], null);
     case 'gamify-achievements':
+      if (path === 'achievements-type') {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_achievements_AchievementTypes__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+      }
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_achievements__WEBPACK_IMPORTED_MODULE_7__["default"], null);
-    case 'achievements-type':
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_achievements_AchievementTypes__WEBPACK_IMPORTED_MODULE_6__["default"], null);
     case 'gamify-levels':
+      if (path === 'levels-types') {
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_levels_levelTypes__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      }
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_levels__WEBPACK_IMPORTED_MODULE_3__["default"], null);
-    case 'level-type':
-      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_levels_levelTypes__WEBPACK_IMPORTED_MODULE_4__["default"], null);
     case 'gamify-leaderboards':
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_leaderboards__WEBPACK_IMPORTED_MODULE_5__["default"], null);
     default:
@@ -3134,6 +3123,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
 /* harmony import */ var _GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFRedux/Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+
 
 
 
@@ -3219,7 +3210,7 @@ const Achievements = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Achievement Types`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__.primaryBtn,
-    onClick: () => navigate("/achievementsType")
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__.route_path}admin.php?page=gamify-achievements&path=achievements-type`)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('+ Add new achievement type', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -3863,6 +3854,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+
 
 
 
@@ -3960,7 +3953,7 @@ const Levels = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Levels Types`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.primaryBtn,
-    onClick: () => navigate("/level-type")
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__.route_path}admin.php?page=gamify-levels&path=levels-types`)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('+ Add new point types', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -5557,6 +5550,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
 /* harmony import */ var _GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFRedux/Slices/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypeSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
 
  // Redux imports
@@ -5566,6 +5560,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Components
+
 
 
 
@@ -5655,7 +5650,7 @@ const Points = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(`Point Types`, 'gamify')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_15__.primaryBtn,
-    onClick: () => navigate("/point-type")
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_16__.route_path}admin.php?page=gamify-points&path=points-types`)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('+ Add new point types', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
   }))), listStatus === 'loading' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {

@@ -1,14 +1,4 @@
-import React from 'react';
-
-// import Points from './points';
-// import Logs from './logs';
-// import Settings from './settings';
-// import PointType from './points/PointType';
-// import Achievements from './achievements/';
-// import AchievementsType from './achievements/AchievementTypes';
-// import Levels from './levels';
-// import LevelType from './levels/levelTypes';
-// import Leaderboards from './leaderboards';
+import React, { useEffect } from 'react';
 import { useQuery } from '@GFUtils/helper';
 import Dashboard from './pages/dashboard';
 import Levels from './pages/levels';
@@ -22,17 +12,16 @@ import Logs from './pages/logs';
 import Points from './pages/points';
 
 const renderSwitch = (page, id, action, path) => {
-	console.log('PAGE =>',page, id, action, path);
+	console.log( page,path);
 
 	switch (page) {
 		case 'gamify':
 			return <Dashboard />;
 		case 'gamify-points':
-            if (action || id) {
-				return <PointType action={action} id={id} />;
+			if(path === "points-types"){
+             return <PointType />;
 			}
 			return <Points />;
-
 		case 'gamify-logs':
 			return <Logs />;
 
@@ -43,17 +32,16 @@ const renderSwitch = (page, id, action, path) => {
 			return <PointType />;
 
 		case 'gamify-achievements':
+			if(path === 'achievements-type'){
+				return <AchievementsType />
+			}
 			return <Achievements />;
 
-		case 'achievements-type':
-			return <AchievementsType />;
-
 		case 'gamify-levels':
+			if(path === 'levels-types'){
+				return <LevelType />;
+			}
 			return <Levels />;
-
-		case 'level-type':
-			return <LevelType />;
-
 		case 'gamify-leaderboards':
 			return <Leaderboards />;
 
@@ -64,6 +52,7 @@ const renderSwitch = (page, id, action, path) => {
 
 export default function BackendDashboard() {
 	const query = useQuery();
+	
 	return (
 		<div className="gamify-admin-content">
 			{renderSwitch(

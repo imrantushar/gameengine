@@ -9,6 +9,7 @@ import { FiEdit } from "react-icons/fi";
 import { FiTrash2 } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { route_path } from '@GFUtils/helper';
 
 
 const staticData = [
@@ -86,7 +87,7 @@ const Levels = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        onClick={() => navigate("/level-type")}
+                        onClick={() => navigate(`${ route_path }admin.php?page=gamify-levels&path=levels-types`)}
 
                     >
                         {__('+ Add new point types', 'gamify')}

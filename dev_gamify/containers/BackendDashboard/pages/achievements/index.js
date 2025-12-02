@@ -11,6 +11,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 import { fetchAchievements, deleteAchievement } from '@GFRedux/Slices/achievementsSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { route_path } from '@GFUtils/helper';
 
 const Achievements = () => {
     const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const Achievements = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        onClick={() => navigate("/achievementsType")}
+                        onClick={() => navigate(`${ route_path }admin.php?page=gamify-achievements&path=achievements-type`)}
                     >
                         {__('+ Add new achievement type', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
