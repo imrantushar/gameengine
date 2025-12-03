@@ -119,7 +119,7 @@ class Helper
     }
 
     /**
-     * Template loader similar to QuizPress.
+     * Template loader similar to gamify.
      * 
      * @param string $template_name
      * @param array $args

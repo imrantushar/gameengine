@@ -1421,34 +1421,34 @@ input.gamify-checkbox:checked::before {
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Pagination/styles.scss ***!
   \*********************************************************************************************************************************************************************************************************************************************************************/
-.quizpress-pagination {
+.gamify-pagination {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 5px;
 }
-.quizpress-pagination .quizpress-btn {
+.gamify-pagination .gamify-btn {
   width: 30px;
   height: 30px;
   border-radius: 4px;
   background: rgba(0, 0, 0, 0.08);
   padding: 0;
 }
-.quizpress-pagination .quizpress-btn:hover {
-  background: var(--quizpress-primary);
+.gamify-pagination .gamify-btn:hover {
+  background: var(--gamify-primary);
 }
-.quizpress-pagination .quizpress-btn .quizpress-icon {
+.gamify-pagination .gamify-btn .gamify-icon {
   font-size: 14px;
 }
-.quizpress-pagination .quizpress-pagination-list {
+.gamify-pagination .gamify-pagination-list {
   display: flex;
   align-items: center;
   gap: 10px;
   padding: 4px;
   margin: 0;
 }
-.quizpress-pagination .quizpress-pagination-list__item {
+.gamify-pagination .gamify-pagination-list__item {
   width: 30px;
   height: 30px;
   border-radius: 4px;
@@ -1460,31 +1460,31 @@ input.gamify-checkbox:checked::before {
   font-weight: 500;
   font-size: 14px;
   line-height: 36px;
-  color: var(--quizpress-font-color);
-  border: 1px solid var(--quizpress-border-color);
+  color: var(--gamify-font-color);
+  border: 1px solid var(--gamify-border-color);
 }
-.quizpress-pagination .quizpress-pagination-list__item:hover {
-  background: var(--quizpress-body-background);
+.gamify-pagination .gamify-pagination-list__item:hover {
+  background: var(--gamify-body-background);
 }
-.quizpress-pagination .quizpress-pagination-list__item-dots {
+.gamify-pagination .gamify-pagination-list__item-dots {
   letter-spacing: 4px;
   font-weight: 500;
   padding-right: 4px;
   color: none;
   pointer-events: none;
 }
-.quizpress-pagination .quizpress-pagination-list__item-dots:hover {
+.gamify-pagination .gamify-pagination-list__item-dots:hover {
   background: none;
   color: none;
   border-radius: unset;
 }
-.quizpress-pagination .quizpress-pagination-list__item-active {
-  background: var(--quizpress-primary);
+.gamify-pagination .gamify-pagination-list__item-active {
+  background: var(--gamify-primary);
   color: #fff;
   cursor: default;
 }
-.quizpress-pagination .quizpress-pagination-list__item-active:hover {
-  background: var(--quizpress-primary);
+.gamify-pagination .gamify-pagination-list__item-active:hover {
+  background: var(--gamify-primary);
   color: #fff;
 }
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\

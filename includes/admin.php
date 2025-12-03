@@ -22,7 +22,7 @@ class Admin
         // Initialize the Menu
         Admin\Menu::init();
 
-        // You can add other modules here later, following the QuizPress pattern:
+        // You can add other modules here later, following the gamify pattern:
         // Admin\Settings::init();
         // Admin\License::init();
     }

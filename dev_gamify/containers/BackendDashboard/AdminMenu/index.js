@@ -19,7 +19,7 @@ const AdminMenu = () => {
 	const path = location.get( 'path' );
 	useEffect( () => {
 		document.title =
-			adminmenu[ page ]?.title + ' - ' + __( 'Gamify', 'quizpress' );
+			adminmenu[ page ]?.title + ' - ' + __( 'Gamify', 'gamify' );
 	}, [ page ] );
 
 	return (
@@ -45,16 +45,16 @@ const AdminMenu = () => {
 					<br />
 				</div>
 				<div className="wp-menu-name">
-					{ __( 'QuizPress', 'quizpress' ) }
+					{ __( 'gamify', 'gamify' ) }
 				</div>
 			</Link>
 			<ul className="wp-submenu wp-submenu-wrap">
 				<li className="wp-submenu-head" aria-hidden="true">
-					{ __( 'QuizPress', 'quizpress' ) }
+					{ __( 'gamify', 'gamify' ) }
 				</li>
 				{ Object.entries( adminmenu ).map( ( [ key, item ], index ) => {
 					if (
-						[ 'quizpress-get-pro', 'quizpress-license' ].includes(
+						[ 'gamify-get-pro', 'gamify-license' ].includes(
 							key
 						)
 					) {
@@ -79,7 +79,7 @@ const AdminMenu = () => {
 							>
 								{ item.title }
 								{ item?.sub_items && (
-									<span className="quizpress-icon quizpress-icon--angle-right"></span>
+									<span className="gamify-icon gamify-icon--angle-right"></span>
 								) }
 							</Link>
 						</MenuItem>
@@ -89,22 +89,22 @@ const AdminMenu = () => {
 					{ is_pro ? (
 						<li
 							className={
-								page === 'quizpress-license' ? 'current' : ''
+								page === 'gamify-license' ? 'current' : ''
 							}
 						>
-							<a href="admin.php?page=quizpress-license">
-								{ __( 'License', 'quizpress' ) }
+							<a href="admin.php?page=gamify-license">
+								{ __( 'License', 'gamify' ) }
 							</a>
 						</li>
 					) : (
 						<li
 							className={
-								page === 'quizpress-get-pro' ? 'current' : ''
+								page === 'gamify-get-pro' ? 'current' : ''
 							}
 						>
-							<a href="admin.php?page=quizpress-get-pro">
-								<span className="dashicons dashicons-awards quizpress-blue-color"></span>{ ' ' }
-								{ __( 'Get Pro', 'quizpress' ) }
+							<a href="admin.php?page=gamify-get-pro">
+								<span className="dashicons dashicons-awards gamify-blue-color"></span>{ ' ' }
+								{ __( 'Get Pro', 'gamify' ) }
 							</a>
 						</li>
 					) }

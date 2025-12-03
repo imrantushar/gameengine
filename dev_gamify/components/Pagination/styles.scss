@@ -1,23 +1,23 @@
-.quizpress-pagination {
+.gamify-pagination {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 5px;
-    .quizpress-btn {
+    .gamify-btn {
         width: 30px;
         height: 30px;
         border-radius: 4px;
         background: rgba(0, 0, 0, 0.08);
         padding: 0;
         &:hover {
-            background: var(--quizpress-primary);
+            background: var(--gamify-primary);
         }
-        .quizpress-icon {
+        .gamify-icon {
             font-size: 14px;
         }
     }
-    .quizpress-pagination-list {
+    .gamify-pagination-list {
         display: flex;
         align-items: center;
         gap: 10px;
@@ -35,10 +35,10 @@
             font-weight: 500;
             font-size: 14px;
             line-height: 36px;
-            color: var(--quizpress-font-color);
-            border: 1px solid var(--quizpress-border-color);
+            color: var(--gamify-font-color);
+            border: 1px solid var(--gamify-border-color);
             &:hover {
-                background:  var(--quizpress-body-background);
+                background:  var(--gamify-body-background);
             }
         }
         &__item-dots {
@@ -54,11 +54,11 @@
             }
         }
         &__item-active {
-            background: var(--quizpress-primary);
+            background: var(--gamify-primary);
             color: #fff;
             cursor: default;
             &:hover {
-                background: var(--quizpress-primary);            
+                background: var(--gamify-primary);            
                 color: #fff;
             }
         }

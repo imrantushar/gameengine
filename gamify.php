@@ -72,7 +72,7 @@ final class Gamify
         // Load the Autoloader
         require_once GAMIFY_INCLUDES . 'Autoload.php';
 
-        // Initialize the Autoloader (QuizPress Style)
+        // Initialize the Autoloader (gamify Style)
         // Note: Make sure your Autoload class has get_instance() method as discussed before.
         if (class_exists('\Gamify\Autoload')) {
             \Gamify\Autoload::get_instance();

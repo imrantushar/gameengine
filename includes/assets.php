@@ -14,7 +14,7 @@ class Assets
 {
     /**
      * Initialize the Assets class.
-     * This matches the QuizPress structure.
+     * This matches the gamify structure.
      */
     public static function init()
     {
@@ -27,7 +27,7 @@ class Assets
 
     /**
      * Prepares the array of data to be passed to JavaScript.
-     * This replicates the structure found in QuizPress.
+     * This replicates the structure found in gamify.
      *
      * @return array
      */
