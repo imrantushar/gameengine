@@ -287,13 +287,32 @@ const AchievementsType = () => {
                                 />
                             </Box>
                             <Box width="50%">
-                                <GFSelect
+                                <Box width="100%">
+                                    <Text margin='1' fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">
+                                        {__("Choose the Points Type", "gamify")}
+                                    </Text>
+                                    <Select
+                                        placeholder={__("Choose one", "gamify")}
+                                        className="gamify-select"
+                                        classNamePrefix="gamify-select"
+                                        options={availablePointTypes}
+                                        value={
+                                            availablePointTypes.find(
+                                                opt => String(opt.value) === String(selectedPointTypeId)
+                                            ) || null
+                                        }
+                                        onChange={(selected) =>
+                                            dispatch(setField({ field: 'selectedPointTypeId', value: selected ? selected.value : null }))
+                                        }
+                                    />
+                                      <GFSelect
                                     label="Choose the Points Type"
                                     placeholder="Choose one"
                                     items={availablePointTypes}
                                     value={selectedPointTypeId}
                                     onChange={(e) => dispatch(setField({ field: 'selectedPointTypeId', value: e.value }))}
                                 />
+                                </Box>
                             </Box>
                         </Flex>
                     )}
