@@ -81,7 +81,6 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
         </CustomCollapsible>
     );
 };
-
 // --- MAIN COMPONENT ---
 const LevelType = () => {
     const dispatch = useDispatch();

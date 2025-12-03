@@ -2983,7 +2983,7 @@ const AchievementsType = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "100%"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-    margin: "1",
+    margin: "0",
     fontSize: "14px",
     fontWeight: "500",
     mb: "8px",
@@ -2997,15 +2997,6 @@ const AchievementsType = () => {
     onChange: selected => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'selectedPointTypeId',
       value: selected ? selected.value : null
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_17__["default"], {
-    label: "Choose the Points Type",
-    placeholder: "Choose one",
-    items: availablePointTypes,
-    value: selectedPointTypeId,
-    onChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
-      field: 'selectedPointTypeId',
-      value: e.value
     }))
   })))), !allowUnlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_12__["default"], {
     label: "Achievement Requirements",
@@ -4181,7 +4172,6 @@ const DynamicHookForm = ({
     onClick: () => setIsOpen(false)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Done', 'gamify'))));
 };
-
 // --- MAIN COMPONENT ---
 const LevelType = () => {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
