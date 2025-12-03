@@ -295,7 +295,7 @@ const AchievementsType = () => {
                             </Box>
                             <Box width="50%">
                                 <Box width="100%">
-                                    <Text margin='1' fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">
+                                    <Text margin='0' fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">
                                         {__("Choose the Points Type", "gamify")}
                                     </Text>
                                     <Select
@@ -312,13 +312,6 @@ const AchievementsType = () => {
                                             dispatch(setField({ field: 'selectedPointTypeId', value: selected ? selected.value : null }))
                                         }
                                     />
-                                      <GFSelect
-                                    label="Choose the Points Type"
-                                    placeholder="Choose one"
-                                    items={availablePointTypes}
-                                    value={selectedPointTypeId}
-                                    onChange={(e) => dispatch(setField({ field: 'selectedPointTypeId', value: e.value }))}
-                                />
                                 </Box>
                             </Box>
                         </Flex>
