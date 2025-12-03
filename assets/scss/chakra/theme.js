@@ -4,22 +4,22 @@ export const theme = createSystem(defaultConfig, {
 	theme: {
 		tokens: {
 			fonts: {
-				body: { value: 'var(--quizpress-font)' },
-				heading: { value: 'var(--quizpress-font)' },
+				body: { value: 'var(--gamify-font)' },
+				heading: { value: 'var(--gamify-font)' },
 			},
 			colors: {
 				brand: {
-					primary: { value: 'var(--quizpress-primary-color)' },
-					secondary: { value: 'var(--quizpress-secondary-color)' },
-					gray: { value: 'var(--quizpress-gray-color)' },
-					darkGray: { value: 'var(--quizpress-secondary-gray-color)' },
-					border: { value: 'var(--quizpress-border-color)' },
-					disabled: { value: 'var(--quizpress-text-disable)' },
-					bgGray: { value: 'var(--quizpress-background-gray-color)' },
-					warning: { value: 'var(--quizpress-warning-color)' },
+					primary: { value: 'var(--gamify-primary-color)' },
+					secondary: { value: 'var(--gamify-secondary-color)' },
+					gray: { value: 'var(--gamify-gray-color)' },
+					darkGray: { value: 'var(--gamify-secondary-gray-color)' },
+					border: { value: 'var(--gamify-border-color)' },
+					disabled: { value: 'var(--gamify-text-disable)' },
+					bgGray: { value: 'var(--gamify-background-gray-color)' },
+					warning: { value: 'var(--gamify-warning-color)' },
 
 					// New
-					blue: { value: 'var(--quizpress-primary)' },
+					blue: { value: 'var(--gamify-primary)' },
 				},
 			},
 		},

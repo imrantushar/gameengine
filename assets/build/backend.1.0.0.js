@@ -93,41 +93,41 @@ const theme = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.createSystem)(_ch
     tokens: {
       fonts: {
         body: {
-          value: 'var(--quizpress-font)'
+          value: 'var(--gamify-font)'
         },
         heading: {
-          value: 'var(--quizpress-font)'
+          value: 'var(--gamify-font)'
         }
       },
       colors: {
         brand: {
           primary: {
-            value: 'var(--quizpress-primary-color)'
+            value: 'var(--gamify-primary-color)'
           },
           secondary: {
-            value: 'var(--quizpress-secondary-color)'
+            value: 'var(--gamify-secondary-color)'
           },
           gray: {
-            value: 'var(--quizpress-gray-color)'
+            value: 'var(--gamify-gray-color)'
           },
           darkGray: {
-            value: 'var(--quizpress-secondary-gray-color)'
+            value: 'var(--gamify-secondary-gray-color)'
           },
           border: {
-            value: 'var(--quizpress-border-color)'
+            value: 'var(--gamify-border-color)'
           },
           disabled: {
-            value: 'var(--quizpress-text-disable)'
+            value: 'var(--gamify-text-disable)'
           },
           bgGray: {
-            value: 'var(--quizpress-background-gray-color)'
+            value: 'var(--gamify-background-gray-color)'
           },
           warning: {
-            value: 'var(--quizpress-warning-color)'
+            value: 'var(--gamify-warning-color)'
           },
           // New
           blue: {
-            value: 'var(--quizpress-primary)'
+            value: 'var(--gamify-primary)'
           }
         }
       }
@@ -2462,7 +2462,7 @@ const AdminMenu = () => {
   const page = location.get('page');
   const path = location.get('path');
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    document.title = adminmenu[page]?.title + ' - ' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Gamify', 'quizpress');
+    document.title = adminmenu[page]?.title + ' - ' + (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Gamify', 'gamify');
   }, [page]);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
     to: `${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.route_path}admin.php?page=gamify`,
@@ -2478,13 +2478,13 @@ const AdminMenu = () => {
     "aria-hidden": "true"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("br", null)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "wp-menu-name"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('QuizPress', 'quizpress'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('gamify', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "wp-submenu wp-submenu-wrap"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
     className: "wp-submenu-head",
     "aria-hidden": "true"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('QuizPress', 'quizpress')), Object.entries(adminmenu).map(([key, item], index) => {
-    if (['quizpress-get-pro', 'quizpress-license'].includes(key)) {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('gamify', 'gamify')), Object.entries(adminmenu).map(([key, item], index) => {
+    if (['gamify-get-pro', 'gamify-license'].includes(key)) {
       return null;
     }
     const menuItemClassName = index === 0 ? 'wp-first-item ' : '';
@@ -2497,7 +2497,7 @@ const AdminMenu = () => {
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_1__.Link, {
       to: `${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.route_path}admin.php?page=${key}`
     }, item.title, item?.sub_items && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "quizpress-icon quizpress-icon--angle-right"
+      className: "gamify-icon gamify-icon--angle-right"
     })));
   })));
 };
