@@ -199,7 +199,7 @@ final class TriggerRegistry
             'args_count'  => 2,
             'type'        => 'gamify',
             'category'    => 'gamify',
-            'supports'    => ['achievement'],
+            'supports'    => ['achievement', 'level'],
             'get_user_id' => function ($user_id, $achievement_id) {
                 return $user_id;
             },

@@ -119,6 +119,8 @@ final class Gamify
         // Triggers contain translatable strings, so it MUST load here
         \Gamify\Classes\Triggers::init();
 
+        \Gamify\Classes\LevelsManager::init();
+
         // Admin Only Modules
         if (is_admin()) {
             \Gamify\Admin::init();
@@ -131,10 +133,8 @@ final class Gamify
     public static function activate()
     {
         // Ensure Autoloader is loaded during activation context
-        if (!class_exists('\Gamify\Autoload')) {
-            require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
-            \Gamify\Autoload::get_instance();
-        }
+
+        require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
 
         // Run Installer
         if (class_exists('\Gamify\Core\Installer')) {
