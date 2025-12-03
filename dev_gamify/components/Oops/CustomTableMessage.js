@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { plugin_root_url } from '@Utils/helper';
+import { plugin_root_url } from '@GFUtils/helper';
 
 import './styles.scss';
 

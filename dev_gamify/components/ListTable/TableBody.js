@@ -1,8 +1,8 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 
-import Preloader from '@Components/Loader/Preloader';
-import CustomTableMessage from '@Components/Oops/CustomTableMessage';
+import Preloader from '@GFComponents/Loader/Preloader';
+import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
 const TableBody = ( {
 	dataFetchingStatus,

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './styles.scss';
 import { createPortal } from 'react-dom';
-import Button from '@Components/Button';
+import Button from '@GFComponents/Button';
 import { FiMoreHorizontal } from "react-icons/fi";
 import { Icon } from '@chakra-ui/react';
 
