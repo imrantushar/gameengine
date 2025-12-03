@@ -2,20 +2,19 @@ import { useLocation } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
 import axios from 'axios';
 
-// export const {
-// 	// plugin_root_url,
-// 	// nonce,
-// 	// ajaxurl,
-// 	// menu,
-// 	// route_path,
-// 	// rest_url,
-// 	// admin_url,
-// 	// namespace,
-// 	// gamify_nonce,
-// 	// user_id,
-// 	// _quiz_settings,
-// 	// is_plain_permalink,
-// } = window?.GamifyGlobal;
+export const {
+	plugin_root_url,
+	nonce,
+	ajaxurl,
+	menu,
+	route_path,
+	rest_url,
+	admin_url,
+	namespace,
+	gamify_nonce,
+	user_id,
+	is_plain_permalink,
+} = window?.GamifyGlobal;
 
 // export const isPlainPermalink = Boolean(is_plain_permalink);
 // export const userId = Boolean(user_id);
@@ -35,4 +34,36 @@ export const reactDebounce = (callback, wait) => {
 			callback.apply(this, args);
 		}, wait);
 	};
+};
+export const useQuery = () => {
+	return new URLSearchParams(useLocation().search);
+};
+export const makeRequest = async (
+	action,
+	payload = {},
+	isRaw = false,
+	suffix = ''
+) => {
+	let form_data = new FormData(); // eslint-disable-line
+	form_data.append('action', `gamify${suffix}/${action}`);
+	if (!payload.security) {
+		form_data.append('security', gamify_nonce);
+	}
+	Object.entries(payload).forEach(([key, value]) => {
+		if (!isRaw && typeof value === 'object' && value !== null) {
+			form_data.append(key, JSON.stringify(value));
+		} else {
+			form_data.append(key, value);
+		}
+	});
+	const response = await axios.post(ajaxurl, form_data);
+	const {
+		data: { success, data },
+	} = response;
+
+	if (!success) {
+		processAjaxError(data, response);
+	}
+
+	return data;
 };

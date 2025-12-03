@@ -15,9 +15,13 @@ module.exports = {
     resolve: {
         alias: {
             ...defaultConfig.resolve.alias,
-            '@Components': path.resolve(__dirname, 'dev_gamify/components/'),
-            '@Utils': path.resolve(__dirname, 'dev_gamify/utils/'),
-			'@Pages': path.resolve( __dirname, 'src/containers/pages/' ),
+           '@GFComponents': path.resolve( __dirname, 'dev_gamify/components/' ),
+			'@GFContainers': path.resolve( __dirname, 'dev_gamify/containers/' ),
+			// '@GFPages': path.resolve( __dirname, 'dev_gamify/containers/pages/' ),
+			'@GFCustomizer': path.resolve( __dirname, 'dev_gamify/customizer/' ),
+			'@GFGlobal': path.resolve( __dirname, 'dev_gamify/global/' ),
+			'@GFRedux': path.resolve( __dirname, 'dev_gamify/redux/' ),
+			'@GFUtils': path.resolve( __dirname, 'dev_gamify/utils/' ),
         },
     },
 };
