@@ -62,12 +62,20 @@ final class Schema
         return "CREATE TABLE {$prefix}gamify_levels (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
+            plural_name VARCHAR(255),
             description TEXT,
-            icon VARCHAR(255),
+            icon VARCHAR(255), -- Level Logo URL/ID
+            
+            -- Logic Fields
             priority INT(11) NOT NULL DEFAULT 0,
-            point_type_id BIGINT(20) UNSIGNED NOT NULL,
-            min_points INT(11) NOT NULL DEFAULT 0,
-            max_points INT(11) DEFAULT NULL,
+            unlock_with_points_enabled TINYINT(1) DEFAULT 0,
+            point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            min_points INT(11) DEFAULT 0,
+            max_points INT(11) DEFAULT 0,
+            
+            -- Messages
+            congratulations_message TEXT DEFAULT NULL,
+            
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY point_type_id (point_type_id)

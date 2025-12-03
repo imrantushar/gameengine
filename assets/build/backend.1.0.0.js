@@ -3866,20 +3866,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
+/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../redux/Slices/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice.js");
 
 
 
@@ -3888,107 +3890,98 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Components
 
 
 
 
 
-const staticData = [{
-  id: 1,
-  name: "John Doe",
-  pluralName: "John Does",
-  date: "2025-01-10"
-}, {
-  id: 2,
-  name: "Emma Watson",
-  pluralName: "Emma Watsons",
-  date: "2025-01-12"
-}, {
-  id: 3,
-  name: "Mark Tailor",
-  pluralName: "Mark Tailors",
-  date: "2025-01-15"
-}, {
-  id: 4,
-  name: "Sarah Lee",
-  pluralName: "Sarah Lees",
-  date: "2025-01-18"
-}, {
-  id: 5,
-  name: "David Kim",
-  pluralName: "David Kims",
-  date: "2025-01-20"
-}];
-const columns = [{
-  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'gamify'),
-  cell: row => row.name
-}, {
-  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Plural Name', 'gamify'),
-  cell: row => row.pluralName
-}, {
-  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Date', 'gamify'),
-  cell: row => row.date
-}, {
-  name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Action', 'gamify'),
-  cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    options: [{
-      type: "button",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Edit', 'gamify'),
-      icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
-        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiEdit
-      }),
-      onClick: () => console.log(`Edit ID: ${row.id}`)
-    }, {
-      type: "button",
-      suffix: "trash",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete', 'gamify'),
-      icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
-        as: react_icons_fi__WEBPACK_IMPORTED_MODULE_10__.FiTrash2
-      }),
-      onClick: () => console.log(`Delete ID: ${row.id}`)
-    }]
-  })
-}];
+
+
+// Actions (Ensure path matches your file structure)
+
 const Levels = () => {
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_11__.useNavigate)();
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+
+  // Safe destructuring to prevent crash if store is empty
+  const {
+    levels = [],
+    status
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.levels || {});
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    dispatch((0,_redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.fetchLevels)());
+  }, [dispatch]);
+  const columns = [{
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Name', 'gamify'),
+    cell: row => row.title
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Plural Name', 'gamify'),
+    cell: row => row.plural_name
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Unlock Criteria', 'gamify'),
+    cell: row => parseInt(row.unlock_with_points_enabled) ? `${row.min_points} - ${row.max_points} Points` : 'Triggers'
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Date', 'gamify'),
+    cell: row => new Date(row.created_at).toLocaleDateString()
+  }, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Action', 'gamify'),
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      options: [{
+        type: "button",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Edit', 'gamify'),
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiEdit
+        }),
+        onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)
+      }, {
+        type: "button",
+        suffix: "trash",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Delete', 'gamify'),
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiTrash2
+        }),
+        onClick: () => {
+          if (confirm('Delete level?')) dispatch((0,_redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.deleteLevel)(row.id));
+        }
+      }]
+    })
+  }];
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_9__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-icon gamify-icon--angle-right"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__["default"], {
       as: "h2",
       color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Game Engine`, 'gamify')
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(`Game Engine`, 'gamify')
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "1174px",
     margin: "0 auto",
     height: "100vh"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     justifyContent: "space-between",
     alignItems: "center",
     p: "24px 0"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Levels Types`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.primaryBtn,
-    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__.route_path}admin.php?page=gamify-levels&path=levels-types`)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('+ Add new point types', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(`Levels Types`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-levels&path=levels-types`)
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('+ Add new level', 'gamify'), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--plus has-gamify-blue-bg"
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_11__["default"], {
     columns: columns,
-    data: staticData,
-    showSubHeader: false,
-    showColumnFilter: false,
-    isRowSelectable: true,
-    showPagination: false,
-    noDataText: "No data found"
+    data: levels,
+    noDataText: "No levels found",
+    isLoading: status === 'loading'
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Levels);
@@ -4008,26 +4001,30 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
-/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/image/image.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
 /* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
 /* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
-/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
-/* harmony import */ var _levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./levelHooks/UnlockSpecialAchievements */ "./dev_gamify/containers/BackendDashboard/pages/levels/levelTypes/levelHooks/UnlockSpecialAchievements.js");
+/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
 /* harmony import */ var _GFComponents_editor__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @GFComponents/editor */ "./dev_gamify/components/editor/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
+/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../../../redux/Slices/levelsSlice.js */ "./dev_gamify/redux/Slices/levelsSlice.js");
 
 
 
@@ -4038,6 +4035,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Custom Components
 
 
 
@@ -4045,11 +4043,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const levelHooks = [{
-  id: "unlock-special-achievements",
-  label: "Unlock a special Achievements",
-  subTitle: "Award points for visiting your website on a daily basis.."
-}];
+
+
+// Actions (Updated Imports from levelsSlice)
+
+
+// --- Helpers: Draggable Item ---
 const DraggableItem = ({
   id,
   children
@@ -4066,272 +4065,380 @@ const DraggableItem = ({
   const style = {
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     opacity: isDragging ? 0.85 : 1,
-    cursor: "grab"
+    cursor: "grab",
+    marginBottom: "8px"
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
     ...listeners,
     ...attributes,
     style: style,
-    background: "white",
-    mb: "8px"
+    background: "white"
   }, children);
 };
+
+// --- Helpers: Droppable Area ---
 const DroppableArea = ({
   id,
-  children,
-  title
+  children
 }) => {
   const {
-    setNodeRef,
-    isOver
+    setNodeRef
   } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useDroppable)({
     id
   });
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
-    minHeight: "100%",
-    borderRadius: "4px",
-    border: "none",
-    transition: "all 0.2s"
-  }, title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    type: "title",
-    fontWeight: "500",
-    fontSize: "1rem",
-    label: title
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    minHeight: "100px",
     mt: "12px"
-  }, children));
+  }, children);
 };
+
+// --- Helpers: Dynamic Field ---
+const DynamicField = ({
+  config,
+  value,
+  onChange
+}) => {
+  if (config.type === 'select' && config.options) {
+    const selectOptions = Object.entries(config.options).map(([val, label]) => ({
+      value: val,
+      label: label
+    }));
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+      width: "100%"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+      fontSize: "14px",
+      fontWeight: "500",
+      mb: "8px",
+      color: "var(--gamify-font-color)"
+    }, config.label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Select...", "gamify"),
+      className: "gamify-select",
+      classNamePrefix: "gamify-select",
+      options: selectOptions,
+      value: selectOptions.find(opt => String(opt.value) === String(value)) || null,
+      onChange: sel => onChange(sel ? sel.value : '')
+    }));
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    label: config.label,
+    type: config.type,
+    value: value,
+    onChange: e => onChange(e.target.value)
+  });
+};
+
+// --- Helpers: Dynamic Hook Form ---
+const DynamicHookForm = ({
+  hookId,
+  hookInfo,
+  settings,
+  onChange
+}) => {
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const fieldsConfig = hookInfo.award_fields || {};
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    label: hookInfo?.label || hookId,
+    desc: hookInfo?.subTitle,
+    isOpen: isOpen,
+    onClick: () => setIsOpen(!isOpen),
+    singleIcon: true
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
+    direction: "column",
+    gap: "16px",
+    padding: "0 24px"
+  }, Object.keys(fieldsConfig).map(key => {
+    var _ref, _settings$key;
+    const config = fieldsConfig[key];
+    // Scope Check: Only show fields relevant to 'level' or shared
+    if (config.scope && !config.scope.includes('level')) return null;
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicField, {
+      key: key,
+      config: config,
+      value: (_ref = (_settings$key = settings[key]) !== null && _settings$key !== void 0 ? _settings$key : config.default) !== null && _ref !== void 0 ? _ref : '',
+      onChange: val => onChange(key, val)
+    });
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    width: "100%",
+    margin: "24px 0"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
+    padding: "0 24px 24px",
+    justifyContent: "flex-end"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__.primaryBtn,
+    size: "sm",
+    width: "auto",
+    onClick: () => setIsOpen(false)
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('Done', 'gamify'))));
+};
+// --- MAIN COMPONENT ---
 const LevelType = () => {
-  const [levelHook, setLevelHook] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const [availableLevel, setAvailableLevel] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(levelHooks);
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
+  const [searchParams] = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useSearchParams)();
+  const editId = searchParams.get('id');
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
-  const [achievement, setAchievement] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [reqOpen, setReqOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.PointerSensor, {
     activationConstraint: {
       distance: 5
     }
   }));
-  const renderActionHook = id => {
-    switch (id) {
-      case "unlock-special-achievements":
-        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_levelHooks_UnlockSpecialAchievements__WEBPACK_IMPORTED_MODULE_17__["default"], null);
-      default:
-        return null;
+
+  // Redux Data (Accessing everything from state.levels now)
+  const {
+    title,
+    pluralName,
+    congratulationsMessage,
+    unlockWithPoints,
+    minPoints,
+    maxPoints,
+    selectedPointTypeId,
+    levelIcon,
+    selectedHookIds,
+    hookSettings,
+    saveStatus,
+    allHooks,
+    availablePointTypes // Retrieved from levels slice
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.levels || {});
+
+  // Initial Load
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelTriggers)()); // Fetch triggers scoped for levels
+    dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchPointTypes)());
+    if (editId) {
+      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelById)(editId));
+    } else {
+      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.resetForm)());
+    }
+  }, [dispatch, editId]);
+
+  // Sync Local Message State
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (congratulationsMessage) setMessage(congratulationsMessage);
+  }, [congratulationsMessage]);
+
+  // Media Uploader
+  const handleImageUpload = () => {
+    if (typeof wp !== 'undefined' && wp.media) {
+      const frame = wp.media({
+        title: 'Select Level Icon',
+        button: {
+          text: 'Use this Icon'
+        },
+        multiple: false
+      });
+      frame.on('select', () => {
+        const attachment = frame.state().get('selection').first().toJSON();
+        dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+          field: 'levelIcon',
+          value: attachment.url
+        }));
+      });
+      frame.open();
     }
   };
+
+  // Filter Logic: Show available hooks not yet selected
+  const availableHooks = allHooks.filter(h => !selectedHookIds.includes(h.id));
+  const activeHooks = selectedHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
+
+  // Drag End Logic
   const handleDragEnd = ({
     active,
     over
   }) => {
     if (!over) return;
-    const id = active.id;
 
-    // Move → Selected Sidebar
-    if (availableLevel.some(i => i.id === id) && over.id === "awards-sidebar") {
-      const item = availableLevel.find(i => i.id === id);
-      setAvailableLevel(prev => prev.filter(i => i.id !== id));
-      setLevelHook(prev => [...prev, item.id]);
-      return;
+    // Logic for adding/removing hooks
+    if (availableHooks.some(i => i.id === active.id) && over.id === "awards-sidebar") {
+      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.addHook)(active.id));
     }
-    if (levelHook.includes(id) && over.id === "awards-available") {
-      setLevelHook(prev => prev.filter(x => x !== id));
-      const item = levelHooks.find(i => i.id === id);
-      setAvailableLevel(prev => [...prev, item]);
-      return;
+    if (selectedHookIds.includes(active.id) && over.id === "awards-available") {
+      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.removeHook)(active.id));
     }
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_11__["default"], {
+
+  // Save Logic
+  const handleSave = async () => {
+    if (!title) return alert("Level Name is required");
+    const payload = {
+      title,
+      plural_name: pluralName,
+      congratulations_message: message,
+      unlock_with_points_enabled: unlockWithPoints,
+      min_points: minPoints,
+      max_points: maxPoints,
+      point_type_id: selectedPointTypeId,
+      icon: levelIcon,
+      requirements: activeHooks.map(h => ({
+        trigger_key: h.id,
+        parameters: hookSettings[h.id] || {}
+      }))
+    };
+    const result = editId ? await dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateLevel)({
+      id: editId,
+      data: payload
+    })) : await dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.saveLevel)(payload));
+    if (result.type.endsWith('fulfilled')) navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__.route_path}admin.php?page=gamify-levels`);
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_14__["default"], {
     leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-topbar-logo gamify-icon gamify-icon--gamify"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       className: "gamify-icon gamify-icon--angle-right"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
       as: "h2",
       color: "var(--gamify-font-color)",
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Game Engine", "gamify")
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Game Engine", "gamify")
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "1174px",
-    margin: "0 auto"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    margin: "0 auto",
+    pb: "50px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
     bg: "var(--gamify-background)",
     p: 6,
     borderRadius: "4px",
     boxShadow: "var(--gamify-shadow)",
     gap: 6
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Type`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: "Point Name",
-    placeholder: "Academy LMS"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Level Type`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    label: "Level Name",
+    placeholder: "e.g. Bronze",
+    value: title,
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'title',
+      value: e.target.value
+    }))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
     label: "Plural Name",
-    placeholder: "Plural Name"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    placeholder: "e.g. Bronzes",
+    value: pluralName,
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'pluralName',
+      value: e.target.value
+    }))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     mb: "24px",
     type: "inputLabel",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Congratulations Message:`, "gamify")
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Congratulations Message:`, "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_editor__WEBPACK_IMPORTED_MODULE_18__["default"], {
     suffix: "congratulations_message",
     defaultValue: message,
-    saveValueHandler: html => {
-      setMessage(html);
-    },
+    saveValueHandler: setMessage,
     isCustomHTML: false
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Level Requirements`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.SwitchRoot, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.SwitchLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__.SwitchControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Level Requirements`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchRoot, {
+    checked: unlockWithPoints,
+    onCheckedChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'unlockWithPoints',
+      value: e.checked
+    }))
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchControl, {
     _checked: {
       bg: "var(--gamify-primary)"
     }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }))), unlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: "Minimum Balance Requirement",
-    placeholder: "2000",
-    type: "number"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
-    label: "Maximum Balance Requirement",
-    placeholder: "1000",
-    type: "number"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    width: "50%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_16__["default"], {
-    label: "Choose the Points Type",
-    placeholder: "Test Point",
-    items: [{
-      label: "React.js",
-      value: "react"
-    }, {
-      label: "Vue.js",
-      value: "vue"
-    }, {
-      label: "Angular",
-      value: "angular"
-    }, {
-      label: "Svelte",
-      value: "svelte"
-    }]
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Achievement Requirements",
-    isOpen: achievement,
-    onClick: () => setAchievement(!achievement)
-  }), achievement && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.DndContext, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    width: "33%"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    label: "Minimum Balance",
+    type: "number",
+    value: minPoints,
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'minPoints',
+      value: e.target.value
+    }))
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    width: "33%"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
+    label: "Maximum Balance",
+    type: "number",
+    value: maxPoints,
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'maxPoints',
+      value: e.target.value
+    }))
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    width: "33%"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+    fontSize: "14px",
+    fontWeight: "500",
+    mb: "8px",
+    color: "var(--gamify-font-color)"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Choose the Points Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    placeholder: "Choose one",
+    options: availablePointTypes,
+    value: availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null,
+    onChange: sel => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+      field: 'selectedPointTypeId',
+      value: sel ? sel.value : null
+    }))
+  }))), !unlockWithPoints && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_19__["default"], {
+    label: "Trigger Requirements",
+    isOpen: reqOpen,
+    onClick: () => setReqOpen(!reqOpen)
+  }), reqOpen && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_13__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     width: "50%",
     p: "24px",
     borderRadius: "4px",
     border: "1px solid var(--gamify-border-color)",
     direction: "column",
     gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
     gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1.25rem",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Available Hooks`, "gamify"),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Available Hooks`, "gamify"),
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "subtitle",
     fontWeight: "400",
     fontSize: "12px",
-    lineHeight: "16px",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Drag hooks to activate.`, "gamify"),
     color: "var(--gamify-font-color)",
-    margin: "0",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    as: "label",
-    direction: "column",
-    gap: 2
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    p: "16px",
-    borderRadius: "4px",
-    border: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-    fontWeight: "500",
-    fontSize: "0.875rem",
-    margin: "0 0 8px 0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Filter Hooks Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    isMulti: true,
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Select hook type", "gamify"),
-    classNamePrefix: "gamify-select",
-    options: [{
-      label: "Gamify",
-      value: "gamify"
-    }, {
-      label: "WordPress",
-      value: "wordpress"
-    }],
-    onChange: opt => console.log(opt),
-    styles: {
-      control: base => ({
-        ...base,
-        minHeight: "48px",
-        borderRadius: "6px",
-        borderColor: "#d0d5dd",
-        boxShadow: "none",
-        "&:hover": {
-          borderColor: "#d0d5dd"
-        }
-      }),
-      multiValue: base => ({
-        ...base,
-        background: "#F8FAFC",
-        padding: "2px 6px",
-        borderRadius: "6px"
-      }),
-      multiValueLabel: base => ({
-        ...base,
-        color: "#1E293B",
-        fontSize: "14px"
-      }),
-      multiValueRemove: base => ({
-        ...base,
-        color: "#64748B",
-        ":hover": {
-          backgroundColor: "transparent",
-          color: "#334155"
-        }
-      })
-    }
-  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+    margin: "0"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-available"
-  }, availableLevel.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
+  }, availableHooks.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
     key: item.id
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
     id: item.id
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     p: "12px",
     borderRadius: "6px",
     border: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     justify: "space-between",
     align: "center"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
     margin: "0",
     fontWeight: "600"
-  }, item.label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }, item.label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     bg: "green.500",
     borderRadius: "full",
     w: "24px",
@@ -4340,187 +4447,91 @@ const LevelType = () => {
     alignItems: "center",
     justifyContent: "center",
     color: "white"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_12__.FaArrowRotateRight,
     boxSize: 4
-  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+  }))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
     fontSize: "0.875rem",
     mt: "6px",
     mb: "24px",
     color: "var(--gamify-secondary)"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(item.subTitle, "gamify")))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }, item.subTitle))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%",
     borderRadius: "4px",
     border: "1px solid var(--gamify-border-color)",
     p: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
     gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1.25rem",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Action Hook`, "gamify"),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Action Hook`, "gamify"),
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
     type: "subtitle",
     fontWeight: "400",
     fontSize: "12px",
-    lineHeight: "16px",
-    margin: "0",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`These hooks will run automatically for all users.`, "gamify"),
     color: "var(--gamify-font-color)",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`These hooks will run automatically for all users.`, "gamify")
+    margin: "0"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
     gap: "12px",
     mt: "8px"
-  }, levelHook.map(hookId => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
-    key: hookId,
-    id: hookId
-  }, renderActionHook(hookId)))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+  }, activeHooks.map(hook => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
+    key: hook.id,
+    id: hook.id
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    bg: "white",
     border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    padding: "16px",
-    type: "inputLabel",
-    color: "var(--gamify-font-color)",
-    margin: "0",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Levels Logo`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    borderTop: "1px solid var(--gamify-border-color)",
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
+    hookId: hook.id,
+    hookInfo: hook,
+    settings: hookSettings[hook.id] || {},
+    onChange: (k, v) => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateHookSettings)({
+      hookId: hook.id,
+      settings: {
+        [k]: v
+      }
+    }))
+  })))))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
-    padding: "16px",
-    mt: "10px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadRoot, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadTrigger, {
-    asChild: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    p: "16px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Levels Logo`, "gamify"),
+    margin: "0"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    borderTop: "1px solid var(--gamify-border-color)",
+    mt: "10px",
+    p: "16px"
+  }, levelIcon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Image, {
+    src: levelIcon,
+    boxSize: "100px",
+    objectFit: "contain",
+    mb: "10px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
     textDecoration: "underline",
     color: "var(--gamify-primary)",
-    margin: "0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Set Level Logo`, "gamify"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.FileUploadList, null)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    cursor: "pointer",
+    onClick: handleImageUpload
+  }, levelIcon ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Change Level Logo`, "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Set Level Logo`, "gamify")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     py: "24px",
     justifyContent: "flex-end",
     borderTop: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_19__.primaryBtn,
-    width: "121px"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Save Changes", "gamify"))))));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__.primaryBtn,
+    width: "121px",
+    onClick: handleSave,
+    isLoading: saveStatus === 'saving'
+  }, editId ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Update", "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Save Changes", "gamify"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LevelType);
-
-/***/ }),
-
-/***/ "./dev_gamify/containers/BackendDashboard/pages/levels/levelTypes/levelHooks/UnlockSpecialAchievements.js":
-/*!****************************************************************************************************************!*\
-  !*** ./dev_gamify/containers/BackendDashboard/pages/levels/levelTypes/levelHooks/UnlockSpecialAchievements.js ***!
-  \****************************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
-/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-
-
-
-
-
-
-
-
-
-const UnlockSpecialAchievements = props => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    label: "Points for Logins",
-    desc: "Award points for logging in.",
-    isOpen: isOpen,
-    onClick: () => setIsOpen(!isOpen),
-    singleIcon: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
-    gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    style: {
-      width: '50%'
-    },
-    label: "Achievement Type",
-    placeholder: "Choose one",
-    items: [{
-      label: 'Unlimited',
-      value: 'unlimited'
-    }, {
-      label: '1 per day',
-      value: '1_per_day'
-    }, {
-      label: '1 time only',
-      value: '1_time'
-    }]
-    // value={}
-    // onChange={(opt) => }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    style: {
-      width: '50%'
-    },
-    label: "Points",
-    placeholder: "100",
-    type: "number"
-    // value={}
-    // onChange={(e) => }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
-    gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    style: {
-      width: '50%'
-    },
-    label: "Limit",
-    placeholder: "5",
-    type: "number"
-    // value={}
-    // onChange={(e) => }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    style: {
-      width: '50%'
-    },
-    label: "Times",
-    placeholder: "Month",
-    items: [{
-      label: 'Month',
-      value: 'month'
-    }, {
-      label: 'Year',
-      value: 'year'
-    }, {
-      label: 'Day',
-      value: 'day'
-    }]
-    // value={}
-    // onChange={}
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    width: "500px",
-    margin: "24px -16px 24px -16px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
-    justifyContent: "flex-end"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn,
-    width: "63px"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Save', 'gamify')))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UnlockSpecialAchievements);
 
 /***/ }),
 
@@ -6496,6 +6507,211 @@ const {
 
 /***/ }),
 
+/***/ "./dev_gamify/redux/Slices/levelsSlice.js":
+/*!************************************************!*\
+  !*** ./dev_gamify/redux/Slices/levelsSlice.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   addHook: () => (/* binding */ addHook),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
+/* harmony export */   deleteLevel: () => (/* binding */ deleteLevel),
+/* harmony export */   fetchLevelById: () => (/* binding */ fetchLevelById),
+/* harmony export */   fetchLevelTriggers: () => (/* binding */ fetchLevelTriggers),
+/* harmony export */   fetchLevels: () => (/* binding */ fetchLevels),
+/* harmony export */   fetchPointTypes: () => (/* binding */ fetchPointTypes),
+/* harmony export */   removeHook: () => (/* binding */ removeHook),
+/* harmony export */   resetForm: () => (/* binding */ resetForm),
+/* harmony export */   saveLevel: () => (/* binding */ saveLevel),
+/* harmony export */   setField: () => (/* binding */ setField),
+/* harmony export */   updateHookSettings: () => (/* binding */ updateHookSettings),
+/* harmony export */   updateLevel: () => (/* binding */ updateLevel)
+/* harmony export */ });
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+// 1. Fetch Levels
+const fetchLevels = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchAll', async () => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: '/gamify/v1/levels'
+  });
+});
+
+// 2. Fetch Single Level
+const fetchLevelById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchById', async id => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: `/gamify/v1/levels/${id}`
+  });
+});
+
+// 3. Save Level
+const saveLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/save', async data => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: '/gamify/v1/levels',
+    method: 'POST',
+    data
+  });
+});
+
+// 4. Update Level
+const updateLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/update', async ({
+  id,
+  data
+}) => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: `/gamify/v1/levels/${id}`,
+    method: 'PUT',
+    data
+  });
+});
+
+// 5. Delete Level
+const deleteLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/delete', async id => {
+  await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: `/gamify/v1/levels/${id}`,
+    method: 'DELETE'
+  });
+  return id;
+});
+
+// 6. Fetch Triggers (Scoped for Levels)
+const fetchLevelTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchTriggers', async (_, {
+  rejectWithValue
+}) => {
+  try {
+    // Scope 'level' পাঠানো হচ্ছে
+    return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+      path: '/gamify/v1/triggers?scope=level'
+    });
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
+// 7. Fetch Point Types
+const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchPointTypes', async () => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+    path: '/gamify/v1/point-types'
+  });
+});
+const initialState = {
+  levels: [],
+  currentLevelId: null,
+  // Fields
+  title: '',
+  pluralName: '',
+  congratulationsMessage: '',
+  unlockWithPoints: true,
+  minPoints: '',
+  maxPoints: '',
+  selectedPointTypeId: null,
+  levelIcon: '',
+  priority: 0,
+  // Hooks Data (Specific to Levels Page)
+  allHooks: [],
+  availablePointTypes: [],
+  selectedHookIds: [],
+  hookSettings: {},
+  status: 'idle',
+  saveStatus: 'idle'
+};
+const levelsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
+  name: 'levels',
+  initialState,
+  reducers: {
+    setField: (state, action) => {
+      state[action.payload.field] = action.payload.value;
+    },
+    resetForm: state => {
+      state.currentLevelId = null;
+      state.title = '';
+      state.pluralName = '';
+      state.congratulationsMessage = '';
+      state.unlockWithPoints = true;
+      state.minPoints = '';
+      state.maxPoints = '';
+      state.selectedPointTypeId = null;
+      state.levelIcon = '';
+      state.selectedHookIds = [];
+      state.hookSettings = {};
+      state.saveStatus = 'idle';
+    },
+    addHook: (state, action) => {
+      if (!state.selectedHookIds.includes(action.payload)) state.selectedHookIds.push(action.payload);
+    },
+    removeHook: (state, action) => {
+      state.selectedHookIds = state.selectedHookIds.filter(id => id !== action.payload);
+    },
+    updateHookSettings: (state, action) => {
+      const {
+        hookId,
+        settings
+      } = action.payload;
+      state.hookSettings[hookId] = {
+        ...state.hookSettings[hookId],
+        ...settings
+      };
+    }
+  },
+  extraReducers: builder => {
+    builder.addCase(fetchLevels.fulfilled, (state, action) => {
+      state.levels = action.payload;
+    })
+    // Populate Triggers specifically for Levels
+    .addCase(fetchLevelTriggers.fulfilled, (state, action) => {
+      state.allHooks = action.payload;
+    })
+    // Populate Point Types
+    .addCase(fetchPointTypes.fulfilled, (state, action) => {
+      state.availablePointTypes = action.payload.map(pt => ({
+        label: pt.name,
+        value: String(pt.id)
+      }));
+    }).addCase(fetchLevelById.fulfilled, (state, action) => {
+      const data = action.payload;
+      state.currentLevelId = data.id;
+      state.title = data.title;
+      state.pluralName = data.plural_name;
+      state.congratulationsMessage = data.congratulations_message || '';
+      state.unlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
+      state.minPoints = data.min_points;
+      state.maxPoints = data.max_points;
+      state.selectedPointTypeId = data.point_type_id;
+      state.levelIcon = data.icon;
+      state.selectedHookIds = [];
+      state.hookSettings = {};
+      if (data.requirements) {
+        data.requirements.forEach(req => {
+          state.selectedHookIds.push(req.trigger_key);
+          state.hookSettings[req.trigger_key] = req.parameters;
+        });
+      }
+    }).addCase(saveLevel.fulfilled, state => {
+      state.saveStatus = 'saved';
+    }).addCase(updateLevel.fulfilled, state => {
+      state.saveStatus = 'saved';
+    }).addCase(deleteLevel.fulfilled, (state, action) => {
+      state.levels = state.levels.filter(l => l.id !== action.payload);
+    });
+  }
+});
+const {
+  setField,
+  resetForm,
+  addHook,
+  removeHook,
+  updateHookSettings
+} = levelsSlice.actions;
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (levelsSlice.reducer);
+
+/***/ }),
+
 /***/ "./dev_gamify/redux/Slices/logsSlice.js":
 /*!**********************************************!*\
   !*** ./dev_gamify/redux/Slices/logsSlice.js ***!
@@ -7031,9 +7247,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Slices/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypeSlice.js");
 /* harmony import */ var _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
 /* harmony import */ var _Slices_menuSlice_menuSlice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Slices/menuSlice/menuSlice */ "./dev_gamify/redux/Slices/menuSlice/menuSlice.js");
+/* harmony import */ var _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Slices/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice.js");
 
 
 // Import all the reducers you have created
+
 
 
 
@@ -7053,7 +7271,8 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
     app: _Slices_appSlice__WEBPACK_IMPORTED_MODULE_1__["default"],
     logs: _Slices_logsSlice__WEBPACK_IMPORTED_MODULE_2__["default"],
     pointType: _Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__["default"],
-    achievements: _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__["default"]
+    achievements: _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__["default"],
+    levels: _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__["default"]
     // Future reducers will be added here (e.g., points, settings)
   }
   // Redux DevTools are automatically enabled in development mode
@@ -7504,730 +7723,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const fieldsetAnatomy = (0,_zag_js_anatomy__WEBPACK_IMPORTED_MODULE_0__.createAnatomy)("fieldset").parts("root", "errorText", "helperText", "legend");
 const parts = fieldsetAnatomy.build();
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadClearTrigger: () => (/* binding */ FileUploadClearTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-const FileUploadClearTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getClearTriggerProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
-});
-FileUploadClearTrigger.displayName = "FileUploadClearTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadContext: () => (/* binding */ FileUploadContext)
-/* harmony export */ });
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-const FileUploadContext = (props) => props.children((0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_0__.useFileUploadContext)());
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js":
-/*!****************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js ***!
-  \****************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadDropzone: () => (/* binding */ FileUploadDropzone)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadDropzone = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [dropzoneProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["disableClick"]);
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getDropzoneProps(dropzoneProps), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref });
-});
-FileUploadDropzone.displayName = "FileUploadDropzone";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadHiddenInput: () => (/* binding */ FileUploadHiddenInput)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadHiddenInput = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getHiddenInputProps(), props);
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__.useFieldContext)();
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.input, { "aria-describedby": field?.ariaDescribedby, ...mergedProps, ref });
-});
-FileUploadHiddenInput.displayName = "FileUploadHiddenInput";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js":
-/*!***************************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js ***!
-  \***************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemDeleteTrigger: () => (/* binding */ FileUploadItemDeleteTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadItemDeleteTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
-  (props, ref) => {
-    const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-    const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
-    const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemDeleteTriggerProps(itemProps), props);
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
-  }
-);
-FileUploadItemDeleteTrigger.displayName = "FileUploadItemDeleteTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemGroup: () => (/* binding */ FileUploadItemGroup)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-item-group-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const FileUploadItemGroup = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [itemGroupProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["type"]);
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemGroupProps(itemGroupProps), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__.FileUploadItemGroupPropsProvider, { value: itemGroupProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.ul, { ...mergedProps, ref }) });
-});
-FileUploadItemGroup.displayName = "FileUploadItemGroup";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js":
-/*!*****************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemName: () => (/* binding */ FileUploadItemName)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadItemName = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const { children, ...rest } = props;
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemNameProps(itemProps), rest);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref, children: children || itemProps.file.name });
-});
-FileUploadItemName.displayName = "FileUploadItemName";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js":
-/*!**************************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js ***!
-  \**************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemPreviewImage: () => (/* binding */ FileUploadItemPreviewImage)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadItemPreviewImage = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(
-  (props, ref) => {
-    const [url, setUrl] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)("");
-    const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-    const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
-    const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemPreviewImageProps({ ...itemProps, url }), props);
-    (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
-      return fileUpload.createFileUrl(itemProps.file, (url2) => setUrl(url2));
-    }, [itemProps, fileUpload]);
-    if (!url) return null;
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.img, { ...mergedProps, ref });
-  }
-);
-FileUploadItemPreviewImage.displayName = "FileUploadItemPreviewImage";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemPreview: () => (/* binding */ FileUploadItemPreview)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadItemPreview = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemPreviewProps(itemProps), props);
-  if (!itemProps.file.type.match(props.type ?? ".*")) return null;
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-FileUploadItemPreview.displayName = "FileUploadItemPreview";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js":
-/*!**********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js ***!
-  \**********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemSizeText: () => (/* binding */ FileUploadItemSizeText)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadItemSizeText = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const { children, ...rest } = props;
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const itemProps = (0,_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadItemPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemSizeTextProps(itemProps), rest);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref, children: children || fileUpload.getFileSize(itemProps.file) });
-});
-FileUploadItemSizeText.displayName = "FileUploadItemSizeText";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js ***!
-  \************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItem: () => (/* binding */ FileUploadItem)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-item-group-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js");
-/* harmony import */ var _use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-file-upload-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-const FileUploadItem = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [itemProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["file"]);
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.useFileUploadContext)();
-  const itemGroupProps = (0,_use_file_upload_item_group_props_context_js__WEBPACK_IMPORTED_MODULE_6__.useFileUploadItemGroupPropsContext)();
-  const itemPropsWithType = { ...itemProps, type: itemGroupProps.type };
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getItemProps(itemPropsWithType), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__.FileUploadItemPropsProvider, { value: itemPropsWithType, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.li, { ...mergedProps, ref }) });
-});
-FileUploadItem.displayName = "FileUploadItem";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadLabel: () => (/* binding */ FileUploadLabel)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-const FileUploadLabel = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getLabelProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.label, { ...mergedProps, ref });
-});
-FileUploadLabel.displayName = "FileUploadLabel";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js":
-/*!*********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js ***!
-  \*********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadRootProvider: () => (/* binding */ FileUploadRootProvider)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-
-const FileUploadRootProvider = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [{ value: fileUpload }, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["value"]);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_5__.FileUploadProvider, { value: fileUpload, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) });
-});
-FileUploadRootProvider.displayName = "FileUploadRootProvider";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js ***!
-  \************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadRoot: () => (/* binding */ FileUploadRoot)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-file-upload.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const FileUploadRoot = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [useFileUploadProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, [
-    "accept",
-    "acceptedFiles",
-    "allowDrop",
-    "capture",
-    "defaultAcceptedFiles",
-    "directory",
-    "disabled",
-    "id",
-    "ids",
-    "invalid",
-    "locale",
-    "maxFiles",
-    "maxFileSize",
-    "minFileSize",
-    "name",
-    "onFileAccept",
-    "onFileChange",
-    "onFileReject",
-    "preventDocumentDrop",
-    "required",
-    "translations",
-    "transformFiles",
-    "validate"
-  ]);
-  const fileUpload = (0,_use_file_upload_js__WEBPACK_IMPORTED_MODULE_5__.useFileUpload)(useFileUploadProps);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_6__.FileUploadProvider, { value: fileUpload, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) });
-});
-FileUploadRoot.displayName = "FileUploadRoot";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadTrigger: () => (/* binding */ FileUploadTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-file-upload-context.js */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-'use client';
-
-
-
-
-
-
-const FileUploadTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const fileUpload = (0,_use_file_upload_context_js__WEBPACK_IMPORTED_MODULE_4__.useFileUploadContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(fileUpload.getTriggerProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
-});
-FileUploadTrigger.displayName = "FileUploadTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js ***!
-  \*******************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadProvider: () => (/* binding */ FileUploadProvider),
-/* harmony export */   useFileUploadContext: () => (/* binding */ useFileUploadContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [FileUploadProvider, useFileUploadContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "FileUploadContext",
-  hookName: "useFileUploadContext",
-  providerName: "<FileUploadProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js":
-/*!************************************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-group-props-context.js ***!
-  \************************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemGroupPropsProvider: () => (/* binding */ FileUploadItemGroupPropsProvider),
-/* harmony export */   useFileUploadItemGroupPropsContext: () => (/* binding */ useFileUploadItemGroupPropsContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [FileUploadItemGroupPropsProvider, useFileUploadItemGroupPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "FileUploadItemGroupPropsContext",
-  hookName: "useFileUploadItemGroupPropsContext",
-  providerName: "<FileUploadItemGroupPropsProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js":
-/*!******************************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-item-props-context.js ***!
-  \******************************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadItemPropsProvider: () => (/* binding */ FileUploadItemPropsProvider),
-/* harmony export */   useFileUploadItemPropsContext: () => (/* binding */ useFileUploadItemPropsContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [FileUploadItemPropsProvider, useFileUploadItemPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "FileUploadItemPropsContext",
-  hookName: "useFileUploadItemPropsContext",
-  providerName: "<FileUploadItemPropsProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useFileUpload: () => (/* binding */ useFileUpload)
-/* harmony export */ });
-/* harmony import */ var _zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/file-upload */ "./node_modules/@zag-js/file-upload/dist/index.mjs");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
-/* harmony import */ var _providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/locale/use-locale-context.js */ "./node_modules/@ark-ui/react/dist/providers/locale/use-locale-context.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-'use client';
-
-
-
-
-
-
-
-const useFileUpload = (props) => {
-  const id = (0,react__WEBPACK_IMPORTED_MODULE_2__.useId)();
-  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__.useEnvironmentContext)();
-  const { dir, locale } = (0,_providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__.useLocaleContext)();
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__.useFieldContext)();
-  const machineProps = {
-    id,
-    ids: {
-      label: field?.ids.label,
-      hiddenInput: field?.ids.control
-    },
-    dir,
-    disabled: field?.disabled,
-    locale,
-    required: field?.required,
-    invalid: field?.invalid,
-    getRootNode,
-    ...props
-  };
-  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.useMachine)(_zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__.machine, machineProps);
-  return _zag_js_file_upload__WEBPACK_IMPORTED_MODULE_0__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_1__.normalizeProps);
-};
 
 
 
@@ -11067,171 +10562,6 @@ const ButtonPropsProvider = PropsProvider;
 
 /***/ }),
 
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/file-upload/file-upload.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   FileUploadClearTrigger: () => (/* binding */ FileUploadClearTrigger),
-/* harmony export */   FileUploadContext: () => (/* binding */ FileUploadContext),
-/* harmony export */   FileUploadDropzone: () => (/* binding */ FileUploadDropzone),
-/* harmony export */   FileUploadDropzoneContent: () => (/* binding */ FileUploadDropzoneContent),
-/* harmony export */   FileUploadFileText: () => (/* binding */ FileUploadFileText),
-/* harmony export */   FileUploadHiddenInput: () => (/* binding */ FileUploadHiddenInput),
-/* harmony export */   FileUploadItem: () => (/* binding */ FileUploadItem),
-/* harmony export */   FileUploadItemContent: () => (/* binding */ FileUploadItemContent),
-/* harmony export */   FileUploadItemDeleteTrigger: () => (/* binding */ FileUploadItemDeleteTrigger),
-/* harmony export */   FileUploadItemGroup: () => (/* binding */ FileUploadItemGroup),
-/* harmony export */   FileUploadItemName: () => (/* binding */ FileUploadItemName),
-/* harmony export */   FileUploadItemPreview: () => (/* binding */ FileUploadItemPreview),
-/* harmony export */   FileUploadItemPreviewImage: () => (/* binding */ FileUploadItemPreviewImage),
-/* harmony export */   FileUploadItemSizeText: () => (/* binding */ FileUploadItemSizeText),
-/* harmony export */   FileUploadItems: () => (/* binding */ FileUploadItems),
-/* harmony export */   FileUploadLabel: () => (/* binding */ FileUploadLabel),
-/* harmony export */   FileUploadList: () => (/* binding */ FileUploadList),
-/* harmony export */   FileUploadPropsProvider: () => (/* binding */ FileUploadPropsProvider),
-/* harmony export */   FileUploadRoot: () => (/* binding */ FileUploadRoot),
-/* harmony export */   FileUploadRootProvider: () => (/* binding */ FileUploadRootProvider),
-/* harmony export */   FileUploadTrigger: () => (/* binding */ FileUploadTrigger),
-/* harmony export */   useFileUploadStyles: () => (/* binding */ useFileUploadStyles)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/use-file-upload-context.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root-provider.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-root.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-clear-trigger.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-dropzone.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-delete-trigger.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-group.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-name.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-preview-image.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-item-size-text.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-label.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-trigger.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-context.js");
-/* harmony import */ var _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ark-ui/react/file-upload */ "./node_modules/@ark-ui/react/dist/components/file-upload/file-upload-hidden-input.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
-/* harmony import */ var _icons_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../icons.js */ "./node_modules/@chakra-ui/react/dist/esm/components/icons.js");
-/* harmony import */ var _span_index_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../span/index.js */ "./node_modules/@chakra-ui/react/dist/esm/components/span/index.js");
-/* harmony import */ var _for_for_js__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../for/for.js */ "./node_modules/@chakra-ui/react/dist/esm/components/for/for.js");
-
-"use client";
-
-
-
-
-
-
-
-
-const {
-  withProvider,
-  withContext,
-  useStyles: useFileUploadStyles,
-  PropsProvider
-} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_18__.createSlotRecipeContext)({ key: "fileUpload" });
-const FileUploadRootProvider = withProvider(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_2__.FileUploadRootProvider, "root", { forwardAsChild: true });
-const FileUploadRoot = withProvider(
-  _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_3__.FileUploadRoot,
-  "root",
-  { forwardAsChild: true }
-);
-const FileUploadPropsProvider = PropsProvider;
-const FileUploadClearTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_4__.FileUploadClearTrigger, "clearTrigger", { forwardAsChild: true });
-const FileUploadDropzone = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_5__.FileUploadDropzone, "dropzone", { forwardAsChild: true });
-const FileUploadDropzoneContent = withContext("div", "dropzoneContent");
-const FileUploadItem = withContext(
-  _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_6__.FileUploadItem,
-  "item",
-  { forwardAsChild: true }
-);
-const FileUploadItemContent = withContext("div", "itemContent");
-const FileUploadItemDeleteTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_7__.FileUploadItemDeleteTrigger, "itemDeleteTrigger", {
-  forwardAsChild: true,
-  defaultProps: {
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_19__.CloseIcon, {})
-  }
-});
-const FileUploadItemGroup = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_8__.FileUploadItemGroup, "itemGroup", { forwardAsChild: true });
-const FileUploadItemName = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_9__.FileUploadItemName, "itemName", { forwardAsChild: true });
-const FileUploadItemPreview = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_10__.FileUploadItemPreview, "itemPreview", {
-  forwardAsChild: true,
-  defaultProps: {
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_19__.FileIcon, {})
-  }
-});
-const FileUploadItemPreviewImage = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_11__.FileUploadItemPreviewImage, "itemPreviewImage", { forwardAsChild: true });
-const FileUploadItemSizeText = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_12__.FileUploadItemSizeText, "itemSizeText", { forwardAsChild: true });
-const FileUploadLabel = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_13__.FileUploadLabel, "label", { forwardAsChild: true });
-const FileUploadTrigger = withContext(_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_14__.FileUploadTrigger, "trigger", { forwardAsChild: true });
-const FileUploadItems = (props) => {
-  const { showSize, clearable, files, ...rest } = props;
-  const fileUpload = (0,_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__.useFileUploadContext)();
-  const acceptedFiles = files ?? fileUpload.acceptedFiles;
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_for_for_js__WEBPACK_IMPORTED_MODULE_21__.For, { each: acceptedFiles, children: (file) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(FileUploadItem, { file, ...rest, children: [
-    /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemPreview, {}),
-    showSize ? /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(FileUploadItemContent, { children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemName, {}),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemSizeText, {})
-    ] }) : /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemName, { flex: "1" }),
-    clearable && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemDeleteTrigger, {})
-  ] }, file.name) });
-};
-const FileUploadList = (0,react__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(
-  function FileUploadList2(props, ref) {
-    const { showSize, clearable, files, ...rest } = props;
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(FileUploadItemGroup, { ref, ...rest, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-      FileUploadItems,
-      {
-        showSize,
-        clearable,
-        files
-      }
-    ) });
-  }
-);
-const FileUploadFileText = (0,react__WEBPACK_IMPORTED_MODULE_17__.forwardRef)(function FileUploadFileText2(props, ref) {
-  const { fallback = "Select file(s)", ...rest } = props;
-  const fileUpload = (0,_ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_1__.useFileUploadContext)();
-  const styles = useFileUploadStyles();
-  const acceptedFiles = fileUpload.acceptedFiles;
-  const fileText = (0,react__WEBPACK_IMPORTED_MODULE_17__.useMemo)(() => {
-    if (acceptedFiles.length === 1) {
-      return acceptedFiles[0].name;
-    }
-    if (acceptedFiles.length > 1) {
-      return `${acceptedFiles.length} files`;
-    }
-    return fallback;
-  }, [acceptedFiles, fallback]);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-    _span_index_js__WEBPACK_IMPORTED_MODULE_20__.Span,
-    {
-      ref,
-      "data-placeholder": fileText === fallback ? "" : void 0,
-      "data-scope": "file-upload",
-      "data-part": "file-text",
-      ...rest,
-      css: [styles.fileText, props.css],
-      children: fileText
-    }
-  );
-});
-const FileUploadContext = _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_15__.FileUploadContext;
-const FileUploadHiddenInput = _ark_ui_react_file_upload__WEBPACK_IMPORTED_MODULE_16__.FileUploadHiddenInput;
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js":
 /*!************************************************************************!*\
   !*** ./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js ***!
@@ -11286,31 +10616,6 @@ const Flex = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
   }
 );
 Flex.displayName = "Flex";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/for/for.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/for/for.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   For: () => (/* binding */ For)
-/* harmony export */ });
-
-function For(props) {
-  const { each, fallback, children } = props;
-  if (each?.length === 0) {
-    return fallback || null;
-  }
-  return each?.map(children);
-}
 
 
 
@@ -11635,6 +10940,50 @@ const EllipsisIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IM
     ]
   }
 );
+
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@chakra-ui/react/dist/esm/components/image/image.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/@chakra-ui/react/dist/esm/components/image/image.js ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Image: () => (/* binding */ Image)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
+/* harmony import */ var _utils_cx_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/cx.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/cx.js");
+
+"use client";
+
+
+
+
+
+const Image = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
+  function Image2(props, ref) {
+    const { align, fit = "cover", ...rest } = props;
+    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
+      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_2__.chakra.img,
+      {
+        ref,
+        objectFit: fit,
+        objectPosition: align,
+        className: (0,_utils_cx_js__WEBPACK_IMPORTED_MODULE_3__.cx)("chakra-image", props.className),
+        ...rest
+      }
+    );
+  }
+);
+Image.displayName = "Image";
 
 
 

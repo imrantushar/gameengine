@@ -6,6 +6,7 @@ import logsReducer from './Slices/logsSlice';
 import pointTypeReducer from './Slices/pointTypeSlice';
 import achievementsReducer from './Slices/achievementsSlice';
 import menuReducer from './Slices/menuSlice/menuSlice';
+import levelsReducer from './Slices/levelsSlice';
 /**
  * The main Redux store for the Gamify application.
  *
@@ -21,6 +22,7 @@ export const store = configureStore({
         logs: logsReducer,
         pointType: pointTypeReducer,
         achievements: achievementsReducer,
+        levels: levelsReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
     // Redux DevTools are automatically enabled in development mode
