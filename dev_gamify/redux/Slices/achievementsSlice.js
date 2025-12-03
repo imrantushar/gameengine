@@ -45,7 +45,7 @@ export const fetchPointTypes = createAsyncThunk('achievements/fetchPointTypes', 
 const initialState = {
     achievements: [],
     currentAchievementId: null,
-
+    congratulationsMessage: '',
     // Form Fields
     title: '',
     description: '', // Mapped to Plural Name in UI
@@ -76,6 +76,7 @@ const achievementsSlice = createSlice({
             state.currentAchievementId = null;
             state.title = '';
             state.description = '';
+            state.congratulationsMessage = '';
             state.maxEarnings = 0;
             state.allowUnlockWithPoints = false;
             state.pointsAmount = '';
@@ -116,6 +117,7 @@ const achievementsSlice = createSlice({
                 state.currentAchievementId = data.id;
                 state.title = data.title;
                 state.description = data.description;
+                state.congratulationsMessage = data.congratulations_message || '';
                 state.maxEarnings = data.max_earnings_per_user;
                 state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
                 state.pointsAmount = data.required_points_amount;

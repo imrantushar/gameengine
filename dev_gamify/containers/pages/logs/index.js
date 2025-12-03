@@ -191,10 +191,26 @@ const Logs = () => {
                 else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
 
                 const scheduled = row.meta?.scheduled_for;
+                const congratsMsg = row.meta?.congratulations_message;
 
                 return (
                     <div>
                         <div title={row.message}>{row.message}</div>
+                        {congratsMsg && (
+                            <div
+                                style={{
+                                    marginTop: '6px',
+                                    padding: '6px 8px',
+                                    background: '#f0fff4', // Light Green Bg
+                                    border: '1px solid #c6f6d5',
+                                    borderRadius: '4px',
+                                    fontSize: '12px',
+                                    color: '#2f855a' // Dark Green Text
+                                }}
+                                // Using dangerouslySetInnerHTML because it may contain HTML formatting from the editor
+                                dangerouslySetInnerHTML={{ __html: congratsMsg }}
+                            />
+                        )}
                         {points !== 0 && !isNaN(points) && (
                             <span style={{
                                 display: 'inline-block',
@@ -344,7 +360,7 @@ const Logs = () => {
                                 style={{ width: '100%', opacity: modalMode === 'edit' ? 0.6 : 1 }}
                             /> */}
                             <Text
-                              fontWeight="500" fontSize="0.875rem" margin={0}
+                                fontWeight="500" fontSize="0.875rem" margin={0}
                             >
                                 {__(`User ID`, "gamify")}
                             </Text>

@@ -36,6 +36,15 @@ class AchievementsManager
             return false;
         }
 
+        $table_achievements = $wpdb->prefix . 'gamify_achievements';
+        $achievement = $wpdb->get_row($wpdb->prepare(
+            "SELECT title, congratulations_message FROM {$table_achievements} WHERE id = %d",
+            $achievement_id
+        ));
+
+        $congrats_msg = $achievement ? $achievement->congratulations_message : '';
+        $title = $achievement ? $achievement->title : "Achievement #{$achievement_id}";
+
         // 2. Insert into User Achievements Table
         $table = $wpdb->prefix . 'gamify_user_achievements';
 
@@ -61,7 +70,8 @@ class AchievementsManager
                 'achievement_id'      => $achievement_id,
                 'user_achievement_id' => $user_achievement_id,
                 'context'             => $context,
-                'args'                => $args
+                'args'                => $args,
+                'congratulations_message' => $congrats_msg
             ],
             'success'
         );

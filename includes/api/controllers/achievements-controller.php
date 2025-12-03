@@ -54,6 +54,7 @@ class AchievementsController extends BaseController
             'unlock_with_points_enabled' => !empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'required_points_amount'     => intval($params['required_points_amount']),
             'required_point_type_id'     => intval($params['required_point_type_id']),
+            'congratulations_message'    => wp_kses_post($params['congratulations_message']),
             'created_at'                 => current_time('mysql'),
         ];
 

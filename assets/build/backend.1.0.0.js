@@ -2617,7 +2617,7 @@ const DynamicHookForm = ({
     const config = fieldsConfig[key];
 
     // --- NEW LOGIC START: SCOPE CHECK ---
-    // যদি scope ডিফাইন করা থাকে এবং তাতে 'achievement' না থাকে, তাহলে এটি স্কিপ করো।
+
     if (config.scope && !config.scope.includes('achievement')) {
       return null;
     }
@@ -2669,7 +2669,8 @@ const AchievementsType = () => {
     selectedHookIds,
     hookSettings,
     availablePointTypes,
-    saveStatus
+    saveStatus,
+    congratulationsMessage
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
 
   // Initial Load
@@ -2683,6 +2684,11 @@ const AchievementsType = () => {
       dispatch((0,_redux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_21__.resetForm)());
     }
   }, [dispatch, editId]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (congratulationsMessage) {
+      setMessage(congratulationsMessage);
+    }
+  }, [congratulationsMessage]);
 
   // Derived State for Drag & Drop
   const availableHooks = allHooks.filter(h => !selectedHookIds.includes(h.id));
@@ -4676,9 +4682,26 @@ const Logs = () => {
       let points = 0;
       if (row.points_awarded) points = parseInt(row.points_awarded);else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
       const scheduled = row.meta?.scheduled_for;
+      const congratsMsg = row.meta?.congratulations_message;
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
         title: row.message
-      }, row.message), points !== 0 && !isNaN(points) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      }, row.message), congratsMsg && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+        style: {
+          marginTop: '6px',
+          padding: '6px 8px',
+          background: '#f0fff4',
+          // Light Green Bg
+          border: '1px solid #c6f6d5',
+          borderRadius: '4px',
+          fontSize: '12px',
+          color: '#2f855a' // Dark Green Text
+        }
+        // Using dangerouslySetInnerHTML because it may contain HTML formatting from the editor
+        ,
+        dangerouslySetInnerHTML: {
+          __html: congratsMsg
+        }
+      }), points !== 0 && !isNaN(points) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
         style: {
           display: 'inline-block',
           marginTop: '4px',
@@ -6248,6 +6271,7 @@ const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
 const initialState = {
   achievements: [],
   currentAchievementId: null,
+  congratulationsMessage: '',
   // Form Fields
   title: '',
   description: '',
@@ -6279,6 +6303,7 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
       state.currentAchievementId = null;
       state.title = '';
       state.description = '';
+      state.congratulationsMessage = '';
       state.maxEarnings = 0;
       state.allowUnlockWithPoints = false;
       state.pointsAmount = '';
@@ -6321,6 +6346,7 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
       state.currentAchievementId = data.id;
       state.title = data.title;
       state.description = data.description;
+      state.congratulationsMessage = data.congratulations_message || '';
       state.maxEarnings = data.max_earnings_per_user;
       state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
       state.pointsAmount = data.required_points_amount;

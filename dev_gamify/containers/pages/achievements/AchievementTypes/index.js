@@ -110,7 +110,7 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                     const config = fieldsConfig[key];
 
                     // --- NEW LOGIC START: SCOPE CHECK ---
-                    // যদি scope ডিফাইন করা থাকে এবং তাতে 'achievement' না থাকে, তাহলে এটি স্কিপ করো।
+
                     if (config.scope && !config.scope.includes('achievement')) {
                         return null;
                     }
@@ -152,7 +152,7 @@ const AchievementsType = () => {
     // Redux State
     const {
         title, description, maxEarnings, allowUnlockWithPoints, pointsAmount, selectedPointTypeId,
-        allHooks, selectedHookIds, hookSettings, availablePointTypes, saveStatus
+        allHooks, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage
     } = useSelector(state => state.achievements);
 
     // Initial Load
@@ -166,6 +166,12 @@ const AchievementsType = () => {
             dispatch(resetForm());
         }
     }, [dispatch, editId]);
+
+    useEffect(() => {
+        if (congratulationsMessage) {
+            setMessage(congratulationsMessage);
+        }
+    }, [congratulationsMessage]);
 
     // Derived State for Drag & Drop
     const availableHooks = allHooks.filter(h => !selectedHookIds.includes(h.id));

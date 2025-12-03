@@ -45,6 +45,7 @@ final class Schema
             title VARCHAR(255) NOT NULL,
             description TEXT,
             badge_image VARCHAR(255),
+            congratulations_message TEXT DEFAULT NULL,
             secret_achievement TINYINT(1) DEFAULT 0,
             max_earnings_per_user INT(11) DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
