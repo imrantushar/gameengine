@@ -50,7 +50,7 @@ const Achievements = () => {
                             type: 'button',
                             label: __('Edit', 'gamify'),
                             icon: <Icon as={FiEdit} />,
-                            onClick: () => navigate(`/achievementsType?id=${row.id}`)
+                            onClick: () => navigate(`${ route_path }admin.php?page=gamify-achievements&action=edit&id=${ row.id }&path=name`)
                         },
                         {
                             type: 'button',

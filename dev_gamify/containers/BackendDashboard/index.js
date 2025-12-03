@@ -20,6 +20,9 @@ const renderSwitch = (page, id, action, path) => {
 			if(path === "points-types"){
              return <PointType />;
 			}
+			if ( action || id ) {
+				return <PointType action={ action } id={ id } />;
+			}
 			return <Points />;
 		case 'gamify-logs':
 			return <Logs />;
@@ -33,6 +36,9 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gamify-achievements':
 			if(path === 'achievements-type'){
 				return <AchievementsType />
+			}
+			if ( action || id ) {
+				return <AchievementsType action={ action } id={ id } />;
 			}
 			return <Achievements />;
 

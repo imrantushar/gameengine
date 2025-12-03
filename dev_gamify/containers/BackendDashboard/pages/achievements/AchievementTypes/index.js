@@ -30,6 +30,7 @@ import {
     updateHookSettings
 } from "@GFRedux/Slices/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { route_path } from "@GFUtils/helper";
 
 // --- Draggable Components ---
 const DraggableItem = ({ id, children }) => {
@@ -214,7 +215,7 @@ const AchievementsType = () => {
         }
 
         if (result.type.endsWith('fulfilled')) {
-            navigate('/achievements');
+            navigate(`${ route_path }admin.php?page=gamify-achievements`)
         }
     };
 

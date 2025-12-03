@@ -46,6 +46,7 @@ import {
     updateHookSettings
 } from '@GFRedux/Slices/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+import { route_path } from '@GFUtils/helper';
 
 
 // # DRAGGABLE
@@ -330,7 +331,7 @@ const PointType = () => {
         if (savePointType.fulfilled.match(resultAction) ||
             updatePointType.fulfilled.match(resultAction)) {
             alert(currentPointTypeId ? "Updated Successfully!" : "Saved Successfully!");
-            if (!currentPointTypeId) navigate('/points');
+            if (!currentPointTypeId) navigate(`${ route_path }admin.php?page=gamify-points`);
         } else {
             alert("Error saving. Check console.");
         }
