@@ -16,16 +16,7 @@ export const {
 	is_plain_permalink,
 } = window?.GamifyGlobal;
 
-// export const isPlainPermalink = Boolean(is_plain_permalink);
-// export const userId = Boolean(user_id);
-// export const API = axios.create({
-// 	baseURL: rest_url,
-// 	headers: {
-// 		'content-type': 'application/json',
-// 		'X-WP-Nonce': nonce,
-// 		'Cache-Control': 'no-cache', // Prevent caching
-// 	},
-// });
+
 export const reactDebounce = (callback, wait) => {
 	let timeout;
 	return (...args) => {
@@ -38,6 +29,41 @@ export const reactDebounce = (callback, wait) => {
 export const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
 };
+
+export const handleSliceError = ( thunkAPI, error ) => {
+	thunkAPI.dispatch(
+		showNotification( {
+			message:
+				error?.response.data.message ??
+				error?.response?.message ??
+				error?.message,
+			isShow: true,
+			type: 'error',
+		} )
+	);
+	// }
+	return thunkAPI.rejectWithValue( error.message );
+};
+
+
+export const handleSliceSuccess = ( thunkAPI, message ) => {
+	thunkAPI.dispatch(
+		showNotification( {
+			message: __( message, 'gamify' ),
+			isShow: true,
+			type: 'success',
+		} )
+	);
+};
+
+export const API = axios.create( {
+	baseURL: rest_url,
+	headers: {
+		'content-type': 'application/json',
+		'X-WP-Nonce': nonce,
+		'Cache-Control': 'no-cache', 
+	},
+} );
 export const makeRequest = async (
 	action,
 	payload = {},
