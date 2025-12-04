@@ -7248,9 +7248,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
 /* harmony import */ var _Slices_menuSlice_menuSlice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Slices/menuSlice/menuSlice */ "./dev_gamify/redux/Slices/menuSlice/menuSlice.js");
 /* harmony import */ var _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Slices/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice.js");
+Object(function webpackMissingModule() { var e = new Error("Cannot find module 'redux-logger'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 // Import all the reducers you have created
+
 
 
 
@@ -7274,8 +7276,8 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
     achievements: _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__["default"],
     levels: _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__["default"]
     // Future reducers will be added here (e.g., points, settings)
-  }
-  // Redux DevTools are automatically enabled in development mode
+  },
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'redux-logger'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()))
 });
 
 /***/ }),
