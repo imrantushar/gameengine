@@ -119,6 +119,7 @@ final class Gamify
         // Triggers contain translatable strings, so it MUST load here
         \Gamify\Classes\Triggers::init();
 
+        \Gamify\Classes\AchievementsManager::init();
         \Gamify\Classes\LevelsManager::init();
 
         // Admin Only Modules
