@@ -35,8 +35,10 @@ class AchievementsManager
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_achievements';
 
+        // 1. Fetch ID AND Max Earnings from DB
         $achievements = $wpdb->get_results($wpdb->prepare(
-            "SELECT id, title FROM {$table} 
+            "SELECT id, title, max_earnings_per_user 
+             FROM {$table} 
              WHERE unlock_with_points_enabled = 1 
              AND required_point_type_id = %d 
              AND required_points_amount <= %d",
@@ -47,11 +49,30 @@ class AchievementsManager
         if (empty($achievements)) return;
 
         foreach ($achievements as $achievement) {
+            $max_earnings = intval($achievement->max_earnings_per_user);
 
-            if ($this->has_achievement($user_id, $achievement->id)) {
-                continue;
+            // 🔥 CRITICAL FIX START: Check count against limit instead of just existence
+            $current_count = $this->get_user_achievement_count($user_id, $achievement->id);
+
+            // Case A: Limited (e.g., 2 times)
+            if ($max_earnings > 0) {
+                if ($current_count >= $max_earnings) {
+                    continue; // Limit reached, skip.
+                }
             }
+            // Case B: Unlimited (0) - For Point Milestones (Unlock with Points)
+            // Warning: If unlimited, user gets this achievement on EVERY point transaction after crossing threshold.
+            // Usually, milestones are One-Time by default if 0. 
+            // But to respect your "Unlimited" request, we allow it (use with caution).
+            else {
+                // If you want Milestones to be strictly 1-time if max is 0:
+                if ($current_count > 0) {
+                    continue;
+                }
+            }
+            // 🔥 CRITICAL FIX END
 
+            // Award the achievement
             $this->award($user_id, $achievement->id, 'point_milestone');
         }
     }
@@ -76,12 +97,14 @@ class AchievementsManager
 
         if (!$achievement) return false;
 
-        $max_earnings = intval($achievement->max_earnings_per_user); // 0 means unlimited
+        // --- STEP 2: Check Maximum Earnings Limit ---
+        $max_earnings = intval($achievement->max_earnings_per_user);
 
+        // If max earnings is set (>0), verify count
         if ($max_earnings > 0) {
             $current_count = $this->get_user_achievement_count($user_id, $achievement_id);
             if ($current_count >= $max_earnings) {
-                return false;
+                return false; // Limit reached
             }
         }
 

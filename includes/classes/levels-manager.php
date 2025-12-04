@@ -75,7 +75,7 @@ class LevelsManager
                 'level_id'                => $level_id,
                 'user_level_id'           => $user_level_id,
                 'context'                 => $context,
-                'congratulations_message' => $level->congratulations_message // UI তে দেখানোর জন্য
+                'congratulations_message' => $level->congratulations_message
             ],
             'success'
         );

@@ -9,6 +9,7 @@ if (! defined('ABSPATH')) {
 
 use Gamify\Classes\PointsManager;
 use Gamify\Classes\AchievementsManager;
+use Gamify\Classes\LevelsManager;
 use Gamify\Classes\TriggerRegistry;
 
 /**
@@ -106,10 +107,28 @@ class Triggers
 
     /**
      * Process a single requirement rule.
+     *
+     * @param object $rule      The rule object from the database.
+     * @param int    $user_id   The user ID.
+     * @param array  $config    The trigger configuration.
+     * @param array  $hook_args Arguments passed from the hook.
      */
     private function process_single_rule($rule, $user_id, $config, $hook_args)
     {
         $params = json_decode($rule->parameters, true);
+
+        // --- SPECIAL CHECK: Specific Achievement Unlock ---
+        // If the trigger is 'unlock_specific_achievement', we must verify
+        // that the unlocked achievement ID matches the target ID in parameters.
+        if ($rule->trigger_key === 'unlock_specific_achievement') {
+            // hook_args[1] is achievement_id (from do_action in AchievementsManager)
+            $unlocked_id = isset($hook_args[1]) ? intval($hook_args[1]) : 0;
+            $target_id = isset($params['achievement_id']) ? intval($params['achievement_id']) : 0;
+
+            if ($unlocked_id !== $target_id) {
+                return; // Wrong achievement unlocked, ignore this rule.
+            }
+        }
 
         // --- STEP 1: Check Limits (Progress Tracking) ---
         if (! $this->check_limit_validity($user_id, $rule->id, $params)) {
@@ -154,6 +173,20 @@ class Triggers
             );
         }
 
+        // --- CASE C: LEVEL REWARD ---
+        elseif ($rule->reward_type === 'level') {
+            $levels_manager = new LevelsManager();
+            $level_id = $rule->reward_id;
+
+            $success = $levels_manager->award(
+                $user_id,
+                $level_id,
+                $rule->trigger_key, // Context
+                // Note: LevelsManager::award currently does not accept an args array in 4th param,
+                // but passing context is sufficient for logging.
+            );
+        }
+
         // --- STEP 2: Update Progress Tracking ---
         if ($success) {
             $this->update_requirement_progress($user_id, $rule->id);
@@ -162,6 +195,11 @@ class Triggers
 
     /**
      * Checks if the user is eligible based on limits.
+     *
+     * @param int   $user_id        The user ID.
+     * @param int   $requirement_id The requirement/rule ID.
+     * @param array $params         The parameters containing limit settings.
+     * @return bool True if eligible, False if limit reached.
      */
     private function check_limit_validity($user_id, $requirement_id, $params)
     {
@@ -205,7 +243,10 @@ class Triggers
     }
 
     /**
-     * Updates progress table.
+     * Updates or creates a record in the progress table after a successful transaction.
+     *
+     * @param int $user_id        The user ID.
+     * @param int $requirement_id The requirement/rule ID.
      */
     private function update_requirement_progress($user_id, $requirement_id)
     {

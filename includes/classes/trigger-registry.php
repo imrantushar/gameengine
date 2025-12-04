@@ -55,6 +55,26 @@ final class TriggerRegistry
         return $options;
     }
 
+
+    private static function get_achievements_list()
+    {
+        global $wpdb;
+        $table = $wpdb->prefix . 'gamify_achievements';
+        $options = [];
+
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) return $options;
+
+        $results = $wpdb->get_results("SELECT id, title FROM $table ORDER BY id DESC");
+
+        if (!empty($results)) {
+            foreach ($results as $item) {
+                // Key as String ID, Value as Title
+                $options[(string)$item->id] = $item->title . " (ID: {$item->id})";
+            }
+        }
+        return $options;
+    }
+
     /**
      * Register core default triggers.
      */
@@ -191,23 +211,6 @@ final class TriggerRegistry
         // 3. ACHIEVEMENT SPECIFIC TRIGGERS
         // ==========================================
 
-        // --- Unlock Specific Achievement ---
-        self::add('unlock_specific_achievement', [
-            'label'       => __('Unlock a specific achievement', 'gamify'),
-            'description' => __('Award points/badge when another specific achievement is unlocked.', 'gamify'),
-            'hook'        => 'gamify_achievement_unlocked',
-            'args_count'  => 2,
-            'type'        => 'gamify',
-            'category'    => 'gamify',
-            'supports'    => ['achievement', 'level'],
-            'get_user_id' => function ($user_id, $achievement_id) {
-                return $user_id;
-            },
-            'award_fields' => [
-                'achievement_id' => ['type' => 'number', 'label' => __('Achievement ID to watch', 'gamify'), 'required' => true],
-                'times'          => ['type' => 'number', 'label' => __('How many times?', 'gamify'), 'default' => 1]
-            ]
-        ]);
 
         // --- Expend Amount of Points ---
         self::add('expend_amount_of_points', [
@@ -250,6 +253,51 @@ final class TriggerRegistry
             },
             'award_fields' => [
                 'role' => ['type' => 'text', 'label' => __('Role Slug (e.g. subscriber)', 'gamify'), 'default' => 'subscriber']
+            ]
+        ]);
+
+
+
+        // --- Unlock Specific Achievement ---
+        self::add('unlock_specific_achievement', [
+            'label'       => __('Unlock a specific achievement', 'gamify'),
+            'description' => __('Unlock points or level when a specific achievement is earned.', 'gamify'),
+            'hook'        => 'gamify_achievement_unlocked',
+            'args_count'  => 2,
+            'type'        => 'gamify',
+            'category'    => 'gamify',
+            'supports'    => ['level'], // Supports Level
+            'get_user_id' => function ($user_id, $achievement_id) {
+                return $user_id;
+            },
+            'award_fields' => [
+                // 1. Achievement Selection (Dynamic Dropdown)
+                'achievement_id' => [
+                    'type'    => 'select',
+                    'label'   => __('Select Achievement', 'gamify'),
+                    'options' => self::get_achievements_list(), // Dynamic List
+                    'required' => true
+                ],
+                // 2. Points (Only if used in Point Type)
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points Award', 'gamify'),
+                    'default' => 50,
+                    //'scope'   => ['point_type']
+                ],
+                // 3. Limit Logic
+                'limit' => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'],
+                    'default' => '1_time'
+                ],
+                // 4. Times (Frequency Check)
+                'times' => [
+                    'type'    => 'number',
+                    'label'   => __('How many times?', 'gamify'),
+                    'default' => 1
+                ]
             ]
         ]);
     }
