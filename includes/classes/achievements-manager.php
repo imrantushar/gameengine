@@ -27,21 +27,16 @@ class AchievementsManager
     /**
      * Check if user earned achievements based on point balance.
      */
-    public function check_achievements_on_point_change($user_id, $points, $context, $log_id, $point_type_id)
+    public function check_achievements_on_point_change($user_id, $points_added, $context, $log_id, $point_type_id)
     {
-        // 1. Get User's Total Points for this Type
         $points_manager = new PointsManager();
         $total_points = $points_manager->get_total($user_id, $point_type_id);
 
-        // 2. Query Achievements that match:
-        // - Unlock with points enabled
-        // - Matches the point type
-        // - Required points <= User's total points
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_achievements';
 
         $achievements = $wpdb->get_results($wpdb->prepare(
-            "SELECT id FROM {$table} 
+            "SELECT id, title FROM {$table} 
              WHERE unlock_with_points_enabled = 1 
              AND required_point_type_id = %d 
              AND required_points_amount <= %d",
@@ -51,9 +46,12 @@ class AchievementsManager
 
         if (empty($achievements)) return;
 
-        // 3. Award qualifying achievements
         foreach ($achievements as $achievement) {
-            // Award function will handle "Max Earnings" check
+
+            if ($this->has_achievement($user_id, $achievement->id)) {
+                continue;
+            }
+
             $this->award($user_id, $achievement->id, 'point_milestone');
         }
     }
@@ -78,29 +76,16 @@ class AchievementsManager
 
         if (!$achievement) return false;
 
-        // --- STEP 2: Check Maximum Earnings Limit ---
         $max_earnings = intval($achievement->max_earnings_per_user); // 0 means unlimited
 
         if ($max_earnings > 0) {
             $current_count = $this->get_user_achievement_count($user_id, $achievement_id);
             if ($current_count >= $max_earnings) {
-                return false; // Limit reached, do not award
+                return false;
             }
-        } else {
-            // If 0 (Unlimited), but usually standard achievements are awarded once per unique ID logic?
-            // If you want "Unlimited" to strictly mean "Multiple times", then pass.
-            // If you want default behavior to be "Once" if 0 is set (unless explicitly unlimited), logic changes.
-            // Assuming 0 = Unlimited repeats allowed based on your prompt.
-
-            // However, often standard achievements are 1-time. 
-            // If you want 1-time by default if field is empty, verify logic.
-            // Current Logic: 0 = Unlimited repeats allowed.
         }
 
-        // --- STEP 3: Check if "One Time" logic is needed specifically ---
-        // If max_earnings is 1, this effectively makes it unique.
-
-        // --- STEP 4: Insert into User Achievements Table ---
+        // --- STEP 3: Insert into User Achievements Table ---
         $table_user_achievements = $wpdb->prefix . 'gamify_user_achievements';
 
         $result = $wpdb->insert($table_user_achievements, [
@@ -115,7 +100,7 @@ class AchievementsManager
 
         $user_achievement_id = $wpdb->insert_id;
 
-        // --- STEP 5: Log ---
+        // --- STEP 4: Log ---
         $title = $achievement->title;
         $congrats_msg = $achievement->congratulations_message;
 
@@ -155,6 +140,14 @@ class AchievementsManager
         return (int) $count;
     }
 
+    /**
+     * Check if user has at least one of this achievement.
+     */
+    public function has_achievement(int $user_id, int $achievement_id): bool
+    {
+        return $this->get_user_achievement_count($user_id, $achievement_id) > 0;
+    }
+
     public function revoke(int $user_id, int $achievement_id)
     {
         global $wpdb;
@@ -180,11 +173,6 @@ class AchievementsManager
         }
 
         return false;
-    }
-
-    public function has_achievement(int $user_id, int $achievement_id): bool
-    {
-        return $this->get_user_achievement_count($user_id, $achievement_id) > 0;
     }
 
     public function get_user_achievements(int $user_id): array

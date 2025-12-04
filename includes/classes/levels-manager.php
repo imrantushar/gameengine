@@ -92,11 +92,9 @@ class LevelsManager
      */
     public function check_levels_on_point_change($user_id, $points, $context, $log_id, $point_type_id)
     {
-        // 1. Get User's Total Points for this Type
         $points_manager = new PointsManager();
         $total_points = $points_manager->get_total($user_id, $point_type_id);
 
-        // 2. Get All Levels applicable for this Point Type (Unlock with Points Enabled)
         global $wpdb;
         $table_levels = $wpdb->prefix . 'gamify_levels';
 
@@ -109,13 +107,14 @@ class LevelsManager
 
         if (empty($levels)) return;
 
-        // 3. Check which highest level the user qualifies for
         foreach ($levels as $level) {
             if ($total_points >= $level->min_points) {
-                // যদি ইউজারের এই লেভেল না থাকে, তবে দিয়ে দাও
-                if (!$this->has_level($user_id, $level->id)) {
-                    $this->award($user_id, $level->id, 'point_milestone');
+                if ($this->has_level($user_id, $level->id)) {
+                    continue; // Skip if already awarded
                 }
+
+                // Award Level
+                $this->award($user_id, $level->id, 'point_milestone');
             }
         }
     }
