@@ -9,7 +9,7 @@ import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
-import { fetchAchievements, deleteAchievement } from '@GFRedux/Slices/achievementsSlice';
+import { fetchAchievements, deleteAchievement } from '@GFRedux/Slices/achivementSlice/achievementsSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 

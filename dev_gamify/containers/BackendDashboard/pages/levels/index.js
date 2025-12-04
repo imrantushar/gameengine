@@ -14,7 +14,7 @@ import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 
 // Actions (Ensure path matches your file structure)
-import { fetchLevels, deleteLevel } from '../../../../redux/Slices/levelsSlice';
+import { fetchLevels, deleteLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 
 const Levels = () => {
     const navigate = useNavigate();

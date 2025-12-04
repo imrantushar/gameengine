@@ -2627,7 +2627,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
 /* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
 /* harmony import */ var _GFComponents_editor__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @GFComponents/editor */ "./dev_gamify/components/editor/index.js");
-/* harmony import */ var _GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFRedux/Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
+/* harmony import */ var _GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFRedux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
@@ -2826,12 +2826,12 @@ const AchievementsType = () => {
   // Initial Load
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     // Fetch triggers specifically for achievements
-    dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchTriggers)());
-    dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchPointTypes)());
+    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchTriggers)());
+    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchPointTypes)());
     if (editId) {
-      dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchAchievementById)(editId));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.fetchAchievementById)(editId));
     } else {
-      dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.resetForm)());
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.resetForm)());
     }
   }, [dispatch, editId]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -2850,10 +2850,10 @@ const AchievementsType = () => {
     if (!over) return;
     const id = active.id;
     if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
-      dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.addHook)(id));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.addHook)(id));
     }
     if (selectedHookIds.includes(id) && over.id === "awards-available") {
-      dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.removeHook)(id));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.removeHook)(id));
     }
   };
   const handleSave = async () => {
@@ -2874,12 +2874,12 @@ const AchievementsType = () => {
     };
     let result;
     if (editId) {
-      result = await dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.updateAchievement)({
+      result = await dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.updateAchievement)({
         id: editId,
         data: payload
       }));
     } else {
-      result = await dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.saveAchievement)(payload));
+      result = await dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.saveAchievement)(payload));
     }
     if (result.type.endsWith('fulfilled')) {
       navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__.route_path}admin.php?page=gamify-achievements`);
@@ -2917,7 +2917,7 @@ const AchievementsType = () => {
     label: "Point Name",
     placeholder: "Academy LMS",
     value: title,
-    onChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'title',
       value: e.target.value
     }))
@@ -2925,7 +2925,7 @@ const AchievementsType = () => {
     label: "Plural Name",
     placeholder: "Plural Name",
     value: description,
-    onChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'description',
       value: e.target.value
     }))
@@ -2934,7 +2934,7 @@ const AchievementsType = () => {
     placeholder: "0",
     type: "number",
     value: maxEarnings,
-    onChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'maxEarnings',
       value: e.target.value
     }))
@@ -2957,7 +2957,7 @@ const AchievementsType = () => {
     isCustomHTML: false
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.SwitchRoot, {
     checked: allowUnlockWithPoints,
-    onCheckedChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onCheckedChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'allowUnlockWithPoints',
       value: e.checked
     }))
@@ -2974,7 +2974,7 @@ const AchievementsType = () => {
     placeholder: "1500",
     type: "number",
     value: pointsAmount,
-    onChange: e => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'pointsAmount',
       value: e.target.value
     }))
@@ -2994,7 +2994,7 @@ const AchievementsType = () => {
     classNamePrefix: "gamify-select",
     options: availablePointTypes,
     value: availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null,
-    onChange: selected => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
+    onChange: selected => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.setField)({
       field: 'selectedPointTypeId',
       value: selected ? selected.value : null
     }))
@@ -3101,7 +3101,7 @@ const AchievementsType = () => {
     hookId: hook.id,
     hookInfo: hook,
     settings: hookSettings[hook.id] || {},
-    onChange: (key, val) => dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.updateHookSettings)({
+    onChange: (key, val) => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_20__.updateHookSettings)({
       hookId: hook.id,
       settings: {
         [key]: val
@@ -3148,7 +3148,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
 /* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
 /* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFRedux/Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
+/* harmony import */ var _GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFRedux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
@@ -3172,11 +3172,11 @@ const Achievements = () => {
     achievements
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.fetchAchievements)());
+    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.fetchAchievements)());
   }, [dispatch]);
   const handleDelete = id => {
     if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Are you sure?', 'gamify'))) {
-      dispatch((0,_GFRedux_Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.deleteAchievement)(id));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.deleteAchievement)(id));
     }
   };
   const columns = [{
@@ -3881,7 +3881,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-/* harmony import */ var _redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../redux/Slices/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice.js");
+/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../redux/Slices/levelsSlice/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
 
 
 
@@ -3910,7 +3910,7 @@ const Levels = () => {
     status
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.levels || {});
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.fetchLevels)());
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.fetchLevels)());
   }, [dispatch]);
   const columns = [{
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Name', 'gamify'),
@@ -3942,7 +3942,7 @@ const Levels = () => {
           as: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiTrash2
         }),
         onClick: () => {
-          if (confirm('Delete level?')) dispatch((0,_redux_Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.deleteLevel)(row.id));
+          if (confirm('Delete level?')) dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.deleteLevel)(row.id));
         }
       }]
     })
@@ -4024,7 +4024,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-/* harmony import */ var _redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../../../redux/Slices/levelsSlice.js */ "./dev_gamify/redux/Slices/levelsSlice.js");
+/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../../../redux/Slices/levelsSlice/levelsSlice.js */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
 
 
 
@@ -4205,12 +4205,12 @@ const LevelType = () => {
 
   // Initial Load
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelTriggers)()); // Fetch triggers scoped for levels
-    dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchPointTypes)());
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelTriggers)()); // Fetch triggers scoped for levels
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchPointTypes)());
     if (editId) {
-      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelById)(editId));
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.fetchLevelById)(editId));
     } else {
-      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.resetForm)());
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.resetForm)());
     }
   }, [dispatch, editId]);
 
@@ -4231,7 +4231,7 @@ const LevelType = () => {
       });
       frame.on('select', () => {
         const attachment = frame.state().get('selection').first().toJSON();
-        dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+        dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
           field: 'levelIcon',
           value: attachment.url
         }));
@@ -4253,10 +4253,10 @@ const LevelType = () => {
 
     // Logic for adding/removing hooks
     if (availableHooks.some(i => i.id === active.id) && over.id === "awards-sidebar") {
-      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.addHook)(active.id));
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.addHook)(active.id));
     }
     if (selectedHookIds.includes(active.id) && over.id === "awards-available") {
-      dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.removeHook)(active.id));
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.removeHook)(active.id));
     }
   };
 
@@ -4277,10 +4277,10 @@ const LevelType = () => {
         parameters: hookSettings[h.id] || {}
       }))
     };
-    const result = editId ? await dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateLevel)({
+    const result = editId ? await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateLevel)({
       id: editId,
       data: payload
-    })) : await dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.saveLevel)(payload));
+    })) : await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.saveLevel)(payload));
     if (result.type.endsWith('fulfilled')) navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_22__.route_path}admin.php?page=gamify-levels`);
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -4315,7 +4315,7 @@ const LevelType = () => {
     label: "Level Name",
     placeholder: "e.g. Bronze",
     value: title,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'title',
       value: e.target.value
     }))
@@ -4323,7 +4323,7 @@ const LevelType = () => {
     label: "Plural Name",
     placeholder: "e.g. Bronzes",
     value: pluralName,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'pluralName',
       value: e.target.value
     }))
@@ -4343,7 +4343,7 @@ const LevelType = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)(`Level Requirements`, "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchRoot, {
     checked: unlockWithPoints,
-    onCheckedChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onCheckedChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'unlockWithPoints',
       value: e.checked
     }))
@@ -4359,7 +4359,7 @@ const LevelType = () => {
     label: "Minimum Balance",
     type: "number",
     value: minPoints,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'minPoints',
       value: e.target.value
     }))
@@ -4369,7 +4369,7 @@ const LevelType = () => {
     label: "Maximum Balance",
     type: "number",
     value: maxPoints,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'maxPoints',
       value: e.target.value
     }))
@@ -4386,7 +4386,7 @@ const LevelType = () => {
     placeholder: "Choose one",
     options: availablePointTypes,
     value: availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null,
-    onChange: sel => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
+    onChange: sel => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.setField)({
       field: 'selectedPointTypeId',
       value: sel ? sel.value : null
     }))
@@ -4493,7 +4493,7 @@ const LevelType = () => {
     hookId: hook.id,
     hookInfo: hook,
     settings: hookSettings[hook.id] || {},
-    onChange: (k, v) => dispatch((0,_redux_Slices_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateHookSettings)({
+    onChange: (k, v) => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_23__.updateHookSettings)({
       hookId: hook.id,
       settings: {
         [k]: v
@@ -4560,7 +4560,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
 /* harmony import */ var _GFComponents_Modal_WPModal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Modal/WPModal */ "./dev_gamify/components/Modal/WPModal.js");
 /* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFRedux/Slices/logsSlice */ "./dev_gamify/redux/Slices/logsSlice.js");
+/* harmony import */ var _GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFRedux/Slices/logsSlice/logsSlice */ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
@@ -4629,7 +4629,7 @@ const Logs = () => {
 
   // --- Fetch Data ---
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchLogs)({
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchLogs)({
       page: currentPage,
       per_page: rowsPerPage,
       search: searchQuery
@@ -4637,21 +4637,21 @@ const Logs = () => {
   }, [dispatch, currentPage, rowsPerPage, searchQuery]);
 
   // --- Handlers ---
-  const handlePageChange = newPage => dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(newPage));
+  const handlePageChange = newPage => dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(newPage));
   const handlePerPageChange = newLimit => {
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setRowsPerPage)(newLimit));
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setRowsPerPage)(newLimit));
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
   };
   const handleRefresh = () => {
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchLogs)({
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchLogs)({
       page: currentPage,
       per_page: rowsPerPage,
       search: searchQuery
     }));
   };
   const handleSearch = value => {
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(value));
-    dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(value));
+    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
   };
 
   // --- Helper: Open Modal for Create ---
@@ -4709,7 +4709,7 @@ const Logs = () => {
     };
     if (modalMode === 'edit') {
       // Update Action
-      result = await dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.updateLogAction)({
+      result = await dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.updateLogAction)({
         id: formData.log_id,
         data: {
           points_awarded: formData.points,
@@ -4719,10 +4719,10 @@ const Logs = () => {
       }));
     } else {
       // Create Action
-      result = await dispatch((0,_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.manualLogAction)(payload));
+      result = await dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.manualLogAction)(payload));
     }
     setIsSubmitting(false);
-    if (_GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.manualLogAction.fulfilled.match(result) || _GFRedux_Slices_logsSlice__WEBPACK_IMPORTED_MODULE_12__.updateLogAction.fulfilled.match(result)) {
+    if (_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.manualLogAction.fulfilled.match(result) || _GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.updateLogAction.fulfilled.match(result)) {
       setIsModalOpen(false);
     } else {
       alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Error: ', 'gamify') + (result.payload || 'Failed'));
@@ -5060,7 +5060,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
 /* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
 /* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @GFRedux/Slices/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypeSlice.js");
+/* harmony import */ var _GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @GFRedux/Slices/pointTypesSlice/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
@@ -5239,7 +5239,7 @@ const HookConfigurationForm = ({
 }) => {
   const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const handleChange = (field, value) => {
-    dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
+    dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
       type: type,
       hookId: hookInfo.id,
       settings: {
@@ -5289,12 +5289,12 @@ const PointType = () => {
 
   // LOAD TRIGGERS
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (status === 'idle') dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchTriggers)());
+    if (status === 'idle') dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchTriggers)());
   }, [status, dispatch]);
 
   // EDIT MODE
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (editId) dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchPointTypeById)(editId));else dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.resetPointTypeForm)());
+    if (editId) dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchPointTypeById)(editId));else dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.resetPointTypeForm)());
   }, [editId, dispatch]);
 
   // === FIXED UNIQUE IDs ===
@@ -5315,10 +5315,10 @@ const PointType = () => {
     if (draggedId.startsWith("award_")) {
       const pureId = draggedId.replace("award_", "");
       if (over.id === "awards-sidebar") {
-        dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addAwardHook)(pureId));
+        dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addAwardHook)(pureId));
       }
       if (over.id === "awards-available") {
-        dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeAwardHook)(pureId));
+        dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeAwardHook)(pureId));
       }
     }
 
@@ -5326,10 +5326,10 @@ const PointType = () => {
     if (draggedId.startsWith("deduct_")) {
       const pureId = draggedId.replace("deduct_", "");
       if (over.id === "deductions-sidebar") {
-        dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addDeductHook)(pureId));
+        dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addDeductHook)(pureId));
       }
       if (over.id === "deductions-available") {
-        dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeDeductHook)(pureId));
+        dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeDeductHook)(pureId));
       }
     }
   };
@@ -5362,14 +5362,14 @@ const PointType = () => {
     };
     let resultAction;
     if (currentPointTypeId) {
-      resultAction = await dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updatePointType)({
+      resultAction = await dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updatePointType)({
         id: currentPointTypeId,
         data: payload
       }));
     } else {
-      resultAction = await dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.savePointType)(payload));
+      resultAction = await dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.savePointType)(payload));
     }
-    if (_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.savePointType.fulfilled.match(resultAction) || _GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updatePointType.fulfilled.match(resultAction)) {
+    if (_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.savePointType.fulfilled.match(resultAction) || _GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updatePointType.fulfilled.match(resultAction)) {
       alert(currentPointTypeId ? "Updated Successfully!" : "Saved Successfully!");
       if (!currentPointTypeId) navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_19__.route_path}admin.php?page=gamify-points`);
     } else {
@@ -5408,11 +5408,11 @@ const PointType = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Point Name",
     value: name,
-    onChange: e => dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPointName)(e.target.value))
+    onChange: e => dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPointName)(e.target.value))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: "Plural Name",
     value: pluralName,
-    onChange: e => dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPluralName)(e.target.value))
+    onChange: e => dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPluralName)(e.target.value))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_10__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
@@ -5603,7 +5603,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
 /* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
 /* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
-/* harmony import */ var _GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFRedux/Slices/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypeSlice.js");
+/* harmony import */ var _GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFRedux/Slices/pointTypesSlice/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
@@ -5636,13 +5636,13 @@ const Points = () => {
 
   // Fetch data on component mount
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__.fetchPointTypes)());
+    dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__.fetchPointTypes)());
   }, [dispatch]);
 
   // Handle delete using Redux action
   const handleDelete = id => {
     if (window.confirm('Are you sure?')) {
-      dispatch((0,_GFRedux_Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__.deletePointType)(id));
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_14__.deletePointType)(id));
     }
   };
   const columns = [{
@@ -6257,10 +6257,10 @@ const Settings = () => {
 
 /***/ }),
 
-/***/ "./dev_gamify/redux/Slices/achievementsSlice.js":
-/*!******************************************************!*\
-  !*** ./dev_gamify/redux/Slices/achievementsSlice.js ***!
-  \******************************************************/
+/***/ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js":
+/*!**********************************************************************!*\
+  !*** ./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js ***!
+  \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6456,10 +6456,10 @@ const {
 
 /***/ }),
 
-/***/ "./dev_gamify/redux/Slices/appSlice.js":
-/*!*********************************************!*\
-  !*** ./dev_gamify/redux/Slices/appSlice.js ***!
-  \*********************************************/
+/***/ "./dev_gamify/redux/Slices/appSlice/appSlice.js":
+/*!******************************************************!*\
+  !*** ./dev_gamify/redux/Slices/appSlice/appSlice.js ***!
+  \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6507,10 +6507,10 @@ const {
 
 /***/ }),
 
-/***/ "./dev_gamify/redux/Slices/levelsSlice.js":
-/*!************************************************!*\
-  !*** ./dev_gamify/redux/Slices/levelsSlice.js ***!
-  \************************************************/
+/***/ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js":
+/*!************************************************************!*\
+  !*** ./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js ***!
+  \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6712,10 +6712,10 @@ const {
 
 /***/ }),
 
-/***/ "./dev_gamify/redux/Slices/logsSlice.js":
-/*!**********************************************!*\
-  !*** ./dev_gamify/redux/Slices/logsSlice.js ***!
-  \**********************************************/
+/***/ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js":
+/*!********************************************************!*\
+  !*** ./dev_gamify/redux/Slices/logsSlice/logsSlice.js ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6966,10 +6966,10 @@ const {
 
 /***/ }),
 
-/***/ "./dev_gamify/redux/Slices/pointTypeSlice.js":
-/*!***************************************************!*\
-  !*** ./dev_gamify/redux/Slices/pointTypeSlice.js ***!
-  \***************************************************/
+/***/ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js":
+/*!*******************************************************************!*\
+  !*** ./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js ***!
+  \*******************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7242,12 +7242,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   store: () => (/* binding */ store)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
-/* harmony import */ var _Slices_appSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Slices/appSlice */ "./dev_gamify/redux/Slices/appSlice.js");
-/* harmony import */ var _Slices_logsSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Slices/logsSlice */ "./dev_gamify/redux/Slices/logsSlice.js");
-/* harmony import */ var _Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Slices/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypeSlice.js");
-/* harmony import */ var _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Slices/achievementsSlice */ "./dev_gamify/redux/Slices/achievementsSlice.js");
+/* harmony import */ var _Slices_appSlice_appSlice__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Slices/appSlice/appSlice */ "./dev_gamify/redux/Slices/appSlice/appSlice.js");
+/* harmony import */ var _Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Slices/logsSlice/logsSlice */ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js");
+/* harmony import */ var _Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Slices/pointTypesSlice/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js");
+/* harmony import */ var _Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
 /* harmony import */ var _Slices_menuSlice_menuSlice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Slices/menuSlice/menuSlice */ "./dev_gamify/redux/Slices/menuSlice/menuSlice.js");
-/* harmony import */ var _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Slices/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice.js");
+/* harmony import */ var _Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Slices/levelsSlice/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! redux-logger */ "./node_modules/redux-logger/dist/redux-logger.js");
 /* harmony import */ var redux_logger__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(redux_logger__WEBPACK_IMPORTED_MODULE_7__);
 
@@ -7271,11 +7271,11 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
   reducer: {
     // Register the reducer from each slice here
     adminmenu: _Slices_menuSlice_menuSlice__WEBPACK_IMPORTED_MODULE_5__["default"],
-    app: _Slices_appSlice__WEBPACK_IMPORTED_MODULE_1__["default"],
-    logs: _Slices_logsSlice__WEBPACK_IMPORTED_MODULE_2__["default"],
-    pointType: _Slices_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__["default"],
-    achievements: _Slices_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__["default"],
-    levels: _Slices_levelsSlice__WEBPACK_IMPORTED_MODULE_6__["default"]
+    app: _Slices_appSlice_appSlice__WEBPACK_IMPORTED_MODULE_1__["default"],
+    logs: _Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_2__["default"],
+    pointType: _Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_3__["default"],
+    achievements: _Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_4__["default"],
+    levels: _Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_6__["default"]
     // Future reducers will be added here (e.g., points, settings)
   },
   middleware: getDefaultMiddleware => getDefaultMiddleware().concat((redux_logger__WEBPACK_IMPORTED_MODULE_7___default()))
@@ -7292,9 +7292,12 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   API: () => (/* binding */ API),
 /* harmony export */   admin_url: () => (/* binding */ admin_url),
 /* harmony export */   ajaxurl: () => (/* binding */ ajaxurl),
 /* harmony export */   gamify_nonce: () => (/* binding */ gamify_nonce),
+/* harmony export */   handleSliceError: () => (/* binding */ handleSliceError),
+/* harmony export */   handleSliceSuccess: () => (/* binding */ handleSliceSuccess),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
 /* harmony export */   makeRequest: () => (/* binding */ makeRequest),
 /* harmony export */   menu: () => (/* binding */ menu),
@@ -7327,17 +7330,6 @@ const {
   user_id,
   is_plain_permalink
 } = window?.GamifyGlobal;
-
-// export const isPlainPermalink = Boolean(is_plain_permalink);
-// export const userId = Boolean(user_id);
-// export const API = axios.create({
-// 	baseURL: rest_url,
-// 	headers: {
-// 		'content-type': 'application/json',
-// 		'X-WP-Nonce': nonce,
-// 		'Cache-Control': 'no-cache', // Prevent caching
-// 	},
-// });
 const reactDebounce = (callback, wait) => {
   let timeout;
   return (...args) => {
@@ -7350,6 +7342,31 @@ const reactDebounce = (callback, wait) => {
 const useQuery = () => {
   return new URLSearchParams((0,react_router_dom__WEBPACK_IMPORTED_MODULE_0__.useLocation)().search);
 };
+const handleSliceError = (thunkAPI, error) => {
+  var _ref, _error$response$data$;
+  thunkAPI.dispatch(showNotification({
+    message: (_ref = (_error$response$data$ = error?.response.data.message) !== null && _error$response$data$ !== void 0 ? _error$response$data$ : error?.response?.message) !== null && _ref !== void 0 ? _ref : error?.message,
+    isShow: true,
+    type: 'error'
+  }));
+  // }
+  return thunkAPI.rejectWithValue(error.message);
+};
+const handleSliceSuccess = (thunkAPI, message) => {
+  thunkAPI.dispatch(showNotification({
+    message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(message, 'gamify'),
+    isShow: true,
+    type: 'success'
+  }));
+};
+const API = axios__WEBPACK_IMPORTED_MODULE_2__["default"].create({
+  baseURL: rest_url,
+  headers: {
+    'content-type': 'application/json',
+    'X-WP-Nonce': nonce,
+    'Cache-Control': 'no-cache'
+  }
+});
 const makeRequest = async (action, payload = {}, isRaw = false, suffix = '') => {
   let form_data = new FormData(); // eslint-disable-line
   form_data.append('action', `gamify${suffix}/${action}`);
