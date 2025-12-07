@@ -18,7 +18,7 @@ import { FiMoreHorizontal, FiEdit, FiClock, FiRefreshCw, FiPlus } from "react-ic
 
 
 // Redux Actions
-import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice';
+import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
 
 // Chakra UI Imports
 import {

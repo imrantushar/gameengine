@@ -109,7 +109,7 @@ class DashboardController extends BaseController
         }
 
         return [
-            'labels' => $labels,
+            'labels' => $labels, //level
             'points' => $points_data,
             'achievements' => $achievements_data,
             'levels' => $levels_data

@@ -44,7 +44,7 @@ import {
     addDeductHook,
     removeDeductHook,
     updateHookSettings
-} from '@GFRedux/Slices/pointTypeSlice';
+} from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 

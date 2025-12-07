@@ -10,7 +10,7 @@ import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypeSlice';
+import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 

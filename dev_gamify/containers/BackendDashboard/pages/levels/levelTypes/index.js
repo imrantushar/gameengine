@@ -22,7 +22,7 @@ import {
     fetchLevelById, saveLevel, updateLevel, resetForm, setField,
     addHook, removeHook, updateHookSettings,
     fetchLevelTriggers, fetchPointTypes // Imported from levelsSlice now
-} from "../../../../../redux/Slices/levelsSlice.js";
+} from "../../../../../redux/Slices/levelsSlice/levelsSlice.js";
 
 // --- Helpers: Draggable Item ---
 const DraggableItem = ({ id, children }) => {

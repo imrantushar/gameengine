@@ -28,7 +28,7 @@ import {
     addHook,
     removeHook,
     updateHookSettings
-} from "@GFRedux/Slices/achievementsSlice";
+} from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
 
