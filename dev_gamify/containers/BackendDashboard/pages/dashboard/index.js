@@ -11,7 +11,7 @@ import Distribution from "./Distribution";
 import Overview from "./Overview";
 
 // Action
-import { fetchDashboardData } from '../../../../redux/Slices/dashboardSlice';
+import { fetchDashboardData } from '../../../../redux/Slices/dashboardSlice/dashboardSlice';
 
 const Dashboard = () => {
     const dispatch = useDispatch();

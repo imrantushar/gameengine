@@ -3612,7 +3612,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _TopUsers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./TopUsers */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/TopUsers.js");
 /* harmony import */ var _Distribution__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Distribution */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Distribution.js");
 /* harmony import */ var _Overview__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Overview */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Overview.js");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../../redux/Slices/dashboardSlice'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _redux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../redux/Slices/dashboardSlice/dashboardSlice */ "./dev_gamify/redux/Slices/dashboardSlice/dashboardSlice.js");
 
 
 
@@ -3637,7 +3637,7 @@ const Dashboard = () => {
     status
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.dashboard);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch(Object(function webpackMissingModule() { var e = new Error("Cannot find module '../../../../redux/Slices/dashboardSlice'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())());
+    dispatch((0,_redux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_11__.fetchDashboardData)());
   }, [dispatch]);
   if (status === 'loading') {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Center, {
