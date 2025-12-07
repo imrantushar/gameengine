@@ -30,6 +30,7 @@ import BackendDashboard from '@GFContainers/BackendDashboard';
 //         );
 //     }
 // });
+
 document.addEventListener('DOMContentLoaded', () => {
 	const container = document.getElementById('gamify-admin-app');
 	if (container) {

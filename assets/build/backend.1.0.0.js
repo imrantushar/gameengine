@@ -5745,6 +5745,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
 /* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
 
 
@@ -5752,6 +5753,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // Icons
+
 
 
 
@@ -5814,7 +5816,7 @@ const LeftBar = () => {
       _hover: {
         bg: "#F9FAFB"
       },
-      onClick: () => navigate(`/settings?tab=${item.key}`)
+      onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_8__.route_path}admin.php?page=gamify-settings&settings=1&tab=${item.key}`)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
       mt: "2px",
       color: isActive ? "#2563EB" : "#6B7280",
@@ -149933,6 +149935,7 @@ __webpack_require__.r(__webpack_exports__);
 //         );
 //     }
 // });
+
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('gamify-admin-app');
   if (container) {
