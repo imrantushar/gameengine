@@ -7,6 +7,7 @@ import pointTypeReducer from './Slices/pointTypeSlice';
 import achievementsReducer from './Slices/achievementsSlice';
 import menuReducer from './Slices/menuSlice/menuSlice';
 import levelsReducer from './Slices/levelsSlice';
+import dashboardReducer from './Slices/dashboardSlice';
 import logger from 'redux-logger'
 /**
  * The main Redux store for the Gamify application.
@@ -24,8 +25,9 @@ export const store = configureStore({
         pointType: pointTypeReducer,
         achievements: achievementsReducer,
         levels: levelsReducer,
+        dashboard: dashboardReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
     middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(logger),
+        getDefaultMiddleware().concat(logger),
 });
