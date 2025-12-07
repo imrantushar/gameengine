@@ -8,6 +8,7 @@ import { IoArrowBack } from "react-icons/io5";
 import { FiMail } from "react-icons/fi";
 import { FiBookOpen } from "react-icons/fi";
 import { FiHelpCircle } from "react-icons/fi";
+import { route_path } from "@GFUtils/helper";
 
 const LeftBar = () => {
     const navigate = useNavigate();
@@ -64,9 +65,11 @@ const LeftBar = () => {
                             color={isActive ? "#F6F7F8" : "#374151"}
                             transition="0.25s ease"
                             _hover={{ bg: "#F9FAFB" }}
-                            onClick={() => navigate(`/settings?tab=${item.key}`)}
-                            
-                            
+                            onClick={() => navigate(
+                                `${route_path}admin.php?page=gamify-settings&settings=1&tab=${item.key}`
+                            )}
+
+
                         >
                             <Box mt="2px" color={isActive ? "#2563EB" : "#6B7280"} opacity={isActive ? 1 : 0.8}>
                                 {item.icon}

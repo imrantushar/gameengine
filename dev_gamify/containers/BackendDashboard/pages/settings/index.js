@@ -35,9 +35,9 @@ const Settings = () => {
             <Flex width="1174px" margin="0 auto" height="100vh">
                 <LeftBar />
                 <Box padding='0 16px'>
-                    {tab === "general-settings" && <GeneralSettings/>}
-                    {tab === "email-notice" && <EmailNotice/>}
-                    {tab === "help-support" && <HelpSupport/>}
+                    {tab === "general-settings" && <GeneralSettings />}
+                    {tab === "email-notice" && <EmailNotice />}
+                    {tab === "help-support" && <HelpSupport />}
                 </Box>
             </Flex>
         </>
