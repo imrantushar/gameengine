@@ -1,28 +1,29 @@
-import {
-    Box, Flex, Icon,
-    Text,
-    VStack,
-} from "@chakra-ui/react";
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { VStack, Spinner, Center } from "@chakra-ui/react";
 import { __ } from '@wordpress/i18n';
-import React from 'react';
+import TopBar from "@GFComponents/TopBar";
+import GFLabel from '@GFComponents/Labels/GFLabel';
+
+// Components
 import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
-import GFLabel from '@GFComponents/Labels/GFLabel';
-import TopBar from "@GFComponents/TopBar";
 import Overview from "./Overview";
 
+// Action
+import { fetchDashboardData } from '../../../../redux/Slices/dashboardSlice';
 
-
-const users = [
-    { rank: "#1", name: "Christopher Hayes", points: "10,000", achievements: 5, level: "Diamond" },
-    { rank: "#2", name: "Nicholas Grant", points: "9,400", achievements: 4, level: "Platinum" },
-    { rank: "#3", name: "Alexander Pierce", points: "9,200", achievements: 4, level: "Platinum" },
-    { rank: "#4", name: "Nathaniel Brooks", points: "8,000", achievements: 2, level: "Gold" },
-    { rank: "#5", name: "Frederick Adams", points: "6,000", achievements: 1, level: "Silver" },
-];
 const Dashboard = () => {
+    const dispatch = useDispatch();
+    const { overview, chart, topUsers, status } = useSelector(state => state.dashboard);
 
+    useEffect(() => {
+        dispatch(fetchDashboardData());
+    }, [dispatch]);
+
+    if (status === 'loading') {
+        return <Center h="100vh"><Spinner size="xl" /></Center>;
+    }
 
     return (
         <>
@@ -37,19 +38,16 @@ const Dashboard = () => {
                             type="subtitle"
                             fontWeight="medium"
                             label={__(`Game Engine`, 'gamify')}
-                            
                         />
                     </>
                 )}
-
             />
-            <VStack gap='24px' w='1320px' margin="0 auto" pb='136px' >
-                <Overview/>
-                <Distribution />
-                <TopUsers users={users} />
+            <VStack gap='24px' w='1320px' margin="0 auto" pb='136px'>
+                <Overview data={overview} />
+                <Distribution chartData={chart} />
+                <TopUsers users={topUsers} />
             </VStack>
         </>
-
     );
 };
 
