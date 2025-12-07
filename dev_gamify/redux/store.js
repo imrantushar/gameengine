@@ -6,12 +6,8 @@ import logsReducer from './Slices/logsSlice/logsSlice';
 import pointTypeReducer from './Slices/pointTypesSlice/pointTypeSlice';
 import achievementsReducer from './Slices/achivementSlice/achievementsSlice';
 import menuReducer from './Slices/menuSlice/menuSlice';
-<<<<<<< HEAD
-import levelsReducer from './Slices/levelsSlice';
-import dashboardReducer from './Slices/dashboardSlice';
-=======
+import dashboardReducer from './Slices/dashboardSlice/dashboardSlice';
 import levelsReducer from './Slices/levelsSlice/levelsSlice';
->>>>>>> 1ef09b8eb9b0dee4f42936108953f4e7d10299a2
 import logger from 'redux-logger'
 /**
  * The main Redux store for the Gamify application.
