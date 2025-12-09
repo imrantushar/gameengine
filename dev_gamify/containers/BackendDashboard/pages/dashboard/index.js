@@ -9,9 +9,10 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
 import Overview from "./Overview";
+import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
 
 // Action
-import { fetchDashboardData } from '../../../../redux/Slices/dashboardSlice/dashboardSlice';
+
 
 const Dashboard = () => {
     const dispatch = useDispatch();

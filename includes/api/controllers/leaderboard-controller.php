@@ -47,7 +47,6 @@ class LeaderboardController extends BaseController
                 $where_clause .= " AND created_at >= '{$date_query}'";
             }
         }
-
         // Main Query (Aggregated Points)
         $sql = "
             SELECT 
