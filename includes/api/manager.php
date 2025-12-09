@@ -14,6 +14,7 @@ use Gamify\API\Controllers\AchievementsController;
 use Gamify\API\Controllers\ActionsController;
 use Gamify\API\Controllers\LevelsController;
 use Gamify\API\Controllers\DashboardController;
+use Gamify\API\Controllers\LeaderboardController;
 
 final class Manager
 {
@@ -41,6 +42,7 @@ final class Manager
             ActionsController::class,
             LevelsController::class,
             DashboardController::class,
+            LeaderboardController::class,
         ];
     }
 

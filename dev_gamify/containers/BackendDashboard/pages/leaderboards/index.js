@@ -1,102 +1,101 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Flex, Spinner, Center } from '@chakra-ui/react';
+import Select from 'react-select'; // Using React Select for better control
+import { __ } from '@wordpress/i18n';
+
+// Components
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
-import { Box, Button, Flex } from '@chakra-ui/react';
-import GFSelect from '@GFComponents/Select';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 
-
-const initialData = [
-    {
-        id: 1,
-        rank: "#1",
-        user: "James Smith",
-        points: "10,000",
-        achievements: 5,
-        level: "Diamond",
-    },
-    {
-        id: 2,
-        rank: "#2",
-        user: "Stive Smith",
-        points: "9,000",
-        achievements: 3,
-        level: "Gold",
-    },
-    {
-        id: 3,
-        rank: "#3",
-        user: "Ajar Lutron",
-        points: "8,000",
-        achievements: 3,
-        level: "Silver",
-    },
-    {
-        id: 4,
-        rank: "#4",
-        user: "Martin Luther",
-        points: "6,000",
-        achievements: 2,
-        level: "Silver",
-    },
-];
-
-
+// Actions
+import {
+    fetchLeaderboard,
+    fetchPointTypes,
+    setPage,
+    setRowsPerPage,
+    setFilterPointType,
+    setFilterTimeRange
+} from '../../../../redux/Slices/leaderboardSlice/leaderboardSlice';
 
 const Leaderboards = () => {
-    const [tableData] = useState(initialData);
+    const dispatch = useDispatch();
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [rowsPerPage, setRowsPerPage] = useState(10);
+    // Redux State (Safe Access)
+    const {
+        items = [],
+        pointTypes = [],
+        selectedPointType,
+        selectedTimeRange,
+        currentPage,
+        rowsPerPage,
+        totalItems,
+        status
+    } = useSelector(state => state.leaderboard || {});
 
-    const totalItems = tableData.length;
+    // Initial Load
+    useEffect(() => {
+        dispatch(fetchPointTypes());
+    }, [dispatch]);
 
-    const paginatedData = tableData.slice(
-        (currentPage - 1) * rowsPerPage,
-        currentPage * rowsPerPage
-    );
+    // Fetch Data when filters/pagination change
+    useEffect(() => {
+        dispatch(fetchLeaderboard({
+            page: currentPage,
+            per_page: rowsPerPage,
+            point_type: selectedPointType,
+            time_range: selectedTimeRange
+        }));
+    }, [dispatch, currentPage, rowsPerPage, selectedPointType, selectedTimeRange]);
 
-    const handlePageChange = (newPage) => {
-        setCurrentPage(newPage);
-    };
-
+    // Handlers
+    const handlePageChange = (newPage) => dispatch(setPage(newPage));
     const handlePerPageChange = (newLimit) => {
-        setRowsPerPage(newLimit);
-        setCurrentPage(1);
+        dispatch(setRowsPerPage(newLimit));
+        dispatch(setPage(1));
     };
 
+    // Columns
     const columns = useMemo(() => [
         {
             name: __('Rank', 'gamify'),
-            cell: (row) => row.rank,
+            cell: (row) => <span style={{ fontWeight: 'bold' }}>{row.rank}</span>,
+            width: "100px"
         },
         {
             name: __('User', 'gamify'),
-            cell: (row) => row.user,
+            cell: (row) => row.name || 'Guest',
         },
         {
             name: __('Points', 'gamify'),
-            cell: (row) => (
-                <span>🪙 {row.points}</span>
-            ),
+            cell: (row) => <span>🪙 {row.total_points}</span>,
         },
         {
             name: __('Achievements', 'gamify'),
-            cell: (row) => (
-                <span>🏆 {row.achievements}</span>
-            ),
+            cell: (row) => <span>🏆 {row.achievements_count}</span>,
         },
         {
             name: __('Level', 'gamify'),
-            cell: (row) => row.level,
+            cell: (row) => row.top_level,
         },
     ], []);
 
+    // Filter Options
+    const timeRangeOptions = [
+        { label: 'All Time', value: '' },
+        { label: 'Today', value: 'today' },
+        { label: 'This Week', value: 'this_week' },
+        { label: 'This Month', value: 'this_month' },
+        { label: 'This Year', value: 'this_year' },
+        { label: 'Last 30 Days', value: 'last_30_days' },
+    ];
+
+    // Sub Header (Filters)
     const subHeaderComponentMemo = useMemo(() => {
         return (
-            <>
+            <Flex justifyContent="space-between" alignItems="center" width="100%">
                 <div className="gamify-table__sub-header-left">
                     <GFLabel
                         as="h2"
@@ -107,41 +106,41 @@ const Leaderboards = () => {
                     />
                 </div>
 
-                <Flex gap='12px' style={{ width: '600px' }} className="gamify-table-sub-header-actions-right">
-                    <GFSelect
-                        label="Select Points"
-                        placeholder="Choose one"
-                        items={[
-                            { label: 'Unlimited', value: 'unlimited' },
-                            { label: '1 per day', value: '1_per_day' },
-                            { label: '1 time only', value: '1_time' },
-                        ]}
-                        value={['']}
-                    />
-                    <GFSelect
-                        label="Time Range"
-                        placeholder="Choose one"
-                        items={[
-                            { label: 'Unlimited', value: 'unlimited' },
-                            { label: '1 per day', value: '1_per_day' },
-                            { label: '1 time only', value: '1_time' },
-                        ]}
-                        value={['']}
+                <Flex gap='12px' alignItems="flex-end">
+                    {/* Point Type Filter */}
+                    <Box w="200px">
+                        <GFLabel label="Select Point Type" type="miniTitle" mb="5px" />
+                        <Select
+                            className="gamify-select"
+                            classNamePrefix="gamify-select"
+                            placeholder="All Points"
+                            options={pointTypes}
+                            isClearable
+                            onChange={(opt) => {
+                                dispatch(setFilterPointType(opt ? opt.value : null));
+                                dispatch(setPage(1)); // Reset page on filter
+                            }}
+                        />
+                    </Box>
 
-                    />
-                    <Flex
-                        marginTop='25px'>
-                        <Button
-                            {...primaryBtn}
-
-                        >
-                            {__('Search', 'gamify')}
-                        </Button>
-                    </Flex>
+                    {/* Time Range Filter */}
+                    <Box w="200px">
+                        <GFLabel label="Time Range" type="miniTitle" mb="5px" />
+                        <Select
+                            className="gamify-select"
+                            classNamePrefix="gamify-select"
+                            defaultValue={timeRangeOptions[0]}
+                            options={timeRangeOptions}
+                            onChange={(opt) => {
+                                dispatch(setFilterTimeRange(opt ? opt.value : null));
+                                dispatch(setPage(1));
+                            }}
+                        />
+                    </Box>
                 </Flex>
-            </>
+            </Flex>
         );
-    }, []);
+    }, [pointTypes]);
 
     return (
         <>
@@ -161,24 +160,22 @@ const Leaderboards = () => {
                 )}
             />
 
-            <Box width="1174px" margin="0 auto">
-
+            <Box width="1174px" margin="0 auto" pb="50px">
                 <ListTable
                     columns={columns}
-                    isRowSelectable={true}
-                    data={paginatedData}
+                    data={items}
+                    isLoading={status === 'loading'}
                     showSubHeader={true}
                     subHeaderComponent={subHeaderComponentMemo}
                     showColumnFilter={false}
                     showPagination={true}
-                    noDataText="No data found"
+                    noDataText="No leaderboard data found"
                     totalItems={totalItems}
                     currentPageNumber={currentPage}
                     rowsPerPage={rowsPerPage}
                     onChangePage={handlePageChange}
                     onChangeItemsPerPage={handlePerPageChange}
                 />
-
             </Box>
         </>
     );
