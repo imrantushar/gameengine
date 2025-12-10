@@ -16,7 +16,6 @@ class AchievementsManager
 {
     /**
      * Initialize Achievement System.
-     * Hooks into point changes to check for "Unlock with Points" achievements.
      */
     public static function init()
     {
@@ -35,7 +34,7 @@ class AchievementsManager
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_achievements';
 
-        // 1. Fetch ID AND Max Earnings from DB
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $achievements = $wpdb->get_results($wpdb->prepare(
             "SELECT id, title, max_earnings_per_user 
              FROM {$table} 
@@ -46,33 +45,25 @@ class AchievementsManager
             $total_points
         ));
 
-        if (empty($achievements)) return;
+        if (empty($achievements)) {
+            return;
+        }
 
         foreach ($achievements as $achievement) {
             $max_earnings = intval($achievement->max_earnings_per_user);
-
-            // 🔥 CRITICAL FIX START: Check count against limit instead of just existence
             $current_count = $this->get_user_achievement_count($user_id, $achievement->id);
 
-            // Case A: Limited (e.g., 2 times)
             if ($max_earnings > 0) {
                 if ($current_count >= $max_earnings) {
-                    continue; // Limit reached, skip.
+                    continue;
                 }
-            }
-            // Case B: Unlimited (0) - For Point Milestones (Unlock with Points)
-            // Warning: If unlimited, user gets this achievement on EVERY point transaction after crossing threshold.
-            // Usually, milestones are One-Time by default if 0. 
-            // But to respect your "Unlimited" request, we allow it (use with caution).
-            else {
-                // If you want Milestones to be strictly 1-time if max is 0:
+            } else {
+                // Default: Milestones are usually one-time if 0
                 if ($current_count > 0) {
                     continue;
                 }
             }
-            // 🔥 CRITICAL FIX END
 
-            // Award the achievement
             $this->award($user_id, $achievement->id, 'point_milestone');
         }
     }
@@ -88,29 +79,30 @@ class AchievementsManager
             return false;
         }
 
-        // --- STEP 1: Fetch Achievement Details ---
         $table_achievements = $wpdb->prefix . 'gamify_achievements';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $achievement = $wpdb->get_row($wpdb->prepare(
             "SELECT title, congratulations_message, max_earnings_per_user FROM {$table_achievements} WHERE id = %d",
             $achievement_id
         ));
 
-        if (!$achievement) return false;
+        if (!$achievement) {
+            return false;
+        }
 
-        // --- STEP 2: Check Maximum Earnings Limit ---
         $max_earnings = intval($achievement->max_earnings_per_user);
 
-        // If max earnings is set (>0), verify count
         if ($max_earnings > 0) {
             $current_count = $this->get_user_achievement_count($user_id, $achievement_id);
             if ($current_count >= $max_earnings) {
-                return false; // Limit reached
+                return false;
             }
         }
 
-        // --- STEP 3: Insert into User Achievements Table ---
         $table_user_achievements = $wpdb->prefix . 'gamify_user_achievements';
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $result = $wpdb->insert($table_user_achievements, [
             'user_id'        => $user_id,
             'achievement_id' => $achievement_id,
@@ -123,7 +115,11 @@ class AchievementsManager
 
         $user_achievement_id = $wpdb->insert_id;
 
-        // --- STEP 4: Log ---
+        // Clear Caches
+        wp_cache_delete("gamify_ach_count_{$user_id}_{$achievement_id}", 'gamify');
+        wp_cache_delete("gamify_user_achs_{$user_id}", 'gamify');
+
+        // Log
         $title = $achievement->title;
         $congrats_msg = $achievement->congratulations_message;
 
@@ -148,19 +144,28 @@ class AchievementsManager
 
     /**
      * Get how many times a user has earned a specific achievement.
+     * Uses Caching.
      */
     public function get_user_achievement_count(int $user_id, int $achievement_id): int
     {
-        global $wpdb;
-        $table = $wpdb->prefix . 'gamify_user_achievements';
+        $cache_key = "gamify_ach_count_{$user_id}_{$achievement_id}";
+        $count = wp_cache_get($cache_key, 'gamify');
 
-        $count = $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM {$table} WHERE user_id = %d AND achievement_id = %d",
-            $user_id,
-            $achievement_id
-        ));
+        if (false === $count) {
+            global $wpdb;
+            $table = $wpdb->prefix . 'gamify_user_achievements';
 
-        return (int) $count;
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            $count = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT COUNT(id) FROM {$table} WHERE user_id = %d AND achievement_id = %d",
+                $user_id,
+                $achievement_id
+            ));
+
+            wp_cache_set($cache_key, $count, 'gamify');
+        }
+
+        return $count;
     }
 
     /**
@@ -171,17 +176,25 @@ class AchievementsManager
         return $this->get_user_achievement_count($user_id, $achievement_id) > 0;
     }
 
+    /**
+     * Revoke an achievement.
+     */
     public function revoke(int $user_id, int $achievement_id)
     {
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_user_achievements';
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $deleted = $wpdb->delete($table, [
             'user_id'        => $user_id,
             'achievement_id' => $achievement_id
         ], ['%d', '%d']);
 
         if ($deleted) {
+            // Clear Caches
+            wp_cache_delete("gamify_ach_count_{$user_id}_{$achievement_id}", 'gamify');
+            wp_cache_delete("gamify_user_achs_{$user_id}", 'gamify');
+
             Logger::log(
                 'achievement_revoked',
                 "Achievement ID #{$achievement_id} revoked.",
@@ -198,19 +211,33 @@ class AchievementsManager
         return false;
     }
 
+    /**
+     * Get all achievements for a user.
+     * Uses Caching.
+     */
     public function get_user_achievements(int $user_id): array
     {
-        global $wpdb;
-        $table_user_ach = $wpdb->prefix . 'gamify_user_achievements';
-        $table_ach      = $wpdb->prefix . 'gamify_achievements';
+        $cache_key = "gamify_user_achs_{$user_id}";
+        $achievements = wp_cache_get($cache_key, 'gamify');
 
-        return $wpdb->get_results($wpdb->prepare(
-            "SELECT ua.*, a.title, a.badge_image, a.congratulations_message 
-             FROM {$table_user_ach} ua
-             JOIN {$table_ach} a ON ua.achievement_id = a.id
-             WHERE ua.user_id = %d
-             ORDER BY ua.achieved_at DESC",
-            $user_id
-        ), ARRAY_A);
+        if (false === $achievements) {
+            global $wpdb;
+            $table_user_ach = $wpdb->prefix . 'gamify_user_achievements';
+            $table_ach      = $wpdb->prefix . 'gamify_achievements';
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            $achievements = $wpdb->get_results($wpdb->prepare(
+                "SELECT ua.*, a.title, a.badge_image, a.congratulations_message 
+                 FROM {$table_user_ach} ua
+                 JOIN {$table_ach} a ON ua.achievement_id = a.id
+                 WHERE ua.user_id = %d
+                 ORDER BY ua.achieved_at DESC",
+                $user_id
+            ), ARRAY_A);
+
+            wp_cache_set($cache_key, $achievements, 'gamify');
+        }
+
+        return $achievements;
     }
 }

@@ -86,7 +86,7 @@ class Assets
             $error_message  = '<strong>Gamify Plugin Error:</strong> Build files are missing.<br>';
             $error_message .= 'Please run <strong>npm run build</strong> in the plugin\'s root directory.<br>';
             $error_message .= 'Expected asset file at: <code>' . esc_html($script_asset_path) . '</code>';
-            wp_die($error_message);
+            wp_die(wp_kses_post($error_message));
             return;
         }
 

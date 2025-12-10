@@ -9,18 +9,11 @@ if (! defined('ABSPATH')) {
 
 /**
  * Manages all point-related database operations.
- * This class is instantiated by Controllers and Schedulers to manipulate points.
  */
 class PointsManager
 {
     /**
      * Add points to a user and log the transaction.
-     *
-     * @param int    $user_id The ID of the user.
-     * @param int    $points  The number of points to award (must be a positive integer).
-     * @param string $context A key to identify the reason (e.g., 'wp_login').
-     * @param array  $args    Optional arguments like 'point_type_id' and 'description'.
-     * @return int|false Returns the new log ID on success, false on failure.
      */
     public function add(int $user_id, int $points, string $context, array $args = [])
     {
@@ -33,12 +26,6 @@ class PointsManager
 
     /**
      * Deduct points from a user and log the transaction.
-     *
-     * @param int    $user_id The ID of the user.
-     * @param int    $points  The number of points to deduct (must be a positive integer).
-     * @param string $context A key to identify the reason.
-     * @param array  $args    Optional arguments.
-     * @return int|false Returns the new log ID on success, false on failure.
      */
     public function deduct(int $user_id, int $points, string $context, array $args = [])
     {
@@ -51,10 +38,7 @@ class PointsManager
 
     /**
      * Get the total points for a specific user and point type.
-     *
-     * @param int $user_id The ID of the user.
-     * @param int $point_type_id The ID of the point type (default: 1).
-     * @return int The user's total points.
+     * Includes caching to prevent heavy queries.
      */
     public function get_total(int $user_id, int $point_type_id = 1): int
     {
@@ -62,40 +46,40 @@ class PointsManager
             return 0;
         }
 
-        global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points_log';
+        // Check Cache first
+        $cache_key = "gamify_user_points_{$user_id}_{$point_type_id}";
+        $total = wp_cache_get($cache_key, 'gamify');
 
-        // Check table exists logic can be added here if needed, but usually handled by installer.
+        if (false === $total) {
+            global $wpdb;
+            $table = $wpdb->prefix . 'gamify_points_log';
 
-        $total = $wpdb->get_var($wpdb->prepare(
-            "SELECT SUM(points) FROM {$table} WHERE user_id = %d AND point_type_id = %d",
-            $user_id,
-            $point_type_id
-        ));
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            $total = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT SUM(points) FROM {$table} WHERE user_id = %d AND point_type_id = %d",
+                $user_id,
+                $point_type_id
+            ));
+
+            wp_cache_set($cache_key, $total, 'gamify');
+        }
 
         return (int) $total;
     }
 
     /**
      * Internal function to handle the database insertion.
-     *
-     * @param int    $user_id
-     * @param int    $points_value (+ or -)
-     * @param string $context
-     * @param array  $args
-     * @return int|false
      */
     private function log_transaction(int $user_id, int $points_value, string $context, array $args)
     {
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_points_log';
 
-        // Extract arguments or set defaults
         $point_type_id  = isset($args['point_type_id']) ? absint($args['point_type_id']) : 1;
         $requirement_id = isset($args['requirement_id']) ? absint($args['requirement_id']) : null;
         $description    = isset($args['description']) ? sanitize_text_field($args['description']) : null;
 
-        // Insert into Points Log table
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $result = $wpdb->insert($table, [
             'user_id'        => $user_id,
             'point_type_id'  => $point_type_id,
@@ -112,8 +96,9 @@ class PointsManager
 
         $log_id = $wpdb->insert_id;
 
-        // Fire actions for the Logger and other hooks.
-        // We ensure 5 arguments are passed so Logger::handle_points_added catches them correctly.
+        // Clear Cache so get_total returns fresh value
+        wp_cache_delete("gamify_user_points_{$user_id}_{$point_type_id}", 'gamify');
+
         if ($points_value > 0) {
             do_action('gamify_points_added', $user_id, $points_value, $context, $log_id, $point_type_id);
         } else {

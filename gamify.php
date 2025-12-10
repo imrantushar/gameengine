@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Gamify
- * Plugin URI:        https://example.com/gamify
+ * Plugin URI:        https://kodezen.com/products/gamify
  * Description:       A powerful gamification plugin for WordPress to boost user engagement.
  * Version:           1.0.0
  * Author:            kodezen
@@ -70,10 +70,11 @@ final class Gamify
     private function load_dependencies()
     {
         // Load the Autoloader
-        require_once GAMIFY_INCLUDES . 'Autoload.php';
+        if (file_exists(GAMIFY_INCLUDES . 'Autoload.php')) {
+            require_once GAMIFY_INCLUDES . 'Autoload.php';
+        }
 
-        // Initialize the Autoloader (gamify Style)
-        // Note: Make sure your Autoload class has get_instance() method as discussed before.
+        // Initialize the Autoloader
         if (class_exists('\Gamify\Autoload')) {
             \Gamify\Autoload::get_instance();
         }
@@ -86,7 +87,6 @@ final class Gamify
 
     /**
      * Register the core WordPress hooks.
-     * Note: We do NOT initialize classes here directly to prevent translation errors.
      */
     private function register_hooks()
     {
@@ -102,28 +102,38 @@ final class Gamify
 
     /**
      * Initialize Plugin Hooks and Classes.
-     * This runs inside the 'init' hook, safe for translations.
      */
     public function init_modules()
     {
-        // Global Assets (Frontend & Backend Scripts)
-        \Gamify\Assets::init();
+        // Global Assets
+        if (class_exists('\Gamify\Assets')) {
+            \Gamify\Assets::init();
+        }
 
-        // API Manager (Registers REST API Routes)
-        \Gamify\API\Manager::init();
+        // API Manager
+        if (class_exists('\Gamify\API\Manager')) {
+            \Gamify\API\Manager::init();
+        }
 
-        // System Services (Loggers, Schedulers, Triggers)
-        \Gamify\Classes\Scheduler::init();
-        \Gamify\Classes\Logger::init();
-
-        // Triggers contain translatable strings, so it MUST load here
-        \Gamify\Classes\Triggers::init();
-
-        \Gamify\Classes\AchievementsManager::init();
-        \Gamify\Classes\LevelsManager::init();
+        // System Services
+        if (class_exists('\Gamify\Classes\Scheduler')) {
+            \Gamify\Classes\Scheduler::init();
+        }
+        if (class_exists('\Gamify\Classes\Logger')) {
+            \Gamify\Classes\Logger::init();
+        }
+        if (class_exists('\Gamify\Classes\Triggers')) {
+            \Gamify\Classes\Triggers::init();
+        }
+        if (class_exists('\Gamify\Classes\AchievementsManager')) {
+            \Gamify\Classes\AchievementsManager::init();
+        }
+        if (class_exists('\Gamify\Classes\LevelsManager')) {
+            \Gamify\Classes\LevelsManager::init();
+        }
 
         // Admin Only Modules
-        if (is_admin()) {
+        if (is_admin() && class_exists('\Gamify\Admin')) {
             \Gamify\Admin::init();
         }
     }
@@ -133,9 +143,14 @@ final class Gamify
      */
     public static function activate()
     {
-        // Ensure Autoloader is loaded during activation context
+        // Require Autoloader explicitly for activation context
+        if (file_exists(plugin_dir_path(__FILE__) . 'includes/Autoload.php')) {
+            require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
+        }
 
-        require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
+        if (class_exists('\Gamify\Autoload')) {
+            \Gamify\Autoload::get_instance();
+        }
 
         // Run Installer
         if (class_exists('\Gamify\Core\Installer')) {
@@ -158,8 +173,6 @@ final class Gamify
 
 /**
  * Global accessor function.
- * Since we removed the Loader class, we return the main instance.
- *
  * @return Gamify
  */
 function gamify()

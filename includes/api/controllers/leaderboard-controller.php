@@ -4,12 +4,24 @@ namespace Gamify\API\Controllers;
 
 use Gamify\API\BaseController;
 
-if (! defined('ABSPATH')) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
+/**
+ * Class LeaderboardController
+ * Handles API requests for leaderboard data.
+ */
 class LeaderboardController extends BaseController
 {
+    /**
+     * @var string
+     */
     protected $rest_base = 'leaderboard';
 
+    /**
+     * Register REST API routes.
+     */
     public function register_routes()
     {
         register_rest_route($this->namespace, '/' . $this->rest_base, [
@@ -21,33 +33,41 @@ class LeaderboardController extends BaseController
         ]);
     }
 
+    /**
+     * Retrieve leaderboard data with filtering and pagination.
+     *
+     * @param \WP_REST_Request $request
+     * @return \WP_REST_Response
+     */
     public function get_leaderboard(\WP_REST_Request $request)
     {
         global $wpdb;
 
         // Filters
-        $point_type_id = $request->get_param('point_type'); // e.g., 1
-        $time_range    = $request->get_param('time_range'); // e.g., 'this_month'
+        $point_type_id = $request->get_param('point_type');
+        $time_range    = $request->get_param('time_range');
 
         // Pagination
         $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 10;
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $offset   = ($page - 1) * $per_page;
 
-        // Base Query
-        $where_clause = "WHERE points > 0"; // Only show users with points
+        // Dynamic Where Clause Construction
+        $where_sql = "WHERE 1=1 AND p.points > 0";
+        $where_args = [];
 
-        if ($point_type_id) {
-            $where_clause .= $wpdb->prepare(" AND point_type_id = %d", $point_type_id);
+        if (!empty($point_type_id)) {
+            $where_sql .= " AND p.point_type_id = %d";
+            $where_args[] = absint($point_type_id);
         }
 
-        if ($time_range) {
+        if (!empty($time_range)) {
             $date_query = $this->get_date_query($time_range);
             if ($date_query) {
-                $where_clause .= " AND created_at >= '{$date_query}'";
+                $where_sql .= " AND p.created_at >= %s";
+                $where_args[] = $date_query;
             }
         }
-
 
         // Main Query (Aggregated Points)
         $sql = "
@@ -63,24 +83,38 @@ class LeaderboardController extends BaseController
                 ) as top_level
             FROM {$wpdb->users} u
             LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
-            $where_clause
+            $where_sql
             GROUP BY u.ID
             ORDER BY total_points DESC
             LIMIT %d OFFSET %d
         ";
+
+        // Merge LIMIT/OFFSET args with WHERE args
+        $query_args = array_merge($where_args, [$per_page, $offset]);
+
+        // Execute Main Query
+        // The query is dynamic, so we suppress the NotPrepared warning as we are using prepare() correctly.
+        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+        $results = $wpdb->get_results($wpdb->prepare($sql, $query_args), ARRAY_A);
 
         // Count Query for Pagination
         $count_sql = "
             SELECT COUNT(DISTINCT u.ID) 
             FROM {$wpdb->users} u
             LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
-            $where_clause
+            $where_sql
         ";
 
-        $results = $wpdb->get_results($wpdb->prepare($sql, $per_page, $offset), ARRAY_A);
-        $total_items = $wpdb->get_var($count_sql);
+        // Execute Count Query
+        if (!empty($where_args)) {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $total_items = $wpdb->get_var($wpdb->prepare($count_sql, $where_args));
+        } else {
+            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+            $total_items = $wpdb->get_var($count_sql);
+        }
 
-        // Add Rank
+        // Add Rank & Formatting
         $start_rank = $offset + 1;
         foreach ($results as $index => &$row) {
             $row['rank'] = "#" . ($start_rank + $index);
@@ -96,19 +130,25 @@ class LeaderboardController extends BaseController
         return $response;
     }
 
+    /**
+     * Get date query string based on range.
+     *
+     * @param string $range
+     * @return string|null
+     */
     private function get_date_query($range)
     {
         switch ($range) {
             case 'today':
-                return date('Y-m-d 00:00:00');
+                return gmdate('Y-m-d 00:00:00');
             case 'this_week':
-                return date('Y-m-d 00:00:00', strtotime('monday this week'));
+                return gmdate('Y-m-d 00:00:00', strtotime('monday this week'));
             case 'this_month':
-                return date('Y-m-01 00:00:00');
+                return gmdate('Y-m-01 00:00:00');
             case 'this_year':
-                return date('Y-01-01 00:00:00');
+                return gmdate('Y-01-01 00:00:00');
             case 'last_30_days':
-                return date('Y-m-d 00:00:00', strtotime('-30 days'));
+                return gmdate('Y-m-d 00:00:00', strtotime('-30 days'));
             default:
                 return null; // All Time
         }

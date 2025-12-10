@@ -46,6 +46,8 @@ class LevelsManager
 
         // 2. Fetch Level Details (For Message & Title)
         $table_levels = $wpdb->prefix . 'gamify_levels';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $level = $wpdb->get_row($wpdb->prepare(
             "SELECT title, congratulations_message FROM {$table_levels} WHERE id = %d",
             $level_id
@@ -55,6 +57,8 @@ class LevelsManager
 
         // 3. Insert into User Levels Table
         $table_user_levels = $wpdb->prefix . 'gamify_user_levels';
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $result = $wpdb->insert($table_user_levels, [
             'user_id'     => $user_id,
             'level_id'    => $level_id,
@@ -98,6 +102,7 @@ class LevelsManager
         global $wpdb;
         $table_levels = $wpdb->prefix . 'gamify_levels';
 
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $levels = $wpdb->get_results($wpdb->prepare(
             "SELECT id, min_points, priority FROM {$table_levels} 
              WHERE point_type_id = %d AND unlock_with_points_enabled = 1 
@@ -126,6 +131,8 @@ class LevelsManager
     {
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_user_levels';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $exists = $wpdb->get_var($wpdb->prepare(
             "SELECT id FROM {$table} WHERE user_id = %d AND level_id = %d",
             $user_id,
@@ -143,6 +150,7 @@ class LevelsManager
         $table_ul = $wpdb->prefix . 'gamify_user_levels';
         $table_l  = $wpdb->prefix . 'gamify_levels';
 
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         return $wpdb->get_row($wpdb->prepare(
             "SELECT l.* FROM {$table_l} l
              JOIN {$table_ul} ul ON l.id = ul.level_id
