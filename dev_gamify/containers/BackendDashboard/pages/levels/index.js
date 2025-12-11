@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Badge } from '@chakra-ui/react'; // Badge Added
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { __ } from '@wordpress/i18n';
 
@@ -13,28 +13,57 @@ import OptionMenu from '@GFComponents/OptionMenu';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 
-// Actions (Ensure path matches your file structure)
+// Actions
 import { fetchLevels, deleteLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 
 const Levels = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // Safe destructuring to prevent crash if store is empty
+    // Safe destructuring
     const { levels = [], status } = useSelector(state => state.levels || {});
 
     useEffect(() => {
         dispatch(fetchLevels());
     }, [dispatch]);
 
+    // Optional: Color helper for categories
+    const getCategoryColor = (cat) => {
+        switch (cat?.toLowerCase()) {
+            case 'gold': return 'yellow';
+            case 'silver': return 'gray';
+            case 'bronze': return 'orange';
+            default: return 'green';
+        }
+    };
+
     const columns = [
         {
             name: __('Name', 'gamify'),
-            cell: (row) => row.title
+            cell: (row) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {/* Optional: Show Level Icon if available */}
+                    {row.icon && <img src={row.icon} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
+                    <span style={{ fontWeight: 500 }}>{row.title}</span>
+                </div>
+            )
         },
         {
             name: __('Plural Name', 'gamify'),
             cell: (row) => row.plural_name
+        },
+        // 🔥 NEW: Category Column
+        {
+            name: __('Category', 'gamify'),
+            cell: (row) => (
+                row.category ? (
+                    <Badge colorScheme={getCategoryColor(row.category)} variant="subtle" borderRadius="4px" px={2}>
+                        {row.category}
+                    </Badge>
+                ) : (
+                    <span style={{ color: '#999', fontSize: '12px' }}>-</span>
+                )
+            ),
         },
         {
             name: __('Unlock Criteria', 'gamify'),

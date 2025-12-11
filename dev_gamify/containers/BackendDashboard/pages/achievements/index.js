@@ -5,7 +5,7 @@ import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
-import { Box, Button, Flex, Icon } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Badge } from '@chakra-ui/react'; // Badge Import Added
 import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 
@@ -28,14 +28,43 @@ const Achievements = () => {
         }
     };
 
+    // Helper to pick color based on category name (Optional UI polish)
+    const getCategoryColor = (cat) => {
+        switch (cat?.toLowerCase()) {
+            case 'gold': return 'yellow';
+            case 'silver': return 'gray';
+            case 'bronze': return 'orange';
+            default: return 'blue';
+        }
+    };
+
     const columns = [
         {
             name: __('Name', 'gamify'),
-            cell: (row) => row.title
+            cell: (row) => (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    {/* Optional: Show icon if available */}
+                    {row.badge_image && <img src={row.badge_image} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
+                    <span style={{ fontWeight: 500 }}>{row.title}</span>
+                </div>
+            )
         },
         {
-            name: __('Plural Name', 'gamify'), // Mapped to Description for UI consistency
+            name: __('Plural Name', 'gamify'),
             cell: (row) => row.description,
+        },
+        // 🔥 NEW: Category Column
+        {
+            name: __('Category', 'gamify'),
+            cell: (row) => (
+                row.category ? (
+                    <Badge colorScheme={getCategoryColor(row.category)} variant="subtle" borderRadius="4px" px={2}>
+                        {row.category}
+                    </Badge>
+                ) : (
+                    <span style={{ color: '#999', fontSize: '12px' }}>-</span>
+                )
+            ),
         },
         {
             name: __('Date', 'gamify'),
@@ -50,7 +79,7 @@ const Achievements = () => {
                             type: 'button',
                             label: __('Edit', 'gamify'),
                             icon: <Icon as={FiEdit} />,
-                            onClick: () => navigate(`${ route_path }admin.php?page=gamify-achievements&action=edit&id=${ row.id }&path=name`)
+                            onClick: () => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row.id}&path=achievements-type`)
                         },
                         {
                             type: 'button',
@@ -92,7 +121,7 @@ const Achievements = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        onClick={() => navigate(`${ route_path }admin.php?page=gamify-achievements&path=achievements-type`)}
+                        onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&path=achievements-type`)}
                     >
                         {__('+ Add new achievement type', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
@@ -101,10 +130,10 @@ const Achievements = () => {
                 <ListTable
                     columns={columns}
                     data={achievements}
-                    showSubHeader={false}
+                    showSubHeader={false} // You can enable this later for search/filter
                     showColumnFilter={false}
                     isRowSelectable={true}
-                    showPagination={false}
+                    showPagination={true} // Pagination enabled just in case
                     noDataText="No data found"
                 />
             </Box>

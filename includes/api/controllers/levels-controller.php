@@ -99,6 +99,7 @@ class LevelsController extends BaseController
             'title'                      => sanitize_text_field($params['title']),
             'plural_name'                => sanitize_text_field($params['plural_name']),
             'icon'                       => sanitize_text_field($params['icon']),
+            'category'                   => sanitize_text_field($params['category']),
             'congratulations_message'    => wp_kses_post($params['congratulations_message']),
             'unlock_with_points_enabled' => !empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'point_type_id'              => intval($params['point_type_id']),

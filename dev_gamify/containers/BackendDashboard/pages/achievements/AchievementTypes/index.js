@@ -25,10 +25,12 @@ import {
     resetForm,
     fetchTriggers,
     fetchPointTypes,
+    fetchAchievements,
     setField,
     addHook,
     removeHook,
-    updateHookSettings
+    updateHookSettings,
+    addCategoryToList
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
@@ -150,7 +152,7 @@ const AchievementsType = () => {
 
     const [achievementCollapsible, setAchievementCollapsible] = useState(true);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
-     const [categories, setCategories] = useState(["Gold", "Silver"]);
+    const [categories, setCategories] = useState(["Gold", "Silver"]);
     const [showInput, setShowInput] = useState(false);
     const [newCat, setNewCat] = useState("");
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -158,7 +160,8 @@ const AchievementsType = () => {
     // Redux State
     const {
         title, description, maxEarnings, allowUnlockWithPoints, pointsAmount, selectedPointTypeId,
-        allHooks, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage
+        allHooks, category, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage,
+        availableCategories = ["Gold", "Silver"]
     } = useSelector(state => state.achievements);
 
     // Initial Load
@@ -166,6 +169,7 @@ const AchievementsType = () => {
         // Fetch triggers specifically for achievements
         dispatch(fetchTriggers());
         dispatch(fetchPointTypes());
+        dispatch(fetchAchievements());
         if (editId) {
             dispatch(fetchAchievementById(editId));
         } else {
@@ -195,12 +199,22 @@ const AchievementsType = () => {
         }
     };
 
+    const handleAddCategory = () => {
+        if (!newCat.trim()) return;
+        dispatch(addCategoryToList(newCat.trim()));
+        dispatch(setField({ field: 'category', value: newCat.trim() }));
+
+        setNewCat("");
+        setShowInput(false);
+    };
+
     const handleSave = async () => {
         if (!title) return alert("Name is required");
 
         const payload = {
             title,
             description,
+            category,
             max_earnings_per_user: maxEarnings,
             unlock_with_points_enabled: allowUnlockWithPoints,
             required_points_amount: pointsAmount,
@@ -223,7 +237,7 @@ const AchievementsType = () => {
             navigate(`${route_path}admin.php?page=gamify-achievements`)
         }
     };
-   
+
     const addCategory = () => {
         if (!newCat.trim()) return;
         setCategories([...categories, newCat.trim()]);
@@ -275,39 +289,44 @@ const AchievementsType = () => {
                     <Box>
                         <GFLabel type="inputLabel" label={"Category"} />
 
-                        <Flex
-                            mt="4px"
-                            gap="24px"
-                            padding="12px"
-                            border="1px solid var(--gamify-border-color)"
-                            borderRadius="4px"
-                            flexWrap="wrap"
-                        >
-                            {categories.map((cat, index) => (
-                                <Checkbox.Root key={index}
-                                    checked={selectedCategory === cat}
-                                    onCheckedChange={() => setSelectedCategory(cat)}>
-                                    <Checkbox.HiddenInput />
-                                    <Checkbox.Control icon={false} borderRadius="100%"
-                                        style={{
-                                            width: "20px",
-                                            height: "20px",
-                                            borderRadius: "50%",
-                                            border: selectedCategory === cat
-                                                ? "1px solid var(--gamify-primary)"       
-                                                : "2px solid var(--gamify-border-color)",      
-                                            backgroundColor: selectedCategory === cat
-                                                ? "#007AFF"                
-                                                : "transparent",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                        }} />
-                                        
-                                    <Checkbox.Label>{__(cat, "gamify")}</Checkbox.Label>
-                                </Checkbox.Root>
-                            ))}
-                        </Flex>
+                        {availableCategories.length > 0 && (
+                            <Flex
+                                mt="4px"
+                                gap="24px"
+                                padding="12px"
+                                border="1px solid var(--gamify-border-color)"
+                                borderRadius="4px"
+                                flexWrap="wrap"
+                            >
+                                {availableCategories.map((cat, index) => (
+                                    <Checkbox.Root key={index}
+
+                                        checked={category === cat}
+
+                                        onCheckedChange={() => dispatch(setField({ field: 'category', value: cat }))}
+                                    >
+                                        <Checkbox.HiddenInput />
+                                        <Checkbox.Control icon={false} borderRadius="100%"
+                                            style={{
+                                                width: "20px",
+                                                height: "20px",
+                                                borderRadius: "50%",
+                                                border: category === cat
+                                                    ? "1px solid var(--gamify-primary)"
+                                                    : "2px solid var(--gamify-border-color)",
+                                                backgroundColor: category === cat
+                                                    ? "#007AFF"
+                                                    : "transparent",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                            }}
+                                        />
+                                        <Checkbox.Label>{__(cat, "gamify")}</Checkbox.Label>
+                                    </Checkbox.Root>
+                                ))}
+                            </Flex>
+                        )}
                         {!showInput && (
                             <Text
                                 cursor="pointer"
@@ -331,7 +350,7 @@ const AchievementsType = () => {
                                 <Button size="sm" onClick={() => setShowInput(false)}>
                                     {__(`Cancel`, "gamify")}
                                 </Button>
-                                <Button     {...primaryBtn} size="sm" onClick={addCategory}>
+                                <Button {...primaryBtn} size="sm" onClick={handleAddCategory}>
                                     {__(`Add`, "gamify")}
                                 </Button>
                             </Flex>

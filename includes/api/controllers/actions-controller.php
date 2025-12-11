@@ -74,7 +74,7 @@ class ActionsController extends BaseController
                 );
 
                 return new \WP_REST_Response([
-                    'message' => 'Scheduled successfully.',
+                    'message' => __(' Scheduled successfully.', 'gamify'),
                     'status' => 'scheduled'
                 ], 200);
             }

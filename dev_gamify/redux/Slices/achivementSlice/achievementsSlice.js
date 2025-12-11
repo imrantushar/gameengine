@@ -49,6 +49,8 @@ const initialState = {
     // Form Fields
     title: '',
     description: '', // Mapped to Plural Name in UI
+    category: '',
+    availableCategories: [],
     maxEarnings: 0,
     allowUnlockWithPoints: false,
     pointsAmount: '',
@@ -76,6 +78,7 @@ const achievementsSlice = createSlice({
             state.currentAchievementId = null;
             state.title = '';
             state.description = '';
+            state.category = '';
             state.congratulationsMessage = '';
             state.maxEarnings = 0;
             state.allowUnlockWithPoints = false;
@@ -84,6 +87,11 @@ const achievementsSlice = createSlice({
             state.selectedHookIds = [];
             state.hookSettings = {};
             state.saveStatus = 'idle';
+        },
+        addCategoryToList: (state, action) => {
+            if (!state.availableCategories.includes(action.payload)) {
+                state.availableCategories.push(action.payload);
+            }
         },
         addHook: (state, action) => {
             if (!state.selectedHookIds.includes(action.payload)) {
@@ -102,6 +110,15 @@ const achievementsSlice = createSlice({
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 state.achievements = action.payload;
+
+                // 🔥 FIX: Extract unique categories from all achievements
+                const categories = action.payload
+                    .map(item => item.category)
+                    .filter(cat => cat && cat.trim() !== ''); // Remove empty/null
+
+                // Merge with existing ensuring uniqueness
+                const uniqueCategories = [...new Set([...state.availableCategories, ...categories])];
+                state.availableCategories = uniqueCategories;
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.allHooks = action.payload;
@@ -114,15 +131,20 @@ const achievementsSlice = createSlice({
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;
+
                 state.currentAchievementId = data.id;
                 state.title = data.title;
                 state.description = data.description;
+                state.category = data.category || '';
                 state.congratulationsMessage = data.congratulations_message || '';
                 state.maxEarnings = data.max_earnings_per_user;
                 state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
                 state.pointsAmount = data.required_points_amount;
                 state.selectedPointTypeId = data.required_point_type_id;
 
+                if (data.category && !state.availableCategories.includes(data.category)) {
+                    state.availableCategories.push(data.category);
+                }
                 // Load Hooks
                 state.selectedHookIds = [];
                 state.hookSettings = {};
@@ -141,5 +163,5 @@ const achievementsSlice = createSlice({
     }
 });
 
-export const { setField, resetForm, addHook, removeHook, updateHookSettings } = achievementsSlice.actions;
+export const { setField, resetForm, addHook, removeHook, updateHookSettings, addCategoryToList } = achievementsSlice.actions;
 export default achievementsSlice.reducer;

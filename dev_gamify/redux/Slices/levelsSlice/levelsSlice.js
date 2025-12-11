@@ -58,6 +58,8 @@ const initialState = {
     maxPoints: '',
     selectedPointTypeId: null,
     levelIcon: '',
+    category: '',
+    availableCategories: [],
     priority: 0,
 
     // Hooks Data (Specific to Levels Page)
@@ -88,9 +90,15 @@ const levelsSlice = createSlice({
             state.maxPoints = '';
             state.selectedPointTypeId = null;
             state.levelIcon = '';
+            state.category = '';
             state.selectedHookIds = [];
             state.hookSettings = {};
             state.saveStatus = 'idle';
+        },
+        addCategoryToList: (state, action) => {
+            if (!state.availableCategories.includes(action.payload)) {
+                state.availableCategories.push(action.payload);
+            }
         },
         addHook: (state, action) => {
             if (!state.selectedHookIds.includes(action.payload)) state.selectedHookIds.push(action.payload);
@@ -106,7 +114,15 @@ const levelsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchLevels.fulfilled, (state, action) => {
+
                 state.levels = action.payload;
+                const categories = action.payload
+                    .map(item => item.category)
+                    .filter(cat => cat && cat.trim() !== ''); // Remove empty/null
+
+                // Merge with existing ensuring uniqueness
+                const uniqueCategories = [...new Set([...state.availableCategories, ...categories])];
+                state.availableCategories = uniqueCategories;
             })
             // Populate Triggers specifically for Levels
             .addCase(fetchLevelTriggers.fulfilled, (state, action) => {
@@ -124,12 +140,17 @@ const levelsSlice = createSlice({
                 state.currentLevelId = data.id;
                 state.title = data.title;
                 state.pluralName = data.plural_name;
+                state.category = data.category || '';
                 state.congratulationsMessage = data.congratulations_message || '';
                 state.unlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
                 state.minPoints = data.min_points;
                 state.maxPoints = data.max_points;
                 state.selectedPointTypeId = data.point_type_id;
                 state.levelIcon = data.icon;
+
+                if (data.category && !state.availableCategories.includes(data.category)) {
+                    state.availableCategories.push(data.category);
+                }
 
                 state.selectedHookIds = [];
                 state.hookSettings = {};
@@ -148,5 +169,5 @@ const levelsSlice = createSlice({
     }
 });
 
-export const { setField, resetForm, addHook, removeHook, updateHookSettings } = levelsSlice.actions;
+export const { setField, resetForm, addHook, removeHook, updateHookSettings, addCategoryToList } = levelsSlice.actions;
 export default levelsSlice.reducer;

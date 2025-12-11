@@ -45,6 +45,7 @@ final class Schema
             title VARCHAR(255) NOT NULL,
             description TEXT,
             badge_image VARCHAR(255),
+            category VARCHAR(255) DEFAULT NULL,
             congratulations_message TEXT DEFAULT NULL,
             secret_achievement TINYINT(1) DEFAULT 0,
             max_earnings_per_user INT(11) DEFAULT 0,
@@ -65,7 +66,7 @@ final class Schema
             plural_name VARCHAR(255),
             description TEXT,
             icon VARCHAR(255), -- Level Logo URL/ID
-            
+            category VARCHAR(255) DEFAULT NULL,
             -- Logic Fields
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
