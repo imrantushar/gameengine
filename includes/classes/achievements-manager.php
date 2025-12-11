@@ -34,6 +34,10 @@ class AchievementsManager
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_achievements';
 
+        // Sanitize inputs for strict checking
+        $safe_point_type_id = absint($point_type_id);
+        $safe_total_points  = absint($total_points);
+
         // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
         $achievements = $wpdb->get_results($wpdb->prepare(
             "SELECT id, title, max_earnings_per_user 
@@ -41,8 +45,8 @@ class AchievementsManager
              WHERE unlock_with_points_enabled = 1 
              AND required_point_type_id = %d 
              AND required_points_amount <= %d",
-            $point_type_id,
-            $total_points
+            $safe_point_type_id,
+            $safe_total_points
         ));
 
         if (empty($achievements)) {
@@ -58,7 +62,6 @@ class AchievementsManager
                     continue;
                 }
             } else {
-                // Default: Milestones are usually one-time if 0
                 if ($current_count > 0) {
                     continue;
                 }
@@ -74,6 +77,9 @@ class AchievementsManager
     public function award(int $user_id, int $achievement_id, string $context = 'system', array $args = [])
     {
         global $wpdb;
+
+        $user_id = absint($user_id);
+        $achievement_id = absint($achievement_id);
 
         if ($user_id <= 0 || $achievement_id <= 0) {
             return false;
@@ -103,11 +109,15 @@ class AchievementsManager
         $table_user_achievements = $wpdb->prefix . 'gamify_user_achievements';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-        $result = $wpdb->insert($table_user_achievements, [
-            'user_id'        => $user_id,
-            'achievement_id' => $achievement_id,
-            'achieved_at'    => current_time('mysql'),
-        ], ['%d', '%d', '%s']);
+        $result = $wpdb->insert(
+            $table_user_achievements,
+            [
+                'user_id'        => $user_id,
+                'achievement_id' => $achievement_id,
+                'achieved_at'    => current_time('mysql'),
+            ],
+            ['%d', '%d', '%s']
+        );
 
         if (! $result) {
             return false;
@@ -144,10 +154,12 @@ class AchievementsManager
 
     /**
      * Get how many times a user has earned a specific achievement.
-     * Uses Caching.
      */
     public function get_user_achievement_count(int $user_id, int $achievement_id): int
     {
+        $user_id = absint($user_id);
+        $achievement_id = absint($achievement_id);
+
         $cache_key = "gamify_ach_count_{$user_id}_{$achievement_id}";
         $count = wp_cache_get($cache_key, 'gamify');
 
@@ -182,13 +194,19 @@ class AchievementsManager
     public function revoke(int $user_id, int $achievement_id)
     {
         global $wpdb;
+        $user_id = absint($user_id);
+        $achievement_id = absint($achievement_id);
         $table = $wpdb->prefix . 'gamify_user_achievements';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-        $deleted = $wpdb->delete($table, [
-            'user_id'        => $user_id,
-            'achievement_id' => $achievement_id
-        ], ['%d', '%d']);
+        $deleted = $wpdb->delete(
+            $table,
+            [
+                'user_id'        => $user_id,
+                'achievement_id' => $achievement_id
+            ],
+            ['%d', '%d']
+        );
 
         if ($deleted) {
             // Clear Caches
@@ -213,10 +231,10 @@ class AchievementsManager
 
     /**
      * Get all achievements for a user.
-     * Uses Caching.
      */
     public function get_user_achievements(int $user_id): array
     {
+        $user_id = absint($user_id);
         $cache_key = "gamify_user_achs_{$user_id}";
         $achievements = wp_cache_get($cache_key, 'gamify');
 
