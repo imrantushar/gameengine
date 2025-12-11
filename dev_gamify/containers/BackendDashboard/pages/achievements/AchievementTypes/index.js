@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import {
-    Box, Button, Flex, Icon, Text, Switch
+    Box, Button, Flex, Icon, Text, Switch, Checkbox,
+    Input
 } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
@@ -149,6 +150,10 @@ const AchievementsType = () => {
 
     const [achievementCollapsible, setAchievementCollapsible] = useState(true);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
+     const [categories, setCategories] = useState(["Gold", "Silver"]);
+    const [showInput, setShowInput] = useState(false);
+    const [newCat, setNewCat] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     // Redux State
     const {
@@ -215,10 +220,16 @@ const AchievementsType = () => {
         }
 
         if (result.type.endsWith('fulfilled')) {
-            navigate(`${ route_path }admin.php?page=gamify-achievements`)
+            navigate(`${route_path}admin.php?page=gamify-achievements`)
         }
     };
-
+   
+    const addCategory = () => {
+        if (!newCat.trim()) return;
+        setCategories([...categories, newCat.trim()]);
+        setNewCat("");
+        setShowInput(false);
+    };
     return (
         <>
             <TopBar
@@ -262,6 +273,71 @@ const AchievementsType = () => {
                     </Box>
 
                     <Box>
+                        <GFLabel type="inputLabel" label={"Category"} />
+
+                        <Flex
+                            mt="4px"
+                            gap="24px"
+                            padding="12px"
+                            border="1px solid var(--gamify-border-color)"
+                            borderRadius="4px"
+                            flexWrap="wrap"
+                        >
+                            {categories.map((cat, index) => (
+                                <Checkbox.Root key={index}
+                                    checked={selectedCategory === cat}
+                                    onCheckedChange={() => setSelectedCategory(cat)}>
+                                    <Checkbox.HiddenInput />
+                                    <Checkbox.Control icon={false} borderRadius="100%"
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            borderRadius: "50%",
+                                            border: selectedCategory === cat
+                                                ? "1px solid var(--gamify-primary)"       
+                                                : "2px solid var(--gamify-border-color)",      
+                                            backgroundColor: selectedCategory === cat
+                                                ? "#007AFF"                
+                                                : "transparent",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                        }} />
+                                        
+                                    <Checkbox.Label>{__(cat, "gamify")}</Checkbox.Label>
+                                </Checkbox.Root>
+                            ))}
+                        </Flex>
+                        {!showInput && (
+                            <Text
+                                cursor="pointer"
+                                color="var(--gamify-primary)"
+                                fontWeight="500"
+                                fontSize="0.875rem"
+                                mt="4px"
+                                onClick={() => setShowInput(true)}
+                            >
+                                {__("+ Add Description", "gamify")}
+                            </Text>
+                        )}
+                        {showInput && (
+                            <Flex mt="6px" gap="8px">
+                                <Input
+                                    size="sm"
+                                    placeholder="Enter category"
+                                    value={newCat}
+                                    onChange={(e) => setNewCat(e.target.value)}
+                                />
+                                <Button size="sm" onClick={() => setShowInput(false)}>
+                                    {__(`Cancel`, "gamify")}
+                                </Button>
+                                <Button     {...primaryBtn} size="sm" onClick={addCategory}>
+                                    {__(`Add`, "gamify")}
+                                </Button>
+                            </Flex>
+                        )}
+                    </Box>
+                    <Box >
                         <GFLabel mb='24px' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
                         <GamifyEditor
                             suffix="congratulations_message"
