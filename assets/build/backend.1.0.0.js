@@ -3007,7 +3007,7 @@ const AchievementsType = () => {
     fontSize: "0.875rem",
     mt: "4px",
     onClick: () => setShowInput(true)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("+ Add Description", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
     gap: "8px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Input, {
@@ -4595,7 +4595,7 @@ const LevelType = () => {
     fontSize: "0.875rem",
     mt: "4px",
     onClick: () => setShowInput(true)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("+ Add Description", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
     gap: "8px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {

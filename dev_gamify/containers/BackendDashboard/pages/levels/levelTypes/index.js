@@ -250,7 +250,7 @@ const LevelType = () => {
                                 mt="4px"
                                 onClick={() => setShowInput(true)}
                             >
-                                {__("+ Add Description", "gamify")}
+                                {__("+ Add Category", "gamify")}
                             </Text>
                         )}
                         {showInput && (
