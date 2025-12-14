@@ -117,13 +117,13 @@ const Achievements = () => {
                         type="title"
                         fontWeight="500"
                         fontSize="xl"
-                        label={__(`Achievement Types`, 'gamify')}
+                        label={__(`Achievements`, 'gamify')}
                     />
                     <Button
                         {...primaryBtn}
                         onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&path=achievements-type`)}
                     >
-                        {__('+ Add new achievement type', 'gamify')}
+                        {__('+ Add new achievement', 'gamify')}
                         <span className="gamify-icon gamify-icon--plus has-gamify-blue-bg" />
                     </Button>
                 </Flex>
