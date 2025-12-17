@@ -2,6 +2,8 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { reactDebounce } from '@GFUtils/helper';
 import './styles.scss';
+import { CiSearch } from "react-icons/ci";
+import { Icon } from '@chakra-ui/react';
 
 const propTypes = {
 	placeholder: PropTypes.string,
@@ -43,7 +45,9 @@ export default function Search( {
 	return (
 		<React.Fragment>
 			<div className={ classNames }>
-				<span className="gamify-search-component__search gamify-icon gamify-icon--search" />
+				<span className="gamify-search-component__search gamify-icon gamify-icon--search" >
+					<Icon as={CiSearch}></Icon>
+					</span>
 				<input
 					id="search"
 					type="text"
