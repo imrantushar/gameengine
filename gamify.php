@@ -132,6 +132,10 @@ final class Gamify
             \Gamify\Classes\LevelsManager::init();
         }
 
+        if (class_exists('\Gamify\Classes\Shortcodes')) {
+            \Gamify\Classes\Shortcodes::init();
+        }
+
         // Admin Only Modules
         if (is_admin() && class_exists('\Gamify\Admin')) {
             \Gamify\Admin::init();

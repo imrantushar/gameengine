@@ -20,9 +20,7 @@ class Assets
     {
         $self = new self();
         add_action('admin_enqueue_scripts', [$self, 'enqueue_admin_assets']);
-
-        // If you have frontend scripts later, you can add them here:
-        // add_action('wp_enqueue_scripts', [$self, 'frontend_scripts']);
+        add_action('wp_enqueue_scripts', [$self, 'enqueue_frontend_assets']);
     }
 
     /**
@@ -127,5 +125,25 @@ class Assets
 
         // Set script translations
         wp_set_script_translations('gamify-admin-script', 'gamify', GAMIFY_PATH . 'languages/');
+    }
+
+    /**
+     * Enqueue Frontend Assets
+     */
+    public function enqueue_frontend_assets()
+    {
+        // CSS File Path
+        $style_path = GAMIFY_PATH . 'assets/css/frontend.css';
+        $style_url  = GAMIFY_URL . 'assets/css/frontend.css';
+
+        // Check if file exists to avoid errors
+        if (file_exists($style_path)) {
+            wp_enqueue_style(
+                'gamify-frontend-style', // Handle Name
+                $style_url,              // URL
+                [],                      // Dependencies
+                GAMIFY_VERSION           // Version (Cache busting)
+            );
+        }
     }
 }

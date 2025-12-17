@@ -69,6 +69,10 @@ class LevelsManager
 
         $user_level_id = $wpdb->insert_id;
 
+        // 🔥 FIX: Clear Cache so new level shows up immediately
+        wp_cache_delete("gamify_all_levels_{$user_id}", 'gamify');
+        wp_cache_delete("gamify_current_level_{$user_id}", 'gamify');
+
         // 4. Log to System (With Congratulation Message)
         Logger::log(
             'level_up',
@@ -92,7 +96,6 @@ class LevelsManager
 
     /**
      * Check if user should level up based on points.
-     * Hooked to 'gamify_points_added' and 'deducted'.
      */
     public function check_levels_on_point_change($user_id, $points, $context, $log_id, $point_type_id)
     {
@@ -146,18 +149,59 @@ class LevelsManager
      */
     public function get_current_level($user_id)
     {
-        global $wpdb;
-        $table_ul = $wpdb->prefix . 'gamify_user_levels';
-        $table_l  = $wpdb->prefix . 'gamify_levels';
+        // Check Cache First
+        $cache_key = "gamify_current_level_{$user_id}";
+        $level = wp_cache_get($cache_key, 'gamify');
 
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
-        return $wpdb->get_row($wpdb->prepare(
-            "SELECT l.* FROM {$table_l} l
-             JOIN {$table_ul} ul ON l.id = ul.level_id
-             WHERE ul.user_id = %d
-             ORDER BY l.priority DESC, l.min_points DESC
-             LIMIT 1",
-            $user_id
-        ));
+        if (false === $level) {
+            global $wpdb;
+            $table_ul = $wpdb->prefix . 'gamify_user_levels';
+            $table_l  = $wpdb->prefix . 'gamify_levels';
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            $level = $wpdb->get_row($wpdb->prepare(
+                "SELECT l.* 
+                 FROM {$table_l} l
+                 JOIN {$table_ul} ul ON l.id = ul.level_id
+                 WHERE ul.user_id = %d
+                 ORDER BY l.priority DESC, l.min_points DESC, ul.achieved_at DESC
+                 LIMIT 1",
+                $user_id
+            ));
+
+            wp_cache_set($cache_key, $level, 'gamify');
+        }
+
+        return $level;
+    }
+
+    /**
+     * Get ALL Earned Levels of User.
+     */
+    public function get_all_user_levels($user_id)
+    {
+        // Check Cache First
+        $cache_key = "gamify_all_levels_{$user_id}";
+        $levels = wp_cache_get($cache_key, 'gamify');
+
+        if (false === $levels) {
+            global $wpdb;
+            $table_ul = $wpdb->prefix . 'gamify_user_levels';
+            $table_l  = $wpdb->prefix . 'gamify_levels';
+
+            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            $levels = $wpdb->get_results($wpdb->prepare(
+                "SELECT l.* 
+                 FROM {$table_l} l
+                 JOIN {$table_ul} ul ON l.id = ul.level_id
+                 WHERE ul.user_id = %d
+                 ORDER BY ul.achieved_at ASC", // Oldest to Newest
+                $user_id
+            ));
+
+            wp_cache_set($cache_key, $levels, 'gamify');
+        }
+
+        return $levels;
     }
 }
