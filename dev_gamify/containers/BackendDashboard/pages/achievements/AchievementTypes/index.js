@@ -49,7 +49,7 @@ const DraggableItem = ({ id, children }) => {
 
 const DroppableArea = ({ id, children }) => {
     const { setNodeRef } = useDroppable({ id });
-    return <Box ref={setNodeRef} minHeight="100px" mt="12px">{children}</Box>;
+    return <Box ref={setNodeRef} height='100%' mt="12px">{children}</Box>;
 };
 
 // --- NEW: Helper Component for Dynamic Fields (Select + Input) ---
@@ -109,7 +109,7 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex direction="column" gap="16px" padding="0 24px">
+            <Flex direction="column" gap="16px">
                 {fieldKeys.map(key => {
                     const config = fieldsConfig[key];
 
@@ -133,8 +133,8 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                     );
                 })}
             </Flex>
-            <Divider width='100%' margin='24px 0' />
-            <Flex padding="0 24px 24px" justifyContent='flex-end'>
+            <Divider width='100%' margin='12px 0' />
+            <Flex  justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                     {__('Done', 'gamify')}
                 </Button>
@@ -333,7 +333,7 @@ const AchievementsType = () => {
                                 color="var(--gamify-primary)"
                                 fontWeight="500"
                                 fontSize="0.875rem"
-                                mt="4px"
+                                margin='4px 0 0 0'
                                 onClick={() => setShowInput(true)}
                             >
                                 {__("+ Add Category", "gamify")}
@@ -357,7 +357,7 @@ const AchievementsType = () => {
                         )}
                     </Box>
                     <Box >
-                        <GFLabel mb='24px' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
+                        <GFLabel margin="0 0 12px 0" type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
                         <GamifyEditor
                             suffix="congratulations_message"
                             defaultValue={message}
@@ -459,7 +459,7 @@ const AchievementsType = () => {
                                                 <Flex direction="column" gap="12px" mt="8px">
                                                     {activeHooks.map((hook) => (
                                                         <DraggableItem key={hook.id} id={hook.id}>
-                                                            <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                                            <Box background="white" borderRadius="4px">
                                                                 {/* Using the new DynamicHookForm */}
                                                                 <DynamicHookForm
                                                                     hookId={hook.id}

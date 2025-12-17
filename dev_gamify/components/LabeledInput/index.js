@@ -18,7 +18,7 @@ const LabeledInput = ({
 
   return (
     <Flex as="label" direction="column"  gap={2} style={{ ...style }}>
-      <Text fontWeight="500" fontSize="0.875rem" margin={0}>
+      <Text fontWeight="600" fontSize="0.875rem" margin={0}>
         {__(label, 'gamify')}
       </Text>
 

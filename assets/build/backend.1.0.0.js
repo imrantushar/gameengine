@@ -434,7 +434,7 @@ const LabeledInput = ({
       ...style
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
-    fontWeight: "500",
+    fontWeight: "600",
     fontSize: "0.875rem",
     margin: 0
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(InputComponent, {
@@ -486,7 +486,7 @@ const GFLabel = ({
   fontSize = "",
   fontWeight = "",
   textTransform = "",
-  margin = "",
+  margin = "0",
   padding = "",
   color = "",
   bg = "",
@@ -555,10 +555,8 @@ const GFLabel = ({
       color: "var(--gamify-gray-color)"
     },
     inputLabel: {
-      fontSize: "14px",
+      fontSize: "0.875rem",
       fontWeight: "600",
-      fontStyle: "normal",
-      lineHeight: "20px",
       color: "var(--gamify-font-color)"
     }
   };
@@ -579,8 +577,7 @@ const GFLabel = ({
     whiteSpace: whiteSpace,
     truncate: truncate,
     lineClamp: lineClamp,
-    lineHeight: lineHeight,
-    margin: '0'
+    lineHeight: lineHeight
   };
   const needsSlicing = enableSlice && label && label.length > sliceLength;
   const getDisplayText = () => {
@@ -2692,7 +2689,7 @@ const DroppableArea = ({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
-    minHeight: "100px",
+    height: "100%",
     mt: "12px"
   }, children);
 };
@@ -2763,8 +2760,7 @@ const DynamicHookForm = ({
     singleIcon: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     direction: "column",
-    gap: "16px",
-    padding: "0 24px"
+    gap: "16px"
   }, fieldKeys.map(key => {
     const config = fieldsConfig[key];
 
@@ -2785,9 +2781,8 @@ const DynamicHookForm = ({
     });
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_20__["default"], {
     width: "100%",
-    margin: "24px 0"
+    margin: "12px 0"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
-    padding: "0 24px 24px",
     justifyContent: "flex-end"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.primaryBtn,
@@ -3005,7 +3000,7 @@ const AchievementsType = () => {
     color: "var(--gamify-primary)",
     fontWeight: "500",
     fontSize: "0.875rem",
-    mt: "4px",
+    margin: "4px 0 0 0",
     onClick: () => setShowInput(true)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
@@ -3023,7 +3018,7 @@ const AchievementsType = () => {
     size: "sm",
     onClick: handleAddCategory
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)(`Add`, "gamify")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_12__["default"], {
-    mb: "24px",
+    margin: "0 0 12px 0",
     type: "inputLabel",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)(`Congratulations Message:`, "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_editor__WEBPACK_IMPORTED_MODULE_21__["default"], {
@@ -3173,8 +3168,7 @@ const AchievementsType = () => {
     id: hook.id
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     background: "white",
-    borderRadius: "4px",
-    border: "1px solid var(--gamify-border-color)"
+    borderRadius: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     hookId: hook.id,
     hookInfo: hook,
@@ -4295,7 +4289,7 @@ const DroppableArea = ({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
-    minHeight: "100px",
+    height: "100%",
     mt: "12px"
   }, children);
 };
@@ -4352,8 +4346,7 @@ const DynamicHookForm = ({
     singleIcon: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     direction: "column",
-    gap: "16px",
-    padding: "0 24px"
+    gap: "16px"
   }, Object.keys(fieldsConfig).map(key => {
     var _ref, _settings$key;
     const config = fieldsConfig[key];
@@ -4367,9 +4360,8 @@ const DynamicHookForm = ({
     });
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_22__["default"], {
     width: "100%",
-    margin: "24px 0"
+    margin: "12px 0"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
-    padding: "0 24px 24px",
     justifyContent: "flex-end"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.primaryBtn,
@@ -4593,7 +4585,7 @@ const LevelType = () => {
     color: "var(--gamify-primary)",
     fontWeight: "500",
     fontSize: "0.875rem",
-    mt: "4px",
+    m: "4px 0 0 0",
     onClick: () => setShowInput(true)
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
@@ -4611,7 +4603,7 @@ const LevelType = () => {
     size: "sm",
     onClick: handleAddCategory
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)(`Add`, "gamify")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_17__["default"], {
-    mb: "24px",
+    margin: "0 0 12px 0",
     type: "inputLabel",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)(`Congratulations Message:`, "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_editor__WEBPACK_IMPORTED_MODULE_20__["default"], {
@@ -4656,12 +4648,14 @@ const LevelType = () => {
       field: 'maxPoints',
       value: e.target.value
     }))
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "33%"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    flexDirection: "column",
+    width: "33%",
+    gap: 2
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
     fontSize: "14px",
     fontWeight: "500",
-    mb: "8px",
+    m: "0",
     color: "var(--gamify-font-color)"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("Choose the Points Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_13__["default"], {
     className: "gamify-select",
@@ -4770,7 +4764,6 @@ const LevelType = () => {
     id: hook.id
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     bg: "white",
-    border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     hookId: hook.id,
@@ -4791,8 +4784,7 @@ const LevelType = () => {
     margin: "0"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     borderTop: "1px solid var(--gamify-border-color)",
-    mt: "10px",
-    p: "16px"
+    mt: "10px"
   }, levelIcon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Image, {
     src: levelIcon,
     boxSize: "100px",
@@ -5146,7 +5138,7 @@ const Logs = () => {
       onChange: e => handleSearch(e.target ? e.target.value : e)
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Button, {
       ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__.primaryBtn,
-      height: "32px",
+      height: "36px",
       onClick: openCreateModal,
       leftIcon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Icon, {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiPlus
@@ -5213,6 +5205,8 @@ const Logs = () => {
     fontSize: "0.875rem",
     margin: 0
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`User ID`, "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_20__["default"], {
+    classNamePrefix: "gamify-select",
+    className: "gamify-select",
     placeholder: "e.g. 1",
     options: userOptions,
     value: userOptions.find(opt => opt.value === formData.user_id),
@@ -5235,7 +5229,7 @@ const Logs = () => {
     fontSize: "0.875rem",
     margin: 0
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Action Type`, "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_20__["default"], {
-    classNamePrefix: "gamify-logs",
+    classNamePrefix: "gamify-select",
     className: "gamify-select",
     defaultValue: (_formData$type = formData?.type) !== null && _formData$type !== void 0 ? _formData$type : formData?.type?.items?.label,
     onChange: val => setFormData({
@@ -5297,8 +5291,7 @@ const Logs = () => {
       height: '70px'
     }
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_17__.Flex, {
-    justifyContent: "flex-end",
-    py: 4
+    justifyContent: "flex-end"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Button, {
     variant: "ghost",
     mr: 3,

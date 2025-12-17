@@ -67,51 +67,15 @@
   height: 100%;
   min-height: unset;
 }
-.gamify-select .gamify-select__menu {
-  background: #fff;
-  min-width: 100%;
-  box-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.3), 0 8px 16px 0 rgba(20, 26, 36, 0.1);
-}
-.gamify-select .gamify-select__option {
-  color: var(--zencom-font-color);
-  cursor: pointer;
-  white-space: nowrap;
-}
-.gamify-select .gamify-select__option:hover, .gamify-select .gamify-select__option:active {
-  background: var(--zencom-primary-color) !important;
-  -webkit-tap-highlight-color: none !important;
-}
-.gamify-select .gamify-select__option {
-  width: calc(100% - 16px);
-  margin: 4px auto;
-  border-radius: 4px;
-}
-.gamify-select .gamify-select__option--is-focused {
-  background: var(--zencom-primary-color) !important;
-  color: #fff !important;
-}
-.gamify-select .gamify-select__option--is-selected {
-  background: var(--zencom-primary-color) !important;
-  color: #fff !important;
-}
-.gamify-select .gamify-select__multi-value {
-  background: var(--zencom-primary-color) !important;
-}
-.gamify-select .gamify-select__multi-value__label {
-  color: #fff !important;
-}
-.gamify-select .gamify-select__multi-value__remove {
-  color: #E2483D;
-}
-.gamify-select .gamify-select__single-value {
-  color: #141A24;
+.gamify-select .gamify-select__control:hover {
+  border: 1px solid #CBD1D7;
 }
 .gamify-select--transparent .gamify-select__control {
   border: none;
 }
 .gamify-select--transparent .gamify-select__placeholder {
   font-size: 14px;
-  color: var(--zencom-font-color);
+  color: var(--gamify-font-color);
   font-weight: 500;
 }
 .gamify-select--transparent .gamify-select__indicator-separator {
@@ -119,24 +83,24 @@
 }
 .gamify-select--transparent .gamify-select__dropdown-indicator {
   padding: 8px 0 8px 8px;
-  color: var(--zencom-font-color);
+  color: var(--gamify-font-color);
   font-weight: 500;
 }
 
-.zencom-radio-option {
+.gamify-radio-option {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
 }
 
-.zencom-radio-input {
+.gamify-radio-input {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--zencom-border-color);
+  border: 2px solid var(--gamify-border-color);
   border-radius: 50%;
   position: relative;
   cursor: pointer;
@@ -145,12 +109,12 @@
   flex-shrink: 0;
 }
 
-.zencom-radio-input:checked {
-  border-color: var(--zencom-primary-color);
-  background-color: var(--zencom-primary-color);
+.gamify-radio-input:checked {
+  border-color: var(--gamify-primary-color);
+  background-color: var(--gamify-primary-color);
 }
 
-.zencom-radio-input:checked::before {
+.gamify-radio-input:checked::before {
   content: "";
   position: absolute;
   top: 50%;
@@ -162,16 +126,16 @@
   border-radius: 50%;
 }
 
-.zencom-radio-input:focus {
+.gamify-radio-input:focus {
   outline: none;
   box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
-.zencom-radio-input:hover {
-  border-color: var(--zencom-primary-color);
+.gamify-radio-input:hover {
+  border-color: var(--gamify-primary-color);
 }
 
-.zencom-radio-label {
+.gamify-radio-label {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -180,24 +144,24 @@
           user-select: none;
 }
 
-.zencom-radio-option {
-  color: var(--zencom-gray-color);
+.gamify-radio-option {
+  color: var(--gamify-gray-color);
 }
 
-.zencom-radio-option.active {
-  color: var(--zencom-primary-color);
+.gamify-radio-option.active {
+  color: var(--gamify-primary-color);
 }
 
-.zencom-radio-option.active .zencom-radio-label {
-  color: var(--zencom-primary-color);
+.gamify-radio-option.active .gamify-radio-label {
+  color: var(--gamify-primary-color);
 }
 
 @media (max-width: 768px) {
-  .zencom-ticket-table td > p {
+  .gamify-ticket-table td > p {
     width: -moz-fit-content;
     width: fit-content;
   }
-  .zencom-ticket-table table td, .zencom-ticket-table table tr {
+  .gamify-ticket-table table td, .gamify-ticket-table table tr {
     display: revert;
   }
 }
@@ -565,68 +529,6 @@ input.gamify-checkbox:checked::before {
 }
 .gamify-textarea--error {
   border-color: var(--gamify-placing) !important;
-}
-
-.gamify-select .gamify-select__control {
-  border: 1px solid var(--gamify-border-color);
-  background: var(--gamify-background);
-  border-radius: 5px;
-  box-shadow: none;
-}
-.gamify-select .gamify-select__control .gamify-select__input-container .gamify-select__input {
-  box-shadow: none;
-  height: 100%;
-  min-height: unset;
-}
-.gamify-select .gamify-select__menu {
-  background: var(--gamify-background);
-}
-.gamify-select .gamify-select__option {
-  color: var(--gamify-font-color);
-}
-.gamify-select .gamify-select__option:hover, .gamify-select .gamify-select__option:active {
-  background: var(--gamify-primary) !important;
-  -webkit-tap-highlight-color: none !important;
-}
-.gamify-select .gamify-select__option--is-focused {
-  background: var(--gamify-primary) !important;
-  color: #fff !important;
-}
-.gamify-select .gamify-select__option--is-focused .easy-gamify-icon::before {
-  color: #fff !important;
-}
-.gamify-select .gamify-select__option--is-disabled:hover {
-  background: transparent !important;
-  color: var(--gamify-warn-muted) !important;
-}
-.gamify-select .gamify-select__option--is-disabled {
-  color: var(--gamify-warn-muted) !important;
-}
-.gamify-select .gamify-select__option--is-disabled .easy-gamify-icon::before {
-  color: var(--gamify-warn-muted) !important;
-}
-.gamify-select .gamify-select__option--is-selected {
-  background: var(--gamify-primary) !important;
-  color: #fff !important;
-}
-.gamify-select .gamify-select__option--is-selected .easy-gamify-icon::before {
-  color: #fff !important;
-}
-.gamify-select .gamify-select__multi-value__remove {
-  color: var(--gamify-warning);
-}
-.gamify-select .gamify-select__single-value {
-  color: var(--gamify-font-color);
-}
-.gamify-select .gamify-select__group {
-  padding: 0 !important;
-}
-.gamify-select .gamify-select__group-heading {
-  padding: 6px 12px !important;
-  margin: 0 !important;
-  border-top: 1px solid var(--gamify-border-color) !important;
-  border-bottom: 1px solid var(--gamify-border-color) !important;
-  background: var(--gamify-body-background) !important;
 }
 
 .gamify-animate {

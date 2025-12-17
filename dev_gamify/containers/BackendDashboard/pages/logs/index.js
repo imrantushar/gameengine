@@ -290,7 +290,7 @@ const Logs = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        height="32px"
+                        height="36px"
                         onClick={openCreateModal}
                         leftIcon={<Icon as={FiPlus} />}
                     >
@@ -350,15 +350,6 @@ const Logs = () => {
                 <Box px={4}>
                     <Flex gap={4} mb={4}>
                         <Box flex="1">
-                            {/* User ID (ReadOnly in Edit Mode) */}
-                            {/* <LabeledInput
-                                label={'User ID'}
-                                placeholder={'e.g. 1'}
-                                value={formData.user_id}
-                                onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
-                                disabled={modalMode === 'edit'}
-                                style={{ width: '100%', opacity: modalMode === 'edit' ? 0.6 : 1 }}
-                            /> */}
                             <Text
                                 fontWeight="500" fontSize="0.875rem" margin={0}
                             >
@@ -366,6 +357,8 @@ const Logs = () => {
                             </Text>
 
                             <Select
+                               classNamePrefix='gamify-select'
+                               className='gamify-select'
                                 placeholder="e.g. 1"
                                 options={userOptions}
                                 value={userOptions.find(opt => opt.value === formData.user_id)}
@@ -386,16 +379,6 @@ const Logs = () => {
                             />
                         </Box>
                         <Box flex="1">
-                            {/* Action Type Select - Fixed Handler */}
-                            {/* <GFSelect
-                                label="Action Type"
-                                items={[
-                                    { label: 'Award Points (+)', value: 'award' },
-                                    { label: 'Deduct Points (-)', value: 'deduct' },
-                                ]}
-                                value={'award'}
-                                // onChange={(val) => setFormData({ ...formData, type: val?.value })}
-                            />*/}
                             <Text
                                 fontWeight="500" fontSize="0.875rem" margin={0}
                             >
@@ -403,7 +386,7 @@ const Logs = () => {
                             </Text>
 
                             <Select
-                                classNamePrefix='gamify-logs'
+                                classNamePrefix='gamify-select'
                                 className='gamify-select'
                                 defaultValue={formData?.type ?? formData?.type?.items?.label}
                                 onChange={(val) => setFormData({ ...formData, type: val?.value })}
@@ -454,7 +437,7 @@ const Logs = () => {
                         />
                     </Box>
 
-                    <Flex justifyContent='flex-end' py={4}>
+                    <Flex justifyContent='flex-end' >
                         <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
                             {__('Cancel', 'gamify')}
                         </Button>
