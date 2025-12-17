@@ -275,11 +275,21 @@ const Logs = () => {
                 <div className="gamify-table__sub-header-left">
                     <GFLabel as="h2" color="var(--gamify-font-color)" fontWeight="700" fontSize='16px' label={__(`Logs`, 'gamify')} />
                     <Button
-                        background='#F6F7F8' variant="outline" borderRadius="md"
-                        color="gray.700" width='54px' height='24px' ml='5px' borderColor="gray.300"
+                        bg="#F6F7F8"
+                        variant="outline"
+                        borderRadius="8px"
+                        color="gray.700"
+                        height="32px"
+                        px="14px"                    // horizontal padding for text
+                        fontSize="14px"
+                        fontWeight="500"
+                        borderColor="gray.300"
+                        _hover={{ bg: "#F1F3F5" }}
+                        _active={{ bg: "#E9ECEF" }}
                         onClick={handleRefresh}
+                        marginLeft='8px'
                     >
-                        {status === 'loading' ? '...' : <Icon as={FiRefreshCw} />}
+                        {status === "loading" ? "loading..." : "refresh"}
                     </Button>
                 </div>
 
@@ -357,8 +367,8 @@ const Logs = () => {
                             </Text>
 
                             <Select
-                               classNamePrefix='gamify-select'
-                               className='gamify-select'
+                                classNamePrefix='gamify-select'
+                                className='gamify-select'
                                 placeholder="e.g. 1"
                                 options={userOptions}
                                 value={userOptions.find(opt => opt.value === formData.user_id)}

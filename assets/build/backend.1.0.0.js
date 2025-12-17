@@ -5116,18 +5116,25 @@ const Logs = () => {
       fontSize: "16px",
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)(`Logs`, 'gamify')
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Button, {
-      background: "#F6F7F8",
+      bg: "#F6F7F8",
       variant: "outline",
-      borderRadius: "md",
+      borderRadius: "8px",
       color: "gray.700",
-      width: "54px",
-      height: "24px",
-      ml: "5px",
+      height: "32px",
+      px: "14px" // horizontal padding for text
+      ,
+      fontSize: "14px",
+      fontWeight: "500",
       borderColor: "gray.300",
-      onClick: handleRefresh
-    }, status === 'loading' ? '...' : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_18__.Icon, {
-      as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiRefreshCw
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      _hover: {
+        bg: "#F1F3F5"
+      },
+      _active: {
+        bg: "#E9ECEF"
+      },
+      onClick: handleRefresh,
+      marginLeft: "8px"
+    }, status === "loading" ? "loading..." : "refresh")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "gamify-table-sub-header-actions-right",
       style: {
         display: 'flex',
