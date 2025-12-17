@@ -5411,10 +5411,8 @@ const DroppableArea = ({
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
-    minHeight: "200px",
-    background: isOver ? "rgba(79,70,229,0.04)" : "transparent",
     borderRadius: "4px",
-    border: isOver ? "1px dashed #4F46E5" : "1px solid transparent",
+    height: "100%",
     transition: "all 0.2s"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     marginTop: "12px"
@@ -5482,8 +5480,7 @@ const DynamicHookForm = ({
     singleIcon: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
-    gap: "16px",
-    padding: "0 24px"
+    gap: "16px"
   }, Object.keys(fieldsConfig).map(key => {
     var _ref, _settings$key;
     const config = fieldsConfig[key];
@@ -5500,9 +5497,9 @@ const DynamicHookForm = ({
     });
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_16__["default"], {
     width: "100%",
-    margin: "24px 0"
+    margin: "12px 0"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
-    padding: "0 24px 24px",
+    padding: "0 24px 0 24px",
     justifyContent: "flex-end"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_18__.primaryBtn,
@@ -5532,8 +5529,7 @@ const HookConfigurationForm = ({
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     background: "white",
-    borderRadius: "4px",
-    border: "1px solid var(--gamify-border-color)"
+    borderRadius: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     hookId: hookId,
     hookInfo: hookInfo,
@@ -5808,7 +5804,7 @@ const PointType = () => {
     fontSize: "1rem",
     fontWeight: "600"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(item.label, 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    bg: "red.500",
+    bg: "green.500",
     borderRadius: "full",
     width: "24px",
     height: "24px",

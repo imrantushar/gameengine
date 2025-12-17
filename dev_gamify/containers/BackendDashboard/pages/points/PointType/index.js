@@ -75,10 +75,8 @@ const DroppableArea = ({ id, children }) => {
     return (
         <Box
             ref={setNodeRef}
-            minHeight="200px"
-            background={isOver ? "rgba(79,70,229,0.04)" : "transparent"}
             borderRadius="4px"
-            border={isOver ? "1px dashed #4F46E5" : "1px solid transparent"}
+            height='100%'
             transition="all 0.2s"
         >
             <Box marginTop="12px">{children}</Box>
@@ -140,7 +138,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             singleIcon={true}
         >
 
-            <Flex direction="column" gap="16px" padding="0 24px">
+            <Flex direction="column" gap="16px">
                 {Object.keys(fieldsConfig).map((key) => {
                     const config = fieldsConfig[key];
 
@@ -163,9 +161,9 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                 })}
             </Flex>
 
-            <Divider width='100%' margin='24px 0' />
+            <Divider width='100%' margin='12px 0' />
 
-            <Flex padding="0 24px 24px" justifyContent='flex-end'>
+            <Flex padding="0 24px 0 24px" justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                     {__('Done', 'gamify')}
                 </Button>
@@ -188,7 +186,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
     };
 
     return (
-        <Box background="white" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+        <Box background="white" borderRadius="4px" >
             <DynamicHookForm
                 hookId={hookId}
                 hookInfo={hookInfo}
@@ -433,7 +431,7 @@ const PointType = () => {
                                                     <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
                                                         <Flex justify="space-between" align="center">
                                                             <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
-                                                            <Box bg="red.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+                                                            <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
                                                         </Flex>
                                                     </Box>
                                                 </DraggableItem>
