@@ -22,8 +22,8 @@ class Admin
         // Initialize the Menu
         Admin\Menu::init();
 
-        // You can add other modules here later, following the gamify pattern:
-        // Admin\Settings::init();
-        // Admin\License::init();
+        if (class_exists('\Gamify\Admin\UserProfile')) {
+            \Gamify\Admin\UserProfile::init();
+        }
     }
 }

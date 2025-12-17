@@ -1,94 +1,96 @@
-import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
-import React from 'react';
-import GFLabel from '@GFComponents/Labels/GFLabel';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button, Flex, VStack } from '@chakra-ui/react';
 import { __ } from "@wordpress/i18n";
+import GFLabel from '@GFComponents/Labels/GFLabel';
 import Divider from '@GFComponents/Divider';
 import LabeledInput from '@GFComponents/LabeledInput';
-
 import GFSelect from "@GFComponents/Select";
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+import { fetchSettings, saveSettings, setEmailField, resetSaveStatus } from '../../../../../redux/Slices/settingsSlice/settingsSlice';
 
 const EmailNotice = () => {
+    const dispatch = useDispatch();
+    const { email, saveStatus, status } = useSelector(state => state.settings);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchSettings());
+        }
+
+        // 🔥 FIX: Reset status when component mounts/unmounts
+        return () => {
+            dispatch(resetSaveStatus());
+        };
+    }, [dispatch, status]);
+
+    // Handle Save Feedback
+    useEffect(() => {
+        if (saveStatus === 'saved') {
+            alert(__("Email settings saved successfully!", "gamify"));
+            // Reset immediately after showing alert
+            dispatch(resetSaveStatus());
+        }
+    }, [saveStatus, dispatch]);
+
+    const handleSave = () => {
+        dispatch(saveSettings({ email }));
+    };
+
+    // Helper options
+    const formatOptions = [
+        { label: 'Plain Text', value: 'plain' },
+        { label: 'HTML', value: 'html' }
+    ];
+    const scheduleOptions = [
+        { label: 'Immediate', value: 'immediate' },
+        { label: 'Daily Digest', value: 'daily' }
+    ];
+
     return (
-        <Box
-            w="240px"
-            bg="var(--gamify-background)"
-            borderRight="1px solid var(--gamify-border-color)"
-            h="auto"
-            pos="sticky"
-            top="0"
-            display={{ base: "none", lg: "flex" }}
-            flexDirection="column"
-            borderRadius='4px'
-           width="802px"
-        >
+        <Box bg="var(--gamify-background)" borderRight="1px solid var(--gamify-border-color)" borderRadius='4px' width="802px">
             <VStack padding='32px' width="100%" align="stretch" gap='16px'>
-                <GFLabel
-                    type="heading"
-                    fontWeight="500"
-                    label={__(`Email Notification`, 'gamify')}
-                />
+                <GFLabel type="heading" fontWeight="500" label={__(`Email Notification`, 'gamify')} />
                 <Divider width='100%' />
+
+                {/* Fix: Find object from options based on string value */}
                 <GFSelect
                     label="Format"
-                    placeholder="Plain Text"
-                    items={[
-                        { label: 'Unlimited', value: 'unlimited' },
-                        { label: '1 per day', value: '1_per_day' },
-                        { label: '1 time only', value: '1_time' },
-                    ]}
-                // value={}
-                // onChange={(opt) => }
+                    items={formatOptions}
+                    value={formatOptions.find(opt => opt.value === email.format) || null}
+                    onChange={(opt) => dispatch(setEmailField({ field: 'format', value: opt ? opt.value : 'plain' }))}
                 />
+
                 <GFSelect
                     label="Schedule"
-                    placeholder="Send mails immediately"
-                    items={[
-                        { label: 'Unlimited', value: 'unlimited' },
-                        { label: '1 per day', value: '1_per_day' },
-                        { label: '1 time only', value: '1_time' },
-                    ]}
-                // value={}
-                // onChange={(opt) => }
+                    items={scheduleOptions}
+                    value={scheduleOptions.find(opt => opt.value === email.schedule) || null}
+                    onChange={(opt) => dispatch(setEmailField({ field: 'schedule', value: opt ? opt.value : 'immediate' }))}
                 />
+
                 <LabeledInput
                     label="From Name"
-                    placeholder="StoreEngine"
-                    type="text"
-                // value={}
-                // onChange={(e) => }
-
+                    value={email.from_name || ''}
+                    onChange={(e) => dispatch(setEmailField({ field: 'from_name', value: e.target.value }))}
                 />
                 <LabeledInput
                     label="From Address"
-                    placeholder="dev-email@wpengine.local"
-                    type="text"
-                // value={}
-                // onChange={(e) => }
-
+                    value={email.from_address || ''}
+                    onChange={(e) => dispatch(setEmailField({ field: 'from_address', value: e.target.value }))}
                 />
                 <LabeledInput
                     label="Default Email Content"
-                    placeholder="Enter content..."
                     type="textarea"
-                   inputStyle={{height:'80px'}}
-                // value={}
-                // onChange={(e) => }
-
+                    inputStyle={{ height: '80px' }}
+                    value={email.default_content || ''}
+                    onChange={(e) => dispatch(setEmailField({ field: 'default_content', value: e.target.value }))}
                 />
 
-                <Flex
-                    justifyContent='flex-end'>
-                    <Button
-                        {...primaryBtn}
-
-
-                    >
+                <Flex justifyContent='flex-end'>
+                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
                         {__('Save Changes', 'gamify')}
                     </Button>
                 </Flex>
-
-
             </VStack>
         </Box>
     );

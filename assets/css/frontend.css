@@ -1,0 +1,131 @@
+/* Gamify Profile Card Container */
+.gamify-frontend-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin: 20px auto;
+    overflow: hidden;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+}
+
+/* Header Section */
+.gamify-card-header {
+    display: flex;
+    align-items: center;
+    padding: 24px;
+    background: #f8fafc;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.gamify-user-avatar img {
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 64px;
+    height: 64px;
+    display: block;
+}
+
+.gamify-user-info {
+    margin-left: 16px;
+}
+
+.gamify-user-info h3 {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    color: #1e293b;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.gamify-user-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.gamify-badge-pill, .gamify-points-pill {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.gamify-badge-pill {
+    background: #dbeafe;
+    color: #2563eb;
+}
+
+.gamify-points-pill {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+/* Body Section */
+.gamify-card-body {
+    padding: 24px;
+}
+
+.gamify-section-title {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+/* Badges Grid */
+.gamify-badges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 16px;
+}
+
+.gamify-badge-item {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #f1f5f9;
+    border-radius: 8px;
+    transition: transform 0.2s;
+    background: #fff;
+}
+
+.gamify-badge-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.gamify-badge-item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+
+.gamify-default-icon {
+    font-size: 32px;
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.gamify-badge-name {
+    display: block;
+    font-size: 11px;
+    color: #475569;
+    line-height: 1.2;
+    font-weight: 500;
+}
+
+.gamify-empty-state {
+    color: #94a3b8;
+    font-style: italic;
+    font-size: 14px;
+    margin: 0;
+}

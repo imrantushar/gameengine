@@ -107,4 +107,25 @@ class PointsManager
 
         return $log_id;
     }
+
+    /**
+     * Get grand total points (sum of all point types).
+     */
+    public function get_grand_total(int $user_id): int
+    {
+        if ($user_id <= 0) {
+            return 0;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . 'gamify_points_log';
+
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+        $total = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT SUM(points) FROM {$table} WHERE user_id = %d",
+            $user_id
+        ));
+
+        return $total;
+    }
 }
