@@ -6324,17 +6324,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+
 
 
 
@@ -6355,25 +6358,25 @@ const EmailNotice = () => {
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.settings);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (status === 'idle') {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchSettings)());
+      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.fetchSettings)());
     }
 
     // 🔥 FIX: Reset status when component mounts/unmounts
     return () => {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.resetSaveStatus)());
+      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.resetSaveStatus)());
     };
   }, [dispatch, status]);
 
   // Handle Save Feedback
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (saveStatus === 'saved') {
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)("Email settings saved successfully!", "gamify"));
+      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Email settings saved successfully!", "gamify"));
       // Reset immediately after showing alert
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.resetSaveStatus)());
+      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.resetSaveStatus)());
     }
   }, [saveStatus, dispatch]);
   const handleSave = () => {
-    dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.saveSettings)({
+    dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.saveSettings)({
       email
     }));
   };
@@ -6398,65 +6401,83 @@ const EmailNotice = () => {
     borderRight: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
     width: "802px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.VStack, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.VStack, {
     padding: "32px",
     width: "100%",
     align: "stretch",
     gap: "16px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
     type: "heading",
     fontWeight: "500",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Email Notification`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Email Notification`, 'gamify')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__["default"], {
     width: "100%"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Format",
-    items: formatOptions,
-    value: formatOptions.find(opt => opt.value === email.format) || null,
-    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setEmailField)({
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    flexDirection: "column",
+    gap: 2
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+    fontWeight: "600",
+    fontSize: "0.875rem",
+    margin: 0
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Format", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    placeholder: "Choose one",
+    options: formatOptions,
+    value: formatOptions.find(opt => opt?.value === email?.format),
+    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
       field: 'format',
       value: opt ? opt.value : 'plain'
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Select__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Schedule",
-    items: scheduleOptions,
-    value: scheduleOptions.find(opt => opt.value === email.schedule) || null,
-    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setEmailField)({
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    flexDirection: "column",
+    gap: 2
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+    fontWeight: "600",
+    fontSize: "0.875rem",
+    margin: 0
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Schedule", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    placeholder: "Choose one",
+    options: scheduleOptions,
+    value: scheduleOptions.find(opt => opt?.value === email?.schedule),
+    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
       field: 'schedule',
       value: opt ? opt.value : 'immediate'
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
     label: "From Name",
     value: email.from_name || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setEmailField)({
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
       field: 'from_name',
       value: e.target.value
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
     label: "From Address",
     value: email.from_address || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setEmailField)({
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
       field: 'from_address',
       value: e.target.value
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
     label: "Default Email Content",
     type: "textarea",
     inputStyle: {
       height: '80px'
     },
     value: email.default_content || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setEmailField)({
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
       field: 'default_content',
       value: e.target.value
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     justifyContent: "flex-end"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__.primaryBtn,
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
     onClick: handleSave,
     isLoading: saveStatus === 'saving'
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)('Save Changes', 'gamify')))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Save Changes', 'gamify')))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EmailNotice);
 
