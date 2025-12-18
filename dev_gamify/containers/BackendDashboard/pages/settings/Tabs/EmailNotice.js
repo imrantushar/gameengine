@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Button, Flex, VStack } from '@chakra-ui/react';
+import { Box, Button, Flex, Text, VStack } from '@chakra-ui/react';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import Divider from '@GFComponents/Divider';
 import LabeledInput from '@GFComponents/LabeledInput';
 import GFSelect from "@GFComponents/Select";
+import Select from 'react-select';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { fetchSettings, saveSettings, setEmailField, resetSaveStatus } from '../../../../../redux/Slices/settingsSlice/settingsSlice';
 
@@ -46,28 +47,35 @@ const EmailNotice = () => {
         { label: 'Immediate', value: 'immediate' },
         { label: 'Daily Digest', value: 'daily' }
     ];
-
     return (
         <Box bg="var(--gamify-background)" borderRight="1px solid var(--gamify-border-color)" borderRadius='4px' width="802px">
             <VStack padding='32px' width="100%" align="stretch" gap='16px'>
                 <GFLabel type="heading" fontWeight="500" label={__(`Email Notification`, 'gamify')} />
+
                 <Divider width='100%' />
-
-                {/* Fix: Find object from options based on string value */}
-                <GFSelect
-                    label="Format"
-                    items={formatOptions}
-                    value={formatOptions.find(opt => opt.value === email.format) || null}
-                    onChange={(opt) => dispatch(setEmailField({ field: 'format', value: opt ? opt.value : 'plain' }))}
-                />
-
-                <GFSelect
-                    label="Schedule"
-                    items={scheduleOptions}
-                    value={scheduleOptions.find(opt => opt.value === email.schedule) || null}
-                    onChange={(opt) => dispatch(setEmailField({ field: 'schedule', value: opt ? opt.value : 'immediate' }))}
-                />
-
+                <Flex flexDirection='column' gap={2}>
+                    <Text fontWeight="600" fontSize="0.875rem" margin={0}>{__("Format", "gamify")}</Text>
+                    <Select
+                        className="gamify-select"
+                        classNamePrefix="gamify-select"
+                        placeholder="Choose one"
+                        options={formatOptions}
+                        value={formatOptions
+                            .find(opt => opt?.value === email?.format)}
+                        onChange={(opt) => dispatch(setEmailField({ field: 'format', value: opt ? opt.value : 'plain' }))}
+                    />
+                </Flex>
+                <Flex flexDirection='column' gap={2}> 
+                    <Text fontWeight="600" fontSize="0.875rem" margin={0}>{__("Schedule", "gamify")}</Text>
+                    <Select
+                        className="gamify-select"
+                        classNamePrefix="gamify-select"
+                        placeholder="Choose one"
+                        options={scheduleOptions}
+                        value={scheduleOptions.find(opt => opt?.value === email?.schedule)}
+                        onChange={(opt) => dispatch(setEmailField({ field: 'schedule', value: opt ? opt.value : 'immediate' }))}
+                    />
+                </Flex>
                 <LabeledInput
                     label="From Name"
                     value={email.from_name || ''}
