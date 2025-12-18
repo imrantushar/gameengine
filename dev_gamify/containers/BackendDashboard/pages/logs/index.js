@@ -33,6 +33,7 @@ import {
 } from '@chakra-ui/react';
 import Select from 'react-select';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { FaChevronRight } from 'react-icons/fa6';
 
 const Logs = () => {
     const navigate = useNavigate();
@@ -275,11 +276,20 @@ const Logs = () => {
                 <div className="gamify-table__sub-header-left">
                     <GFLabel as="h2" color="var(--gamify-font-color)" fontWeight="700" fontSize='16px' label={__(`Logs`, 'gamify')} />
                     <Button
-                        background='#F6F7F8' variant="outline" borderRadius="md"
-                        color="gray.700" width='54px' height='24px' ml='5px' borderColor="gray.300"
+                        bg="#F6F7F8"
+                        variant="outline"
+                        borderRadius="8px"
+                        color="gray.700"
+                        height="32px"       
+                        fontSize="14px"
+                        fontWeight="500"
+                        borderColor="gray.300"
+                        _hover={{ bg: "#F1F3F5" }}
+                        _active={{ bg: "#E9ECEF" }}
                         onClick={handleRefresh}
+                        marginLeft='8px'
                     >
-                        {status === 'loading' ? '...' : <Icon as={FiRefreshCw} />}
+                        {status === "loading" ? "loading..." : "refresh"}
                     </Button>
                 </div>
 
@@ -290,7 +300,7 @@ const Logs = () => {
                     />
                     <Button
                         {...primaryBtn}
-                        height="32px"
+                        height="36px"
                         onClick={openCreateModal}
                         leftIcon={<Icon as={FiPlus} />}
                     >
@@ -311,9 +321,21 @@ const Logs = () => {
             <TopBar
                 leftContent={() => (
                     <>
-                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify" />
-                        <span className="gamify-icon gamify-icon--angle-right" />
-                        <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__(`Dashboard`, 'gamify')} />
+                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
+                                <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
+                            </svg>
+                            </span>
+                        <span className="gamify-icon gamify-icon--angle-right">
+                             <FaChevronRight />
+                            </span>
+                        <GFLabel as="h2"
+                            color="var(--gamify-font-color)"
+                            type="subtitle"
+                            fontWeight="400" 
+                            fontSize='12px'
+                            label={__(`Dashboard`, 'gamify')} />
                     </>
                 )}
             />
@@ -350,15 +372,6 @@ const Logs = () => {
                 <Box px={4}>
                     <Flex gap={4} mb={4}>
                         <Box flex="1">
-                            {/* User ID (ReadOnly in Edit Mode) */}
-                            {/* <LabeledInput
-                                label={'User ID'}
-                                placeholder={'e.g. 1'}
-                                value={formData.user_id}
-                                onChange={(e) => setFormData({ ...formData, user_id: e.target.value })}
-                                disabled={modalMode === 'edit'}
-                                style={{ width: '100%', opacity: modalMode === 'edit' ? 0.6 : 1 }}
-                            /> */}
                             <Text
                                 fontWeight="500" fontSize="0.875rem" margin={0}
                             >
@@ -366,6 +379,8 @@ const Logs = () => {
                             </Text>
 
                             <Select
+                                classNamePrefix='gamify-select'
+                                className='gamify-select'
                                 placeholder="e.g. 1"
                                 options={userOptions}
                                 value={userOptions.find(opt => opt.value === formData.user_id)}
@@ -386,16 +401,6 @@ const Logs = () => {
                             />
                         </Box>
                         <Box flex="1">
-                            {/* Action Type Select - Fixed Handler */}
-                            {/* <GFSelect
-                                label="Action Type"
-                                items={[
-                                    { label: 'Award Points (+)', value: 'award' },
-                                    { label: 'Deduct Points (-)', value: 'deduct' },
-                                ]}
-                                value={'award'}
-                                // onChange={(val) => setFormData({ ...formData, type: val?.value })}
-                            />*/}
                             <Text
                                 fontWeight="500" fontSize="0.875rem" margin={0}
                             >
@@ -403,7 +408,7 @@ const Logs = () => {
                             </Text>
 
                             <Select
-                                classNamePrefix='gamify-logs'
+                                classNamePrefix='gamify-select'
                                 className='gamify-select'
                                 defaultValue={formData?.type ?? formData?.type?.items?.label}
                                 onChange={(val) => setFormData({ ...formData, type: val?.value })}
@@ -454,7 +459,7 @@ const Logs = () => {
                         />
                     </Box>
 
-                    <Flex justifyContent='flex-end' py={4}>
+                    <Flex justifyContent='flex-end' >
                         <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
                             {__('Cancel', 'gamify')}
                         </Button>

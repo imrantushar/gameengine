@@ -4,7 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Box, Button, Flex, Icon, Text, Switch, Image, Checkbox, Input } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaArrowRotateRight } from "react-icons/fa6";
+import { FaArrowRotateRight, FaChevronRight } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
 
 // Custom Components
@@ -34,7 +34,7 @@ const DraggableItem = ({ id, children }) => {
 // --- Helpers: Droppable Area ---
 const DroppableArea = ({ id, children }) => {
     const { setNodeRef } = useDroppable({ id });
-    return <Box ref={setNodeRef} minHeight="100px" mt="12px">{children}</Box>;
+    return <Box ref={setNodeRef} height='100%' mt="12px">{children}</Box>;
 };
 
 // --- Helpers: Dynamic Field ---
@@ -65,7 +65,7 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
 
     return (
         <CustomCollapsible label={hookInfo?.label || hookId} desc={hookInfo?.subTitle} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} singleIcon={true}>
-            <Flex direction="column" gap="16px" padding="0 24px">
+            <Flex direction="column" gap="16px">
                 {Object.keys(fieldsConfig).map(key => {
                     const config = fieldsConfig[key];
                     // Scope Check: Only show fields relevant to 'level' or shared
@@ -74,8 +74,8 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                     return <DynamicField key={key} config={config} value={settings[key] ?? config.default ?? ''} onChange={(val) => onChange(key, val)} />;
                 })}
             </Flex>
-            <Divider width='100%' margin='24px 0' />
-            <Flex padding="0 24px 24px" justifyContent='flex-end'>
+            <Divider width='100%' margin='12px 0' />
+            <Flex  justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
             </Flex>
         </CustomCollapsible>
@@ -188,8 +188,15 @@ const LevelType = () => {
         <>
             <TopBar leftContent={() => (
                 <>
-                    <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify"></span>
-                    <span className="gamify-icon gamify-icon--angle-right"></span>
+                    <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
+                                <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
+                                <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
+                            </svg>
+                        </span>
+                    <span className="gamify-icon gamify-icon--angle-right">
+                           <FaChevronRight />
+                        </span>
                     <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
                 </>
             )} />
@@ -247,7 +254,7 @@ const LevelType = () => {
                                 color="var(--gamify-primary)"
                                 fontWeight="500"
                                 fontSize="0.875rem"
-                                mt="4px"
+                                m="4px 0 0 0"
                                 onClick={() => setShowInput(true)}
                             >
                                 {__("+ Add Category", "gamify")}
@@ -271,7 +278,7 @@ const LevelType = () => {
                         )}
                     </Box>
                     <Box>
-                        <GFLabel mb='24px' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
+                        <GFLabel margin='0 0 12px 0' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
                         <GamifyEditor suffix="congratulations_message" defaultValue={message} saveValueHandler={setMessage} isCustomHTML={false} />
                     </Box>
 
@@ -290,8 +297,8 @@ const LevelType = () => {
                         <Flex gap="12px">
                             <Box width="33%"><LabeledInput label="Minimum Balance" type="number" value={minPoints} onChange={(e) => dispatch(setField({ field: 'minPoints', value: e.target.value }))} /></Box>
                             <Box width="33%"><LabeledInput label="Maximum Balance" type="number" value={maxPoints} onChange={(e) => dispatch(setField({ field: 'maxPoints', value: e.target.value }))} /></Box>
-                            <Box width="33%">
-                                <Text fontSize="14px" fontWeight="500" mb="8px" color="var(--gamify-font-color)">{__("Choose the Points Type", "gamify")}</Text>
+                            <Flex flexDirection='column' width="33%" gap={2}>
+                                <Text fontSize="14px" fontWeight="500" m='0' color="var(--gamify-font-color)">{__("Choose the Points Type", "gamify")}</Text>
                                 <Select
                                     className="gamify-select"
                                     classNamePrefix="gamify-select"
@@ -300,7 +307,7 @@ const LevelType = () => {
                                     value={availablePointTypes.find(opt => String(opt.value) === String(selectedPointTypeId)) || null}
                                     onChange={(sel) => dispatch(setField({ field: 'selectedPointTypeId', value: sel ? sel.value : null }))}
                                 />
-                            </Box>
+                            </Flex>
                         </Flex>
                     )}
 
@@ -349,7 +356,7 @@ const LevelType = () => {
                                                 <Flex direction="column" gap="12px" mt="8px">
                                                     {activeHooks.map(hook => (
                                                         <DraggableItem key={hook.id} id={hook.id}>
-                                                            <Box bg="white" border="1px solid var(--gamify-border-color)" borderRadius="4px">
+                                                            <Box bg="white"  borderRadius="4px">
                                                                 <DynamicHookForm
                                                                     hookId={hook.id}
                                                                     hookInfo={hook}
@@ -370,7 +377,7 @@ const LevelType = () => {
 
                     <Box border="1px solid var(--gamify-border-color)" borderRadius="4px" p="16px">
                         <GFLabel label={__(`Levels Logo`, "gamify")} margin="0" />
-                        <Box borderTop='1px solid var(--gamify-border-color)' mt="10px" p="16px">
+                        <Box borderTop='1px solid var(--gamify-border-color)' mt="10px">
                             {levelIcon && <Image src={levelIcon} boxSize="100px" objectFit="contain" mb="10px" />}
                             <Text textDecoration='underline' color="var(--gamify-primary)" cursor="pointer" onClick={handleImageUpload}>
                                 {levelIcon ? __(`Change Level Logo`, "gamify") : __(`Set Level Logo`, "gamify")}

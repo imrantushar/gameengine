@@ -11,7 +11,7 @@ const GFLabel = ({
 	fontSize = "",
 	fontWeight = "",
 	textTransform = "",
-	margin = "",
+	margin = "0",
 	padding = "",
 	color = "",
 	bg = "",
@@ -81,11 +81,10 @@ const GFLabel = ({
 			color: "var(--gamify-gray-color)",
 		},
 		inputLabel: {
-			fontSize: "14px",                 
+			fontSize: "0.875rem",                 
 			fontWeight: "600",              
-			fontStyle: "normal",
-			lineHeight: "20px",
 			color: "var(--gamify-font-color)", 
+			
 		}
 		
 	};
@@ -109,7 +108,6 @@ const GFLabel = ({
 		truncate: truncate,
 		lineClamp: lineClamp,
 		lineHeight: lineHeight,
-		margin:'0'
 	};
 
 	const needsSlicing = enableSlice && label && label.length > sliceLength;
