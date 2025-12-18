@@ -1,52 +1,87 @@
 <?php
-if (! defined('ABSPATH')) exit;
+namespace Gamify;
 
-final class Gamify_Autoload
-{
-    private static $instance = null;
-
-    private function __construct()
-    {
-        spl_autoload_register([$this, 'autoload'], true, true);
-    }
-
-    public static function instance()
-    {
-        if (is_null(self::$instance)) {
-            self::$instance = new self();
-        }
-        return self::$instance;
-    }
-
-    /**
-     * A robust autoloader that handles PSR-4 style namespaces.
-     *
-     * @param string $class The fully-qualified class name.
-     */
-    public function autoload($class)
-    {
-        $prefix = 'Gamify\\';
-
-        // Check if the class uses our namespace prefix.
-        if (strncmp($prefix, $class, strlen($prefix)) !== 0) {
-            return; // Not our class, exit.
-        }
-
-        // Get the relative class name (e.g., API\Controllers\BaseController).
-        $relative_class = substr($class, strlen($prefix));
-
-        // Replace namespace separators with directory separators,
-        // and convert PascalCase to kebab-case.
-        $kebab_case_path = strtolower(preg_replace('/([a-z])([A-Z])/', '$1-$2', $relative_class));
-
-        // Replace backslashes with the correct directory separator.
-        $file_path = str_replace('\\', DIRECTORY_SEPARATOR, $kebab_case_path);
-
-        $file = GAMIFY_INCLUDES . $file_path . '.php';
-
-        if (is_readable($file)) {
-            require_once $file;
-        }
-    }
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
 }
-Gamify_Autoload::instance();
+
+class Autoload {
+
+	/**
+	 * Instance
+	 *
+	 * @access private
+	 * @var object Class Instance.
+	 * @since 1.1.0
+	 */
+	private static $instance;
+
+	/**
+	 * Autoload directories for different namespaces.
+	 *
+	 * @var array
+	 */
+	private $autoload_directories = array(
+		'Gamify' => GAMIFY_ROOT_DIR_PATH . 'includes/',
+	);
+
+	/**
+	 * Initiator
+	 *
+	 * @since 1.1.0
+	 * @return object initialized object of class.
+	 */
+	public static function get_instance() {
+		if ( ! isset( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Register autoload directories for namespaces.
+	 *
+	 * @param string $namespace Namespace to autoload.
+	 * @param string $directory Directory path for the namespace.
+	 */
+	public function add_namespace_directory( $namespace, $directory ) {
+		$this->autoload_directories[ $namespace ] = $directory;
+	}
+
+	/**
+	 * Autoload classes.
+	 *
+	 * @param string $class Class name.
+	 */
+	public function autoload( $class ) {
+		foreach ( $this->autoload_directories as $namespace => $directory ) {
+			if ( 0 === strpos( $class, $namespace ) ) {
+				$class_to_load = $class;
+				$filename = strtolower(
+					preg_replace(
+						[ '/^' . $namespace . '\\\/', '/([a-z])([A-Z])/', '/_/', '/\\\/' ],
+						[ '', '$1-$2', '-', DIRECTORY_SEPARATOR ],
+						$class_to_load
+					)
+				);
+				$file = $directory . $filename . '.php';
+				// If the file is readable, include it.
+				if ( is_readable( $file ) ) {
+					require_once $file;
+				}
+			}
+		}
+	}
+
+	/**
+	 * Constructor
+	 *
+	 * @since 1.1.0
+	 */
+	public function __construct() {
+		spl_autoload_register( [ $this, 'autoload' ] );
+	}
+}
+
+
+Autoload::get_instance();

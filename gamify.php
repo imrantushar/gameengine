@@ -59,9 +59,11 @@ final class Gamify
     {
         define('GAMIFY_VERSION', '1.0.0');
         define('GAMIFY_FILE', __FILE__);
+        define('GAMIFY_PLUGIN_SLUG', 'gamify');
         define('GAMIFY_PATH', wp_normalize_path(plugin_dir_path(GAMIFY_FILE)));
         define('GAMIFY_URL', plugin_dir_url(GAMIFY_FILE));
         define('GAMIFY_INCLUDES', GAMIFY_PATH . 'includes/');
+		define( 'GAMIFY_ROOT_DIR_PATH', plugin_dir_path( __FILE__ ) );
     }
 
     /**
@@ -69,20 +71,8 @@ final class Gamify
      */
     private function load_dependencies()
     {
-        // Load the Autoloader
-        if (file_exists(GAMIFY_INCLUDES . 'Autoload.php')) {
-            require_once GAMIFY_INCLUDES . 'Autoload.php';
-        }
-
-        // Initialize the Autoloader
-        if (class_exists('\Gamify\Autoload')) {
-            \Gamify\Autoload::get_instance();
-        }
-
-        // Load Helper functions if any
-        if (file_exists(GAMIFY_INCLUDES . 'functions.php')) {
-            require_once GAMIFY_INCLUDES . 'functions.php';
-        }
+        require_once GAMIFY_INCLUDES . 'autoload.php';
+        require_once GAMIFY_INCLUDES . 'functions.php';
     }
 
     /**
@@ -147,15 +137,6 @@ final class Gamify
      */
     public static function activate()
     {
-        // Require Autoloader explicitly for activation context
-        if (file_exists(plugin_dir_path(__FILE__) . 'includes/Autoload.php')) {
-            require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
-        }
-
-        if (class_exists('\Gamify\Autoload')) {
-            \Gamify\Autoload::get_instance();
-        }
-
         // Run Installer
         if (class_exists('\Gamify\Core\Installer')) {
             (new \Gamify\Core\Installer())->run();
