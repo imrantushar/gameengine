@@ -1,8 +1,9 @@
-import { Box, Flex, Icon } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { FiUser, FiAward, FiTrendingUp, FiStar } from "react-icons/fi";
+import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar } from "react-icons/fi";
 import GFLabel from '@GFComponents/Labels/GFLabel';
+import Divider from '@GFComponents/Divider';
 
 function Overview({ data }) {
     const cards = [
@@ -14,7 +15,28 @@ function Overview({ data }) {
 
     return (
         <Box p={6} background="var(--gamify-background)" borderRadius="4px" w="100%">
-            <GFLabel type="title" label={__('Overview', 'gamify')} fontSize="xl" fontWeight="600" p="16px 0" mb="24px" borderBottom="1px solid var(--gamify-border-color)" />
+            <Flex alignItems='center' justifyContent='space-between'>
+                <GFLabel type="title" label={__('Overview', 'gamify')} fontSize="xl" fontWeight="600" p="16px 0" mb="24px" borderBottom="1px solid var(--gamify-border-color)" />
+                <Box
+                    border="1px solid"
+                    borderColor="gray.300"
+                    borderRadius="md"
+                   p='10px 12px'
+                    cursor="pointer"
+                    _hover={{ bg: "gray.50" }}
+                    width="fit-content"
+                    height='40px'
+                >
+                    <Flex align="center" gap={2}>
+                        <Icon as={FiCalendar} color="gray.600" boxSize={4} />
+                        <Text margin='0' fontSize="sm" color="gray.800" fontWeight="500">
+                            Jan 10, 2024 – Jan 25, 2024
+                        </Text>
+                    </Flex>
+                </Box>
+            </Flex>
+
+            <Divider margin='16px 0' />
             <Flex gap={6} flexWrap="wrap">
                 {cards.map((card, i) => (
                     <Flex key={i} p={5} rounded="2xl" bg={card.bg} align="center" justify="space-between" shadow="sm" flex="1" minW="250px" h='130px'>

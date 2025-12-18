@@ -3557,12 +3557,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
+
 
 
 
@@ -3575,25 +3578,25 @@ function Overview({
   const cards = [{
     label: "Points Given",
     value: data?.points || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiStar,
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiStar,
     bg: "yellow.50",
     iconColor: "yellow.500"
   }, {
     label: "Achievements Given",
     value: data?.achievements || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiAward,
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiAward,
     bg: "blue.50",
     iconColor: "blue.500"
   }, {
     label: "Levels Given",
     value: data?.levels || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiTrendingUp,
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiTrendingUp,
     bg: "green.50",
     iconColor: "green.500"
   }, {
     label: "Active Users",
     value: data?.active_users || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiUser,
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiUser,
     bg: "red.50",
     iconColor: "red.500"
   }];
@@ -3602,18 +3605,46 @@ function Overview({
     background: "var(--gamify-background)",
     borderRadius: "4px",
     w: "100%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    alignItems: "center",
+    justifyContent: "space-between"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     type: "title",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Overview', 'gamify'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Overview', 'gamify'),
     fontSize: "xl",
     fontWeight: "600",
     p: "16px 0",
     mb: "24px",
     borderBottom: "1px solid var(--gamify-border-color)"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    border: "1px solid",
+    borderColor: "gray.300",
+    borderRadius: "md",
+    p: "10px 12px",
+    cursor: "pointer",
+    _hover: {
+      bg: "gray.50"
+    },
+    width: "fit-content",
+    height: "40px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    align: "center",
+    gap: 2
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Icon, {
+    as: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiCalendar,
+    color: "gray.600",
+    boxSize: 4
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    margin: "0",
+    fontSize: "sm",
+    color: "gray.800",
+    fontWeight: "500"
+  }, "Jan 10, 2024 \u2013 Jan 25, 2024")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    margin: "16px 0"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     gap: 6,
     flexWrap: "wrap"
-  }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+  }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     key: i,
     p: 5,
     rounded: "2xl",
@@ -3624,21 +3655,21 @@ function Overview({
     flex: "1",
     minW: "250px",
     h: "130px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     type: "title",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(card.value, 'gamify'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(card.value, 'gamify'),
     fontSize: "3xl",
     fontWeight: "700",
     color: "var(--gamify-font-color)",
     margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     type: "subtitle",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(card.label, 'gamify'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(card.label, 'gamify'),
     fontSize: "md",
     fontWeight: "500",
     color: "var(--gamify-font-color)",
     margin: "0"
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Icon, {
     as: card.icon,
     boxSize: 8,
     color: card.iconColor
