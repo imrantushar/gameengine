@@ -14,7 +14,6 @@ const GFSelect = ({
 }) => {
 
   const collection = createListCollection({ items });
-
   return (
     <Select.Root
       marginTop="2px"
