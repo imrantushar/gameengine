@@ -69,10 +69,8 @@ final class Gamify
      */
     private function load_dependencies()
     {
-        // Load the Autoloader
-        if (file_exists(GAMIFY_INCLUDES . 'Autoload.php')) {
-            require_once GAMIFY_INCLUDES . 'Autoload.php';
-        }
+        require_once GAMIFY_INCLUDES . 'autoload.php';
+
 
         // Initialize the Autoloader
         if (class_exists('\Gamify\Autoload')) {
@@ -147,15 +145,6 @@ final class Gamify
      */
     public static function activate()
     {
-        // Require Autoloader explicitly for activation context
-        if (file_exists(plugin_dir_path(__FILE__) . 'includes/Autoload.php')) {
-            require_once plugin_dir_path(__FILE__) . 'includes/Autoload.php';
-        }
-
-        if (class_exists('\Gamify\Autoload')) {
-            \Gamify\Autoload::get_instance();
-        }
-
         // Run Installer
         if (class_exists('\Gamify\Core\Installer')) {
             (new \Gamify\Core\Installer())->run();
