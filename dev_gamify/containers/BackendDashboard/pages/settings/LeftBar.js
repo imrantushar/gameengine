@@ -1,6 +1,6 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Box, Flex, Text, VStack } from "@chakra-ui/react";
 
 // Icons
@@ -12,9 +12,9 @@ import { route_path } from "@GFUtils/helper";
 
 const LeftBar = () => {
     const navigate = useNavigate();
-
-    const currentTab = "general-settings";
-
+    const locationQuery = useLocation();
+    const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
+    const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
     const menuList = [
         {
             label: __("General", "gamify"),
@@ -52,7 +52,6 @@ const LeftBar = () => {
             <VStack padding='16px' width="100%" align="stretch" spacing={0}>
                 {menuList.map((item, i) => {
                     const isActive = currentTab === item.key;
-
                     return (
                         <Flex
                             key={i}
