@@ -6231,7 +6231,9 @@ __webpack_require__.r(__webpack_exports__);
 
 const LeftBar = () => {
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useNavigate)();
-  const currentTab = "general-settings";
+  const locationQuery = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_2__.useLocation)();
+  const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
+  const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
   const menuList = [{
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("General", "gamify"),
     key: "general-settings",
