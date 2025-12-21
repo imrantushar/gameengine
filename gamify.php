@@ -126,8 +126,14 @@ final class Gamify
             \Gamify\Classes\Shortcodes::init();
         }
 
+        \Gamify\Classes\EmailManager::init();
+
         // Admin Only Modules
         if (is_admin() && class_exists('\Gamify\Admin')) {
+            \Gamify\Admin::init();
+        }
+
+        if (is_admin()) {
             \Gamify\Admin::init();
         }
     }

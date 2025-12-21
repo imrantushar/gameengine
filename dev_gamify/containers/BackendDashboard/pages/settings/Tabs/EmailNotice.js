@@ -65,7 +65,7 @@ const EmailNotice = () => {
                         onChange={(opt) => dispatch(setEmailField({ field: 'format', value: opt ? opt.value : 'plain' }))}
                     />
                 </Flex>
-                <Flex flexDirection='column' gap={2}> 
+                <Flex flexDirection='column' gap={2}>
                     <Text fontWeight="600" fontSize="0.875rem" margin={0}>{__("Schedule", "gamify")}</Text>
                     <Select
                         className="gamify-select"
@@ -93,6 +93,10 @@ const EmailNotice = () => {
                     value={email.default_content || ''}
                     onChange={(e) => dispatch(setEmailField({ field: 'default_content', value: e.target.value }))}
                 />
+
+                <Text fontSize="12px" color="gray.500" mt="-10px">
+                    {__('Available placeholders: {user_name}, {level_name}, {site_name}', 'gamify')}
+                </Text>
 
                 <Flex justifyContent='flex-end'>
                     <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
