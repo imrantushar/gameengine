@@ -134,7 +134,7 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                 })}
             </Flex>
             <Divider width='100%' margin='12px 0' />
-            <Flex  justifyContent='flex-end'>
+            <Flex justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                     {__('Done', 'gamify')}
                 </Button>
@@ -256,7 +256,7 @@ const AchievementsType = () => {
                             </svg>
                         </span>
                         <span className="gamify-icon gamify-icon--angle-right">
-                               <FaChevronRight />
+                            <FaChevronRight />
                         </span>
                         <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
                     </>
@@ -267,18 +267,25 @@ const AchievementsType = () => {
                 <Flex direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Achievement Types`, "gamify")} />
 
-                    <LabeledInput
-                        label="Point Name"
-                        placeholder="Academy LMS"
-                        value={title}
-                        onChange={(e) => dispatch(setField({ field: 'title', value: e.target.value }))}
-                    />
-                    <LabeledInput
-                        label="Plural Name"
-                        placeholder="Plural Name"
-                        value={description}
-                        onChange={(e) => dispatch(setField({ field: 'description', value: e.target.value }))}
-                    />
+                    <Flex gap="24px">
+                        <LabeledInput
+                            label="Point Name"
+                            placeholder="Academy LMS"
+                            value={title}
+                            onChange={(e) => {
+                                const value = e.target.value;
+                                dispatch(setField({ field: 'title', value: value }))
+                                dispatch(setField({ field: 'description', value: value ? `${value}s` : "" }))
+                            }}
+                            style={{ width: '50%' }}
+                        />
+                        <LabeledInput
+                            label="Plural Name"
+                            placeholder="Plural Name"
+                            style={{ width: '50%' }}
+                            value={description}
+                        />
+                    </Flex>
 
                     {/* Rest of the form inputs... */}
 
@@ -294,7 +301,7 @@ const AchievementsType = () => {
                     </Box>
 
                     <Box>
-                        <GFLabel type="inputLabel" label={"Category"} />
+                        <GFLabel type="inputLabel" label={"Achievement Type"} />
 
                         {availableCategories.length > 0 && (
                             <Flex
@@ -343,14 +350,14 @@ const AchievementsType = () => {
                                 margin='4px 0 0 0'
                                 onClick={() => setShowInput(true)}
                             >
-                                {__("+ Add Category", "gamify")}
+                                {__("+ Add Achievement Type", "gamify")}
                             </Text>
                         )}
                         {showInput && (
                             <Flex mt="6px" gap="8px">
                                 <Input
                                     size="sm"
-                                    placeholder="Enter category"
+                                    placeholder="Enter Type"
                                     value={newCat}
                                     onChange={(e) => setNewCat(e.target.value)}
                                 />
