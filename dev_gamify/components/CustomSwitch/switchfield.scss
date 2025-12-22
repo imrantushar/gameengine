@@ -1,0 +1,46 @@
+.gamify-ccb-switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 16px;
+    input[type="checkbox"] {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    .gamify-ccb-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #CBD1D7;
+        transition: 0.4s;
+        border-radius: 12.5px;
+        height: 16px;
+        width: 32px;
+        &:before {
+            content: '';
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            background: #fff;
+            left: 0px;
+            bottom: -1px;
+            border-radius: 50%;
+            transition: 0.2s;
+            border: 1px solid #CBD1D7;
+            box-shadow: 0px 2px 4px rgba(20, 26, 36, 0.10), 0px 0px 1px rgba(20, 26, 36, 0.30);
+        }
+    }
+}
+
+.gamify-ccb-switch input:checked+.gamify-ccb-slider {
+    background: var(--gamify-primary);
+}
+
+.gamify-ccb-switch input:checked+.gamify-ccb-slider:before {
+    transform: translateX(16px);
+}

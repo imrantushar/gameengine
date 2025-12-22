@@ -10,6 +10,7 @@ import PointType from './pages/points/PointType';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';
+import Addons from './pages/Addon';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -49,6 +50,9 @@ const renderSwitch = (page, id, action, path) => {
 			return <Levels />;
 		case 'gamify-leaderboards':
 			return <Leaderboards />;
+
+		case 'gamify-addons':
+			return <Addons />;
 
 		default:
 			return <>No page found</>;
