@@ -108,6 +108,13 @@ class Helper
             'capability'  => 'manage_options',
         ];
 
+        // Addons
+        $menu[$slug . '-addons'] = [
+            'parent_slug' => $slug,
+            'title'       => __('Addons', 'gamify'),
+            'capability'  => 'manage_options',
+        ];
+
         // Settings
         $menu[$slug . '-settings'] = [
             'parent_slug' => $slug,
