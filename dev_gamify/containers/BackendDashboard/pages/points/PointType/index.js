@@ -139,7 +139,6 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
         >
 
             <Flex direction="column" gap="16px">
-            {console.log(fieldsConfig)}
                 {Object.keys(fieldsConfig).map((key) => {
                     const config = fieldsConfig[key];
 

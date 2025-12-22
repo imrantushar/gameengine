@@ -5636,7 +5636,7 @@ const DynamicHookForm = ({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     direction: "column",
     gap: "16px"
-  }, console.log(fieldsConfig), Object.keys(fieldsConfig).map(key => {
+  }, Object.keys(fieldsConfig).map(key => {
     var _ref, _settings$key;
     const config = fieldsConfig[key];
     if (config.scope && !config.scope.includes('point_type')) {
