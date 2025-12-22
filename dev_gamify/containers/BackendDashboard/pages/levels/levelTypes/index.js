@@ -75,7 +75,7 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                 })}
             </Flex>
             <Divider width='100%' margin='12px 0' />
-            <Flex  justifyContent='flex-end'>
+            <Flex justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
             </Flex>
         </CustomCollapsible>
@@ -190,13 +190,13 @@ const LevelType = () => {
                 <>
                     <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify">
                         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
-                                <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
-                            </svg>
-                        </span>
+                            <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
+                            <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
+                        </svg>
+                    </span>
                     <span className="gamify-icon gamify-icon--angle-right">
-                           <FaChevronRight />
-                        </span>
+                        <FaChevronRight />
+                    </span>
                     <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
                 </>
             )} />
@@ -204,11 +204,17 @@ const LevelType = () => {
             <Box width="1174px" margin="0 auto" pb="50px">
                 <Flex direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Level Type`, "gamify")} />
+                    <Flex gap={"24px"}>
+                        <LabeledInput style={{width:'50%'}} label="Level Name" placeholder="e.g. Bronze" value={title} onChange={(e) => {
+                            const value = e.target.value;
+                            dispatch(setField({ field: 'title', value: value }))
+                            dispatch(setField({ field: 'pluralName', value: value ? `${value}s` : "" }))
+                    }} />
+                        <LabeledInput style={{width:'50%'}} label="Plural Name" placeholder="e.g. Bronzes" value={pluralName}  />
+                    </Flex>
 
-                    <LabeledInput label="Level Name" placeholder="e.g. Bronze" value={title} onChange={(e) => dispatch(setField({ field: 'title', value: e.target.value }))} />
-                    <LabeledInput label="Plural Name" placeholder="e.g. Bronzes" value={pluralName} onChange={(e) => dispatch(setField({ field: 'pluralName', value: e.target.value }))} />
                     <Box>
-                        <GFLabel type="inputLabel" label={"Category"} />
+                        <GFLabel type="inputLabel" label={"Level Type"} />
 
                         {availableCategories.length > 0 && (
                             <Flex
@@ -257,14 +263,14 @@ const LevelType = () => {
                                 m="4px 0 0 0"
                                 onClick={() => setShowInput(true)}
                             >
-                                {__("+ Add Category", "gamify")}
+                                {__("+ Add Level Type", "gamify")}
                             </Text>
                         )}
                         {showInput && (
                             <Flex mt="6px" gap="8px">
                                 <Input
                                     size="sm"
-                                    placeholder="Enter category"
+                                    placeholder="Enter Type"
                                     value={newCat}
                                     onChange={(e) => setNewCat(e.target.value)}
                                 />
@@ -356,7 +362,7 @@ const LevelType = () => {
                                                 <Flex direction="column" gap="12px" mt="8px">
                                                     {activeHooks.map(hook => (
                                                         <DraggableItem key={hook.id} id={hook.id}>
-                                                            <Box bg="white"  borderRadius="4px">
+                                                            <Box bg="white" borderRadius="4px">
                                                                 <DynamicHookForm
                                                                     hookId={hook.id}
                                                                     hookInfo={hook}
