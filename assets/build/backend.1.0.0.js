@@ -2955,23 +2955,34 @@ const AchievementsType = () => {
     fontWeight: "500",
     fontSize: "xl",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)(`Achievement Types`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Point Name",
     placeholder: "Academy LMS",
     value: title,
-    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.setField)({
-      field: 'title',
-      value: e.target.value
-    }))
+    onChange: e => {
+      const value = e.target.value;
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.setField)({
+        field: 'title',
+        value: value
+      }));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.setField)({
+        field: 'description',
+        value: value ? `${value}s` : ""
+      }));
+    },
+    style: {
+      width: '50%'
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Plural Name",
     placeholder: "Plural Name",
-    value: description,
-    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.setField)({
-      field: 'description',
-      value: e.target.value
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    style: {
+      width: '50%'
+    },
+    value: description
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: "Maximum Earnings Per User :",
     placeholder: "0",
     type: "number",
@@ -2988,7 +2999,7 @@ const AchievementsType = () => {
     color: "var(--gamify-secondary)"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_12__["default"], {
     type: "inputLabel",
-    label: "Category"
+    label: "Achievement Type"
   }), availableCategories.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "4px",
     gap: "24px",
@@ -3023,12 +3034,12 @@ const AchievementsType = () => {
     fontSize: "0.875rem",
     margin: "4px 0 0 0",
     onClick: () => setShowInput(true)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("+ Add Achievement Type", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
     gap: "8px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Input, {
     size: "sm",
-    placeholder: "Enter category",
+    placeholder: "Enter Type",
     value: newCat,
     onChange: e => setNewCat(e.target.value)
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
@@ -4673,25 +4684,36 @@ const LevelType = () => {
     fontWeight: "500",
     fontSize: "xl",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)(`Level Type`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    style: {
+      width: '50%'
+    },
     label: "Level Name",
     placeholder: "e.g. Bronze",
     value: title,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_25__.setField)({
-      field: 'title',
-      value: e.target.value
-    }))
+    onChange: e => {
+      const value = e.target.value;
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_25__.setField)({
+        field: 'title',
+        value: value
+      }));
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_25__.setField)({
+        field: 'pluralName',
+        value: value ? `${value}s` : ""
+      }));
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    style: {
+      width: '50%'
+    },
     label: "Plural Name",
     placeholder: "e.g. Bronzes",
-    value: pluralName,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_25__.setField)({
-      field: 'pluralName',
-      value: e.target.value
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    value: pluralName
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_17__["default"], {
     type: "inputLabel",
-    label: "Category"
+    label: "Level Type"
   }), availableCategories.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "4px",
     gap: "24px",
@@ -4726,12 +4748,12 @@ const LevelType = () => {
     fontSize: "0.875rem",
     m: "4px 0 0 0",
     onClick: () => setShowInput(true)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("+ Add Category", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("+ Add Level Type", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "6px",
     gap: "8px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
     size: "sm",
-    placeholder: "Enter category",
+    placeholder: "Enter Type",
     value: newCat,
     onChange: e => setNewCat(e.target.value)
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
@@ -5854,15 +5876,26 @@ const PointType = () => {
     fontWeight: "500",
     fontSize: "xl",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(`Point Types`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    style: {
+      width: '50%'
+    },
     label: "Point Name",
     value: name,
-    onChange: e => dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPointName)(e.target.value))
+    onChange: e => {
+      const value = e.target.value;
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPointName)(value));
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPluralName)(value ? `${value}s` : ""));
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    style: {
+      width: '50%'
+    },
     label: "Plural Name",
-    value: pluralName,
-    onChange: e => dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.setPluralName)(e.target.value))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_10__.DndContext, {
+    value: pluralName
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_10__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {

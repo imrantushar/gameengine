@@ -10,7 +10,7 @@ const LabeledInput = ({
   type = 'text',
   style,
   inputStyle,
-  textAreaSize
+  textAreaSize,
 
 }) => {
 
@@ -29,6 +29,7 @@ const LabeledInput = ({
         value={value}
         onChange={onChange}
         style={{ ...inputStyle }}
+        
       />
     </Flex>
   );

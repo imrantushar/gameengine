@@ -329,7 +329,7 @@ const PointType = () => {
         if (savePointType.fulfilled.match(resultAction) ||
             updatePointType.fulfilled.match(resultAction)) {
             alert(currentPointTypeId ? "Updated Successfully!" : "Saved Successfully!");
-            if (!currentPointTypeId) navigate(`${ route_path }admin.php?page=gamify-points`);
+            if (!currentPointTypeId) navigate(`${route_path}admin.php?page=gamify-points`);
         } else {
             alert("Error saving. Check console.");
         }
@@ -361,8 +361,16 @@ const PointType = () => {
 
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
 
-                    <LabeledInput label="Point Name" value={name} onChange={(e) => dispatch(setPointName(e.target.value))} />
-                    <LabeledInput label="Plural Name" value={pluralName} onChange={(e) => dispatch(setPluralName(e.target.value))} />
+                    <Flex gap="24px">
+                        <LabeledInput style={{width:'50%'}} label="Point Name" value={name} onChange={(e) => {
+                            const value = e.target.value;
+                            dispatch(setPointName(value));
+                            dispatch(setPluralName(value ? `${value}s` : ""));
+
+                        }} />
+                        <LabeledInput style={{width:'50%'}} label="Plural Name" value={pluralName} />
+                    </Flex>
+
 
 
                     {/* # DND */}
