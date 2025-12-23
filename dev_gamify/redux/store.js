@@ -10,6 +10,7 @@ import dashboardReducer from './Slices/dashboardSlice/dashboardSlice';
 import levelsReducer from './Slices/levelsSlice/levelsSlice';
 import leaderboardReducer from './Slices/leaderboardSlice/leaderboardSlice';
 import settingsReducer from './Slices/settingsSlice/settingsSlice';
+import addonsReducer from './Slices/addonsSlice/addonsSlice';
 
 import logger from 'redux-logger'
 /**
@@ -31,6 +32,7 @@ export const store = configureStore({
         dashboard: dashboardReducer,
         leaderboard: leaderboardReducer,
         settings: settingsReducer,
+        addons: addonsReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
     middleware: (getDefaultMiddleware) =>

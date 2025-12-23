@@ -20,20 +20,12 @@ final class Woocommerce
 
     private function __construct()
     {
-        // Check if WooCommerce is active
+        // 1. Check if WooCommerce plugin is active
         if (! class_exists('WooCommerce')) {
             return;
         }
 
-        $this->init_hooks();
-    }
-
-    private function init_hooks()
-    {
-        // Load Integration Logic
+        // 2. Initialize Integration
         Integration::init();
-
-        // Load Settings (Optional, if separate settings page needed)
-        // Settings::init();
     }
 }

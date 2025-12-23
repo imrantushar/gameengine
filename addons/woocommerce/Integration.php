@@ -2,9 +2,7 @@
 
 namespace Gamify\Addons\Woocommerce;
 
-use Gamify\Classes\PointsManager;
 use Gamify\Classes\TriggerRegistry;
-use Gamify\Classes\Triggers;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -15,117 +13,68 @@ class Integration
     public static function init()
     {
         $self = new self();
-
-        // 1. Product Meta (Admin) - Set Points for Product
-        add_action('woocommerce_product_options_general_product_data', [$self, 'add_gamify_product_fields']);
-        add_action('woocommerce_process_product_meta', [$self, 'save_gamify_product_fields']);
-
-        // 2. Reward Points on Purchase Complete
-        add_action('woocommerce_order_status_completed', [$self, 'award_points_on_purchase']);
-
-        // 3. Deduct Points on Refund (Optional)
-        add_action('woocommerce_order_status_refunded', [$self, 'deduct_points_on_refund']);
+        // Register Triggers
+        add_filter('gamify_available_triggers', [$self, 'register_woocommerce_triggers']);
     }
 
     /**
-     * Add "Points Reward" field to Product Data > General
+     * Register WooCommerce Triggers
      */
-    public function add_gamify_product_fields()
+    public function register_woocommerce_triggers($triggers)
     {
-        echo '<div class="options_group">';
+        // 1. Product Purchased
+        $triggers['woocommerce_product_purchased'] = [
+            'label'       => __('Product Purchased', 'gamify'),
+            'description' => __('Fires when a user purchases any product.', 'gamify'),
+            'hook'        => 'woocommerce_order_status_completed', // Hook when payment is complete
+            'args_count'  => 1, // order_id
+            'type'        => 'woocommerce',
+            'category'    => 'woocommerce',
+            'supports'    => ['point_type', 'achievement', 'level'],
+            'get_user_id' => function ($order_id) {
+                $order = wc_get_order($order_id);
+                return $order ? $order->get_user_id() : 0;
+            },
+            'award_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 50, 'scope' => ['point_type']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day', '1_time' => '1 Time Only'], 'default' => 'unlimited'],
+            ]
+        ];
 
-        woocommerce_wp_text_input([
-            'id'          => '_gamify_reward_points',
-            'label'       => __('Reward Points', 'gamify'),
-            'description' => __('Enter the number of points a user gets for purchasing this product.', 'gamify'),
-            'desc_tip'    => true,
-            'type'        => 'number',
-        ]);
+        // 2. Specific Product Purchased
+        $triggers['woocommerce_specific_product_purchased'] = [
+            'label'       => __('Specific Product Purchased', 'gamify'),
+            'description' => __('Fires when a specific product is purchased.', 'gamify'),
+            'hook'        => 'woocommerce_order_status_completed',
+            'args_count'  => 1,
+            'type'        => 'woocommerce',
+            'category'    => 'woocommerce',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($order_id) {
+                $order = wc_get_order($order_id);
+                return $order ? $order->get_user_id() : 0;
+            },
+            'award_fields' => [
+                'product_id' => [
+                    'type'     => 'number', // Or select if you want dynamic product list
+                    'label'    => __('Product ID', 'gamify'),
+                    'required' => true
+                ],
+                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 100, 'scope' => ['point_type']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'], 'default' => '1_time'],
+            ]
+        ];
 
-        echo '</div>';
-    }
+        // 3. Product Review
+        $triggers['woocommerce_product_review'] = [
+            'label'       => __('Review a Product', 'gamify'),
+            'description' => __('Fires when a user reviews a product.', 'gamify'),
+            'hook'        => 'woocommerce_review_before_comment_meta', // Or comment_post hook filtered by product type
+            // Note: Since reviews are comments, we can hook into comment_post and check post_type = product
+            // But here we define custom logic in Triggers.php if needed, or reuse comment hook.
+            // For simplicity, let's use a specific hook if available or reuse comment logic.
+        ];
 
-    /**
-     * Save Product Fields
-     */
-    public function save_gamify_product_fields($post_id)
-    {
-        $points = isset($_POST['_gamify_reward_points']) ? absint($_POST['_gamify_reward_points']) : '';
-        if ($points !== '') {
-            update_post_meta($post_id, '_gamify_reward_points', $points);
-        }
-    }
-
-    /**
-     * Award Points when Order is Completed
-     */
-    public function award_points_on_purchase($order_id)
-    {
-        $order = wc_get_order($order_id);
-        if (!$order) return;
-
-        $user_id = $order->get_user_id();
-        if (!$user_id) return; // Guest checkout, no points (unless you want to handle guests)
-
-        $points_manager = new PointsManager();
-        $total_reward = 0;
-
-        foreach ($order->get_items() as $item) {
-            $product_id = $item->get_product_id();
-            $reward_points = (int) get_post_meta($product_id, '_gamify_reward_points', true);
-
-            if ($reward_points > 0) {
-                $qty = $item->get_quantity();
-                $points = $reward_points * $qty;
-
-                // Log per product or bulk? Let's do bulk for now or per item.
-                // Doing per item allows better logging.
-                $points_manager->add(
-                    $user_id,
-                    $points,
-                    'woocommerce_purchase',
-                    [
-                        'description' => sprintf(__('Purchased %s (x%d)', 'gamify'), $item->get_name(), $qty),
-                        'reference_id' => $order_id
-                    ]
-                );
-
-                $total_reward += $points;
-            }
-        }
-    }
-
-    /**
-     * Deduct Points on Refund
-     */
-    public function deduct_points_on_refund($order_id)
-    {
-        $order = wc_get_order($order_id);
-        if (!$order) return;
-
-        $user_id = $order->get_user_id();
-        if (!$user_id) return;
-
-        $points_manager = new PointsManager();
-
-        foreach ($order->get_items() as $item) {
-            $product_id = $item->get_product_id();
-            $reward_points = (int) get_post_meta($product_id, '_gamify_reward_points', true);
-
-            if ($reward_points > 0) {
-                $qty = $item->get_quantity();
-                $points = $reward_points * $qty;
-
-                $points_manager->deduct(
-                    $user_id,
-                    $points,
-                    'woocommerce_refund',
-                    [
-                        'description' => sprintf(__('Refunded %s (x%d)', 'gamify'), $item->get_name(), $qty),
-                        'reference_id' => $order_id
-                    ]
-                );
-            }
-        }
+        return $triggers;
     }
 }

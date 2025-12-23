@@ -1679,3 +1679,90 @@ input.gamify-checkbox:checked::before {
 .gamify-wp-modal {
   width: 600px;
 }
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/CustomSwitch/switchfield.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.gamify-ccb-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+}
+.gamify-ccb-switch input[type=checkbox] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.gamify-ccb-switch .gamify-ccb-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #CBD1D7;
+  transition: 0.4s;
+  border-radius: 12.5px;
+  height: 16px;
+  width: 32px;
+}
+.gamify-ccb-switch .gamify-ccb-slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  background: #fff;
+  right: 0px;
+  bottom: -1px;
+  border-radius: 50%;
+  transition: 0.2s;
+  border: 1px solid #CBD1D7;
+  box-shadow: 0px 2px 4px rgba(20, 26, 36, 0.1), 0px 0px 1px rgba(20, 26, 36, 0.3);
+}
+
+.gamify-ccb-switch input:checked + .gamify-ccb-slider {
+  background: var(--gamify-primary);
+}
+
+.gamify-ccb-switch input:checked + .gamify-ccb-slider:before {
+  transform: translateX(-16px);
+}
+/*!******************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Tooltip/styles.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************************/
+.gamify-tooltip {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+}
+.gamify-tooltip__text {
+  visibility: hidden;
+  width: 120px;
+  background: var(--quizpress-primary);
+  font-size: 14px;
+  color: #FFF;
+  text-align: center;
+  border-radius: 4px;
+  padding: 10px;
+  position: absolute;
+  z-index: 9999;
+  bottom: 150%;
+  right: 50%;
+  transform: translateX(50%);
+}
+.gamify-tooltip__text:after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 50%;
+  margin-right: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--quizpress-primary) transparent transparent transparent;
+}
+.gamify-tooltip__text span {
+  display: block;
+}
+.gamify-tooltip:hover .gamify-tooltip__text {
+  visibility: visible;
+}

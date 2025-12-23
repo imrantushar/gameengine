@@ -128,11 +128,18 @@ final class Gamify
 
         \Gamify\Classes\EmailManager::init();
 
-        if (file_exists(GAMIFY_PATH . 'addons/woocommerce/Woocommerce.php')) {
-            require_once GAMIFY_PATH . 'addons/woocommerce/Woocommerce.php';
-            require_once GAMIFY_PATH . 'addons/woocommerce/Integration.php';
-            \Gamify\Addons\Woocommerce\Woocommerce::init();
+        // Get Active Addons List
+        $active_addons = get_option('gamify_active_addons', []);
+
+        // Load WooCommerce Addon ONLY if active
+        if (in_array('woocommerce', $active_addons)) {
+            if (file_exists(GAMIFY_PATH . 'addons/woocommerce/woocommerce.php')) {
+                require_once GAMIFY_PATH . 'addons/woocommerce/woocommerce.php';
+                require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
+                \Gamify\Addons\Woocommerce\Woocommerce::init();
+            }
         }
+
 
         if (is_admin()) {
             \Gamify\Admin::init();
