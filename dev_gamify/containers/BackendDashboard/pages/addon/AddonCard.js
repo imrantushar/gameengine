@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { Badge, Box, Button, Flex, Text } from '@chakra-ui/react';
@@ -9,35 +9,35 @@ import { toggleAddonStatus } from '../../../../redux/Slices/addonsSlice/addonsSl
 const AddonCard = ({ item }) => {
 	const dispatch = useDispatch();
 
-	// Get active status from Redux
+	// Redux State 
 	const { activeAddons = [] } = useSelector(state => state.addons || {});
+	const isReduxActive = activeAddons.includes(item.name);
 
-	const isActive = activeAddons.includes(item.name);
-
-	// Local loading state
+	// Local State for Instant UI Update (Optimistic UI)
+	const [localChecked, setLocalChecked] = useState(isReduxActive);
 	const [isUpdating, setIsUpdating] = useState(false);
 
+	// Redux 
+	useEffect(() => {
+		setLocalChecked(isReduxActive);
+	}, [isReduxActive]);
+
 	const onChangeHandler = async (e) => {
-		setIsUpdating(true);
 		const newStatus = e.target.checked;
 
-		// Toggle Status API Call
+		setLocalChecked(newStatus);
+		setIsUpdating(true);
+
 		const result = await dispatch(toggleAddonStatus({
 			addon: item.name,
 			status: newStatus
 		}));
 
 		setIsUpdating(false);
-
 		if (toggleAddonStatus.fulfilled.match(result)) {
-			// Alert for feedback
-			const msg = newStatus ? __("Addon Activated!", "gamify") : __("Addon Deactivated!", "gamify");
-			alert(msg);
-
-			// Reload page to register/unregister hooks for WooCommerce
-			if (item.name === 'woocommerce') {
-				window.location.reload();
-			}
+		} else {
+			setLocalChecked(!newStatus);
+			alert(__("Failed to update status. Please try again.", "gamify"));
 		}
 	};
 
@@ -57,7 +57,6 @@ const AddonCard = ({ item }) => {
 			flexDirection="column"
 			borderRadius="4px"
 		>
-			{/* Header */}
 			<Flex justifyContent="space-between" width="100%" height="50px">
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
 					{item.icon}
@@ -71,7 +70,6 @@ const AddonCard = ({ item }) => {
 				</Box>
 			</Flex>
 
-			{/* Body */}
 			<Flex flexDirection="column" paddingTop={4}>
 				<Text fontSize="0.875rem" fontWeight="700">{item.label}</Text>
 				<Text fontSize="0.875rem" color="#738496">{item.details}</Text>
@@ -81,21 +79,29 @@ const AddonCard = ({ item }) => {
 				{__('Learn More', 'gamify')}
 			</Button>
 
-			{/* Footer with Switch */}
 			<Flex justifyContent="space-between" alignItems="center" paddingTop={6} borderTop="1px solid #CBD1D7">
 				<div className="quizepress-dashboard-addon-footer--left">
 					<span>{!item.required_plugin ? __('No extra plugin required', 'gamify') : __('Required plugins', 'gamify')}</span>
+
+					{item?.required_plugin?.length > 0 && (
+						<Tooltip>
+							{item.required_plugin.map((childItem, childItemIndex) => (
+								<span key={childItemIndex}>
+									{childItem.plugin_name}
+								</span>
+							))}
+						</Tooltip>
+					)}
 				</div>
 				<Box>
 					{item.is_coming_soon ? (
-						<Badge colorScheme="orange">{__('Coming Soon', 'gamify')}</Badge>
+						<Badge colorPalette="orange">{__('Coming Soon', 'gamify')}</Badge>
 					) : (
 						<Box pointerEvents={isUpdating ? 'none' : 'auto'} opacity={isUpdating ? 0.6 : 1}>
 							<CustomSwitch
 								name={item.name}
-								// Ensure your switch supports these props
-								isChecked={isActive}
-								checked={isActive}
+								value={localChecked} // For custom logic
+								checked={localChecked} // Standard HTML attribute
 								onChange={onChangeHandler}
 							/>
 						</Box>

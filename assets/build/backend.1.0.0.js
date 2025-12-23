@@ -3578,33 +3578,32 @@ const AddonCard = ({
 }) => {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
 
-  // Get active status from Redux
+  // Redux State 
   const {
     activeAddons = []
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons || {});
-  const isActive = activeAddons.includes(item.name);
+  const isReduxActive = activeAddons.includes(item.name);
 
-  // Local loading state
+  // Local State for Instant UI Update (Optimistic UI)
+  const [localChecked, setLocalChecked] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isReduxActive);
   const [isUpdating, setIsUpdating] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const onChangeHandler = async e => {
-    setIsUpdating(true);
-    const newStatus = e.target.checked;
 
-    // Toggle Status API Call
+  // Redux 
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    setLocalChecked(isReduxActive);
+  }, [isReduxActive]);
+  const onChangeHandler = async e => {
+    const newStatus = e.target.checked;
+    setLocalChecked(newStatus);
+    setIsUpdating(true);
     const result = await dispatch((0,_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.toggleAddonStatus)({
       addon: item.name,
       status: newStatus
     }));
     setIsUpdating(false);
-    if (_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.toggleAddonStatus.fulfilled.match(result)) {
-      // Alert for feedback
-      const msg = newStatus ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Addon Activated!", "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Addon Deactivated!", "gamify");
-      alert(msg);
-
-      // Reload page to register/unregister hooks for WooCommerce
-      if (item.name === 'woocommerce') {
-        window.location.reload();
-      }
+    if (_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.toggleAddonStatus.fulfilled.match(result)) {} else {
+      setLocalChecked(!newStatus);
+      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Failed to update status. Please try again.", "gamify"));
     }
   };
   const getIconBorder = () => {
@@ -3658,17 +3657,19 @@ const AddonCard = ({
     borderTop: "1px solid #CBD1D7"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "quizepress-dashboard-addon-footer--left"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, !item.required_plugin ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No extra plugin required', 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Required plugins', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, item.is_coming_soon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Badge, {
-    colorScheme: "orange"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, !item.required_plugin ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No extra plugin required', 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Required plugins', 'gamify')), item?.required_plugin?.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Tooltip__WEBPACK_IMPORTED_MODULE_9__["default"], null, item.required_plugin.map((childItem, childItemIndex) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    key: childItemIndex
+  }, childItem.plugin_name)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, item.is_coming_soon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Badge, {
+    colorPalette: "orange"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Coming Soon', 'gamify')) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     pointerEvents: isUpdating ? 'none' : 'auto',
     opacity: isUpdating ? 0.6 : 1
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_CustomSwitch__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    name: item.name
-    // Ensure your switch supports these props
+    name: item.name,
+    value: localChecked // For custom logic
     ,
-    isChecked: isActive,
-    checked: isActive,
+    checked: localChecked // Standard HTML attribute
+    ,
     onChange: onChangeHandler
   })))));
 };
@@ -3713,12 +3714,12 @@ __webpack_require__.r(__webpack_exports__);
 const infoCardsData = [
 // ================= FREE + ACTIVE =================
 {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Certificates', 'quizpress'),
-  name: 'certificates',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Academy LMS', 'quizpress'),
+  name: 'academylms',
   is_pro: false,
   is_active: true,
   is_coming_soon: false,
-  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Award stunning certificates automatically when users complete or pass a quiz.', 'quizpress'),
+  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('academy lms when users complete or pass a quiz.', 'quizpress'),
   required_plugin: [{
     plugin_dir_path: 'ablocks/ablocks.php',
     plugin_name: 'aBlocks'
@@ -3828,73 +3829,70 @@ const infoCardsData = [
     transform: "translate(1 18)"
   })))),
   docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/'
-},
+}
+
 // ================= PRO + ACTIVE (NEW) =================
-{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Advanced Analytics', 'quizpress'),
-  name: 'advanced-analytics',
-  is_pro: true,
-  is_active: true,
-  is_coming_soon: false,
-  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Get detailed insights into quiz performance with advanced reports and charts.', 'quizpress'),
-  required_plugin: false,
-  icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    width: "36",
-    height: "36",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M3 3h18v18H3z",
-    fill: "#E0E7FF"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M7 14h2v4H7zM11 10h2v8h-2zM15 6h2v12h-2z",
-    fill: "#4F46E5"
-  })),
-  docsUrl: '#'
-},
+// {
+// 	label: __('Advanced Analytics', 'quizpress'),
+// 	name: 'advanced-analytics',
+// 	is_pro: true,
+// 	is_active: true,
+// 	is_coming_soon: false,
+// 	details: __(
+// 		'Get detailed insights into quiz performance with advanced reports and charts.',
+// 		'quizpress'
+// 	),
+// 	required_plugin: false,
+// 	icon: (
+// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+// 			<path d="M3 3h18v18H3z" fill="#E0E7FF" />
+// 			<path d="M7 14h2v4H7zM11 10h2v8h-2zM15 6h2v12h-2z" fill="#4F46E5" />
+// 		</svg>
+// 	),
+// 	docsUrl: '#',
+// },
+
 // ================= PRO + INACTIVE (NEW) =================
-{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Content Drip', 'quizpress'),
-  name: 'content-drip',
-  is_pro: true,
-  is_active: false,
-  is_coming_soon: false,
-  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Release quiz content gradually based on a scheduled timeline.', 'quizpress'),
-  required_plugin: false,
-  icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    width: "36",
-    height: "36",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M12 2C7.5 2 4 5.5 4 10c0 5.2 8 12 8 12s8-6.8 8-12c0-4.5-3.5-8-8-8z",
-    fill: "#FDE68A"
-  })),
-  docsUrl: '#'
-},
-// ================= PRO + COMING SOON (NEW) =================
-{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('White Label', 'quizpress'),
-  name: 'white-label',
-  is_pro: true,
-  is_active: false,
-  is_coming_soon: true,
-  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Fully rebrand QuizPress with your own logo, colors, and identity.', 'quizpress'),
-  required_plugin: false,
-  icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    width: "36",
-    height: "36",
-    viewBox: "0 0 24 24",
-    fill: "none"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M4 4h16v16H4z",
-    fill: "#F3F4F6"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M7 7h10v10H7z",
-    fill: "#9CA3AF"
-  })),
-  docsUrl: '#'
-}];
+// {
+// 	label: __('Content Drip', 'quizpress'),
+// 	name: 'content-drip',
+// 	is_pro: true,
+// 	is_active: false,
+// 	is_coming_soon: false,
+// 	details: __(
+// 		'Release quiz content gradually based on a scheduled timeline.',
+// 		'quizpress'
+// 	),
+// 	required_plugin: false,
+// 	icon: (
+// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+// 			<path d="M12 2C7.5 2 4 5.5 4 10c0 5.2 8 12 8 12s8-6.8 8-12c0-4.5-3.5-8-8-8z" fill="#FDE68A" />
+// 		</svg>
+// 	),
+// 	docsUrl: '#',
+// },
+
+// // ================= PRO + COMING SOON (NEW) =================
+// {
+// 	label: __('White Label', 'quizpress'),
+// 	name: 'white-label',
+// 	is_pro: true,
+// 	is_active: false,
+// 	is_coming_soon: true,
+// 	details: __(
+// 		'Fully rebrand QuizPress with your own logo, colors, and identity.',
+// 		'quizpress'
+// 	),
+// 	required_plugin: false,
+// 	icon: (
+// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+// 			<path d="M4 4h16v16H4z" fill="#F3F4F6" />
+// 			<path d="M7 7h10v10H7z" fill="#9CA3AF" />
+// 		</svg>
+// 	),
+// 	docsUrl: '#',
+// },
+];
 const filterOptions = [{
   slug: 'all',
   title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('All', 'academy')

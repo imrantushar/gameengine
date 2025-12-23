@@ -95,25 +95,20 @@ final class Gamify
      */
     public function init_modules()
     {
-        // Global Assets
+        // 1. Assets & API
         if (class_exists('\Gamify\Assets')) {
             \Gamify\Assets::init();
         }
-
-        // API Manager
         if (class_exists('\Gamify\API\Manager')) {
             \Gamify\API\Manager::init();
         }
 
-        // System Services
+        // 2. System Services (Except Triggers)
         if (class_exists('\Gamify\Classes\Scheduler')) {
             \Gamify\Classes\Scheduler::init();
         }
         if (class_exists('\Gamify\Classes\Logger')) {
             \Gamify\Classes\Logger::init();
-        }
-        if (class_exists('\Gamify\Classes\Triggers')) {
-            \Gamify\Classes\Triggers::init();
         }
         if (class_exists('\Gamify\Classes\AchievementsManager')) {
             \Gamify\Classes\AchievementsManager::init();
@@ -121,27 +116,40 @@ final class Gamify
         if (class_exists('\Gamify\Classes\LevelsManager')) {
             \Gamify\Classes\LevelsManager::init();
         }
-
+        if (class_exists('\Gamify\Classes\EmailManager')) {
+            \Gamify\Classes\EmailManager::init();
+        }
         if (class_exists('\Gamify\Classes\Shortcodes')) {
             \Gamify\Classes\Shortcodes::init();
         }
 
-        \Gamify\Classes\EmailManager::init();
-
-        // Get Active Addons List
+        // 3. Load Addons (BEFORE Triggers)
+        // This ensures addons can hook into 'gamify_available_triggers'
         $active_addons = get_option('gamify_active_addons', []);
 
-        // Load WooCommerce Addon ONLY if active
         if (in_array('woocommerce', $active_addons)) {
+            // Note: Check file casing carefully (Woocommerce vs woocommerce)
             if (file_exists(GAMIFY_PATH . 'addons/woocommerce/woocommerce.php')) {
                 require_once GAMIFY_PATH . 'addons/woocommerce/woocommerce.php';
-                require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
-                \Gamify\Addons\Woocommerce\Woocommerce::init();
+                // Integration class is loaded inside Woocommerce::init(), but requiring it here is safe too
+                if (file_exists(GAMIFY_PATH . 'addons/woocommerce/integration.php')) {
+                    require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
+                }
+
+                if (class_exists('\Gamify\Addons\Woocommerce\Woocommerce')) {
+                    \Gamify\Addons\Woocommerce\Woocommerce::init();
+                }
             }
         }
 
+        // 4. Initialize Triggers (AFTER Addons)
+        // Now TriggerRegistry will pick up hooks added by addons
+        if (class_exists('\Gamify\Classes\Triggers')) {
+            \Gamify\Classes\Triggers::init();
+        }
 
-        if (is_admin()) {
+        // 5. Admin Interface
+        if (is_admin() && class_exists('\Gamify\Admin')) {
             \Gamify\Admin::init();
         }
     }

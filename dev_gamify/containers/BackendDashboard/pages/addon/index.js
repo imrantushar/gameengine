@@ -11,13 +11,13 @@ import { fetchActiveAddons } from '../../../../redux/Slices/addonsSlice/addonsSl
 const infoCardsData = [
 	// ================= FREE + ACTIVE =================
 	{
-		label: __('Certificates', 'quizpress'),
-		name: 'certificates',
+		label: __('Academy LMS', 'quizpress'),
+		name: 'academylms',
 		is_pro: false,
 		is_active: true,
 		is_coming_soon: false,
 		details: __(
-			'Award stunning certificates automatically when users complete or pass a quiz.',
+			'academy lms when users complete or pass a quiz.',
 			'quizpress'
 		),
 		required_plugin: [
@@ -173,66 +173,66 @@ const infoCardsData = [
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================
-	{
-		label: __('Advanced Analytics', 'quizpress'),
-		name: 'advanced-analytics',
-		is_pro: true,
-		is_active: true,
-		is_coming_soon: false,
-		details: __(
-			'Get detailed insights into quiz performance with advanced reports and charts.',
-			'quizpress'
-		),
-		required_plugin: false,
-		icon: (
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-				<path d="M3 3h18v18H3z" fill="#E0E7FF" />
-				<path d="M7 14h2v4H7zM11 10h2v8h-2zM15 6h2v12h-2z" fill="#4F46E5" />
-			</svg>
-		),
-		docsUrl: '#',
-	},
+	// {
+	// 	label: __('Advanced Analytics', 'quizpress'),
+	// 	name: 'advanced-analytics',
+	// 	is_pro: true,
+	// 	is_active: true,
+	// 	is_coming_soon: false,
+	// 	details: __(
+	// 		'Get detailed insights into quiz performance with advanced reports and charts.',
+	// 		'quizpress'
+	// 	),
+	// 	required_plugin: false,
+	// 	icon: (
+	// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+	// 			<path d="M3 3h18v18H3z" fill="#E0E7FF" />
+	// 			<path d="M7 14h2v4H7zM11 10h2v8h-2zM15 6h2v12h-2z" fill="#4F46E5" />
+	// 		</svg>
+	// 	),
+	// 	docsUrl: '#',
+	// },
 
 	// ================= PRO + INACTIVE (NEW) =================
-	{
-		label: __('Content Drip', 'quizpress'),
-		name: 'content-drip',
-		is_pro: true,
-		is_active: false,
-		is_coming_soon: false,
-		details: __(
-			'Release quiz content gradually based on a scheduled timeline.',
-			'quizpress'
-		),
-		required_plugin: false,
-		icon: (
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-				<path d="M12 2C7.5 2 4 5.5 4 10c0 5.2 8 12 8 12s8-6.8 8-12c0-4.5-3.5-8-8-8z" fill="#FDE68A" />
-			</svg>
-		),
-		docsUrl: '#',
-	},
+	// {
+	// 	label: __('Content Drip', 'quizpress'),
+	// 	name: 'content-drip',
+	// 	is_pro: true,
+	// 	is_active: false,
+	// 	is_coming_soon: false,
+	// 	details: __(
+	// 		'Release quiz content gradually based on a scheduled timeline.',
+	// 		'quizpress'
+	// 	),
+	// 	required_plugin: false,
+	// 	icon: (
+	// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+	// 			<path d="M12 2C7.5 2 4 5.5 4 10c0 5.2 8 12 8 12s8-6.8 8-12c0-4.5-3.5-8-8-8z" fill="#FDE68A" />
+	// 		</svg>
+	// 	),
+	// 	docsUrl: '#',
+	// },
 
-	// ================= PRO + COMING SOON (NEW) =================
-	{
-		label: __('White Label', 'quizpress'),
-		name: 'white-label',
-		is_pro: true,
-		is_active: false,
-		is_coming_soon: true,
-		details: __(
-			'Fully rebrand QuizPress with your own logo, colors, and identity.',
-			'quizpress'
-		),
-		required_plugin: false,
-		icon: (
-			<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
-				<path d="M4 4h16v16H4z" fill="#F3F4F6" />
-				<path d="M7 7h10v10H7z" fill="#9CA3AF" />
-			</svg>
-		),
-		docsUrl: '#',
-	},
+	// // ================= PRO + COMING SOON (NEW) =================
+	// {
+	// 	label: __('White Label', 'quizpress'),
+	// 	name: 'white-label',
+	// 	is_pro: true,
+	// 	is_active: false,
+	// 	is_coming_soon: true,
+	// 	details: __(
+	// 		'Fully rebrand QuizPress with your own logo, colors, and identity.',
+	// 		'quizpress'
+	// 	),
+	// 	required_plugin: false,
+	// 	icon: (
+	// 		<svg width="36" height="36" viewBox="0 0 24 24" fill="none">
+	// 			<path d="M4 4h16v16H4z" fill="#F3F4F6" />
+	// 			<path d="M7 7h10v10H7z" fill="#9CA3AF" />
+	// 		</svg>
+	// 	),
+	// 	docsUrl: '#',
+	// },
 ];
 
 
