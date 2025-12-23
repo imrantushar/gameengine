@@ -2532,6 +2532,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_settings__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./pages/settings */ "./dev_gamify/containers/BackendDashboard/pages/settings/index.js");
 /* harmony import */ var _pages_logs__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./pages/logs */ "./dev_gamify/containers/BackendDashboard/pages/logs/index.js");
 /* harmony import */ var _pages_points__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./pages/points */ "./dev_gamify/containers/BackendDashboard/pages/points/index.js");
+/* harmony import */ var _pages_addon__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./pages/addon */ "./dev_gamify/containers/BackendDashboard/pages/addon/index.js");
+/* harmony import */ var _pages_addon__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_pages_addon__WEBPACK_IMPORTED_MODULE_12__);
+
 
 
 
@@ -2584,6 +2587,8 @@ const renderSwitch = (page, id, action, path) => {
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_levels__WEBPACK_IMPORTED_MODULE_3__["default"], null);
     case 'gamify-leaderboards':
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_pages_leaderboards__WEBPACK_IMPORTED_MODULE_5__["default"], null);
+    case 'gamify-addons':
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((_pages_addon__WEBPACK_IMPORTED_MODULE_12___default()), null);
     default:
       return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, "No page found");
   }
@@ -3422,6 +3427,16 @@ const Achievements = () => {
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Achievements);
+
+/***/ }),
+
+/***/ "./dev_gamify/containers/BackendDashboard/pages/addon/index.js":
+/*!*********************************************************************!*\
+  !*** ./dev_gamify/containers/BackendDashboard/pages/addon/index.js ***!
+  \*********************************************************************/
+/***/ (() => {
+
+
 
 /***/ }),
 
