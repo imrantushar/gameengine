@@ -134,11 +134,6 @@ final class Gamify
             \Gamify\Addons\Woocommerce\Woocommerce::init();
         }
 
-        // Admin Only Modules
-        if (is_admin() && class_exists('\Gamify\Admin')) {
-            \Gamify\Admin::init();
-        }
-
         if (is_admin()) {
             \Gamify\Admin::init();
         }
