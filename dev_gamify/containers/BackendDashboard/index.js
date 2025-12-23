@@ -17,11 +17,11 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gamify':
 			return <Dashboard />;
 		case 'gamify-points':
-			if(path === "points-types"){
-             return <PointType />;
+			if (path === "points-types") {
+				return <PointType />;
 			}
-			if ( action || id ) {
-				return <PointType action={ action } id={ id } />;
+			if (action || id) {
+				return <PointType action={action} id={id} />;
 			}
 			return <Points />;
 		case 'gamify-logs':
@@ -34,16 +34,16 @@ const renderSwitch = (page, id, action, path) => {
 			return <PointType />;
 
 		case 'gamify-achievements':
-			if(path === 'achievements-type'){
+			if (path === 'achievements-type') {
 				return <AchievementsType />
 			}
-			if ( action || id ) {
-				return <AchievementsType action={ action } id={ id } />;
+			if (action || id) {
+				return <AchievementsType action={action} id={id} />;
 			}
 			return <Achievements />;
 
 		case 'gamify-levels':
-			if(path === 'levels-types'){
+			if (path === 'levels-types') {
 				return <LevelType />;
 			}
 			return <Levels />;
@@ -57,7 +57,7 @@ const renderSwitch = (page, id, action, path) => {
 
 export default function BackendDashboard() {
 	const query = useQuery();
-	
+
 	return (
 		<div className="gamify-admin-content">
 			{renderSwitch(

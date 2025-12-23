@@ -128,6 +128,12 @@ final class Gamify
 
         \Gamify\Classes\EmailManager::init();
 
+        if (file_exists(GAMIFY_PATH . 'addons/woocommerce/Woocommerce.php')) {
+            require_once GAMIFY_PATH . 'addons/woocommerce/Woocommerce.php';
+            require_once GAMIFY_PATH . 'addons/woocommerce/Integration.php';
+            \Gamify\Addons\Woocommerce\Woocommerce::init();
+        }
+
         // Admin Only Modules
         if (is_admin() && class_exists('\Gamify\Admin')) {
             \Gamify\Admin::init();
