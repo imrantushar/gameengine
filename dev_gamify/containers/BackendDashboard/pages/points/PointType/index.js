@@ -229,8 +229,8 @@ const PointType = () => {
 
     // LOAD TRIGGERS
     useEffect(() => {
-        if (status === 'idle') dispatch(fetchTriggers());
-    }, [status, dispatch]);
+        dispatch(fetchTriggers());
+    }, [dispatch]);
 
 
     // EDIT MODE
@@ -362,13 +362,13 @@ const PointType = () => {
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
 
                     <Flex gap="24px">
-                        <LabeledInput style={{width:'50%'}} label="Point Name" value={name} onChange={(e) => {
+                        <LabeledInput style={{ width: '50%' }} label="Point Name" value={name} onChange={(e) => {
                             const value = e.target.value;
                             dispatch(setPointName(value));
                             dispatch(setPluralName(value ? `${value}s` : ""));
 
                         }} />
-                        <LabeledInput style={{width:'50%'}} label="Plural Name" value={pluralName} />
+                        <LabeledInput style={{ width: '50%' }} label="Plural Name" value={pluralName} />
                     </Flex>
 
 

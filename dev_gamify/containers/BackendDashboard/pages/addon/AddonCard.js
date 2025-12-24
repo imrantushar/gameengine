@@ -5,7 +5,8 @@ import { Badge, Box, Button, Flex, Text } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import Tooltip from '@GFComponents/Tooltip';
 import { toggleAddonStatus } from '../../../../redux/Slices/addonsSlice/addonsSlice';
-
+import { resetStatus as resetPointStatus } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice'; // Check path
+import { resetStatus as resetAchievementStatus } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
 const AddonCard = ({ item }) => {
 	const dispatch = useDispatch();
 
@@ -35,9 +36,14 @@ const AddonCard = ({ item }) => {
 
 		setIsUpdating(false);
 		if (toggleAddonStatus.fulfilled.match(result)) {
+			// 🔥 Force trigger refresh on other pages
+			dispatch(resetPointStatus());
+			dispatch(resetAchievementStatus());
+
+			// No reload needed now!
 		} else {
 			setLocalChecked(!newStatus);
-			alert(__("Failed to update status. Please try again.", "gamify"));
+			alert(__("Failed to update status.", "gamify"));
 		}
 	};
 

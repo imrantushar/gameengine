@@ -3565,6 +3565,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_CustomSwitch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/CustomSwitch */ "./dev_gamify/components/CustomSwitch/index.js");
 /* harmony import */ var _GFComponents_Tooltip__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Tooltip */ "./dev_gamify/components/Tooltip/index.js");
 /* harmony import */ var _redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../redux/Slices/addonsSlice/addonsSlice */ "./dev_gamify/redux/Slices/addonsSlice/addonsSlice.js");
+/* harmony import */ var _redux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../redux/Slices/pointTypesSlice/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js");
+/* harmony import */ var _redux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../redux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
 
 
 
@@ -3572,6 +3574,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+ // Check path
 
 const AddonCard = ({
   item
@@ -3601,9 +3605,15 @@ const AddonCard = ({
       status: newStatus
     }));
     setIsUpdating(false);
-    if (_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.toggleAddonStatus.fulfilled.match(result)) {} else {
+    if (_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.toggleAddonStatus.fulfilled.match(result)) {
+      // 🔥 Force trigger refresh on other pages
+      dispatch((0,_redux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_11__.resetStatus)());
+      dispatch((0,_redux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_12__.resetStatus)());
+
+      // No reload needed now!
+    } else {
       setLocalChecked(!newStatus);
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Failed to update status. Please try again.", "gamify"));
+      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Failed to update status.", "gamify"));
     }
   };
   const getIconBorder = () => {
@@ -6316,8 +6326,8 @@ const PointType = () => {
 
   // LOAD TRIGGERS
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (status === 'idle') dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchTriggers)());
-  }, [status, dispatch]);
+    dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.fetchTriggers)());
+  }, [dispatch]);
 
   // EDIT MODE
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
@@ -7463,6 +7473,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchTriggers: () => (/* binding */ fetchTriggers),
 /* harmony export */   removeHook: () => (/* binding */ removeHook),
 /* harmony export */   resetForm: () => (/* binding */ resetForm),
+/* harmony export */   resetStatus: () => (/* binding */ resetStatus),
 /* harmony export */   saveAchievement: () => (/* binding */ saveAchievement),
 /* harmony export */   setField: () => (/* binding */ setField),
 /* harmony export */   updateAchievement: () => (/* binding */ updateAchievement),
@@ -7600,6 +7611,9 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
         ...state.hookSettings[hookId],
         ...settings
       };
+    },
+    resetStatus: state => {
+      state.status = 'idle';
     }
   },
   extraReducers: builder => {
@@ -7657,6 +7671,7 @@ const {
   addHook,
   removeHook,
   updateHookSettings,
+  resetStatus,
   addCategoryToList
 } = achievementsSlice.actions;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (achievementsSlice.reducer);
@@ -8455,6 +8470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   removeAwardHook: () => (/* binding */ removeAwardHook),
 /* harmony export */   removeDeductHook: () => (/* binding */ removeDeductHook),
 /* harmony export */   resetPointTypeForm: () => (/* binding */ resetPointTypeForm),
+/* harmony export */   resetStatus: () => (/* binding */ resetStatus),
 /* harmony export */   savePointType: () => (/* binding */ savePointType),
 /* harmony export */   setPluralName: () => (/* binding */ setPluralName),
 /* harmony export */   setPointName: () => (/* binding */ setPointName),
@@ -8634,6 +8650,9 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
         ...state.hookSettings[key],
         ...settings
       };
+    },
+    resetStatus: state => {
+      state.status = 'idle';
     }
   },
   extraReducers: builder => {
@@ -8694,7 +8713,8 @@ const {
   removeAwardHook,
   addDeductHook,
   removeDeductHook,
-  updateHookSettings
+  updateHookSettings,
+  resetStatus
 } = pointTypeSlice.actions;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (pointTypeSlice.reducer);
 

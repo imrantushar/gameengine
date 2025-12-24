@@ -104,6 +104,9 @@ const achievementsSlice = createSlice({
         updateHookSettings: (state, action) => {
             const { hookId, settings } = action.payload;
             state.hookSettings[hookId] = { ...state.hookSettings[hookId], ...settings };
+        },
+        resetStatus: (state) => {
+            state.status = 'idle';
         }
     },
     extraReducers: (builder) => {
@@ -163,5 +166,5 @@ const achievementsSlice = createSlice({
     }
 });
 
-export const { setField, resetForm, addHook, removeHook, updateHookSettings, addCategoryToList } = achievementsSlice.actions;
+export const { setField, resetForm, addHook, removeHook, updateHookSettings, resetStatus, addCategoryToList } = achievementsSlice.actions;
 export default achievementsSlice.reducer;

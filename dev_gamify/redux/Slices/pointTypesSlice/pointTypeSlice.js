@@ -156,6 +156,9 @@ const pointTypeSlice = createSlice({
             const key = `${type}_${hookId}`;
             // Merge existing settings with new updates
             state.hookSettings[key] = { ...state.hookSettings[key], ...settings };
+        },
+        resetStatus: (state) => {
+            state.status = 'idle';
         }
     },
     extraReducers: (builder) => {
@@ -221,7 +224,8 @@ export const {
     setPointName, setPluralName, resetPointTypeForm,
     addAwardHook, removeAwardHook,
     addDeductHook, removeDeductHook,
-    updateHookSettings
+    updateHookSettings,
+    resetStatus
 } = pointTypeSlice.actions;
 
 export default pointTypeSlice.reducer;
