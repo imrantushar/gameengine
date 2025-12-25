@@ -2869,9 +2869,14 @@ const DynamicHookForm = ({
   hookId,
   hookInfo,
   settings,
-  onChange
+  onChange,
+  isOpen: externalIsOpen,
+  setIsOpen: externalSetIsOpen
 }) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [localOpen, setLocalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+  const isOpen = isControlled ? externalIsOpen : localOpen;
+  const setIsOpen = isControlled ? externalSetIsOpen : setLocalOpen;
   const fieldsConfig = hookInfo.award_fields || {};
   const fieldKeys = Object.keys(fieldsConfig);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -2885,14 +2890,9 @@ const DynamicHookForm = ({
     gap: "16px"
   }, fieldKeys.map(key => {
     const config = fieldsConfig[key];
-
-    // --- NEW LOGIC START: SCOPE CHECK ---
-
     if (config.scope && !config.scope.includes('achievement')) {
       return null;
     }
-    // --- NEW LOGIC END ---
-
     const val = settings[key] !== undefined ? settings[key] : config.default || '';
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicAchievementField, {
       key: key,
@@ -2920,6 +2920,7 @@ const AchievementsType = () => {
   const editId = searchParams.get('id');
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [achievementCollapsible, setAchievementCollapsible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [openedHooks, setOpenedHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.PointerSensor, {
     activationConstraint: {
       distance: 5
@@ -2977,9 +2978,11 @@ const AchievementsType = () => {
     const id = active.id;
     if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.addHook)(id));
+      setOpenedHooks(prev => prev.includes(id) ? prev : [...prev, id]);
     }
     if (selectedHookIds.includes(id) && over.id === "awards-available") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.removeHook)(id));
+      setOpenedHooks(prev => prev.filter(h => h !== id));
     }
   };
   const handleAddCategory = () => {
@@ -3326,7 +3329,11 @@ const AchievementsType = () => {
       settings: {
         [key]: val
       }
-    }))
+    })),
+    isOpen: openedHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedHooks(prev => prev.filter(id => id !== hook.id));
+    }
   })))))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     py: "24px",
     justifyContent: "flex-end",
