@@ -271,7 +271,7 @@ const PointType = () => {
 
             if (over.id === "awards-sidebar") {
                 dispatch(addAwardHook(pureId));
-                setOpenedAwardHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
+                setOpenedAwardHooks([pureId]);
             }
             if (over.id === "awards-available") {
                 dispatch(removeAwardHook(pureId));
@@ -285,7 +285,7 @@ const PointType = () => {
 
             if (over.id === "deductions-sidebar") {
                 dispatch(addDeductHook(pureId));
-                setOpenedDeductHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
+                setOpenedDeductHooks([pureId]);
             }
             if (over.id === "deductions-available") {
                 dispatch(removeDeductHook(pureId));

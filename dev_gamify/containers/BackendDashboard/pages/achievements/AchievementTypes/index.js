@@ -195,7 +195,7 @@ const AchievementsType = () => {
 
         if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
             dispatch(addHook(id));
-            setOpenedHooks(prev => prev.includes(id) ? prev : [...prev, id]);
+            setOpenedHooks([id]);
         }
         if (selectedHookIds.includes(id) && over.id === "awards-available") {
             dispatch(removeHook(id));

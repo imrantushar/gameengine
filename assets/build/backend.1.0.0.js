@@ -2978,7 +2978,7 @@ const AchievementsType = () => {
     const id = active.id;
     if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.addHook)(id));
-      setOpenedHooks(prev => prev.includes(id) ? prev : [...prev, id]);
+      setOpenedHooks([id]);
     }
     if (selectedHookIds.includes(id) && over.id === "awards-available") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.removeHook)(id));
@@ -6376,7 +6376,7 @@ const PointType = () => {
       const pureId = draggedId.replace("award_", "");
       if (over.id === "awards-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addAwardHook)(pureId));
-        setOpenedAwardHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
+        setOpenedAwardHooks([pureId]);
       }
       if (over.id === "awards-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeAwardHook)(pureId));
@@ -6389,7 +6389,7 @@ const PointType = () => {
       const pureId = draggedId.replace("deduct_", "");
       if (over.id === "deductions-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addDeductHook)(pureId));
-        setOpenedDeductHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
+        setOpenedDeductHooks([pureId]);
       }
       if (over.id === "deductions-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeDeductHook)(pureId));
