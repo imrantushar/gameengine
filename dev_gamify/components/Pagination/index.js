@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@chakra-ui/react';
+import { Button, Icon } from '@chakra-ui/react';
 
 import './styles.scss';
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 
 const propTypes = {
 	totalItems: PropTypes.number,
@@ -234,6 +235,7 @@ const Pagination = ({
 							handlePageChange(1);
 						}}
 					>
+						<Icon as={FaChevronLeft} size={"sm"} />
 						<span>
 							<span className="gamify-icon gamify-icon--angle-left" />
 							<span className="gamify-icon gamify-icon--angle-left" />
@@ -253,6 +255,7 @@ const Pagination = ({
 							handlePageChange(page - 1);
 						}}
 					>
+						<Icon as={FaChevronLeft} size={"sm"} />
 						<span className="gamify-icon gamify-icon--angle-left" />
 					</Button>
 				</>
@@ -278,6 +281,7 @@ const Pagination = ({
 							handlePageChange(page + 1);
 						}}
 					>
+						<Icon as={FaChevronRight} size={"sm"} />
 						<span className="gamify-icon gamify-icon--angle-right" />
 					</Button>
 					<Button
@@ -294,6 +298,7 @@ const Pagination = ({
 							handlePageChange(pageNumbers.length);
 						}}
 					>
+						<Icon as={FaChevronRight} size={"sm"} />
 						<span>
 							<span className="gamify-icon gamify-icon--angle-right" />
 							<span className="gamify-icon gamify-icon--angle-right" />

@@ -95,8 +95,12 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange }) => {
 };
 
 // --- UPDATED: Dynamic Hook Settings Form ---
-const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const DynamicHookForm = ({ hookId, hookInfo, settings, onChange, isOpen: externalIsOpen, setIsOpen: externalSetIsOpen }) => {
+    const [localOpen, setLocalOpen] = useState(false);
+
+    const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+    const isOpen = isControlled ? externalIsOpen : localOpen;
+    const setIsOpen = isControlled ? externalSetIsOpen : setLocalOpen;
 
     const fieldsConfig = hookInfo.award_fields || {};
     const fieldKeys = Object.keys(fieldsConfig);
@@ -113,12 +117,9 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                 {fieldKeys.map(key => {
                     const config = fieldsConfig[key];
 
-                    // --- NEW LOGIC START: SCOPE CHECK ---
-
                     if (config.scope && !config.scope.includes('achievement')) {
                         return null;
                     }
-                    // --- NEW LOGIC END ---
 
                     const val = settings[key] !== undefined ? settings[key] : (config.default || '');
 
@@ -151,6 +152,7 @@ const AchievementsType = () => {
     const [message, setMessage] = useState("");
 
     const [achievementCollapsible, setAchievementCollapsible] = useState(true);
+    const [openedHooks, setOpenedHooks] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [categories, setCategories] = useState(["Gold", "Silver"]);
     const [showInput, setShowInput] = useState(false);
@@ -193,9 +195,11 @@ const AchievementsType = () => {
 
         if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
             dispatch(addHook(id));
+            setOpenedHooks([id]);
         }
         if (selectedHookIds.includes(id) && over.id === "awards-available") {
             dispatch(removeHook(id));
+            setOpenedHooks(prev => prev.filter(h => h !== id));
         }
     };
 
@@ -474,7 +478,6 @@ const AchievementsType = () => {
                                                     {activeHooks.map((hook) => (
                                                         <DraggableItem key={hook.id} id={hook.id}>
                                                             <Box background="white" borderRadius="4px">
-                                                                {/* Using the new DynamicHookForm */}
                                                                 <DynamicHookForm
                                                                     hookId={hook.id}
                                                                     hookInfo={hook}
@@ -483,6 +486,11 @@ const AchievementsType = () => {
                                                                         hookId: hook.id,
                                                                         settings: { [key]: val }
                                                                     }))}
+                                                                    isOpen={openedHooks.includes(hook.id)}
+                                                                    setIsOpen={(val) => {
+                                                                        if (val) setOpenedHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);
+                                                                        else setOpenedHooks(prev => prev.filter(id => id !== hook.id));
+                                                                    }}
                                                                 />
                                                             </Box>
                                                         </DraggableItem>

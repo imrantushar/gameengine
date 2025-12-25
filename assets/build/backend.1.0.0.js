@@ -1696,7 +1696,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./styles.scss */ "./dev_gamify/components/Pagination/styles.scss");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _styles_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles.scss */ "./dev_gamify/components/Pagination/styles.scss");
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+
 
 
 
@@ -1858,7 +1861,10 @@ const Pagination = ({
     onClick: () => {
       handlePageChange(1);
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_5__.FaChevronLeft,
+    size: "sm"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-left"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-left"
@@ -1875,7 +1881,10 @@ const Pagination = ({
     onClick: () => {
       handlePageChange(page - 1);
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_5__.FaChevronLeft,
+    size: "sm"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-left"
   }))), pageNumbers.length > 1 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
     className: "gamify-pagination-list"
@@ -1892,7 +1901,10 @@ const Pagination = ({
     onClick: () => {
       handlePageChange(page + 1);
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_5__.FaChevronRight,
+    size: "sm"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-right"
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
     color: "var(--gamify-font-color)",
@@ -1907,7 +1919,10 @@ const Pagination = ({
     onClick: () => {
       handlePageChange(pageNumbers.length);
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_5__.FaChevronRight,
+    size: "sm"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-right"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gamify-icon gamify-icon--angle-right"
@@ -2869,9 +2884,14 @@ const DynamicHookForm = ({
   hookId,
   hookInfo,
   settings,
-  onChange
+  onChange,
+  isOpen: externalIsOpen,
+  setIsOpen: externalSetIsOpen
 }) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [localOpen, setLocalOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+  const isOpen = isControlled ? externalIsOpen : localOpen;
+  const setIsOpen = isControlled ? externalSetIsOpen : setLocalOpen;
   const fieldsConfig = hookInfo.award_fields || {};
   const fieldKeys = Object.keys(fieldsConfig);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_14__["default"], {
@@ -2885,14 +2905,9 @@ const DynamicHookForm = ({
     gap: "16px"
   }, fieldKeys.map(key => {
     const config = fieldsConfig[key];
-
-    // --- NEW LOGIC START: SCOPE CHECK ---
-
     if (config.scope && !config.scope.includes('achievement')) {
       return null;
     }
-    // --- NEW LOGIC END ---
-
     const val = settings[key] !== undefined ? settings[key] : config.default || '';
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicAchievementField, {
       key: key,
@@ -2920,6 +2935,7 @@ const AchievementsType = () => {
   const editId = searchParams.get('id');
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [achievementCollapsible, setAchievementCollapsible] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
+  const [openedHooks, setOpenedHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.PointerSensor, {
     activationConstraint: {
       distance: 5
@@ -2977,9 +2993,11 @@ const AchievementsType = () => {
     const id = active.id;
     if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.addHook)(id));
+      setOpenedHooks([id]);
     }
     if (selectedHookIds.includes(id) && over.id === "awards-available") {
       dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_22__.removeHook)(id));
+      setOpenedHooks(prev => prev.filter(h => h !== id));
     }
   };
   const handleAddCategory = () => {
@@ -3326,7 +3344,11 @@ const AchievementsType = () => {
       settings: {
         [key]: val
       }
-    }))
+    })),
+    isOpen: openedHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedHooks(prev => prev.filter(id => id !== hook.id));
+    }
   })))))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     py: "24px",
     justifyContent: "flex-end",
@@ -5668,10 +5690,6 @@ const Logs = () => {
       search: searchQuery
     }));
   };
-  const handleSearch = value => {
-    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(value));
-    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
-  };
 
   // --- Helper: Open Modal for Create ---
   const openCreateModal = () => {
@@ -5884,7 +5902,11 @@ const Logs = () => {
       }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search Items', 'gamify'),
-      onChange: e => handleSearch(e.target ? e.target.value : e)
+      defaultValue: searchQuery,
+      onSearchHandler: val => {
+        dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(val));
+        dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
+      }
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Button, {
       ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__.primaryBtn,
       height: "36px",
@@ -5893,7 +5915,7 @@ const Logs = () => {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiPlus
       })
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Manual Trigger', 'gamify'))));
-  }, [status]);
+  }, [status, searchQuery]);
   const userOptions = [{
     value: 1,
     label: "User 1"
@@ -6273,30 +6295,44 @@ const HookConfigurationForm = ({
   type,
   hookInfo,
   dispatch,
-  currentSettings
+  currentSettings,
+  isOpen: externalIsOpen,
+  setIsOpen: externalSetIsOpen
 }) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const handleChange = (field, value) => {
-    dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
+  const HookConfigurationFormControlled = ({
+    isOpen: innerIsOpen,
+    setIsOpen: innerSetIsOpen
+  }) => {
+    const [isOpenState, setIsOpenState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+    const isOpen = isControlled ? externalIsOpen : typeof innerIsOpen !== 'undefined' ? innerIsOpen : isOpenState;
+    const setIsOpen = isControlled ? externalSetIsOpen : typeof innerSetIsOpen === 'function' ? innerSetIsOpen : setIsOpenState;
+    const handleChange = (field, value) => {
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
+        type: type,
+        hookId: hookInfo.id,
+        settings: {
+          [field]: value
+        }
+      }));
+    };
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+      background: "white",
+      borderRadius: "4px"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
+      hookId: hookId,
+      hookInfo: hookInfo,
       type: type,
-      hookId: hookInfo.id,
-      settings: {
-        [field]: value
-      }
+      settings: currentSettings || {},
+      handleChange: handleChange,
+      isOpen: isOpen,
+      setIsOpen: setIsOpen
     }));
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    background: "white",
-    borderRadius: "4px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
-    hookId: hookId,
-    hookInfo: hookInfo,
-    type: type,
-    settings: currentSettings || {},
-    handleChange: handleChange,
-    isOpen: isOpen,
-    setIsOpen: setIsOpen
-  }));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(HookConfigurationFormControlled, {
+    isOpen: externalIsOpen,
+    setIsOpen: externalSetIsOpen
+  });
 };
 
 // # MAIN
@@ -6307,6 +6343,8 @@ const PointType = () => {
   const editId = searchParams.get('id');
   const [pointAwards, setPointAwards] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [pointDeductions, setPointDeductions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [openedAwardHooks, setOpenedAwardHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [openedDeductHooks, setOpenedDeductHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const {
     name,
     pluralName,
@@ -6353,9 +6391,11 @@ const PointType = () => {
       const pureId = draggedId.replace("award_", "");
       if (over.id === "awards-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addAwardHook)(pureId));
+        setOpenedAwardHooks([pureId]);
       }
       if (over.id === "awards-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeAwardHook)(pureId));
+        setOpenedAwardHooks(prev => prev.filter(id => id !== pureId));
       }
     }
 
@@ -6364,9 +6404,11 @@ const PointType = () => {
       const pureId = draggedId.replace("deduct_", "");
       if (over.id === "deductions-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addDeductHook)(pureId));
+        setOpenedDeductHooks([pureId]);
       }
       if (over.id === "deductions-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeDeductHook)(pureId));
+        setOpenedDeductHooks(prev => prev.filter(id => id !== pureId));
       }
     }
   };
@@ -6551,7 +6593,11 @@ const PointType = () => {
     type: "award",
     hookInfo: hook,
     dispatch: dispatch,
-    currentSettings: hookSettings[`award_${hook.id}`]
+    currentSettings: hookSettings[`award_${hook.id}`],
+    isOpen: openedAwardHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedAwardHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedAwardHooks(prev => prev.filter(id => id !== hook.id));
+    }
   })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_16__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
     label: "Automatic Point Deductions",
     isOpen: pointDeductions,
@@ -6623,7 +6669,11 @@ const PointType = () => {
     type: "deduct",
     hookInfo: hook,
     dispatch: dispatch,
-    currentSettings: hookSettings[`deduct_${hook.id}`]
+    currentSettings: hookSettings[`deduct_${hook.id}`],
+    isOpen: openedDeductHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedDeductHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedDeductHooks(prev => prev.filter(id => id !== hook.id));
+    }
   }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     padding: "24px 0",
     justifyContent: "flex-end",
