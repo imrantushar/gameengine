@@ -174,8 +174,12 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
 
 
 // # WRAPPER
-const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings }) => {
-    const [isOpen, setIsOpen] = useState(false);
+const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen: externalIsOpen, setIsOpen: externalSetIsOpen }) => {
+    const HookConfigurationFormControlled = ({ isOpen: innerIsOpen, setIsOpen: innerSetIsOpen }) => {
+        const [isOpenState, setIsOpenState] = useState(false);
+        const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+        const isOpen = isControlled ? externalIsOpen : (typeof innerIsOpen !== 'undefined' ? innerIsOpen : isOpenState);
+        const setIsOpen = isControlled ? externalSetIsOpen : (typeof innerSetIsOpen === 'function' ? innerSetIsOpen : setIsOpenState);
 
     const handleChange = (field, value) => {
         dispatch(updateHookSettings({
@@ -198,6 +202,9 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
             />
         </Box>
     );
+    };
+
+    return <HookConfigurationFormControlled isOpen={externalIsOpen} setIsOpen={externalSetIsOpen} />;
 };
 
 
@@ -211,6 +218,8 @@ const PointType = () => {
 
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
+    const [openedAwardHooks, setOpenedAwardHooks] = useState([]);
+    const [openedDeductHooks, setOpenedDeductHooks] = useState([]);
 
     const {
         name,
@@ -262,9 +271,11 @@ const PointType = () => {
 
             if (over.id === "awards-sidebar") {
                 dispatch(addAwardHook(pureId));
+                setOpenedAwardHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
             }
             if (over.id === "awards-available") {
                 dispatch(removeAwardHook(pureId));
+                setOpenedAwardHooks(prev => prev.filter(id => id !== pureId));
             }
         }
 
@@ -274,9 +285,11 @@ const PointType = () => {
 
             if (over.id === "deductions-sidebar") {
                 dispatch(addDeductHook(pureId));
+                setOpenedDeductHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
             }
             if (over.id === "deductions-available") {
                 dispatch(removeDeductHook(pureId));
+                setOpenedDeductHooks(prev => prev.filter(id => id !== pureId));
             }
         }
     };
@@ -416,6 +429,11 @@ const PointType = () => {
                                                     hookInfo={hook}
                                                     dispatch={dispatch}
                                                     currentSettings={hookSettings[`award_${hook.id}`]}
+                                                    isOpen={openedAwardHooks.includes(hook.id)}
+                                                    setIsOpen={(val) => {
+                                                        if (val) setOpenedAwardHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);
+                                                        else setOpenedAwardHooks(prev => prev.filter(id => id !== hook.id));
+                                                    }}
                                                 />
                                             </DraggableItem>
                                         ))}
@@ -470,6 +488,11 @@ const PointType = () => {
                                                     hookInfo={hook}
                                                     dispatch={dispatch}
                                                     currentSettings={hookSettings[`deduct_${hook.id}`]}
+                                                    isOpen={openedDeductHooks.includes(hook.id)}
+                                                    setIsOpen={(val) => {
+                                                        if (val) setOpenedDeductHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);
+                                                        else setOpenedDeductHooks(prev => prev.filter(id => id !== hook.id));
+                                                    }}
                                                 />
                                             </DraggableItem>
                                         ))}

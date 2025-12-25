@@ -6273,30 +6273,44 @@ const HookConfigurationForm = ({
   type,
   hookInfo,
   dispatch,
-  currentSettings
+  currentSettings,
+  isOpen: externalIsOpen,
+  setIsOpen: externalSetIsOpen
 }) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const handleChange = (field, value) => {
-    dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
+  const HookConfigurationFormControlled = ({
+    isOpen: innerIsOpen,
+    setIsOpen: innerSetIsOpen
+  }) => {
+    const [isOpenState, setIsOpenState] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+    const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
+    const isOpen = isControlled ? externalIsOpen : typeof innerIsOpen !== 'undefined' ? innerIsOpen : isOpenState;
+    const setIsOpen = isControlled ? externalSetIsOpen : typeof innerSetIsOpen === 'function' ? innerSetIsOpen : setIsOpenState;
+    const handleChange = (field, value) => {
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.updateHookSettings)({
+        type: type,
+        hookId: hookInfo.id,
+        settings: {
+          [field]: value
+        }
+      }));
+    };
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+      background: "white",
+      borderRadius: "4px"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
+      hookId: hookId,
+      hookInfo: hookInfo,
       type: type,
-      hookId: hookInfo.id,
-      settings: {
-        [field]: value
-      }
+      settings: currentSettings || {},
+      handleChange: handleChange,
+      isOpen: isOpen,
+      setIsOpen: setIsOpen
     }));
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    background: "white",
-    borderRadius: "4px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
-    hookId: hookId,
-    hookInfo: hookInfo,
-    type: type,
-    settings: currentSettings || {},
-    handleChange: handleChange,
-    isOpen: isOpen,
-    setIsOpen: setIsOpen
-  }));
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(HookConfigurationFormControlled, {
+    isOpen: externalIsOpen,
+    setIsOpen: externalSetIsOpen
+  });
 };
 
 // # MAIN
@@ -6307,6 +6321,8 @@ const PointType = () => {
   const editId = searchParams.get('id');
   const [pointAwards, setPointAwards] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true);
   const [pointDeductions, setPointDeductions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [openedAwardHooks, setOpenedAwardHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
+  const [openedDeductHooks, setOpenedDeductHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const {
     name,
     pluralName,
@@ -6353,9 +6369,11 @@ const PointType = () => {
       const pureId = draggedId.replace("award_", "");
       if (over.id === "awards-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addAwardHook)(pureId));
+        setOpenedAwardHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
       }
       if (over.id === "awards-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeAwardHook)(pureId));
+        setOpenedAwardHooks(prev => prev.filter(id => id !== pureId));
       }
     }
 
@@ -6364,9 +6382,11 @@ const PointType = () => {
       const pureId = draggedId.replace("deduct_", "");
       if (over.id === "deductions-sidebar") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.addDeductHook)(pureId));
+        setOpenedDeductHooks(prev => prev.includes(pureId) ? prev : [...prev, pureId]);
       }
       if (over.id === "deductions-available") {
         dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_17__.removeDeductHook)(pureId));
+        setOpenedDeductHooks(prev => prev.filter(id => id !== pureId));
       }
     }
   };
@@ -6551,7 +6571,11 @@ const PointType = () => {
     type: "award",
     hookInfo: hook,
     dispatch: dispatch,
-    currentSettings: hookSettings[`award_${hook.id}`]
+    currentSettings: hookSettings[`award_${hook.id}`],
+    isOpen: openedAwardHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedAwardHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedAwardHooks(prev => prev.filter(id => id !== hook.id));
+    }
   })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_16__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_15__["default"], {
     label: "Automatic Point Deductions",
     isOpen: pointDeductions,
@@ -6623,7 +6647,11 @@ const PointType = () => {
     type: "deduct",
     hookInfo: hook,
     dispatch: dispatch,
-    currentSettings: hookSettings[`deduct_${hook.id}`]
+    currentSettings: hookSettings[`deduct_${hook.id}`],
+    isOpen: openedDeductHooks.includes(hook.id),
+    setIsOpen: val => {
+      if (val) setOpenedDeductHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);else setOpenedDeductHooks(prev => prev.filter(id => id !== hook.id));
+    }
   }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     padding: "24px 0",
     justifyContent: "flex-end",
