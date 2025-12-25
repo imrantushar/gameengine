@@ -1,44 +1,56 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-// import { sortableContainer, sortableElement } from 'react-sortable-hoc';
-// import { arrayMoveImmutable } from 'array-move';
-// import ReactModal from '@Components/Modal/ReactModal';
+import {
+	sortableContainer,
+	sortableElement,
+	sortableHandle,
+} from 'react-sortable-hoc';
+import { arrayMoveImmutable } from 'array-move';
+import ReactModal from '@GFComponents/Modal/ReactModal';
 
-// const SortableColumnItem = sortableElement(
-// 	( { copyColumn, itemIndex, checkedChange } ) => {
-// 		return (
-// 			<div
-// 				className="gamify-table__filter-checked-item"
-// 				key={ `column-${ itemIndex }` }
-// 			>
-// 				<span className="gamify-table-filter-item-left">
-// 					<span className="gamify-icon gamify-icon--move" />
-// 					<span className="gamify-table-filter-item-title">
-// 						{ copyColumn.name }
-// 					</span>
-// 				</span>
-// 				<input
-// 					id={ copyColumn.name }
-// 					type="checkbox"
-// 					checked={ copyColumn.visible }
-// 					onChange={ ( event ) =>
-// 						checkedChange( {
-// 							id: copyColumn.id,
-// 							visible: event.target.checked,
-// 						} )
-// 					}
-// 				/>
-// 			</div>
-// 		);
-// 	}
-// );
+const DragHandle = sortableHandle( () => (
+	<span
+		className="gamify-icon gamify-icon--move"
+		role="button"
+		aria-label="drag-handle"
+		style={{ cursor: 'grab', display: 'inline-block', paddingRight: '8px' }}
+	/>
+) );
 
-// const SortableColumnItemContainer = sortableContainer( ( props ) => {
-// 	return (
-// 		<ul className="gamify-table__filter-items">{ props.children }</ul>
-// 	);
-// } );
+const SortableColumnItem = sortableElement(
+	( { copyColumn, itemIndex, checkedChange } ) => {
+		return (
+			<div
+				className="gamify-table__filter-checked-item"
+				key={ `column-${ itemIndex }` }
+			>
+				<span className="gamify-table-filter-item-left">
+					<DragHandle />
+					<span className="gamify-table-filter-item-title">
+						{ copyColumn.name }
+					</span>
+				</span>
+				<input
+					id={ copyColumn.name }
+					type="checkbox"
+					checked={ copyColumn.visible }
+					onChange={ ( event ) =>
+						checkedChange( {
+							id: copyColumn.id,
+							visible: event.target.checked,
+						} )
+					}
+				/>
+			</div>
+		);
+	}
+);
+const SortableColumnItemContainer = sortableContainer( ( props ) => {
+	return (
+		<ul className="gamify-table__filter-items">{ props.children }</ul>
+	);
+} );
 
 const SortableColumns = ( {
 	setTempCopyColumns,
@@ -60,14 +72,14 @@ const SortableColumns = ( {
 		isModalOpen( false );
 	};
 
-	// const onSortEnd = ( { oldIndex, newIndex } ) => {
-	// 	const sortedColumn = arrayMoveImmutable(
-	// 		tempCopyColumns,
-	// 		oldIndex,
-	// 		newIndex
-	// 	);
-	// 	setTempCopyColumns( sortedColumn );
-	// };
+	const onSortEnd = ( { oldIndex, newIndex } ) => {
+		const sortedColumn = arrayMoveImmutable(
+			tempCopyColumns,
+			oldIndex,
+			newIndex
+		);
+		setTempCopyColumns( sortedColumn );
+	};
 
 	const handleToggle = () => {
 		isModalOpen( ! modalOpen );
@@ -95,7 +107,7 @@ const SortableColumns = ( {
 				</Button>
 			</div>
 
-			{/* <ReactModal
+			<ReactModal
 				isOpen={ modalOpen }
 				onRequestClose={ onRequestClose }
 				title={ __( 'Columns', 'gamify' ) }
@@ -132,7 +144,7 @@ const SortableColumns = ( {
 					</Flex>
 
 					{ showColumnFilter && (
-						<SortableColumnItemContainer onSortEnd={ onSortEnd }>
+						<SortableColumnItemContainer onSortEnd={ onSortEnd } useDragHandle helperClass="sortable-helper">
 							{ tempCopyColumns?.map( ( item, index ) => (
 								<SortableColumnItem
 									key={ `column-${ index }` }
@@ -178,7 +190,7 @@ const SortableColumns = ( {
 						</Button>
 					</Flex>
 				</Box>
-			</ReactModal> */}
+			</ReactModal>
 		</React.Fragment>
 	);
 };
