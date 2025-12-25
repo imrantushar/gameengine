@@ -5675,10 +5675,6 @@ const Logs = () => {
       search: searchQuery
     }));
   };
-  const handleSearch = value => {
-    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(value));
-    dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
-  };
 
   // --- Helper: Open Modal for Create ---
   const openCreateModal = () => {
@@ -5891,7 +5887,11 @@ const Logs = () => {
       }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Search__WEBPACK_IMPORTED_MODULE_8__["default"], {
       placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Search Items', 'gamify'),
-      onChange: e => handleSearch(e.target ? e.target.value : e)
+      defaultValue: searchQuery,
+      onSearchHandler: val => {
+        dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setSearchQuery)(val));
+        dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_12__.setPage)(1));
+      }
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_16__.Button, {
       ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_21__.primaryBtn,
       height: "36px",
@@ -5900,7 +5900,7 @@ const Logs = () => {
         as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiPlus
       })
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Manual Trigger', 'gamify'))));
-  }, [status]);
+  }, [status, searchQuery]);
   const userOptions = [{
     value: 1,
     label: "User 1"

@@ -82,10 +82,6 @@ const Logs = () => {
         dispatch(fetchLogs({ page: currentPage, per_page: rowsPerPage, search: searchQuery }));
     };
 
-    const handleSearch = (value) => {
-        dispatch(setSearchQuery(value));
-        dispatch(setPage(1));
-    };
 
     // --- Helper: Open Modal for Create ---
     const openCreateModal = () => {
@@ -296,7 +292,11 @@ const Logs = () => {
                 <div className="gamify-table-sub-header-actions-right" style={{ display: 'flex', gap: '10px' }}>
                     <Search
                         placeholder={__('Search Items', 'gamify')}
-                        onChange={(e) => handleSearch(e.target ? e.target.value : e)}
+                        defaultValue={searchQuery}
+                        onSearchHandler={(val) => {
+                            dispatch(setSearchQuery(val));
+                            dispatch(setPage(1));
+                        }}
                     />
                     <Button
                         {...primaryBtn}
@@ -309,7 +309,7 @@ const Logs = () => {
                 </div>
             </>
         );
-    }, [status]);
+    }, [status, searchQuery]);
     const userOptions = [
         { value: 1, label: "User 1" },
         { value: 2, label: "User 2" },
