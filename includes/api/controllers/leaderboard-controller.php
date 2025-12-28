@@ -43,35 +43,45 @@ class LeaderboardController extends BaseController
     {
         global $wpdb;
 
-        // Filters
-        $point_type_id = $request->get_param('point_type');
-        $time_range    = $request->get_param('time_range');
+        // 1. Sanitize Inputs
+        $point_type_id = $request->get_param('point_type') ? absint($request->get_param('point_type')) : 0;
+        $time_range    = sanitize_text_field($request->get_param('time_range'));
+        $per_page      = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 10;
+        $page          = $request->get_param('page') ? absint($request->get_param('page')) : 1;
+        $offset        = ($page - 1) * $per_page;
 
-        // Pagination
-        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 10;
-        $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
-        $offset   = ($page - 1) * $per_page;
+        // 2. Cache Key Generation
+        $cache_key = 'gamify_leaderboard_' . md5($point_type_id . $time_range . $per_page . $page);
+        $cached_data = wp_cache_get($cache_key, 'gamify_leaderboard');
 
-        // Dynamic Where Clause Construction
-        $where_sql = "WHERE 1=1 AND p.points > 0";
+        if (false !== $cached_data) {
+            return new \WP_REST_Response($cached_data['results'], 200, [
+                'X-WP-Total'      => $cached_data['total'],
+                'X-WP-TotalPages' => $cached_data['pages'],
+            ]);
+        }
+
+        // 3. Dynamic Where Clause Construction
+        $where_sql  = "WHERE 1=1 AND p.points > 0";
         $where_args = [];
 
-        if (!empty($point_type_id)) {
-            $where_sql .= " AND p.point_type_id = %d";
-            $where_args[] = absint($point_type_id);
+        if ($point_type_id > 0) {
+            $where_sql   .= " AND p.point_type_id = %d";
+            $where_args[] = $point_type_id;
         }
 
         if (!empty($time_range)) {
             $date_query = $this->get_date_query($time_range);
             if ($date_query) {
-                $where_sql .= " AND p.created_at >= %s";
+                $where_sql   .= " AND p.created_at >= %s";
                 $where_args[] = $date_query;
             }
         }
 
-        // Main Query (Aggregated Points)
-        $sql = "
-            SELECT 
+        // 4. Main Query (Optimized for PCP)
+        // phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $sql = $wpdb->prepare(
+            "SELECT 
                 u.ID as user_id,
                 u.display_name as name,
                 IFNULL(SUM(p.points), 0) as total_points,
@@ -86,46 +96,45 @@ class LeaderboardController extends BaseController
             $where_sql
             GROUP BY u.ID
             ORDER BY total_points DESC
-            LIMIT %d OFFSET %d
-        ";
+            LIMIT %d OFFSET %d",
+            array_merge($where_args, [$per_page, $offset])
+        );
 
-        // Merge LIMIT/OFFSET args with WHERE args
-        $query_args = array_merge($where_args, [$per_page, $offset]);
+        $results = $wpdb->get_results($sql, ARRAY_A);
 
-        // Execute Main Query
-        // The query is dynamic, so we suppress the NotPrepared warning as we are using prepare() correctly.
-        // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-        $results = $wpdb->get_results($wpdb->prepare($sql, $query_args), ARRAY_A);
-
-        // Count Query for Pagination
-        $count_sql = "
-            SELECT COUNT(DISTINCT u.ID) 
+        // 5. Count Query
+        $count_sql = $wpdb->prepare(
+            "SELECT COUNT(DISTINCT u.ID) 
             FROM {$wpdb->users} u
             LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
-            $where_sql
-        ";
+            $where_sql",
+            $where_args
+        );
+        $total_items = (int) $wpdb->get_var($count_sql);
+        // phpcs:enable
 
-        // Execute Count Query
-        if (!empty($where_args)) {
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            $total_items = $wpdb->get_var($wpdb->prepare($count_sql, $where_args));
-        } else {
-            // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
-            $total_items = $wpdb->get_var($count_sql);
-        }
-
-        // Add Rank & Formatting
+        // 6. Formatting
         $start_rank = $offset + 1;
         foreach ($results as $index => &$row) {
-            $row['rank'] = "#" . ($start_rank + $index);
-            $row['total_points'] = number_format($row['total_points']);
-            $row['achievements_count'] = number_format($row['achievements_count']);
-            $row['top_level'] = $row['top_level'] ?: '-';
+            $row['rank']               = "#" . ($start_rank + $index);
+            $row['total_points']       = number_format_i18n($row['total_points']);
+            $row['achievements_count'] = number_format_i18n($row['achievements_count']);
+            $row['top_level']          = $row['top_level'] ?: '-';
         }
 
+        $total_pages = (int) ceil($total_items / $per_page);
+
+        // 7. Store Cache
+        $cache_to_save = [
+            'results' => $results,
+            'total'   => $total_items,
+            'pages'   => $total_pages
+        ];
+        wp_cache_set($cache_key, $cache_to_save, 'gamify_leaderboard', 300); // 5 Minutes
+
         $response = new \WP_REST_Response($results, 200);
-        $response->header('X-WP-Total', (int) $total_items);
-        $response->header('X-WP-TotalPages', (int) ceil($total_items / $per_page));
+        $response->header('X-WP-Total', $total_items);
+        $response->header('X-WP-TotalPages', $total_pages);
 
         return $response;
     }
@@ -150,7 +159,7 @@ class LeaderboardController extends BaseController
             case 'last_30_days':
                 return gmdate('Y-m-d 00:00:00', strtotime('-30 days'));
             default:
-                return null; // All Time
+                return null;
         }
     }
 }

@@ -42,23 +42,25 @@ class PointsManager
      */
     public function get_total(int $user_id, int $point_type_id = 1): int
     {
-        if ($user_id <= 0) {
+        $safe_user_id = (int) $user_id;
+        $safe_pt_id   = (int) $point_type_id;
+
+        if ($safe_user_id <= 0) {
             return 0;
         }
 
         // Check Cache first
-        $cache_key = "gamify_user_points_{$user_id}_{$point_type_id}";
-        $total = wp_cache_get($cache_key, 'gamify');
+        $cache_key = "gamify_user_points_{$safe_user_id}_{$safe_pt_id}";
+        $total     = wp_cache_get($cache_key, 'gamify');
 
         if (false === $total) {
             global $wpdb;
-            $table = $wpdb->prefix . 'gamify_points_log';
 
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $total = (int) $wpdb->get_var($wpdb->prepare(
-                "SELECT SUM(points) FROM {$table} WHERE user_id = %d AND point_type_id = %d",
-                $user_id,
-                $point_type_id
+                "SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE user_id = %d AND point_type_id = %d",
+                $safe_user_id,
+                $safe_pt_id
             ));
 
             wp_cache_set($cache_key, $total, 'gamify');
@@ -73,22 +75,26 @@ class PointsManager
     private function log_transaction(int $user_id, int $points_value, string $context, array $args)
     {
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points_log';
 
+        $safe_user_id   = (int) $user_id;
         $point_type_id  = isset($args['point_type_id']) ? absint($args['point_type_id']) : 1;
         $requirement_id = isset($args['requirement_id']) ? absint($args['requirement_id']) : null;
         $description    = isset($args['description']) ? sanitize_text_field($args['description']) : null;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-        $result = $wpdb->insert($table, [
-            'user_id'        => $user_id,
-            'point_type_id'  => $point_type_id,
-            'points'         => $points_value,
-            'context'        => sanitize_key($context),
-            'requirement_id' => $requirement_id,
-            'description'    => $description,
-            'created_at'     => current_time('mysql'),
-        ]);
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $result = $wpdb->insert(
+            $wpdb->prefix . 'gamify_points_log',
+            [
+                'user_id'        => $safe_user_id,
+                'point_type_id'  => $point_type_id,
+                'points'         => (int) $points_value,
+                'context'        => sanitize_key($context),
+                'requirement_id' => $requirement_id,
+                'description'    => $description,
+                'created_at'     => current_time('mysql'),
+            ],
+            ['%d', '%d', '%d', '%s', '%d', '%s', '%s']
+        );
 
         if (! $result) {
             return false;
@@ -97,12 +103,12 @@ class PointsManager
         $log_id = $wpdb->insert_id;
 
         // Clear Cache so get_total returns fresh value
-        wp_cache_delete("gamify_user_points_{$user_id}_{$point_type_id}", 'gamify');
+        wp_cache_delete("gamify_user_points_{$safe_user_id}_{$point_type_id}", 'gamify');
 
         if ($points_value > 0) {
-            do_action('gamify_points_added', $user_id, $points_value, $context, $log_id, $point_type_id);
+            do_action('gamify_points_added', $safe_user_id, $points_value, $context, $log_id, $point_type_id);
         } else {
-            do_action('gamify_points_deducted', $user_id, abs($points_value), $context, $log_id, $point_type_id);
+            do_action('gamify_points_deducted', $safe_user_id, abs($points_value), $context, $log_id, $point_type_id);
         }
 
         return $log_id;
@@ -113,19 +119,20 @@ class PointsManager
      */
     public function get_grand_total(int $user_id): int
     {
-        if ($user_id <= 0) {
+        $safe_user_id = (int) $user_id;
+
+        if ($safe_user_id <= 0) {
             return 0;
         }
 
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points_log';
 
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $total = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT SUM(points) FROM {$table} WHERE user_id = %d",
-            $user_id
+            "SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE user_id = %d",
+            $safe_user_id
         ));
 
-        return $total;
+        return (int) $total;
     }
 }

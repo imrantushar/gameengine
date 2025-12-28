@@ -13,6 +13,9 @@ use Gamify\Classes\PointsManager;
  */
 class UserProfile
 {
+    /**
+     * Initialize User Profile hooks.
+     */
     public static function init()
     {
         $self = new self();
@@ -47,23 +50,25 @@ class UserProfile
         wp_add_inline_style('admin-bar', $css);
     }
 
+    /**
+     * Render the custom profile fields.
+     */
     public function render_profile_fields($user)
     {
-        global $wpdb;
         $user_id = $user->ID;
 
-        $points = $this->get_user_points($user_id);
+        $points       = $this->get_user_points($user_id);
         $achievements = $this->get_user_achievements($user_id);
-        $levels = $this->get_user_levels($user_id);
+        $levels       = $this->get_user_levels($user_id);
 
-        // Check if current user is admin
         $is_admin = current_user_can('manage_options');
 
+        // Add Nonce for security
+        wp_nonce_field('gamify_update_user_points', 'gamify_points_nonce');
 ?>
         <h2 class="gamify-profile-section"><?php esc_html_e('Gamify Profile', 'gamify'); ?></h2>
 
         <table class="form-table" role="presentation">
-
             <!-- Level Section -->
             <tr>
                 <th><label><?php esc_html_e('Level', 'gamify'); ?></label></th>
@@ -95,12 +100,10 @@ class UserProfile
                         <label class="gamify-label-bold"><?php esc_html_e('Total Points', 'gamify'); ?></label>
 
                         <?php if ($is_admin) : ?>
-                            <!-- Admin: Editable Input -->
                             <input type="number" name="gamify_points" id="gamify_points" value="<?php echo esc_attr($points); ?>" class="regular-text" />
                             <p class="description"><?php esc_html_e('Update user points manually. Differences will be logged.', 'gamify'); ?></p>
                         <?php else : ?>
-                            <!-- Non-Admin: Read-only Text -->
-                            <span class="gamify-readonly-points"><?php echo number_format_i18n($points); ?></span>
+                            <span class="gamify-readonly-points"><?php echo esc_html(number_format_i18n($points)); ?></span>
                             <p class="description"><?php esc_html_e('Your current total points.', 'gamify'); ?></p>
                         <?php endif; ?>
 
@@ -130,32 +133,33 @@ class UserProfile
                     </div>
                 </td>
             </tr>
-
         </table>
 <?php
     }
 
+    /**
+     * Save the custom profile fields.
+     */
     public function save_profile_fields($user_id)
     {
-        // Security Check: Only admins can save points
-        if (!current_user_can('manage_options')) {
+        // 1. Nonce Verification
+        if (! isset($_POST['gamify_points_nonce']) || ! wp_verify_nonce(sanitize_key($_POST['gamify_points_nonce']), 'gamify_update_user_points')) {
             return false;
         }
 
-        if (!current_user_can('edit_user', $user_id)) {
+        // 2. Permission Check
+        if (! current_user_can('manage_options') || ! current_user_can('edit_user', $user_id)) {
             return false;
         }
 
-        // Handle Points Update
+        // 3. Handle Points Update
         if (isset($_POST['gamify_points'])) {
-            $new_points = intval($_POST['gamify_points']);
+            $new_points     = intval($_POST['gamify_points']);
             $current_points = $this->get_user_points($user_id);
+            $diff           = $new_points - $current_points;
 
-            $diff = $new_points - $current_points;
-
-            if ($diff != 0) {
+            if ($diff !== 0) {
                 $manager = new PointsManager();
-
                 if ($diff > 0) {
                     $manager->add($user_id, $diff, 'manual_profile_update', ['description' => 'Updated via User Profile']);
                 } else {
@@ -168,39 +172,32 @@ class UserProfile
     private function get_user_points($user_id)
     {
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_points_log';
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
-        $total = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$table} WHERE user_id = %d", $user_id));
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $total = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE user_id = %d", (int) $user_id));
         return intval($total);
     }
 
     private function get_user_achievements($user_id)
     {
         global $wpdb;
-        $table_ua = $wpdb->prefix . 'gamify_user_achievements';
-        $table_a = $wpdb->prefix . 'gamify_achievements';
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         return $wpdb->get_results($wpdb->prepare(
-            "SELECT a.title, a.badge_image FROM {$table_ua} ua 
-             JOIN {$table_a} a ON ua.achievement_id = a.id 
+            "SELECT a.title, a.badge_image FROM {$wpdb->prefix}gamify_user_achievements ua 
+             JOIN {$wpdb->prefix}gamify_achievements a ON ua.achievement_id = a.id 
              WHERE ua.user_id = %d ORDER BY ua.achieved_at DESC",
-            $user_id
+            (int) $user_id
         ));
     }
 
     private function get_user_levels($user_id)
     {
         global $wpdb;
-        $table_ul = $wpdb->prefix . 'gamify_user_levels';
-        $table_l = $wpdb->prefix . 'gamify_levels';
-
-        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         return $wpdb->get_results($wpdb->prepare(
-            "SELECT l.title, l.icon FROM {$table_ul} ul 
-             JOIN {$table_l} l ON ul.level_id = l.id 
+            "SELECT l.title, l.icon FROM {$wpdb->prefix}gamify_user_levels ul 
+             JOIN {$wpdb->prefix}gamify_levels l ON ul.level_id = l.id 
              WHERE ul.user_id = %d ORDER BY ul.achieved_at DESC",
-            $user_id
+            (int) $user_id
         ));
     }
 }

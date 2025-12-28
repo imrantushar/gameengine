@@ -150,7 +150,7 @@ class PointTypesController extends BaseController
         delete_transient('gamify_point_types_list');
 
         return new \WP_REST_Response([
-            'message' => 'Point Type saved successfully.',
+            'message' => __('Point Type saved successfully.', 'gamify'),
             'id' => $point_type_id,
             'slug' => $slug
         ], 201);

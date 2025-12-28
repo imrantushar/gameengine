@@ -54,6 +54,9 @@ class DashboardController extends BaseController
             $total_points = $wpdb->get_var("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points > 0");
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+            $total_deducted = $wpdb->get_var("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points < 0");
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $total_achievements = $wpdb->get_var("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements");
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -96,6 +99,7 @@ class DashboardController extends BaseController
             $stats = [
                 'overview' => [
                     'points'       => number_format((int)$total_points),
+                    'points_deducted' => number_format(abs((int)$total_deducted)),
                     'achievements' => number_format((int)$total_achievements),
                     'levels'       => number_format((int)$total_levels),
                     'active_users' => number_format((int)$active_users),

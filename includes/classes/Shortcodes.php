@@ -42,22 +42,25 @@ class Shortcodes
         $user_id   = get_current_user_id();
         $user_data = get_userdata($user_id);
 
+        if (!$user_data) {
+            return '';
+        }
+
         $points_manager       = new PointsManager();
         $levels_manager       = new LevelsManager();
         $achievements_manager = new AchievementsManager();
 
-        //$points        = $points_manager->get_total($user_id);
-        $points = $points_manager->get_grand_total($user_id);
-        $current_level = $levels_manager->get_current_level($user_id);
-        $badges        = $achievements_manager->get_user_achievements($user_id);
+        $points     = $points_manager->get_grand_total($user_id);
+        $badges     = $achievements_manager->get_user_achievements($user_id);
         $all_levels = $levels_manager->get_all_user_levels($user_id);
+
         ob_start();
 ?>
         <div class="gamify-frontend-card">
             <!-- Header: User Info -->
             <div class="gamify-card-header">
                 <div class="gamify-user-avatar">
-                    <?php echo get_avatar($user_id, 64); ?>
+                    <?php echo wp_kses_post(get_avatar($user_id, 64)); ?>
                 </div>
                 <div class="gamify-user-info">
                     <h3><?php echo esc_html($user_data->display_name); ?></h3>
@@ -68,14 +71,15 @@ class Shortcodes
                                 $level_names = array_map(function ($l) {
                                     return $l->title;
                                 }, $all_levels);
-                                echo '🏆 ' . esc_html(implode(', ', $level_names));
+                                // translators: %s: Comma separated level names
+                                echo esc_html(sprintf(__('🏆 %s', 'gamify'), implode(', ', $level_names)));
                             } else {
                                 echo '🏆 ' . esc_html__('No Level', 'gamify');
                             }
                             ?>
                         </span>
                         <span class="gamify-points-pill">
-                            🪙 <?php echo number_format_i18n($points); ?> <?php esc_html_e('Points', 'gamify'); ?>
+                            🪙 <?php echo esc_html(number_format_i18n($points)); ?> <?php esc_html_e('Points', 'gamify'); ?>
                         </span>
                     </div>
                 </div>
@@ -89,7 +93,6 @@ class Shortcodes
                     <div class="gamify-badges-grid">
                         <?php foreach ($badges as $badge) : ?>
                             <?php
-                            // Ensure array access for badges (since get_results uses ARRAY_A)
                             $title = isset($badge['title']) ? $badge['title'] : '';
                             $image = isset($badge['badge_image']) ? $badge['badge_image'] : '';
                             ?>
@@ -121,9 +124,8 @@ class Shortcodes
             return '';
         }
         $manager = new PointsManager();
-        //$points  = $manager->get_total(get_current_user_id());
         $points  = $manager->get_grand_total(get_current_user_id());
-        return '<span class="gamify-points-text">' . number_format_i18n($points) . '</span>';
+        return '<span class="gamify-points-text">' . esc_html(number_format_i18n($points)) . '</span>';
     }
 
     /**
@@ -136,20 +138,16 @@ class Shortcodes
         }
 
         $manager = new LevelsManager();
-
-        // 🔥 Use the new function to get ALL levels
         $levels = $manager->get_all_user_levels(get_current_user_id());
 
         if (empty($levels)) {
             return esc_html__('No Level', 'gamify');
         }
 
-        // Extract titles
         $titles = array_map(function ($level) {
             return $level->title;
         }, $levels);
 
-        // Join with comma
         return esc_html(implode(', ', $titles));
     }
 

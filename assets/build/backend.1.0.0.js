@@ -4196,6 +4196,12 @@ function Overview({
     bg: "yellow.50",
     iconColor: "yellow.500"
   }, {
+    label: "Points Deducted",
+    value: data?.points_deducted || "0",
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiMinusCircle,
+    bg: "red.50",
+    iconColor: "red.500"
+  }, {
     label: "Achievements Given",
     value: data?.achievements || "0",
     icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiAward,
@@ -4256,18 +4262,18 @@ function Overview({
   }, "Jan 10, 2024 \u2013 Jan 25, 2024")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_8__["default"], {
     margin: "16px 0"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-    gap: 6,
-    flexWrap: "wrap"
+    gap: 4,
+    flexWrap: "nowrap"
   }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     key: i,
-    p: 5,
+    p: 4,
     rounded: "2xl",
     bg: card.bg,
     align: "center",
     justify: "space-between",
     shadow: "sm",
     flex: "1",
-    minW: "250px",
+    minW: "200px",
     h: "130px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
     type: "title",
