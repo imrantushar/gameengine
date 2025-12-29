@@ -1,11 +1,17 @@
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar, FiMinusCircle } from "react-icons/fi";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import Divider from '@GFComponents/Divider';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function Overview({ data }) {
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const dateOnly = (d) => (d ? d.toISOString().split('T')[0] : null);
+    console.log(dateOnly(startDate), dateOnly(endDate));
     const cards = [
         { label: "Points Given", value: data?.points || "0", icon: FiStar, bg: "yellow.50", iconColor: "yellow.500" },
         {
@@ -28,17 +34,47 @@ function Overview({ data }) {
                     border="1px solid"
                     borderColor="gray.300"
                     borderRadius="md"
-                    p='10px 12px'
+                    p="10px 12px"
                     cursor="pointer"
                     _hover={{ bg: "gray.50" }}
-                    width="fit-content"
-                    height='40px'
+                    height="40px"
                 >
                     <Flex align="center" gap={2}>
                         <Icon as={FiCalendar} color="gray.600" boxSize={4} />
-                        <Text margin='0' fontSize="sm" color="gray.800" fontWeight="500">
-                            Jan 10, 2024 – Jan 25, 2024
-                        </Text>
+                        <Flex>
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                placeholderText={__('Start date', 'gamify')}
+                                dateFormat="MMM dd, yyyy"
+                                showTimeSelect={false}
+                                customInput={
+                                    <Text fontSize="sm" fontWeight="500" m="0" cursor="pointer">
+                                        {startDate
+                                            ? startDate.toLocaleDateString()
+                                            : __('Start date', 'gamify')}
+                                    </Text>
+                                }
+                            />
+                            <Text fontSize="sm" fontWeight="500" margin='0 4px' color="gray.500">
+                                -
+                            </Text>
+                            <DatePicker
+                                selected={endDate}
+                                onChange={(date) => setEndDate(date)}
+                                placeholderText={__('End date', 'gamify')}
+                                dateFormat="MMM dd, yyyy"
+                                minDate={startDate}
+                                showTimeSelect={false}
+                                customInput={
+                                    <Text fontSize="sm" fontWeight="500" m="0" cursor="pointer">
+                                        {endDate
+                                            ? endDate.toLocaleDateString()
+                                            : __('End date', 'gamify')}
+                                    </Text>
+                                }
+                            />
+                        </Flex>
                     </Flex>
                 </Box>
             </Flex>
