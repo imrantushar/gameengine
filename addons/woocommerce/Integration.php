@@ -157,7 +157,7 @@ class Integration
             'args_count'  => 1,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type'], // Only deduct points usually
+            'supports'    => ['point_type', 'achievement'], // Only deduct points usually
             'get_user_id' => function ($order_id) {
                 if (!function_exists('wc_get_order')) return 0;
                 $order = wc_get_order($order_id);
@@ -178,7 +178,7 @@ class Integration
             'args_count'  => 1,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($order_id) {
                 if (!function_exists('wc_get_order')) return 0;
                 $order = wc_get_order($order_id);

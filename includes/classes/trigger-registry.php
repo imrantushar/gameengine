@@ -342,6 +342,116 @@ final class TriggerRegistry
             ]
         ]);
 
+        // --- Publish Page ---
+        self::add('publish_page', [
+            'label'       => __('Publish a new page', 'gamify'),
+            'description' => __('Fires when a user publishes a new WordPress page.', 'gamify'),
+            'hook'        => 'publish_page',
+            'args_count'  => 2,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($post_id, $post) {
+                return $post->post_author;
+            },
+            'award_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points', 'gamify'),
+                    'default' => 30,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day', '1_time' => '1 Time Only'],
+                    'default' => 'unlimited',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('New Page Published', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Deduct Points', 'gamify'),
+                    'default' => 15,
+                    'required' => true
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited'],
+                    'default' => 'unlimited'
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Page Deletion Penalty', 'gamify')
+                ],
+            ]
+        ]);
+
+
+        // --- Delete Post ---
+        self::add('delete_post', [
+            'label'       => __('Delete a post', 'gamify'),
+            'description' => __('Fires when a post is permanently deleted from the site.', 'gamify'),
+            'hook'        => 'before_delete_post',
+            'args_count'  => 1,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($post_id) {
+                $post = get_post($post_id);
+                return $post ? $post->post_author : 0;
+            },
+            'award_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points', 'gamify'),
+                    'default' => 0,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited'],
+                    'default' => 'unlimited',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Post Deleted Reward', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Deduct Points', 'gamify'),
+                    'default' => 20,
+                    'required' => true
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited'],
+                    'default' => 'unlimited'
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Post Deletion Penalty', 'gamify')
+                ],
+            ]
+        ]);
+
 
         // ==========================================
         // 2. SITE INTERACTIONS
