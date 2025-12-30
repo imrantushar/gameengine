@@ -27,14 +27,14 @@ class Integration
             'args_count'  => 1,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement',],
             'get_user_id' => function ($order_id) {
                 if (!function_exists('wc_get_order')) return 0;
                 $order = wc_get_order($order_id);
                 return $order ? $order->get_user_id() : 0;
             },
             'award_fields' => [
-                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 50, 'required' => true, 'scope' => ['point_type']],
+                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 50, 'required' => true],
                 'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day'], 'default' => 'unlimited'],
                 'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Purchase Reward', 'gamify')],
             ],
@@ -53,7 +53,7 @@ class Integration
             'args_count'  => 1,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($order_id) {
                 if (!function_exists('wc_get_order')) return 0;
                 $order = wc_get_order($order_id);
@@ -61,7 +61,7 @@ class Integration
             },
             'award_fields' => [
                 'product_id' => ['type' => 'number', 'label' => __('Product ID', 'gamify'), 'required' => true],
-                'points'     => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 100, 'required' => true, 'scope' => ['point_type']],
+                'points'     => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 100, 'required' => true],
                 'limit'      => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'], 'default' => '1_time'],
                 'label'      => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Specific Product Reward', 'gamify')],
             ],
@@ -81,12 +81,12 @@ class Integration
             'args_count'  => 2,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($post_id, $post) {
                 return $post->post_author;
             },
             'award_fields' => [
-                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 20, 'scope' => ['point_type']],
+                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 20],
                 'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day'], 'default' => 'unlimited'],
                 'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Product Published Reward', 'gamify')],
             ],
@@ -105,13 +105,13 @@ class Integration
             'args_count'  => 2,
             'type'        => 'woocommerce',
             'category'    => 'woocommerce',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($comment_id) {
                 $comment = get_comment($comment_id);
                 return $comment->user_id;
             },
             'award_fields' => [
-                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 10, 'scope' => ['point_type']],
+                'points' => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 10],
                 'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_per_day' => '1 Per Day'], 'default' => 'unlimited'],
                 'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Product Review Reward', 'gamify')],
             ],
@@ -137,7 +137,7 @@ class Integration
             },
             'award_fields' => [
                 'product_id' => ['type' => 'number', 'label' => __('Product ID', 'gamify'), 'required' => true],
-                'points'     => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 20, 'scope' => ['point_type']],
+                'points'     => ['type' => 'number', 'label' => __('Points', 'gamify'), 'default' => 20],
                 'limit'      => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['1_time' => '1 Time Only'], 'default' => '1_time'],
                 'label'      => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Specific Review Reward', 'gamify')],
             ],

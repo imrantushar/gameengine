@@ -172,7 +172,7 @@ final class TriggerRegistry
             'args_count'  => 3,
             'type'        => 'gamify',
             'category'    => 'gamify',
-            'supports'    => ['level', 'point_type'],
+            'supports'    => ['achievement', 'point_type'],
             'get_user_id' => function ($user_id) {
                 return $user_id;
             },
@@ -196,7 +196,7 @@ final class TriggerRegistry
             'args_count'  => 2,
             'type'        => 'wordpress',
             'category'    => 'wordpress',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($user_login, $user) {
                 return $user->ID;
             },
@@ -244,7 +244,7 @@ final class TriggerRegistry
             'args_count'  => 2,
             'type'        => 'wordpress',
             'category'    => 'wordpress',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($post_id, $post) {
                 return $post->post_author;
             },
@@ -278,7 +278,7 @@ final class TriggerRegistry
             'args_count'  => 2,
             'type'        => 'wordpress',
             'category'    => 'wordpress',
-            'supports'    => ['point_type', 'achievement', 'level'],
+            'supports'    => ['point_type', 'achievement'],
             'get_user_id' => function ($comment_id, $comment_approved) {
                 $comment = get_comment($comment_id);
                 return (int) ($comment->user_id ?? 0);
@@ -302,6 +302,87 @@ final class TriggerRegistry
                     'default' => 'unlimited'
                 ],
                 'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Comment Penalty', 'gamify')],
+            ]
+        ]);
+
+        // --- User Register ---
+        self::add('user_register', [
+            'label'       => __('Register to website', 'gamify'),
+            'description' => __('Fires when a new user registers on the site.', 'gamify'),
+            'hook'        => 'user_register',
+            'args_count'  => 1,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user_id) {
+                return $user_id;
+            },
+            'award_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points', 'gamify'),
+                    'default' => 50,
+                    'scope'   => ['point_type']
+                ],
+                'limit'  => [
+                    'type'    => 'hidden',
+                    'default' => '1_time',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Registration Bonus', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 0],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Registration Reversal', 'gamify')],
+            ]
+        ]);
+
+
+        // ==========================================
+        // 2. SITE INTERACTIONS
+        // ==========================================
+
+        // --- Daily Visit Website ---
+        self::add('daily_visit_website', [
+            'label'       => __('Daily visit website', 'gamify'),
+            'description' => __('Fires when a user visits the website (ideally once per day).', 'gamify'),
+            'hook'        => 'gamify_site_visit',
+            'args_count'  => 2,
+            'type'        => 'interaction',
+            'category'    => 'interaction',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user_id) {
+                return $user_id;
+            },
+            'award_fields' => [
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points', 'gamify'),
+                    'default' => 5,
+                    'scope'   => ['point_type']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['1_per_day' => '1 Per Day', 'unlimited' => 'Unlimited'],
+                    'default' => '1_per_day',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Daily Visit Reward', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 0],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Visit Penalty', 'gamify')],
             ]
         ]);
     }
