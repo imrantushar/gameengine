@@ -17,6 +17,7 @@ import GFSelect from "@GFComponents/Select";
 import Divider from "@GFComponents/Divider";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
+import { SiWoocommerce } from "react-icons/si";
 
 // Actions
 import {
@@ -274,8 +275,12 @@ const AchievementsType = () => {
             bg: "purple.500",
         },
         interaction: {
-            icon: AiFillInteraction ,
-            
+            icon: AiFillInteraction,
+
+        },
+        woocommerce: {
+            icon: SiWoocommerce,
+
         },
     };
     return (
