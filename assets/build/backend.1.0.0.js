@@ -6894,12 +6894,12 @@ const PointType = () => {
     border: "1px solid var(--gamify-border-color)",
     direction: "column",
     gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_13__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_13__["default"], {
     type: "title",
     fontWeight: "500",
     fontSize: "1.25rem",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)(`Available Hooks`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     as: "label",
     direction: "column",
     gap: 2

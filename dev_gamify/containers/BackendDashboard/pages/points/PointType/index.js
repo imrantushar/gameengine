@@ -596,8 +596,9 @@ const PointType = () => {
 
                                 {/* LEFT AVAILABLE */}
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-
-                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                    <Flex>
+                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                    </Flex>
                                     <Flex as="label" direction="column" gap={2}>
                                         <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
                                             <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
