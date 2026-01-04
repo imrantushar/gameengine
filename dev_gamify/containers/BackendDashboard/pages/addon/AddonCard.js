@@ -12,7 +12,7 @@ const AddonCard = ({ item }) => {
 
 	// Redux State 
 	const { activeAddons = [] } = useSelector(state => state.addons || {});
-	const isReduxActive = activeAddons.includes(item.name);
+	const isReduxActive = activeAddons?.includes(item.name);
 
 	// Local State for Instant UI Update (Optimistic UI)
 	const [localChecked, setLocalChecked] = useState(isReduxActive);

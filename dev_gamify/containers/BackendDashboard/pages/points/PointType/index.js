@@ -47,7 +47,8 @@ import {
 } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
-import { AiFillInteraction } from 'react-icons/ai';
+import { AiFillInteraction} from 'react-icons/ai';
+import { SiWoocommerce } from "react-icons/si";
 
 
 // # DRAGGABLE
@@ -375,6 +376,10 @@ const PointType = () => {
         },
         interaction: {
             icon: AiFillInteraction,
+
+        },
+        woocommerce: {
+            icon: SiWoocommerce,
 
         },
     };
