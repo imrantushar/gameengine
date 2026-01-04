@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "baseUrl": "dev_gamify",
+      "paths": {
+        "@GFComponents/*": ["components/*"],
+        "@GFContainers/*": ["containers/*"],
+        "@GFCustomizer/*": ["customizer/*"],
+        // "@GFPages/*": ["containers/pages/*"],
+        "@GFGlobal/*": ["global/*"],
+        "@GFRedux/*": ["redux/*"],
+        "@GFUtils/*": ["utils/*"],
+      }
+    },
+    "include": ["dev_gamify"]
+  }

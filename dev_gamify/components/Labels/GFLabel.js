@@ -1,65 +1,177 @@
-import React from 'react';
-import { __ } from '@wordpress/i18n';
-import { Text, Button } from '@chakra-ui/react';
-import { clearBtn } from '../../../assets/scss/chakra/recipe';
+import React, { useState } from 'react';
+import { __, sprintf } from '@wordpress/i18n';
+import { Text, Button, Flex } from '@chakra-ui/react';
 import { Link } from 'react-router-dom';
+import { sliceString } from '@GFUtils/helper';
+import { clearBtn, clearPrimaryBtn } from '../../../assets/scss/chakra/recipe';
 
-const GFLabel = ( {
-	type = 'title',
-	label = '',
-	as = '',
-	fontSize = '',
-	fontWeight = '',
-	margin = '0',
-	padding = '',
+const GFLabel = ({
+	type = "title",
+	label = "",
+	fontSize = "",
+	fontWeight = "",
+	textTransform = "",
+	margin = "0",
+	padding = "",
+	color = "",
+	bg = "",
+	borderRadius = "",
 	href = null,
-	color,
-	...rest 
-} ) => {
+	textAlign = "",
+	borderBottomWidth = "",
+	borderColor = "",
+	icon,
+	whiteSpace = "",
+	lineClamp = "",
+	truncate,
+	lineHeight,
+	enableSlice = false,
+	sliceLength = 100,
+	sliceMore = '...',
+	showToggle = true,
+	seeMoreText = __('See more', 'gamifymunity'),
+	seeLessText = __('See less', 'gamifymunity'),
+}) => {
+	const [isExpanded, setIsExpanded] = useState(false);
+
 	const variantStyles = {
+		heading: {
+			fontSize: "20px",
+			fontWeight: "200",
+			color: "var(--gamify-font-color)",
+		},
 		title: {
-			fontSize: 'md',
-			fontWeight: 'medium',
-			color: 'var(--gamify-font-color)',
+			fontSize: "sm",
+			fontWeight: "medium",
+			color: "var(--gamify-font-color)",
 		},
 		subtitle: {
-			fontSize: 'sm',
-			fontWeight: 'normal',
-			color: 'var(--gamify-text-muted)',
+			fontSize: "sm",
+			fontWeight: "normal",
+			color: "gray.600",
 		},
 		miniTitle: {
-			fontSize: 'xs',
-			fontWeight: 'medium',
-			color: 'var(--gamify-text-muted)',
+			fontSize: "xs",
+			fontWeight: "normal",
+			color: "gray.600",
 		},
+		basic: {
+			fontSize: "14px",
+			fontWeight: "500",
+			color: "var(--gamify-font-color)",
+		},
+		simple: {
+			fontSize: "14px",
+			fontWeight: "400",
+			color: "var(--gamify-gray-color)",
+		},
+		simpleLight: {
+			fontSize: "12px",
+			fontWeight: "400",
+			color: "var(--gamify-gray-color)",
+		},
+		bold: {
+			fontSize: "16px",
+			fontWeight: "500",
+			color: "var(--gamify-font-color)",
+		},
+		boldLight: {
+			fontSize: "16px",
+			fontWeight: "500",
+			color: "var(--gamify-gray-color)",
+		},
+		inputLabel: {
+			fontSize: "0.875rem",                 
+			fontWeight: "600",              
+			color: "var(--gamify-font-color)", 
+			
+		}
+		
 	};
 
-	const styles = variantStyles[ type ] || variantStyles.title;
+	const styles = variantStyles[type] || variantStyles?.title;
 
 	const textProps = {
-		fontSize: fontSize || styles.fontSize,
-		fontWeight: fontWeight || styles.fontWeight,
-		margin,
-		padding,
-		fontFamily: 'var(--gamify-font)',
-		as,
-		color: color || styles.color,
-		...rest 
+		fontSize: fontSize || styles?.fontSize,
+		fontWeight: fontWeight || styles?.fontWeight,
+		textTransform: textTransform,
+		color: color || styles?.color,
+		bg: bg,
+		borderRadius: borderRadius,
+		margin: margin,
+		padding: padding,
+		fontFamily: "var(--gamify-font)",
+		textAlign: textAlign,
+		borderBottomWidth: borderBottomWidth,
+		borderColor: borderColor,
+		whiteSpace: whiteSpace,
+		truncate: truncate,
+		lineClamp: lineClamp,
+		lineHeight: lineHeight,
+	};
+
+	const needsSlicing = enableSlice && label && label.length > sliceLength;
+
+	const getDisplayText = () => {
+		if (!enableSlice || !needsSlicing) {
+			return label;
+		}
+
+		if (isExpanded) {
+			return label;
+		}
+
+		return sliceString(label, sliceLength, sliceMore);
+	};
+
+	const displayText = getDisplayText();
+
+	const toggleExpansion = () => {
+		setIsExpanded(!isExpanded);
+	};
+
+	const renderContent = () => {
+		if (href) {
+			return (
+				<Button {...clearBtn}>
+					<Link to={href} color="var(--gamify-primary-color)">
+						{displayText}
+					</Link>
+				</Button>
+			);
+		}
+
+		if (icon) {
+			return (
+				<Flex alignItems="center" gap="2">
+					{icon} {displayText}
+				</Flex>
+			);
+		}
+
+		return displayText;
 	};
 
 	return (
 		<>
-			{ href ? (
-				<Button { ...clearBtn }>
-					<Link to={ href } color="var(--gamify-font-color)">
-						<Text { ...textProps } _hover={ { color: '#4F46E5' } }>
-							{ `${ label }` }
-						</Text>
-					</Link>
-				</Button>
-			) : (
-				<Text { ...textProps }>{ `${ label }` }</Text>
-			) }
+			<Text  {...textProps}>
+				{renderContent()}
+
+				{enableSlice && needsSlicing && showToggle && !href && (
+					<Button
+						{...clearPrimaryBtn}
+						fontSize="14px"
+						fontWeight="400"
+						lineHeight="24px"
+						variant="plain"
+						size="md"
+						marginLeft={1}
+						onClick={toggleExpansion}
+					>
+						{isExpanded ? seeLessText : seeMoreText}
+					</Button>
+				)}
+			</Text>
 		</>
 	);
 };

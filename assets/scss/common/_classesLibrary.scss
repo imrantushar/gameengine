@@ -1,5 +1,476 @@
 .gamify-admin-content {
     margin-left: -20px;
     background: var(--gamify-body-background);
-    height: "auto";
+    min-height: 100vh;
+}
+
+
+.gamify-content-wrap {
+    width: 100%;
+    padding: 24px;
+    background: var(--gamify-background);
+    border-radius: 4px;
+
+    &__left {
+        width: 70%;
+    }
+
+    &__right {
+        width: 30%;
+    }
+}
+
+a {
+    color: var(--gamify-font-color);
+
+    &:hover,
+    &:focus {
+        color: var(--gamify-primary);
+        box-shadow: none !important;
+        outline: none !important;
+    }
+}
+
+.gamify-subtitle-link {
+    color: var(--gamify-primary) !important;
+    text-decoration: underline;
+    font-size: 12px;
+    margin-left: 4px;
+}
+
+// Heading
+.gamify-heading {
+    &-label {
+        color: var(--gamify-font-color);
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 28px;
+        margin: 0;
+    }
+
+    &-border {
+        width: 100%;
+        margin: 0 0 24px 0;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--gamify-border-color);
+    }
+}
+
+// Title & Subtitle
+.gamify {
+    &-title-subtitle {
+        color: var(--gamify-font-color);
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 100%;
+        margin: 0;
+    }
+
+    &-title {
+        color: var(--gamify-font-color);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 24px;
+        margin: 0;
+    }
+
+    &-sub-title {
+        color: var(--gamify-font-color);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 0;
+    }
+
+    &-sub-title-muted {
+        color: var(--gamify-warn-muted);
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 18px;
+        margin: 0;
+    }
+
+    &-title-required {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        &--sign {
+            color: var(--gamify-placing);
+        }
+    }
+}
+input.gamify-checkbox {
+    width: 16px;
+    height: 16px;
+    position: relative;
+    appearance: none;
+    border: 1px solid var(--gamify-border-color);
+    border-radius: 3px;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+        box-shadow: none;
+        border-color: var(--gamify-border-color);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 74%;
+        left: 60%;
+        width: 4px !important;
+        height: 8px !important;
+        margin: -3px 0 0 -5px !important;
+        border: solid var(--gamify-font-color);
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg) translate(-50%, -60%);
+        opacity: 0;
+
+    }
+
+    &:checked::before {
+        opacity: 1;
+    }
+}
+
+// width
+.gamify-width {
+    &--320 {
+        width: 320px;
+    }
+
+    &--200 {
+        width: 200px;
+    }
+
+    &-25 {
+        width: 25%;
+    }
+
+    &-50 {
+        width: 50%;
+    }
+
+    &-75 {
+        width: 75%;
+    }
+
+    &-full {
+        width: 100%;
+    }
+
+    &-custom-32 {
+        width: calc(100% - 32px);
+    }
+}
+
+.gamify-min-w {
+
+    // Mainly for table column custom width
+    &--240 {
+        min-width: 240px;
+    }
+}
+
+// margin
+.gamify {
+    &-mb-6 {
+        margin-bottom: 24px;
+    }
+
+    &-m-0 {
+        margin: 0;
+    }
+
+    &-mb-2 {
+        margin-bottom: 8px;
+    }
+
+    &-mb-1 {
+        margin-bottom: 4px;
+    }
+
+    &-mt-1 {
+        margin-top: 4px;
+    }
+
+    &-mt-6 {
+        margin-top: 24px;
+    }
+
+    &-mt-2 {
+        margin-top: 8px;
+    }
+
+    &-mb-0 {
+        margin-bottom: 0;
+    }
+
+    &-mr-12 {
+        margin-right: 32px;
+    }
+}
+
+// padding
+.gamify {
+    &-pt-1 {
+        padding-top: 4px;
+    }
+
+    &-pt-3 {
+        padding-top: 12px;
+    }
+
+    &-pt-4 {
+        padding-top: 16px;
+    }
+
+    &-pt-6 {
+        padding-top: 24px;
+    }
+
+    &-pb-6 {
+        padding-top: 24px;
+    }
+
+    &-pb-4 {
+        padding-bottom: 1rem;
+    }
+
+    &-pb-1 {
+        padding-bottom: 4px;
+    }
+
+    &-ptb-3 {
+        padding: 12px 12px;
+    }
+
+    &-p-0 {
+        padding: 0;
+    }
+
+    &-p-02 {
+        padding: 8px 12px;
+    }
+
+    &-p-04 {
+        padding: 12px 16px;
+    }
+
+    &-p-06 {
+        padding: 12px 24px;
+    }
+}
+
+// Cursor
+.gamify {
+    &--pointer {
+        cursor: pointer;
+    }
+}
+
+.gamify-separator {
+    border-bottom: 1px solid var(--gamify-border-color);
+    margin: 24px 0;
+    width: 100%;
+}
+
+.gamify-heading {
+    color: var(--gamify-font-color);
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0 0 24px 0;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--gamify-border-color);
+    width: 100%;
+}
+
+.gamify-required {
+    color: #FF4D4D;
+    padding: 0 8px;
+}
+
+.gamify-warning {
+    color: var(--gamify-warning);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.gamify-border {
+    border: 1px solid var(--gamify-border-color);
+}
+
+// flex
+.gamify-item-center {
+    display: flex;
+    justify-content: center;
+}
+
+.gamify-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.gamify-flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.gamify-flex-24 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.gamify-flex-16 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.gamify-flex-row {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.gamify-column-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    width: 100%;
+}
+
+.gamify-row-items {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+// Input & Textarea
+.gamify {
+
+    // Will remove the important
+    &-input {
+        border: 1px solid var(--gamify-border-color) !important;
+        height: 36px;
+        width: 100%;
+        padding: 0 8px;
+        border-radius: 4px;
+        margin: 0;
+        background: transparent !important;
+        color: var(--gamify-font-color) !important;
+
+        &:hover,
+        &:focus,
+        &:focus-within,
+        &:focus-visible,
+        &:active {
+            // border: 1px solid var(--gamify-gray) !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        &-320 {
+            max-width: 320px;
+        }
+
+        &--error {
+            // Will work on this later
+            border-color: var(--gamify-placing) !important;
+        }
+
+        &--disabled {
+
+            &:focus,
+            &:focus-within,
+            &:focus-visible,
+            &:active,
+            &:hover {
+                border: 1px solid var(--gamify-border-color);
+            }
+        }
+
+        &::placeholder {
+            color: var(--gamify-placeholder) !important;
+            opacity: 1;
+            /* Firefox */
+        }
+    }
+
+    &-textarea {
+        border: 1px solid var(--gamify-border-color);
+        height: 100px;
+        width: 100%;
+        padding: 12px;
+        border-radius: 4px;
+        margin: 0;
+        background: transparent !important;
+        color: var(--gamify-font-color) !important;
+
+        &:hover,
+        &:focus {
+            border: 1px solid var(--gamify-gray) !important;
+            box-shadow: none !important;
+            outline: none;
+        }
+
+        &::placeholder {
+            color: var(--gamify-placeholder) !important;
+            opacity: 1;
+            /* Firefox */
+        }
+
+        &--error {
+            // Will work on this later
+            border-color: var(--gamify-placing) !important;
+        }
+    }
+}
+
+
+
+.gamify-animate {
+    animation: gamifyFadeInUp 0.4s cubic-bezier(.4, 0, .2, 1);
+}
+
+@keyframes gamifyFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media all and (max-width: 1500px) {
+    .gamify-page-content {
+        max-width: calc(1200px - 30px);
+        padding: 0;
+    }
+}
+
+@media all and (max-width: 1300px) {
+    .gamify-page-content {
+        max-width: calc(1120px - 30px);
+        padding: 0 15px;
+    }
 }

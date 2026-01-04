@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Gamify
- * Plugin URI:        https://example.com/gamify
+ * Plugin URI:        https://kodezen.com/products/gamify
  * Description:       A powerful gamification plugin for WordPress to boost user engagement.
  * Version:           1.0.0
  * Author:            kodezen
@@ -20,38 +20,29 @@ if (! defined('ABSPATH')) {
 
 /**
  * The main Gamify plugin class.
- *
- * This final class acts as the main bootstrap for the plugin. It defines constants,
- * loads dependencies, registers hooks, and initializes the core service loader.
- * It follows the Singleton pattern to ensure it is loaded only once.
- *
  * @final
  */
 final class Gamify
 {
     /**
      * The single instance of the class.
-     *
      * @var Gamify|null
      */
     private static $instance = null;
 
     /**
      * Private constructor to prevent direct instantiation.
-     * This is where the plugin's initialization sequence begins.
      */
     private function __construct()
     {
         $this->define_constants();
         $this->load_dependencies();
-        $this->init_loader();
         $this->register_hooks();
     }
 
     /**
      * Get the single instance of the class.
-     *
-     * @return Gamify The single instance of the Gamify class.
+     * @return Gamify
      */
     public static function instance()
     {
@@ -68,13 +59,15 @@ final class Gamify
     {
         define('GAMIFY_VERSION', '1.0.0');
         define('GAMIFY_FILE', __FILE__);
+        define('GAMIFY_PLUGIN_SLUG', 'gamify');
         define('GAMIFY_PATH', wp_normalize_path(plugin_dir_path(GAMIFY_FILE)));
         define('GAMIFY_URL', plugin_dir_url(GAMIFY_FILE));
         define('GAMIFY_INCLUDES', GAMIFY_PATH . 'includes/');
+        define('GAMIFY_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
     }
 
     /**
-     * Load the plugin's dependencies, including the autoloader and helper functions.
+     * Load the plugin's dependencies.
      */
     private function load_dependencies()
     {
@@ -83,36 +76,93 @@ final class Gamify
     }
 
     /**
-     * Register the core WordPress hooks for the plugin.
+     * Register the core WordPress hooks.
      */
     private function register_hooks()
     {
-        // Register the activation hook to run the installer.
+        // Activation Hook
         register_activation_hook(GAMIFY_FILE, [__CLASS__, 'activate']);
 
-        // Register the hook for loading the plugin's text domain.
-        add_action('init', [$this, 'load_textdomain']);
+        // 1. Load Text Domain (Priority 0 - Run Early)
+        add_action('init', [$this, 'load_textdomain'], 0);
+
+        // 2. Initialize Plugin Modules (Priority 10 - Run after textdomain is loaded)
+        add_action('init', [$this, 'init_modules'], 10);
     }
 
     /**
-     * Initialize the plugin's core service loader.
-     * The Loader is responsible for initializing all other modules (services) of the plugin.
+     * Initialize Plugin Hooks and Classes.
      */
-    private function init_loader()
+    public function init_modules()
     {
-        \Gamify\Core\Loader::instance();
+        // 1. Assets & API
+        if (class_exists('\Gamify\Assets')) {
+            \Gamify\Assets::init();
+        }
+        if (class_exists('\Gamify\API\Manager')) {
+            \Gamify\API\Manager::init();
+        }
+
+        // 2. System Services (Except Triggers)
+        if (class_exists('\Gamify\Classes\Scheduler')) {
+            \Gamify\Classes\Scheduler::init();
+        }
+        if (class_exists('\Gamify\Classes\Logger')) {
+            \Gamify\Classes\Logger::init();
+        }
+        if (class_exists('\Gamify\Classes\AchievementsManager')) {
+            \Gamify\Classes\AchievementsManager::init();
+        }
+        if (class_exists('\Gamify\Classes\LevelsManager')) {
+            \Gamify\Classes\LevelsManager::init();
+        }
+        if (class_exists('\Gamify\Classes\EmailManager')) {
+            \Gamify\Classes\EmailManager::init();
+        }
+        if (class_exists('\Gamify\Classes\Shortcodes')) {
+            \Gamify\Classes\Shortcodes::init();
+        }
+
+        // 3. Load Addons (BEFORE Triggers)
+        // This ensures addons can hook into 'gamify_available_triggers'
+        $active_addons = get_option('gamify_active_addons', []);
+
+        if (in_array('woocommerce', $active_addons)) {
+            // Note: Check file casing carefully (Woocommerce vs woocommerce)
+            if (file_exists(GAMIFY_PATH . 'addons/woocommerce/woocommerce.php')) {
+                require_once GAMIFY_PATH . 'addons/woocommerce/woocommerce.php';
+                // Integration class is loaded inside Woocommerce::init(), but requiring it here is safe too
+                if (file_exists(GAMIFY_PATH . 'addons/woocommerce/integration.php')) {
+                    require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
+                }
+
+                if (class_exists('\Gamify\Addons\Woocommerce\Woocommerce')) {
+                    \Gamify\Addons\Woocommerce\Woocommerce::init();
+                }
+            }
+        }
+
+        // 4. Initialize Triggers (AFTER Addons)
+        // Now TriggerRegistry will pick up hooks added by addons
+        if (class_exists('\Gamify\Classes\Triggers')) {
+            \Gamify\Classes\Triggers::init();
+        }
+
+        // 5. Admin Interface
+        if (is_admin() && class_exists('\Gamify\Admin')) {
+            \Gamify\Admin::init();
+        }
     }
 
     /**
-     * The callback function for the plugin activation hook.
-     * This method is static because it's called when the plugin is activated,
-     * before the main plugin object might be instantiated.
+     * Plugin Activation Hook.
      */
     public static function activate()
     {
-        // Manually require the autoloader as it might not be loaded yet during activation.
-        require_once plugin_dir_path(__FILE__) . 'includes/autoload.php';
-        (new \Gamify\Core\Installer())->run();
+        // Run Installer
+        if (class_exists('\Gamify\Core\Installer')) {
+            (new \Gamify\Core\Installer())->run();
+        }
     }
 
     /**
@@ -129,18 +179,13 @@ final class Gamify
 }
 
 /**
- * The main function for returning the Loader instance.
- *
- * This function acts as a global accessor to the plugin's service container (the Loader),
- * allowing other parts of the codebase to interact with the plugin's modules easily.
- * For example: `gamify()->get_service('api_manager')`.
- *
- * @return \Gamify\Core\Loader The Loader instance.
+ * Global accessor function.
+ * @return Gamify
  */
 function gamify()
 {
-    return \Gamify\Core\Loader::instance();
+    return Gamify::instance();
 }
 
-// Kickstart the plugin by calling the instance method.
+// Kickstart the plugin.
 Gamify::instance();
