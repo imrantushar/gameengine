@@ -130,11 +130,11 @@ class DashboardController extends BaseController
             // Structure the response data
             $stats = [
                 'overview' => [
-                    'points'          => number_format_i18n((int)$total_points),
-                    'points_deducted' => number_format_i18n(abs((int)$total_deducted)),
-                    'achievements'    => number_format_i18n((int)$total_achievements),
-                    'levels'          => number_format_i18n((int)$total_levels),
-                    'active_users'    => number_format_i18n((int)$active_users),
+                    'points'          => (string)number_format_i18n((int)$total_points),
+                    'points_deducted' => (string)number_format_i18n(abs((int)$total_deducted)),
+                    'achievements'    => (string)number_format_i18n((int)$total_achievements),
+                    'levels'          => (string)number_format_i18n((int)$total_levels),
+                    'active_users'    => (string)number_format_i18n((int)$active_users),
                 ],
                 'chart'     => $chart_data,
                 'top_users' => $top_users
