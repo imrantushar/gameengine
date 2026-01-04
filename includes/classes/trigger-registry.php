@@ -160,11 +160,35 @@ final class TriggerRegistry
     }
 
     /**
+     * Helper to fetch all Posts and Pages.
+     */
+    private static function get_all_posts_list()
+    {
+        $options = [];
+        $args = [
+            'post_type'      => ['post'],
+            'posts_per_page' => 100,
+            'post_status'    => 'publish',
+        ];
+
+        $posts = get_posts($args);
+
+        if (!empty($posts)) {
+            foreach ($posts as $post) {
+                $options[(string)$post->ID] = $post->post_title . " (ID: {$post->ID})";
+            }
+        }
+
+        return $options;
+    }
+
+    /**
      * Register core default triggers.
      */
     private static function register_defaults()
     {
         // Unlock Specific Achievement
+        // --- Unlock Specific Achievement ---
         self::add('unlock_specific_achievement', [
             'label'       => __('Unlock a specific achievement', 'gamify'),
             'description' => __('Fires when a specific achievement is unlocked.', 'gamify'),
@@ -181,10 +205,56 @@ final class TriggerRegistry
                     'type'    => 'select',
                     'label'   => __('Select Achievement', 'gamify'),
                     'options' => self::get_achievements_list(),
-                    'required' => true
+                    'required' => true,
+                    'scope'    => ['achievement', 'point_type']
                 ],
-                'points' => ['type' => 'number', 'label' => __('Points Award', 'gamify'), 'default' => 50, 'scope' => ['point_type']],
-                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'], 'default' => '1_time'],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points Award', 'gamify'),
+                    'default' => 50,
+                    'scope'   => ['achievement', 'point_type']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'],
+                    'default' => '1_time',
+                    'scope'   => ['achievement', 'point_type']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Achievement Unlock Bonus', 'gamify'),
+                    'scope'   => ['achievement', 'point_type']
+                ],
+            ],
+            'deduct_fields' => [
+                'achievement_id' => [
+                    'type'    => 'select',
+                    'label'   => __('Select Achievement', 'gamify'),
+                    'options' => self::get_achievements_list(),
+                    'required' => true,
+                    'scope'    => ['achievement', 'point_type']
+                ],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points to Deduct', 'gamify'),
+                    'default' => 10,
+                    'scope'   => ['achievement', 'point_type']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['unlimited' => 'Unlimited', '1_time' => '1 Time Only'],
+                    'default' => '1_time',
+                    'scope'   => ['achievement', 'point_type']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Achievement Unlock Penalty', 'gamify'),
+                    'scope'   => ['achievement', 'point_type']
+                ],
             ]
         ]);
 
@@ -452,6 +522,151 @@ final class TriggerRegistry
             ]
         ]);
 
+        // --- User Role Change ---
+        self::add('user_role_change', [
+            'label'       => __('Change user role', 'gamify'),
+            'description' => __('Fires when a user is assigned to a specific role.', 'gamify'),
+            'hook'        => 'set_user_role',
+            'args_count'  => 3,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user_id, $role, $old_roles) {
+                return $user_id;
+            },
+            'award_fields' => [
+                'role' => [
+                    'type'    => 'select',
+                    'label'   => __('Select Target Role', 'gamify'),
+                    'options' => self::get_roles_list(),
+                    'required' => true,
+                    'scope'    => ['point_type', 'achievement']
+                ],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points to Award', 'gamify'),
+                    'default' => 50,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['1_time' => '1 Time Only', 'unlimited' => 'Unlimited'],
+                    'default' => '1_time',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Role Promotion Reward', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'role' => [
+                    'type'    => 'select',
+                    'label'   => __('Select Target Role', 'gamify'),
+                    'options' => self::get_roles_list(),
+                    'required' => true,
+                    'scope'    => ['point_type', 'achievement']
+                ],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points to Deduct', 'gamify'),
+                    'default' => 20,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['1_time' => '1 Time Only', 'unlimited' => 'Unlimited'],
+                    'default' => 'unlimited',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Role Downgrade Penalty', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ]
+        ]);
+
+        // --- Profile Update ---
+        self::add('profile_update', [
+            'label'       => __('Update user profile', 'gamify'),
+            'description' => __('Fires when a user updates their profile information.', 'gamify'),
+            'hook'        => 'profile_update',
+            'args_count'  => 2,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user_id) {
+                return $user_id;
+            },
+            'award_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Points Award', 'gamify'), 'default' => 20, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['1_time' => '1 Time Only', '1_per_month' => 'Once a Month'], 'default' => '1_time', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Profile Completion Reward', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 10, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited'], 'default' => 'unlimited', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Profile Reversal Penalty', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ]
+        ]);
+
+        // --- Update Existing Post ---
+        self::add('post_updated', [
+            'label'       => __('Update an existing post', 'gamify'),
+            'description' => __('Fires when an author edits and updates an already published post.', 'gamify'),
+            'hook'        => 'post_updated',
+            'args_count'  => 3,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($post_id, $post_after, $post_before) {
+                if ($post_after->post_status === 'publish') {
+                    return $post_after->post_author;
+                }
+                return 0;
+            },
+            'award_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Points Award', 'gamify'), 'default' => 5, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '3_per_day' => '3 Per Day'], 'default' => '3_per_day', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Content Improvement Bonus', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 2, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited'], 'default' => 'unlimited', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Post Update Reversal', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ]
+        ]);
+
+        // --- Password Reset ---
+        self::add('after_password_reset', [
+            'label'       => __('Change account password', 'gamify'),
+            'description' => __('Fires when a user successfully resets or changes their password.', 'gamify'),
+            'hook'        => 'after_password_reset',
+            'args_count'  => 1,
+            'type'        => 'wordpress',
+            'category'    => 'wordpress',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user) {
+                return $user->ID;
+            },
+            'award_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Points Award', 'gamify'), 'default' => 15, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['1_time' => '1 Time Only', 'unlimited' => 'Unlimited'], 'default' => '1_time', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Security Awareness Reward', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 0, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited'], 'default' => 'unlimited', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Security Penalty', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ]
+        ]);
+
 
         // ==========================================
         // 2. SITE INTERACTIONS
@@ -495,7 +710,110 @@ final class TriggerRegistry
                 'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Visit Penalty', 'gamify')],
             ]
         ]);
+
+        // --- Visit Specific Post ---
+        self::add('visit_specific_post', [
+            'label'       => __('Visit a specific post', 'gamify'),
+            'description' => __('Fires when a user visits a specific post or page.', 'gamify'),
+            'hook'        => 'gamify_site_visit',
+            'args_count'  => 2,
+            'type'        => 'interaction',
+            'category'    => 'interaction',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($user_id, $post_id) {
+                return $user_id;
+            },
+            'award_fields' => [
+                'post_id' => [
+                    'type'     => 'select',
+                    'label'    => __('Select Post/Page', 'gamify'),
+                    'options'  => self::get_all_posts_list(),
+                    'required' => true,
+                    'scope'    => ['point_type', 'achievement']
+                ],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points to Award', 'gamify'),
+                    'default' => 10,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['1_time' => '1 Time Only', '1_per_day' => '1 Per Day', 'unlimited' => 'Unlimited'],
+                    'default' => '1_time',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Specific Post Visit Reward', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ],
+            'deduct_fields' => [
+                'post_id' => [
+                    'type'     => 'select',
+                    'label'    => __('Select Post/Page', 'gamify'),
+                    'options'  => self::get_all_posts_list(),
+                    'required' => true,
+                    'scope'    => ['point_type', 'achievement']
+                ],
+                'points' => [
+                    'type'    => 'number',
+                    'label'   => __('Points to Deduct', 'gamify'),
+                    'default' => 5,
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'limit'  => [
+                    'type'    => 'select',
+                    'label'   => __('Limit', 'gamify'),
+                    'options' => ['1_time' => '1 Time Only', '1_per_day' => '1 Per Day', 'unlimited' => 'Unlimited'],
+                    'default' => 'unlimited',
+                    'scope'   => ['point_type', 'achievement']
+                ],
+                'label'  => [
+                    'type'    => 'text',
+                    'label'   => __('Log Description', 'gamify'),
+                    'default' => __('Specific Post Visit Penalty', 'gamify'),
+                    'scope'   => ['point_type', 'achievement']
+                ],
+            ]
+        ]);
+
+        // --- Author Reply to Comment ---
+        self::add('author_comment_reply', [
+            'label'       => __('Reply to a comment (Author only)', 'gamify'),
+            'description' => __('Fires when a post author replies to a comment on their own post.', 'gamify'),
+            'hook'        => 'comment_post',
+            'args_count'  => 2,
+            'type'        => 'interaction',
+            'category'    => 'interaction',
+            'supports'    => ['point_type', 'achievement'],
+            'get_user_id' => function ($comment_id, $comment_approved) {
+                $comment = get_comment($comment_id);
+                if (!$comment || $comment->comment_parent == 0) return 0;
+
+                $post = get_post($comment->comment_post_ID);
+                if ($post && (int)$post->post_author === (int)$comment->user_id) {
+                    return $comment->user_id;
+                }
+                return 0;
+            },
+            'award_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Points Award', 'gamify'), 'default' => 10, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited', '5_per_day' => '5 Per Day'], 'default' => 'unlimited', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Author Engagement Bonus', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ],
+            'deduct_fields' => [
+                'points' => ['type' => 'number', 'label' => __('Deduct Points', 'gamify'), 'default' => 5, 'scope' => ['point_type', 'achievement']],
+                'limit'  => ['type' => 'select', 'label' => __('Limit', 'gamify'), 'options' => ['unlimited' => 'Unlimited'], 'default' => 'unlimited', 'scope' => ['point_type', 'achievement']],
+                'label'  => ['type' => 'text', 'label' => __('Log Description', 'gamify'), 'default' => __('Author Engagement Penalty', 'gamify'), 'scope' => ['point_type', 'achievement']],
+            ]
+        ]);
     }
+
+
 
     /**
      * Add a new trigger to the registry.

@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class DashboardController
- * Handles API requests for the dashboard statistics.
+ * Handles API requests for the dashboard statistics with date filtering.
  */
 class DashboardController extends BaseController
 {
@@ -35,49 +35,80 @@ class DashboardController extends BaseController
 
     /**
      * Retrieve dashboard statistics.
-     * Uses transient caching to improve performance and reduce database load.
+     * Supports start_date and end_date parameters.
      *
      * @param \WP_REST_Request $request
      * @return \WP_REST_Response
      */
     public function get_stats($request)
     {
-        // Check for cached data first (Transient)
-        $stats = get_transient('gamify_dashboard_stats');
+        global $wpdb;
+
+        // Get date parameters from request
+        $start_date = $request->get_param('start_date'); // Format: YYYY-MM-DD
+        $end_date   = $request->get_param('end_date');   // Format: YYYY-MM-DD
+
+        // Create a unique cache key based on the date range
+        $cache_key = 'gamify_stats_' . md5($start_date . $end_date);
+        $stats = wp_cache_get($cache_key, 'gamify_dashboard');
 
         if (false === $stats) {
-            global $wpdb;
+
+            // Define date filter SQL parts
+            $points_where = "WHERE points > 0";
+            $deduct_where = "WHERE points < 0";
+            $ach_where    = "WHERE 1=1";
+            $lvl_where    = "WHERE 1=1";
+            $params       = [];
+
+            if (!empty($start_date) && !empty($end_date)) {
+                $s = $start_date . ' 00:00:00';
+                $e = $end_date . ' 23:59:59';
+
+                $points_where .= " AND created_at BETWEEN %s AND %s";
+                $deduct_where .= " AND created_at BETWEEN %s AND %s";
+                $ach_where    .= " AND achieved_at BETWEEN %s AND %s";
+                $lvl_where    .= " AND achieved_at BETWEEN %s AND %s";
+
+                $params = [$s, $e];
+            }
 
             // --- A. Overview Counts ---
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $total_points = $wpdb->get_var("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points > 0");
+            // Total Points Added
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $total_points = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log $points_where", $params));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $total_deducted = $wpdb->get_var("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points < 0");
+            // Total Points Deducted
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $total_deducted = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log $deduct_where", $params));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $total_achievements = $wpdb->get_var("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements");
+            // Total Achievements
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $total_achievements = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements $ach_where", $params));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $total_levels = $wpdb->get_var("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_levels");
+            // Total Levels
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $total_levels = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_levels $lvl_where", $params));
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $active_users = $wpdb->get_var("
+            // Active Users in this period
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $active_users = $wpdb->get_var($wpdb->prepare("
                 SELECT COUNT(DISTINCT user_id) FROM (
-                    SELECT user_id FROM {$wpdb->prefix}gamify_points_log
+                    SELECT user_id FROM {$wpdb->prefix}gamify_points_log $points_where
                     UNION
-                    SELECT user_id FROM {$wpdb->prefix}gamify_user_achievements
+                    SELECT user_id FROM {$wpdb->prefix}gamify_user_achievements $ach_where
                 ) AS active
-            ");
+            ", array_merge($params, $params)));
 
             // --- B. Chart Data ---
-            $chart_data = $this->get_chart_data();
+            // If no dates provided, default to last 7 days for chart
+            $chart_data = $this->get_chart_data($start_date, $end_date);
 
             // --- C. Top Users (Leaderboard) ---
-
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $top_users = $wpdb->get_results("
+            // Leaderboard also respects the date filter
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $top_users = $wpdb->get_results($wpdb->prepare("
                 SELECT 
                     u.ID, 
                     u.display_name as name, 
@@ -90,37 +121,40 @@ class DashboardController extends BaseController
                     ) as top_level
                 FROM {$wpdb->users} u
                 LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
+                $points_where
                 GROUP BY u.ID
                 ORDER BY total_points DESC
                 LIMIT 5
-            ", ARRAY_A);
+            ", $params), ARRAY_A);
 
             // Structure the response data
             $stats = [
                 'overview' => [
-                    'points'       => number_format((int)$total_points),
-                    'points_deducted' => number_format(abs((int)$total_deducted)),
-                    'achievements' => number_format((int)$total_achievements),
-                    'levels'       => number_format((int)$total_levels),
-                    'active_users' => number_format((int)$active_users),
+                    'points'          => number_format_i18n((int)$total_points),
+                    'points_deducted' => number_format_i18n(abs((int)$total_deducted)),
+                    'achievements'    => number_format_i18n((int)$total_achievements),
+                    'levels'          => number_format_i18n((int)$total_levels),
+                    'active_users'    => number_format_i18n((int)$active_users),
                 ],
                 'chart'     => $chart_data,
                 'top_users' => $top_users
             ];
 
-            // Cache the data for 60 seconds (1 minute) to reduce DB hits
-            set_transient('gamify_dashboard_stats', $stats, 60);
+            // Cache for 5 minutes
+            wp_cache_set($cache_key, $stats, 'gamify_dashboard', 300);
         }
 
         return new \WP_REST_Response($stats, 200);
     }
 
     /**
-     * Helper to retrieve chart data for the last 7 days.
+     * Helper to retrieve chart data based on date range or last 7 days.
      *
+     * @param string|null $start
+     * @param string|null $end
      * @return array
      */
-    private function get_chart_data()
+    private function get_chart_data($start = null, $end = null)
     {
         global $wpdb;
         $labels = [];
@@ -128,17 +162,26 @@ class DashboardController extends BaseController
         $achievements_data = [];
         $levels_data = [];
 
-        for ($i = 6; $i >= 0; $i--) {
-            // Calculate timestamp for past days
-            $timestamp = current_time('timestamp') - ($i * DAY_IN_SECONDS);
+        // Determine how many days to show
+        if ($start && $end) {
+            $date1 = new \DateTime($start);
+            $date2 = new \DateTime($end);
+            $interval = $date1->diff($date2);
+            $days_to_query = (int) $interval->days;
+            // Limit to 30 days maximum to avoid performance issues in chart
+            $days_to_query = ($days_to_query > 30) ? 30 : $days_to_query;
+            $base_timestamp = strtotime($end);
+        } else {
+            $days_to_query = 6; // Last 7 days including today
+            $base_timestamp = current_time('timestamp');
+        }
 
-            // Format date for database query (Y-m-d)
-            $db_date = gmdate('Y-m-d', $timestamp);
+        for ($i = $days_to_query; $i >= 0; $i--) {
+            $timestamp = $base_timestamp - ($i * DAY_IN_SECONDS);
+            $db_date   = gmdate('Y-m-d', $timestamp);
+            $labels[]  = gmdate('d M', $timestamp);
 
-            // Format label for chart (d M, y)
-            $labels[] = gmdate('d M, y', $timestamp);
-
-            // Fetch points for the day
+            // Fetch points
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $points = $wpdb->get_var($wpdb->prepare(
                 "SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points > 0 AND DATE(created_at) = %s",
@@ -146,7 +189,7 @@ class DashboardController extends BaseController
             ));
             $points_data[] = $points ? (int)$points : 0;
 
-            // Fetch achievements count for the day
+            // Fetch achievements
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $ach = $wpdb->get_var($wpdb->prepare(
                 "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements WHERE DATE(achieved_at) = %s",
@@ -154,7 +197,7 @@ class DashboardController extends BaseController
             ));
             $achievements_data[] = $ach ? (int)$ach : 0;
 
-            // Fetch levels count for the day
+            // Fetch levels
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $lvl = $wpdb->get_var($wpdb->prepare(
                 "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_levels WHERE DATE(achieved_at) = %s",

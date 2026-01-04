@@ -154,28 +154,34 @@ class Triggers
     private function check_conditions($key, $params, $args)
     {
         if ($key === 'unlock_specific_achievement') {
-            $unlocked_id = isset($args[1]) ? intval($args[1]) : 0;
-            $target_id = isset($params['achievement_id']) ? intval($params['achievement_id']) : 0;
-            return $unlocked_id === $target_id;
+            $unlocked_id = isset($args[1]) ? (int) $args[1] : 0;
+            $target_id   = isset($params['achievement_id']) ? (int) $params['achievement_id'] : 0;
+            return ($unlocked_id > 0 && $unlocked_id === $target_id);
         }
 
         if ($key === 'visit_specific_post') {
-            $current_post_id = isset($args[1]) ? intval($args[1]) : 0;
-            $target_post_id = isset($params['post_id']) ? intval($params['post_id']) : 0;
-            return $current_post_id === $target_post_id;
+            $current_post_id = isset($args[1]) ? (int) $args[1] : 0;
+            $target_post_id  = isset($params['post_id']) ? (int) $params['post_id'] : 0;
+            return ($current_post_id > 0 && $current_post_id === $target_post_id);
         }
 
-        if ($key === 'woocommerce_specific_product_purchased' || $key === 'woocommerce_refund_specific_product') {
+        if ($key === 'user_role_change') {
+            $new_role    = isset($args[1]) ? sanitize_text_field($args[1]) : '';
+            $target_role = isset($params['role']) ? sanitize_text_field($params['role']) : '';
+            return (!empty($new_role) && $new_role === $target_role);
+        }
+
+        if ($key === 'woocommerce_purchase_specific_product' || $key === 'woocommerce_refund_specific_product') {
             if (!function_exists('wc_get_order')) {
                 return false;
             }
             $order = wc_get_order($args[0]);
-            $target_id = isset($params['product_id']) ? intval($params['product_id']) : 0;
-            if (!$order) {
+            $target_id = isset($params['product_id']) ? (int) $params['product_id'] : 0;
+            if (!$order || $target_id <= 0) {
                 return false;
             }
             foreach ($order->get_items() as $item) {
-                if ($item->get_product_id() == $target_id || $item->get_variation_id() == $target_id) {
+                if ((int)$item->get_product_id() === $target_id || (int)$item->get_variation_id() === $target_id) {
                     return true;
                 }
             }
@@ -184,8 +190,8 @@ class Triggers
 
         if ($key === 'woocommerce_review_specific_product') {
             $comment = get_comment($args[0]);
-            $target_id = isset($params['product_id']) ? intval($params['product_id']) : 0;
-            return $comment && $comment->comment_post_ID == $target_id;
+            $target_id = isset($params['product_id']) ? (int) $params['product_id'] : 0;
+            return ($comment && (int)$comment->comment_post_ID === $target_id);
         }
 
         return true;
