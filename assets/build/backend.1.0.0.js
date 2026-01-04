@@ -3713,7 +3713,7 @@ const AddonCard = ({
   const {
     activeAddons = []
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons || {});
-  const isReduxActive = activeAddons.includes(item.name);
+  const isReduxActive = activeAddons?.includes(item.name);
 
   // Local State for Instant UI Update (Optimistic UI)
   const [localChecked, setLocalChecked] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isReduxActive);
