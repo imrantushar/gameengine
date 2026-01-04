@@ -8772,6 +8772,7 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
     builder.addCase(fetchTriggers.pending, state => {
       state.status = 'loading';
     }).addCase(fetchTriggers.fulfilled, (state, action) => {
+      console.log("API Response Data:", action.payload);
       state.status = 'succeeded';
       state.allHooks = action.payload;
     }).addCase(fetchTriggers.rejected, (state, action) => {

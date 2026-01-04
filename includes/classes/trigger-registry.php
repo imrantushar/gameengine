@@ -823,6 +823,9 @@ final class TriggerRegistry
         if (!isset($config['supports'])) {
             $config['supports'] = ['point_type'];
         }
+        if (!isset($config['category'])) {
+            $config['category'] = 'general';
+        }
         self::$triggers[$key] = $config;
     }
 
@@ -853,5 +856,26 @@ final class TriggerRegistry
             self::init();
         }
         return self::$triggers[$key] ?? null;
+    }
+
+    /**
+     * Get list of all unique categories for filtering.
+     */
+    public static function get_categories()
+    {
+        if (! self::$initialized) {
+            self::init();
+        }
+
+        $categories = array_unique(array_column(self::$triggers, 'category'));
+
+        $formatted = [];
+        foreach ($categories as $cat) {
+            $formatted[] = [
+                'slug'  => $cat,
+                'label' => ucwords(str_replace(['-', '_'], ' ', $cat))
+            ];
+        }
+        return $formatted;
     }
 }

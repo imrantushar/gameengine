@@ -165,6 +165,7 @@ const pointTypeSlice = createSlice({
         builder
             .addCase(fetchTriggers.pending, (state) => { state.status = 'loading'; })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
+                console.log("API Response Data:", action.payload);
                 state.status = 'succeeded';
                 state.allHooks = action.payload;
             })

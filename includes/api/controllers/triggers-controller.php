@@ -43,10 +43,12 @@ class TriggersController extends BaseController
             $formatted[] = [
                 'id'            => $key,
                 'label'         => $config['label'],
+                'category'       => isset($config['category']) ? $config['category'] : 'general',
                 'subTitle'      => isset($config['description']) ? $config['description'] : '',
                 'type'          => isset($config['type']) ? $config['type'] : 'wordpress',
                 'award_fields'  => isset($config['award_fields']) ? $config['award_fields'] : [],
                 'deduct_fields' => isset($config['deduct_fields']) ? $config['deduct_fields'] : [],
+                'supports'       => $config['supports'] ?? [],
             ];
         }
 
