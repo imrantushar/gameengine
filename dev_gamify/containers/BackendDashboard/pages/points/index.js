@@ -129,8 +129,8 @@ const Points = () => {
                         data={pointTypes}
                         showSubHeader={false}
                         showColumnFilter={false}
-                        isRowSelectable={true} // Maintained as per your code
-                        showPagination={false} // Maintained as per your code
+                        isRowSelectable={true} 
+                        showPagination={false} 
                         noDataText="No data found"
                     />
                 )}
