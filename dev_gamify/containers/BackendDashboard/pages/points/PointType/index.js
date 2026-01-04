@@ -47,7 +47,7 @@ import {
 } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
-import { AiFillInteraction} from 'react-icons/ai';
+import { AiFillInteraction } from 'react-icons/ai';
 import { SiWoocommerce } from "react-icons/si";
 
 
@@ -223,6 +223,8 @@ const PointType = () => {
     const [openedAwardHooks, setOpenedAwardHooks] = useState([]);
     const [openedDeductHooks, setOpenedDeductHooks] = useState([]);
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
+
 
 
     const {
@@ -263,8 +265,17 @@ const PointType = () => {
     });
 
     const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
+    const availableDeductHooks = allHooks.filter((hook) => {
+        if (selectedDeductHookIds.includes(hook.id)) {
+            return false;
+        }
+        if (selectedDeductFilterType.length > 0) {
+            return selectedDeductFilterType.includes(hook.category);
+        }
+        return true;
+    });
 
-    const availableDeductHooks = allHooks.filter(h => !selectedDeductHookIds.includes(h.id));
+
     const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
 
@@ -585,27 +596,123 @@ const PointType = () => {
 
                                 {/* LEFT AVAILABLE */}
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+                                    <Flex>
+                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                    </Flex>
+                                    <Flex as="label" direction="column" gap={2}>
+                                        <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                            <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
+                                                {__("Filter Hooks Type", "gamify")}
+                                            </Text>
 
-                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                            <Select
+                                                isMulti
+                                                placeholder={__("Select hook type", "gamify")}
+                                                classNamePrefix="gamify-select"
+                                                options={hookTypeOptions}
+                                                onChange={(opts) => {
+                                                    const values = opts ? opts.map(o => o.value) : [];
+                                                    setSelectedDeductFilterType(values);
+                                                }}
+                                                styles={{
+                                                    control: (base) => ({
+                                                        ...base,
+                                                        minHeight: "48px",
+                                                        borderRadius: "6px",
+                                                        borderColor: "#d0d5dd",
+                                                        boxShadow: "none",
+                                                        "&:hover": {
+                                                            borderColor: "#d0d5dd",
+                                                        },
+                                                    }),
+
+                                                    multiValue: (base) => ({
+                                                        ...base,
+                                                        background: "#F8FAFC",
+                                                        padding: "2px 6px",
+                                                        borderRadius: "6px",
+                                                    }),
+
+                                                    multiValueLabel: (base) => ({
+                                                        ...base,
+                                                        color: "#1E293B",
+                                                        fontSize: "14px",
+                                                    }),
+
+                                                    multiValueRemove: (base) => ({
+                                                        ...base,
+                                                        color: "#64748B",
+                                                        ":hover": {
+                                                            backgroundColor: "transparent",
+                                                            color: "#334155",
+                                                        },
+                                                    }),
+                                                }}
+                                            />
+                                        </Box>
+                                    </Flex>
 
                                     <DroppableArea id="deductions-available">
-                                        {availableDeductHooks.map((item) => (
-                                            <Box key={item.id}>
-                                                <DraggableItem id={`deduct_${item.id}`}>
-                                                    <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)">
-                                                        <Flex justify="space-between" align="center">
-                                                            <Text margin='0' fontSize="1rem" fontWeight="600">{__(item.label, 'gamify')}</Text>
-                                                            <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
-                                                        </Flex>
-                                                    </Box>
-                                                </DraggableItem>
-                                                <Text fontSize="xs" color="gray.500" mt={1}>{item.subTitle}</Text>
-                                            </Box>
-                                        ))}
+                                        {availableDeductHooks.map((item) => {
+                                            const categoryConfig = hookCategoryIconMap[item.category] || {};
+                                            const CategoryIcon = categoryConfig.icon;
+                                            const bgColor = categoryConfig.bg || "gray.500";
+
+                                            return (
+                                                <Box key={item.id}>
+                                                    <DraggableItem id={`deduct_${item.id}`}>
+                                                        <Box
+                                                            padding="12px"
+                                                            borderRadius="6px"
+                                                            border="1px solid var(--gamify-border-color)"
+                                                        >
+                                                            <Flex justify="space-between" align="center">
+                                                                <Flex gap="5px" align="center">
+                                                                    {CategoryIcon && (
+                                                                        <Box
+                                                                            bg={bgColor}
+                                                                            borderRadius="full"
+                                                                            width="24px"
+                                                                            height="24px"
+                                                                            display="flex"
+                                                                            alignItems="center"
+                                                                            justifyContent="center"
+                                                                            color="white"
+                                                                        >
+                                                                            <Icon as={CategoryIcon} boxSize={3} />
+                                                                        </Box>
+                                                                    )}
+
+                                                                    <Text m="0" fontSize="1rem" fontWeight="600">
+                                                                        {__(item.label, "gamify")}
+                                                                    </Text>
+                                                                </Flex>
+
+                                                                <Box
+                                                                    bg="green.500"
+                                                                    borderRadius="full"
+                                                                    width="24px"
+                                                                    height="24px"
+                                                                    display="flex"
+                                                                    alignItems="center"
+                                                                    justifyContent="center"
+                                                                    color="white"
+                                                                >
+                                                                    <Icon as={FaArrowRotateRight} boxSize={3} />
+                                                                </Box>
+                                                            </Flex>
+                                                        </Box>
+                                                    </DraggableItem>
+
+                                                    <Text fontSize="xs" color="gray.500" mt={1}>
+                                                        {item.subTitle}
+                                                    </Text>
+                                                </Box>
+                                            );
+                                        })}
+
                                     </DroppableArea>
                                 </Flex>
-
-
                                 {/* RIGHT ACTIVE */}
                                 <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
 
