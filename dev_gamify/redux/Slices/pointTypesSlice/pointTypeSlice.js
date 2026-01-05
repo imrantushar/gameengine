@@ -112,7 +112,7 @@ const initialState = {
     selectedDeductHookIds: [],
     hookSettings: {},
     status: 'idle',
-    listStatus: 'idle',
+    listStatus: false,
     saveStatus: 'idle',
     error: null,
 };
@@ -173,21 +173,18 @@ const pointTypeSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.payload;
             })
-
             .addCase(savePointType.pending, (state) => { state.saveStatus = 'saving'; })
             .addCase(savePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
             .addCase(savePointType.rejected, (state, action) => {
                 state.saveStatus = 'failed';
                 state.error = action.payload;
             })
-
             .addCase(updatePointType.pending, (state) => { state.saveStatus = 'saving'; })
             .addCase(updatePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
             .addCase(updatePointType.rejected, (state, action) => {
                 state.saveStatus = 'failed';
                 state.error = action.payload;
             })
-
             .addCase(fetchPointTypeById.fulfilled, (state, action) => {
                 const data = action.payload;
                 state.currentPointTypeId = data.id;
@@ -211,9 +208,15 @@ const pointTypeSlice = createSlice({
                     });
                 }
             })
+            .addCase(fetchPointTypes.pending, (state) => {
+                state.listStatus = true;
+            })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
-                state.listStatus = 'succeeded';
+                state.listStatus = false;
                 state.pointTypes = action.payload;
+            })
+            .addCase(fetchPointTypes.rejected, (state) => {
+                state.listStatus = false;
             })
             .addCase(deletePointType.fulfilled, (state, action) => {
                 state.pointTypes = state.pointTypes.filter(pt => pt.id !== action.payload);

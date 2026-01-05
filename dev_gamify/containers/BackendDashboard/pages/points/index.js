@@ -25,10 +25,10 @@ const Points = () => {
                             </svg>
                             </span>
                         <span className="gamify-icon gamify-icon--angle-right">
-                             <FaChevronRight />
+                            <FaChevronRight />
                             </span>
                         <GFLabel
-                           as="h2"
+                            as="h2"
                             color="var(--gamify-font-color)"
                             type="subtitle"
                             fontWeight="400" 

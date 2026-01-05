@@ -1,4 +1,4 @@
-import { Flex, Icon, Spinner } from '@chakra-ui/react';
+import { Flex, Icon } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
@@ -14,11 +14,16 @@ const PointTypesTable = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (
+      !pointTypes ||
+      (pointTypes && pointTypes.length <= 1)
+    ) {
       dispatch(fetchPointTypes());
+    } 
   }, []);
   
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm(__('Are you sure?', "gamify"))) {
         dispatch(deletePointType(id));
     }
   };
@@ -66,21 +71,16 @@ const PointTypesTable = () => {
 
   return (
     <>
-      {listStatus === 'loading' ? (
-        <Flex justify="center" align="center" height="200px">
-          <Spinner />
-        </Flex>
-      ) : (
-        <ListTable
-          columns={columns}
-          data={pointTypes}
-          showSubHeader={false}
-          showColumnFilter={false}
-          isRowSelectable={true} // Maintained as per your code
-          showPagination={false} // Maintained as per your code
-          noDataText="No data found"
-        />
-      )}
+      <ListTable
+        columns={columns}
+        data={pointTypes}
+        showSubHeader={false}
+        showColumnFilter={false}
+        dataFetchingStatus={listStatus}
+        isRowSelectable={true}
+        showPagination={false}
+        noDataText={__("No data found", "gamify")}
+      />
     </>
   );
 };
