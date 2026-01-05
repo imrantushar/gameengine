@@ -1,82 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux'; // Redux imports
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Spinner } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-import { FiEdit, FiTrash2 } from "react-icons/fi";
 
 // Components
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import ListTable from '@GFComponents/ListTable';
-import OptionMenu from '@GFComponents/OptionMenu';
-import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 import { FaChevronRight } from 'react-icons/fa6';
+import PointTypesTable from './PointTypesTable';
 
 const Points = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    // Select data from Redux store
-    // 'pointTypes' contains the formatted data
-    // 'listStatus' handles the loading state
-    const { pointTypes, listStatus } = useSelector((state) => state.pointType);
-
-    // Fetch data on component mount
-    useEffect(() => {
-        dispatch(fetchPointTypes());
-    }, [dispatch]);
-
-    // Handle delete using Redux action
-    const handleDelete = (id) => {
-        if (window.confirm('Are you sure?')) {
-            dispatch(deletePointType(id));
-        }
-    };
-
-    const columns = [
-        {
-            name: __('Name', 'gamify'),
-            cell: (row) => (
-                <Flex align="center" gap="10px">
-                    <span>{row.name}</span>
-                </Flex>
-            ),
-        },
-        {
-            name: __('Plural Name', 'gamify'),
-            cell: (row) => row.pluralName,
-        },
-        {
-            name: __('Date', 'gamify'),
-            cell: (row) => row.date,
-        },
-        {
-            name: __('Action', 'gamify'),
-            cell: (row) => (
-                <OptionMenu
-                    options={[
-                        {
-                            type: 'button',
-                            label: __('Edit', 'gamify'),
-                            icon: <Icon as={FiEdit} />,
-                            onClick: () => navigate(`${ route_path }admin.php?page=gamify-points&action=edit&id=${ row.id }&path=name`)
-                        },
-                        {
-                            type: 'button',
-                            suffix: 'trash',
-                            label: __('Delete', 'gamify'),
-                            icon: <Icon as={FiTrash2} />,
-                            onClick: () => handleDelete(row.id)
-                        },
-                    ]}
-                />
-            ),
-        },
-    ];
-
     return (
         <>
             <TopBar
@@ -119,21 +55,7 @@ const Points = () => {
                     </Button>
                 </Flex>
 
-                {listStatus === 'loading' ? (
-                    <Flex justify="center" align="center" height="200px">
-                        <Spinner />
-                    </Flex>
-                ) : (
-                    <ListTable
-                        columns={columns}
-                        data={pointTypes}
-                        showSubHeader={false}
-                        showColumnFilter={false}
-                        isRowSelectable={true} // Maintained as per your code
-                        showPagination={false} // Maintained as per your code
-                        noDataText="No data found"
-                    />
-                )}
+                <PointTypesTable />
             </Box>
         </>
     );

@@ -6,7 +6,7 @@ import LevelType from './pages/levels/levelTypes';
 import Leaderboards from './pages/leaderboards';
 import AchievementsType from './pages/achievements/AchievementTypes';
 import Achievements from './pages/achievements';
-import PointType from './pages/points/PointType';
+import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';

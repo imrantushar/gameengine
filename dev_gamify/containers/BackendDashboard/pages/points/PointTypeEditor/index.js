@@ -212,20 +212,17 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
 
 
 // # MAIN
-const PointType = () => {
+const PointTypeEditor = () => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const editId = searchParams.get('id');
-
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
     const [openedAwardHooks, setOpenedAwardHooks] = useState([]);
     const [openedDeductHooks, setOpenedDeductHooks] = useState([]);
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
-
-
 
     const {
         name,
@@ -736,7 +733,6 @@ const PointType = () => {
                                             </DraggableItem>
                                         ))}
                                     </DroppableArea>
-
                                 </Box>
                             </Flex>
                         )}
@@ -761,4 +757,4 @@ const PointType = () => {
     );
 };
 
-export default PointType;
+export default PointTypeEditor;
