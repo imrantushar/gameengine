@@ -102,12 +102,36 @@ class Triggers
         foreach ($rules as $rule) {
             $params = json_decode($rule->parameters, true);
 
+            if (!$this->check_timing_validity($params)) {
+                continue;
+            }
+
+
             if (!$this->check_conditions($trigger_key, $params, $hook_args)) {
                 continue;
             }
 
             $this->process_single_rule($rule, $safe_user_id, $config, $hook_args);
         }
+    }
+
+    private function check_timing_validity($params)
+    {
+
+        if (!empty($params['active_days']) && is_array($params['active_days'])) {
+            $today = strtolower(current_time('D')); // যেমন: 'mon', 'tue'
+            if (!in_array($today, $params['active_days'])) return false;
+        }
+
+
+        if (!empty($params['start_time']) && !empty($params['end_time'])) {
+            $current_time = current_time('H:i');
+            if ($current_time < $params['start_time'] || $current_time > $params['end_time']) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -168,7 +192,7 @@ class Triggers
 
         if ($key === 'user_role_change') {
             $new_role    = isset($args[1]) ? sanitize_text_field($args[1]) : '';
-            $target_role = isset($params['role']) ? sanitize_text_field($params['role']) : '';
+            $target_role = isset($params['target_role']) ? sanitize_text_field($params['target_role']) : '';
             return (!empty($new_role) && $new_role === $target_role);
         }
 
@@ -217,12 +241,23 @@ class Triggers
             absint($requirement_id)
         ));
 
-        if ($limit_type === '1_time' && $progress) {
-            return false;
+        if (!$progress) return true;
+
+        if ($limit_type === '1_time') return false;
+
+        $last_update_time = strtotime($progress->last_updated);
+        $current_time = current_time('timestamp');
+
+        if ($limit_type === '1_per_day') {
+            return gmdate('Y-m-d', $last_update_time) !== gmdate('Y-m-d', $current_time);
         }
 
-        if ($limit_type === '1_per_day' && $progress) {
-            return gmdate('Y-m-d', strtotime($progress->last_updated)) !== current_time('Y-m-d');
+        if ($limit_type === '1_per_week') {
+            return gmdate('W-Y', $last_update_time) !== gmdate('W-Y', $current_time);
+        }
+
+        if ($limit_type === '1_per_month') {
+            return gmdate('m-Y', $last_update_time) !== gmdate('m-Y', $current_time);
         }
 
         return true;
