@@ -192,8 +192,12 @@ const AchievementsType = () => {
 
     const availableHooks = allHooks.filter((hook) => {
         if (selectedHookIds.includes(hook.id)) return false;
-        return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.category);
+        return (
+            selectedFilterHookType.length === 0 ||
+            selectedFilterHookType.includes(hook.integrationSlug)
+        );
     });
+
 
     const activeHooks = selectedHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
@@ -235,10 +239,13 @@ const AchievementsType = () => {
         if (result.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-achievements`);
     };
 
-    const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.category).filter(Boolean))).map(c => ({
-        label: c.charAt(0).toUpperCase() + c.slice(1),
-        value: c,
+    const hookTypeOptions = Array.from(
+        new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))
+    ).map(slug => ({
+        label: slug.charAt(0).toUpperCase() + slug.slice(1),
+        value: slug,
     }));
+
 
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
