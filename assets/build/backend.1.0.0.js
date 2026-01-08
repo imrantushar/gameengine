@@ -2995,7 +2995,7 @@ const AchievementsType = () => {
   }, [congratulationsMessage]);
   const availableHooks = allHooks.filter(hook => {
     if (selectedHookIds.includes(hook.id)) return false;
-    return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.category);
+    return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.integrationSlug);
   });
   const activeHooks = selectedHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
   const handleDragEnd = ({
@@ -3042,9 +3042,9 @@ const AchievementsType = () => {
     })) : await dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.saveAchievement)(payload));
     if (result.meta.requestStatus === 'fulfilled') navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_27__.route_path}admin.php?page=gamify-achievements`);
   };
-  const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.category).filter(Boolean))).map(c => ({
-    label: c.charAt(0).toUpperCase() + c.slice(1),
-    value: c
+  const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))).map(slug => ({
+    label: slug.charAt(0).toUpperCase() + slug.slice(1),
+    value: slug
   }));
   const hookCategoryIconMap = {
     wordpress: {
@@ -6527,16 +6527,15 @@ const PointType = () => {
       bg: "#ff5722"
     }
   };
-
-  // Filter Logic
   const availableAwardHooks = allHooks.filter(hook => {
     if (selectedAwardHookIds.includes(hook.id)) return false;
-    return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.category);
+    return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.integrationSlug);
   });
+  console.log(availableAwardHooks, 'availableAwardHooks');
   const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
   const availableDeductHooks = allHooks.filter(hook => {
     if (selectedDeductHookIds.includes(hook.id)) return false;
-    return selectedDeductFilterType.length === 0 || selectedDeductFilterType.includes(hook.category);
+    return selectedDeductFilterType.length === 0 || selectedDeductFilterType.includes(hook.integrationSlug);
   });
   const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
   const handleDragEnd = ({
@@ -6595,9 +6594,9 @@ const PointType = () => {
     const res = await dispatch(action);
     if (res.meta.requestStatus === 'fulfilled') navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_21__.route_path}admin.php?page=gamify-points`);
   };
-  const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.category).filter(Boolean))).map(c => ({
-    label: c.charAt(0).toUpperCase() + c.slice(1),
-    value: c
+  const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))).map(slug => ({
+    label: slug.charAt(0).toUpperCase() + slug.slice(1),
+    value: slug
   }));
 
   // Helper function to render cards to maintain Figma design

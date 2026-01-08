@@ -281,19 +281,25 @@ const PointType = () => {
         gamify: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
-
-    // Filter Logic
     const availableAwardHooks = allHooks.filter(hook => {
         if (selectedAwardHookIds.includes(hook.id)) return false;
-        return selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.category);
+        return (
+            selectedFilterHookType.length === 0 ||
+            selectedFilterHookType.includes(hook.integrationSlug)
+        );
     });
 
+    console.log(availableAwardHooks, 'availableAwardHooks');
     const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
     const availableDeductHooks = allHooks.filter(hook => {
         if (selectedDeductHookIds.includes(hook.id)) return false;
-        return selectedDeductFilterType.length === 0 || selectedDeductFilterType.includes(hook.category);
+        return (
+            selectedDeductFilterType.length === 0 ||
+            selectedDeductFilterType.includes(hook.integrationSlug)
+        );
     });
+
 
     const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
@@ -332,14 +338,19 @@ const PointType = () => {
         if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-points`);
     };
 
-    const hookTypeOptions = Array.from(new Set(allHooks.map(h => h.category).filter(Boolean))).map(c => ({
-        label: c.charAt(0).toUpperCase() + c.slice(1),
-        value: c,
+    const hookTypeOptions = Array.from(
+        new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))
+    ).map(slug => ({
+        label: slug.charAt(0).toUpperCase() + slug.slice(1),
+        value: slug,
     }));
+
 
     // Helper function to render cards to maintain Figma design
     const renderHookCard = (item, type) => {
-        const config = hookCategoryIconMap[item.category] || { icon: FaWordpressSimple, bg: "gray.500" };
+        const slug = item.integrationSlug || item.category || 'wordpress';
+        const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
+        //const config = hookCategoryIconMap[item.category] || { icon: FaWordpressSimple, bg: "gray.500" };
         return (
             <DraggableItem key={`${type}_${item.id}`} id={`${type}_${item.id}`}>
                 <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)" bg="white">

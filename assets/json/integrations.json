@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-08 08:08:41",
+    "generated_at": "2026-01-08 11:12:59",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -664,7 +664,7 @@
                 },
                 "delete_post": {
                     "label": "Delete Post",
-                    "hook": "before_delete_post",
+                    "hook": "wp_trash_post",
                     "args_count": 1,
                     "get_user_id": {},
                     "schema": [

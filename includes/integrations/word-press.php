@@ -75,11 +75,11 @@ class WordPress extends BaseIntegration
             ],
             'delete_post' => [
                 'label' => __('Delete Post', 'gamify'),
-                'hook' => 'before_delete_post',
+                'hook' => 'wp_trash_post',
                 'args_count' => 1,
-                'get_user_id' => function ($id) {
-                    $p = get_post($id);
-                    return $p ? $p->post_author : 0;
+                'get_user_id' => function ($post_id) {
+                    $post = get_post($post_id);
+                    return $post ? $post->post_author : 0;
                 },
                 'schema' => array_merge([
                     ['key' => 'age_check', 'label' => __('Post Age Limit in Days (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
