@@ -268,7 +268,9 @@ const PointType = () => {
 
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
-    useEffect(() => { dispatch(fetchTriggers()); }, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchTriggers('point_type'));
+    }, [dispatch]);
     useEffect(() => {
         if (editId) dispatch(fetchPointTypeById(editId));
         else dispatch(resetPointTypeForm());

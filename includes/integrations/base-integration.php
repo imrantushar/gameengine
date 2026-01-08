@@ -16,7 +16,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
                 'default' => 10,
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
             [
                 'key'     => 'limit',
@@ -31,14 +31,14 @@ abstract class BaseIntegration implements IntegrationInterface
                     ['label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true],
                 ],
                 'default' => 'unlimited',
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
             [
                 'key'     => 'log_label',
                 'label'   => __('Log Description', 'gamify'),
                 'type'    => 'text',
                 'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
 
             // --- Common Pro Features (Time-Based) ---
@@ -48,7 +48,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'type'    => 'text',
                 'placeholder' => '08:00',
                 'is_pro'  => true,
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
             [
                 'key'     => 'end_time',
@@ -56,7 +56,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'type'    => 'text',
                 'placeholder' => '22:00',
                 'is_pro'  => true,
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
             [
                 'key'     => 'active_days',
@@ -73,7 +73,7 @@ abstract class BaseIntegration implements IntegrationInterface
                     ['label' => 'Saturday', 'value' => 'sat'],
                     ['label' => 'Sunday', 'value' => 'sun']
                 ],
-                'scope'   => ['point_type', 'achievement']
+                'scope'   => ['point_type', 'achievement', 'level']
             ]
         ];
     }

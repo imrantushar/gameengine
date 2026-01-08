@@ -26,7 +26,9 @@ class Gamify extends BaseIntegration
             'unlock_specific_achievement' => [
                 'label'       => __('Unlock Achievement', 'gamify'),
                 'hook'        => 'gamify_achievement_unlocked',
+                'description' => __('Unlock achivemeet successfully  into your website.', 'gamify'),
                 'args_count'  => 3,
+                'supports'    => ['achievement'],
                 'get_user_id' => function ($user_id) {
                     return $user_id;
                 },

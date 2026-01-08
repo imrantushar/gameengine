@@ -23,7 +23,9 @@ class Interactions extends BaseIntegration
             'daily_visit_website' => [
                 'label' => __('Daily Visit', 'gamify'),
                 'hook' => 'gamify_site_visit',
+                'description' => __('Daily visit successfully  into your website.', 'gamify'),
                 'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     return $id;
                 },
@@ -35,7 +37,9 @@ class Interactions extends BaseIntegration
             'visit_specific_post' => [
                 'label' => __('Visit Specific Post', 'gamify'),
                 'hook' => 'gamify_site_visit',
+                'description' => __('Visit Specific post successfully  into your website.', 'gamify'),
                 'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     return $id;
                 },
@@ -46,7 +50,9 @@ class Interactions extends BaseIntegration
             'author_comment_reply' => [
                 'label' => __('Author Reply', 'gamify'),
                 'hook' => 'comment_post',
+                'description' => __('Author comment successfully  into your website.', 'gamify'),
                 'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $c = get_comment($id);
                     if (!$c || $c->comment_parent == 0) return 0;

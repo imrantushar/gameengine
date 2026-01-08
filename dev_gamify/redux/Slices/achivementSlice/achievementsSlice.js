@@ -25,26 +25,21 @@ export const deleteAchievement = createAsyncThunk('achievements/delete', async (
 
 export const fetchTriggers = createAsyncThunk(
     'achievements/fetchTriggers',
-    async (_, { rejectWithValue }) => {
+    async (scope = 'achievement', { rejectWithValue }) => {
         try {
-            // Fetch triggers for achievement scope
-            return await apiFetch({ path: '/gamify/v1/triggers?scope=achievement' });
+            // শুধুমাত্র achievement স্কোপের ট্রিগার আনবে
+            return await apiFetch({ path: `/gamify/v1/triggers?scope=${scope}` });
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
-// Dynamic Options for dropdowns (Post/Product list)
 export const fetchDynamicOptions = createAsyncThunk(
     'achievements/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
-            return await apiFetch({
-                path: '/gamify/v1/dynamic',
-                method: 'POST',
-                data: { integration, query }
-            });
+            return await apiFetch({ path: '/gamify/v1/dynamic', method: 'POST', data: { integration, query } });
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -67,8 +62,8 @@ const initialState = {
     allowUnlockWithPoints: false,
     pointsAmount: '',
     selectedPointTypeId: null,
-    integrations: {}, // New modular data
-    allHooks: [], // Flattened for UI
+    integrations: {},
+    allHooks: [],
     selectedHookIds: [],
     hookSettings: {},
     availablePointTypes: [],
@@ -81,32 +76,18 @@ const achievementsSlice = createSlice({
     name: 'achievements',
     initialState,
     reducers: {
-        setField: (state, action) => {
-            state[action.payload.field] = action.payload.value;
-        },
+        setField: (state, action) => { state[action.payload.field] = action.payload.value; },
         resetForm: (state) => {
-            state.currentAchievementId = null;
-            state.title = '';
-            state.description = '';
-            state.category = '';
-            state.congratulationsMessage = '';
-            state.maxEarnings = 0;
-            state.allowUnlockWithPoints = false;
-            state.pointsAmount = '';
-            state.selectedPointTypeId = null;
-            state.selectedHookIds = [];
-            state.hookSettings = {};
-            state.saveStatus = 'idle';
+            state.currentAchievementId = null; state.title = ''; state.description = ''; state.category = '';
+            state.congratulationsMessage = ''; state.maxEarnings = 0; state.allowUnlockWithPoints = false;
+            state.pointsAmount = ''; state.selectedPointTypeId = null; state.selectedHookIds = [];
+            state.hookSettings = {}; state.saveStatus = 'idle';
         },
         addCategoryToList: (state, action) => {
-            if (!state.availableCategories.includes(action.payload)) {
-                state.availableCategories.push(action.payload);
-            }
+            if (!state.availableCategories.includes(action.payload)) { state.availableCategories.push(action.payload); }
         },
         addHook: (state, action) => {
-            if (!state.selectedHookIds.includes(action.payload)) {
-                state.selectedHookIds.push(action.payload);
-            }
+            if (!state.selectedHookIds.includes(action.payload)) { state.selectedHookIds.push(action.payload); }
         },
         removeHook: (state, action) => {
             state.selectedHookIds = state.selectedHookIds.filter(id => id !== action.payload);
@@ -115,22 +96,17 @@ const achievementsSlice = createSlice({
             const { hookId, settings } = action.payload;
             state.hookSettings[hookId] = { ...state.hookSettings[hookId], ...settings };
         },
-        resetStatus: (state) => {
-            state.status = 'idle';
-        }
+        resetStatus: (state) => { state.status = 'idle'; }
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 state.achievements = action.payload;
-                const categories = action.payload
-                    .map(item => item.category)
-                    .filter(cat => cat && cat.trim() !== '');
+                const categories = action.payload.map(item => item.category).filter(cat => cat && cat.trim() !== '');
                 state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.integrations = action.payload;
-                // Flatten logic to prevent .filter error in UI
                 const flattened = [];
                 Object.keys(action.payload).forEach(slug => {
                     const integration = action.payload[slug];
@@ -145,10 +121,7 @@ const achievementsSlice = createSlice({
                 state.allHooks = flattened;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
-                state.availablePointTypes = action.payload.map(pt => ({
-                    label: pt.name,
-                    value: String(pt.id)
-                }));
+                state.availablePointTypes = action.payload.map(pt => ({ label: pt.name, value: String(pt.id) }));
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;
@@ -161,7 +134,6 @@ const achievementsSlice = createSlice({
                 state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
                 state.pointsAmount = data.required_points_amount;
                 state.selectedPointTypeId = data.required_point_type_id;
-
                 state.selectedHookIds = [];
                 state.hookSettings = {};
                 if (data.requirements) {
@@ -172,10 +144,7 @@ const achievementsSlice = createSlice({
                 }
             })
             .addCase(saveAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(updateAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(deleteAchievement.fulfilled, (state, action) => {
-                state.achievements = state.achievements.filter(i => i.id !== action.payload);
-            });
+            .addCase(updateAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; });
     }
 });
 

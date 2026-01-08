@@ -34,18 +34,39 @@ class TriggersController extends BaseController
 
     public function get_items($request)
     {
-        $file = GAMIFY_PATH . 'assets/json/integrations.json';
+        $scope = $request->get_param('scope');
+        $file  = GAMIFY_PATH . 'assets/json/integrations.json';
+        $data  = [];
 
         if (file_exists($file)) {
-            $json_data = file_get_contents($file);
-            $manifest = json_decode($json_data, true);
-
-            if (isset($manifest['integrations'])) {
-                return new \WP_REST_Response($manifest['integrations'], 200);
-            }
+            $manifest = json_decode(file_get_contents($file), true);
+            $data = $manifest['integrations'] ?? [];
+        } else {
+            $data = \Gamify\Classes\TriggerRegistry::get_all_integrations();
         }
 
-        return new \WP_REST_Response(\Gamify\Classes\TriggerRegistry::get_all_integrations(), 200);
+        if (!empty($scope)) {
+            $filtered_data = [];
+            foreach ($data as $slug => $integration) {
+                if (isset($integration['triggers']) && is_array($integration['triggers'])) {
+
+
+                    $filtered_triggers = array_filter($integration['triggers'], function ($trigger) use ($scope) {
+                        $supports = isset($trigger['supports']) ? (array) $trigger['supports'] : ['point_type'];
+                        return in_array($scope, $supports);
+                    });
+
+
+                    if (!empty($filtered_triggers)) {
+                        $integration['triggers'] = $filtered_triggers;
+                        $filtered_data[$slug] = $integration;
+                    }
+                }
+            }
+            $data = $filtered_data;
+        }
+
+        return new \WP_REST_Response($data, 200);
     }
 
     public function get_dynamic_options($request)

@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import {
-    Box, Button, Flex, Icon, Text, Switch, Checkbox,
-    Input, Center, VStack
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, Switch, Checkbox, Input, Center, VStack } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
@@ -20,19 +17,9 @@ import { SiWoocommerce } from "react-icons/si";
 
 // Actions
 import {
-    fetchAchievementById,
-    saveAchievement,
-    updateAchievement,
-    resetForm,
-    fetchTriggers,
-    fetchDynamicOptions,
-    fetchPointTypes,
-    fetchAchievements,
-    setField,
-    addHook,
-    removeHook,
-    updateHookSettings,
-    addCategoryToList
+    fetchAchievementById, saveAchievement, updateAchievement, resetForm, fetchTriggers,
+    fetchDynamicOptions, fetchPointTypes, fetchAchievements, setField, addHook, removeHook,
+    updateHookSettings, addCategoryToList
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
@@ -59,8 +46,7 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
     const dispatch = useDispatch();
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    const isProActive = false; // logic for pro
+    const isProActive = false;
     const isDisabled = config.is_pro && !isProActive;
 
     useEffect(() => {
@@ -69,9 +55,7 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
             dispatch(fetchDynamicOptions({
                 integration: config.dynamic.integration || integrationSlug,
                 query: config.dynamic.query
-            })).unwrap()
-                .then(res => setDynamicOptions(res))
-                .finally(() => setLoading(false));
+            })).unwrap().then(res => setDynamicOptions(res)).finally(() => setLoading(false));
         }
     }, [config.dynamic, isDisabled, dispatch, integrationSlug]);
 
@@ -93,14 +77,11 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
             <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
                 {labelElement}
                 <Select
-                    isDisabled={isDisabled}
-                    isLoading={loading}
-                    placeholder={isDisabled ? __("Pro Only", "gamify") : __("Select...", "gamify")}
-                    className="gamify-select"
-                    classNamePrefix="gamify-select"
+                    isDisabled={isDisabled} isLoading={loading}
                     options={optionsSource}
                     value={optionsSource.find(opt => opt.value == value) || null}
                     onChange={(selected) => onChange(selected ? selected.value : '')}
+                    className="gamify-select" classNamePrefix="gamify-select"
                 />
             </Box>
         );
@@ -108,53 +89,30 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
 
     return (
         <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
-            <LabeledInput
-                label={config.label}
-                type={config.type === 'number' ? 'number' : 'text'}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                required={config.required}
-                disabled={isDisabled}
-            />
+            <LabeledInput label={config.label} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={(e) => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
         </Box>
     );
 };
 
-// --- UPDATED: Dynamic Hook Settings Form ---
 const DynamicHookForm = ({ hookId, hookInfo, settings, onChange, isOpen, setIsOpen }) => {
     const schema = hookInfo.schema || [];
-
     return (
-        <CustomCollapsible
-            label={hookInfo?.label || hookId}
-            desc={hookInfo?.subTitle}
-            isOpen={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-            singleIcon={true}
-        >
-            <Flex direction="column" gap="16px" p={4}>
-                {schema.map(config => {
-                    if (config.scope && !config.scope.includes('achievement')) return null;
-
-                    return (
-                        <DynamicAchievementField
-                            key={config.key}
-                            fieldKey={config.key}
-                            config={config}
-                            value={settings[config.key] ?? config.default ?? ''}
-                            integrationSlug={hookInfo.integrationSlug}
-                            onChange={(newValue) => onChange(config.key, newValue)}
-                        />
-                    );
-                })}
-            </Flex>
-            <Divider width='100%' margin='12px 0' />
-            <Flex justifyContent='flex-end' p={4}>
-                <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
-                    {__('Done', 'gamify')}
-                </Button>
-            </Flex>
-        </CustomCollapsible>
+        <Box mb={2} bg="white" borderRadius="4px">
+            <CustomCollapsible label={hookInfo?.label || hookId} desc={hookInfo?.subTitle} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} singleIcon={true}>
+                <Flex direction="column" gap="16px" p={4}>
+                    {schema.map(config => {
+                        if (config.scope && !config.scope.includes('achievement')) return null;
+                        return (
+                            <DynamicAchievementField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} onChange={(newValue) => onChange(config.key, newValue)} />
+                        );
+                    })}
+                </Flex>
+                <Divider width='100%' margin='12px 0' />
+                <Flex justifyContent='flex-end' p={4}>
+                    <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
+                </Flex>
+            </CustomCollapsible>
+        </Box>
     );
 };
 
@@ -164,8 +122,6 @@ const AchievementsType = () => {
     const [searchParams] = useSearchParams();
     const editId = searchParams.get('id');
     const [message, setMessage] = useState("");
-
-    const [achievementCollapsible, setAchievementCollapsible] = useState(true);
     const [openedHooks, setOpenedHooks] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [showInput, setShowInput] = useState(false);
@@ -174,94 +130,89 @@ const AchievementsType = () => {
 
     const {
         title, description, maxEarnings, allowUnlockWithPoints, pointsAmount, selectedPointTypeId,
-        allHooks, category, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage,
-        availableCategories = []
+        allHooks, category, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage, availableCategories = []
     } = useSelector(state => state.achievements);
 
     useEffect(() => {
-        dispatch(fetchTriggers());
+        dispatch(fetchTriggers('achievement')); // শুধুমাত্র অ্যাচিভমেন্ট স্কোপ ফিল্টার করবে
         dispatch(fetchPointTypes());
         dispatch(fetchAchievements());
         if (editId) dispatch(fetchAchievementById(editId));
         else dispatch(resetForm());
     }, [dispatch, editId]);
 
-    useEffect(() => {
-        if (congratulationsMessage) setMessage(congratulationsMessage);
-    }, [congratulationsMessage]);
+    useEffect(() => { if (congratulationsMessage) setMessage(congratulationsMessage); }, [congratulationsMessage]);
 
-    const availableHooks = allHooks.filter((hook) => {
-        if (selectedHookIds.includes(hook.id)) return false;
+    // আইকন কনফিগারেশন
+    const hookCategoryIconMap = {
+        wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
+        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+        gamify: { icon: FaGamepad, bg: "#006BFF" },
+        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
+    };
+
+    // হুক কার্ড রেন্ডার ফাংশন
+    const renderHookCard = (item) => {
+        const slug = item.integrationSlug || 'wordpress';
+        const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
         return (
-            selectedFilterHookType.length === 0 ||
-            selectedFilterHookType.includes(hook.integrationSlug)
+            <DraggableItem key={item.id} id={item.id}>
+                <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)" bg="white">
+                    <Flex justify="space-between" align="center">
+                        <Flex align="center" gap='8px'>
+                            <Center bg={config.bg} borderRadius="full" width="24px" height="24px" color="white">
+                                <Icon as={config.icon} boxSize={3} />
+                            </Center>
+                            <Text margin="0" fontSize="1rem" fontWeight="600">{item.label}</Text>
+                        </Flex>
+                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        </Box>
+                    </Flex>
+                </Box>
+            </DraggableItem>
         );
-    });
+    };
 
-
+    const availableHooks = allHooks.filter(hook => !selectedHookIds.includes(hook.id) && (selectedFilterHookType.length === 0 || selectedFilterHookType.includes(hook.integrationSlug)));
     const activeHooks = selectedHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
-        const id = active.id;
-        if (availableHooks.some(i => i.id === id) && over.id === "awards-sidebar") {
-            dispatch(addHook(id));
-            setOpenedHooks([id]);
+        if (availableHooks.some(i => i.id === active.id) && over.id === "awards-sidebar") {
+            dispatch(addHook(active.id)); setOpenedHooks([active.id]);
         }
-        if (selectedHookIds.includes(id) && over.id === "awards-available") {
-            dispatch(removeHook(id));
-            setOpenedHooks(prev => prev.filter(h => h !== id));
+        if (selectedHookIds.includes(active.id) && over.id === "awards-available") {
+            dispatch(removeHook(active.id));
         }
     };
 
     const handleSave = async () => {
         if (!title) return alert("Name is required");
-
-        const getParamsFromSchema = (hook) => {
-            const settings = hookSettings[hook.id] || {};
-            return Object.fromEntries((hook.schema || []).map(f => [f.key, settings[f.key] ?? f.default]));
-        };
-
         const payload = {
-            title, description, category,
-            max_earnings_per_user: maxEarnings,
+            title, description, category, max_earnings_per_user: maxEarnings,
             unlock_with_points_enabled: allowUnlockWithPoints,
-            required_points_amount: pointsAmount,
-            required_point_type_id: selectedPointTypeId,
+            required_points_amount: pointsAmount, required_point_type_id: selectedPointTypeId,
             congratulations_message: message,
             requirements: activeHooks.map(h => ({
                 trigger_key: h.id,
-                parameters: getParamsFromSchema(h)
+                parameters: Object.fromEntries((h.schema || []).map(f => [f.key, (hookSettings[h.id] || {})[f.key] ?? f.default]))
             }))
         };
-
         const result = editId ? await dispatch(updateAchievement({ id: editId, data: payload })) : await dispatch(saveAchievement(payload));
         if (result.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-achievements`);
     };
 
-    const hookTypeOptions = Array.from(
-        new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))
-    ).map(slug => ({
-        label: slug.charAt(0).toUpperCase() + slug.slice(1),
-        value: slug,
-    }));
-
-
-    const hookCategoryIconMap = {
-        wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
-        gamify: { icon: FaGamepad, bg: "#006BFF" },
-        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
-        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
-    };
+    const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
 
     return (
         <>
             <TopBar leftContent={() => (
-                <>
+                <Flex align="center">
                     <Box className="gamify-topbar-logo"><svg width="36" height="36" viewBox="0 0 36 36"><rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" /><path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" /></svg></Box>
                     <Icon as={FaChevronRight} mx={2} />
                     <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                </>
+                </Flex>
             )} />
 
             <Box width="1174px" margin="0 auto" pb="50px">
@@ -278,6 +229,7 @@ const AchievementsType = () => {
                         <Text fontSize="xs" mt={1} color="var(--gamify-secondary)">{__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}</Text>
                     </Box>
 
+                    {/* ACHIEVEMENT TYPE CHECKBOXES - RESTORED */}
                     <Box>
                         <GFLabel type="inputLabel" label={"Achievement Type"} />
                         <Flex mt="4px" gap="24px" p="12px" border="1px solid var(--gamify-border-color)" borderRadius="4px" flexWrap="wrap">
@@ -299,6 +251,7 @@ const AchievementsType = () => {
                         )}
                     </Box>
 
+                    {/* CONGRATS MESSAGE EDITOR - RESTORED */}
                     <Box>
                         <GFLabel margin="0 0 12px 0" type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
                         <GamifyEditor defaultValue={message} saveValueHandler={setMessage} />
@@ -310,63 +263,26 @@ const AchievementsType = () => {
                         </Switch.Root>
                     </Flex>
 
-                    {allowUnlockWithPoints && (
+                    {allowUnlockWithPoints ? (
                         <Flex gap="12px">
                             <Box width="50%"><LabeledInput label="Points" type="number" value={pointsAmount} onChange={e => dispatch(setField({ field: 'pointsAmount', value: e.target.value }))} /></Box>
                             <Box width="50%"><Text fontSize="14px" fontWeight="500" mb="8px">{__("Choose the Points Type", "gamify")}</Text>
                                 <Select options={availablePointTypes} value={availablePointTypes.find(opt => opt.value == selectedPointTypeId)} onChange={s => dispatch(setField({ field: 'selectedPointTypeId', value: s ? s.value : null }))} />
                             </Box>
                         </Flex>
-                    )}
-
-                    {!allowUnlockWithPoints && (
+                    ) : (
                         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
                             <Flex gap="24px">
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="4">
-                                    <VStack align="start" spacing={1}>
-                                        <GFLabel type="title" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} />
-                                        <Text fontSize="xs">{__("Drag hooks to activate.", "gamify")}</Text>
-                                    </VStack>
-                                    <Box p={4} border="1px solid #eee" borderRadius="md">
-                                        <Text fontSize="xs" mb={2} fontWeight="600">{__("Filter Category", "gamify")}</Text>
-                                        <Select isMulti options={hookTypeOptions} onChange={v => setSelectedFilterHookType(v.map(o => o.value))} />
-                                    </Box>
-                                    <DroppableArea id="awards-available">
-                                        {availableHooks.map((h) => {
-                                            const config = hookCategoryIconMap[h.category] || { bg: "gray.500", icon: FaWordpressSimple };
-                                            return (
-                                                <Box key={h.id}>
-                                                    <DraggableItem id={h.id}>
-                                                        <Box p={3} borderRadius="md" border="1px solid #eee" bg="white">
-                                                            <Flex justify="space-between" align="center">
-                                                                <Flex gap={2} align="center">
-                                                                    <Center bg={config.bg} color="white" borderRadius="full" boxSize="24px"><Icon as={config.icon} boxSize={3} /></Center>
-                                                                    <Text fontSize="sm" fontWeight="600" m="0">{h.label}</Text>
-                                                                </Flex>
-                                                                <Icon as={FaArrowRotateRight} color="green.500" />
-                                                            </Flex>
-                                                        </Box>
-                                                    </DraggableItem>
-                                                    <Text fontSize="xs" color="gray.500" mt={1} mb={4}>{h.subTitle}</Text>
-                                                </Box>
-                                            );
-                                        })}
-                                    </DroppableArea>
+                                    <VStack align="start" spacing={1}><GFLabel type="title" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} /><Text fontSize="xs">{__("Drag hooks to activate.", "gamify")}</Text></VStack>
+                                    <Box p={4} border="1px solid #eee" borderRadius="md"><Text fontSize="xs" mb={2} fontWeight="600">{__("Filter Category", "gamify")}</Text><Select isMulti options={hookTypeOptions} onChange={v => setSelectedFilterHookType(v.map(o => o.value))} /></Box>
+                                    <DroppableArea id="awards-available">{availableHooks.map(h => renderHookCard(h))}</DroppableArea>
                                 </Flex>
-
                                 <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
                                     <GFLabel type="title" label={__("Action Hooks", "gamify")} />
                                     <DroppableArea id="awards-sidebar">
                                         {activeHooks.map(h => (
-                                            <DraggableItem key={h.id} id={h.id}>
-                                                <DynamicHookForm
-                                                    hookId={h.id} hookInfo={h}
-                                                    settings={hookSettings[h.id] || {}}
-                                                    onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))}
-                                                    isOpen={openedHooks.includes(h.id)}
-                                                    setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))}
-                                                />
-                                            </DraggableItem>
+                                            <DynamicHookForm key={h.id} hookId={h.id} hookInfo={h} settings={hookSettings[h.id] || {}} onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} isOpen={openedHooks.includes(h.id)} setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))} />
                                         ))}
                                     </DroppableArea>
                                 </Box>

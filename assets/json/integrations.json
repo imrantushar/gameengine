@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-08 11:12:59",
+    "generated_at": "2026-01-08 15:10:14",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -11,7 +11,13 @@
                     "label": "User Login",
                     "hook": "wp_login",
                     "args_count": 2,
+                    "description": "Awarded when a user successfully logs into your website.",
                     "get_user_id": {},
+                    "supports": [
+                        "achievement",
+                        "point_type",
+                        "level"
+                    ],
                     "schema": [
                         {
                             "key": "points",
@@ -20,7 +26,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -55,7 +62,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -65,7 +73,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -76,7 +85,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -87,7 +97,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -128,7 +139,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -136,7 +148,13 @@
                 "user_register": {
                     "label": "User Register",
                     "hook": "user_register",
+                    "description": "Awarded when a user successfully register into your website.",
                     "args_count": 1,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -146,7 +164,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -181,7 +200,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -191,7 +211,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -202,7 +223,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -213,7 +235,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -254,7 +277,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -262,7 +286,13 @@
                 "publish_post": {
                     "label": "Publish Post",
                     "hook": "publish_post",
+                    "description": "Publish post successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -279,7 +309,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -314,7 +345,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -324,7 +356,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -335,7 +368,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -346,7 +380,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -387,7 +422,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -395,7 +431,13 @@
                 "publish_page": {
                     "label": "Publish Page",
                     "hook": "publish_page",
+                    "description": "Publish page successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -411,7 +453,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -446,7 +489,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -456,7 +500,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -467,7 +512,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -478,7 +524,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -519,7 +566,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -527,7 +575,13 @@
                 "comment_post": {
                     "label": "Post Comment",
                     "hook": "comment_post",
+                    "description": "Comment post successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -549,7 +603,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -584,7 +639,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -594,7 +650,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -605,7 +662,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -616,7 +674,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -657,7 +716,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -665,7 +725,13 @@
                 "delete_post": {
                     "label": "Delete Post",
                     "hook": "wp_trash_post",
+                    "description": "Delete post successfully  into your website.",
                     "args_count": 1,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -681,7 +747,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -716,7 +783,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -726,7 +794,8 @@
                             "default": "Activity Penalty",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -737,7 +806,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -748,7 +818,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -789,7 +860,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -797,7 +869,13 @@
                 "user_role_change": {
                     "label": "Role Change",
                     "hook": "set_user_role",
+                    "description": "User role change successfully  into your website.",
                     "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -816,7 +894,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -851,7 +930,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -861,7 +941,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -872,7 +953,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -883,7 +965,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -924,7 +1007,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -932,6 +1016,12 @@
                 "profile_update": {
                     "label": "Profile Update",
                     "hook": "profile_update",
+                    "description": "Profile update successfully  into your website.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "args_count": 2,
                     "get_user_id": {},
                     "schema": [
@@ -942,7 +1032,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -977,7 +1068,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -987,7 +1079,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -998,7 +1091,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1009,7 +1103,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1050,7 +1145,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1058,7 +1154,13 @@
                 "post_updated": {
                     "label": "Post Updated",
                     "hook": "post_updated",
+                    "description": "Post update successfully  into your website.",
                     "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1074,7 +1176,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1109,7 +1212,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1119,7 +1223,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1130,7 +1235,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1141,7 +1247,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1182,7 +1289,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1190,7 +1298,13 @@
                 "after_password_reset": {
                     "label": "Password Reset",
                     "hook": "after_password_reset",
+                    "description": "Reset password successfully  into your website.",
                     "args_count": 1,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1200,7 +1314,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1235,7 +1350,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1245,7 +1361,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1256,7 +1373,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1267,7 +1385,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1308,7 +1427,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1323,7 +1443,11 @@
                 "unlock_specific_achievement": {
                     "label": "Unlock Achievement",
                     "hook": "gamify_achievement_unlocked",
+                    "description": "Unlock achivemeet successfully  into your website.",
                     "args_count": 3,
+                    "supports": [
+                        "achievement"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1343,7 +1467,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1378,7 +1503,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1388,7 +1514,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1399,7 +1526,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1410,7 +1538,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1451,7 +1580,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1466,7 +1596,13 @@
                 "daily_visit_website": {
                     "label": "Daily Visit",
                     "hook": "gamify_site_visit",
+                    "description": "Daily visit successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1488,7 +1624,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1523,7 +1660,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1533,7 +1671,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1544,7 +1683,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1555,7 +1695,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1596,7 +1737,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1604,7 +1746,13 @@
                 "visit_specific_post": {
                     "label": "Visit Specific Post",
                     "hook": "gamify_site_visit",
+                    "description": "Visit Specific post successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1623,7 +1771,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1658,7 +1807,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1668,7 +1818,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1679,7 +1830,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1690,7 +1842,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1731,7 +1884,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1739,7 +1893,13 @@
                 "author_comment_reply": {
                     "label": "Author Reply",
                     "hook": "comment_post",
+                    "description": "Author comment successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1755,7 +1915,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1790,7 +1951,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1800,7 +1962,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1811,7 +1974,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1822,7 +1986,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1863,7 +2028,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -1879,6 +2045,12 @@
                     "label": "New Purchase",
                     "hook": "woocommerce_order_status_completed",
                     "args_count": 1,
+                    "description": "New purchase successfully  into your website.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -1910,7 +2082,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1945,7 +2118,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1955,7 +2129,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1966,7 +2141,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -1977,7 +2153,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2018,7 +2195,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -2026,7 +2204,13 @@
                 "woocommerce_purchase_specific_product": {
                     "label": "Purchase Specific Product",
                     "hook": "woocommerce_order_status_completed",
+                    "description": "Purchase product successfully  into your website.",
                     "args_count": 1,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -2051,7 +2235,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2086,7 +2271,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2096,7 +2282,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2107,7 +2294,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2118,7 +2306,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2159,7 +2348,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -2167,7 +2357,13 @@
                 "woocommerce_publish_product": {
                     "label": "Publish Product",
                     "hook": "publish_product",
+                    "description": "Publish product successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -2177,7 +2373,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2212,7 +2409,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2222,7 +2420,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2233,7 +2432,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2244,7 +2444,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2285,7 +2486,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -2293,7 +2495,13 @@
                 "woocommerce_review_product": {
                     "label": "Review Product",
                     "hook": "comment_post",
+                    "description": "Review product successfully  into your website.",
                     "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -2309,7 +2517,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2344,7 +2553,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2354,7 +2564,8 @@
                             "default": "Activity Reward",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2365,7 +2576,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2376,7 +2588,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2417,7 +2630,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]
@@ -2425,7 +2639,13 @@
                 "woocommerce_refund_purchase": {
                     "label": "Refund Order",
                     "hook": "woocommerce_order_status_refunded",
+                    "description": "Refund purchase successfully  into your website.",
                     "args_count": 1,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
                     "get_user_id": {},
                     "schema": [
                         {
@@ -2435,7 +2655,8 @@
                             "default": 10,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2470,7 +2691,8 @@
                             "default": "unlimited",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2480,7 +2702,8 @@
                             "default": "Activity Penalty",
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2491,7 +2714,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2502,7 +2726,8 @@
                             "is_pro": true,
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         },
                         {
@@ -2543,7 +2768,8 @@
                             ],
                             "scope": [
                                 "point_type",
-                                "achievement"
+                                "achievement",
+                                "level"
                             ]
                         }
                     ]

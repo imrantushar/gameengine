@@ -5,10 +5,11 @@ import { addQueryArgs } from '@wordpress/url';
 // --- 1. Fetch Available Triggers (Modular API) ---
 export const fetchTriggers = createAsyncThunk(
     'pointType/fetchTriggers',
-    async (_, { rejectWithValue }) => {
+    async (scope = 'point_type', { rejectWithValue }) => { // Default scope 'point_type'
         try {
-            // এখন এটি সব ইন্টিগ্রেশন এবং ট্রিগার নিয়ে আসবে
-            return await apiFetch({ path: '/gamify/v1/triggers' });
+            return await apiFetch({
+                path: `/gamify/v1/triggers?scope=${scope}`
+            });
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -181,17 +182,22 @@ const pointTypeSlice = createSlice({
                 state.status = 'succeeded';
                 state.integrations = action.payload;
 
-                // Flatten object into array for allHooks compatibility
+                // 🔥 নিচের লগটি চেক করুন ব্রাউজারের ইনস্পেক্ট এলিমেন্টে (Console Tab)
+                console.log("SERVER RESPONSE DATA:", action.payload);
+
                 const flattenedHooks = [];
                 Object.keys(action.payload).forEach(slug => {
                     const integration = action.payload[slug];
-                    Object.keys(integration.triggers).forEach(triggerKey => {
-                        flattenedHooks.push({
-                            id: triggerKey,
-                            integrationSlug: slug,
-                            ...integration.triggers[triggerKey]
+                    if (integration.triggers) {
+                        Object.keys(integration.triggers).forEach(triggerKey => {
+                            const triggerData = integration.triggers[triggerKey];
+                            flattenedHooks.push({
+                                id: triggerKey,
+                                integrationSlug: slug,
+                                ...triggerData
+                            });
                         });
-                    });
+                    }
                 });
                 state.allHooks = flattenedHooks;
             })
