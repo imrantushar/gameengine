@@ -7,6 +7,8 @@ import Tooltip from '@GFComponents/Tooltip';
 import { toggleAddonStatus } from '../../../../redux/Slices/addonsSlice/addonsSlice';
 import { resetStatus as resetPointStatus } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice'; // Check path
 import { resetStatus as resetAchievementStatus } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
+import { fetchTriggers as refreshPointTriggers } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice';
+import { fetchTriggers as refreshAchievementTriggers } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
 const AddonCard = ({ item }) => {
 	const dispatch = useDispatch();
 
@@ -34,17 +36,21 @@ const AddonCard = ({ item }) => {
 			status: newStatus
 		}));
 
-		setIsUpdating(false);
+
 		if (toggleAddonStatus.fulfilled.match(result)) {
 			// 🔥 Force trigger refresh on other pages
 			dispatch(resetPointStatus());
 			dispatch(resetAchievementStatus());
+			dispatch(refreshPointTriggers());
+			dispatch(refreshAchievementTriggers());
 
 			// No reload needed now!
 		} else {
 			setLocalChecked(!newStatus);
 			alert(__("Failed to update status.", "gamify"));
 		}
+
+		setIsUpdating(false);
 	};
 
 	const getIconBorder = () => {

@@ -23,21 +23,34 @@ export const deleteAchievement = createAsyncThunk('achievements/delete', async (
     return id;
 });
 
-// Reuse Trigger Fetch logic or create new
 export const fetchTriggers = createAsyncThunk(
     'achievements/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            // Achievement এর জন্য scope পাঠানো হলো
-            const response = await apiFetch({ path: '/gamify/v1/triggers?scope=achievement' });
-            return response;
+            // Fetch triggers for achievement scope
+            return await apiFetch({ path: '/gamify/v1/triggers?scope=achievement' });
         } catch (error) {
             return rejectWithValue(error.message);
         }
     }
 );
 
-// Fetch Point Types for the dropdown
+// Dynamic Options for dropdowns (Post/Product list)
+export const fetchDynamicOptions = createAsyncThunk(
+    'achievements/fetchDynamicOptions',
+    async ({ integration, query }, { rejectWithValue }) => {
+        try {
+            return await apiFetch({
+                path: '/gamify/v1/dynamic',
+                method: 'POST',
+                data: { integration, query }
+            });
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 export const fetchPointTypes = createAsyncThunk('achievements/fetchPointTypes', async () => {
     return await apiFetch({ path: '/gamify/v1/point-types' });
 });
@@ -46,22 +59,19 @@ const initialState = {
     achievements: [],
     currentAchievementId: null,
     congratulationsMessage: '',
-    // Form Fields
     title: '',
-    description: '', // Mapped to Plural Name in UI
+    description: '',
     category: '',
     availableCategories: [],
     maxEarnings: 0,
     allowUnlockWithPoints: false,
     pointsAmount: '',
     selectedPointTypeId: null,
-
-    // Hooks/Triggers Data
-    allHooks: [], // From API
+    integrations: {}, // New modular data
+    allHooks: [], // Flattened for UI
     selectedHookIds: [],
     hookSettings: {},
-    availablePointTypes: [], // For dropdown
-
+    availablePointTypes: [],
     status: 'idle',
     saveStatus: 'idle',
     error: null,
@@ -113,18 +123,26 @@ const achievementsSlice = createSlice({
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 state.achievements = action.payload;
-
-                // 🔥 FIX: Extract unique categories from all achievements
                 const categories = action.payload
                     .map(item => item.category)
-                    .filter(cat => cat && cat.trim() !== ''); // Remove empty/null
-
-                // Merge with existing ensuring uniqueness
-                const uniqueCategories = [...new Set([...state.availableCategories, ...categories])];
-                state.availableCategories = uniqueCategories;
+                    .filter(cat => cat && cat.trim() !== '');
+                state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
-                state.allHooks = action.payload;
+                state.integrations = action.payload;
+                // Flatten logic to prevent .filter error in UI
+                const flattened = [];
+                Object.keys(action.payload).forEach(slug => {
+                    const integration = action.payload[slug];
+                    Object.keys(integration.triggers).forEach(triggerKey => {
+                        flattened.push({
+                            id: triggerKey,
+                            integrationSlug: slug,
+                            ...integration.triggers[triggerKey]
+                        });
+                    });
+                });
+                state.allHooks = flattened;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
                 state.availablePointTypes = action.payload.map(pt => ({
@@ -134,7 +152,6 @@ const achievementsSlice = createSlice({
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;
-
                 state.currentAchievementId = data.id;
                 state.title = data.title;
                 state.description = data.description;
@@ -145,10 +162,6 @@ const achievementsSlice = createSlice({
                 state.pointsAmount = data.required_points_amount;
                 state.selectedPointTypeId = data.required_point_type_id;
 
-                if (data.category && !state.availableCategories.includes(data.category)) {
-                    state.availableCategories.push(data.category);
-                }
-                // Load Hooks
                 state.selectedHookIds = [];
                 state.hookSettings = {};
                 if (data.requirements) {

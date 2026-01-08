@@ -123,26 +123,6 @@ final class Gamify
             \Gamify\Classes\Shortcodes::init();
         }
 
-        // 3. Load Addons (BEFORE Triggers)
-        // This ensures addons can hook into 'gamify_available_triggers'
-        $active_addons = get_option('gamify_active_addons', []);
-
-        if (in_array('woocommerce', $active_addons)) {
-            // Note: Check file casing carefully (Woocommerce vs woocommerce)
-            if (file_exists(GAMIFY_PATH . 'addons/woocommerce/woocommerce.php')) {
-                require_once GAMIFY_PATH . 'addons/woocommerce/woocommerce.php';
-                // Integration class is loaded inside Woocommerce::init(), but requiring it here is safe too
-                if (file_exists(GAMIFY_PATH . 'addons/woocommerce/integration.php')) {
-                    require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
-                }
-
-                if (class_exists('\Gamify\Addons\Woocommerce\Woocommerce')) {
-                    \Gamify\Addons\Woocommerce\Woocommerce::init();
-                }
-            }
-        }
-
-        // 4. Initialize Triggers (AFTER Addons)
         // Now TriggerRegistry will pick up hooks added by addons
         if (class_exists('\Gamify\Classes\Triggers')) {
             \Gamify\Classes\Triggers::init();
@@ -151,6 +131,14 @@ final class Gamify
         // 5. Admin Interface
         if (is_admin() && class_exists('\Gamify\Admin')) {
             \Gamify\Admin::init();
+        }
+
+        if (is_admin() && isset($_GET['page']) && strpos($_GET['page'], 'gamify') === 0) {
+            \Gamify\Classes\JsonGenerator::generate();
+        }
+
+        if (defined('WP_CLI') && WP_CLI) {
+            \WP_CLI::add_command('gamify', '\Gamify\Classes\CLI');
         }
     }
 

@@ -1,0 +1,2554 @@
+{
+    "version": "1.0.0",
+    "generated_at": "2026-01-07 19:32:33",
+    "integrations": {
+        "wordpress": {
+            "slug": "wordpress",
+            "name": "WordPress Core",
+            "icon": "dashicons-wordpress",
+            "triggers": {
+                "wp_login": {
+                    "label": "User Login",
+                    "hook": "wp_login",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "user_register": {
+                    "label": "User Register",
+                    "hook": "user_register",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "publish_post": {
+                    "label": "Publish Post",
+                    "hook": "publish_post",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_words",
+                            "label": "Min Word Count (Pro)",
+                            "type": "number",
+                            "is_pro": true,
+                            "default": 500
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "publish_page": {
+                    "label": "Publish Page",
+                    "hook": "publish_page",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_media",
+                            "label": "Min Media Count (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "comment_post": {
+                    "label": "Post Comment",
+                    "hook": "comment_post",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_chars",
+                            "label": "Min Character Count (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "instant_reward",
+                            "label": "Instant Reward (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "delete_post": {
+                    "label": "Delete Post",
+                    "hook": "before_delete_post",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "age_check",
+                            "label": "Post Age Limit in Days (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Deduct",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Penalty",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "user_role_change": {
+                    "label": "Role Change",
+                    "hook": "set_user_role",
+                    "args_count": 3,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "role",
+                            "label": "Target Role",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "wordpress",
+                                "query": "roles"
+                            }
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "profile_update": {
+                    "label": "Profile Update",
+                    "hook": "profile_update",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "post_updated": {
+                    "label": "Post Updated",
+                    "hook": "post_updated",
+                    "args_count": 3,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_change",
+                            "label": "Min Content Change % (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "after_password_reset": {
+                    "label": "Password Reset",
+                    "hook": "after_password_reset",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "gamify": {
+            "slug": "gamify",
+            "name": "Gamify Logic",
+            "icon": "dashicons-games",
+            "triggers": {
+                "unlock_specific_achievement": {
+                    "label": "Unlock Achievement",
+                    "hook": "gamify_achievement_unlocked",
+                    "args_count": 3,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "achievement_id",
+                            "label": "Select Achievement",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "gamify",
+                                "query": "achievements"
+                            },
+                            "required": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "interaction": {
+            "slug": "interaction",
+            "name": "Interactions",
+            "icon": "dashicons-groups",
+            "triggers": {
+                "daily_visit_website": {
+                    "label": "Daily Visit",
+                    "hook": "gamify_site_visit",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "streak_bonus",
+                            "label": "Enable Streak Bonus (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "min_stay",
+                            "label": "Min Stay Duration (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "visit_specific_post": {
+                    "label": "Visit Specific Post",
+                    "hook": "gamify_site_visit",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "post_id",
+                            "label": "Select Post",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "interaction",
+                                "query": "posts"
+                            }
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "author_comment_reply": {
+                    "label": "Author Reply",
+                    "hook": "comment_post",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_reply_len",
+                            "label": "Min Reply Length (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "woocommerce": {
+            "slug": "woocommerce",
+            "name": "WooCommerce",
+            "icon": "dashicons-cart",
+            "triggers": {
+                "woocommerce_new_purchase": {
+                    "label": "New Purchase",
+                    "hook": "woocommerce_order_status_completed",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "min_spend",
+                            "label": "Minimum Spend (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "calc_type",
+                            "label": "Points Calculation (Pro)",
+                            "type": "select",
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Fixed",
+                                    "value": "fixed"
+                                },
+                                {
+                                    "label": "Percent of Total",
+                                    "value": "percent"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "woocommerce_purchase_specific_product": {
+                    "label": "Purchase Specific Product",
+                    "hook": "woocommerce_order_status_completed",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "product_id",
+                            "label": "Select Product",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "products"
+                            }
+                        },
+                        {
+                            "key": "qty_multiplier",
+                            "label": "Quantity Multiplier (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "woocommerce_publish_product": {
+                    "label": "Publish Product",
+                    "hook": "publish_product",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "woocommerce_review_product": {
+                    "label": "Review Product",
+                    "hook": "comment_post",
+                    "args_count": 2,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "media_bonus",
+                            "label": "Photo/Video Review Bonus (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                },
+                "woocommerce_refund_purchase": {
+                    "label": "Refund Order",
+                    "hook": "woocommerce_order_status_refunded",
+                    "args_count": 1,
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Deduct",
+                            "type": "number",
+                            "default": 10,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "default": "Activity Penalty",
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "text",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "text",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement"
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

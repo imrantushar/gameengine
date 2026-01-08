@@ -59,7 +59,7 @@ class LogsController extends BaseController
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
-        // 2. Object Caching
+        // 2. Object Caching (MD5 hash of params)
         $cache_key   = 'gamify_logs_' . md5($per_page . $page . $search);
         $cached_data = wp_cache_get($cache_key, 'gamify_logs');
 
@@ -81,7 +81,7 @@ class LogsController extends BaseController
         }
 
         // 4. Count Query
-        // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared
+        // phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared
         $count_query = $wpdb->prepare(
             "SELECT COUNT(l.id) FROM {$wpdb->prefix}gamify_logs as l LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID $where_sql",
             $prepare_args
@@ -104,13 +104,24 @@ class LogsController extends BaseController
         $results = $wpdb->get_results($main_query, ARRAY_A);
         // phpcs:enable
 
-        // 6. Formatting Meta & Trigger Labels
+        // 6. Formatting Meta & Trigger Labels (Refactored for Modular System)
         foreach ($results as &$row) {
             $row['meta'] = !empty($row['meta']) ? json_decode($row['meta'], true) : [];
-            $trigger_config = TriggerRegistry::get($row['trigger_key']);
-            $row['event_name'] = ($trigger_config && isset($trigger_config['label']))
-                ? $trigger_config['label']
-                : ucwords(str_replace(['_', '-'], ' ', $row['trigger_key']));
+
+
+            $event_label = ucwords(str_replace(['_', '-'], ' ', $row['trigger_key']));
+
+            try {
+                if (class_exists('\Gamify\Classes\TriggerRegistry')) {
+                    $trigger_config = \Gamify\Classes\TriggerRegistry::get($row['trigger_key']);
+                    if ($trigger_config && isset($trigger_config['label'])) {
+                        $event_label = $trigger_config['label'];
+                    }
+                }
+            } catch (\Exception $e) {
+            }
+
+            $row['event_name'] = $event_label;
         }
 
         $total_pages = (int) ceil($total_items / $per_page);
@@ -121,7 +132,7 @@ class LogsController extends BaseController
             'total'   => $total_items,
             'pages'   => $total_pages
         ];
-        wp_cache_set($cache_key, $cache_to_save, 'gamify_logs', 60);
+        wp_cache_set($cache_key, $cache_to_save, 'gamify_logs', 30); // 30 seconds cache for logs
 
         $response = new \WP_REST_Response($results, 200);
         $response->header('X-WP-Total', $total_items);
@@ -132,9 +143,6 @@ class LogsController extends BaseController
 
     /**
      * Update a log entry.
-     *
-     * @param \WP_REST_Request $request
-     * @return \WP_REST_Response
      */
     public function update_item(\WP_REST_Request $request)
     {
@@ -143,8 +151,7 @@ class LogsController extends BaseController
         $log_id = absint($request->get_param('id'));
         $params = $request->get_json_params();
 
-        // 1. Fetch existing log
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $existing = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_logs WHERE id = %d", $log_id), ARRAY_A);
 
         if (!$existing) {
@@ -161,6 +168,7 @@ class LogsController extends BaseController
 
         if (isset($params['points_awarded'])) {
             $new_points = intval($params['points_awarded']);
+
             if (isset($params['type']) && $params['type'] === 'deduct') {
                 $new_points = -abs($new_points);
             } else {
@@ -170,9 +178,8 @@ class LogsController extends BaseController
             $data['points_awarded'] = $new_points;
             $format[]               = '%d';
 
-            $meta = json_decode($existing['meta'], true);
+            $meta = is_array($existing['meta']) ? $existing['meta'] : json_decode($existing['meta'], true);
             if (isset($meta['log_id'])) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->update(
                     $wpdb->prefix . 'gamify_points_log',
                     ['points' => $new_points],
@@ -180,7 +187,6 @@ class LogsController extends BaseController
                     ['%d'],
                     ['%d']
                 );
-                wp_cache_flush();
             }
         }
 
@@ -193,15 +199,13 @@ class LogsController extends BaseController
             return new \WP_REST_Response(['message' => __('No changes made.', 'gamify')], 200);
         }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $updated = $wpdb->update($wpdb->prefix . 'gamify_logs', $data, ['id' => $log_id], $format, ['%d']);
 
         if ($updated === false) {
             return new \WP_Error('db_error', __('Could not update log.', 'gamify'), ['status' => 500]);
         }
 
-        wp_cache_delete('gamify_logs_' . md5('201'), 'gamify_logs'); // Basic cache clear
-
+        wp_cache_delete('gamify_logs_' . md5('201'), 'gamify_logs');
         return new \WP_REST_Response(['message' => __('Log updated successfully.', 'gamify')], 200);
     }
 

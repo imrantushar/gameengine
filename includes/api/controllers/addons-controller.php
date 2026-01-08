@@ -56,6 +56,12 @@ class AddonsController extends BaseController
 
         update_option('gamify_active_addons', array_values($active_addons));
 
+        \Gamify\Classes\TriggerRegistry::reset();
+
+        if (class_exists('\Gamify\Classes\JsonGenerator')) {
+            \Gamify\Classes\JsonGenerator::generate();
+        }
+
         return new \WP_REST_Response(['message' => 'Addon status updated.', 'active_addons' => $active_addons], 200);
     }
 }

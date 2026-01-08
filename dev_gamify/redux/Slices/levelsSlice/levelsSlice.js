@@ -32,7 +32,6 @@ export const fetchLevelTriggers = createAsyncThunk(
     'levels/fetchTriggers',
     async (_, { rejectWithValue }) => {
         try {
-            // Scope 'level' পাঠানো হচ্ছে
             return await apiFetch({ path: '/gamify/v1/triggers?scope=level' });
         } catch (error) {
             return rejectWithValue(error.message);
@@ -40,7 +39,23 @@ export const fetchLevelTriggers = createAsyncThunk(
     }
 );
 
-// 7. Fetch Point Types
+// 7. Dynamic Options Fetcher (NEW)
+export const fetchDynamicOptions = createAsyncThunk(
+    'levels/fetchDynamicOptions',
+    async ({ integration, query }, { rejectWithValue }) => {
+        try {
+            return await apiFetch({
+                path: '/gamify/v1/dynamic',
+                method: 'POST',
+                data: { integration, query }
+            });
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+// 8. Fetch Point Types
 export const fetchPointTypes = createAsyncThunk('levels/fetchPointTypes', async () => {
     return await apiFetch({ path: '/gamify/v1/point-types' });
 });
@@ -48,8 +63,6 @@ export const fetchPointTypes = createAsyncThunk('levels/fetchPointTypes', async 
 const initialState = {
     levels: [],
     currentLevelId: null,
-
-    // Fields
     title: '',
     pluralName: '',
     congratulationsMessage: '',
@@ -60,15 +73,11 @@ const initialState = {
     levelIcon: '',
     category: '',
     availableCategories: [],
-    priority: 0,
-
-    // Hooks Data (Specific to Levels Page)
-    allHooks: [],
+    integrations: {}, // Modular Data
+    allHooks: [], // Flattened for UI filter
     availablePointTypes: [],
-
     selectedHookIds: [],
     hookSettings: {},
-
     status: 'idle',
     saveStatus: 'idle',
 };
@@ -114,26 +123,28 @@ const levelsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchLevels.fulfilled, (state, action) => {
-
                 state.levels = action.payload;
-                const categories = action.payload
-                    .map(item => item.category)
-                    .filter(cat => cat && cat.trim() !== ''); // Remove empty/null
-
-                // Merge with existing ensuring uniqueness
-                const uniqueCategories = [...new Set([...state.availableCategories, ...categories])];
-                state.availableCategories = uniqueCategories;
+                const categories = action.payload.map(i => i.category).filter(c => c);
+                state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
             })
-            // Populate Triggers specifically for Levels
             .addCase(fetchLevelTriggers.fulfilled, (state, action) => {
-                state.allHooks = action.payload;
+                state.integrations = action.payload;
+                // 🔥 FIX: Flatten Object to Array to solve .filter() error
+                const flattened = [];
+                Object.keys(action.payload).forEach(slug => {
+                    const integration = action.payload[slug];
+                    Object.keys(integration.triggers).forEach(triggerKey => {
+                        flattened.push({
+                            id: triggerKey,
+                            integrationSlug: slug,
+                            ...integration.triggers[triggerKey]
+                        });
+                    });
+                });
+                state.allHooks = flattened;
             })
-            // Populate Point Types
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
-                state.availablePointTypes = action.payload.map(pt => ({
-                    label: pt.name,
-                    value: String(pt.id)
-                }));
+                state.availablePointTypes = action.payload.map(pt => ({ label: pt.name, value: String(pt.id) }));
             })
             .addCase(fetchLevelById.fulfilled, (state, action) => {
                 const data = action.payload;
@@ -147,11 +158,6 @@ const levelsSlice = createSlice({
                 state.maxPoints = data.max_points;
                 state.selectedPointTypeId = data.point_type_id;
                 state.levelIcon = data.icon;
-
-                if (data.category && !state.availableCategories.includes(data.category)) {
-                    state.availableCategories.push(data.category);
-                }
-
                 state.selectedHookIds = [];
                 state.hookSettings = {};
                 if (data.requirements) {

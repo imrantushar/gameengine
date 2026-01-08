@@ -58,15 +58,16 @@ class Triggers
      */
     public function attach_hooks()
     {
-        $triggers = TriggerRegistry::get_all();
+        $triggers = TriggerRegistry::get_all_triggers();
+
         foreach ($triggers as $key => $config) {
-            if (empty($config['hook'])) {
-                continue;
-            }
+            if (empty($config['hook'])) continue;
+
+            $args_count = isset($config['args_count']) ? (int) $config['args_count'] : 1;
 
             add_action($config['hook'], function () use ($key, $config) {
                 $this->execute($key, $config, func_get_args());
-            }, 10, (int) $config['args_count']);
+            }, 10, $args_count);
         }
     }
 
