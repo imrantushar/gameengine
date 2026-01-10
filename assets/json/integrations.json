@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-08 15:10:14",
+    "generated_at": "2026-01-10 19:48:28",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -1446,7 +1446,7 @@
                     "description": "Unlock achivemeet successfully  into your website.",
                     "args_count": 3,
                     "supports": [
-                        "achievement"
+                        "point_type"
                     ],
                     "get_user_id": {},
                     "schema": [

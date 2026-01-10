@@ -182,9 +182,6 @@ const pointTypeSlice = createSlice({
                 state.status = 'succeeded';
                 state.integrations = action.payload;
 
-                // 🔥 নিচের লগটি চেক করুন ব্রাউজারের ইনস্পেক্ট এলিমেন্টে (Console Tab)
-                console.log("SERVER RESPONSE DATA:", action.payload);
-
                 const flattenedHooks = [];
                 Object.keys(action.payload).forEach(slug => {
                     const integration = action.payload[slug];

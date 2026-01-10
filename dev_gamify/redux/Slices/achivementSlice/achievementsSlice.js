@@ -27,7 +27,6 @@ export const fetchTriggers = createAsyncThunk(
     'achievements/fetchTriggers',
     async (scope = 'achievement', { rejectWithValue }) => {
         try {
-            // শুধুমাত্র achievement স্কোপের ট্রিগার আনবে
             return await apiFetch({ path: `/gamify/v1/triggers?scope=${scope}` });
         } catch (error) {
             return rejectWithValue(error.message);

@@ -134,7 +134,7 @@ const AchievementsType = () => {
     } = useSelector(state => state.achievements);
 
     useEffect(() => {
-        dispatch(fetchTriggers('achievement')); // শুধুমাত্র অ্যাচিভমেন্ট স্কোপ ফিল্টার করবে
+        dispatch(fetchTriggers('achievement'));
         dispatch(fetchPointTypes());
         dispatch(fetchAchievements());
         if (editId) dispatch(fetchAchievementById(editId));
@@ -143,7 +143,7 @@ const AchievementsType = () => {
 
     useEffect(() => { if (congratulationsMessage) setMessage(congratulationsMessage); }, [congratulationsMessage]);
 
-    // আইকন কনফিগারেশন
+
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
@@ -151,7 +151,7 @@ const AchievementsType = () => {
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
 
-    // হুক কার্ড রেন্ডার ফাংশন
+
     const renderHookCard = (item) => {
         const slug = item.integrationSlug || 'wordpress';
         const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;

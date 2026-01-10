@@ -2985,7 +2985,7 @@ const AchievementsType = () => {
     availableCategories = []
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.fetchTriggers)('achievement')); // শুধুমাত্র অ্যাচিভমেন্ট স্কোপ ফিল্টার করবে
+    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.fetchTriggers)('achievement'));
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.fetchPointTypes)());
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.fetchAchievements)());
     if (editId) dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.fetchAchievementById)(editId));else dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.resetForm)());
@@ -2993,8 +2993,6 @@ const AchievementsType = () => {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (congratulationsMessage) setMessage(congratulationsMessage);
   }, [congratulationsMessage]);
-
-  // আইকন কনফিগারেশন
   const hookCategoryIconMap = {
     wordpress: {
       icon: react_icons_fa6__WEBPACK_IMPORTED_MODULE_18__.FaWordpressSimple,
@@ -3013,8 +3011,6 @@ const AchievementsType = () => {
       bg: "#ff5722"
     }
   };
-
-  // হুক কার্ড রেন্ডার ফাংশন
   const renderHookCard = item => {
     const slug = item.integrationSlug || 'wordpress';
     const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
@@ -7708,7 +7704,6 @@ const fetchTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsy
   rejectWithValue
 }) => {
   try {
-    // শুধুমাত্র achievement স্কোপের ট্রিগার আনবে
     return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
       path: `/gamify/v1/triggers?scope=${scope}`
     });
@@ -8891,9 +8886,6 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
     }).addCase(fetchTriggers.fulfilled, (state, action) => {
       state.status = 'succeeded';
       state.integrations = action.payload;
-
-      // 🔥 নিচের লগটি চেক করুন ব্রাউজারের ইনস্পেক্ট এলিমেন্টে (Console Tab)
-      console.log("SERVER RESPONSE DATA:", action.payload);
       const flattenedHooks = [];
       Object.keys(action.payload).forEach(slug => {
         const integration = action.payload[slug];
