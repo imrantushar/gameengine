@@ -25,13 +25,11 @@ const TopBar = ({
 				zIndex={999}
 				className='gamify-topbar'
 			>
-				{leftContent()}
+				{leftContent ? leftContent() : null}
 
-				{middleContent()}
+				{middleContent ? middleContent() : null}
 
-				<Flex align="center" gap={2}>
-					{rightContent()}
-				</Flex>
+				{rightContent ? rightContent() : null}
 			</Flex>
 		</React.Fragment>
 	);

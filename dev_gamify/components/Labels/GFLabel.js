@@ -29,6 +29,15 @@ const GFLabel = ({
 			padding: "0 0 24px 0",
 			borderBottom: "1px solid var(--gamify-border-color)",
 		},
+		plainHeading: {
+			fontSize: "20px",
+			fontWeight: "500",
+			color: "var(--gamify-font-color)",
+			lineHeight: "30px",
+			margin: "00",
+			padding: "0",
+			borderBottom: "none",
+		},
 		title: {
 			fontSize: "14px",
 			fontWeight: "600",

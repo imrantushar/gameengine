@@ -920,7 +920,6 @@ input.gamify-checkbox:checked::before {
 }
 .gamify-table__body-row-wrap {
   width: 100%;
-  min-height: 74px;
   display: flex;
   align-items: center;
   padding-left: 12px;

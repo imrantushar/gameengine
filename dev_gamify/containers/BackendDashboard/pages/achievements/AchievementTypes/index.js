@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Checkbox, Input, Center, VStack, RadioGroup } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
@@ -10,22 +10,19 @@ import TopBar from "@GFComponents/TopBar";
 import { FaArrowRotateRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
 import LabeledInput from "@GFComponents/LabeledInput";
-import Divider from "@GFComponents/Divider";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
-
-// Actions
 import {
     fetchAchievementById, saveAchievement, updateAchievement, resetForm, fetchTriggers,
     fetchDynamicOptions, fetchPointTypes, fetchAchievements, setField, addHook, removeHook,
     updateHookSettings, addCategoryToList
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
-import { clearBtn, commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
 import GamifyBox from "@GFComponents/GamifyBox";
-import { gameEngine } from "@GFUtils/icons";
+import { gIcon } from "@GFUtils/icons";
 import GamifyInput from "@GFComponents/GamifyInput";
 
 // --- Draggable Components ---
@@ -215,7 +212,7 @@ const AchievementsType = () => {
             <TopBar
                 leftContent={() => (
                     <Flex align="center" gap={2}>
-                        {gameEngine()}
+                        {gIcon()}
                         <Box width="4px" height="6px" bg="var(--gamify-primary)" />
                         <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
                     </Flex>
@@ -419,12 +416,12 @@ const AchievementsType = () => {
                     ) : (
                         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
                             <Box p="24px" border="1px solid var(--gamify-border-color)" borderRadius="4px" className="gamify-achievement-requirements">
-                                <GFLabel type="heading" margin="0" borderBottom="none" label={__("Achievement Requirements", "gamify")} />
+                                <GFLabel type="plainHeading" label={__("Achievement Requirements", "gamify")} />
 
                                 <Flex gap="24px">
                                     <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-achievement-requirements">
                                         <Flex direction="column" gap="12px">
-                                            <GFLabel type="heading" margin="0" padding="0" borderBottom="none" label={__("Available Hooks", "gamify")} />
+                                            <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
                                             <GFLabel
                                                 type="subtitle"
                                                 color="var(--gamify-font-color)"
@@ -449,7 +446,7 @@ const AchievementsType = () => {
 
                                     <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
                                         <Flex direction="column" gap="12px">
-                                            <GFLabel type="heading" margin="0" padding="0" borderBottom="none" label={__("Active Hooks", "gamify")} />
+                                            <GFLabel type="plainHeading" label={__("Active Hooks", "gamify")} />
                                             <GFLabel
                                                 type="subtitle"
                                                 color="var(--gamify-font-color)"
