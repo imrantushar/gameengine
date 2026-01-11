@@ -150,6 +150,60 @@ const theme = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.createSystem)(_ch
 
 /***/ }),
 
+/***/ "./dev_gamify/components/BoxView/BoxView.js":
+/*!**************************************************!*\
+  !*** ./dev_gamify/components/BoxView/BoxView.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+
+
+
+const BoxView = ({
+  title,
+  subtitle,
+  children,
+  width = "calc(50% - 8px)",
+  p = "16px"
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    border: "1px solid var(--gamify-border-color)",
+    borderRadius: "4px",
+    width: {
+      base: "100%",
+      lg: width
+    },
+    bg: "#fff"
+  }, title && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    fontSize: "16px",
+    fontWeight: "500",
+    lineHeight: "24px",
+    m: 0,
+    color: "var(--gamify-font-color)",
+    padding: "16px",
+    borderBottom: "1px solid var(--gamify-border-color)"
+  }, title, subtitle ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+    fontSize: "14px",
+    fontWeight: "400",
+    lineHeight: "20px",
+    color: "var(--gamify-font-color)"
+  }, subtitle) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    p: p
+  }, children));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BoxView);
+
+/***/ }),
+
 /***/ "./dev_gamify/components/Button/index.js":
 /*!***********************************************!*\
   !*** ./dev_gamify/components/Button/index.js ***!
@@ -486,7 +540,7 @@ const GamifyBox = ({
   heading,
   children
 }) => {
-  const classes = ["gamify-page-content", dynamicClasses && dynamicClasses].filter(Boolean).join(" ");
+  const classes = ["gamify-inner-page-content", dynamicClasses && dynamicClasses].filter(Boolean).join(" ");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     className: classes
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -651,7 +705,7 @@ const GFLabel = ({
       fontWeight: "500",
       color: "var(--gamify-font-color)",
       lineHeight: "30px",
-      margin: "00",
+      margin: "0 0 24px 0",
       padding: "0",
       borderBottom: "none"
     },
@@ -3157,8 +3211,8 @@ const AchievementsType = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     className: "gamify-add-achievement-type"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    type: "inputLabel",
-    label: "Achievement Type"
+    type: "title",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_12__.__)("Achievement Type", "gamify")
   }), availableCategories.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.RadioGroupRoot, {
     value: category,
     onValueChange: details => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_24__.setField)({
@@ -3385,17 +3439,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFRedux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFRedux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
 
 
 
@@ -3417,11 +3470,11 @@ const AchievementsTable = () => {
     achievements
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.fetchAchievements)());
+    dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchAchievements)());
   }, [dispatch]);
   const handleDelete = id => {
     if (confirm((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Are you sure?', 'gamify'))) {
-      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_13__.deleteAchievement)(id));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_12__.deleteAchievement)(id));
     }
   };
   const getCategoryColor = cat => {
@@ -3462,7 +3515,7 @@ const AchievementsTable = () => {
     cell: row => row.description
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Category', 'gamify'),
-    cell: row => row.category ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Badge, {
+    cell: row => row.category ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Badge, {
       colorScheme: getCategoryColor(row.category),
       variant: "subtle",
       borderRadius: "4px",
@@ -3478,41 +3531,40 @@ const AchievementsTable = () => {
     cell: row => new Date(row.created_at).toLocaleDateString()
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Action', 'gamify'),
-    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_10__["default"], {
       options: [{
         type: 'button',
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Edit', 'gamify'),
-        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Icon, {
-          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiEdit
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiEdit
         }),
-        onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__.route_path}admin.php?page=gamify-achievements&action=edit&id=${row.id}&path=achievements-type`)
+        onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-achievements&action=edit&id=${row.id}&path=achievements-type`)
       }, {
         type: 'button',
         suffix: 'trash',
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Delete', 'gamify'),
-        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Icon, {
-          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_12__.FiTrash2
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_11__.FiTrash2
         }),
         onClick: () => handleDelete(row.id)
       }]
     })
   }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
-    width: "1174px",
-    margin: "0 auto",
-    height: "100vh"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Flex, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-page-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
     justifyContent: "space-between",
     alignItems: "center",
     p: "24px 0"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "plainHeading",
+    margin: 0,
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Achievements", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_14__.primaryBtn,
-    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_15__.route_path}admin.php?page=gamify-achievements&path=achievements-type`)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Icon, {
-    as: react_icons_go__WEBPACK_IMPORTED_MODULE_16__.GoPlus,
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-achievements&path=achievements-type`)
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
+    as: react_icons_go__WEBPACK_IMPORTED_MODULE_15__.GoPlus,
     boxSize: "20px"
   }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Add new achievement', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_5__["default"], {
     columns: columns,
@@ -4844,21 +4896,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
-/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../../../redux/Slices/levelsSlice/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
-/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/badge/badge.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
+/* harmony import */ var _GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/OptionMenu */ "./dev_gamify/components/OptionMenu/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../redux/Slices/levelsSlice/levelsSlice */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
+/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
 
 
 
@@ -4881,7 +4932,7 @@ const LevelTable = () => {
     status
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.levels || {});
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.fetchLevels)());
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_14__.fetchLevels)());
   }, [dispatch]);
   const getCategoryColor = cat => {
     switch (cat?.toLowerCase()) {
@@ -4896,7 +4947,7 @@ const LevelTable = () => {
     }
   };
   const columns = [{
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Name', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Name', 'gamify'),
     cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       style: {
         display: 'flex',
@@ -4917,11 +4968,11 @@ const LevelTable = () => {
       }
     }, row.title))
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Plural Name', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Plural Name', 'gamify'),
     cell: row => row.plural_name
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Category', 'gamify'),
-    cell: row => row.category ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Badge, {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Category', 'gamify'),
+    cell: row => row.category ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Badge, {
       colorScheme: getCategoryColor(row.category),
       variant: "subtle",
       borderRadius: "4px",
@@ -4933,56 +4984,55 @@ const LevelTable = () => {
       }
     }, "-")
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Unlock Criteria', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Unlock Criteria', 'gamify'),
     cell: row => parseInt(row.unlock_with_points_enabled) ? `${row.min_points} - ${row.max_points} Points` : 'Triggers'
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Date', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Date', 'gamify'),
     cell: row => new Date(row.created_at).toLocaleDateString()
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Action', 'gamify'),
-    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Action', 'gamify'),
+    cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_OptionMenu__WEBPACK_IMPORTED_MODULE_11__["default"], {
       options: [{
         type: "button",
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Edit', 'gamify'),
-        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Icon, {
-          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_8__.FiEdit
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Edit', 'gamify'),
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiEdit
         }),
-        onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)
+        onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__.route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)
       }, {
         type: "button",
         suffix: "trash",
-        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Delete', 'gamify'),
-        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Icon, {
-          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_8__.FiTrash2
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Delete', 'gamify'),
+        icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+          as: react_icons_fi__WEBPACK_IMPORTED_MODULE_7__.FiTrash2
         }),
         onClick: () => {
-          if (confirm('Delete level?')) dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_15__.deleteLevel)(row.id));
+          if (confirm('Delete level?')) dispatch((0,_redux_Slices_levelsSlice_levelsSlice__WEBPACK_IMPORTED_MODULE_14__.deleteLevel)(row.id));
         }
       }]
     })
   }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "1174px",
-    margin: "0 auto",
-    height: "100vh"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-page-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     justifyContent: "space-between",
     alignItems: "center",
     p: "24px 0"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
     type: "plainHeading",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("Levels Types", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
-    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-levels&path=levels-types`)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Icon, {
-    as: react_icons_go__WEBPACK_IMPORTED_MODULE_16__.GoPlus,
+    margin: 0,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("Levels Types", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.primaryBtn,
+    onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__.route_path}admin.php?page=gamify-levels&path=levels-types`)
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
+    as: react_icons_go__WEBPACK_IMPORTED_MODULE_15__.GoPlus,
     boxSize: "20px"
-  }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)('Add new level', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Add new level', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_10__["default"], {
     columns: columns,
     showSubHeader: false,
     data: levels,
-    noDataText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_9__.__)("No data found for levels", "gamify"),
+    noDataText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("No data found for levels", "gamify"),
     isLoading: status === 'loading'
   }));
 };
@@ -5058,29 +5108,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/center/center.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/checkbox/checkbox.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/image/image.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
-/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _GFComponents_editor__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @GFComponents/editor */ "./dev_gamify/components/editor/index.js");
-/* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
-/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-/* harmony import */ var react_icons_ai__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react-icons/ai */ "./node_modules/react-icons/ai/index.mjs");
-/* harmony import */ var react_icons_si__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! react-icons/si */ "./node_modules/react-icons/si/index.mjs");
-/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ../../../../../redux/Slices/levelsSlice/levelsSlice.js */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/image/image.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/radio-group/radio-group.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/switch/switch.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+/* harmony import */ var _dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @dnd-kit/core */ "./node_modules/@dnd-kit/core/dist/core.esm.js");
+/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _GFComponents_editor__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! @GFComponents/editor */ "./dev_gamify/components/editor/index.js");
+/* harmony import */ var _GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @GFComponents/Collapsible */ "./dev_gamify/components/Collapsible/index.js");
+/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var react_icons_ai__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! react-icons/ai */ "./node_modules/react-icons/ai/index.mjs");
+/* harmony import */ var react_icons_si__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! react-icons/si */ "./node_modules/react-icons/si/index.mjs");
+/* harmony import */ var _redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ../../../../../redux/Slices/levelsSlice/levelsSlice.js */ "./dev_gamify/redux/Slices/levelsSlice/levelsSlice.js");
+/* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gamify/utils/icons.js");
+/* harmony import */ var _GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! @GFComponents/GamifyBox */ "./dev_gamify/components/GamifyBox/index.js");
+/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
+/* harmony import */ var _GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! @GFComponents/BoxView/BoxView */ "./dev_gamify/components/BoxView/BoxView.js");
+/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_32__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
 
 
 
@@ -5106,6 +5160,11 @@ __webpack_require__.r(__webpack_exports__);
 // Actions
 
 
+
+
+
+
+
 // --- Helpers ---
 const DraggableItem = ({
   id,
@@ -5117,7 +5176,7 @@ const DraggableItem = ({
     setNodeRef,
     transform,
     isDragging
-  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useDraggable)({
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.useDraggable)({
     id
   });
   const style = {
@@ -5139,7 +5198,7 @@ const DroppableArea = ({
 }) => {
   const {
     setNodeRef
-  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useDroppable)({
+  } = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.useDroppable)({
     id
   });
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
@@ -5163,13 +5222,13 @@ const DynamicLevelField = ({
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (config.dynamic && !isDisabled) {
       setLoading(true);
-      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.fetchDynamicOptions)({
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.fetchDynamicOptions)({
         integration: config.dynamic.integration || integrationSlug,
         query: config.dynamic.query
       })).unwrap().then(res => setDynamicOptions(res)).finally(() => setLoading(false));
     }
   }, [config.dynamic, isDisabled, dispatch, integrationSlug]);
-  const labelElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+  const labelElement = (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     align: "center",
     gap: 2,
     mb: "8px"
@@ -5181,8 +5240,8 @@ const DynamicLevelField = ({
     style: {
       color: "red"
     }
-  }, "*")), config.is_pro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__.FaLock,
+  }, "*")), config.is_pro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__.FaLock,
     color: "orange.400",
     boxSize: 3
   }));
@@ -5194,7 +5253,7 @@ const DynamicLevelField = ({
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
       width: "100%",
       opacity: isDisabled ? 0.7 : 1
-    }, labelElement, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    }, labelElement, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_14__["default"], {
       isDisabled: isDisabled,
       isLoading: loading,
       options: optionsSource,
@@ -5203,7 +5262,7 @@ const DynamicLevelField = ({
       classNamePrefix: "gamify-select"
     }));
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_19__["default"], {
     label: config.label,
     type: config.type === 'number' ? 'number' : 'text',
     value: value,
@@ -5218,20 +5277,15 @@ const DynamicHookForm = ({
   onChange
 }) => {
   const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    mb: 2,
-    bg: "white",
-    borderRadius: "4px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_22__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: hookInfo?.label || hookId,
     desc: hookInfo?.subTitle,
     isOpen: isOpen,
     onClick: () => setIsOpen(!isOpen),
     singleIcon: true
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     direction: "column",
-    gap: "16px",
-    p: 4
+    gap: "16px"
   }, (hookInfo.schema || []).map(config => {
     var _ref, _settings$config$key;
     if (config.scope && !config.scope.includes('level')) return null;
@@ -5243,17 +5297,17 @@ const DynamicHookForm = ({
       integrationSlug: hookInfo.integrationSlug,
       onChange: newValue => onChange(config.key, newValue)
     });
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_23__["default"], {
-    width: "100%",
-    margin: "12px 0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    justifyContent: "flex-end",
-    p: 4
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    borderTop: "1px solid var(--gamify-border-color)",
+    mt: "24px",
+    pt: "16px",
+    justifyContent: "flex-end"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_24__.primaryBtn,
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.primaryBtn,
     size: "sm",
+    width: "auto",
     onClick: () => setIsOpen(false)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)('Done', 'gamify')))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)('Done', 'gamify')))));
 };
 const LevelType = () => {
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
@@ -5263,7 +5317,7 @@ const LevelType = () => {
   const [message, setMessage] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)("");
   const [openedHooks, setOpenedHooks] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [selectedFilter, setSelectedFilter] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.PointerSensor, {
+  const sensors = (0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.useSensors)((0,_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.useSensor)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.PointerSensor, {
     activationConstraint: {
       distance: 5
     }
@@ -5288,10 +5342,10 @@ const LevelType = () => {
     availableCategories = []
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.levels);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.fetchLevelTriggers)('level'));
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.fetchPointTypes)());
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.fetchLevels)());
-    if (editId) dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.fetchLevelById)(editId));else dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.resetForm)());
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.fetchLevelTriggers)('level'));
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.fetchPointTypes)());
+    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.fetchLevels)());
+    if (editId) dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.fetchLevelById)(editId));else dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.resetForm)());
   }, [dispatch, editId]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (congratulationsMessage) setMessage(congratulationsMessage);
@@ -5306,7 +5360,7 @@ const LevelType = () => {
         multiple: false
       });
       frame.on('select', () => {
-        dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+        dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
           field: 'levelIcon',
           value: frame.state().get('selection').first().toJSON().url
         }));
@@ -5316,19 +5370,19 @@ const LevelType = () => {
   };
   const hookCategoryIconMap = {
     wordpress: {
-      icon: react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__.FaWordpressSimple,
+      icon: react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__.FaWordpressSimple,
       bg: "#21759b"
     },
     woocommerce: {
-      icon: react_icons_si__WEBPACK_IMPORTED_MODULE_27__.SiWoocommerce,
+      icon: react_icons_si__WEBPACK_IMPORTED_MODULE_26__.SiWoocommerce,
       bg: "#96588a"
     },
     gamify: {
-      icon: react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__.FaGamepad,
+      icon: react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__.FaGamepad,
       bg: "#006BFF"
     },
     interaction: {
-      icon: react_icons_ai__WEBPACK_IMPORTED_MODULE_26__.AiFillInteraction,
+      icon: react_icons_ai__WEBPACK_IMPORTED_MODULE_25__.AiFillInteraction,
       bg: "#ff5722"
     }
   };
@@ -5343,10 +5397,10 @@ const LevelType = () => {
       borderRadius: "6px",
       border: "1px solid var(--gamify-border-color)",
       bg: "white"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       justify: "space-between",
       align: "center"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       align: "center",
       gap: "8px"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Center, {
@@ -5355,7 +5409,7 @@ const LevelType = () => {
       width: "24px",
       height: "24px",
       color: "white"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
       as: config.icon,
       boxSize: 3
     })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
@@ -5371,8 +5425,8 @@ const LevelType = () => {
       alignItems: "center",
       justifyContent: "center",
       color: "white"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
-      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__.FaArrowRotateRight,
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
+      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__.FaArrowRotateRight,
       boxSize: 3
     })))));
   };
@@ -5383,8 +5437,8 @@ const LevelType = () => {
     over
   }) => {
     if (!over) return;
-    if (availableHooks.some(i => i.id === active.id) && over.id === "awards-sidebar") dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.addHook)(active.id));
-    if (selectedHookIds.includes(active.id) && over.id === "awards-available") dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.removeHook)(active.id));
+    if (availableHooks.some(i => i.id === active.id) && over.id === "awards-sidebar") dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.addHook)(active.id));
+    if (selectedHookIds.includes(active.id) && over.id === "awards-available") dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.removeHook)(active.id));
   };
   const handleSave = async () => {
     if (!title) return alert("Level Name is required");
@@ -5406,272 +5460,313 @@ const LevelType = () => {
         }))
       }))
     };
-    const res = editId ? await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.updateLevel)({
+    const res = editId ? await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.updateLevel)({
       id: editId,
       data: payload
-    })) : await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.saveLevel)(payload));
-    if (res.meta.requestStatus === 'fulfilled') navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.route_path}admin.php?page=gamify-levels`);
+    })) : await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.saveLevel)(payload));
+    if (res.meta.requestStatus === 'fulfilled') navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.route_path}admin.php?page=gamify-levels`);
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_18__["default"], {
-    leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-      align: "center"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-      className: "gamify-topbar-logo"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-      width: "36",
-      height: "36",
-      viewBox: "0 0 36 36"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
-      opacity: "0.8",
-      width: "36",
-      height: "36",
-      rx: "9.6",
-      fill: "#006BFF"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-      d: "M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z",
-      fill: "white"
-    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Icon, {
-      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_16__.FaChevronRight,
-      mx: 2
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    leftContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+      align: "center",
+      gap: 2
+    }, (0,_GFUtils_icons__WEBPACK_IMPORTED_MODULE_28__.gIcon)(), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+      width: "4px",
+      height: "6px",
+      bg: "var(--gamify-primary)"
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
       type: "subtitle",
       fontWeight: "medium",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Game Engine", "gamify")
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "1174px",
-    margin: "0 auto",
-    pb: "50px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Game Engine", "gamify")
+    })),
+    rightContent: () => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+      ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.primaryBtn,
+      onClick: handleSave,
+      isLoading: saveStatus === 'saving'
+    }, editId ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Update", "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Save Changes", "gamify"))
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_29__["default"], {
+    dynamicClasses: "gamify-levels",
+    heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)(`Level Type`, "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     direction: "column",
-    bg: "var(--gamify-background)",
-    p: 6,
-    borderRadius: "4px",
-    boxShadow: "var(--gamify-shadow)",
     gap: 6
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    type: "title",
-    fontWeight: "500",
-    fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Level Type`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
-    style: {
-      width: '50%'
-    },
-    label: "Level Name",
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Level Name", "gamify"),
+    width: "calc(50% - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Enter level name", "gamify"),
     value: title,
     onChange: e => {
-      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
         field: 'title',
         value: e.target.value
       }));
-      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
         field: 'pluralName',
         value: e.target.value ? `${e.target.value}s` : ""
       }));
-    }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
-    style: {
-      width: '50%'
     },
-    label: "Plural Name",
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Plural Name", "gamify"),
+    width: "calc(50% - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Enter point name", "gamify"),
     value: pluralName,
-    readOnly: true
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    type: "inputLabel",
-    label: "Level Type"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.commonInput
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    className: "gamify-add-level-type"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "title",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Level Type", "gamify")
+  }), availableCategories.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.RadioGroupRoot, {
+    value: category,
+    onValueChange: details => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
+      field: "category",
+      value: details.value
+    })),
+    size: "sm"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
     mt: "4px",
     gap: "24px",
     p: "12px",
     border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
     flexWrap: "wrap"
-  }, availableCategories.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.CheckboxRoot, {
+  }, availableCategories.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.RadioGroupItem, {
     key: index,
-    checked: category === cat,
-    onCheckedChange: () => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
-      field: 'category',
-      value: cat
-    }))
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.CheckboxHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.CheckboxControl, {
-    borderRadius: "full",
+    value: cat
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.RadioGroupItemHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.RadioGroupItemIndicator, {
     style: {
       width: "20px",
       height: "20px",
+      borderRadius: "9999px",
       border: category === cat ? "1px solid #007AFF" : "1px solid #ccc",
       backgroundColor: category === cat ? "#007AFF" : "transparent"
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.CheckboxLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(cat, "gamify"))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-    cursor: "pointer",
-    color: "var(--gamify-primary)",
-    fontWeight: "500",
-    fontSize: "xs",
-    mt: 1,
-    onClick: () => setShowInput(true)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("+ Add Level Type", "gamify")), showInput && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    mt: 2,
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)('%s', 'gemboards'), cat)))))) : null, showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    mt: "6px",
     gap: 2
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.Input, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.commonInput,
     size: "sm",
     value: newCat,
     onChange: e => setNewCat(e.target.value),
-    placeholder: "Type name"
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Enter type name", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    size: "sm",
+    size: "xs",
+    bg: "var(--gamify-border-color)",
+    fontSize: "12px",
+    fontWeight: "500",
+    lineHeight: "16px",
+    p: "6px 8px",
+    height: "auto",
+    variant: "ghost",
     onClick: () => setShowInput(false)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Cancel")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_24__.primaryBtn,
-    size: "sm",
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Cancel", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    size: "xs",
+    bg: "var(--gamify-primary)",
+    color: "#fff",
+    fontSize: "12px",
+    fontWeight: "500",
+    lineHeight: "16px",
+    p: "6px 8px",
+    height: "auto",
+    variant: "ghost",
     onClick: () => {
-      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.addCategoryToList)(newCat));
-      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.addCategoryToList)(newCat));
+      dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
         field: 'category',
         value: newCat
       }));
       setNewCat("");
       setShowInput(false);
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Add")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Add", "gamify"))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    color: "var(--gamify-primary)",
+    fontSize: "12px",
+    fontWeight: "500",
+    lineHeight: "16px",
+    p: "6px 8px",
+    height: "auto",
+    variant: "ghost",
+    mt: "12px",
+    onClick: () => setShowInput(true)
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
+    as: react_icons_go__WEBPACK_IMPORTED_MODULE_32__.GoPlus,
+    boxSize: "16px"
+  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Add Level Type", "gamify"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
     margin: "0 0 12px 0",
     type: "inputLabel",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Congratulations Message:`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_editor__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)(`Congratulations Message:`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_editor__WEBPACK_IMPORTED_MODULE_20__["default"], {
     defaultValue: message,
     saveValueHandler: setMessage
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    type: "title",
-    fontWeight: "500",
-    fontSize: "xl",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Level Requirements`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__.SwitchRoot, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "heading",
+    margin: "0",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)(`Level Requirements`, "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__.SwitchRoot, {
     checked: unlockWithPoints,
-    onCheckedChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+    onCheckedChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
       field: 'unlockWithPoints',
       value: e.checked
-    }))
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__.SwitchLabel, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_13__.SwitchControl, null))), unlockWithPoints ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    gap: "12px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "33%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
-    label: "Minimum Balance",
-    type: "number",
-    value: minPoints,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
-      field: 'minPoints',
-      value: e.target.value
-    }))
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "33%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
-    label: "Maximum Balance",
-    type: "number",
-    value: maxPoints,
-    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
-      field: 'maxPoints',
-      value: e.target.value
-    }))
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    width: "33%"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
+    })),
+    colorPalette: "blue"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__.SwitchHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__.SwitchLabel, {
     fontSize: "14px",
     fontWeight: "500",
-    m: "0 0 8px 0"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Choose the Points Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    lineHeight: "20px"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Allow unlock with points", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__.SwitchControl, null)), unlockWithPoints ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Minimum Balance", "gamify"),
+    width: "calc((100% / 3) - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Enter minimum balance", "gamify"),
+    value: minPoints,
+    type: "number",
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
+      field: 'minPoints',
+      value: e.target.value
+    })),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Maximum Balance", "gamify"),
+    width: "calc((100% / 3) - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Enter maximum balance", "gamify"),
+    value: maxPoints,
+    type: "number",
+    onChange: e => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
+      field: 'maxPoints',
+      value: e.target.value
+    })),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_23__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Choose the Points Type", "gamify"),
+    width: "calc((100% / 3) - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_14__["default"], {
     className: "gamify-select",
     classNamePrefix: "gamify-select",
     placeholder: "Choose one",
     options: availablePointTypes,
     value: availablePointTypes.find(opt => opt.value == selectedPointTypeId),
-    onChange: sel => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
+    onChange: sel => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.setField)({
       field: 'selectedPointTypeId',
       value: sel ? sel.value : null
     }))
-  }))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_17__.DndContext, {
+  }))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_16__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    gap: "24px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    width: "50%",
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     p: "24px",
-    borderRadius: "4px",
     border: "1px solid var(--gamify-border-color)",
+    borderRadius: "4px",
+    className: "gamify-level-requirements"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "plainHeading",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Level Requirements", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    width: "50%",
+    p: "24px 24px 0 24px",
+    borderRadius: "4px",
+    boxShadow: "var(--gamify-shadow)",
     direction: "column",
-    gap: "4"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_12__.VStack, {
-    align: "start",
-    spacing: 1
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    type: "title",
-    fontSize: "1.25rem",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Available Hooks`, "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-    fontSize: "xs"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Drag to activate", "gamify"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    gap: "24px",
+    className: "gamify-level-requirements"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    direction: "column",
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "plainHeading",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Available Hooks", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "subtitle",
+    color: "var(--gamify-font-color)",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gamify")
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    p: "12px",
+    border: "1px solid var(--gamify-border-color)",
+    borderRadius: "4px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_30__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Filter Hooks Type", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_14__["default"], {
     isMulti: true,
-    placeholder: "Filter...",
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Filter...", "gamify"),
     options: Object.keys(hookCategoryIconMap).map(k => ({
       label: k,
       value: k
     })),
-    onChange: v => setSelectedFilter(v.map(o => o.value))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+    onChange: v => setSelectedFilter(v.map(o => o.value)),
+    className: "gamify-select",
+    classNamePrefix: "gamify-select"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-available"
   }, availableHooks.map(h => renderHookCard(h)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     width: "50%",
-    p: "24px",
+    p: "24px 24px 0 24px",
     borderRadius: "4px",
-    border: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    type: "title",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Action Hooks", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
+    boxShadow: "var(--gamify-shadow)",
+    className: "gamify-achievement-requirements"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    direction: "column",
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "plainHeading",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Active Hooks", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    type: "subtitle",
+    color: "var(--gamify-font-color)",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("The following hooks are used for all users", "gamify")
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
   }, activeHooks.map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     key: h.id,
     hookId: h.id,
     hookInfo: h,
     settings: hookSettings[h.id] || {},
-    onChange: (k, v) => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.updateHookSettings)({
+    onChange: (k, v) => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_27__.updateHookSettings)({
       hookId: h.id,
       settings: {
         [k]: v
       }
     }))
-  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    border: "1px solid var(--gamify-border-color)",
-    borderRadius: "4px",
-    p: "16px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_19__["default"], {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Levels Logo`, "gamify"),
-    margin: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    borderTop: "1px solid var(--gamify-border-color)",
-    mt: "10px",
-    pt: 2
-  }, levelIcon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Image, {
+  }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_31__["default"], {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)(`Levels Logo`, "gamify"),
+    width: "100%"
+  }, levelIcon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    alignItems: "center",
+    justifyContent: "space-between"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Image, {
     src: levelIcon,
-    boxSize: "100px",
-    objectFit: "contain",
-    mb: "10px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-    textDecoration: "underline",
-    color: "var(--gamify-primary)",
-    cursor: "pointer",
+    width: "100px",
+    objectFit: "cover"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    bg: "var(--gamify-primary)",
+    color: "#fff",
+    fontSize: "12px",
+    fontWeight: "500",
+    lineHeight: "16px",
+    p: "6px 8px",
+    height: "auto",
+    variant: "ghost",
     onClick: handleImageUpload
-  }, levelIcon ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Change Level Logo`, "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)(`Set Level Logo`, "gamify")))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    py: "24px",
-    justify: "flex-end",
-    borderTop: "1px solid var(--gamify-border-color)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_24__.primaryBtn,
-    onClick: handleSave,
-    isLoading: saveStatus === 'saving'
-  }, editId ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Update", "gamify") : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Save Changes", "gamify"))))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Change Level Logo", "gamify"))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    bg: "var(--gamify-primary)",
+    color: "#fff",
+    fontSize: "12px",
+    fontWeight: "500",
+    lineHeight: "16px",
+    p: "6px 8px",
+    height: "auto",
+    variant: "ghost",
+    onClick: handleImageUpload
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Set Level Logo", "gamify"))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LevelType);
 
@@ -9372,273 +9467,6 @@ const carouselAnatomy = _zag_js_carousel__WEBPACK_IMPORTED_MODULE_0__.anatomy.ex
 
 /***/ }),
 
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-context.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-context.js ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxContext: () => (/* binding */ CheckboxContext)
-/* harmony export */ });
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-const CheckboxContext = (props) => props.children((0,_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_0__.useCheckboxContext)());
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-control.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-control.js ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxControl: () => (/* binding */ CheckboxControl)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-
-
-
-
-const CheckboxControl = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const checkbox = (0,_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_4__.useCheckboxContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(checkbox.getControlProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-CheckboxControl.displayName = "CheckboxControl";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-group.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-group.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _checkbox_anatomy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./checkbox.anatomy.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox.anatomy.js");
-/* harmony import */ var _use_checkbox_group_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-checkbox-group.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group.js");
-/* harmony import */ var _use_checkbox_group_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-checkbox-group-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const CheckboxGroup = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)((props, ref) => {
-  const [checkboxGroupProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_2__.createSplitProps)()(props, [
-    "defaultValue",
-    "value",
-    "onValueChange",
-    "disabled",
-    "invalid",
-    "readOnly",
-    "name"
-  ]);
-  const checkboxGroup = (0,_use_checkbox_group_js__WEBPACK_IMPORTED_MODULE_5__.useCheckboxGroup)(checkboxGroupProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_checkbox_group_context_js__WEBPACK_IMPORTED_MODULE_6__.CheckboxGroupContextProvider, { value: checkboxGroup, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ref, role: "group", ...localProps, ..._checkbox_anatomy_js__WEBPACK_IMPORTED_MODULE_4__.checkboxAnatomy.build().group.attrs }) });
-});
-CheckboxGroup.displayName = "CheckboxGroup";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-hidden-input.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-hidden-input.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxHiddenInput: () => (/* binding */ CheckboxHiddenInput)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-
-
-
-
-
-const CheckboxHiddenInput = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const checkbox = (0,_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_5__.useCheckboxContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(checkbox.getHiddenInputProps(), props);
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__.useFieldContext)();
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.input, { "aria-describedby": field?.ariaDescribedby, ...mergedProps, ref });
-});
-CheckboxHiddenInput.displayName = "CheckboxHiddenInput";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-label.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-label.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxLabel: () => (/* binding */ CheckboxLabel)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-
-
-
-
-const CheckboxLabel = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const checkbox = (0,_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_4__.useCheckboxContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(checkbox.getLabelProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.span, { ...mergedProps, ref });
-});
-CheckboxLabel.displayName = "CheckboxLabel";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root-provider.js":
-/*!***************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root-provider.js ***!
-  \***************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxRootProvider: () => (/* binding */ CheckboxRootProvider)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-
-
-
-
-
-const CheckboxRootProvider = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [{ value: checkbox }, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["value"]);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(checkbox.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_5__.CheckboxProvider, { value: checkbox, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.label, { ...mergedProps, ref }) });
-});
-CheckboxRootProvider.displayName = "CheckboxRootProvider";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root.js":
-/*!******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root.js ***!
-  \******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxRoot: () => (/* binding */ CheckboxRoot)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_checkbox_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-checkbox.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox.js");
-/* harmony import */ var _use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-checkbox-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const CheckboxRoot = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [useCheckboxProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, [
-    "checked",
-    "defaultChecked",
-    "disabled",
-    "form",
-    "id",
-    "ids",
-    "invalid",
-    "name",
-    "onCheckedChange",
-    "readOnly",
-    "required",
-    "value"
-  ]);
-  const checkbox = (0,_use_checkbox_js__WEBPACK_IMPORTED_MODULE_5__.useCheckbox)(useCheckboxProps);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(checkbox.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_checkbox_context_js__WEBPACK_IMPORTED_MODULE_6__.CheckboxProvider, { value: checkbox, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.label, { ...mergedProps, ref }) });
-});
-CheckboxRoot.displayName = "CheckboxRoot";
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox.anatomy.js":
 /*!*********************************************************************************!*\
   !*** ./node_modules/@ark-ui/react/dist/components/checkbox/checkbox.anatomy.js ***!
@@ -9655,195 +9483,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const checkboxAnatomy = _zag_js_checkbox__WEBPACK_IMPORTED_MODULE_0__.anatomy.extendWith("group");
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxProvider: () => (/* binding */ CheckboxProvider),
-/* harmony export */   useCheckboxContext: () => (/* binding */ useCheckboxContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [CheckboxProvider, useCheckboxContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "CheckboxContext",
-  hookName: "useCheckboxContext",
-  providerName: "<CheckboxProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group-context.js":
-/*!*******************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group-context.js ***!
-  \*******************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxGroupContextProvider: () => (/* binding */ CheckboxGroupContextProvider),
-/* harmony export */   useCheckboxGroupContext: () => (/* binding */ useCheckboxGroupContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [CheckboxGroupContextProvider, useCheckboxGroupContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "CheckboxGroupContext",
-  hookName: "useCheckboxGroupContext",
-  providerName: "<CheckboxGroupProvider />",
-  strict: false
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useCheckboxGroup: () => (/* binding */ useCheckboxGroup)
-/* harmony export */ });
-/* harmony import */ var _utils_use_controllable_state_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/use-controllable-state.js */ "./node_modules/@ark-ui/react/dist/utils/use-controllable-state.js");
-/* harmony import */ var _utils_use_event_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/use-event.js */ "./node_modules/@ark-ui/react/dist/utils/use-event.js");
-'use client';
-
-
-
-function useCheckboxGroup(props = {}) {
-  const { defaultValue, value: controlledValue, onValueChange, disabled, readOnly, name, invalid } = props;
-  const interactive = !(disabled || readOnly);
-  const onChangeProp = (0,_utils_use_event_js__WEBPACK_IMPORTED_MODULE_1__.useEvent)(onValueChange, { sync: true });
-  const [value, setValue] = (0,_utils_use_controllable_state_js__WEBPACK_IMPORTED_MODULE_0__.useControllableState)({
-    value: controlledValue,
-    defaultValue: defaultValue || [],
-    onChange: onChangeProp
-  });
-  const isChecked = (val) => {
-    return value.some((v) => String(v) === String(val));
-  };
-  const toggleValue = (val) => {
-    isChecked(val) ? removeValue(val) : addValue(val);
-  };
-  const addValue = (val) => {
-    if (!interactive) return;
-    if (isChecked(val)) return;
-    setValue(value.concat(val));
-  };
-  const removeValue = (val) => {
-    if (!interactive) return;
-    setValue(value.filter((v) => String(v) !== String(val)));
-  };
-  const getItemProps = (props2) => {
-    return {
-      checked: props2.value != null ? isChecked(props2.value) : void 0,
-      onCheckedChange() {
-        if (props2.value != null) {
-          toggleValue(props2.value);
-        }
-      },
-      name,
-      disabled,
-      readOnly,
-      invalid
-    };
-  };
-  return {
-    isChecked,
-    value,
-    name,
-    disabled: !!disabled,
-    readOnly: !!readOnly,
-    invalid: !!invalid,
-    setValue,
-    addValue,
-    toggleValue,
-    getItemProps
-  };
-}
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useCheckbox: () => (/* binding */ useCheckbox)
-/* harmony export */ });
-/* harmony import */ var _zag_js_checkbox__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/checkbox */ "./node_modules/@zag-js/checkbox/dist/index.mjs");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
-/* harmony import */ var _providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../providers/locale/use-locale-context.js */ "./node_modules/@ark-ui/react/dist/providers/locale/use-locale-context.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-/* harmony import */ var _use_checkbox_group_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-checkbox-group-context.js */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-group-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const useCheckbox = (ownProps = {}) => {
-  const checkboxGroup = (0,_use_checkbox_group_context_js__WEBPACK_IMPORTED_MODULE_7__.useCheckboxGroupContext)();
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_6__.useFieldContext)();
-  const props = (0,react__WEBPACK_IMPORTED_MODULE_3__.useMemo)(() => {
-    return (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(ownProps, checkboxGroup?.getItemProps({ value: ownProps.value }) ?? {});
-  }, [ownProps, checkboxGroup]);
-  const id = (0,react__WEBPACK_IMPORTED_MODULE_3__.useId)();
-  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_4__.useEnvironmentContext)();
-  const { dir } = (0,_providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_5__.useLocaleContext)();
-  const machineProps = {
-    id,
-    ids: {
-      label: field?.ids.label,
-      hiddenInput: field?.ids.control
-    },
-    dir,
-    disabled: field?.disabled,
-    readOnly: field?.readOnly,
-    invalid: field?.invalid,
-    required: field?.required,
-    getRootNode,
-    ...props
-  };
-  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_2__.useMachine)(_zag_js_checkbox__WEBPACK_IMPORTED_MODULE_0__.machine, machineProps);
-  return _zag_js_checkbox__WEBPACK_IMPORTED_MODULE_0__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_2__.normalizeProps);
-};
 
 
 
@@ -12557,44 +12196,6 @@ const splitRenderStrategyProps = (props) => (0,_create_split_props_js__WEBPACK_I
 
 /***/ }),
 
-/***/ "./node_modules/@ark-ui/react/dist/utils/use-controllable-state.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/utils/use-controllable-state.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useControllableState: () => (/* binding */ useControllableState)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-'use client';
-
-
-function useControllableState(props) {
-  const { value, onChange, defaultValue } = props;
-  const [uncontrolledValue, setUncontrolledValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultValue);
-  const controlled = value !== void 0;
-  const currentValue = controlled ? value : uncontrolledValue;
-  const setValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
-    (value2) => {
-      if (controlled) {
-        return onChange?.(value2);
-      }
-      setUncontrolledValue(value2);
-      return onChange?.(value2);
-    },
-    [controlled, onChange]
-  );
-  return [currentValue, setValue];
-}
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@ark-ui/react/dist/utils/use-event.js":
 /*!************************************************************!*\
   !*** ./node_modules/@ark-ui/react/dist/utils/use-event.js ***!
@@ -13866,192 +13467,6 @@ const Center = (0,_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_0__.chakra)
   }
 });
 Center.displayName = "Center";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/checkbox/checkbox.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/checkbox/checkbox.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CheckboxContext: () => (/* binding */ CheckboxContext),
-/* harmony export */   CheckboxControl: () => (/* binding */ CheckboxControl),
-/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup),
-/* harmony export */   CheckboxHiddenInput: () => (/* binding */ CheckboxHiddenInput),
-/* harmony export */   CheckboxIndicator: () => (/* binding */ CheckboxIndicator),
-/* harmony export */   CheckboxLabel: () => (/* binding */ CheckboxLabel),
-/* harmony export */   CheckboxPropsProvider: () => (/* binding */ CheckboxPropsProvider),
-/* harmony export */   CheckboxRoot: () => (/* binding */ CheckboxRoot),
-/* harmony export */   CheckboxRootProvider: () => (/* binding */ CheckboxRootProvider),
-/* harmony export */   useCheckboxStyles: () => (/* binding */ useCheckboxStyles)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/use-checkbox-context.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root-provider.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-root.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-label.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-control.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-group.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-context.js");
-/* harmony import */ var _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ark-ui/react/checkbox */ "./node_modules/@ark-ui/react/dist/components/checkbox/checkbox-hidden-input.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
-/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
-/* harmony import */ var _checkmark_checkmark_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../checkmark/checkmark.js */ "./node_modules/@chakra-ui/react/dist/esm/components/checkmark/checkmark.js");
-
-"use client";
-
-
-
-
-
-
-
-const {
-  withProvider,
-  withContext,
-  useStyles: useCheckboxStyles,
-  PropsProvider
-} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_10__.createSlotRecipeContext)({ key: "checkbox" });
-const CheckboxRootProvider = withProvider(_ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_2__.CheckboxRootProvider, "root", { forwardAsChild: true });
-const CheckboxRoot = withProvider(
-  _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_3__.CheckboxRoot,
-  "root",
-  { forwardAsChild: true }
-);
-const CheckboxPropsProvider = PropsProvider;
-const CheckboxLabel = withContext(
-  _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_4__.CheckboxLabel,
-  "label",
-  { forwardAsChild: true }
-);
-const CheckboxIndicator = (0,react__WEBPACK_IMPORTED_MODULE_9__.forwardRef)(function CheckboxIndicator2(props, ref) {
-  const { checked, indeterminate, ...rest } = props;
-  const api = (0,_ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_1__.useCheckboxContext)();
-  const styles = useCheckboxStyles();
-  if (checked && api.checked) {
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_11__.chakra.svg,
-      {
-        ref,
-        asChild: true,
-        ...rest,
-        css: [styles.indicator, props.css],
-        children: checked
-      }
-    );
-  }
-  if (indeterminate && api.indeterminate) {
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_11__.chakra.svg,
-      {
-        ref,
-        asChild: true,
-        ...rest,
-        css: [styles.indicator, props.css],
-        children: indeterminate
-      }
-    );
-  }
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-    _checkmark_checkmark_js__WEBPACK_IMPORTED_MODULE_12__.Checkmark,
-    {
-      ref,
-      checked: api.checked,
-      indeterminate: api.indeterminate,
-      disabled: api.disabled,
-      unstyled: true,
-      ...rest,
-      css: [styles.indicator, props.css]
-    }
-  );
-});
-const CheckboxControl = withContext(
-  _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_5__.CheckboxControl,
-  "control",
-  {
-    forwardAsChild: true,
-    defaultProps: { children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(CheckboxIndicator, {}) }
-  }
-);
-const CheckboxGroup = (0,_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_11__.chakra)(
-  _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_6__.CheckboxGroup,
-  {
-    base: {
-      display: "flex",
-      flexDirection: "column",
-      gap: "1.5"
-    }
-  },
-  { forwardAsChild: true }
-);
-const CheckboxContext = _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_7__.CheckboxContext;
-const CheckboxHiddenInput = _ark_ui_react_checkbox__WEBPACK_IMPORTED_MODULE_8__.CheckboxHiddenInput;
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/checkmark/checkmark.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/checkmark/checkmark.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Checkmark: () => (/* binding */ Checkmark)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _styled_system_empty_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled-system/empty.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/empty.js");
-/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
-/* harmony import */ var _styled_system_use_recipe_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../styled-system/use-recipe.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/use-recipe.js");
-/* harmony import */ var _utils_attr_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/attr.js */ "./node_modules/@chakra-ui/react/dist/esm/utils/attr.js");
-
-"use client";
-
-
-
-
-
-
-
-const Checkmark = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
-  function Checkmark2(props, ref) {
-    const recipe = (0,_styled_system_use_recipe_js__WEBPACK_IMPORTED_MODULE_4__.useRecipe)({ key: "checkmark", recipe: props.recipe });
-    const [variantProps, restProps] = recipe.splitVariantProps(props);
-    const { checked, indeterminate, disabled, unstyled, children, ...rest } = restProps;
-    const styles = unstyled ? _styled_system_empty_js__WEBPACK_IMPORTED_MODULE_2__.EMPTY_STYLES : recipe(variantProps);
-    return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-      _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_3__.chakra.svg,
-      {
-        ref,
-        viewBox: "0 0 24 24",
-        fill: "none",
-        stroke: "currentColor",
-        strokeWidth: "3px",
-        strokeLinecap: "round",
-        strokeLinejoin: "round",
-        "data-state": indeterminate ? "indeterminate" : checked ? "checked" : "unchecked",
-        "data-disabled": (0,_utils_attr_js__WEBPACK_IMPORTED_MODULE_5__.dataAttr)(disabled),
-        css: [styles, props.css],
-        ...rest,
-        children: indeterminate ? /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M5 12h14" }) : checked ? /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("polyline", { points: "20 6 9 17 4 12" }) : null
-      }
-    );
-  }
-);
-Checkmark.displayName = "Checkmark";
 
 
 

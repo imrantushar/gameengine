@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Image, Checkbox, Input, Center, VStack } from "@chakra-ui/react";
-import { __ } from "@wordpress/i18n";
+import { Box, Button, Flex, Icon, Text, Switch, Image, Checkbox, Input, Center, VStack, RadioGroup } from "@chakra-ui/react";
+import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaArrowRotateRight, FaChevronRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
@@ -14,7 +14,7 @@ import LabeledInput from "@GFComponents/LabeledInput";
 import GamifyEditor from "@GFComponents/editor";
 import CustomCollapsible from "@GFComponents/Collapsible";
 import Divider from "@GFComponents/Divider";
-import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
@@ -26,6 +26,11 @@ import {
     fetchLevelTriggers, fetchPointTypes, addCategoryToList, fetchLevels,
     fetchDynamicOptions
 } from "../../../../../redux/Slices/levelsSlice/levelsSlice.js";
+import { gIcon } from "@GFUtils/icons";
+import GamifyBox from "@GFComponents/GamifyBox";
+import GamifyInput from "@GFComponents/GamifyInput";
+import BoxView from "@GFComponents/BoxView/BoxView";
+import { GoPlus } from "react-icons/go";
 
 // --- Helpers ---
 const DraggableItem = ({ id, children }) => {
@@ -75,20 +80,21 @@ const DynamicLevelField = ({ fieldKey, config, value, onChange, integrationSlug 
 const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <Box mb={2} bg="white" borderRadius="4px">
+        <>
             <CustomCollapsible label={hookInfo?.label || hookId} desc={hookInfo?.subTitle} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} singleIcon={true}>
-                <Flex direction="column" gap="16px" p={4}>
+                <Flex direction="column" gap="16px">
                     {(hookInfo.schema || []).map(config => {
                         if (config.scope && !config.scope.includes('level')) return null;
-                        return <DynamicLevelField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} onChange={(newValue) => onChange(config.key, newValue)} />;
+                        return (
+                            <DynamicLevelField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} onChange={(newValue) => onChange(config.key, newValue)} />
+                        );
                     })}
                 </Flex>
-                <Divider width='100%' margin='12px 0' />
-                <Flex justifyContent='flex-end' p={4}>
-                    <Button {...primaryBtn} size="sm" onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
+                <Flex borderTop="1px solid var(--gamify-border-color)" mt="24px" pt="16px" justifyContent='flex-end'>
+                    <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
                 </Flex>
             </CustomCollapsible>
-        </Box>
+        </>
     );
 };
 
@@ -175,40 +181,151 @@ const LevelType = () => {
 
     return (
         <>
-            <TopBar leftContent={() => (
-                <Flex align="center">
-                    <Box className="gamify-topbar-logo"><svg width="36" height="36" viewBox="0 0 36 36"><rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" /><path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" /></svg></Box>
-                    <Icon as={FaChevronRight} mx={2} />
-                    <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                </Flex>
-            )} />
+            <TopBar
+                leftContent={() => (
+                    <Flex align="center" gap={2}>
+                        {gIcon()}
+                        <Box width="4px" height="6px" bg="var(--gamify-primary)" />
+                        <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
+                    </Flex>
+                )}
+                rightContent={() => (
+                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>{editId ? __("Update", "gamify") : __("Save Changes", "gamify")}</Button>
+                )}
+            />
 
-            <Box width="1174px" margin="0 auto" pb="50px">
-                <Flex direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
-                    <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Level Type`, "gamify")} />
-                    <Flex gap="24px">
-                        <LabeledInput style={{ width: '50%' }} label="Level Name" value={title} onChange={e => { dispatch(setField({ field: 'title', value: e.target.value })); dispatch(setField({ field: 'pluralName', value: e.target.value ? `${e.target.value}s` : "" })); }} />
-                        <LabeledInput style={{ width: '50%' }} label="Plural Name" value={pluralName} readOnly />
+            <GamifyBox dynamicClasses="gamify-levels" heading={__(`Level Type`, "gamify")}>
+                <Flex direction="column" gap={6}>
+                    <Flex gap="12px">
+                        <GamifyInput label={__("Level Name", "gamify")} width="calc(50% - 6px)">
+                            <Input
+                                placeholder={__("Enter level name", "gamify")}
+                                value={title}
+                                onChange={e => {
+                                    dispatch(setField({ field: 'title', value: e.target.value }));
+                                    dispatch(setField({
+                                        field: 'pluralName',
+                                        value: e.target.value ? `${e.target.value}s` : ""
+                                    }));
+                                }}
+                                {...commonInput}
+                            />
+                        </GamifyInput>
+
+                        <GamifyInput label={__("Plural Name", "gamify")} width="calc(50% - 6px)">
+                            <Input
+                                placeholder={__("Enter point name", "gamify")}
+                                value={pluralName}
+                                {...commonInput}
+                            />
+                        </GamifyInput>
                     </Flex>
 
-                    <Box>
-                        <GFLabel type="inputLabel" label={"Level Type"} />
-                        <Flex mt="4px" gap="24px" p="12px" border="1px solid var(--gamify-border-color)" borderRadius="4px" flexWrap="wrap">
-                            {availableCategories.map((cat, index) => (
-                                <Checkbox.Root key={index} checked={category === cat} onCheckedChange={() => dispatch(setField({ field: 'category', value: cat }))}>
-                                    <Checkbox.HiddenInput />
-                                    <Checkbox.Control borderRadius="full" style={{ width: "20px", height: "20px", border: category === cat ? "1px solid #007AFF" : "1px solid #ccc", backgroundColor: category === cat ? "#007AFF" : "transparent" }} />
-                                    <Checkbox.Label>{__(cat, "gamify")}</Checkbox.Label>
-                                </Checkbox.Root>
-                            ))}
-                        </Flex>
-                        <Text cursor="pointer" color="var(--gamify-primary)" fontWeight="500" fontSize="xs" mt={1} onClick={() => setShowInput(true)}>{__("+ Add Level Type", "gamify")}</Text>
-                        {showInput && (
-                            <Flex mt={2} gap={2}>
-                                <Input size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder="Type name" />
-                                <Button size="sm" onClick={() => setShowInput(false)}>{__("Cancel")}</Button>
-                                <Button {...primaryBtn} size="sm" onClick={() => { dispatch(addCategoryToList(newCat)); dispatch(setField({ field: 'category', value: newCat })); setNewCat(""); setShowInput(false); }}>{__("Add")}</Button>
+                    <Box className="gamify-add-level-type">
+                        <GFLabel type="title" label={__("Level Type", "gamify")} />
+
+                        {availableCategories.length > 0 ? (
+                            <RadioGroup.Root
+                                value={category}
+                                onValueChange={(details) =>
+                                    dispatch(
+                                        setField({
+                                            field: "category",
+                                            value: details.value,
+                                        })
+                                    )
+                                }
+                                size="sm"
+                            >
+                                <Flex
+                                    mt="4px"
+                                    gap="24px"
+                                    p="12px"
+                                    border="1px solid var(--gamify-border-color)"
+                                    borderRadius="4px"
+                                    flexWrap="wrap"
+                                >
+                                    {availableCategories.map((cat, index) => (
+                                        <RadioGroup.Item key={index} value={cat}>
+                                            <RadioGroup.ItemHiddenInput />
+                                            <RadioGroup.ItemIndicator
+                                                style={{
+                                                    width: "20px",
+                                                    height: "20px",
+                                                    borderRadius: "9999px",
+                                                    border: category === cat
+                                                        ? "1px solid #007AFF"
+                                                        : "1px solid #ccc",
+                                                    backgroundColor: category === cat
+                                                        ? "#007AFF"
+                                                        : "transparent",
+                                                }}
+                                            />
+                                            <RadioGroup.ItemText>
+                                                {/* translators: %s: cat */}
+                                                {sprintf(
+                                                    __('%s', 'gemboards'),
+                                                    cat,
+                                                )}
+                                            </RadioGroup.ItemText>
+                                        </RadioGroup.Item>
+                                    ))}
+                                </Flex>
+                            </RadioGroup.Root>
+                        ) : null}
+
+                        {showInput ? (
+                            <Flex mt="6px" gap={2}>
+                                <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
+
+                                <Button
+                                    size="xs"
+                                    bg="var(--gamify-border-color)"
+                                    fontSize="12px"
+                                    fontWeight="500"
+                                    lineHeight="16px"
+                                    p="6px 8px"
+                                    height="auto"
+                                    variant="ghost"
+                                    onClick={() => setShowInput(false)}
+                                >
+                                    {__("Cancel", "gamify")}
+                                </Button>
+
+                                <Button
+                                    size="xs"
+                                    bg="var(--gamify-primary)"
+                                    color="#fff"
+                                    fontSize="12px"
+                                    fontWeight="500"
+                                    lineHeight="16px"
+                                    p="6px 8px"
+                                    height="auto"
+                                    variant="ghost"
+                                    onClick={() => {
+                                        dispatch(addCategoryToList(newCat));
+                                        dispatch(setField({ field: 'category', value: newCat }));
+                                        setNewCat("");
+                                        setShowInput(false);
+                                    }}
+                                >
+                                    {__("Add", "gamify")}
+                                </Button>
                             </Flex>
+                        ) : (
+                            <Button
+                                color="var(--gamify-primary)"
+                                fontSize="12px"
+                                fontWeight="500"
+                                lineHeight="16px"
+                                p="6px 8px"
+                                height="auto"
+                                variant="ghost"
+                                mt="12px"
+                                onClick={() => setShowInput(true)}
+                            >
+                                <Icon as={GoPlus} boxSize="16px" />{__("Add Level Type", "gamify")}
+                            </Button>
                         )}
                     </Box>
 
@@ -216,56 +333,138 @@ const LevelType = () => {
                         <GamifyEditor defaultValue={message} saveValueHandler={setMessage} />
                     </Box>
 
-                    <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Level Requirements`, "gamify")} />
-                    <Flex><Switch.Root checked={unlockWithPoints} onCheckedChange={e => dispatch(setField({ field: 'unlockWithPoints', value: e.checked }))}><Switch.HiddenInput /><Switch.Label>{__("Allow unlock with points", "gamify")}</Switch.Label><Switch.Control /></Switch.Root></Flex>
+                    <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gamify")} />
+
+                    <Switch.Root
+                        checked={unlockWithPoints}
+                        onCheckedChange={e => dispatch(setField({ field: 'unlockWithPoints', value: e.checked }))}
+                        colorPalette="blue"
+                    >
+                        <Switch.HiddenInput />
+                        <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gamify")}</Switch.Label>
+                        <Switch.Control />
+                    </Switch.Root>
 
                     {unlockWithPoints ? (
                         <Flex gap="12px">
-                            <Box width="33%"><LabeledInput label="Minimum Balance" type="number" value={minPoints} onChange={e => dispatch(setField({ field: 'minPoints', value: e.target.value }))} /></Box>
-                            <Box width="33%"><LabeledInput label="Maximum Balance" type="number" value={maxPoints} onChange={e => dispatch(setField({ field: 'maxPoints', value: e.target.value }))} /></Box>
-                            <Box width="33%"><Text fontSize="14px" fontWeight="500" m="0 0 8px 0">{__("Choose the Points Type", "gamify")}</Text>
+                            <GamifyInput label={__("Minimum Balance", "gamify")} width="calc((100% / 3) - 6px)">
+                                <Input
+                                    placeholder={__("Enter minimum balance", "gamify")}
+                                    value={minPoints}
+                                    type="number"
+                                    onChange={e => dispatch(setField({ field: 'minPoints', value: e.target.value }))}
+                                    {...commonInput}
+                                />
+                            </GamifyInput>
+
+                            <GamifyInput label={__("Maximum Balance", "gamify")} width="calc((100% / 3) - 6px)">
+                                <Input
+                                    placeholder={__("Enter maximum balance", "gamify")}
+                                    value={maxPoints}
+                                    type="number"
+                                    onChange={e => dispatch(setField({ field: 'maxPoints', value: e.target.value }))}
+                                    {...commonInput}
+                                />
+                            </GamifyInput>
+
+                            <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc((100% / 3) - 6px)">
                                 <Select
                                     className="gamify-select"
                                     classNamePrefix="gamify-select"
                                     placeholder="Choose one"
-                                    options={availablePointTypes} value={availablePointTypes.find(opt => opt.value == selectedPointTypeId)} onChange={sel => dispatch(setField({ field: 'selectedPointTypeId', value: sel ? sel.value : null }))} />
-                            </Box>
+                                    options={availablePointTypes} value={availablePointTypes.find(opt => opt.value == selectedPointTypeId)} onChange={sel => dispatch(setField({ field: 'selectedPointTypeId', value: sel ? sel.value : null }))}
+                                />
+                            </GamifyInput>
                         </Flex>
                     ) : (
                         <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                            <Flex gap="24px">
-                                <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="4">
-                                    <VStack align="start" spacing={1}><GFLabel type="title" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} /><Text fontSize="xs">{__("Drag to activate", "gamify")}</Text></VStack>
-                                    <Select isMulti placeholder="Filter..." options={Object.keys(hookCategoryIconMap).map(k => ({ label: k, value: k }))} onChange={v => setSelectedFilter(v.map(o => o.value))} />
-                                    <DroppableArea id="awards-available">{availableHooks.map(h => renderHookCard(h))}</DroppableArea>
+                            <Box p="24px" border="1px solid var(--gamify-border-color)" borderRadius="4px" className="gamify-level-requirements">
+                                <GFLabel type="plainHeading" label={__("Level Requirements", "gamify")} />
+
+                                <Flex gap="24px">
+                                    <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-level-requirements">
+                                        <Flex direction="column" gap="12px">
+                                            <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
+                                            <GFLabel
+                                                type="subtitle"
+                                                color="var(--gamify-font-color)"
+                                                label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gamify")}
+                                            />
+                                        </Flex>
+
+                                        <Box p="12px" border="1px solid var(--gamify-border-color)" borderRadius="4px">
+                                            <GamifyInput label={__("Filter Hooks Type", "gamify")}>
+                                                <Select
+                                                    isMulti
+                                                    placeholder={__("Filter...", "gamify")}
+                                                    options={Object.keys(hookCategoryIconMap).map(k => ({ label: k, value: k }))}
+                                                    onChange={v => setSelectedFilter(v.map(o => o.value))}
+                                                    className="gamify-select"
+                                                    classNamePrefix="gamify-select"
+                                                />
+                                            </GamifyInput>
+                                        </Box>
+
+                                        <DroppableArea id="awards-available">{availableHooks.map(h => renderHookCard(h))}</DroppableArea>
+                                    </Flex>
+
+                                    <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
+                                        <Flex direction="column" gap="12px">
+                                            <GFLabel type="plainHeading" label={__("Active Hooks", "gamify")} />
+                                            <GFLabel
+                                                type="subtitle"
+                                                color="var(--gamify-font-color)"
+                                                label={__("The following hooks are used for all users", "gamify")}
+                                            />
+                                        </Flex>
+
+                                        <DroppableArea id="awards-sidebar">
+                                            {activeHooks.map(h => (
+                                                <DynamicHookForm key={h.id} hookId={h.id} hookInfo={h} settings={hookSettings[h.id] || {}} onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} />
+                                            ))}
+                                        </DroppableArea>
+                                    </Box>
                                 </Flex>
-                                <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                                    <GFLabel type="title" label={__("Action Hooks", "gamify")} />
-                                    <DroppableArea id="awards-sidebar">
-                                        {activeHooks.map(h => (
-                                            <DynamicHookForm key={h.id} hookId={h.id} hookInfo={h} settings={hookSettings[h.id] || {}} onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} />
-                                        ))}
-                                    </DroppableArea>
-                                </Box>
-                            </Flex>
+                            </Box>
                         </DndContext>
                     )}
 
-                    <Box border="1px solid var(--gamify-border-color)" borderRadius="4px" p="16px">
-                        <GFLabel label={__(`Levels Logo`, "gamify")} margin="0" />
-                        <Box borderTop='1px solid var(--gamify-border-color)' mt="10px" pt={2}>
-                            {levelIcon && <Image src={levelIcon} boxSize="100px" objectFit="contain" mb="10px" />}
-                            <Text textDecoration='underline' color="var(--gamify-primary)" cursor="pointer" onClick={handleImageUpload}>
-                                {levelIcon ? __(`Change Level Logo`, "gamify") : __(`Set Level Logo`, "gamify")}
-                            </Text>
-                        </Box>
-                    </Box>
-
-                    <Flex py="24px" justify="flex-end" borderTop="1px solid var(--gamify-border-color)">
-                        <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>{editId ? __("Update", "gamify") : __("Save Changes", "gamify")}</Button>
-                    </Flex>
+                    <BoxView title={__(`Levels Logo`, "gamify")} width="100%">
+                        {levelIcon ? (
+                            <Flex alignItems="center" justifyContent="space-between">
+                                <Image src={levelIcon} width="100px" objectFit="cover" />
+                                <Button
+                                    bg="var(--gamify-primary)"
+                                    color="#fff"
+                                    fontSize="12px"
+                                    fontWeight="500"
+                                    lineHeight="16px"
+                                    p="6px 8px"
+                                    height="auto"
+                                    variant="ghost"
+                                    onClick={handleImageUpload}
+                                >
+                                    {__("Change Level Logo", "gamify")}
+                                </Button>
+                            </Flex>
+                        ) : (
+                            <Button
+                                bg="var(--gamify-primary)"
+                                color="#fff"
+                                fontSize="12px"
+                                fontWeight="500"
+                                lineHeight="16px"
+                                p="6px 8px"
+                                height="auto"
+                                variant="ghost"
+                                onClick={handleImageUpload}
+                            >
+                                {__("Set Level Logo", "gamify")}
+                            </Button>
+                        )}
+                    </BoxView>
                 </Flex>
-            </Box>
+            </GamifyBox>
         </>
     );
 };

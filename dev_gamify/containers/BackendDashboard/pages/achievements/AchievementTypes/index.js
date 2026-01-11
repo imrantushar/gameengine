@@ -82,7 +82,8 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
                     options={optionsSource}
                     value={optionsSource.find(opt => opt.value == value) || null}
                     onChange={(selected) => onChange(selected ? selected.value : '')}
-                    className="gamify-select" classNamePrefix="gamify-select"
+                    className="gamify-select" 
+                    classNamePrefix="gamify-select"
                 />
             </Box>
         );
@@ -266,7 +267,7 @@ const AchievementsType = () => {
                     </GamifyInput>
 
                     <Box className="gamify-add-achievement-type">
-                        <GFLabel type="inputLabel" label={"Achievement Type"} />
+                        <GFLabel type="title" label={__("Achievement Type", "gamify")} />
 
                         {availableCategories.length > 0 ? (
                             <RadioGroup.Root

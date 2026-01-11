@@ -34,7 +34,7 @@ const GFLabel = ({
 			fontWeight: "500",
 			color: "var(--gamify-font-color)",
 			lineHeight: "30px",
-			margin: "00",
+			margin: "0 0 24px 0",
 			padding: "0",
 			borderBottom: "none",
 		},

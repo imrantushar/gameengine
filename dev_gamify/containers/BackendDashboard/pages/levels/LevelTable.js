@@ -90,9 +90,9 @@ const LevelTable = () => {
     ];
 
     return (
-        <Box width="1174px" margin="0 auto" height="100vh">
+        <div className='gamify-page-content'>
             <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                <GFLabel type="plainHeading" label={__("Levels Types", "gamify")} />
+                <GFLabel type="plainHeading" margin={0} label={__("Levels Types", "gamify")} />
 
                 <Button
                     {...primaryBtn}
@@ -109,7 +109,7 @@ const LevelTable = () => {
                 noDataText={__("No data found for levels", "gamify")}
                 isLoading={status === 'loading'}
             />
-        </Box>
+        </div>
     );
 };
 

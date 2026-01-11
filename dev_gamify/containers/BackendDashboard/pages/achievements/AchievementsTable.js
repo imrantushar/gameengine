@@ -92,9 +92,9 @@ const AchievementsTable = () => {
     ];
 
     return (
-        <Box width="1174px" margin="0 auto" height="100vh">
+        <div className='gamify-page-content'>
             <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                <GFLabel type="plainHeading" label={__("Achievements", "gamify")} />
+                <GFLabel type="plainHeading" margin={0} label={__("Achievements", "gamify")} />
 
                 <Button
                     {...primaryBtn}
@@ -113,7 +113,7 @@ const AchievementsTable = () => {
                 showPagination={true}
                 noDataText={__("No data found for Achievements", "gamify")}
             />
-        </Box>
+        </div>
     );
 };
 

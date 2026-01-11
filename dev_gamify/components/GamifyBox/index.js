@@ -4,7 +4,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 
 const GamifyBox = ({dynamicClasses, heading, children}) => {
     const classes = [
-        "gamify-page-content",
+        "gamify-inner-page-content",
         dynamicClasses && dynamicClasses
     ].filter(Boolean).join(" ");
     
