@@ -220,8 +220,13 @@ const AchievementsType = () => {
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Achievement Types`, "gamify")} />
 
                     <Flex gap="24px">
-                        <LabeledInput label="Point Name" value={title} onChange={e => dispatch(setField({ field: 'title', value: e.target.value }))} style={{ width: '50%' }} />
-                        <LabeledInput label="Plural Name" style={{ width: '50%' }} value={description} onChange={e => dispatch(setField({ field: 'description', value: e.target.value }))} />
+                        <LabeledInput label="Point Name" value={title} onChange={e => {
+                            const value =e.target.value
+                            dispatch(setField({ field: 'title', value: value }))
+                            dispatch(setField({ field: 'description', value: value ? `${value}s` : "" }))
+                        }}
+                            style={{ width: '50%' }} />
+                        <LabeledInput label="Plural Name" style={{ width: '50%' }} value={description}/>
                     </Flex>
 
                     <Box>
