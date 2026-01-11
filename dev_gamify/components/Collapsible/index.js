@@ -2,12 +2,11 @@ import React from "react";
 import { Box, Flex, Icon, Text, } from "@chakra-ui/react";
 import { LuChevronDown, LuChevronRight } from "react-icons/lu";
 import { FaUndo } from 'react-icons/fa';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon = false }) => {
     return (
         <Box width="100%">
-            {/* Header */}
             <Flex
                 padding="10px"
                 border="1px solid var(--gamify-border-color)"
@@ -18,9 +17,16 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                 onClick={onClick}
             >
                 <Text fontSize="1rem" fontWeight="500" margin={0} display='flex' width='100%' justifyContent='space-between' alignItems='center'>
-                    {__(label, 'gamify')}
-                    {
-                        !singleIcon ? <Icon as={isOpen ? LuChevronRight : LuChevronDown} boxSize={5} /> : (<Box
+                    {/* translators: %s: label */}
+                    {sprintf(
+                        __('%s', 'gemboards'),
+                        label,
+                    )}
+
+                    {!singleIcon ? (
+                        <Icon as={isOpen ? LuChevronRight : LuChevronDown} boxSize={5} />
+                    ) : (
+                        <Box
                             bg="red.500"
                             borderRadius="full"
                             width="24px"
@@ -31,32 +37,30 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                             color="white"
                         >
                             <Icon as={FaUndo} boxSize={4} />
-                        </Box>)
-                    }
+                        </Box>
+                    )}
                 </Text>
-
-
             </Flex>
+
             {isOpen && children && (
                 <Flex
                     flexDirection="column"
-                    gap="12px"
-                    padding="16px"
+                    padding="24px 16px"
                     border="1px solid var(--gamify-border-color)"
                     borderTop="none"
                     borderBottomLeftRadius="4px"
                     borderBottomRightRadius="4px"
-                    marginTop="-2px"
+                    // marginTop="-2px"
                 >
                     {children}
                 </Flex>
             )}
+
             {(desc && !isOpen) && (
                 <Text fontSize="0.875rem" margin='6px 0 0 0' color='var(--gamify-secondary)'>
                     {__(desc, 'gamify')}
                 </Text>
             )}
-
         </Box>
     );
 };
