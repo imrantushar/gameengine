@@ -3316,7 +3316,10 @@ const AchievementsType = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Action Hooks", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
-  }, activeHooks.map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
+  }, activeHooks.map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
+    key: h.id,
+    id: h.id
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     key: h.id,
     hookId: h.id,
     hookInfo: h,
@@ -3329,7 +3332,7 @@ const AchievementsType = () => {
     })),
     isOpen: openedHooks.includes(h.id),
     setIsOpen: v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))
-  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+  }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
     py: "24px",
     justify: "flex-end",
     borderTop: "1px solid var(--gamify-border-color)"
