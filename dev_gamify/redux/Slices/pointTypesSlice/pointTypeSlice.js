@@ -66,7 +66,7 @@ export const updatePointType = createAsyncThunk(
 
 // --- 5. Fetch Single Point Type by ID ---
 export const fetchPointTypeById = createAsyncThunk(
-    'pointType/fetchById',
+    'gamify/fetchPointTypeById',
     async (id, { rejectWithValue }) => {
         try {
             return await apiFetch({ path: `/gamify/v1/point-types/${id}` });
@@ -220,6 +220,17 @@ const pointTypeSlice = createSlice({
             // --- Fetch Single by ID ---
             .addCase(fetchPointTypeById.fulfilled, (state, action) => {
                 const data = action.payload;
+                if(state.pointTypes.length === 0) {
+                    state.pointTypes = [data]
+                } else {
+                    state.pointTypes = state.pointTypes.map(item => {
+                        if(Number(item.id) === Number(data.id)) {
+                            return {...item, ...data};
+                        }
+                        return item;
+                    })
+                }
+
                 state.currentPointTypeId = data.id;
                 state.name = data.name;
                 state.pluralName = data.plural_name;

@@ -7,6 +7,7 @@ import OptionMenu from '@GFComponents/OptionMenu';
 import { fetchPointTypes ,deletePointType} from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { route_path } from '@GFUtils/helper';
 
 const PointTypesTable = () => {
   const { pointTypes, listStatus } = useSelector((state) => state.pointType);
