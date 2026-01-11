@@ -386,7 +386,12 @@ const PointType = () => {
                 <Flex direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
                     <Flex gap="24px">
-                        <LabeledInput style={{ width: '50%' }} label="Point Name" value={name} onChange={e => dispatch(setPointName(e.target.value))} />
+                        <LabeledInput style={{ width: '50%' }} label="Point Name" value={name} onChange={e => {
+                            const value = e.target.value
+                            dispatch(setPointName(e.target.value))
+                            dispatch(setPluralName(value ? `${value}s` : "" )) 
+                        }
+                            } />
                         <LabeledInput style={{ width: '50%' }} label="Plural Name" value={pluralName} readOnly />
                     </Flex>
 

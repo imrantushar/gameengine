@@ -3146,10 +3146,17 @@ const AchievementsType = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
     label: "Point Name",
     value: title,
-    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.setField)({
-      field: 'title',
-      value: e.target.value
-    })),
+    onChange: e => {
+      const value = e.target.value;
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.setField)({
+        field: 'title',
+        value: value
+      }));
+      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.setField)({
+        field: 'description',
+        value: value ? `${value}s` : ""
+      }));
+    },
     style: {
       width: '50%'
     }
@@ -3158,11 +3165,7 @@ const AchievementsType = () => {
     style: {
       width: '50%'
     },
-    value: description,
-    onChange: e => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_25__.setField)({
-      field: 'description',
-      value: e.target.value
-    }))
+    value: description
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_20__["default"], {
     label: "Maximum Earnings Per User :",
     type: "number",
@@ -3313,7 +3316,10 @@ const AchievementsType = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_13__.__)("Action Hooks", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "awards-sidebar"
-  }, activeHooks.map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
+  }, activeHooks.map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
+    key: h.id,
+    id: h.id
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicHookForm, {
     key: h.id,
     hookId: h.id,
     hookInfo: h,
@@ -3326,7 +3332,7 @@ const AchievementsType = () => {
     })),
     isOpen: openedHooks.includes(h.id),
     setIsOpen: v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))
-  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+  }))))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
     py: "24px",
     justify: "flex-end",
     borderTop: "1px solid var(--gamify-border-color)"
@@ -5524,8 +5530,11 @@ const LevelType = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
     fontSize: "14px",
     fontWeight: "500",
-    mb: "8px"
+    m: "0 0 8px 0"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_14__.__)("Choose the Points Type", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_15__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    placeholder: "Choose one",
     options: availablePointTypes,
     value: availablePointTypes.find(opt => opt.value == selectedPointTypeId),
     onChange: sel => dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_28__.setField)({
@@ -6659,7 +6668,11 @@ const PointType = () => {
     },
     label: "Point Name",
     value: name,
-    onChange: e => dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_19__.setPointName)(e.target.value))
+    onChange: e => {
+      const value = e.target.value;
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_19__.setPointName)(e.target.value));
+      dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_19__.setPluralName)(value ? `${value}s` : ""));
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_16__["default"], {
     style: {
       width: '50%'
@@ -8782,6 +8795,7 @@ const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
         id: item.id,
         name: item.name,
         pluralName: item.plural_name,
+        requirements: item.requirements,
         date: new Date(item.created_at).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',

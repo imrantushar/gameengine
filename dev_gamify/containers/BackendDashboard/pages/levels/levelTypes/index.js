@@ -223,8 +223,12 @@ const LevelType = () => {
                         <Flex gap="12px">
                             <Box width="33%"><LabeledInput label="Minimum Balance" type="number" value={minPoints} onChange={e => dispatch(setField({ field: 'minPoints', value: e.target.value }))} /></Box>
                             <Box width="33%"><LabeledInput label="Maximum Balance" type="number" value={maxPoints} onChange={e => dispatch(setField({ field: 'maxPoints', value: e.target.value }))} /></Box>
-                            <Box width="33%"><Text fontSize="14px" fontWeight="500" mb="8px">{__("Choose the Points Type", "gamify")}</Text>
-                                <Select options={availablePointTypes} value={availablePointTypes.find(opt => opt.value == selectedPointTypeId)} onChange={sel => dispatch(setField({ field: 'selectedPointTypeId', value: sel ? sel.value : null }))} />
+                            <Box width="33%"><Text fontSize="14px" fontWeight="500" m="0 0 8px 0">{__("Choose the Points Type", "gamify")}</Text>
+                                <Select
+                                    className="gamify-select"
+                                    classNamePrefix="gamify-select"
+                                    placeholder="Choose one"
+                                    options={availablePointTypes} value={availablePointTypes.find(opt => opt.value == selectedPointTypeId)} onChange={sel => dispatch(setField({ field: 'selectedPointTypeId', value: sel ? sel.value : null }))} />
                             </Box>
                         </Flex>
                     ) : (

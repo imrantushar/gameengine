@@ -54,9 +54,8 @@ class PointTypesController extends BaseController
             ],
         ]);
     }
-
     /**
-     * Retrieve a list of point types.
+     * Retrieve a list of point types with their associated requirements.
      */
     public function get_items($request)
     {
@@ -65,11 +64,37 @@ class PointTypesController extends BaseController
 
         if (false === $results) {
             global $wpdb;
-            $table = $wpdb->prefix . 'gamify_point_types';
+            $table_points = $wpdb->prefix . 'gamify_point_types';
+            $table_reqs   = $wpdb->prefix . 'gamify_requirements';
 
+            // 1. Fetch all point types from the database
             // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
-            $results = $wpdb->get_results("SELECT * FROM {$table} ORDER BY id DESC", ARRAY_A);
+            $point_types = $wpdb->get_results("SELECT * FROM {$table_points} ORDER BY id DESC", ARRAY_A);
 
+            if (!empty($point_types)) {
+                foreach ($point_types as &$pt) {
+                    // 2. Fetch requirements for each specific point type
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+                    $reqs = $wpdb->get_results($wpdb->prepare(
+                        "SELECT * FROM {$table_reqs} WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
+                        $pt['id']
+                    ), ARRAY_A);
+
+                    // 3. Decode JSON parameters for each requirement into an array
+                    if (!empty($reqs)) {
+                        foreach ($reqs as &$r) {
+                            $r['parameters'] = json_decode($r['parameters'], true);
+                        }
+                    }
+
+                    // 4. Attach the requirements array to the point type object
+                    $pt['requirements'] = !empty($reqs) ? $reqs : [];
+                }
+            }
+
+            $results = $point_types;
+
+            // Set transient cache for 60 seconds
             set_transient($cache_key, $results, 60);
         }
 
