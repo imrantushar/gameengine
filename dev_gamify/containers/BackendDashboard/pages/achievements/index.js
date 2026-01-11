@@ -19,13 +19,11 @@ const Achievements = () => {
         <>
             <TopBar
                 leftContent={() => (
-                    <>
-                        <Flex align="center" gap={2}>
-                            {aIcon()}
-                            <Box width="4px" height="6px" bg="var(--gamify-primary)" />
-                            <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                        </Flex>
-                    </>
+                    <Flex align="center" gap={2}>
+                        {aIcon()}
+                        <Box width="4px" height="6px" bg="var(--gamify-primary)" />
+                        <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
+                    </Flex>
                 )}
             />
 
