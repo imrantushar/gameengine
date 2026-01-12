@@ -1,6 +1,5 @@
 import React from 'react';
 import { Flex, Text, Input, Textarea } from '@chakra-ui/react';
-import { __ } from '@wordpress/i18n';
 
 const LabeledInput = ({
   label,
@@ -11,25 +10,24 @@ const LabeledInput = ({
   style,
   inputStyle,
   textAreaSize,
-
+  onBlur,
 }) => {
-
   const InputComponent = type === 'textarea' ? Textarea : Input;
 
   return (
     <Flex as="label" direction="column"  gap={2} style={{ ...style }}>
       <Text fontWeight="600" fontSize="0.875rem" margin={0}>
-        {__(label, 'gamify')}
+        {label}
       </Text>
 
       <InputComponent
         className="gamify-input"
         type={type !== "textarea" ? type : undefined}
-        placeholder={__(placeholder, 'gamify')}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
         style={{ ...inputStyle }}
-        
+        onBlur={onBlur}
       />
     </Flex>
   );
