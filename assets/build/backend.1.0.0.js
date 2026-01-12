@@ -6572,7 +6572,7 @@ const FormInner = ({
     mb: 4
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: "deductions-sidebar"
-  }, selectedDeductHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
+  }, selectedDeductHookIds && selectedDeductHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
     key: `deduct_${h.id}`,
     id: `deduct_${h.id}`
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_HookConfigurationForm__WEBPACK_IMPORTED_MODULE_20__["default"], {
