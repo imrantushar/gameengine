@@ -57,19 +57,46 @@ class LevelsController extends BaseController
     }
 
     /**
-     * Retrieve all levels.
+     * Retrieve all levels with their associated requirements.
      */
     public function get_items($request)
     {
         // Cache Strategy (60 Seconds)
         $cache_key = 'gamify_levels_list';
-        $results = get_transient($cache_key);
+        $results   = get_transient($cache_key);
 
         if (false === $results) {
             global $wpdb;
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_levels ORDER BY priority ASC, min_points ASC", ARRAY_A);
 
+            // Fetch all levels ordered by priority.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $levels = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_levels ORDER BY priority ASC, min_points ASC", ARRAY_A);
+
+            if (! empty($levels)) {
+                foreach ($levels as &$lvl) {
+                    // Fetch requirements for each specific level.
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                    $reqs = $wpdb->get_results(
+                        $wpdb->prepare(
+                            "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'level' AND reward_id = %d AND is_active = 1",
+                            absint($lvl['id'])
+                        ),
+                        ARRAY_A
+                    );
+
+                    //  Decode JSON parameters for each requirement.
+                    if (! empty($reqs)) {
+                        foreach ($reqs as &$r) {
+                            $r['parameters'] = json_decode($r['parameters'], true);
+                        }
+                    }
+
+                    //  Attach the requirements array to the level object.
+                    $lvl['requirements'] = ! empty($reqs) ? $reqs : array();
+                }
+            }
+
+            $results = $levels;
             set_transient($cache_key, $results, 60);
         }
 

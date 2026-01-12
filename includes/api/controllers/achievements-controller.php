@@ -57,19 +57,45 @@ class AchievementsController extends BaseController
     }
 
     /**
-     * Retrieve all achievements.
+     * Retrieve all achievements with their associated requirements.
      */
     public function get_items($request)
     {
-        // Cache Strategy
         $cache_key = 'gamify_achievements_list';
-        $results = get_transient($cache_key);
+        $results   = get_transient($cache_key);
 
         if (false === $results) {
             global $wpdb;
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
-            $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_achievements ORDER BY id DESC", ARRAY_A);
 
+            // Fetch all achievements.
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $achievements = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_achievements ORDER BY id DESC", ARRAY_A);
+
+            if (! empty($achievements)) {
+                foreach ($achievements as &$ach) {
+                    // Fetch requirements for each specific achievement.
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                    $reqs = $wpdb->get_results(
+                        $wpdb->prepare(
+                            "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1",
+                            absint($ach['id'])
+                        ),
+                        ARRAY_A
+                    );
+
+                    // Decode JSON parameters for each requirement.
+                    if (! empty($reqs)) {
+                        foreach ($reqs as &$r) {
+                            $r['parameters'] = json_decode($r['parameters'], true);
+                        }
+                    }
+
+                    //  Attach the requirements array to the achievement object.
+                    $ach['requirements'] = ! empty($reqs) ? $reqs : array();
+                }
+            }
+
+            $results = $achievements;
             set_transient($cache_key, $results, 60);
         }
 
