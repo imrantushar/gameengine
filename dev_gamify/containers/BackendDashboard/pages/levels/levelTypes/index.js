@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Image, Checkbox, Input, Center, VStack, RadioGroup } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaArrowRotateRight, FaChevronRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
+import { FaArrowRotateRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import LabeledInput from "@GFComponents/LabeledInput";
 import GamifyEditor from "@GFComponents/editor";
 import CustomCollapsible from "@GFComponents/Collapsible";
-import Divider from "@GFComponents/Divider";
 import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
-
-// Actions
 import {
     fetchLevelById, saveLevel, updateLevel, resetForm, setField,
     addHook, removeHook, updateHookSettings,
     fetchLevelTriggers, fetchPointTypes, addCategoryToList, fetchLevels,
     fetchDynamicOptions
 } from "../../../../../redux/Slices/levelsSlice/levelsSlice.js";
-import { gIcon } from "@GFUtils/icons";
 import GamifyBox from "@GFComponents/GamifyBox";
 import GamifyInput from "@GFComponents/GamifyInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
@@ -187,16 +183,12 @@ const LevelType = () => {
     return (
         <>
             <TopBar
-                leftContent={() => (
-                    <Flex align="center" gap={2}>
-                        {gIcon()}
-                        <Box width="4px" height="6px" bg="var(--gamify-primary)" />
-                        <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                    </Flex>
-                )}
-                rightContent={() => (
-                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>{editId ? __("Update", "gamify") : __("Save Changes", "gamify")}</Button>
-                )}
+                path={__("Level Type", "gamify")}
+                rightContent={
+                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
+                        {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
+                    </Button>
+                }
             />
 
             <GamifyBox dynamicClasses="gamify-levels" heading={__(`Level Type`, "gamify")}>

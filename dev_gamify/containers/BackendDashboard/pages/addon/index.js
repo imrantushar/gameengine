@@ -4,8 +4,7 @@ import AddonCard from './AddonCard';
 import { Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
-import GFLabel from '@GFComponents/Labels/GFLabel';
-import { Box, Flex, Heading, Tabs } from '@chakra-ui/react';
+import { Box, Flex, Tabs } from '@chakra-ui/react';
 import { fetchActiveAddons } from '../../../../redux/Slices/addonsSlice/addonsSlice';
 
 const infoCardsData = [
@@ -235,7 +234,6 @@ const infoCardsData = [
 	// },
 ];
 
-
 const filterOptions = [
 	{ slug: 'all', title: __('All', 'academy') },
 	{ slug: 'active', title: __('Active', 'academy') },
@@ -300,21 +298,7 @@ const Addons = () => {
 
 	return (
 		<>
-			<TopBar
-				leftContent={() => (
-					<>
-						<span className="academy-topbar-logo academy-icon academy-icon--academy" />
-						<span className="academy-icon academy-icon--angle-right academy-muted" />
-						<GFLabel
-							as="h2"
-							color="#4F46E5"
-							type="subtitle"
-							fontWeight="medium"
-							label={__('Add-ons', 'academy')}
-						/>
-					</>
-				)}
-			/>
+			<TopBar path={__("Addons", "gamify")} />
 
 			<Box
 				className="academy-page-content academy-page-content--addons"

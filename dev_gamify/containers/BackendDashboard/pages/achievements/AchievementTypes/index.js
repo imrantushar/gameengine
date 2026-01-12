@@ -22,7 +22,6 @@ import {
 import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { route_path } from "@GFUtils/helper";
 import GamifyBox from "@GFComponents/GamifyBox";
-import { gIcon } from "@GFUtils/icons";
 import GamifyInput from "@GFComponents/GamifyInput";
 
 // --- Draggable Components ---
@@ -82,7 +81,7 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
                     options={optionsSource}
                     value={optionsSource.find(opt => opt.value == value) || null}
                     onChange={(selected) => onChange(selected ? selected.value : '')}
-                    className="gamify-select" 
+                    className="gamify-select"
                     classNamePrefix="gamify-select"
                 />
             </Box>
@@ -210,16 +209,12 @@ const AchievementsType = () => {
     return (
         <>
             <TopBar
-                leftContent={() => (
-                    <Flex align="center" gap={2}>
-                        {gIcon()}
-                        <Box width="4px" height="6px" bg="var(--gamify-primary)" />
-                        <GFLabel type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                    </Flex>
-                )}
-                rightContent={() => (
-                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>{editId ? __("Update", "gamify") : __("Save Changes", "gamify")}</Button>
-                )}
+                path={__("Achievement Types", "gamify")}
+                rightContent={
+                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
+                        {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
+                    </Button>
+                }
             />
 
             <GamifyBox dynamicClasses="gamify-achievements" heading={__(`Achievement Types`, "gamify")}>

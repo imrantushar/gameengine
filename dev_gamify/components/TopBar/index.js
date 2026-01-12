@@ -1,14 +1,19 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
+import { gIcon } from '@GFUtils/icons';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 import './styles.scss';
 
 const TopBar = ({
-	rightContent = () => null,
-	middleContent = () => null,
-	leftContent = () => null,
+	rightContent,
+	middleContent,
+	leftContent,
+	path,
 }) => {
+	const pathName = path ? path : __("Gamify", "gamify");
+
 	return (
 		<React.Fragment>
 			<Flex
@@ -25,11 +30,19 @@ const TopBar = ({
 				zIndex={999}
 				className='gamify-topbar'
 			>
-				{leftContent ? leftContent() : null}
+				{leftContent ? (
+					leftContent
+				) : (
+					<Flex align="center" gap={2}>
+						{gIcon()}
+						<Box width="4px" height="6px" bg="var(--gamify-primary)" />
+						<GFLabel type="subtitle" fontWeight="medium" label={pathName} />
+					</Flex>
+				)}
 
-				{middleContent ? middleContent() : null}
+				{middleContent ? middleContent : null}
 
-				{rightContent ? rightContent() : null}
+				{rightContent ? rightContent : null}
 			</Flex>
 		</React.Fragment>
 	);
