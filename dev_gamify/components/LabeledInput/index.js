@@ -10,7 +10,7 @@ const LabeledInput = ({
   style,
   inputStyle,
   textAreaSize,
-  props,
+  onBlur,
 }) => {
   const InputComponent = type === 'textarea' ? Textarea : Input;
 
@@ -27,7 +27,7 @@ const LabeledInput = ({
         value={value}
         onChange={onChange}
         style={{ ...inputStyle }}
-        {...props}
+        onBlur={onBlur}
       />
     </Flex>
   );

@@ -13,7 +13,6 @@ const PointTypesTable = () => {
   const { pointTypes, listStatus } = useSelector((state) => state.pointType);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  console.log({pointTypes})
 
   useEffect(() => {
     if (
