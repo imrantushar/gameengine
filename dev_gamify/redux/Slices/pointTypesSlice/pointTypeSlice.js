@@ -86,7 +86,7 @@ export const fetchPointTypes = createAsyncThunk(
                 return response.map(item => ({
                     id: item.id,
                     name: item.name,
-                    pluralName: item.plural_name,
+                    plural_name: item.plural_name,
                     requirements: item.requirements,
                     date: new Date(item.created_at).toLocaleDateString('en-US', {
                         year: 'numeric', month: 'short', day: 'numeric'
@@ -119,12 +119,8 @@ export const deletePointType = createAsyncThunk(
 const initialState = {
     pointTypes: [],
     currentPointTypeId: null,
-    name: '',
-    pluralName: '',
     integrations: {}, // Object format for modular UI
     allHooks: [], // Flat array for backward compatibility
-    selectedAwardHookIds: [],
-    selectedDeductHookIds: [],
     hookSettings: {},
     status: 'idle',
     listStatus: false,
@@ -204,23 +200,7 @@ const pointTypeSlice = createSlice({
                 }
 
                 state.currentPointTypeId = data.id;
-                state.name = data.name;
-                state.pluralName = data.plural_name;
-                state.selectedAwardHookIds = [];
-                state.selectedDeductHookIds = [];
                 state.hookSettings = {};
-
-                if (data.requirements && Array.isArray(data.requirements)) {
-                    data.requirements.forEach(req => {
-                        const key = `${req.action_type}_${req.trigger_key}`;
-                        state.hookSettings[key] = req.parameters;
-                        if (req.action_type === 'award') {
-                            state.selectedAwardHookIds.push(req.trigger_key);
-                        } else if (req.action_type === 'deduct') {
-                            state.selectedDeductHookIds.push(req.trigger_key);
-                        }
-                    });
-                }
             })
 
             // --- Fetch List & Delete ---
