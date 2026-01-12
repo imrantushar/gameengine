@@ -4648,15 +4648,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
-/* harmony import */ var _redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../redux/Slices/leaderboardSlice/leaderboardSlice */ "./dev_gamify/redux/Slices/leaderboardSlice/leaderboardSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
+/* harmony import */ var _redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../redux/Slices/leaderboardSlice/leaderboardSlice */ "./dev_gamify/redux/Slices/leaderboardSlice/leaderboardSlice.js");
 
 
 
@@ -4684,12 +4683,12 @@ const Leaderboards = () => {
 
   // Initial Load
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.fetchPointTypes)());
+    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.fetchPointTypes)());
   }, [dispatch]);
 
   // Fetch Data when filters/pagination change
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.fetchLeaderboard)({
+    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.fetchLeaderboard)({
       page: currentPage,
       per_page: rowsPerPage,
       point_type: selectedPointType,
@@ -4698,15 +4697,15 @@ const Leaderboards = () => {
   }, [dispatch, currentPage, rowsPerPage, selectedPointType, selectedTimeRange]);
 
   // Handlers
-  const handlePageChange = newPage => dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setPage)(newPage));
+  const handlePageChange = newPage => dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setPage)(newPage));
   const handlePerPageChange = newLimit => {
-    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setRowsPerPage)(newLimit));
-    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setPage)(1));
+    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setRowsPerPage)(newLimit));
+    dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setPage)(1));
   };
 
   // Columns
   const columns = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => [{
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Rank', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Rank', 'gamify'),
     cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
       style: {
         fontWeight: 'bold'
@@ -4714,16 +4713,16 @@ const Leaderboards = () => {
     }, row.rank),
     width: "100px"
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('User', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('User', 'gamify'),
     cell: row => row.name || 'Guest'
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Points', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Points', 'gamify'),
     cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "\uD83E\uDE99 ", row.total_points)
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Achievements', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Achievements', 'gamify'),
     cell: row => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, "\uD83C\uDFC6 ", row.achievements_count)
   }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Level', 'gamify'),
+    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Level', 'gamify'),
     cell: row => row.top_level
   }], []);
 
@@ -4747,69 +4746,48 @@ const Leaderboards = () => {
     label: 'Last 30 Days',
     value: 'last_30_days'
   }];
-
-  // Sub Header (Filters)
   const subHeaderComponentMemo = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
       justifyContent: "space-between",
       alignItems: "center",
-      width: "100%"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "gamify-table__sub-header-left"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      as: "h2",
-      color: "var(--gamify-font-color)",
-      fontWeight: "700",
-      fontSize: "16px",
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Gamify Pro Leaderboard`, 'gamify')
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-      gap: "12px",
+      p: "24px 0"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      type: "plainHeading",
+      margin: 0,
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Leaderboards", "gamify")
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+      gap: "16px",
       alignItems: "flex-end"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-      w: "200px"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      label: "Select Point Type",
-      type: "miniTitle",
-      mb: "5px"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_3__["default"], {
       className: "gamify-select",
       classNamePrefix: "gamify-select",
       placeholder: "All Points",
       options: pointTypes,
       isClearable: true,
       onChange: opt => {
-        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setFilterPointType)(opt ? opt.value : null));
-        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setPage)(1)); // Reset page on filter
+        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setFilterPointType)(opt ? opt.value : null));
+        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setPage)(1));
       }
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-      w: "200px"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__["default"], {
-      label: "Time Range",
-      type: "miniTitle",
-      mb: "5px"
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_3__["default"], {
       className: "gamify-select",
       classNamePrefix: "gamify-select",
       defaultValue: timeRangeOptions[0],
       options: timeRangeOptions,
       onChange: opt => {
-        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setFilterTimeRange)(opt ? opt.value : null));
-        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_9__.setPage)(1));
+        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setFilterTimeRange)(opt ? opt.value : null));
+        dispatch((0,_redux_Slices_leaderboardSlice_leaderboardSlice__WEBPACK_IMPORTED_MODULE_8__.setPage)(1));
       }
-    }))));
+    })));
   }, [pointTypes]);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Leaderboards", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    width: "1174px",
-    margin: "0 auto",
-    pb: "50px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Leaderboards", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-page-content"
+  }, subHeaderComponentMemo, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_7__["default"], {
     columns: columns,
     data: items,
     isLoading: status === 'loading',
-    showSubHeader: true,
-    subHeaderComponent: subHeaderComponentMemo,
+    showSubHeader: false,
     showColumnFilter: false,
     showPagination: true,
     noDataText: "No leaderboard data found",

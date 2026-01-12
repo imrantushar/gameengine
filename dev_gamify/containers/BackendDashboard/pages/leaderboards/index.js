@@ -87,51 +87,34 @@ const Leaderboards = () => {
         { label: 'Last 30 Days', value: 'last_30_days' },
     ];
 
-    // Sub Header (Filters)
     const subHeaderComponentMemo = useMemo(() => {
         return (
-            <Flex justifyContent="space-between" alignItems="center" width="100%">
-                <div className="gamify-table__sub-header-left">
-                    <GFLabel
-                        as="h2"
-                        color="var(--gamify-font-color)"
-                        fontWeight="700"
-                        fontSize='16px'
-                        label={__(`Gamify Pro Leaderboard`, 'gamify')}
+            <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                <GFLabel type="plainHeading" margin={0} label={__("Leaderboards", "gamify")} />
+
+                <Flex gap='16px' alignItems="flex-end">
+                    <Select
+                        className="gamify-select"
+                        classNamePrefix="gamify-select"
+                        placeholder="All Points"
+                        options={pointTypes}
+                        isClearable
+                        onChange={(opt) => {
+                            dispatch(setFilterPointType(opt ? opt.value : null));
+                            dispatch(setPage(1));
+                        }}
                     />
-                </div>
 
-                <Flex gap='12px' alignItems="flex-end">
-                    {/* Point Type Filter */}
-                    <Box w="200px">
-                        <GFLabel label="Select Point Type" type="miniTitle" mb="5px" />
-                        <Select
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            placeholder="All Points"
-                            options={pointTypes}
-                            isClearable
-                            onChange={(opt) => {
-                                dispatch(setFilterPointType(opt ? opt.value : null));
-                                dispatch(setPage(1)); // Reset page on filter
-                            }}
-                        />
-                    </Box>
-
-                    {/* Time Range Filter */}
-                    <Box w="200px">
-                        <GFLabel label="Time Range" type="miniTitle" mb="5px" />
-                        <Select
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            defaultValue={timeRangeOptions[0]}
-                            options={timeRangeOptions}
-                            onChange={(opt) => {
-                                dispatch(setFilterTimeRange(opt ? opt.value : null));
-                                dispatch(setPage(1));
-                            }}
-                        />
-                    </Box>
+                    <Select
+                        className="gamify-select"
+                        classNamePrefix="gamify-select"
+                        defaultValue={timeRangeOptions[0]}
+                        options={timeRangeOptions}
+                        onChange={(opt) => {
+                            dispatch(setFilterTimeRange(opt ? opt.value : null));
+                            dispatch(setPage(1));
+                        }}
+                    />
                 </Flex>
             </Flex>
         );
@@ -141,13 +124,14 @@ const Leaderboards = () => {
         <>
             <TopBar path={__("Leaderboards", "gamify")} />
 
-            <Box width="1174px" margin="0 auto" pb="50px">
+            <div className='gamify-page-content'>
+                {subHeaderComponentMemo}
+
                 <ListTable
                     columns={columns}
                     data={items}
                     isLoading={status === 'loading'}
-                    showSubHeader={true}
-                    subHeaderComponent={subHeaderComponentMemo}
+                    showSubHeader={false}
                     showColumnFilter={false}
                     showPagination={true}
                     noDataText="No leaderboard data found"
@@ -157,7 +141,7 @@ const Leaderboards = () => {
                     onChangePage={handlePageChange}
                     onChangeItemsPerPage={handlePerPageChange}
                 />
-            </Box>
+            </div>
         </>
     );
 };
