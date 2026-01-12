@@ -253,7 +253,7 @@ const FormInner = ({hooksLoading}) => {
                                 </Box>
                                 <DroppableArea id="awards-available">
                                     {allHooks
-                                    .filter(item => selectedAwardHookIds?.length > 0 && !selectedAwardHookIds.includes(item.id))
+                                    .filter(item => !selectedAwardHookIds?.includes(item.id))
                                     .map(h => (
                                         <Box key={h.id}>
                                             {renderHookCard(h, 'award')}
@@ -303,7 +303,7 @@ const FormInner = ({hooksLoading}) => {
                                 </Box>
                                 <DroppableArea id="deductions-available">
                                     {allHooks
-                                        .filter(item => selectedDeductHookIds?.length > 0 && !selectedDeductHookIds.includes(item.id))
+                                        .filter(item => !selectedDeductHookIds?.includes(item.id))
                                         .map(h => (
                                             <Box key={h.id}>
                                                 {renderHookCard(h, 'deduct')}
@@ -316,7 +316,7 @@ const FormInner = ({hooksLoading}) => {
                             <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
                                 <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} mb={4} />
                                 <DroppableArea id="deductions-sidebar">
-                                    {selectedDeductHookIds
+                                    {selectedDeductHookIds && selectedDeductHookIds
                                         .map(id => allHooks?.find(h => h.id === id))
                                         .filter(Boolean)
                                         .map(h => (
