@@ -32,6 +32,7 @@ import { AiFillInteraction } from 'react-icons/ai';
 import { SiWoocommerce } from "react-icons/si";
 import { useFormikContext } from 'formik';
 import HookConfigurationForm from './components/HookConfigurationForm';
+import { HookSkeleton } from './components/Skeleton';
 
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
@@ -59,7 +60,7 @@ const DroppableArea = ({ id, children }) => {
     );
 };
 
-const FormInner = () => {
+const FormInner = ({hooksLoading}) => {
     const { values, setFieldValue} = useFormikContext();
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
@@ -218,7 +219,7 @@ const FormInner = () => {
         <>
             <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
             <Flex gap="24px">
-                <LabeledInput 
+                <LabeledInput
                     style={{ width: '50%' }} 
                     label={__("Point Name", "gamify")} 
                     value={values.name} 
@@ -234,110 +235,115 @@ const FormInner = () => {
                 <LabeledInput style={{ width: '50%' }} label={__("Plural Name", "gamify")} value={values.plural_name} />
             </Flex>
 
-            <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                <CustomCollapsible label={__("Automatic Point Awards", "gamify")} isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
-                {pointAwards && (
-                    <Flex gap="24px" mb={6}>
-                        <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                            <VStack align="start" spacing={1}>
-                                <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} m="0" />
-                                <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} m="0" />
-                            </VStack>
-                            <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
-                                <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedFilterHookType(v.map(o => o.value))} />
-                            </Box>
-                            <DroppableArea id="awards-available">
-                                {allHooks
-                                .filter(item => selectedAwardHookIds?.length > 0 && !selectedAwardHookIds.includes(item.id))
-                                .map(h => (
-                                    <Box key={h.id}>
-                                        {renderHookCard(h, 'award')}
-                                        <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
-                                    </Box>
-                                ))}
-                            </DroppableArea>
-                        </Flex>
-                        <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                            <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} mb={4} />
-                            <DroppableArea id="awards-sidebar">
-                                {selectedAwardHookIds && selectedAwardHookIds
-                                    .map(id => allHooks?.find(h => h.id === id))
-                                    .filter(Boolean)
-                                    .map(h => (
-                                        <DraggableItem key={`award_${h.id}`} id={`award_${h.id}`}>
-                                            <HookConfigurationForm
-                                                hookId={h.id}
-                                                type="award"
-                                                hookInfo={h}
-                                                dispatch={dispatch}
-                                                currentSettings={hookSettings[`award_${h.id}`]}
-                                                isOpen={openedAwardHooks.includes(h.id)}
-                                                setIsOpen={v =>
-                                                    setOpenedAwardHooks(
-                                                    v ? [...openedAwardHooks, h.id] : openedAwardHooks.filter(i => i !== h.id)
-                                                    )
-                                                }
-                                            />
-                                        </DraggableItem>
-                                    ))
-                                }
-                            </DroppableArea>
-                        </Box>
-                    </Flex>
-                )}
-
-                <Divider />
-                <CustomCollapsible label={__("Automatic Point Deductions", "gamify")} isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
-                {pointDeductions && (
-                    <Flex gap="24px">
-                        <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                            <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                            <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
-                                <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedDeductFilterType(v.map(o => o.value))} />
-                            </Box>
-                            <DroppableArea id="deductions-available">
-                                {allHooks
-                                    .filter(item => selectedDeductHookIds?.length > 0 && !selectedDeductHookIds.includes(item.id))
+            {hooksLoading ? (
+                <HookSkeleton />
+            ) : (
+                <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+                    <CustomCollapsible label={__("Automatic Point Awards", "gamify")} isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
+                    {pointAwards && (
+                        <Flex gap="24px" mb={6}>
+                            <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+                                <VStack align="start" spacing={1}>
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} m="0" />
+                                    <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} m="0" />
+                                </VStack>
+                                <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                    <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
+                                    <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedFilterHookType(v.map(o => o.value))} />
+                                </Box>
+                                <DroppableArea id="awards-available">
+                                    {allHooks
+                                    .filter(item => selectedAwardHookIds?.length > 0 && !selectedAwardHookIds.includes(item.id))
                                     .map(h => (
                                         <Box key={h.id}>
-                                            {renderHookCard(h, 'deduct')}
+                                            {renderHookCard(h, 'award')}
                                             <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
                                         </Box>
-                                    )
-                                )}
-                            </DroppableArea>
+                                    ))}
+                                </DroppableArea>
+                            </Flex>
+                            <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} mb={4} />
+                                <DroppableArea id="awards-sidebar">
+                                    {selectedAwardHookIds && selectedAwardHookIds
+                                        .map(id => allHooks?.find(h => h.id === id))
+                                        .filter(Boolean)
+                                        .map(h => (
+                                            <DraggableItem key={`award_${h.id}`} id={`award_${h.id}`}>
+                                                <HookConfigurationForm
+                                                    hookId={h.id}
+                                                    type="award"
+                                                    hookInfo={h}
+                                                    dispatch={dispatch}
+                                                    currentSettings={hookSettings[`award_${h.id}`]}
+                                                    isOpen={openedAwardHooks.includes(h.id)}
+                                                    setIsOpen={v =>
+                                                        setOpenedAwardHooks(
+                                                        v ? [...openedAwardHooks, h.id] : openedAwardHooks.filter(i => i !== h.id)
+                                                        )
+                                                    }
+                                                />
+                                            </DraggableItem>
+                                        ))
+                                    }
+                                </DroppableArea>
+                            </Box>
                         </Flex>
-                        <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
-                            <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} mb={4} />
-                            <DroppableArea id="deductions-sidebar">
-                                {selectedDeductHookIds
-                                    .map(id => allHooks?.find(h => h.id === id))
-                                    .filter(Boolean)
-                                    .map(h => (
-                                        <DraggableItem key={`deduct_${h.id}`} id={`deduct_${h.id}`}>
-                                            <HookConfigurationForm
-                                                hookId={h.id}
-                                                type="deduct"
-                                                hookInfo={h}
-                                                dispatch={dispatch}
-                                                currentSettings={hookSettings[`deduct_${h.id}`]}
-                                                isOpen={openedDeductHooks.includes(h.id)}
-                                                setIsOpen={v =>
-                                                    setOpenedDeductHooks(
-                                                    v ? [...openedDeductHooks, h.id] : openedDeductHooks.filter(i => i !== h.id)
-                                                    )
-                                                }
-                                            />
-                                        </DraggableItem>
-                                    )
-                                )}
-                            </DroppableArea>
-                        </Box>
-                    </Flex>
-                )}
-            </DndContext>
+                    )}
+
+                    <Divider />
+                    <CustomCollapsible label={__("Automatic Point Deductions", "gamify")} isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
+                    {pointDeductions && (
+                        <Flex gap="24px">
+                            <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
+                                <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                    <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
+                                    <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedDeductFilterType(v.map(o => o.value))} />
+                                </Box>
+                                <DroppableArea id="deductions-available">
+                                    {allHooks
+                                        .filter(item => selectedDeductHookIds?.length > 0 && !selectedDeductHookIds.includes(item.id))
+                                        .map(h => (
+                                            <Box key={h.id}>
+                                                {renderHookCard(h, 'deduct')}
+                                                <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
+                                            </Box>
+                                        )
+                                    )}
+                                </DroppableArea>
+                            </Flex>
+                            <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} mb={4} />
+                                <DroppableArea id="deductions-sidebar">
+                                    {selectedDeductHookIds
+                                        .map(id => allHooks?.find(h => h.id === id))
+                                        .filter(Boolean)
+                                        .map(h => (
+                                            <DraggableItem key={`deduct_${h.id}`} id={`deduct_${h.id}`}>
+                                                <HookConfigurationForm
+                                                    hookId={h.id}
+                                                    type="deduct"
+                                                    hookInfo={h}
+                                                    dispatch={dispatch}
+                                                    currentSettings={hookSettings[`deduct_${h.id}`]}
+                                                    isOpen={openedDeductHooks.includes(h.id)}
+                                                    setIsOpen={v =>
+                                                        setOpenedDeductHooks(
+                                                        v ? [...openedDeductHooks, h.id] : openedDeductHooks.filter(i => i !== h.id)
+                                                        )
+                                                    }
+                                                />
+                                            </DraggableItem>
+                                        )
+                                    )}
+                                </DroppableArea>
+                            </Box>
+                        </Flex>
+                    )}
+                </DndContext>
+            )}
+
         </>
     );
 };

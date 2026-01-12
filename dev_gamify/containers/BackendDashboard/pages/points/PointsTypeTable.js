@@ -40,7 +40,7 @@ const PointTypesTable = () => {
     },
     {
       name: __('Plural Name', 'gamify'),
-      cell: (row) => row.pluralName,
+      cell: (row) => row.plural_name,
     },
     {
       name: __('Date', 'gamify'),
