@@ -6,7 +6,7 @@ import LevelType from './pages/levels/levelTypes';
 import Leaderboards from './pages/leaderboards';
 import AchievementsType from './pages/achievements/AchievementTypes';
 import Achievements from './pages/achievements';
-import PointType from './pages/points/PointType';
+import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';
@@ -19,10 +19,10 @@ const renderSwitch = (page, id, action, path) => {
 			return <Dashboard />;
 		case 'gamify-points':
 			if (path === "points-types") {
-				return <PointType />;
+				return <PointTypeEditor />;
 			}
 			if (action || id) {
-				return <PointType action={action} id={id} />;
+				return <PointTypeEditor action={action} id={id} />;
 			}
 			return <Points />;
 		case 'gamify-logs':
@@ -32,7 +32,7 @@ const renderSwitch = (page, id, action, path) => {
 			return <Settings />;
 
 		case 'point-type':
-			return <PointType />;
+			return <PointTypeEditor />;
 
 		case 'gamify-achievements':
 			if (path === 'achievements-type') {
