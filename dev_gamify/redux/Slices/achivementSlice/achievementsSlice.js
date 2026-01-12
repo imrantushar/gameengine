@@ -125,6 +125,7 @@ const achievementsSlice = createSlice({
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;
                 state.currentAchievementId = data.id;
+                state.achievements = [data];
                 state.title = data.title;
                 state.description = data.description;
                 state.category = data.category || '';

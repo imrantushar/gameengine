@@ -4,7 +4,7 @@ import Dashboard from './pages/dashboard';
 import Levels from './pages/levels';
 import LevelType from './pages/levels/levelTypes';
 import Leaderboards from './pages/leaderboards';
-import AchievementsType from './pages/achievements/AchievementTypes';
+import AchievementTypesEditor from './pages/achievements/AchievementTypesEditor';
 import Achievements from './pages/achievements';
 import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
@@ -36,10 +36,10 @@ const renderSwitch = (page, id, action, path) => {
 
 		case 'gamify-achievements':
 			if (path === 'achievements-type') {
-				return <AchievementsType />
+				return <AchievementTypesEditor />
 			}
 			if (action || id) {
-				return <AchievementsType action={action} id={id} />;
+				return <AchievementTypesEditor action={action} id={id} />;
 			}
 			return <Achievements />;
 
