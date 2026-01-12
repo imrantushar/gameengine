@@ -87,6 +87,7 @@ export const fetchPointTypes = createAsyncThunk(
                     id: item.id,
                     name: item.name,
                     pluralName: item.plural_name,
+                    requirements: item.requirements,
                     date: new Date(item.created_at).toLocaleDateString('en-US', {
                         year: 'numeric', month: 'short', day: 'numeric'
                     })

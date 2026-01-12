@@ -8976,6 +8976,7 @@ const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
         id: item.id,
         name: item.name,
         pluralName: item.plural_name,
+        requirements: item.requirements,
         date: new Date(item.created_at).toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
