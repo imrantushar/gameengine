@@ -415,7 +415,7 @@ const AchievementsType = () => {
 
                                 <Flex gap="24px">
                                     <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-achievement-requirements">
-                                        <Flex direction="column" gap="12px">
+                                        <Flex direction="column" gap="4px">
                                             <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
                                             <GFLabel
                                                 type="subtitle"
@@ -440,7 +440,7 @@ const AchievementsType = () => {
                                     </Flex>
 
                                     <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
-                                        <Flex direction="column" gap="12px">
+                                        <Flex direction="column" gap="4px">
                                             <GFLabel type="plainHeading" label={__("Active Hooks", "gamify")} />
                                             <GFLabel
                                                 type="subtitle"
