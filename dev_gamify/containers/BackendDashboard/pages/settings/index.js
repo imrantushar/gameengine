@@ -3,27 +3,53 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
-import { Box, Flex } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import GeneralSettings from './Tabs/GeneralSettings';
 import EmailNotice from './Tabs/EmailNotice';
 import HelpSupport from './Tabs/HelpSupport';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const tab = tabMatch ? tabMatch[1] : 'general-settings';
+    const dispatch = useDispatch();
+    const { email, general, saveStatus, status } = useSelector(state => state.settings);
+
+    const handleSave = () => {
+        switch (tab) {
+            case "general-settings":
+                dispatch(saveSettings({ general }));
+                break;
+
+            case "email-notice":
+                dispatch(saveSettings({ email }));
+                break;
+
+            default:
+                break;
+        }
+    };
 
     return (
         <>
-            <TopBar path={__("Settings", "gamify")} />
+            <TopBar
+                path={__("Settings", "gamify")}
+                rightContent={
+                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
+                        {__('Save Changes', 'gamify')}
+                    </Button>
+                }
+            />
 
-            <Flex width="1174px" margin="0 auto" height="100vh">
+            <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
                 <LeftBar />
-                <Box padding='0 16px'>
-                    {tab === "general-settings" && <GeneralSettings />}
-                    {tab === "email-notice" && <EmailNotice />}
-                    {tab === "help-support" && <HelpSupport />}
-                </Box>
+
+                {tab === "general-settings" && <GeneralSettings saveStatus={saveStatus} status={status} general={general} />}
+                {tab === "email-notice" && <EmailNotice saveStatus={saveStatus} status={status} />}
+                {tab === "help-support" && <HelpSupport />}
             </Flex>
         </>
     );

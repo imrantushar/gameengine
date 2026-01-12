@@ -2113,60 +2113,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./dev_gamify/components/Select/index.js":
-/*!***********************************************!*\
-  !*** ./dev_gamify/components/Select/index.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@ark-ui/react/dist/components/portal/portal.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@ark-ui/react/dist/components/collection/list-collection.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/select/select.js");
-"use client";
-
-
-
-const GFSelect = ({
-  label,
-  placeholder = "Select option",
-  items = [],
-  value,
-  onChange,
-  size = "sm",
-  width = "100%",
-  style
-}) => {
-  const collection = (0,_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.createListCollection)({
-    items
-  });
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectRoot, {
-    marginTop: "2px",
-    style: {
-      ...style
-    },
-    collection: collection,
-    size: size,
-    width: width,
-    value: value !== null && value !== void 0 ? value : "",
-    onValueChange: v => onChange?.(v)
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectHiddenSelect, null), label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectLabel, null, label), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectControl, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectTrigger, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectValueText, {
-    placeholder: placeholder
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectIndicatorGroup, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectIndicator, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Portal, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectPositioner, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectContent, null, collection.items.map(item => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectItem, {
-    key: item.value,
-    item: item
-  }, item.label, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.SelectItemIndicator, null)))))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GFSelect);
-
-/***/ }),
-
 /***/ "./dev_gamify/components/TopBar/index.js":
 /*!***********************************************!*\
   !*** ./dev_gamify/components/TopBar/index.js ***!
@@ -6941,10 +6887,9 @@ const LeftBar = () => {
     })
   }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    w: "240px",
+    minW: "300px",
     bg: "#fff",
-    borderRight: "1px solid #E5E7EB",
-    h: "235px",
+    boxShadow: "var(--gamify-shadow)",
     pos: "sticky",
     top: "0",
     display: {
@@ -6954,7 +6899,7 @@ const LeftBar = () => {
     flexDirection: "column",
     borderRadius: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.VStack, {
-    padding: "16px",
+    padding: "8px",
     width: "100%",
     align: "stretch",
     spacing: 0
@@ -6995,6 +6940,44 @@ const LeftBar = () => {
 
 /***/ }),
 
+/***/ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/Components/SettingsInner.js":
+/*!************************************************************************************************!*\
+  !*** ./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/Components/SettingsInner.js ***!
+  \************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+
+
+
+
+const SettingsInner = ({
+  children,
+  heading
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    bg: "var(--gamify-background)",
+    boxShadow: "var(--gamify-shadow)",
+    borderRadius: "4px",
+    width: "calc(100% - 300px)",
+    p: "24px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    type: "heading",
+    label: heading
+  }), children);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsInner);
+
+/***/ }),
+
 /***/ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/EmailNotice.js":
 /*!***********************************************************************************!*\
   !*** ./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/EmailNotice.js ***!
@@ -7008,21 +6991,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _GFComponents_Select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/Select */ "./dev_gamify/components/Select/index.js");
-/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/textarea/textarea.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var _Components_SettingsInner__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/SettingsInner */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/Components/SettingsInner.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
 
 
 
@@ -7034,38 +7015,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+const EmailNotice = ({
+  saveStatus,
+  status,
+  email
+}) => {
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_11__.useDispatch)();
+  // useEffect(() => {
+  //     if (status === 'idle') {
+  //         dispatch(fetchSettings());
+  //     }
 
-const EmailNotice = () => {
-  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  const {
-    email,
-    saveStatus,
-    status
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.settings);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (status === 'idle') {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.fetchSettings)());
-    }
-
-    // 🔥 FIX: Reset status when component mounts/unmounts
-    return () => {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.resetSaveStatus)());
-    };
-  }, [dispatch, status]);
-
-  // Handle Save Feedback
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (saveStatus === 'saved') {
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Email settings saved successfully!", "gamify"));
-      // Reset immediately after showing alert
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.resetSaveStatus)());
-    }
-  }, [saveStatus, dispatch]);
-  const handleSave = () => {
-    dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.saveSettings)({
-      email
-    }));
-  };
+  //     // 🔥 FIX: Reset status when component mounts/unmounts
+  //     return () => {
+  //         dispatch(resetSaveStatus());
+  //     };
+  // }, [dispatch, status]);
 
   // Helper options
   const formatOptions = [{
@@ -7082,92 +7047,69 @@ const EmailNotice = () => {
     label: 'Daily Digest',
     value: 'daily'
   }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    bg: "var(--gamify-background)",
-    borderRight: "1px solid var(--gamify-border-color)",
-    borderRadius: "4px",
-    width: "802px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.VStack, {
-    padding: "32px",
-    width: "100%",
-    align: "stretch",
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_SettingsInner__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)(`Email Notification`, "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    direction: "column",
     gap: "16px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    type: "heading",
-    fontWeight: "500",
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)(`Email Notification`, 'gamify')
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    width: "100%"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    flexDirection: "column",
-    gap: 2
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontWeight: "600",
-    fontSize: "0.875rem",
-    margin: 0
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Format", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Format", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: "gamify-select",
     classNamePrefix: "gamify-select",
     placeholder: "Choose one",
     options: formatOptions,
     value: formatOptions.find(opt => opt?.value === email?.format),
-    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
+    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__.setEmailField)({
       field: 'format',
       value: opt ? opt.value : 'plain'
     }))
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    flexDirection: "column",
-    gap: 2
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontWeight: "600",
-    fontSize: "0.875rem",
-    margin: 0
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Schedule", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Schedule", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_7__["default"], {
     className: "gamify-select",
     classNamePrefix: "gamify-select",
     placeholder: "Choose one",
     options: scheduleOptions,
     value: scheduleOptions.find(opt => opt?.value === email?.schedule),
-    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
+    onChange: opt => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__.setEmailField)({
       field: 'schedule',
       value: opt ? opt.value : 'immediate'
     }))
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "From Name",
-    value: email.from_name || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("From Name", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Enter from name", "gamify"),
+    value: email?.from_name || '',
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__.setEmailField)({
       field: 'from_name',
       value: e.target.value
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "From Address",
-    value: email.from_address || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
+    })),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("From Address", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Enter from address", "gamify"),
+    value: email?.from_address || '',
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__.setEmailField)({
       field: 'from_address',
       value: e.target.value
-    }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Default Email Content",
-    type: "textarea",
-    inputStyle: {
-      height: '80px'
-    },
-    value: email.default_content || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_14__.setEmailField)({
+    })),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Default Email Content", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Textarea, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Enter email content", "gamify"),
+    value: email?.default_content || '',
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_9__.setEmailField)({
       field: 'default_content',
       value: e.target.value
     }))
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
     fontSize: "12px",
     color: "gray.500",
     mt: "-10px"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Available placeholders: {user_name}, {level_name}, {site_name}', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    justifyContent: "flex-end"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_13__.primaryBtn,
-    onClick: handleSave,
-    isLoading: saveStatus === 'saving'
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Save Changes', 'gamify')))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Available placeholders: {user_name}, {level_name}, {site_name}', 'gamify'))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (EmailNotice);
 
@@ -7186,19 +7128,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/stack/v-stack.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
-/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var _GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/LabeledInput */ "./dev_gamify/components/LabeledInput/index.js");
+/* harmony import */ var _redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../redux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var _Components_SettingsInner__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Components/SettingsInner */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/Components/SettingsInner.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
 
 
 
@@ -7209,103 +7149,60 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const GeneralSettings = () => {
-  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  const {
-    general,
-    saveStatus,
-    status
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.settings);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (status === 'idle') {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.fetchSettings)());
-    }
 
-    // 🔥 FIX: Reset status when component mounts/unmounts to prevent auto-alert on tab switch
-    return () => {
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.resetSaveStatus)());
-    };
-  }, [dispatch, status]);
+const GeneralSettings = ({
+  saveStatus,
+  status,
+  general
+}) => {
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_8__.useDispatch)();
+  // useEffect(() => {
+  //     if (status === 'idle') {
+  //         dispatch(fetchSettings());
+  //     }
 
-  // Handle Save Feedback
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (saveStatus === 'saved') {
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("General settings saved successfully!", "gamify"));
-      // Reset immediately after showing alert
-      dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.resetSaveStatus)());
-    }
-  }, [saveStatus, dispatch]);
-  const handleSave = () => {
-    dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.saveSettings)({
-      general
-    }));
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
-    bg: "var(--gamify-background)",
-    borderRight: "1px solid var(--gamify-border-color)",
-    borderRadius: "4px",
-    width: "802px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.VStack, {
-    padding: "32px",
-    width: "100%",
-    align: "stretch",
+  //     // 🔥 FIX: Reset status when component mounts/unmounts to prevent auto-alert on tab switch
+  //     return () => {
+  //         dispatch(resetSaveStatus());
+  //     };
+  // }, [dispatch, status]);
+
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_SettingsInner__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("General Settings", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    direction: "column",
     gap: "16px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    type: "heading",
-    fontWeight: "500",
-    label: "General Settings"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_9__["default"], {
-    width: "100%"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    type: "inputLevel",
-    label: "Level Image Size",
-    fontWeight: "500",
-    fontSize: "14px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    gap: "64px"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Max Width",
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    type: "title",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Level Image Size", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Max Width", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Enter max width", "gamify"),
     type: "number",
     value: general.level_image_width || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setGeneralField)({
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_6__.setGeneralField)({
       field: 'level_image_width',
       value: e.target.value
     })),
-    style: {
-      flexDirection: "row",
-      alignItems: "center"
-    },
-    inputStyle: {
-      width: '74px',
-      height: '25px'
-    }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_LabeledInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    label: "Max Height",
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.commonInput
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Max Height", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Enter max height", "gamify"),
     type: "number",
     value: general.level_image_height || '',
-    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_12__.setGeneralField)({
+    onChange: e => dispatch((0,_redux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_6__.setGeneralField)({
       field: 'level_image_height',
       value: e.target.value
     })),
-    style: {
-      flexDirection: "row",
-      alignItems: "center"
-    },
-    inputStyle: {
-      width: '74px',
-      height: '25px'
-    }
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-    fontSize: "0.875rem",
-    margin: "6px 0 0 0",
-    color: "var(--gamify-secondary)"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Maximum dimensions for ranks featured image.', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
-    justifyContent: "flex-end"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_11__.primaryBtn,
-    onClick: handleSave,
-    isLoading: saveStatus === 'saving'
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Save Changes', 'gamify')))));
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.commonInput
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    type: "subtitle",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Maximum dimensions for ranks featured image.", "gamify")
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GeneralSettings);
 
@@ -7332,6 +7229,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var _GFComponents_Divider__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Divider */ "./dev_gamify/components/Divider/index.js");
+/* harmony import */ var _Components_SettingsInner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Components/SettingsInner */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/Components/SettingsInner.js");
+
 
 
 
@@ -7339,19 +7238,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const HelpSupport = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    bg: "var(--gamify-background)",
-    borderRight: "1px solid var(--gamify-border-color)",
-    h: "auto",
-    pos: "sticky",
-    top: "0",
-    display: {
-      base: "none",
-      lg: "flex"
-    },
-    flexDirection: "column",
-    borderRadius: "4px",
-    width: "802px"
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_SettingsInner__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_6__.__)(`Help & Support`, "gamify")
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.VStack, {
     padding: "32px",
     width: "100%",
@@ -7461,11 +7349,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _LeftBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./LeftBar */ "./dev_gamify/containers/BackendDashboard/pages/settings/LeftBar.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _Tabs_GeneralSettings__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Tabs/GeneralSettings */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/GeneralSettings.js");
 /* harmony import */ var _Tabs_EmailNotice__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Tabs/EmailNotice */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/EmailNotice.js");
 /* harmony import */ var _Tabs_HelpSupport__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Tabs/HelpSupport */ "./dev_gamify/containers/BackendDashboard/pages/settings/Tabs/HelpSupport.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFRedux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+
+
+
 
 
 
@@ -7480,15 +7374,48 @@ const Settings = () => {
   const locationQuery = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_4__.useLocation)();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
   const tab = tabMatch ? tabMatch[1] : 'general-settings';
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_12__.useDispatch)();
+  const {
+    email,
+    general,
+    saveStatus,
+    status
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_12__.useSelector)(state => state.settings);
+  const handleSave = () => {
+    switch (tab) {
+      case "general-settings":
+        dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)({
+          general
+        }));
+        break;
+      case "email-notice":
+        dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)({
+          email
+        }));
+        break;
+      default:
+        break;
+    }
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Settings", "gamify")
+    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Settings", "gamify"),
+    rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+      ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_10__.primaryBtn,
+      onClick: handleSave,
+      isLoading: saveStatus === 'saving'
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Changes', 'gamify'))
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
-    width: "1174px",
-    margin: "0 auto",
-    height: "100vh"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LeftBar__WEBPACK_IMPORTED_MODULE_3__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Box, {
-    padding: "0 16px"
-  }, tab === "general-settings" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_GeneralSettings__WEBPACK_IMPORTED_MODULE_7__["default"], null), tab === "email-notice" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_EmailNotice__WEBPACK_IMPORTED_MODULE_8__["default"], null), tab === "help-support" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_HelpSupport__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
+    alignItems: "flex-start",
+    gap: "16px",
+    className: "gamify-page-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LeftBar__WEBPACK_IMPORTED_MODULE_3__["default"], null), tab === "general-settings" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_GeneralSettings__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    saveStatus: saveStatus,
+    status: status,
+    general: general
+  }), tab === "email-notice" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_EmailNotice__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    saveStatus: saveStatus,
+    status: status
+  }), tab === "help-support" && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Tabs_HelpSupport__WEBPACK_IMPORTED_MODULE_9__["default"], null)));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
 
@@ -9283,28 +9210,6 @@ const checkboxAnatomy = _zag_js_checkbox__WEBPACK_IMPORTED_MODULE_0__.anatomy.ex
 
 /***/ }),
 
-/***/ "./node_modules/@ark-ui/react/dist/components/collection/list-collection.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/collection/list-collection.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   createListCollection: () => (/* binding */ createListCollection)
-/* harmony export */ });
-/* harmony import */ var _zag_js_collection__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/collection */ "./node_modules/@zag-js/collection/dist/index.mjs");
-'use client';
-
-
-const createListCollection = (options) => new _zag_js_collection__WEBPACK_IMPORTED_MODULE_0__.ListCollection(options);
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@ark-ui/react/dist/components/color-picker/color-picker.anatomy.js":
 /*!*****************************************************************************************!*\
   !*** ./node_modules/@ark-ui/react/dist/components/color-picker/color-picker.anatomy.js ***!
@@ -9609,88 +9514,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const listboxAnatomy = _zag_js_listbox__WEBPACK_IMPORTED_MODULE_0__.anatomy.extendWith("empty");
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/portal/portal.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/portal/portal.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Portal: () => (/* binding */ Portal)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/dom-query */ "./node_modules/@zag-js/dom-query/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
-'use client';
-
-
-
-
-
-
-const Portal = (props) => {
-  const { children, disabled } = props;
-  const [container, setContainer] = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(props.container?.current);
-  const isServer = (0,react__WEBPACK_IMPORTED_MODULE_2__.useSyncExternalStore)(
-    subscribe,
-    () => false,
-    () => true
-  );
-  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_4__.useEnvironmentContext)();
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(() => {
-    setContainer(() => props.container?.current);
-  }, [props.container]);
-  if (isServer || disabled) return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children });
-  const mountNode = container ?? getPortalNode(getRootNode);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.Fragment, { children: react__WEBPACK_IMPORTED_MODULE_2__.Children.map(children, (child) => (0,react_dom__WEBPACK_IMPORTED_MODULE_3__.createPortal)(child, mountNode)) });
-};
-const getPortalNode = (cb) => {
-  const node = cb?.();
-  const rootNode = node.getRootNode();
-  if ((0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.isShadowRoot)(rootNode)) return rootNode;
-  return (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.getDocument)(node).body;
-};
-const subscribe = () => () => {
-};
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/presence/split-presence-props.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/presence/split-presence-props.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   splitPresenceProps: () => (/* binding */ splitPresenceProps)
-/* harmony export */ });
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-'use client';
-
-
-const splitPresenceProps = (props) => (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_0__.createSplitProps)()(props, [
-  "immediate",
-  "lazyMount",
-  "onExitComplete",
-  "present",
-  "skipAnimationOnMount",
-  "unmountOnExit"
-]);
 
 
 
@@ -10241,878 +10064,6 @@ __webpack_require__.r(__webpack_exports__);
 
 const segmentGroupAnatomy = _zag_js_radio_group__WEBPACK_IMPORTED_MODULE_0__.anatomy.rename("segment-group");
 const parts = segmentGroupAnatomy.build();
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-clear-trigger.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-clear-trigger.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectClearTrigger: () => (/* binding */ SelectClearTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectClearTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getClearTriggerProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
-});
-SelectClearTrigger.displayName = "SelectClearTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-content.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-content.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectContent: () => (/* binding */ SelectContent)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/compose-refs.js */ "./node_modules/@ark-ui/react/dist/utils/compose-refs.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../presence/use-presence-context.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const SelectContent = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_6__.useSelectContext)();
-  const presence = (0,_presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_5__.usePresenceContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getContentProps(), presence.getPresenceProps(), props);
-  if (presence.unmounted) {
-    return null;
-  }
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref: (0,_utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_3__.composeRefs)(presence.ref, ref) });
-});
-SelectContent.displayName = "SelectContent";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-context.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-context.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectContext: () => (/* binding */ SelectContext)
-/* harmony export */ });
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-const SelectContext = (props) => props.children((0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_0__.useSelectContext)());
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-control.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-control.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectControl: () => (/* binding */ SelectControl)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectControl = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getControlProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-SelectControl.displayName = "SelectControl";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-hidden-select.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-hidden-select.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectHiddenSelect: () => (/* binding */ SelectHiddenSelect)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-
-const SelectHiddenSelect = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getHiddenSelectProps(), props);
-  const isValueEmpty = select.value.length === 0;
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_4__.useFieldContext)();
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.select, { "aria-describedby": field?.ariaDescribedby, ...mergedProps, ref, children: [
-    isValueEmpty && /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("option", { value: "" }),
-    select.collection.items.map((item, index) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-      "option",
-      {
-        value: select.collection.getItemValue(item) ?? "",
-        disabled: select.collection.getItemDisabled(item),
-        children: select.collection.stringifyItem(item)
-      },
-      index
-    ))
-  ] });
-});
-SelectHiddenSelect.displayName = "SelectHiddenSelect";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-indicator.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-indicator.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectIndicator: () => (/* binding */ SelectIndicator)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectIndicator = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getIndicatorProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-SelectIndicator.displayName = "SelectIndicator";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item-context.js":
-/*!**********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item-context.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemContext: () => (/* binding */ SelectItemContext)
-/* harmony export */ });
-/* harmony import */ var _use_select_item_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./use-select-item-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-context.js");
-'use client';
-
-
-const SelectItemContext = (props) => props.children((0,_use_select_item_context_js__WEBPACK_IMPORTED_MODULE_0__.useSelectItemContext)());
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item-group-label.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item-group-label.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemGroupLabel: () => (/* binding */ SelectItemGroupLabel)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-/* harmony import */ var _use_select_item_group_props_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-item-group-props.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-group-props.js");
-'use client';
-
-
-
-
-
-
-
-const SelectItemGroupLabel = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const itemGroupProps = (0,_use_select_item_group_props_js__WEBPACK_IMPORTED_MODULE_5__.useSelectItemGroupPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getItemGroupLabelProps({ htmlFor: itemGroupProps.id }), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-SelectItemGroupLabel.displayName = "SelectItemGroupLabel";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item-group.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item-group.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemGroup: () => (/* binding */ SelectItemGroup)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-/* harmony import */ var _use_select_item_group_props_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-select-item-group-props.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-group-props.js");
-'use client';
-
-
-
-
-
-
-
-
-const SelectItemGroup = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const id = (0,react__WEBPACK_IMPORTED_MODULE_2__.useId)();
-  const [_itemGroupProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["id"]);
-  const itemGroupProps = { id, ..._itemGroupProps };
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getItemGroupProps(itemGroupProps), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_select_item_group_props_js__WEBPACK_IMPORTED_MODULE_6__.SelectItemGroupPropsProvider, { value: itemGroupProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) });
-});
-SelectItemGroup.displayName = "SelectItemGroup";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item-indicator.js":
-/*!************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item-indicator.js ***!
-  \************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemIndicator: () => (/* binding */ SelectItemIndicator)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-/* harmony import */ var _use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const SelectItemIndicator = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const itemProps = (0,_use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectItemPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getItemIndicatorProps(itemProps), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-SelectItemIndicator.displayName = "SelectItemIndicator";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item-text.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item-text.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemText: () => (/* binding */ SelectItemText)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-/* harmony import */ var _use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-const SelectItemText = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const itemProps = (0,_use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectItemPropsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getItemTextProps(itemProps), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.span, { ...mergedProps, ref });
-});
-SelectItemText.displayName = "SelectItemText";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-item.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-item.js ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItem: () => (/* binding */ SelectItem)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-/* harmony import */ var _use_select_item_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-select-item-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-context.js");
-/* harmony import */ var _use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-select-item-props-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-props-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-const SelectItem = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [itemProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["item", "persistFocus"]);
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getItemProps(itemProps), localProps);
-  const itemState = select.getItemState(itemProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_select_item_props_context_js__WEBPACK_IMPORTED_MODULE_7__.SelectItemPropsProvider, { value: itemProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_select_item_context_js__WEBPACK_IMPORTED_MODULE_6__.SelectItemProvider, { value: itemState, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) }) });
-});
-SelectItem.displayName = "SelectItem";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-label.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-label.js ***!
-  \***************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectLabel: () => (/* binding */ SelectLabel)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectLabel = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getLabelProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.label, { ...mergedProps, ref });
-});
-SelectLabel.displayName = "SelectLabel";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-positioner.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-positioner.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectPositioner: () => (/* binding */ SelectPositioner)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../presence/use-presence-context.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-
-const SelectPositioner = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_5__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getPositionerProps(), props);
-  const presence = (0,_presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_4__.usePresenceContext)();
-  if (presence.unmounted) {
-    return null;
-  }
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-SelectPositioner.displayName = "SelectPositioner";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-root-provider.js":
-/*!***********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-root-provider.js ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectRootProvider: () => (/* binding */ SelectRootProvider)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _presence_split_presence_props_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../presence/split-presence-props.js */ "./node_modules/@ark-ui/react/dist/components/presence/split-presence-props.js");
-/* harmony import */ var _presence_use_presence_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../presence/use-presence.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence.js");
-/* harmony import */ var _presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../presence/use-presence-context.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-
-const SelectImpl = (props, ref) => {
-  const [presenceProps, selectProps] = (0,_presence_split_presence_props_js__WEBPACK_IMPORTED_MODULE_5__.splitPresenceProps)(props);
-  const [{ value: select }, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(selectProps, ["value"]);
-  const presence = (0,_presence_use_presence_js__WEBPACK_IMPORTED_MODULE_6__.usePresence)((0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)({ present: select.open }, presenceProps));
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_select_context_js__WEBPACK_IMPORTED_MODULE_8__.SelectProvider, { value: select, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_7__.PresenceProvider, { value: presence, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) }) });
-};
-const SelectRootProvider = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(SelectImpl);
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-root.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-root.js ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectRoot: () => (/* binding */ SelectRoot)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _presence_split_presence_props_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../presence/split-presence-props.js */ "./node_modules/@ark-ui/react/dist/components/presence/split-presence-props.js");
-/* harmony import */ var _presence_use_presence_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../presence/use-presence.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence.js");
-/* harmony import */ var _presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../presence/use-presence-context.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js");
-/* harmony import */ var _use_select_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./use-select.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-
-
-const SelectImpl = (props, ref) => {
-  const [presenceProps, selectProps] = (0,_presence_split_presence_props_js__WEBPACK_IMPORTED_MODULE_5__.splitPresenceProps)(props);
-  const [useSelectProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(selectProps, [
-    "closeOnSelect",
-    "collection",
-    "composite",
-    "defaultHighlightedValue",
-    "defaultOpen",
-    "defaultValue",
-    "deselectable",
-    "disabled",
-    "form",
-    "highlightedValue",
-    "id",
-    "ids",
-    "invalid",
-    "loopFocus",
-    "multiple",
-    "name",
-    "onFocusOutside",
-    "onHighlightChange",
-    "onInteractOutside",
-    "onOpenChange",
-    "onPointerDownOutside",
-    "onSelect",
-    "onValueChange",
-    "open",
-    "positioning",
-    "readOnly",
-    "required",
-    "scrollToIndexFn",
-    "value"
-  ]);
-  const select = (0,_use_select_js__WEBPACK_IMPORTED_MODULE_8__.useSelect)(useSelectProps);
-  const presence = (0,_presence_use_presence_js__WEBPACK_IMPORTED_MODULE_6__.usePresence)((0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)({ present: select.open }, presenceProps));
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getRootProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_select_context_js__WEBPACK_IMPORTED_MODULE_9__.SelectProvider, { value: select, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_7__.PresenceProvider, { value: presence, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.div, { ...mergedProps, ref }) }) });
-};
-const SelectRoot = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(SelectImpl);
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-trigger.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-trigger.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectTrigger: () => (/* binding */ SelectTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getTriggerProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.button, { ...mergedProps, ref });
-});
-SelectTrigger.displayName = "SelectTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/select-value-text.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/select-value-text.js ***!
-  \********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectValueText: () => (/* binding */ SelectValueText)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_select_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-select-context.js */ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js");
-'use client';
-
-
-
-
-
-
-const SelectValueText = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const { children, placeholder, ...localprops } = props;
-  const select = (0,_use_select_context_js__WEBPACK_IMPORTED_MODULE_4__.useSelectContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(select.getValueTextProps(), localprops);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.span, { ...mergedProps, ref, children: children || select.valueAsString || placeholder });
-});
-SelectValueText.displayName = "SelectValueText";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/use-select-context.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/use-select-context.js ***!
-  \*********************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectProvider: () => (/* binding */ SelectProvider),
-/* harmony export */   useSelectContext: () => (/* binding */ useSelectContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [SelectProvider, useSelectContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "SelectContext",
-  hookName: "useSelectContext",
-  providerName: "<SelectProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-context.js":
-/*!**************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/use-select-item-context.js ***!
-  \**************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemProvider: () => (/* binding */ SelectItemProvider),
-/* harmony export */   useSelectItemContext: () => (/* binding */ useSelectItemContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [SelectItemProvider, useSelectItemContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "SelectItemContext",
-  hookName: "useSelectItemContext",
-  providerName: "<SelectItemProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-group-props.js":
-/*!******************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/use-select-item-group-props.js ***!
-  \******************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemGroupPropsProvider: () => (/* binding */ SelectItemGroupPropsProvider),
-/* harmony export */   useSelectItemGroupPropsContext: () => (/* binding */ useSelectItemGroupPropsContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [SelectItemGroupPropsProvider, useSelectItemGroupPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "SelectItemGroupPropsContext",
-  hookName: "useSelectItemGroupPropsContext",
-  providerName: "<SelectItemGroupPropsProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/use-select-item-props-context.js":
-/*!********************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/use-select-item-props-context.js ***!
-  \********************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectItemPropsProvider: () => (/* binding */ SelectItemPropsProvider),
-/* harmony export */   useSelectItemPropsContext: () => (/* binding */ useSelectItemPropsContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [SelectItemPropsProvider, useSelectItemPropsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "SelectItemPropsContext",
-  hookName: "useSelectItemPropsContext",
-  providerName: "<SelectItemPropsProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/select/use-select.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/select/use-select.js ***!
-  \*************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useSelect: () => (/* binding */ useSelect)
-/* harmony export */ });
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
-/* harmony import */ var _zag_js_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/select */ "./node_modules/@zag-js/select/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
-/* harmony import */ var _providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/locale/use-locale-context.js */ "./node_modules/@ark-ui/react/dist/providers/locale/use-locale-context.js");
-/* harmony import */ var _field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../field/use-field-context.js */ "./node_modules/@ark-ui/react/dist/components/field/use-field-context.js");
-'use client';
-
-
-
-
-
-
-
-const useSelect = (props) => {
-  const id = (0,react__WEBPACK_IMPORTED_MODULE_2__.useId)();
-  const { dir } = (0,_providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__.useLocaleContext)();
-  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__.useEnvironmentContext)();
-  const field = (0,_field_use_field_context_js__WEBPACK_IMPORTED_MODULE_5__.useFieldContext)();
-  const machineProps = {
-    id,
-    ids: {
-      label: field?.ids.label,
-      hiddenSelect: field?.ids.control
-    },
-    disabled: field?.disabled,
-    readOnly: field?.readOnly,
-    invalid: field?.invalid,
-    required: field?.required,
-    dir,
-    getRootNode,
-    ...props
-  };
-  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_0__.useMachine)(_zag_js_select__WEBPACK_IMPORTED_MODULE_1__.machine, machineProps);
-  return _zag_js_select__WEBPACK_IMPORTED_MODULE_1__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_0__.normalizeProps);
-};
 
 
 
@@ -13381,276 +12332,6 @@ const IconPropsProvider = PropsProvider;
 
 /***/ }),
 
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/icons.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/icons.js ***!
-  \********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ArrowDownIcon: () => (/* binding */ ArrowDownIcon),
-/* harmony export */   ArrowUpIcon: () => (/* binding */ ArrowUpIcon),
-/* harmony export */   CheckCircleIcon: () => (/* binding */ CheckCircleIcon),
-/* harmony export */   CheckIcon: () => (/* binding */ CheckIcon),
-/* harmony export */   ChevronDownIcon: () => (/* binding */ ChevronDownIcon),
-/* harmony export */   ChevronLeftIcon: () => (/* binding */ ChevronLeftIcon),
-/* harmony export */   ChevronRightIcon: () => (/* binding */ ChevronRightIcon),
-/* harmony export */   ChevronUpIcon: () => (/* binding */ ChevronUpIcon),
-/* harmony export */   CloseIcon: () => (/* binding */ CloseIcon),
-/* harmony export */   CopyIcon: () => (/* binding */ CopyIcon),
-/* harmony export */   EllipsisIcon: () => (/* binding */ EllipsisIcon),
-/* harmony export */   EllpsisIcon: () => (/* binding */ EllpsisIcon),
-/* harmony export */   ErrorIcon: () => (/* binding */ ErrorIcon),
-/* harmony export */   FileIcon: () => (/* binding */ FileIcon),
-/* harmony export */   InfoIcon: () => (/* binding */ InfoIcon),
-/* harmony export */   PipetteIcon: () => (/* binding */ PipetteIcon),
-/* harmony export */   QuoteIcon: () => (/* binding */ QuoteIcon),
-/* harmony export */   StarIcon: () => (/* binding */ StarIcon),
-/* harmony export */   WarningIcon: () => (/* binding */ WarningIcon)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../styled-system/factory.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/factory.js");
-
-"use client";
-
-
-
-const CheckIcon = (props) => {
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-    _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-    {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      ...props,
-      children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M20 6 9 17l-5-5" })
-    }
-  );
-};
-const ChevronLeftIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m15 18-6-6 6-6" })
-  }
-);
-const ChevronUpIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m18 15-6-6-6 6" })
-  }
-);
-const ChevronDownIcon = (props) => {
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-    _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-    {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: "2",
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      ...props,
-      children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m6 9 6 6 6-6" })
-    }
-  );
-};
-const ChevronRightIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m9 18 6-6-6-6" })
-  }
-);
-const EllpsisIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "12", cy: "12", r: "1" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "19", cy: "12", r: "1" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "5", cy: "12", r: "1" })
-    ]
-  }
-);
-const ArrowUpIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "3",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m5 12 7-7 7 7" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 19V5" })
-    ]
-  }
-);
-const ArrowDownIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "3",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 5v14" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m19 12-7 7-7-7" })
-    ]
-  }
-);
-const CheckCircleIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "currentColor",
-    strokeWidth: "0",
-    viewBox: "0 0 24 24",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11.0026 16L6.75999 11.7574L8.17421 10.3431L11.0026 13.1716L16.6595 7.51472L18.0737 8.92893L11.0026 16Z" })
-  }
-);
-const WarningIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "currentColor",
-    strokeWidth: "0",
-    viewBox: "0 0 24 24",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM11 7H13V13H11V7Z" })
-  }
-);
-const InfoIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    viewBox: "0 0 24 24",
-    fill: "currentColor",
-    stroke: "currentColor",
-    strokeWidth: "0",
-    ...props,
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" })
-  }
-);
-const QuoteIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg, { viewBox: "0 0 24 24", fill: "currentColor", ...props, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M6.5 10c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35l.539-.222.474-.197-.485-1.938-.597.144c-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.318.142-.686.238-1.028.466-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.945-.33.358-.656.734-.909 1.162-.293.408-.492.856-.702 1.299-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539l.025.168.026-.006A4.5 4.5 0 1 0 6.5 10zm11 0c-.223 0-.437.034-.65.065.069-.232.14-.468.254-.68.114-.308.292-.575.469-.844.148-.291.409-.488.601-.737.201-.242.475-.403.692-.604.213-.21.492-.315.714-.463.232-.133.434-.28.65-.35l.539-.222.474-.197-.485-1.938-.597.144c-.191.048-.424.104-.689.171-.271.05-.56.187-.882.312-.317.143-.686.238-1.028.467-.344.218-.741.4-1.091.692-.339.301-.748.562-1.05.944-.33.358-.656.734-.909 1.162-.293.408-.492.856-.702 1.299-.19.443-.343.896-.468 1.336-.237.882-.343 1.72-.384 2.437-.034.718-.014 1.315.028 1.747.015.204.043.402.063.539l.025.168.026-.006A4.5 4.5 0 1 0 17.5 10z" }) });
-const StarIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg, { viewBox: "0 0 24 24", fill: "currentColor", ...props, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" }) });
-const ErrorIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg, { viewBox: "0 0 24 24", fill: "currentColor", ...props, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M11.983,0a12.206,12.206,0,0,0-8.51,3.653A11.8,11.8,0,0,0,0,12.207,11.779,11.779,0,0,0,11.8,24h.214A12.111,12.111,0,0,0,24,11.791h0A11.766,11.766,0,0,0,11.983,0ZM10.5,16.542a1.476,1.476,0,0,1,1.449-1.53h.027a1.527,1.527,0,0,1,1.523,1.47,1.475,1.475,0,0,1-1.449,1.53h-.027A1.529,1.529,0,0,1,10.5,16.542ZM11,12.5v-6a1,1,0,0,1,2,0v6a1,1,0,1,1-2,0Z" }) });
-const CloseIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg, { viewBox: "0 0 24 24", fill: "currentColor", ...props, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(
-  "path",
-  {
-    fillRule: "evenodd",
-    clipRule: "evenodd",
-    d: "M18.7071 6.70711C19.0976 6.31658 19.0976 5.68342 18.7071 5.29289C18.3166 4.90237 17.6834 4.90237 17.2929 5.29289L12 10.5858L6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L10.5858 12L5.29289 17.2929C4.90237 17.6834 4.90237 18.3166 5.29289 18.7071C5.68342 19.0976 6.31658 19.0976 6.70711 18.7071L12 13.4142L17.2929 18.7071C17.6834 19.0976 18.3166 19.0976 18.7071 18.7071C19.0976 18.3166 19.0976 17.6834 18.7071 17.2929L13.4142 12L18.7071 6.70711Z"
-  }
-) });
-const FileIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "none",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M14 2v4a2 2 0 0 0 2 2h4" })
-    ]
-  }
-);
-const CopyIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "none",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" })
-    ]
-  }
-);
-const PipetteIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "none",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m2 22 1-1h3l9-9" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "M3 21v-3l9-9" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", { d: "m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z" })
-    ]
-  }
-);
-const EllipsisIcon = (props) => /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)(
-  _styled_system_factory_js__WEBPACK_IMPORTED_MODULE_1__.chakra.svg,
-  {
-    stroke: "currentColor",
-    fill: "none",
-    strokeWidth: "2",
-    viewBox: "0 0 24 24",
-    strokeLinecap: "round",
-    strokeLinejoin: "round",
-    ...props,
-    children: [
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "12", cy: "12", r: "1" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "19", cy: "12", r: "1" }),
-      /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("circle", { cx: "5", cy: "12", r: "1" })
-    ]
-  }
-);
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@chakra-ui/react/dist/esm/components/image/image.js":
 /*!**************************************************************************!*\
   !*** ./node_modules/@chakra-ui/react/dist/esm/components/image/image.js ***!
@@ -13941,143 +12622,6 @@ const Radiomark = (0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(
   }
 );
 Radiomark.displayName = "Radiomark";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/select/select.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/select/select.js ***!
-  \****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   SelectClearTrigger: () => (/* binding */ SelectClearTrigger),
-/* harmony export */   SelectContent: () => (/* binding */ SelectContent),
-/* harmony export */   SelectContext: () => (/* binding */ SelectContext),
-/* harmony export */   SelectControl: () => (/* binding */ SelectControl),
-/* harmony export */   SelectHiddenSelect: () => (/* binding */ SelectHiddenSelect),
-/* harmony export */   SelectIndicator: () => (/* binding */ SelectIndicator),
-/* harmony export */   SelectIndicatorGroup: () => (/* binding */ SelectIndicatorGroup),
-/* harmony export */   SelectItem: () => (/* binding */ SelectItem),
-/* harmony export */   SelectItemContext: () => (/* binding */ SelectItemContext),
-/* harmony export */   SelectItemGroup: () => (/* binding */ SelectItemGroup),
-/* harmony export */   SelectItemGroupLabel: () => (/* binding */ SelectItemGroupLabel),
-/* harmony export */   SelectItemIndicator: () => (/* binding */ SelectItemIndicator),
-/* harmony export */   SelectItemText: () => (/* binding */ SelectItemText),
-/* harmony export */   SelectLabel: () => (/* binding */ SelectLabel),
-/* harmony export */   SelectPositioner: () => (/* binding */ SelectPositioner),
-/* harmony export */   SelectPropsProvider: () => (/* binding */ SelectPropsProvider),
-/* harmony export */   SelectRoot: () => (/* binding */ SelectRoot),
-/* harmony export */   SelectRootProvider: () => (/* binding */ SelectRootProvider),
-/* harmony export */   SelectTrigger: () => (/* binding */ SelectTrigger),
-/* harmony export */   SelectValueText: () => (/* binding */ SelectValueText),
-/* harmony export */   useSelectStyles: () => (/* binding */ useSelectStyles)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-root-provider.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-root.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-trigger.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-positioner.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-content.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-value-text.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-clear-trigger.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item-group.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item-group-label.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item-text.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item-indicator.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-indicator.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-control.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-label.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-context.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-hidden-select.js");
-/* harmony import */ var _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! @ark-ui/react/select */ "./node_modules/@ark-ui/react/dist/components/select/select-item-context.js");
-/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
-/* harmony import */ var _icons_js__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../icons.js */ "./node_modules/@chakra-ui/react/dist/esm/components/icons.js");
-
-"use client";
-
-
-
-
-
-const {
-  withProvider,
-  withContext,
-  useStyles: useSelectStyles,
-  PropsProvider
-} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_19__.createSlotRecipeContext)({ key: "select" });
-const SelectRootProvider = withProvider(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_1__.SelectRootProvider, "root", {
-  forwardAsChild: true
-});
-const SelectRoot = withProvider(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_2__.SelectRoot,
-  "root",
-  {
-    forwardAsChild: true,
-    defaultProps: { positioning: { sameWidth: true } }
-  }
-);
-const SelectPropsProvider = PropsProvider;
-const SelectTrigger = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_3__.SelectTrigger,
-  "trigger",
-  { forwardAsChild: true }
-);
-const SelectPositioner = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_4__.SelectPositioner, "positioner", { forwardAsChild: true });
-const SelectContent = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_5__.SelectContent,
-  "content",
-  { forwardAsChild: true }
-);
-const SelectValueText = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_6__.SelectValueText, "valueText", { forwardAsChild: true });
-const SelectClearTrigger = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_7__.SelectClearTrigger, "clearTrigger", {
-  forwardAsChild: true,
-  defaultProps: { children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_20__.CloseIcon, { boxSize: "1em" }) }
-});
-const SelectItemGroup = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_8__.SelectItemGroup, "itemGroup", { forwardAsChild: true });
-const SelectItemGroupLabel = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_9__.SelectItemGroupLabel, "itemGroupLabel", { forwardAsChild: true });
-const SelectItem = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_10__.SelectItem,
-  "item",
-  { forwardAsChild: true }
-);
-const SelectItemText = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_11__.SelectItemText,
-  "itemText",
-  { forwardAsChild: true }
-);
-const SelectItemIndicator = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_12__.SelectItemIndicator, "itemIndicator", {
-  forwardAsChild: true,
-  defaultProps: {
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_20__.CheckIcon, {})
-  }
-});
-const SelectIndicatorGroup = withContext("div", "indicatorGroup");
-const SelectIndicator = withContext(_ark_ui_react_select__WEBPACK_IMPORTED_MODULE_13__.SelectIndicator, "indicator", {
-  forwardAsChild: true,
-  defaultProps: {
-    children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_icons_js__WEBPACK_IMPORTED_MODULE_20__.ChevronDownIcon, {})
-  }
-});
-const SelectControl = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_14__.SelectControl,
-  "control",
-  { forwardAsChild: true }
-);
-const SelectLabel = withContext(
-  _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_15__.SelectLabel,
-  "label",
-  { forwardAsChild: true }
-);
-const SelectContext = _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_16__.SelectContext;
-const SelectHiddenSelect = _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_17__.SelectHiddenSelect;
-const SelectItemContext = _ark_ui_react_select__WEBPACK_IMPORTED_MODULE_18__.SelectItemContext;
 
 
 
