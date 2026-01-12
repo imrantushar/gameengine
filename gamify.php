@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name:       Gamify
+ * Plugin Name:       Gamify - Gamification for WordPress
  * Plugin URI:        https://kodezen.com/products/gamify
- * Description:       A powerful gamification plugin for WordPress to boost user engagement.
+ * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
  * Version:           1.0.0
  * Author:            kodezen
  * Author URI:        https://kodezen.com
@@ -20,12 +20,14 @@ if (! defined('ABSPATH')) {
 
 /**
  * The main Gamify plugin class.
+ *
  * @final
  */
 final class Gamify
 {
     /**
      * The single instance of the class.
+     *
      * @var Gamify|null
      */
     private static $instance = null;
@@ -42,6 +44,7 @@ final class Gamify
 
     /**
      * Get the single instance of the class.
+     *
      * @return Gamify
      */
     public static function instance()
@@ -80,14 +83,11 @@ final class Gamify
      */
     private function register_hooks()
     {
-        // Activation Hook
-        register_activation_hook(GAMIFY_FILE, [__CLASS__, 'activate']);
+        // Activation Hook.
+        register_activation_hook(GAMIFY_FILE, array(__CLASS__, 'activate'));
 
-        // 1. Load Text Domain (Priority 0 - Run Early)
-        add_action('init', [$this, 'load_textdomain'], 0);
-
-        // 2. Initialize Plugin Modules (Priority 10 - Run after textdomain is loaded)
-        add_action('init', [$this, 'init_modules'], 10);
+        // Initialize Plugin Modules.
+        add_action('init', array($this, 'init_modules'), 10);
     }
 
     /**
@@ -95,7 +95,7 @@ final class Gamify
      */
     public function init_modules()
     {
-        // 1. Assets & API
+        // Assets & API.
         if (class_exists('\Gamify\Assets')) {
             \Gamify\Assets::init();
         }
@@ -103,7 +103,7 @@ final class Gamify
             \Gamify\API\Manager::init();
         }
 
-        // 2. System Services (Except Triggers)
+        // System Services.
         if (class_exists('\Gamify\Classes\Scheduler')) {
             \Gamify\Classes\Scheduler::init();
         }
@@ -123,34 +123,33 @@ final class Gamify
             \Gamify\Classes\Shortcodes::init();
         }
 
-        // 3. Load Addons (BEFORE Triggers)
-        // This ensures addons can hook into 'gamify_available_triggers'
-        $active_addons = get_option('gamify_active_addons', []);
-
-        if (in_array('woocommerce', $active_addons)) {
-            // Note: Check file casing carefully (Woocommerce vs woocommerce)
-            if (file_exists(GAMIFY_PATH . 'addons/woocommerce/woocommerce.php')) {
-                require_once GAMIFY_PATH . 'addons/woocommerce/woocommerce.php';
-                // Integration class is loaded inside Woocommerce::init(), but requiring it here is safe too
-                if (file_exists(GAMIFY_PATH . 'addons/woocommerce/integration.php')) {
-                    require_once GAMIFY_PATH . 'addons/woocommerce/integration.php';
-                }
-
-                if (class_exists('\Gamify\Addons\Woocommerce\Woocommerce')) {
-                    \Gamify\Addons\Woocommerce\Woocommerce::init();
-                }
-            }
-        }
-
-        // 4. Initialize Triggers (AFTER Addons)
-        // Now TriggerRegistry will pick up hooks added by addons
+        // Triggers.
         if (class_exists('\Gamify\Classes\Triggers')) {
             \Gamify\Classes\Triggers::init();
         }
 
-        // 5. Admin Interface
-        if (is_admin() && class_exists('\Gamify\Admin')) {
-            \Gamify\Admin::init();
+        // Admin Interface.
+        if (is_admin()) {
+            if (class_exists('\Gamify\Admin')) {
+                \Gamify\Admin::init();
+            }
+
+            /**
+             * Check if we are on a Gamify admin page.
+             * Nonce verification is not required for purely routing/page-load logic.
+             */
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($current_page && 0 === strpos($current_page, 'gamify') && current_user_can('manage_options')) {
+                if (class_exists('\Gamify\Classes\JsonGenerator')) {
+                    \Gamify\Classes\JsonGenerator::generate();
+                }
+            }
+        }
+
+        if (defined('WP_CLI') && WP_CLI) {
+            \WP_CLI::add_command('gamify', '\Gamify\Classes\CLI');
         }
     }
 
@@ -159,27 +158,16 @@ final class Gamify
      */
     public static function activate()
     {
-        // Run Installer
+        // Run Installer.
         if (class_exists('\Gamify\Core\Installer')) {
             (new \Gamify\Core\Installer())->run();
         }
-    }
-
-    /**
-     * Load the plugin's translated strings.
-     */
-    public function load_textdomain()
-    {
-        load_plugin_textdomain(
-            'gamify',
-            false,
-            dirname(plugin_basename(GAMIFY_FILE)) . '/languages'
-        );
     }
 }
 
 /**
  * Global accessor function.
+ *
  * @return Gamify
  */
 function gamify()

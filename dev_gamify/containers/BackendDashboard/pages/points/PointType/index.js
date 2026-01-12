@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
@@ -9,9 +8,12 @@ import {
     Icon,
     Spinner,
     Text,
+    Tooltip,
+    Center,
+    VStack
 } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-import { FaArrowRotateRight, FaChevronRight, FaGamepad, FaWordpressSimple } from 'react-icons/fa6';
+import { FaArrowRotateRight, FaChevronRight, FaGamepad, FaWordpressSimple, FaLock } from 'react-icons/fa6';
 import {
     DndContext,
     PointerSensor,
@@ -30,7 +32,6 @@ import CustomCollapsible from '@GFComponents/Collapsible';
 import Divider from '@GFComponents/Divider';
 
 // Imports
-
 import {
     setPointName,
     setPluralName,
@@ -43,7 +44,8 @@ import {
     removeAwardHook,
     addDeductHook,
     removeDeductHook,
-    updateHookSettings
+    updateHookSettings,
+    fetchDynamicOptions
 } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
@@ -54,14 +56,12 @@ import { SiWoocommerce } from "react-icons/si";
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-
     const style = {
         transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
         opacity: isDragging ? 0.85 : 1,
         cursor: "grab",
         zIndex: isDragging ? 999 : 1
     };
-
     return (
         <Box ref={setNodeRef} {...listeners} {...attributes} style={style} marginBottom="8px">
             {children}
@@ -72,64 +72,108 @@ const DraggableItem = ({ id, children }) => {
 
 // # DROPPABLE
 const DroppableArea = ({ id, children }) => {
-    const { setNodeRef, isOver } = useDroppable({ id });
-
+    const { setNodeRef } = useDroppable({ id });
     return (
-        <Box
-            ref={setNodeRef}
-            borderRadius="4px"
-            height='100%'
-            transition="all 0.2s"
-        >
+        <Box ref={setNodeRef} borderRadius="4px" minH="150px" height='100%' transition="all 0.2s">
             <Box marginTop="12px">{children}</Box>
         </Box>
     );
 };
 
 
-// # DYNAMIC FIELD
-const DynamicField = ({ fieldKey, config, value, onChange }) => {
-    if (config.type === 'select' && config.options) {
-        const selectOptions = Object.entries(config.options).map(([val, label]) => ({
-            value: val,
-            label: label
-        }));
+// # DYNAMIC FIELD (UPDATED: Added 'type' prop to handle Labels)
+const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type }) => {
+    const dispatch = useDispatch();
+    const [dynamicOptions, setDynamicOptions] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const isProActive = false;
+    const isDisabled = config.is_pro && !isProActive;
+
+    useEffect(() => {
+        if (config.dynamic && !isDisabled) {
+            setLoading(true);
+            dispatch(fetchDynamicOptions({
+                integration: config.dynamic.integration || integrationSlug,
+                query: config.dynamic.query
+            })).unwrap()
+                .then(res => setDynamicOptions(res))
+                .finally(() => setLoading(false));
+        }
+    }, [config.dynamic, isDisabled, dispatch, integrationSlug]);
+
+    // 🔥 Dynamic Label Logic: Award vs Deduct
+    let displayLabel = config.label;
+    if (fieldKey === 'points') {
+        displayLabel = type === 'award' ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify');
+    } else if (fieldKey === 'log_label') {
+        displayLabel = type === 'award' ? __('Award Log Description', 'gamify') : __('Deduction Log Description', 'gamify');
+    }
+
+    const labelElement = (
+        <Flex align="center" gap={2} mb="8px">
+            <Text className='gamify-title' fontSize="sm" fontWeight="500" m="0">
+                {displayLabel} {config.required && <span style={{ color: 'red' }}>*</span>}
+            </Text>
+            {config.is_pro && <Icon as={FaLock} color="orange.400" boxSize={3} />}
+        </Flex>
+    );
+
+    if (config.type === 'select' || config.type === 'dynamic_select') {
+        const optionsSource = config.options
+            ? (Array.isArray(config.options) ? config.options : Object.entries(config.options).map(([val, lbl]) => ({ value: val, label: lbl })))
+            : dynamicOptions;
 
         return (
-            <Box width="100%">
-                <Text className='gamify-title' fontSize="sm" fontWeight="500" mb="8px">
-                    {config.label} {config.required && <span style={{ color: 'red' }}>*</span>}
-                </Text>
+            <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
+                {labelElement}
                 <Select
-                    placeholder={__('Select...', 'gamify')}
+                    isDisabled={isDisabled}
+                    isLoading={loading}
+                    placeholder={isDisabled ? __('Upgrade to Pro', 'gamify') : __('Select...', 'gamify')}
                     className="gamify-select"
                     classNamePrefix="gamify-select"
-                    options={selectOptions}
-                    value={selectOptions.find(opt => opt.value == value) || null}
+                    options={optionsSource}
+                    value={optionsSource.find(opt => opt.value == value) || null}
                     onChange={(val) => onChange(val ? val.value : '')}
                 />
             </Box>
         );
     }
 
+    if (config.type === 'switch') {
+        return (
+            <Flex align="center" justify="space-between" width="100%" p={2} border="1px dashed" borderColor="gray.200" borderRadius="md" opacity={isDisabled ? 0.6 : 1}>
+                <Box>
+                    <Text fontSize="sm" fontWeight="600">{displayLabel}</Text>
+                    {config.description && <Text fontSize="xs" color="gray.500">{config.description}</Text>}
+                </Box>
+                <Button size="xs" isDisabled={isDisabled} onClick={() => onChange(!value)} colorScheme={value ? "blue" : "gray"}>
+                    {value ? __('Enabled', 'gamify') : __('Disabled', 'gamify')}
+                </Button>
+            </Flex>
+        );
+    }
+
     return (
-        <LabeledInput
-            label={config.label}
-            placeholder={config.placeholder || ''}
-            type={config.type === 'number' ? 'number' : 'text'}
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
-            required={config.required}
-        />
+        <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
+            <LabeledInput
+                label={displayLabel}
+                placeholder={isDisabled ? __('Locked Feature', 'gamify') : (config.placeholder || '')}
+                type={config.type === 'number' ? 'number' : 'text'}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                required={config.required}
+                disabled={isDisabled}
+            />
+        </Box>
     );
 };
 
 
 // # HOOK FORM
 const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
-    const fieldsConfig = type === 'award'
-        ? (hookInfo.award_fields || {})
-        : (hookInfo.deduct_fields || {});
+    const fieldsConfig = hookInfo.schema || [];
 
     return (
         <CustomCollapsible
@@ -139,25 +183,21 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-
-            <Flex direction="column" gap="16px">
-                {Object.keys(fieldsConfig).map((key) => {
-                    const config = fieldsConfig[key];
-
-
+            <Flex direction="column" gap="16px" p={4}>
+                {fieldsConfig.map((config) => {
                     if (config.scope && !config.scope.includes('point_type')) {
                         return null;
                     }
 
-                    const currentValue = settings[key] ?? config.default ?? '';
-
                     return (
                         <DynamicField
-                            key={key}
-                            fieldKey={key}
+                            key={config.key}
+                            fieldKey={config.key}
                             config={config}
-                            value={currentValue}
-                            onChange={(val) => handleChange(key, val)}
+                            value={settings[config.key] ?? config.default ?? ''}
+                            integrationSlug={hookInfo.integrationSlug}
+                            type={type} // 🔥 Passing 'award' or 'deduct' to fix labels
+                            onChange={(val) => handleChange(config.key, val)}
                         />
                     );
                 })}
@@ -165,7 +205,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
 
             <Divider width='100%' margin='12px 0' />
 
-            <Flex padding="0 24px 0 24px" justifyContent='flex-end'>
+            <Flex padding="0 24px 12px 24px" justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                     {__('Done', 'gamify')}
                 </Button>
@@ -176,42 +216,32 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
 
 
 // # WRAPPER
-const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen: externalIsOpen, setIsOpen: externalSetIsOpen }) => {
-    const HookConfigurationFormControlled = ({ isOpen: innerIsOpen, setIsOpen: innerSetIsOpen }) => {
-        const [isOpenState, setIsOpenState] = useState(false);
-        const isControlled = typeof externalIsOpen !== 'undefined' && typeof externalSetIsOpen === 'function';
-        const isOpen = isControlled ? externalIsOpen : (typeof innerIsOpen !== 'undefined' ? innerIsOpen : isOpenState);
-        const setIsOpen = isControlled ? externalSetIsOpen : (typeof innerSetIsOpen === 'function' ? innerSetIsOpen : setIsOpenState);
-
-        const handleChange = (field, value) => {
-            dispatch(updateHookSettings({
-                type: type,
-                hookId: hookInfo.id,
-                settings: { [field]: value }
-            }));
-        };
-
-        return (
-            <Box background="white" borderRadius="4px" >
-                <DynamicHookForm
-                    hookId={hookId}
-                    hookInfo={hookInfo}
-                    type={type}
-                    settings={currentSettings || {}}
-                    handleChange={handleChange}
-                    isOpen={isOpen}
-                    setIsOpen={setIsOpen}
-                />
-            </Box>
-        );
+const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen, setIsOpen }) => {
+    const handleChange = (field, value) => {
+        dispatch(updateHookSettings({
+            type: type,
+            hookId: hookInfo.id,
+            settings: { [field]: value }
+        }));
     };
 
-    return <HookConfigurationFormControlled isOpen={externalIsOpen} setIsOpen={externalSetIsOpen} />;
+    return (
+        <Box background="white" borderRadius="4px" mb={2}>
+            <DynamicHookForm
+                hookId={hookId}
+                hookInfo={hookInfo}
+                type={type}
+                settings={currentSettings || {}}
+                handleChange={handleChange}
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            />
+        </Box>
+    );
 };
 
 
-
-// # MAIN
+// # MAIN COMPONENT
 const PointType = () => {
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
@@ -225,536 +255,217 @@ const PointType = () => {
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
 
-
-
     const {
         name,
         pluralName,
         allHooks,
+        hookSettings,
         selectedAwardHookIds,
         selectedDeductHookIds,
-        hookSettings,
-        status,
         saveStatus,
         currentPointTypeId
     } = useSelector((state) => state.pointType);
 
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
-    // LOAD TRIGGERS
+
     useEffect(() => {
-        dispatch(fetchTriggers());
+        dispatch(fetchTriggers('point_type'));
     }, [dispatch]);
-
-
-    // EDIT MODE
     useEffect(() => {
         if (editId) dispatch(fetchPointTypeById(editId));
         else dispatch(resetPointTypeForm());
     }, [editId, dispatch]);
 
-
-
-    // === FIXED UNIQUE IDs ===
-    const availableAwardHooks = allHooks.filter((hook) => {
+    // 🔥 Icons configuration
+    const hookCategoryIconMap = {
+        wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
+        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+        gamify: { icon: FaGamepad, bg: "#006BFF" },
+        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
+    };
+    const availableAwardHooks = allHooks.filter(hook => {
         if (selectedAwardHookIds.includes(hook.id)) return false;
-        if (selectedFilterHookType.length > 0) {
-            return selectedFilterHookType.includes(hook.category);
-        }
-
-        return true;
+        return (
+            selectedFilterHookType.length === 0 ||
+            selectedFilterHookType.includes(hook.integrationSlug)
+        );
     });
 
+    console.log(availableAwardHooks, 'availableAwardHooks');
     const activeAwardHooks = selectedAwardHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
-    const availableDeductHooks = allHooks.filter((hook) => {
-        if (selectedDeductHookIds.includes(hook.id)) {
-            return false;
-        }
-        if (selectedDeductFilterType.length > 0) {
-            return selectedDeductFilterType.includes(hook.category);
-        }
-        return true;
+
+    const availableDeductHooks = allHooks.filter(hook => {
+        if (selectedDeductHookIds.includes(hook.id)) return false;
+        return (
+            selectedDeductFilterType.length === 0 ||
+            selectedDeductFilterType.includes(hook.integrationSlug)
+        );
     });
 
 
     const activeDeductHooks = selectedDeductHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
 
-
-
-    // # DRAG END FIXED
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
-
         const draggedId = active.id;
-
-        // ---------------- AWARD ZONE ----------------
         if (draggedId.startsWith("award_")) {
             const pureId = draggedId.replace("award_", "");
-
-            if (over.id === "awards-sidebar") {
-                dispatch(addAwardHook(pureId));
-                setOpenedAwardHooks([pureId]);
-            }
-            if (over.id === "awards-available") {
-                dispatch(removeAwardHook(pureId));
-                setOpenedAwardHooks(prev => prev.filter(id => id !== pureId));
-            }
+            if (over.id === "awards-sidebar") { dispatch(addAwardHook(pureId)); setOpenedAwardHooks([pureId]); }
+            else if (over.id === "awards-available") { dispatch(removeAwardHook(pureId)); }
         }
-
-        // ---------------- DEDUCT ZONE ----------------
         if (draggedId.startsWith("deduct_")) {
             const pureId = draggedId.replace("deduct_", "");
-
-            if (over.id === "deductions-sidebar") {
-                dispatch(addDeductHook(pureId));
-                setOpenedDeductHooks([pureId]);
-            }
-            if (over.id === "deductions-available") {
-                dispatch(removeDeductHook(pureId));
-                setOpenedDeductHooks(prev => prev.filter(id => id !== pureId));
-            }
+            if (over.id === "deductions-sidebar") { dispatch(addDeductHook(pureId)); setOpenedDeductHooks([pureId]); }
+            else if (over.id === "deductions-available") { dispatch(removeDeductHook(pureId)); }
         }
     };
 
-
-
-    // SAVE HANDLER
     const handleSave = async () => {
         if (!name) return alert('Please enter a Point Name');
-
-        const getParameters = (hook, type) => {
+        const getParamsFromSchema = (hook, type) => {
             const settings = hookSettings[`${type}_${hook.id}`] || {};
-            const fieldsConfig =
-                type === 'award' ? (hook.award_fields || {}) : (hook.deduct_fields || {});
-
             const params = {};
-            Object.keys(fieldsConfig).forEach(key => {
-                params[key] = settings[key] ?? fieldsConfig[key].default;
-            });
+            (hook.schema || []).forEach(f => { params[f.key] = settings[f.key] ?? f.default; });
             return params;
         };
-
         const payload = {
-            name,
-            plural_name: pluralName,
+            name, plural_name: pluralName,
             requirements: [
-                ...activeAwardHooks.map(hook => ({
-                    trigger_key: hook.id,
-                    action_type: 'award',
-                    parameters: getParameters(hook, 'award')
-                })),
-
-                ...activeDeductHooks.map(hook => ({
-                    trigger_key: hook.id,
-                    action_type: 'deduct',
-                    parameters: getParameters(hook, 'deduct')
-                }))
+                ...activeAwardHooks.map(h => ({ trigger_key: h.id, action_type: 'award', parameters: getParamsFromSchema(h, 'award') })),
+                ...activeDeductHooks.map(h => ({ trigger_key: h.id, action_type: 'deduct', parameters: getParamsFromSchema(h, 'deduct') }))
             ]
         };
-
-        let resultAction;
-        if (currentPointTypeId) {
-            resultAction = await dispatch(
-                updatePointType({ id: currentPointTypeId, data: payload })
-            );
-        } else {
-            resultAction = await dispatch(savePointType(payload));
-        }
-
-        if (savePointType.fulfilled.match(resultAction) ||
-            updatePointType.fulfilled.match(resultAction)) {
-            alert(currentPointTypeId ? "Updated Successfully!" : "Saved Successfully!");
-            if (!currentPointTypeId) navigate(`${route_path}admin.php?page=gamify-points`);
-        } else {
-            alert("Error saving. Check console.");
-        }
+        const action = currentPointTypeId ? updatePointType({ id: currentPointTypeId, data: payload }) : savePointType(payload);
+        const res = await dispatch(action);
+        if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-points`);
     };
-
 
     const hookTypeOptions = Array.from(
-        new Set(allHooks.map((hook) => hook.category))
-    ).map((category) => ({
-        label: category.charAt(0).toUpperCase() + category.slice(1),
-        value: category,
+        new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))
+    ).map(slug => ({
+        label: slug.charAt(0).toUpperCase() + slug.slice(1),
+        value: slug,
     }));
-    const hookCategoryIconMap = {
-        wordpress: {
-            icon: FaWordpressSimple,
-            bg: "blue.500",
-        },
-        gamify: {
-            icon: FaGamepad,
-            bg: "purple.500",
-        },
-        interaction: {
-            icon: AiFillInteraction,
 
-        },
-        woocommerce: {
-            icon: SiWoocommerce,
 
-        },
+    // Helper function to render cards to maintain Figma design
+    const renderHookCard = (item, type) => {
+        const slug = item.integrationSlug || item.category || 'wordpress';
+        const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
+        //const config = hookCategoryIconMap[item.category] || { icon: FaWordpressSimple, bg: "gray.500" };
+        return (
+            <DraggableItem key={`${type}_${item.id}`} id={`${type}_${item.id}`}>
+                <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)" bg="white">
+                    <Flex justify="space-between" align="center">
+                        <Flex align="center" gap='8px'>
+                            <Center bg={config.bg} borderRadius="full" width="24px" height="24px" color="white">
+                                <Icon as={config.icon} boxSize={3} />
+                            </Center>
+                            <Text margin="0" fontSize="1rem" fontWeight="600">{item.label}</Text>
+                        </Flex>
+                        <Box bg={type === 'award' ? "green.500" : "red.500"} borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        </Box>
+                    </Flex>
+                </Box>
+            </DraggableItem>
+        );
     };
+
     return (
         <>
-            <TopBar
-                leftContent={() => (
-                    <>
-                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
-                                <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
-                            </svg>
-                        </span>
-                        <span className="gamify-icon gamify-icon--angle-right">   <FaChevronRight />
-                        </span>
-                        <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
-                    </>
-                )}
-            />
+            <TopBar leftContent={() => (
+                <>
+                    <Box className="gamify-topbar-logo"><svg width="36" height="36" viewBox="0 0 36 36"><rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" /><path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" /></svg></Box>
+                    <Icon as={FaChevronRight} mx={2} />
+                    <GFLabel as="h2" color="var(--gamify-font-color)" type="subtitle" fontWeight="medium" label={__("Game Engine", "gamify")} />
+                </>
+            )} />
 
-            <Box width="1174px" margin="0 auto" paddingBottom="50px">
-                <Flex width="100%" direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
-
-
+            <Box width="1174px" margin="0 auto" pb="50px">
+                <Flex direction="column" bg="var(--gamify-background)" p={6} borderRadius="4px" boxShadow="var(--gamify-shadow)" gap={6}>
                     <GFLabel type="title" fontWeight="500" fontSize="xl" label={__(`Point Types`, 'gamify')} />
-
                     <Flex gap="24px">
-                        <LabeledInput style={{ width: '50%' }} label="Point Name" value={name} onChange={(e) => {
-                            const value = e.target.value;
-                            dispatch(setPointName(value));
-                            dispatch(setPluralName(value ? `${value}s` : ""));
-
-                        }} />
-                        <LabeledInput style={{ width: '50%' }} label="Plural Name" value={pluralName} />
+                        <LabeledInput style={{ width: '50%' }} label="Point Name" value={name} onChange={e => {
+                            const value = e.target.value
+                            dispatch(setPointName(e.target.value))
+                            dispatch(setPluralName(value ? `${value}s` : "" )) 
+                        }
+                            } />
+                        <LabeledInput style={{ width: '50%' }} label="Plural Name" value={pluralName} readOnly />
                     </Flex>
 
-
-
-                    {/* # DND */}
                     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                        <CustomCollapsible label="Automatic Point Awards" isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
+                        {/* AWARDS */}
+                        <CustomCollapsible label={__("Automatic Point Awards", "gamify")} isOpen={pointAwards} onClick={() => setPointAwards(!pointAwards)} />
                         {pointAwards && (
-                            <Flex gap="24px" marginBottom="24px">
-
+                            <Flex gap="24px" mb={6}>
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <Flex direction="column" gap="12px">
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} margin='0' />
-                                        <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} color="var(--gamify-font-color)" margin='0' />
-                                    </Flex>
-                                    <Flex as="label" direction="column" gap={2}>
-                                        <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                            <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
-                                                {__("Filter Hooks Type", "gamify")}
-                                            </Text>
-
-                                            <Select
-                                                isMulti
-                                                placeholder={__("Select hook type", "gamify")}
-                                                classNamePrefix="gamify-select"
-                                                options={hookTypeOptions}
-                                                onChange={(opts) => {
-                                                    const values = opts ? opts.map(o => o.value) : [];
-                                                    setSelectedFilterHookType(values);
-                                                }}
-                                                styles={{
-                                                    control: (base) => ({
-                                                        ...base,
-                                                        minHeight: "48px",
-                                                        borderRadius: "6px",
-                                                        borderColor: "#d0d5dd",
-                                                        boxShadow: "none",
-                                                        "&:hover": {
-                                                            borderColor: "#d0d5dd",
-                                                        },
-                                                    }),
-
-                                                    multiValue: (base) => ({
-                                                        ...base,
-                                                        background: "#F8FAFC",
-                                                        padding: "2px 6px",
-                                                        borderRadius: "6px",
-                                                    }),
-
-                                                    multiValueLabel: (base) => ({
-                                                        ...base,
-                                                        color: "#1E293B",
-                                                        fontSize: "14px",
-                                                    }),
-
-                                                    multiValueRemove: (base) => ({
-                                                        ...base,
-                                                        color: "#64748B",
-                                                        ":hover": {
-                                                            backgroundColor: "transparent",
-                                                            color: "#334155",
-                                                        },
-                                                    }),
-                                                }}
-                                            />
-                                        </Box>
-                                    </Flex>
-
+                                    <VStack align="start" spacing={1}>
+                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, "gamify")} m="0" />
+                                        <GFLabel type="subtitle" fontWeight="400" fontSize="12px" label={__(`Drag hooks to activate.`, "gamify")} m="0" />
+                                    </VStack>
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
+                                        <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedFilterHookType(v.map(o => o.value))} />
+                                    </Box>
                                     <DroppableArea id="awards-available">
-                                        {availableAwardHooks.map((item) => {
-                                            const categoryConfig = hookCategoryIconMap[item.category] || {};
-                                            const CategoryIcon = categoryConfig.icon;
-                                            const bgColor = categoryConfig.bg || "gray.500";
-                                            return (
-                                                <Box key={item.id}>
-                                                    <DraggableItem id={`award_${item.id}`}>
-                                                        <Box
-                                                            padding="12px"
-                                                            borderRadius="6px"
-                                                            border="1px solid var(--gamify-border-color)"
-                                                        >
-                                                            <Flex justify="space-between" align="center">
-
-                                                                <Flex gap='5px'>
-                                                                    {CategoryIcon &&
-                                                                        <Box
-                                                                            bg={bgColor}
-                                                                            borderRadius="full"
-                                                                            width="24px"
-                                                                            height="24px"
-                                                                            display="flex"
-                                                                            alignItems="center"
-                                                                            justifyContent="center"
-                                                                            color="white"
-                                                                        >
-                                                                            <Icon as={CategoryIcon} boxSize={3} />
-                                                                        </Box>
-                                                                    }
-
-                                                                    <Text margin="0" fontSize="1rem" fontWeight="600">
-                                                                        {__(item.label, "gamify")}
-                                                                    </Text>
-                                                                </Flex>
-                                                                <Box
-                                                                    bg="green.500"
-                                                                    borderRadius="full"
-                                                                    width="24px"
-                                                                    height="24px"
-                                                                    display="flex"
-                                                                    alignItems="center"
-                                                                    justifyContent="center"
-                                                                    color="white"
-                                                                >
-                                                                    <Icon as={FaArrowRotateRight} boxSize={3} />
-                                                                </Box>
-                                                            </Flex>
-                                                        </Box>
-                                                    </DraggableItem>
-
-                                                    <Text fontSize="xs" color="gray.500" mt={1}>
-                                                        {item.subTitle}
-                                                    </Text>
-                                                </Box>
-                                            );
-                                        })}
-
-
-                                    </DroppableArea>
-                                </Flex>
-
-
-                                {/* RIGHT ACTIVE */}
-                                <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-
-                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} />
-
-
-                                    <DroppableArea id="awards-sidebar">
-                                        {activeAwardHooks.map((hook) => (
-                                            <DraggableItem key={hook.id} id={`award_${hook.id}`}>
-                                                <HookConfigurationForm
-                                                    hookId={hook.id}
-                                                    type="award"
-                                                    hookInfo={hook}
-                                                    dispatch={dispatch}
-                                                    currentSettings={hookSettings[`award_${hook.id}`]}
-                                                    isOpen={openedAwardHooks.includes(hook.id)}
-                                                    setIsOpen={(val) => {
-                                                        if (val) setOpenedAwardHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);
-                                                        else setOpenedAwardHooks(prev => prev.filter(id => id !== hook.id));
-                                                    }}
-                                                />
-                                            </DraggableItem>
+                                        {availableAwardHooks.map(h => (
+                                            <Box key={h.id}>
+                                                {renderHookCard(h, 'award')}
+                                                <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
+                                            </Box>
                                         ))}
                                     </DroppableArea>
-
+                                </Flex>
+                                <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Hooks`, 'gamify')} mb={4} />
+                                    <DroppableArea id="awards-sidebar">
+                                        {activeAwardHooks.map(h => (
+                                            <HookConfigurationForm key={h.id} hookId={h.id} type="award" hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`award_${h.id}`]} isOpen={openedAwardHooks.includes(h.id)} setIsOpen={v => setOpenedAwardHooks(v ? [...openedAwardHooks, h.id] : openedAwardHooks.filter(i => i !== h.id))} />
+                                        ))}
+                                    </DroppableArea>
                                 </Box>
                             </Flex>
                         )}
-
-
 
                         <Divider />
-                        <CustomCollapsible label="Automatic Point Deductions" isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
-
+                        {/* DEDUCTIONS */}
+                        <CustomCollapsible label={__("Automatic Point Deductions", "gamify")} isOpen={pointDeductions} onClick={() => setPointDeductions(!pointDeductions)} />
                         {pointDeductions && (
                             <Flex gap="24px">
-
-                                {/* LEFT AVAILABLE */}
                                 <Flex width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)" direction="column" gap="24px">
-                                    <Flex>
-                                        <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
-                                    </Flex>
-                                    <Flex as="label" direction="column" gap={2}>
-                                        <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
-                                            <Text fontWeight="500" fontSize="0.875rem" margin='0 0 8px 0'>
-                                                {__("Filter Hooks Type", "gamify")}
-                                            </Text>
-
-                                            <Select
-                                                isMulti
-                                                placeholder={__("Select hook type", "gamify")}
-                                                classNamePrefix="gamify-select"
-                                                options={hookTypeOptions}
-                                                onChange={(opts) => {
-                                                    const values = opts ? opts.map(o => o.value) : [];
-                                                    setSelectedDeductFilterType(values);
-                                                }}
-                                                styles={{
-                                                    control: (base) => ({
-                                                        ...base,
-                                                        minHeight: "48px",
-                                                        borderRadius: "6px",
-                                                        borderColor: "#d0d5dd",
-                                                        boxShadow: "none",
-                                                        "&:hover": {
-                                                            borderColor: "#d0d5dd",
-                                                        },
-                                                    }),
-
-                                                    multiValue: (base) => ({
-                                                        ...base,
-                                                        background: "#F8FAFC",
-                                                        padding: "2px 6px",
-                                                        borderRadius: "6px",
-                                                    }),
-
-                                                    multiValueLabel: (base) => ({
-                                                        ...base,
-                                                        color: "#1E293B",
-                                                        fontSize: "14px",
-                                                    }),
-
-                                                    multiValueRemove: (base) => ({
-                                                        ...base,
-                                                        color: "#64748B",
-                                                        ":hover": {
-                                                            backgroundColor: "transparent",
-                                                            color: "#334155",
-                                                        },
-                                                    }),
-                                                }}
-                                            />
-                                        </Box>
-                                    </Flex>
-
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Available Hooks`, 'gamify')} />
+                                    <Box p='16px' borderRadius="4px" border='1px solid var(--gamify-border-color)'>
+                                        <Text fontWeight="500" fontSize="0.875rem" mb="8px">{__("Filter Hooks Type", "gamify")}</Text>
+                                        <Select isMulti options={hookTypeOptions} placeholder={__("Select hook type", "gamify")} onChange={v => setSelectedDeductFilterType(v.map(o => o.value))} />
+                                    </Box>
                                     <DroppableArea id="deductions-available">
-                                        {availableDeductHooks.map((item) => {
-                                            const categoryConfig = hookCategoryIconMap[item.category] || {};
-                                            const CategoryIcon = categoryConfig.icon;
-                                            const bgColor = categoryConfig.bg || "gray.500";
-
-                                            return (
-                                                <Box key={item.id}>
-                                                    <DraggableItem id={`deduct_${item.id}`}>
-                                                        <Box
-                                                            padding="12px"
-                                                            borderRadius="6px"
-                                                            border="1px solid var(--gamify-border-color)"
-                                                        >
-                                                            <Flex justify="space-between" align="center">
-                                                                <Flex gap="5px" align="center">
-                                                                    {CategoryIcon && (
-                                                                        <Box
-                                                                            bg={bgColor}
-                                                                            borderRadius="full"
-                                                                            width="24px"
-                                                                            height="24px"
-                                                                            display="flex"
-                                                                            alignItems="center"
-                                                                            justifyContent="center"
-                                                                            color="white"
-                                                                        >
-                                                                            <Icon as={CategoryIcon} boxSize={3} />
-                                                                        </Box>
-                                                                    )}
-
-                                                                    <Text m="0" fontSize="1rem" fontWeight="600">
-                                                                        {__(item.label, "gamify")}
-                                                                    </Text>
-                                                                </Flex>
-
-                                                                <Box
-                                                                    bg="green.500"
-                                                                    borderRadius="full"
-                                                                    width="24px"
-                                                                    height="24px"
-                                                                    display="flex"
-                                                                    alignItems="center"
-                                                                    justifyContent="center"
-                                                                    color="white"
-                                                                >
-                                                                    <Icon as={FaArrowRotateRight} boxSize={3} />
-                                                                </Box>
-                                                            </Flex>
-                                                        </Box>
-                                                    </DraggableItem>
-
-                                                    <Text fontSize="xs" color="gray.500" mt={1}>
-                                                        {item.subTitle}
-                                                    </Text>
-                                                </Box>
-                                            );
-                                        })}
-
-                                    </DroppableArea>
-                                </Flex>
-                                {/* RIGHT ACTIVE */}
-                                <Box width="50%" borderRadius="4px" border="1px solid var(--gamify-border-color)" p="24px">
-
-                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} />
-
-                                    <DroppableArea id="deductions-sidebar">
-                                        {activeDeductHooks.map(hook => (
-                                            <DraggableItem key={hook.id} id={`deduct_${hook.id}`}>
-                                                <HookConfigurationForm
-                                                    hookId={hook.id}
-                                                    type="deduct"
-                                                    hookInfo={hook}
-                                                    dispatch={dispatch}
-                                                    currentSettings={hookSettings[`deduct_${hook.id}`]}
-                                                    isOpen={openedDeductHooks.includes(hook.id)}
-                                                    setIsOpen={(val) => {
-                                                        if (val) setOpenedDeductHooks(prev => prev.includes(hook.id) ? prev : [...prev, hook.id]);
-                                                        else setOpenedDeductHooks(prev => prev.filter(id => id !== hook.id));
-                                                    }}
-                                                />
-                                            </DraggableItem>
+                                        {availableDeductHooks.map(h => (
+                                            <Box key={h.id}>
+                                                {renderHookCard(h, 'deduct')}
+                                                <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
+                                            </Box>
                                         ))}
                                     </DroppableArea>
-
+                                </Flex>
+                                <Box width="50%" p="24px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
+                                    <GFLabel type="title" fontWeight="500" fontSize="1.25rem" label={__(`Active Deduction Hooks`, 'gamify')} mb={4} />
+                                    <DroppableArea id="deductions-sidebar">
+                                        {activeDeductHooks.map(h => (
+                                            <HookConfigurationForm key={h.id} hookId={h.id} type="deduct" hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`deduct_${h.id}`]} isOpen={openedDeductHooks.includes(h.id)} setIsOpen={v => setOpenedDeductHooks(v ? [...openedDeductHooks, h.id] : openedDeductHooks.filter(i => i !== h.id))} />
+                                        ))}
+                                    </DroppableArea>
                                 </Box>
                             </Flex>
                         )}
-
-
                     </DndContext>
-                    <Flex padding="24px 0" justifyContent='flex-end' borderTop='1px solid var(--gamify-border-color)'>
-                        <Button
-                            {...primaryBtn}
-                            width='121px'
-                            onClick={handleSave}
-                            isLoading={saveStatus === 'saving'}
-                        >
-                            {currentPointTypeId ? __('Update', 'gamify') : __('Save Changes', 'gamify')}
+
+                    <Flex py={6} justify='flex-end' borderTop='1px solid var(--gamify-border-color)'>
+                        <Button {...primaryBtn} width='140px' onClick={handleSave} isLoading={saveStatus === 'saving'}>
+                            {currentPointTypeId ? __('Update Point Type', 'gamify') : __('Save Point Type', 'gamify')}
                         </Button>
                     </Flex>
-
-
                 </Flex>
             </Box>
         </>
