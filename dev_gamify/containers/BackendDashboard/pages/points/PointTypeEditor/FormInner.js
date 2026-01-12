@@ -253,7 +253,7 @@ const FormInner = ({hooksLoading}) => {
                                 </Box>
                                 <DroppableArea id="awards-available">
                                     {allHooks
-                                    .filter(item => selectedAwardHookIds?.length > 0 && !selectedAwardHookIds.includes(item.id))
+                                    .filter(item => !selectedAwardHookIds?.includes(item.id))
                                     .map(h => (
                                         <Box key={h.id}>
                                             {renderHookCard(h, 'award')}
@@ -303,7 +303,7 @@ const FormInner = ({hooksLoading}) => {
                                 </Box>
                                 <DroppableArea id="deductions-available">
                                     {allHooks
-                                        .filter(item => selectedDeductHookIds?.length > 0 && !selectedDeductHookIds.includes(item.id))
+                                        .filter(item => !selectedDeductHookIds?.includes(item.id))
                                         .map(h => (
                                             <Box key={h.id}>
                                                 {renderHookCard(h, 'deduct')}

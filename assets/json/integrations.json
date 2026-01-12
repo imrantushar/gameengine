@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-12 08:07:24",
+    "generated_at": "2026-01-12 08:25:49",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
