@@ -7167,7 +7167,7 @@ const PointTypesTable = () => {
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, row.name))
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Plural Name', 'gamify'),
-    cell: row => row.pluralName
+    cell: row => row.plural_name
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Date', 'gamify'),
     cell: row => row.date
