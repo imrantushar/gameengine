@@ -33,19 +33,10 @@ import Divider from '@GFComponents/Divider';
 
 // Imports
 import {
-    setPointName,
-    setPluralName,
     fetchTriggers,
     savePointType,
     updatePointType,
     fetchPointTypeById,
-    resetPointTypeForm,
-    addAwardHook,
-    removeAwardHook,
-    addDeductHook,
-    removeDeductHook,
-    updateHookSettings,
-    fetchDynamicOptions
 } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
@@ -72,7 +63,6 @@ const PointTypeEditor = () => {
 
     useEffect(() => {
         if (editId) dispatch(fetchPointTypeById(editId));
-        else dispatch(resetPointTypeForm());
     }, [editId]);
 
     const onSubmitHandler = (values, actions) => {

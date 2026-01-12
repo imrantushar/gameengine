@@ -6911,7 +6911,7 @@ const PointTypeEditor = () => {
     dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_15__.fetchTriggers)('point_type'));
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (editId) dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_15__.fetchPointTypeById)(editId));else dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_15__.resetPointTypeForm)());
+    if (editId) dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_15__.fetchPointTypeById)(editId));
   }, [editId]);
   const onSubmitHandler = (values, actions) => {
     actions.setSubmitting(true);
@@ -8862,21 +8862,14 @@ const {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addAwardHook: () => (/* binding */ addAwardHook),
-/* harmony export */   addDeductHook: () => (/* binding */ addDeductHook),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   deletePointType: () => (/* binding */ deletePointType),
 /* harmony export */   fetchDynamicOptions: () => (/* binding */ fetchDynamicOptions),
 /* harmony export */   fetchPointTypeById: () => (/* binding */ fetchPointTypeById),
 /* harmony export */   fetchPointTypes: () => (/* binding */ fetchPointTypes),
 /* harmony export */   fetchTriggers: () => (/* binding */ fetchTriggers),
-/* harmony export */   removeAwardHook: () => (/* binding */ removeAwardHook),
-/* harmony export */   removeDeductHook: () => (/* binding */ removeDeductHook),
-/* harmony export */   resetPointTypeForm: () => (/* binding */ resetPointTypeForm),
 /* harmony export */   resetStatus: () => (/* binding */ resetStatus),
 /* harmony export */   savePointType: () => (/* binding */ savePointType),
-/* harmony export */   setPluralName: () => (/* binding */ setPluralName),
-/* harmony export */   setPointName: () => (/* binding */ setPointName),
 /* harmony export */   updateHookSettings: () => (/* binding */ updateHookSettings),
 /* harmony export */   updatePointType: () => (/* binding */ updatePointType)
 /* harmony export */ });
@@ -8890,7 +8883,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // --- 1. Fetch Available Triggers (Modular API) ---
-const fetchTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/fetchTriggers', async (scope = 'point_type', {
+const fetchTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchTriggers', async (scope = 'point_type', {
   rejectWithValue
 }) => {
   // Default scope 'point_type'
@@ -8904,7 +8897,7 @@ const fetchTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsy
 });
 
 // --- 2. Fetch Dynamic Options (Zaplane Style) ---
-const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/fetchDynamicOptions', async ({
+const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchDynamicOptions', async ({
   integration,
   query
 }, {
@@ -8925,7 +8918,7 @@ const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.cre
 });
 
 // --- 3. Save Point Type (Create) ---
-const savePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/save', async (pointData, {
+const savePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/savePointType', async (pointData, {
   rejectWithValue
 }) => {
   try {
@@ -8940,7 +8933,7 @@ const savePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsy
 });
 
 // --- 4. Update Point Type (Edit) ---
-const updatePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/update', async ({
+const updatePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/updatePointType', async ({
   id,
   data
 }, {
@@ -8971,7 +8964,7 @@ const fetchPointTypeById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.crea
 });
 
 // --- 6. Fetch All Point Types (List) ---
-const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/fetchAll', async (_, {
+const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchPointTypes', async (_, {
   rejectWithValue
 }) => {
   try {
@@ -8997,7 +8990,7 @@ const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
 });
 
 // --- 7. Delete Point Type ---
-const deletePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('pointType/delete', async (id, {
+const deletePointType = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/deletePointType', async (id, {
   rejectWithValue
 }) => {
   try {
@@ -9031,38 +9024,6 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
   name: 'pointType',
   initialState,
   reducers: {
-    setPointName: (state, action) => {
-      state.name = action.payload;
-    },
-    setPluralName: (state, action) => {
-      state.pluralName = action.payload;
-    },
-    resetPointTypeForm: state => {
-      state.currentPointTypeId = null;
-      state.name = '';
-      state.pluralName = '';
-      state.selectedAwardHookIds = [];
-      state.selectedDeductHookIds = [];
-      state.hookSettings = {};
-      state.saveStatus = 'idle';
-      state.error = null;
-    },
-    addAwardHook: (state, action) => {
-      if (!state.selectedAwardHookIds.includes(action.payload)) {
-        state.selectedAwardHookIds.push(action.payload);
-      }
-    },
-    removeAwardHook: (state, action) => {
-      state.selectedAwardHookIds = state.selectedAwardHookIds.filter(id => id !== action.payload);
-    },
-    addDeductHook: (state, action) => {
-      if (!state.selectedDeductHookIds.includes(action.payload)) {
-        state.selectedDeductHookIds.push(action.payload);
-      }
-    },
-    removeDeductHook: (state, action) => {
-      state.selectedDeductHookIds = state.selectedDeductHookIds.filter(id => id !== action.payload);
-    },
     updateHookSettings: (state, action) => {
       const {
         type,
@@ -9080,9 +9041,7 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
     }
   },
   extraReducers: builder => {
-    builder
-    // --- Fetch Triggers (Handled correctly without duplicates) ---
-    .addCase(fetchTriggers.pending, state => {
+    builder.addCase(fetchTriggers.pending, state => {
       state.status = 'loading';
     }).addCase(fetchTriggers.fulfilled, (state, action) => {
       state.status = 'succeeded';
@@ -9173,13 +9132,6 @@ const pointTypeSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSl
   }
 });
 const {
-  setPointName,
-  setPluralName,
-  resetPointTypeForm,
-  addAwardHook,
-  removeAwardHook,
-  addDeductHook,
-  removeDeductHook,
   updateHookSettings,
   resetStatus
 } = pointTypeSlice.actions;

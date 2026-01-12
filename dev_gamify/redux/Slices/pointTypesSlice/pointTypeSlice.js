@@ -4,7 +4,7 @@ import { addQueryArgs } from '@wordpress/url';
 
 // --- 1. Fetch Available Triggers (Modular API) ---
 export const fetchTriggers = createAsyncThunk(
-    'pointType/fetchTriggers',
+    'gamify/fetchTriggers',
     async (scope = 'point_type', { rejectWithValue }) => { // Default scope 'point_type'
         try {
             return await apiFetch({
@@ -18,7 +18,7 @@ export const fetchTriggers = createAsyncThunk(
 
 // --- 2. Fetch Dynamic Options (Zaplane Style) ---
 export const fetchDynamicOptions = createAsyncThunk(
-    'pointType/fetchDynamicOptions',
+    'gamify/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
             return await apiFetch({
@@ -34,7 +34,7 @@ export const fetchDynamicOptions = createAsyncThunk(
 
 // --- 3. Save Point Type (Create) ---
 export const savePointType = createAsyncThunk(
-    'pointType/save',
+    'gamify/savePointType',
     async (pointData, { rejectWithValue }) => {
         try {
             return await apiFetch({
@@ -50,7 +50,7 @@ export const savePointType = createAsyncThunk(
 
 // --- 4. Update Point Type (Edit) ---
 export const updatePointType = createAsyncThunk(
-    'pointType/update',
+    'gamify/updatePointType',
     async ({ id, data }, { rejectWithValue }) => {
         try {
             return await apiFetch({
@@ -78,7 +78,7 @@ export const fetchPointTypeById = createAsyncThunk(
 
 // --- 6. Fetch All Point Types (List) ---
 export const fetchPointTypes = createAsyncThunk(
-    'pointType/fetchAll',
+    'gamify/fetchPointTypes',
     async (_, { rejectWithValue }) => {
         try {
             const response = await apiFetch({ path: '/gamify/v1/point-types' });
@@ -101,7 +101,7 @@ export const fetchPointTypes = createAsyncThunk(
 
 // --- 7. Delete Point Type ---
 export const deletePointType = createAsyncThunk(
-    'pointType/delete',
+    'gamify/deletePointType',
     async (id, { rejectWithValue }) => {
         try {
             await apiFetch({
@@ -135,34 +135,6 @@ const pointTypeSlice = createSlice({
     name: 'pointType',
     initialState,
     reducers: {
-        setPointName: (state, action) => { state.name = action.payload; },
-        setPluralName: (state, action) => { state.pluralName = action.payload; },
-        resetPointTypeForm: (state) => {
-            state.currentPointTypeId = null;
-            state.name = '';
-            state.pluralName = '';
-            state.selectedAwardHookIds = [];
-            state.selectedDeductHookIds = [];
-            state.hookSettings = {};
-            state.saveStatus = 'idle';
-            state.error = null;
-        },
-        addAwardHook: (state, action) => {
-            if (!state.selectedAwardHookIds.includes(action.payload)) {
-                state.selectedAwardHookIds.push(action.payload);
-            }
-        },
-        removeAwardHook: (state, action) => {
-            state.selectedAwardHookIds = state.selectedAwardHookIds.filter(id => id !== action.payload);
-        },
-        addDeductHook: (state, action) => {
-            if (!state.selectedDeductHookIds.includes(action.payload)) {
-                state.selectedDeductHookIds.push(action.payload);
-            }
-        },
-        removeDeductHook: (state, action) => {
-            state.selectedDeductHookIds = state.selectedDeductHookIds.filter(id => id !== action.payload);
-        },
         updateHookSettings: (state, action) => {
             const { type, hookId, settings } = action.payload;
             const key = `${type}_${hookId}`;
@@ -174,7 +146,6 @@ const pointTypeSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // --- Fetch Triggers (Handled correctly without duplicates) ---
             .addCase(fetchTriggers.pending, (state) => {
                 state.status = 'loading';
             })
@@ -269,9 +240,6 @@ const pointTypeSlice = createSlice({
 });
 
 export const {
-    setPointName, setPluralName, resetPointTypeForm,
-    addAwardHook, removeAwardHook,
-    addDeductHook, removeDeductHook,
     updateHookSettings,
     resetStatus
 } = pointTypeSlice.actions;
