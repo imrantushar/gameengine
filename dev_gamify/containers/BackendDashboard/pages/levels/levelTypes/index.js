@@ -6,8 +6,6 @@ import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaArrowRotateRight, FaChevronRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
-
-// Custom Components
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import LabeledInput from "@GFComponents/LabeledInput";
@@ -35,7 +33,7 @@ import { GoPlus } from "react-icons/go";
 // --- Helpers ---
 const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-    const style = { transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined, opacity: isDragging ? 0.85 : 1, cursor: "grab", marginBottom: "8px" };
+    const style = { transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined, opacity: isDragging ? 0.85 : 1, cursor: "grab", marginBottom: "24px" };
     return <Box ref={setNodeRef} {...listeners} {...attributes} style={style}>{children}</Box>;
 };
 
@@ -146,15 +144,22 @@ const LevelType = () => {
         const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
         return (
             <DraggableItem key={item.id} id={item.id}>
-                <Box padding="12px" borderRadius="6px" border="1px solid var(--gamify-border-color)" bg="white">
-                    <Flex justify="space-between" align="center">
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <Flex justify="space-between" align="center" padding="10px 16px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
                         <Flex align="center" gap='8px'>
-                            <Center bg={config.bg} borderRadius="full" width="24px" height="24px" color="white"><Icon as={config.icon} boxSize={3} /></Center>
-                            <Text margin="0" fontSize="1rem" fontWeight="600">{item.label}</Text>
+                            <Center bg={config.bg} borderRadius="full" width="24px" height="24px" color="white">
+                                <Icon as={config.icon} boxSize={3} />
+                            </Center>
+                            <GFLabel type="title" fontWeight="400" label={item?.label} />
                         </Flex>
-                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white"><Icon as={FaArrowRotateRight} boxSize={3} /></Box>
+
+                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        </Box>
                     </Flex>
-                </Box>
+
+                    <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+                </div>
             </DraggableItem>
         );
     };

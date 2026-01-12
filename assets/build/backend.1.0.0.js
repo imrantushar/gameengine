@@ -5145,8 +5145,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// Custom Components
-
 
 
 
@@ -5183,7 +5181,7 @@ const DraggableItem = ({
     transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
     opacity: isDragging ? 0.85 : 1,
     cursor: "grab",
-    marginBottom: "8px"
+    marginBottom: "24px"
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
     ref: setNodeRef,
@@ -5392,14 +5390,18 @@ const LevelType = () => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DraggableItem, {
       key: item.id,
       id: item.id
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-      padding: "12px",
-      borderRadius: "6px",
-      border: "1px solid var(--gamify-border-color)",
-      bg: "white"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      style: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "6px"
+      }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       justify: "space-between",
-      align: "center"
+      align: "center",
+      padding: "10px 16px",
+      borderRadius: "4px",
+      border: "1px solid var(--gamify-border-color)"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       align: "center",
       gap: "8px"
@@ -5412,11 +5414,11 @@ const LevelType = () => {
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
       as: config.icon,
       boxSize: 3
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Text, {
-      margin: "0",
-      fontSize: "1rem",
-      fontWeight: "600"
-    }, item.label)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      type: "title",
+      fontWeight: "400",
+      label: item?.label
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
       bg: "green.500",
       borderRadius: "full",
       width: "24px",
@@ -5428,7 +5430,11 @@ const LevelType = () => {
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
       as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_15__.FaArrowRotateRight,
       boxSize: 3
-    })))));
+    }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_18__["default"], {
+      type: "subtitle",
+      color: "#A2ADB9",
+      label: item?.description
+    })));
   };
   const availableHooks = allHooks.filter(h => !selectedHookIds.includes(h.id) && (selectedFilter.length === 0 || selectedFilter.includes(h.integrationSlug)));
   const activeHooks = selectedHookIds.map(id => allHooks.find(h => h.id === id)).filter(Boolean);
