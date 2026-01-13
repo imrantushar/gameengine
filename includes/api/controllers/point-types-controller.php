@@ -34,6 +34,7 @@ class PointTypesController extends BaseController
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_items'),
                     'permission_callback' => array($this, 'admin_permission_check'),
+                    'args'                => $this->get_collection_params(),
                 ),
                 array(
                     'methods'             => \WP_REST_Server::CREATABLE,
@@ -67,44 +68,75 @@ class PointTypesController extends BaseController
     }
 
     /**
-     * Retrieve a list of point types.
+     * Retrieve a list of point types with pagination and search.
      */
     public function get_items($request)
     {
-        $cache_key = 'gamify_point_types_list';
-        $results   = get_transient($cache_key);
+        global $wpdb;
 
-        if (false === $results) {
-            global $wpdb;
+        //  Sanitize Inputs.
+        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
+        $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
+        $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
+        $offset   = ($page - 1) * $per_page;
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $point_types = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_point_types ORDER BY id DESC", ARRAY_A);
+        //  Cache Logic.
+        $cache_key   = 'gamify_point_types_' . md5($per_page . $page . $search);
+        $cached_data = wp_cache_get($cache_key, 'gamify_point_types');
 
-            if (! empty($point_types)) {
-                foreach ($point_types as &$pt) {
-                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                    $reqs = $wpdb->get_results(
-                        $wpdb->prepare(
-                            "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
-                            absint($pt['id'])
-                        ),
-                        ARRAY_A
-                    );
-
-                    if (! empty($reqs)) {
-                        foreach ($reqs as &$r) {
-                            $r['parameters'] = json_decode($r['parameters'], true);
-                        }
-                    }
-                    $pt['requirements'] = ! empty($reqs) ? $reqs : array();
-                }
-            }
-
-            $results = $point_types;
-            set_transient($cache_key, $results, 60);
+        if (false !== $cached_data) {
+            return new \WP_REST_Response($cached_data['results'], 200, $cached_data['headers']);
         }
 
-        return new \WP_REST_Response($results, 200);
+        $like_search = '%' . $wpdb->esc_like($search) . '%';
+
+        //  Count Query.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $total_items = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )",
+            $search,
+            $like_search,
+            $like_search
+        ));
+
+        //  Main Query.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}gamify_point_types 
+            WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) 
+            ORDER BY id DESC LIMIT %d OFFSET %d",
+            $search,
+            $like_search,
+            $like_search,
+            $per_page,
+            $offset
+        ), ARRAY_A);
+
+        // Attach Requirements to paginated results.
+        if (! empty($results)) {
+            foreach ($results as &$pt) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                $reqs = $wpdb->get_results($wpdb->prepare(
+                    "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
+                    absint($pt['id'])
+                ), ARRAY_A);
+
+                foreach ($reqs as &$r) {
+                    $r['parameters'] = json_decode($r['parameters'], true);
+                }
+                $pt['requirements'] = $reqs;
+            }
+        }
+
+        $total_pages = (int) ceil($total_items / $per_page);
+        $headers = [
+            'X-WP-Total'      => $total_items,
+            'X-WP-TotalPages' => $total_pages,
+        ];
+
+        wp_cache_set($cache_key, ['results' => $results, 'headers' => $headers], 'gamify_point_types', 60);
+
+        return new \WP_REST_Response($results, 200, $headers);
     }
 
     /**
@@ -320,5 +352,26 @@ class PointTypesController extends BaseController
         }
 
         return new \WP_REST_Response(array('message' => 'Could not delete item.'), 500);
+    }
+
+    /**
+     * Get collection parameters for pagination and search.
+     */
+    public function get_collection_params()
+    {
+        return array(
+            'page'     => array(
+                'default'           => 1,
+                'sanitize_callback' => 'absint',
+            ),
+            'per_page' => array(
+                'default'           => 20,
+                'sanitize_callback' => 'absint',
+            ),
+            'search'   => array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ),
+        );
     }
 }

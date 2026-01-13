@@ -29,6 +29,7 @@ class AchievementsController extends BaseController
                 'methods'             => \WP_REST_Server::READABLE,
                 'callback'            => [$this, 'get_items'],
                 'permission_callback' => [$this, 'admin_permission_check'],
+                'args'                => $this->get_collection_params(),
             ],
             [
                 'methods'             => \WP_REST_Server::CREATABLE,
@@ -57,23 +58,70 @@ class AchievementsController extends BaseController
     }
 
     /**
-     * Retrieve all achievements.
+     * Retrieve achievements with pagination and search.
      */
     public function get_items($request)
     {
-        // Cache Strategy
-        $cache_key = 'gamify_achievements_list';
-        $results = get_transient($cache_key);
+        global $wpdb;
 
-        if (false === $results) {
-            global $wpdb;
-            // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.DirectDatabaseQuery
-            $results = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}gamify_achievements ORDER BY id DESC", ARRAY_A);
+        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
+        $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
+        $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
+        $offset   = ($page - 1) * $per_page;
 
-            set_transient($cache_key, $results, 60);
+        $cache_key   = 'gamify_ach_list_' . md5($per_page . $page . $search);
+        $cached_data = wp_cache_get($cache_key, 'gamify_achievements');
+
+        if (false !== $cached_data) {
+            return new \WP_REST_Response($cached_data['results'], 200, $cached_data['headers']);
         }
 
-        return new \WP_REST_Response($results, 200);
+        $like_search = '%' . $wpdb->esc_like($search) . '%';
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $total_items = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )",
+            $search,
+            $like_search,
+            $like_search
+        ));
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}gamify_achievements 
+            WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) 
+            ORDER BY id DESC LIMIT %d OFFSET %d",
+            $search,
+            $like_search,
+            $like_search,
+            $per_page,
+            $offset
+        ), ARRAY_A);
+
+        if (! empty($results)) {
+            foreach ($results as &$ach) {
+                // 🔥 Convert to Boolean
+                $ach['unlock_with_points_enabled'] = (bool) $ach['unlock_with_points_enabled'];
+
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                $reqs = $wpdb->get_results($wpdb->prepare(
+                    "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1",
+                    absint($ach['id'])
+                ), ARRAY_A);
+
+                foreach ($reqs as &$r) {
+                    $r['parameters'] = json_decode($r['parameters'], true);
+                }
+                $ach['requirements'] = $reqs;
+            }
+        }
+
+        $total_pages = (int) ceil($total_items / $per_page);
+        $headers = ['X-WP-Total' => $total_items, 'X-WP-TotalPages' => $total_pages];
+
+        wp_cache_set($cache_key, ['results' => $results, 'headers' => $headers], 'gamify_achievements', 60);
+
+        return new \WP_REST_Response($results, 200, $headers);
     }
 
     public function create_item($request)
@@ -97,7 +145,7 @@ class AchievementsController extends BaseController
 
         $data = [
             'title'                      => sanitize_text_field($params['title']),
-            'description'                => sanitize_textarea_field($params['description']),
+            'plural_name'                => sanitize_text_field($params['plural_name']),
             'max_earnings_per_user'      => intval($params['max_earnings_per_user']),
             'unlock_with_points_enabled' => !empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'required_points_amount'     => intval($params['required_points_amount']),
@@ -174,6 +222,9 @@ class AchievementsController extends BaseController
                 return new \WP_Error('not_found', 'Achievement not found', ['status' => 404]);
             }
 
+            // 🔥 Convert to Boolean for Single Item View
+            $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
+
             // Fetch requirements
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $reqs = $wpdb->get_results($wpdb->prepare(
@@ -211,5 +262,25 @@ class AchievementsController extends BaseController
         delete_transient('gamify_achievement_' . $id);
 
         return new \WP_REST_Response(['message' => 'Deleted'], 200);
+    }
+    /**
+     * Get collection parameters for pagination and search.
+     */
+    public function get_collection_params()
+    {
+        return array(
+            'page'     => array(
+                'default'           => 1,
+                'sanitize_callback' => 'absint',
+            ),
+            'per_page' => array(
+                'default'           => 20,
+                'sanitize_callback' => 'absint',
+            ),
+            'search'   => array(
+                'default'           => '',
+                'sanitize_callback' => 'sanitize_text_field',
+            ),
+        );
     }
 }

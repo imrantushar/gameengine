@@ -86,6 +86,9 @@ final class Gamify
         // Activation Hook.
         register_activation_hook(GAMIFY_FILE, array(__CLASS__, 'activate'));
 
+        // Deactivation Hook.
+        register_deactivation_hook(GAMIFY_FILE, [__CLASS__, 'deactivate']);
+
         // Initialize Plugin Modules.
         add_action('init', array($this, 'init_modules'), 10);
     }
@@ -161,6 +164,16 @@ final class Gamify
         // Run Installer.
         if (class_exists('\Gamify\Core\Installer')) {
             (new \Gamify\Core\Installer())->run();
+        }
+    }
+
+    /**
+     * Plugin Dactivation Hook.
+     */
+    public static function deactivate()
+    {
+        if (class_exists('\Gamify\Core\Installer')) {
+            (new \Gamify\Core\Installer())->uninstall();
         }
     }
 }
