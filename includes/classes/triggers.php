@@ -130,21 +130,7 @@ class Triggers
      */
     private function check_timing_validity($params)
     {
-        // Check Active Days
-        if (!empty($params['active_days']) && is_array($params['active_days'])) {
-            $today = strtolower(current_time('D')); // returns mon, tue, etc.
-            if (!in_array($today, $params['active_days'])) return false;
-        }
-
-        // Check Happy Hours (Time Range)
-        if (!empty($params['start_time']) && !empty($params['end_time'])) {
-            $current_time = current_time('H:i');
-            if ($current_time < $params['start_time'] || $current_time > $params['end_time']) {
-                return false;
-            }
-        }
-
-        return true;
+        return apply_filters('gamify_check_timing_validity', true, $params);
     }
 
     /**

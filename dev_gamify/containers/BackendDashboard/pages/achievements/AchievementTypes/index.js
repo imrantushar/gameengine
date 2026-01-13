@@ -46,7 +46,7 @@ const DynamicAchievementField = ({ fieldKey, config, value, onChange, integratio
     const dispatch = useDispatch();
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
-    const isProActive = false;
+    const isProActive = window.GamifyGlobal?.is_pro || false;
     const isDisabled = config.is_pro && !isProActive;
 
     useEffect(() => {

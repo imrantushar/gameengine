@@ -16,7 +16,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const isProActive = false;
+    const isProActive = window.GamifyGlobal?.is_pro || false;
     const isDisabled = config.is_pro && !isProActive;
 
     useEffect(() => {
@@ -26,8 +26,8 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                 integration: config.dynamic.integration || integrationSlug,
                 query: config.dynamic.query
             })).unwrap()
-            .then(res => setDynamicOptions(res))
-            .finally(() => setLoading(false));
+                .then(res => setDynamicOptions(res))
+                .finally(() => setLoading(false));
         }
     }, [config.dynamic, isDisabled, integrationSlug]);
 
