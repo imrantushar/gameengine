@@ -18,7 +18,6 @@ const CollapsibleItem = ({ label, children, open, onClick, dynamicClasses }) => 
             direction="column"
             alignItems="center"
             justifyContent="space-between"
-            cursor="pointer"
             width="100%"
             m="24px 0"
             className={classes}
