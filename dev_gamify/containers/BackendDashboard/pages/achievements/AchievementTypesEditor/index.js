@@ -26,23 +26,7 @@ import GamifyInput from "@GFComponents/GamifyInput";
 import { getAchivementsInitialValues } from "./helper";
 import { Formik } from "formik";
 import FormInner from "./FormInner";
-
-// --- Draggable Components ---
-const DraggableItem = ({ id, children }) => {
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        opacity: isDragging ? 0.85 : 1,
-        cursor: "grab",
-        marginBottom: "24px"
-    };
-    return <Box ref={setNodeRef} {...listeners} {...attributes} style={style}>{children}</Box>;
-};
-
-const DroppableArea = ({ id, children }) => {
-    const { setNodeRef } = useDroppable({ id });
-    return <Box ref={setNodeRef} minH="150px" height='100%' mt="12px">{children}</Box>;
-};
+import AchievementFormSkeleton from "./components/AchievementFormSkeleton";
 
 
 const AchievementTypesEditor = () => {
@@ -51,41 +35,34 @@ const AchievementTypesEditor = () => {
     const [searchParams] = useSearchParams();
     const editId = searchParams.get('id');
     const [message, setMessage] = useState("");
+    const {congratulationsMessage, achievements} = useSelector(state => state.achievements);
+    const exitstignItem = achievements.find(item => Number(item.id) === Number(editId));
+    const [formLoading, setFormLoading] = useState(!exitstignItem);
 
-    const {
-        title, description, maxEarnings, allowUnlockWithPoints, pointsAmount, selectedPointTypeId,
-        allHooks, category, selectedHookIds, hookSettings, availablePointTypes, saveStatus, congratulationsMessage, availableCategories = [], achievements
-    } = useSelector(state => state.achievements);
-    console.log({achievements})
+
+    // useEffect(() => {
+    //     dispatch(fetchTriggers('achievement'));
+    //     dispatch(fetchPointTypes());
+    //     dispatch(fetchAchievements());
+    //     if (editId) dispatch(fetchAchievementById(editId));
+    //     else dispatch(resetForm());
+    // }, [dispatch, editId]);
 
     useEffect(() => {
         dispatch(fetchTriggers('achievement'));
         dispatch(fetchPointTypes());
         dispatch(fetchAchievements());
-        if (editId) dispatch(fetchAchievementById(editId));
-        else dispatch(resetForm());
-    }, [dispatch, editId]);
+
+        if (exitstignItem) return;
+        setFormLoading(true);
+        dispatch(fetchAchievementById(editId))
+            .finally(() => {
+                setFormLoading(false);
+            });
+    }, [editId, exitstignItem]);
 
     useEffect(() => { if (congratulationsMessage) setMessage(congratulationsMessage); }, [congratulationsMessage]);
 
-
-    const handleSave = async () => {
-        if (!title) return alert("Name is required");
-        const payload = {
-            title, description, category, max_earnings_per_user: maxEarnings,
-            unlock_with_points_enabled: allowUnlockWithPoints,
-            required_points_amount: pointsAmount, required_point_type_id: selectedPointTypeId,
-            congratulations_message: message,
-            requirements: activeHooks.map(h => ({
-                trigger_key: h.id,
-                parameters: Object.fromEntries((h.schema || []).map(f => [f.key, (hookSettings[h.id] || {})[f.key] ?? f.default]))
-            }))
-        };
-        const result = editId ? await dispatch(updateAchievement({ id: editId, data: payload })) : await dispatch(saveAchievement(payload));
-        if (result.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-achievements`);
-    };
-
-    // console.log({initial: getAchivementsInitialValues(editId, achievements), achievements})
     const onSubmitHandler =  (values,actions) => {
         actions.setSubmitting(true);
         if (!values?.title) return alert("Name is required");
@@ -103,37 +80,37 @@ const AchievementTypesEditor = () => {
     }
 
     return (
-            <>
-                    {/* {formLoading ? (
-                        <PointTypeFormSkeleton />
-                    ) : (
-                    )} */}
-                        <Formik
-                            enableReinitialize={true}
-                            initialValues={getAchivementsInitialValues(editId, achievements)}
-                            onSubmit={onSubmitHandler}
-                        >
-                            {({values, submitForm, isSubmitting}) => {
-                                console.log({values})
-                                return (
-                                    <>
-                                        <TopBar
-                                            path={__("Achievement Types", "gamify")}
-                                            rightContent={
-                                                <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting}>
-                                                    {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
-                                                </Button>
-                                            } 
-                                        />
-        
-                                        <GamifyBox dynamicClasses="gamify-achievements" heading={__(`Achievement Types`, "gamify")}>
-                                            <FormInner />
-                                        </GamifyBox>
-                                    </>
-                                )
-                            }}
-                        </Formik>
-                </>
+        <>
+            {formLoading ? (
+                <AchievementFormSkeleton />
+            ) : (
+                <Formik
+                    enableReinitialize={true}
+                    initialValues={getAchivementsInitialValues(editId, achievements)}
+                    onSubmit={onSubmitHandler}
+                >
+                    {({values, submitForm, isSubmitting}) => {
+                        console.log({values})
+                        return (
+                            <>
+                                <TopBar
+                                    path={__("Achievement Types", "gamify")}
+                                    rightContent={
+                                        <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting}>
+                                            {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
+                                        </Button>
+                                    } 
+                                />
+
+                                <GamifyBox dynamicClasses="gamify-achievements" heading={__(`Achievement Types`, "gamify")}>
+                                    <FormInner />
+                                </GamifyBox>
+                            </>
+                        )
+                    }}
+                </Formik>
+            )}
+        </>
     );
 };
 

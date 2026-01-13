@@ -12,10 +12,6 @@ const TopBar = ({
 	leftContent,
 	path,
 }) => {
-	console.log({rightContent,
-	middleContent,
-	leftContent,
-	path})
 	const pathName = path ? path : __("Gamify", "gamify");
 
 	return (

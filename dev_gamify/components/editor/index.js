@@ -121,7 +121,7 @@ class CustomImage extends Image {
 // Quill.register(CustomImage, true);
 
  const GamifyEditor=({
-    // name,
+    name,
     defaultValue = '',
     saveValueHandler,
     suffix,
@@ -132,8 +132,6 @@ class CustomImage extends Image {
     const [showCustomInserter, isShowCustomInserter] = useState(false);
     const isInitialized = useRef(false);
     const showCustomHTML = isCustomHTML ? [['customHTML']] : [];
-
-    const stableSaveHandler = useCallback(saveValueHandler, []);
 
     useEffect(() => {
         if (isInitialized.current) return;
@@ -207,7 +205,7 @@ class CustomImage extends Image {
 
         const handleChange = () => {
             const content = quill.root.innerHTML;
-            stableSaveHandler(content);
+            saveValueHandler(name,content);
         };
 
         quill.on('text-change', handleChange);
