@@ -38,18 +38,16 @@ const LeftBar = () => {
 
     return (
         <Box
-            w="240px"
+            minW="300px"
             bg="#fff"
-            borderRight="1px solid #E5E7EB"
-            h="235px"
+            boxShadow="var(--gamify-shadow)"
             pos="sticky"
             top="0"
             display={{ base: "none", lg: "flex" }}
             flexDirection="column"
             borderRadius='4px'
-
         >
-            <VStack padding='16px' width="100%" align="stretch" spacing={0}>
+            <VStack padding='8px' width="100%" align="stretch" spacing={0}>
                 {menuList.map((item, i) => {
                     const isActive = currentTab === item.key;
                     return (

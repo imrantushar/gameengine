@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { Badge, Box, Button, Flex, Text } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
-import Tooltip from '@GFComponents/Tooltip';
 import { toggleAddonStatus } from '../../../../redux/Slices/addonsSlice/addonsSlice';
-import { resetStatus as resetPointStatus } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice'; // Check path
+import { resetStatus as resetPointStatus } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice';
 import { resetStatus as resetAchievementStatus } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
 import { fetchTriggers as refreshPointTriggers } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice';
 import { fetchTriggers as refreshAchievementTriggers } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
+
 const AddonCard = ({ item }) => {
 	const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ const AddonCard = ({ item }) => {
 		<Flex
 			width="calc((100% / 3) - 16px)"
 			background="#FFF"
-			boxShadow="0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10)"
+			boxShadow="var(--gamify-shadow)"
 			padding={6}
 			flexDirection="column"
 			borderRadius="4px"
@@ -79,36 +79,40 @@ const AddonCard = ({ item }) => {
 							{__('Pro', 'gamify')}
 						</Badge>
 					)}
+					{item.is_coming_soon && (
+						<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gamify')}</Badge>
+					)}
 				</Box>
 			</Flex>
 
-			<Flex flexDirection="column" paddingTop={4}>
-				<Text fontSize="0.875rem" fontWeight="700">{item.label}</Text>
-				<Text fontSize="0.875rem" color="#738496">{item.details}</Text>
+			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 0">
+				<Flex flexDirection="column" gap={1}>
+					<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>{item.label}</Text>
+					<Text fontSize="12px" fontWeight="400" color="#738496" m={0}>{item.details}</Text>
+				</Flex>
+
+				<Button variant="link" color="var(--gamify-primary)" fontSize="14px" fontWeight="500" padding="0" height="auto" justifyContent="start" onClick={() => window.open(item.docsUrl, '_blank')}>
+					{__('Learn More', 'gamify')}
+				</Button>
 			</Flex>
 
-			<Button variant="link" color="var(--gamify-primary)" fontSize="0.875rem" fontWeight="500" padding="0" justifyContent="start" onClick={() => window.open(item.docsUrl, '_blank')}>
-				{__('Learn More', 'gamify')}
-			</Button>
+			<Flex direction="column" gap="8px" paddingTop={6} borderTop="1px solid var(--gamify-border-color)">
+				<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>
+					{!item.required_plugin ? __('No extra plugin required', 'gamify') : __('Required plugins', 'gamify')}
+				</Text>
 
-			<Flex justifyContent="space-between" alignItems="center" paddingTop={6} borderTop="1px solid #CBD1D7">
-				<div className="quizepress-dashboard-addon-footer--left">
-					<span>{!item.required_plugin ? __('No extra plugin required', 'gamify') : __('Required plugins', 'gamify')}</span>
-
+				<Flex justifyContent="space-between" alignItems="center" width="100%">
 					{item?.required_plugin?.length > 0 && (
-						<Tooltip>
+						<>
 							{item.required_plugin.map((childItem, childItemIndex) => (
-								<span key={childItemIndex}>
+								<Text fontSize="14px" fontWeight="400" color="#738496" m={0} key={childItemIndex}>
 									{childItem.plugin_name}
-								</span>
+								</Text>
 							))}
-						</Tooltip>
+						</>
 					)}
-				</div>
-				<Box>
-					{item.is_coming_soon ? (
-						<Badge colorPalette="orange">{__('Coming Soon', 'gamify')}</Badge>
-					) : (
+
+					{!item.is_coming_soon && (
 						<Box pointerEvents={isUpdating ? 'none' : 'auto'} opacity={isUpdating ? 0.6 : 1}>
 							<CustomSwitch
 								name={item.name}
@@ -118,7 +122,7 @@ const AddonCard = ({ item }) => {
 							/>
 						</Box>
 					)}
-				</Box>
+				</Flex>
 			</Flex>
 		</Flex>
 	);

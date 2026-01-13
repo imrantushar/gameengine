@@ -1,21 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Modal } from '@wordpress/components';
-import './styles.scss'
+import './styles.scss';
+import './suffix.scss';
 
-const propTypes = {
-	title: PropTypes.string,
-	isOpen: PropTypes.bool,
-	onRequestClose: PropTypes.func,
-	isFullScreen: PropTypes.bool,
-	disableFooter: PropTypes.bool,
-	shouldCloseOnClickOutside: PropTypes.bool,
-	buttonUpdate: PropTypes.object,
-	suffix: PropTypes.string,
-	size: PropTypes.string,
-};
-
-export default function WPModal( {
+const WPModal = ({
 	children,
 	suffix = '',
 	title = '',
@@ -24,27 +12,31 @@ export default function WPModal( {
 	isFullScreen = false,
 	shouldCloseOnClickOutside = false,
 	size = 'medium',
-} ) {
+}) => {
+	const classes = [
+		"gamify-wp-modal",
+		`gamify-wp-modal--${size}`,
+		suffix && `gamify-wp-modal--${suffix}`,
+	].filter(Boolean).join(" ");
+
 	return (
 		<React.Fragment>
-			{ isOpen && (
+			{isOpen && (
 				<Modal
-					title={ title }
-					onRequestClose={ onRequestClose }
-					contentLabel={ title }
-					isFullScreen={ isFullScreen }
-					shouldCloseOnClickOutside={ shouldCloseOnClickOutside }
-					className={ `gamify-wp-modal gamify-wp-modal--${ size } ${
-						suffix && ' gamify-wp-modal--' + suffix
-					}` }
+					title={title}
+					onRequestClose={onRequestClose}
+					contentLabel={title}
+					isFullScreen={isFullScreen}
+					shouldCloseOnClickOutside={shouldCloseOnClickOutside}
+					className={classes}
 				>
 					<div className="gamify-wp-modal__content">
-						{ children }
+						{children}
 					</div>
 				</Modal>
-			) }
+			)}
 		</React.Fragment>
 	);
 }
 
-WPModal.propTypes = propTypes;
+export default WPModal;

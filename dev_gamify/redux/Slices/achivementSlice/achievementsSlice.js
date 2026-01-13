@@ -51,21 +51,9 @@ export const fetchPointTypes = createAsyncThunk('achievements/fetchPointTypes', 
 
 const initialState = {
     achievements: [],
-    currentAchievementId: null,
-    congratulationsMessage: '',
-    title: '',
-    description: '',
-    category: '',
-    availableCategories: [],
-    maxEarnings: 0,
-    allowUnlockWithPoints: false,
-    pointsAmount: '',
-    selectedPointTypeId: null,
     integrations: {},
     allHooks: [],
-    selectedHookIds: [],
     hookSettings: {},
-    availablePointTypes: [],
     status: 'idle',
     saveStatus: 'idle',
     error: null,
@@ -75,22 +63,6 @@ const achievementsSlice = createSlice({
     name: 'achievements',
     initialState,
     reducers: {
-        setField: (state, action) => { state[action.payload.field] = action.payload.value; },
-        resetForm: (state) => {
-            state.currentAchievementId = null; state.title = ''; state.description = ''; state.category = '';
-            state.congratulationsMessage = ''; state.maxEarnings = 0; state.allowUnlockWithPoints = false;
-            state.pointsAmount = ''; state.selectedPointTypeId = null; state.selectedHookIds = [];
-            state.hookSettings = {}; state.saveStatus = 'idle';
-        },
-        addCategoryToList: (state, action) => {
-            if (!state.availableCategories.includes(action.payload)) { state.availableCategories.push(action.payload); }
-        },
-        addHook: (state, action) => {
-            if (!state.selectedHookIds.includes(action.payload)) { state.selectedHookIds.push(action.payload); }
-        },
-        removeHook: (state, action) => {
-            state.selectedHookIds = state.selectedHookIds.filter(id => id !== action.payload);
-        },
         updateHookSettings: (state, action) => {
             const { hookId, settings } = action.payload;
             state.hookSettings[hookId] = { ...state.hookSettings[hookId], ...settings };
@@ -101,8 +73,6 @@ const achievementsSlice = createSlice({
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 state.achievements = action.payload;
-                const categories = action.payload.map(item => item.category).filter(cat => cat && cat.trim() !== '');
-                state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.integrations = action.payload;
@@ -124,20 +94,10 @@ const achievementsSlice = createSlice({
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;
-                state.currentAchievementId = data.id;
-                state.title = data.title;
-                state.description = data.description;
-                state.category = data.category || '';
-                state.congratulationsMessage = data.congratulations_message || '';
-                state.maxEarnings = data.max_earnings_per_user;
-                state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
-                state.pointsAmount = data.required_points_amount;
-                state.selectedPointTypeId = data.required_point_type_id;
-                state.selectedHookIds = [];
+                state.achievements = [data];
                 state.hookSettings = {};
                 if (data.requirements) {
                     data.requirements.forEach(req => {
-                        state.selectedHookIds.push(req.trigger_key);
                         state.hookSettings[req.trigger_key] = req.parameters;
                     });
                 }
@@ -147,5 +107,5 @@ const achievementsSlice = createSlice({
     }
 });
 
-export const { setField, resetForm, addHook, removeHook, updateHookSettings, resetStatus, addCategoryToList } = achievementsSlice.actions;
+export const { updateHookSettings, resetStatus, addCategoryToList } = achievementsSlice.actions;
 export default achievementsSlice.reducer;

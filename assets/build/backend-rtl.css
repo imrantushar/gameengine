@@ -4,18 +4,17 @@
 :root {
   --gamify-font: "Roboto", sans-serif;
   --gamify-primary: #006BFF;
-  --gamify-second-primary: #8F7EE7;
   --gamify-border-color: #CBD1D7;
+  --gamify-font-color: #141A24;
+  --gamify-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
+  --gamify-second-primary: #8F7EE7;
   --gamify-body-background: #F6F7F8;
   --gamify-background: #FFFFFF;
-  --gamify-font-color: #0A2540;
   --gamify-secondary: #738496;
   --gamify-warn-muted: #738496;
   --gamify-placing: #F15B50;
   --gamify-warning: #FDB022;
   --gamify-placeholder: #A2ADB9;
-  --gamify-shadow: 0px 0px 1px 0px rgba(20, 26, 36, 0.2), 0px 1px 2px 0px rgba(20, 26, 36, 0.1);
-  --gamify-shadow-2: 0px 0px 1px 0px rgba(16, 24, 40, 0.15), 0px 8px 16px 0px rgba(20, 26, 36, 0.1);
   --gamify-gray: #F6F7F8;
 }
 
@@ -23,68 +22,32 @@
   padding: 0;
 }
 
-.gamify-select--width-full {
+.gamify-admin-content {
+  margin-right: -20px;
+  background: var(--gamify-body-background);
+  min-height: 100vh;
+  padding-bottom: 100px;
+}
+
+.gamify-inner-page-content {
+  max-width: 1042px;
   width: 100%;
-}
-.gamify-select--120 {
-  width: 120px;
-}
-.gamify-select--136 {
-  width: 136px;
-}
-.gamify-select--140 {
-  width: 140px;
-}
-.gamify-select--150 {
-  width: 150px;
-}
-.gamify-select--164 {
-  width: 164px;
-}
-.gamify-select--214 {
-  width: 214px;
-}
-.gamify-select--200 {
-  width: 200px;
-}
-.gamify-select--250 {
-  width: 250px;
-}
-.gamify-select--300 {
-  width: 300px;
-}
-.gamify-select {
-  font-size: 14px;
-}
-.gamify-select .gamify-select__control {
-  border: 1px solid #CBD1D7;
-  background: #FFF;
+  margin: 0 auto;
+  padding: 24px;
   border-radius: 4px;
-  box-shadow: none;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--gamify-background);
+  box-shadow: var(--gamify-shadow);
 }
-.gamify-select .gamify-select__control .gamify-select__input-container .gamify-select__input {
-  box-shadow: none;
-  height: 100%;
-  min-height: unset;
-}
-.gamify-select .gamify-select__control:hover {
-  border: 1px solid #CBD1D7;
-}
-.gamify-select--transparent .gamify-select__control {
-  border: none;
-}
-.gamify-select--transparent .gamify-select__placeholder {
-  font-size: 14px;
-  color: var(--gamify-font-color);
-  font-weight: 500;
-}
-.gamify-select--transparent .gamify-select__indicator-separator {
-  display: none;
-}
-.gamify-select--transparent .gamify-select__dropdown-indicator {
-  padding: 8px 0 8px 8px;
-  color: var(--gamify-font-color);
-  font-weight: 500;
+
+.gamify-page-content {
+  max-width: 1042px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .gamify-radio-option {
@@ -165,12 +128,6 @@
     display: revert;
   }
 }
-.gamify-admin-content {
-  margin-right: -20px;
-  background: var(--gamify-body-background);
-  min-height: 100vh;
-}
-
 .gamify-content-wrap {
   width: 100%;
   padding: 24px;
@@ -972,7 +929,6 @@ input.gamify-checkbox:checked::before {
 }
 .gamify-table__body-row-wrap {
   width: 100%;
-  min-height: 74px;
   display: flex;
   align-items: center;
   padding-right: 12px;
@@ -1243,14 +1199,77 @@ input.gamify-checkbox:checked::before {
   width: max-content;
   min-width: 100%;
 }
+
+.gamify-select--width-full {
+  width: 100%;
+}
+.gamify-select--120 {
+  width: 120px;
+}
+.gamify-select--136 {
+  width: 136px;
+}
+.gamify-select--140 {
+  width: 140px;
+}
+.gamify-select--150 {
+  width: 150px;
+}
+.gamify-select--164 {
+  width: 164px;
+}
+.gamify-select--214 {
+  width: 214px;
+}
+.gamify-select--200 {
+  width: 200px;
+}
+.gamify-select--250 {
+  width: 250px;
+}
+.gamify-select--300 {
+  width: 300px;
+}
+.gamify-select {
+  font-size: 14px;
+}
+.gamify-select .gamify-select__control {
+  border: 1px solid #CBD1D7;
+  background: #FFF;
+  border-radius: 4px;
+  box-shadow: none;
+}
+.gamify-select .gamify-select__control .gamify-select__input-container .gamify-select__input {
+  box-shadow: none;
+  height: 100%;
+  min-height: unset;
+}
+.gamify-select .gamify-select__control:hover {
+  border: 1px solid #CBD1D7;
+}
+.gamify-select .gamify-select__indicator-separator {
+  display: none;
+}
+.gamify-select--transparent .gamify-select__control {
+  border: none;
+}
+.gamify-select--transparent .gamify-select__placeholder {
+  font-size: 14px;
+  color: var(--gamify-font-color);
+  font-weight: 500;
+}
+.gamify-select--transparent .gamify-select__indicator-separator {
+  display: none;
+}
+.gamify-select--transparent .gamify-select__dropdown-indicator {
+  padding: 8px 0 8px 8px;
+  color: var(--gamify-font-color);
+  font-weight: 500;
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/TopBar/styles.scss ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
-.gamify-topbar-logo {
-  background: #E2E0FF;
-  padding: 6px;
-  border-radius: 50%;
-}
+
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/react-datepicker/dist/react-datepicker.css ***!
   \*************************************************************************************************************************************************************************************************************/
@@ -2488,6 +2507,23 @@ h2.react-datepicker__current-month {
 .gamify-wp-modal {
   width: 600px;
 }
+/*!****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Modal/suffix.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************/
+.gamify-wp-modal--manual-trigger .components-modal__content {
+  margin-top: 72px;
+  padding: 20px;
+  overflow: hidden;
+}
+.gamify-wp-modal--manual-trigger .components-modal__content .components-modal__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--gamify-border-color);
+}
+.gamify-wp-modal--manual-trigger .components-modal__content .gamify-wp-modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 /*!****************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/CustomSwitch/switchfield.scss ***!
   \****************************************************************************************************************************************************************************************************************************************************************************/
@@ -2535,43 +2571,4 @@ h2.react-datepicker__current-month {
 
 .gamify-ccb-switch input:checked + .gamify-ccb-slider:before {
   transform: translateX(-16px);
-}
-/*!******************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Tooltip/styles.scss ***!
-  \******************************************************************************************************************************************************************************************************************************************************************/
-.gamify-tooltip {
-  position: relative;
-  display: inline-block;
-  margin-right: 5px;
-}
-.gamify-tooltip__text {
-  visibility: hidden;
-  width: 120px;
-  background: var(--quizpress-primary);
-  font-size: 14px;
-  color: #FFF;
-  text-align: center;
-  border-radius: 4px;
-  padding: 10px;
-  position: absolute;
-  z-index: 9999;
-  bottom: 150%;
-  right: 50%;
-  transform: translateX(50%);
-}
-.gamify-tooltip__text:after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  right: 50%;
-  margin-right: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: var(--quizpress-primary) transparent transparent transparent;
-}
-.gamify-tooltip__text span {
-  display: block;
-}
-.gamify-tooltip:hover .gamify-tooltip__text {
-  visibility: visible;
 }
