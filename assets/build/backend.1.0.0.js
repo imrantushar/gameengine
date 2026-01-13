@@ -2884,7 +2884,6 @@ const FormInner = () => {
       return values.requirements?.map(item => allHooks.find(h => h.id === item.trigger_key)).filter(Boolean);
     }
   }, [values?.requirements]);
-  ;
   const handleDragEnd = ({
     active,
     over
@@ -2957,16 +2956,13 @@ const FormInner = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "title",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Achievement Type", "gamify")
-  }), availableCategories.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupRoot, {
-    value: values.category,
+  }), values.category.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupRoot, {
+    value: values.category.find(cat => cat.is_selected),
     onValueChange: item => {
-      // dispatch(
-      //     setField({
-      //         field: "category",
-      //         value: details.value,
-      //     })
-      // )
-      setFieldValue('category', item.value);
+      setFieldValue('category', values.category.map(cat => cat.value === item.value ? {
+        ...cat,
+        is_slected: true
+      } : cat));
     },
     size: "sm"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
@@ -2976,9 +2972,9 @@ const FormInner = () => {
     border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
     flexWrap: "wrap"
-  }, availableCategories.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItem, {
+  }, values.category.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItem, {
     key: index,
-    value: cat
+    value: cat.value
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemIndicator, {
     style: {
       width: "20px",
@@ -2987,7 +2983,7 @@ const FormInner = () => {
       border: category === cat ? "1px solid #007AFF" : "1px solid #ccc",
       backgroundColor: category === cat ? "#007AFF" : "transparent"
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('%s', 'gemboards'), cat)))))) : null, showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('%s', 'gemboards'), cat.label)))))), showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     mt: "6px",
     gap: 2
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
@@ -3017,9 +3013,11 @@ const FormInner = () => {
     height: "auto",
     variant: "ghost",
     onClick: () => {
-      dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_19__.addCategoryToList)(newCat));
-      // dispatch(setField({ field: 'category', value: newCat }));
-      setFieldValue('category', newCat);
+      setFieldValue('category', [...values.category, {
+        label: newCat,
+        value: newCat,
+        is_selected: false
+      }]);
       setNewCat("");
       setShowInput(false);
     }
@@ -3588,6 +3586,8 @@ const AchievementTypesEditor = () => {
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_6__.fetchTriggers)('achievement'));
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_6__.fetchPointTypes)());
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_6__.fetchAchievements)());
+  }, []);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (exitstignItem) return;
     setFormLoading(true);
     dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_6__.fetchAchievementById)(editId)).finally(() => {
@@ -8156,11 +8156,6 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
   name: 'achievements',
   initialState,
   reducers: {
-    addCategoryToList: (state, action) => {
-      if (!state.availableCategories.includes(action.payload)) {
-        state.availableCategories.push(action.payload);
-      }
-    },
     updateHookSettings: (state, action) => {
       const {
         hookId,
@@ -8178,8 +8173,6 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
   extraReducers: builder => {
     builder.addCase(fetchAchievements.fulfilled, (state, action) => {
       state.achievements = action.payload;
-      const categories = action.payload.map(item => item.category).filter(cat => cat && cat.trim() !== '');
-      state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
     }).addCase(fetchTriggers.fulfilled, (state, action) => {
       state.integrations = action.payload;
       const flattened = [];

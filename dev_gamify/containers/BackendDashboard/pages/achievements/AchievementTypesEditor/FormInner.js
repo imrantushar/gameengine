@@ -104,7 +104,7 @@ const FormInner = () => {
         if(values.requirements?.length > 0) {
             return values.requirements?.map(item => allHooks.find(h => h.id === item.trigger_key)).filter(Boolean)
         }
-    }, [values?.requirements]);;
+    }, [values?.requirements]);
     
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
@@ -201,17 +201,11 @@ const FormInner = () => {
         <Box className="gamify-add-achievement-type">
             <GFLabel type="title" label={__("Achievement Type", "gamify")} />
 
-            {availableCategories.length > 0 ? (
+            {values.category.length > 0 && (
                 <RadioGroup.Root
-                    value={values.category}
+                    value={values.category.find(cat => cat.is_selected)}
                     onValueChange={(item) =>{
-                        // dispatch(
-                        //     setField({
-                        //         field: "category",
-                        //         value: details.value,
-                        //     })
-                        // )
-                        setFieldValue('category', item.value)
+                        setFieldValue('category', values.category.map(cat => cat.value === item.value ? {...cat, is_slected: true} : cat))
                     }}
                     size="sm"
                 >
@@ -223,8 +217,8 @@ const FormInner = () => {
                         borderRadius="4px"
                         flexWrap="wrap"
                     >
-                        {availableCategories.map((cat, index) => (
-                            <RadioGroup.Item key={index} value={cat}>
+                        {values.category.map((cat, index) => (
+                            <RadioGroup.Item key={index} value={cat.value}>
                                 <RadioGroup.ItemHiddenInput />
                                 <RadioGroup.ItemIndicator
                                     style={{
@@ -243,14 +237,14 @@ const FormInner = () => {
                                     {/* translators: %s: cat */}
                                     {sprintf(
                                         __('%s', 'gemboards'),
-                                        cat,
+                                        cat.label,
                                     )}
                                 </RadioGroup.ItemText>
                             </RadioGroup.Item>
                         ))}
                     </Flex>
                 </RadioGroup.Root>
-            ) : null}
+            )}
 
             {showInput ? (
                 <Flex mt="6px" gap={2}>
@@ -281,9 +275,7 @@ const FormInner = () => {
                         height="auto"
                         variant="ghost"
                         onClick={() => {
-                            dispatch(addCategoryToList(newCat));
-                            // dispatch(setField({ field: 'category', value: newCat }));
-                            setFieldValue('category', newCat)
+                            setFieldValue('category', [...values.category, {label: newCat, value: newCat, is_selected: false}])
                             setNewCat("");
                             setShowInput(false);
                         }}

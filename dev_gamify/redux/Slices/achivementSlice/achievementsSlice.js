@@ -63,9 +63,6 @@ const achievementsSlice = createSlice({
     name: 'achievements',
     initialState,
     reducers: {
-        addCategoryToList: (state, action) => {
-            if (!state.availableCategories.includes(action.payload)) { state.availableCategories.push(action.payload); }
-        },
         updateHookSettings: (state, action) => {
             const { hookId, settings } = action.payload;
             state.hookSettings[hookId] = { ...state.hookSettings[hookId], ...settings };
@@ -76,8 +73,6 @@ const achievementsSlice = createSlice({
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 state.achievements = action.payload;
-                const categories = action.payload.map(item => item.category).filter(cat => cat && cat.trim() !== '');
-                state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.integrations = action.payload;

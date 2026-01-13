@@ -28,7 +28,9 @@ const AchievementTypesEditor = () => {
         dispatch(fetchTriggers('achievement'));
         dispatch(fetchPointTypes());
         dispatch(fetchAchievements());
+    }, []);
 
+    useEffect(() => {
         if (exitstignItem) return;
         setFormLoading(true);
         dispatch(fetchAchievementById(editId))
