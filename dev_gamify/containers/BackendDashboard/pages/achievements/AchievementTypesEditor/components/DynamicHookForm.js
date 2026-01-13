@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { fetchDynamicOptions, updateHookSettings } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
+import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
 import LabeledInput from '@GFComponents/LabeledInput';
 import Select from 'react-select';

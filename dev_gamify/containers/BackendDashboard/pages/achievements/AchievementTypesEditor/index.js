@@ -1,33 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
-import { __, sprintf } from "@wordpress/i18n";
-import GFLabel from "@GFComponents/Labels/GFLabel";
-import Select from "react-select";
-import CustomCollapsible from "@GFComponents/Collapsible";
+import { Button } from "@chakra-ui/react";
+import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple, FaLock, FaChevronRight } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
-import LabeledInput from "@GFComponents/LabeledInput";
-import GamifyEditor from "@GFComponents/editor";
-import { AiFillInteraction } from "react-icons/ai";
-import { SiWoocommerce } from "react-icons/si";
-import { GoPlus } from "react-icons/go";
 import {
-    fetchAchievementById, saveAchievement, updateAchievement, resetForm, fetchTriggers,
-    fetchDynamicOptions, fetchPointTypes, fetchAchievements, setField, addHook, removeHook,
-    updateHookSettings, addCategoryToList
+    fetchAchievementById, saveAchievement, updateAchievement, fetchTriggers, fetchPointTypes, fetchAchievements
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
-import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
-import { route_path } from "@GFUtils/helper";
+import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyBox from "@GFComponents/GamifyBox";
-import GamifyInput from "@GFComponents/GamifyInput";
 import { getAchivementsInitialValues } from "./helper";
 import { Formik } from "formik";
 import FormInner from "./FormInner";
 import AchievementFormSkeleton from "./components/AchievementFormSkeleton";
-
 
 const AchievementTypesEditor = () => {
     const dispatch = useDispatch();
@@ -38,15 +23,6 @@ const AchievementTypesEditor = () => {
     const {congratulationsMessage, achievements} = useSelector(state => state.achievements);
     const exitstignItem = achievements.find(item => Number(item.id) === Number(editId));
     const [formLoading, setFormLoading] = useState(!exitstignItem);
-
-
-    // useEffect(() => {
-    //     dispatch(fetchTriggers('achievement'));
-    //     dispatch(fetchPointTypes());
-    //     dispatch(fetchAchievements());
-    //     if (editId) dispatch(fetchAchievementById(editId));
-    //     else dispatch(resetForm());
-    // }, [dispatch, editId]);
 
     useEffect(() => {
         dispatch(fetchTriggers('achievement'));

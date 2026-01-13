@@ -1,26 +1,20 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
-import CustomCollapsible from "@GFComponents/Collapsible";
-import TopBar from "@GFComponents/TopBar";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple, FaLock, FaChevronRight } from "react-icons/fa6";
+import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
-import LabeledInput from "@GFComponents/LabeledInput";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
 import {
-    fetchAchievementById, saveAchievement, updateAchievement, resetForm, fetchTriggers,
-    fetchDynamicOptions, fetchPointTypes, fetchAchievements, setField, addHook, removeHook,
     updateHookSettings, addCategoryToList
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
-import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyInput from "@GFComponents/GamifyInput";
 import { useFormikContext } from "formik";
 import DynamicHookForm from "./components/DynamicHookForm";
