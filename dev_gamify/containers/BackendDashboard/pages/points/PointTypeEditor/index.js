@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Button, } from '@chakra-ui/react';
+import { Button, Spinner, } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import {
@@ -79,7 +79,18 @@ const PointTypeEditor = () => {
                                     path={__("Points System", "gamify")}
                                     rightContent={
                                         <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
-                                            {currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')}
+                                            {isSubmitting ? (
+                                                <>
+                                                    <Spinner
+                                                        color="var(--gamify-primary)"
+                                                        css={{ "--spinner-track-color": "var(--gamify-secondary)" }}
+                                                    />
+
+                                                    {currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')}
+                                                </>
+                                            ) : (
+                                                currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')
+                                            )}
                                         </Button>
                                     }
                                 />
