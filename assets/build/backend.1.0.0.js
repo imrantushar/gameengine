@@ -3352,7 +3352,7 @@ const DynamicField = ({
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_10__.useDispatch)();
   const [dynamicOptions, setDynamicOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const isProActive = false;
+  const isProActive = window.GamifyGlobal?.is_pro || false;
   const isDisabled = config.is_pro && !isProActive;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (config.dynamic && !isDisabled) {
@@ -6793,7 +6793,7 @@ const DynamicField = ({
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_10__.useDispatch)();
   const [dynamicOptions, setDynamicOptions] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-  const isProActive = false;
+  const isProActive = window.GamifyGlobal?.is_pro || false;
   const isDisabled = config.is_pro && !isProActive;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (config.dynamic && !isDisabled) {
