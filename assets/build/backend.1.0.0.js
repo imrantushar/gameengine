@@ -8055,7 +8055,6 @@ const Settings = () => {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   addCategoryToList: () => (/* binding */ addCategoryToList),
-/* harmony export */   addHook: () => (/* binding */ addHook),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   deleteAchievement: () => (/* binding */ deleteAchievement),
 /* harmony export */   fetchAchievementById: () => (/* binding */ fetchAchievementById),
@@ -8063,11 +8062,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchDynamicOptions: () => (/* binding */ fetchDynamicOptions),
 /* harmony export */   fetchPointTypes: () => (/* binding */ fetchPointTypes),
 /* harmony export */   fetchTriggers: () => (/* binding */ fetchTriggers),
-/* harmony export */   removeHook: () => (/* binding */ removeHook),
-/* harmony export */   resetForm: () => (/* binding */ resetForm),
 /* harmony export */   resetStatus: () => (/* binding */ resetStatus),
 /* harmony export */   saveAchievement: () => (/* binding */ saveAchievement),
-/* harmony export */   setField: () => (/* binding */ setField),
 /* harmony export */   updateAchievement: () => (/* binding */ updateAchievement),
 /* harmony export */   updateHookSettings: () => (/* binding */ updateHookSettings)
 /* harmony export */ });
@@ -8149,21 +8145,9 @@ const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
 });
 const initialState = {
   achievements: [],
-  currentAchievementId: null,
-  congratulationsMessage: '',
-  title: '',
-  description: '',
-  category: '',
-  availableCategories: [],
-  maxEarnings: 0,
-  allowUnlockWithPoints: false,
-  pointsAmount: '',
-  selectedPointTypeId: null,
   integrations: {},
   allHooks: [],
-  selectedHookIds: [],
   hookSettings: {},
-  availablePointTypes: [],
   status: 'idle',
   saveStatus: 'idle',
   error: null
@@ -8172,35 +8156,10 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
   name: 'achievements',
   initialState,
   reducers: {
-    setField: (state, action) => {
-      state[action.payload.field] = action.payload.value;
-    },
-    resetForm: state => {
-      state.currentAchievementId = null;
-      state.title = '';
-      state.description = '';
-      state.category = '';
-      state.congratulationsMessage = '';
-      state.maxEarnings = 0;
-      state.allowUnlockWithPoints = false;
-      state.pointsAmount = '';
-      state.selectedPointTypeId = null;
-      state.selectedHookIds = [];
-      state.hookSettings = {};
-      state.saveStatus = 'idle';
-    },
     addCategoryToList: (state, action) => {
       if (!state.availableCategories.includes(action.payload)) {
         state.availableCategories.push(action.payload);
       }
-    },
-    addHook: (state, action) => {
-      if (!state.selectedHookIds.includes(action.payload)) {
-        state.selectedHookIds.push(action.payload);
-      }
-    },
-    removeHook: (state, action) => {
-      state.selectedHookIds = state.selectedHookIds.filter(id => id !== action.payload);
     },
     updateHookSettings: (state, action) => {
       const {
@@ -8242,21 +8201,10 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
       }));
     }).addCase(fetchAchievementById.fulfilled, (state, action) => {
       const data = action.payload;
-      state.currentAchievementId = data.id;
       state.achievements = [data];
-      state.title = data.title;
-      state.description = data.description;
-      state.category = data.category || '';
-      state.congratulationsMessage = data.congratulations_message || '';
-      state.maxEarnings = data.max_earnings_per_user;
-      state.allowUnlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
-      state.pointsAmount = data.required_points_amount;
-      state.selectedPointTypeId = data.required_point_type_id;
-      state.selectedHookIds = [];
       state.hookSettings = {};
       if (data.requirements) {
         data.requirements.forEach(req => {
-          state.selectedHookIds.push(req.trigger_key);
           state.hookSettings[req.trigger_key] = req.parameters;
         });
       }
@@ -8268,10 +8216,6 @@ const achievementsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
   }
 });
 const {
-  setField,
-  resetForm,
-  addHook,
-  removeHook,
   updateHookSettings,
   resetStatus,
   addCategoryToList
