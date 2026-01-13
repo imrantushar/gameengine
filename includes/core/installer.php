@@ -2,20 +2,17 @@
 
 namespace Gamify\Core;
 
-// Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;
 }
 
 /**
- * Handles plugin installation, creating database tables and inserting default data.
- * This class relies on Gamify\Core\Schema for table structures.
+ * Handles plugin installation, table creation, and populating all fields with default data.
  */
 class Installer
 {
     /**
-     * Run the installer process.
-     * This is the single entry point for installation logic.
+     * Entry point for activation.
      */
     public function run()
     {
@@ -24,61 +21,146 @@ class Installer
     }
 
     /**
-     * Create necessary database tables using the defined schema.
+     * Drops all custom tables on deactivation using dynamic prefix.
+     */
+    public function uninstall()
+    {
+        global $wpdb;
+
+        $tables = [
+            'gamify_point_types',
+            'gamify_achievements',
+            'gamify_levels',
+            'gamify_requirements',
+            'gamify_points_log',
+            'gamify_logs',
+            'gamify_user_achievements',
+            'gamify_user_levels',
+            'gamify_requirement_progress'
+        ];
+
+        foreach ($tables as $table) {
+            $table_name = $wpdb->prefix . $table;
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+            $wpdb->query("DROP TABLE IF EXISTS $table_name");
+        }
+    }
+
+    /**
+     * Creates database tables using Schema SQL.
      */
     private function create_tables()
     {
-        // We need dbDelta to create/update tables safely.
         if (! function_exists('dbDelta')) {
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         }
 
-        // The autoloader will automatically load the Schema class when it's first used here.
         $schemas = Schema::get_tables();
 
-        // Loop through each schema and run dbDelta
         foreach ($schemas as $schema_sql) {
             dbDelta($schema_sql);
         }
     }
 
     /**
-     * Insert default data into tables if they are empty.
+     * Inserts default data into all main tables with full field coverage.
      */
     private function insert_default_data()
     {
-        $this->insert_default_point_types();
+        global $wpdb;
+
+        // 1. Insert Default Point Type (XP)
+        $wpdb->insert("{$wpdb->prefix}gamify_point_types", [
+            'name'        => 'XP',
+            'plural_name' => 'Experience Points',
+            'slug'        => 'xp',
+            'created_at'  => current_time('mysql'),
+        ]);
+        $xp_id = $wpdb->insert_id;
+
+        // 2. Insert Default Achievement (All Fields)
+        $wpdb->insert("{$wpdb->prefix}gamify_achievements", [
+            'title'                      => 'Welcome Member',
+            'plural_name'                => 'Welcome Members',
+            'badge_image'                => '',
+            'category'                   => 'General',
+            'congratulations_message'    => 'Welcome to our community! You have earned your first badge.',
+            'secret_achievement'         => 0,
+            'max_earnings_per_user'      => 1,
+            'unlock_with_points_enabled' => 0,
+            'required_point_type_id'     => $xp_id,
+            'required_points_amount'     => 0,
+            'created_at'                 => current_time('mysql'),
+        ]);
+        $achievement_id = $wpdb->insert_id;
+
+        // 3. Insert Default Level (All Fields)
+        $wpdb->insert("{$wpdb->prefix}gamify_levels", [
+            'title'                      => 'Newbie',
+            'plural_name'                => 'Newbies',
+            'icon'                       => '',
+            'category'                   => 'Progression',
+            'congratulations_message'    => 'Congratulations! You have reached the Newbie level. Keep engaged to climb higher!',
+            'unlock_with_points_enabled' => 1,
+            'point_type_id'              => $xp_id,
+            'min_points'                 => 0,
+            'max_points'                 => 500,
+            'priority'                   => 1,
+            'created_at'                 => current_time('mysql'),
+        ]);
+        $level_id = $wpdb->insert_id;
+
+        // 4. Setup Automated Reward Rules
+        $this->insert_default_triggers($xp_id, $achievement_id, $level_id);
     }
 
     /**
-     * Inserts the default point types (e.g., Coin, Token).
+     * Connects point types, achievements, and levels to system triggers.
      */
-    private function insert_default_point_types()
+    private function insert_default_triggers($xp_id, $achievement_id, $level_id)
     {
         global $wpdb;
+        $table = "{$wpdb->prefix}gamify_requirements";
 
-        $table_name = $wpdb->prefix . 'gamify_point_types';
+        // Rule: On Login -> Award 10 XP
+        $wpdb->insert($table, [
+            'reward_type' => 'point_type',
+            'reward_id'   => $xp_id,
+            'trigger_key' => 'wp_login',
+            'action_type' => 'award',
+            'parameters'  => json_encode([
+                'points'    => 10,
+                'limit'     => 'unlimited',
+                'log_label' => 'Daily Login Reward'
+            ]),
+            'is_active'   => 1,
+            'created_at'  => current_time('mysql'),
+        ]);
 
-        // Check if data already exists to prevent duplicates on re-activation
-        $count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name");
-        if ($count > 0) {
-            return;
-        }
+        // Rule: On Registration -> Award Welcome Badge
+        $wpdb->insert($table, [
+            'reward_type' => 'achievement',
+            'reward_id'   => $achievement_id,
+            'trigger_key' => 'user_register',
+            'action_type' => 'award',
+            'parameters'  => json_encode([
+                'log_label' => 'Joined the Community'
+            ]),
+            'is_active'   => 1,
+            'created_at'  => current_time('mysql'),
+        ]);
 
-        $default_types = [
-            ['name' => 'Coin', 'plural_name' => 'Spark Points', 'slug' => 'coin'],
-            ['name' => 'Token', 'plural_name' => 'Skill Tokens', 'slug' => 'token'],
-            ['name' => 'XP', 'plural_name' => 'Power Gems', 'slug' => 'xp'],
-            ['name' => 'A LMS', 'plural_name' => 'Academy LMS', 'slug' => 'lms'],
-        ];
-
-        foreach ($default_types as $type) {
-            $wpdb->insert($table_name, [
-                'name'        => $type['name'],
-                'plural_name' => $type['plural_name'],
-                'slug'        => $type['slug'],
-                'created_at'  => current_time('mysql'),
-            ]);
-        }
+        // Rule: On Registration -> Set Level to Newbie
+        $wpdb->insert($table, [
+            'reward_type' => 'level',
+            'reward_id'   => $level_id,
+            'trigger_key' => 'user_register',
+            'action_type' => 'award',
+            'parameters'  => json_encode([
+                'log_label' => 'Starting Level Assigned'
+            ]),
+            'is_active'   => 1,
+            'created_at'  => current_time('mysql'),
+        ]);
     }
 }
