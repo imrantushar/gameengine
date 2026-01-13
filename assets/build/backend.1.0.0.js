@@ -2957,12 +2957,15 @@ const FormInner = () => {
     type: "title",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Achievement Type", "gamify")
   }), values.category.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupRoot, {
-    value: values.category.find(cat => cat.is_selected),
+    value: values.category.find(c => c.is_selected)?.value,
     onValueChange: item => {
       setFieldValue('category', values.category.map(cat => cat.value === item.value ? {
         ...cat,
-        is_slected: true
-      } : cat));
+        is_selected: true
+      } : {
+        ...cat,
+        is_selected: false
+      }));
     },
     size: "sm"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
@@ -2980,8 +2983,8 @@ const FormInner = () => {
       width: "20px",
       height: "20px",
       borderRadius: "9999px",
-      border: category === cat ? "1px solid #007AFF" : "1px solid #ccc",
-      backgroundColor: category === cat ? "#007AFF" : "transparent"
+      border: cat.is_selected ? "1px solid #007AFF" : "1px solid #ccc",
+      backgroundColor: cat.is_selected ? "#007AFF" : "transparent"
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('%s', 'gemboards'), cat.label)))))), showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     mt: "6px",

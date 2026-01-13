@@ -203,48 +203,53 @@ const FormInner = () => {
 
             {values.category.length > 0 && (
                 <RadioGroup.Root
-                    value={values.category.find(cat => cat.is_selected)}
-                    onValueChange={(item) =>{
-                        setFieldValue('category', values.category.map(cat => cat.value === item.value ? {...cat, is_slected: true} : cat))
+                    value={values.category.find(c => c.is_selected)?.value}
+                    onValueChange={(item) => {
+                    setFieldValue(
+                        'category',
+                        values.category.map(cat =>
+                        cat.value === item.value
+                            ? { ...cat, is_selected: true }
+                            : { ...cat, is_selected: false }
+                        )
+                    );
                     }}
                     size="sm"
                 >
                     <Flex
-                        mt="4px"
-                        gap="24px"
-                        p="12px"
-                        border="1px solid var(--gamify-border-color)"
-                        borderRadius="4px"
-                        flexWrap="wrap"
+                    mt="4px"
+                    gap="24px"
+                    p="12px"
+                    border="1px solid var(--gamify-border-color)"
+                    borderRadius="4px"
+                    flexWrap="wrap"
                     >
-                        {values.category.map((cat, index) => (
-                            <RadioGroup.Item key={index} value={cat.value}>
-                                <RadioGroup.ItemHiddenInput />
-                                <RadioGroup.ItemIndicator
-                                    style={{
-                                        width: "20px",
-                                        height: "20px",
-                                        borderRadius: "9999px",
-                                        border: category === cat
-                                            ? "1px solid #007AFF"
-                                            : "1px solid #ccc",
-                                        backgroundColor: category === cat
-                                            ? "#007AFF"
-                                            : "transparent",
-                                    }}
-                                />
-                                <RadioGroup.ItemText>
-                                    {/* translators: %s: cat */}
-                                    {sprintf(
-                                        __('%s', 'gemboards'),
-                                        cat.label,
-                                    )}
-                                </RadioGroup.ItemText>
-                            </RadioGroup.Item>
-                        ))}
+                    {values.category.map((cat, index) => (
+                        <RadioGroup.Item key={index} value={cat.value}>
+                        <RadioGroup.ItemHiddenInput />
+
+                        <RadioGroup.ItemIndicator
+                            style={{
+                            width: "20px",
+                            height: "20px",
+                            borderRadius: "9999px",
+                            border: cat.is_selected
+                                ? "1px solid #007AFF"
+                                : "1px solid #ccc",
+                            backgroundColor: cat.is_selected
+                                ? "#007AFF"
+                                : "transparent",
+                            }}
+                        />
+
+                        <RadioGroup.ItemText>
+                            {sprintf(__('%s', 'gemboards'), cat.label)}
+                        </RadioGroup.ItemText>
+                        </RadioGroup.Item>
+                    ))}
                     </Flex>
                 </RadioGroup.Root>
-            )}
+                )}
 
             {showInput ? (
                 <Flex mt="6px" gap={2}>
