@@ -154,6 +154,10 @@ final class Gamify
         if (defined('WP_CLI') && WP_CLI) {
             \WP_CLI::add_command('gamify', '\Gamify\Classes\CLI');
         }
+
+        if (file_exists(GAMIFY_PATH . 'includes/pro/init.php')) {
+            require_once GAMIFY_PATH . 'includes/pro/init.php';
+        }
     }
 
     /**
