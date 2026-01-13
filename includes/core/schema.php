@@ -43,7 +43,7 @@ final class Schema
         return "CREATE TABLE {$prefix}gamify_achievements (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
-            description TEXT,
+            plural_name VARCHAR(255) DEFAULT NULL,
             badge_image VARCHAR(255),
             category VARCHAR(255) DEFAULT NULL,
             congratulations_message TEXT DEFAULT NULL,
