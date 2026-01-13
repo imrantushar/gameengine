@@ -31,14 +31,14 @@ const FormInner = ({ hooksLoading }) => {
     } = useSelector((state) => state.pointType);
 
     const selectedAwardHookIds = useMemo(() => {
-        if (values.requirements.length > 0) {
-            return values.requirements.map(item => item.action_type === 'award' && item.trigger_key)
+        if (values?.requirements?.length > 0) {
+            return values?.requirements.map(item => item?.action_type === 'award' && item?.trigger_key)
         }
     }, [values?.requirements]);
 
     const selectedDeductHookIds = useMemo(() => {
-        if (values.requirements.length > 0) {
-            return values.requirements.map(item => item.action_type === 'deduct' && item.trigger_key);
+        if (values?.requirements?.length > 0) {
+            return values?.requirements.map(item => item?.action_type === 'deduct' && item?.trigger_key);
         }
     }, [values?.requirements]);
 
@@ -60,7 +60,7 @@ const FormInner = ({ hooksLoading }) => {
         if (!over) return;
 
         const draggedId = active.id;
-        const requirements = values.requirements;
+        const requirements = values?.requirements;
 
         // AWARD
         if (draggedId.startsWith("award_")) {
@@ -137,11 +137,11 @@ const FormInner = ({ hooksLoading }) => {
     };
 
     const renderHookCard = (item, type) => {
-        const slug = item.integrationSlug || item.category || 'wordpress';
+        const slug = item?.integrationSlug || item?.category || 'wordpress';
         const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
 
         return (
-            <DraggableItem key={`${type}_${item.id}`} id={`${type}_${item.id}`}>
+            <DraggableItem key={`${type}_${item?.id}`} id={`${type}_${item?.id}`}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     <Flex justify="space-between" align="center" padding="10px 16px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
                         <Flex align="center" gap='8px'>
@@ -171,26 +171,14 @@ const FormInner = ({ hooksLoading }) => {
     return (
         <>
             <Flex gap="12px">
-                <GamifyInput label={__("Point Name", "gamify")} width="calc(50% - 6px)">
+                <GamifyInput label={__("Point Name", "gamify")}>
                     <Input
                         placeholder={__("Enter point name", "gamify")}
-                        value={values.name}
+                        value={values?.name}
                         onChange={e => {
                             const value = e.target.value
                             setFieldValue('name', value)
-                            setFieldValue('plural_name', value)
                         }}
-                        onBlur={() => {
-                            setFieldValue('plural_name', values.name)
-                        }}
-                        {...commonInput}
-                    />
-                </GamifyInput>
-
-                <GamifyInput label={__("Plural Name", "gamify")} width="calc(50% - 6px)">
-                    <Input
-                        placeholder={__("Enter point name", "gamify")}
-                        value={values.plural_name}
                         {...commonInput}
                     />
                 </GamifyInput>

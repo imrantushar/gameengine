@@ -23,19 +23,20 @@ const PointTypeEditor = () => {
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
     const editId = searchParams.get('id');
-    const { currentPointTypeId, pointTypes, allHooks } = useSelector((state) => state.pointType);
-    const existingItem = pointTypes.find(item => Number(item.id) === Number(editId));
-    const [formLoading, setFormLoading] = useState(!existingItem);
+    const { pointTypes, allHooks } = useSelector((state) => state.pointType);
+    const existingItem = pointTypes.find(item => String(item.id) === String(editId));
+    const [formLoading, setFormLoading] = useState(!!editId && !existingItem);
     const [hooksLoading, setHooksLoading] = useState(allHooks.length === 0);
 
     useEffect(() => {
-        if (existingItem) return;
-        setFormLoading(true);
-        dispatch(fetchPointTypeById(editId))
-            .finally(() => {
-                setFormLoading(false);
-            });
-    }, [editId, existingItem]);
+        if (editId && !existingItem) {
+            setFormLoading(true);
+            dispatch(fetchPointTypeById(editId))
+                .finally(() => {
+                    setFormLoading(false);
+                });
+        }
+    }, [editId, existingItem, dispatch]);
 
     useEffect(() => {
         if (allHooks.length === 0) {
@@ -45,23 +46,26 @@ const PointTypeEditor = () => {
                     setHooksLoading(false)
                 });
         }
-    }, [allHooks.length]);
+    }, [allHooks.length, dispatch]);
 
-    const onSubmitHandler = (values, actions) => {
+    const onSubmitHandler = async (values, actions) => {
         actions.setSubmitting(true);
         try {
-            const action = currentPointTypeId ? updatePointType({ id: currentPointTypeId, data: values }) : savePointType(values);
-            const res = dispatch(action);
-            if (res.meta.requestStatus === 'fulfilled') {
-                actions.setSubmitting(false);
-                navigate(`${route_path}admin.php?page=gamify-points`);
+            if (editId) {
+                await dispatch(updatePointType({ id: editId, data: values })).unwrap();
+            } else {
+                const action = await dispatch(savePointType(values)).unwrap();
+                if (action?.id) {
+                    navigate(`${route_path}admin.php?page=gamify-points&action=edit&id=${action.id}&path=name`, { replace: true });
+                }
             }
-        } catch (error) { }
-        finally {
+        } catch (error) {
+            console.error(error);
+        } finally {
             actions.setSubmitting(false);
         }
     }
-
+    
     return (
         <>
             {formLoading ? (
@@ -78,18 +82,14 @@ const PointTypeEditor = () => {
                                 <TopBar
                                     path={__("Points System", "gamify")}
                                     rightContent={
-                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
+                                        <Button minW="170px" maxW="170px" {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
                                             {isSubmitting ? (
-                                                <>
-                                                    <Spinner
-                                                        color="var(--gamify-primary)"
-                                                        css={{ "--spinner-track-color": "var(--gamify-secondary)" }}
-                                                    />
-
-                                                    {currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')}
-                                                </>
+                                                <Spinner
+                                                    color="var(--gamify-primary)"
+                                                    css={{ "--spinner-track-color": "var(--gamify-secondary)" }}
+                                                />
                                             ) : (
-                                                currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')
+                                                editId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')
                                             )}
                                         </Button>
                                     }
