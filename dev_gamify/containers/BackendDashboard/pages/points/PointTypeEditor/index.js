@@ -13,7 +13,7 @@ import {
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 import { Formik } from 'formik';
-import { getlPointtypesInitialValues } from './helper';
+import { getPointTypesInitialValues } from './helper';
 import FormInner from './FormInner';
 import GamifyBox from '@GFComponents/GamifyBox';
 import { PointsSystemLoader } from '@GFComponents/GamifyLoader/PointsSystemLoader';
@@ -24,18 +24,18 @@ const PointTypeEditor = () => {
     const navigate = useNavigate();
     const editId = searchParams.get('id');
     const { currentPointTypeId, pointTypes, allHooks } = useSelector((state) => state.pointType);
-    const exitstignItem = pointTypes.find(item => Number(item.id) === Number(editId));
-    const [formLoading, setFormLoading] = useState(!exitstignItem);
+    const existingItem = pointTypes.find(item => Number(item.id) === Number(editId));
+    const [formLoading, setFormLoading] = useState(!existingItem);
     const [hooksLoading, setHooksLoading] = useState(allHooks.length === 0);
 
     useEffect(() => {
-        if (exitstignItem) return;
+        if (existingItem) return;
         setFormLoading(true);
         dispatch(fetchPointTypeById(editId))
             .finally(() => {
                 setFormLoading(false);
             });
-    }, [editId, exitstignItem]);
+    }, [editId, existingItem]);
 
     useEffect(() => {
         if (allHooks.length === 0) {
@@ -69,16 +69,16 @@ const PointTypeEditor = () => {
             ) : (
                 <Formik
                     enableReinitialize={true}
-                    initialValues={getlPointtypesInitialValues(editId, pointTypes)}
+                    initialValues={getPointTypesInitialValues(editId, pointTypes)}
                     onSubmit={onSubmitHandler}
                 >
-                    {({ submitForm, isSubmitting }) => {
+                    {({ submitForm, isSubmitting, dirty }) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Points System", "gamify")}
                                     rightContent={
-                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting}>
+                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
                                             {currentPointTypeId ? __('Update Point System', 'gamify') : __('Save Point System', 'gamify')}
                                         </Button>
                                     }

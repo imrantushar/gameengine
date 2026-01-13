@@ -9,7 +9,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
     return (
         <>
             <Flex
-                padding="12px 24px"
+                padding="12px 16px"
                 border="1px solid var(--gamify-border-color)"
                 borderRadius="4px"
                 alignItems="center"
@@ -18,7 +18,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                 onClick={onClick}
             >
                 <GFLabel
-                    type="plainHeading"
+                    type="title"
                     margin={0}
                     padding={0}
                     // translators: %s: label
@@ -26,6 +26,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                         __('%s', 'gemboards'),
                         label,
                     )}
+                    fontWeight="400"
                 />
 
                 {!singleIcon ? (

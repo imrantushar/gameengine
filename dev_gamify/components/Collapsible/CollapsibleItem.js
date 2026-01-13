@@ -27,6 +27,7 @@ const CollapsibleItem = ({ label, children, open, onClick, dynamicClasses }) => 
                 alignItems="center"
                 width="100%"
                 onClick={onClick}
+                cursor="pointer"
             >
                 <GFLabel
                     type="plainHeading"

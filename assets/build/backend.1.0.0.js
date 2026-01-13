@@ -389,7 +389,8 @@ const CollapsibleItem = ({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    onClick: onClick
+    onClick: onClick,
+    cursor: "pointer"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
     type: "plainHeading",
     margin: 0,
@@ -444,7 +445,7 @@ const CustomCollapsible = ({
   singleIcon = false
 }) => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-    padding: "12px 24px",
+    padding: "12px 16px",
     border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
     alignItems: "center",
@@ -452,12 +453,13 @@ const CustomCollapsible = ({
     cursor: "pointer",
     onClick: onClick
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_8__["default"], {
-    type: "plainHeading",
+    type: "title",
     margin: 0,
     padding: 0
     // translators: %s: label
     ,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('%s', 'gemboards'), label)
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('%s', 'gemboards'), label),
+    fontWeight: "400"
   }), !singleIcon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Icon, {
     as: isOpen ? react_icons_lu__WEBPACK_IMPORTED_MODULE_5__.LuChevronUp : react_icons_lu__WEBPACK_IMPORTED_MODULE_5__.LuChevronDown,
     boxSize: 5
@@ -6973,9 +6975,9 @@ const FormInner = ({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   getlPointtypesInitialValues: () => (/* binding */ getlPointtypesInitialValues)
+/* harmony export */   getPointTypesInitialValues: () => (/* binding */ getPointTypesInitialValues)
 /* harmony export */ });
-const getlPointtypesInitialValues = (id = null, data) => {
+const getPointTypesInitialValues = (id = null, data) => {
   if (id && data && data.length > 0) {
     const filteredData = data.find(item => Number(item.id) === Number(id));
     return {
@@ -7045,16 +7047,16 @@ const PointTypeEditor = () => {
     pointTypes,
     allHooks
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.pointType);
-  const exitstignItem = pointTypes.find(item => Number(item.id) === Number(editId));
-  const [formLoading, setFormLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!exitstignItem);
+  const existingItem = pointTypes.find(item => Number(item.id) === Number(editId));
+  const [formLoading, setFormLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(!existingItem);
   const [hooksLoading, setHooksLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(allHooks.length === 0);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (exitstignItem) return;
+    if (existingItem) return;
     setFormLoading(true);
     dispatch((0,_GFRedux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_6__.fetchPointTypeById)(editId)).finally(() => {
       setFormLoading(false);
     });
-  }, [editId, exitstignItem]);
+  }, [editId, existingItem]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     if (allHooks.length === 0) {
       setHooksLoading(true);
@@ -7081,18 +7083,20 @@ const PointTypeEditor = () => {
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, formLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyLoader_PointsSystemLoader__WEBPACK_IMPORTED_MODULE_13__.PointsSystemLoader, null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_9__.Formik, {
     enableReinitialize: true,
-    initialValues: (0,_helper__WEBPACK_IMPORTED_MODULE_10__.getlPointtypesInitialValues)(editId, pointTypes),
+    initialValues: (0,_helper__WEBPACK_IMPORTED_MODULE_10__.getPointTypesInitialValues)(editId, pointTypes),
     onSubmit: onSubmitHandler
   }, ({
     submitForm,
-    isSubmitting
+    isSubmitting,
+    dirty
   }) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_5__["default"], {
       path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Points System", "gamify"),
       rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
         ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_7__.primaryBtn,
         onClick: submitForm,
-        loading: isSubmitting
+        loading: isSubmitting,
+        disabled: !dirty || isSubmitting
       }, currentPointTypeId ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Update Point System', 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Save Point System', 'gamify'))
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_12__["default"], {
       dynamicClasses: "gamify-points-system",
