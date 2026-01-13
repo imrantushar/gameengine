@@ -80,7 +80,7 @@ class AchievementsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR description LIKE %s )",
+            "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )",
             $search,
             $like_search,
             $like_search
@@ -89,7 +89,7 @@ class AchievementsController extends BaseController
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $results = $wpdb->get_results($wpdb->prepare(
             "SELECT * FROM {$wpdb->prefix}gamify_achievements 
-            WHERE ( %s = '' OR title LIKE %s OR description LIKE %s ) 
+            WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) 
             ORDER BY id DESC LIMIT %d OFFSET %d",
             $search,
             $like_search,
@@ -100,6 +100,9 @@ class AchievementsController extends BaseController
 
         if (! empty($results)) {
             foreach ($results as &$ach) {
+                // 🔥 Convert to Boolean
+                $ach['unlock_with_points_enabled'] = (bool) $ach['unlock_with_points_enabled'];
+
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
                 $reqs = $wpdb->get_results($wpdb->prepare(
                     "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1",
@@ -218,6 +221,9 @@ class AchievementsController extends BaseController
             if (!$item) {
                 return new \WP_Error('not_found', 'Achievement not found', ['status' => 404]);
             }
+
+            // 🔥 Convert to Boolean for Single Item View
+            $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
 
             // Fetch requirements
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery

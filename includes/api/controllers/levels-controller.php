@@ -98,6 +98,9 @@ class LevelsController extends BaseController
 
         if (! empty($results)) {
             foreach ($results as &$lvl) {
+                // 🔥 Convert to Boolean
+                $lvl['unlock_with_points_enabled'] = (bool) $lvl['unlock_with_points_enabled'];
+
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
                 $reqs = $wpdb->get_results($wpdb->prepare(
                     "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'level' AND reward_id = %d AND is_active = 1",
@@ -219,6 +222,9 @@ class LevelsController extends BaseController
             if (!$item) {
                 return new \WP_Error('not_found', 'Level not found', ['status' => 404]);
             }
+
+            // 🔥 Convert to Boolean for Single Item View
+            $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $reqs = $wpdb->get_results($wpdb->prepare(
