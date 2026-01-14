@@ -47,11 +47,24 @@ class Assets
      */
     private function get_scripts_data()
     {
+
+
+        $active_addons = get_option('gamify_active_addons', []);
+
+        // Define all possible addons and map their status
+        $all_addons = ['storeengine', 'woocommerce', 'academylms'];
+        $addons_status = [];
+
+        foreach ($all_addons as $slug) {
+            $addons_status[$slug] = in_array($slug, $active_addons);
+        }
+
         return array(
             'nonce'              => wp_create_nonce('wp_rest'),
             'gamify_nonce'       => wp_create_nonce('gamify_nonce'),
             'rest_url'           => rest_url(),
             'namespace'          => 'gamify/v1/',
+            'addons'             => $addons_status,
             'plugin_root_url'    => GAMIFY_URL,
             'plugin_root_path'   => GAMIFY_PATH,
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
