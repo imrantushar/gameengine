@@ -35,9 +35,9 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'calc_type', 'label' => __('Points Calculation', 'gamify'), 'type' => 'select', 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Order Total (Pro)', 'value' => 'percent', 'is_pro' => true]]],
-                    ['key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
-                    ['key' => 'first_purchase', 'label' => __('First Purchase Only Bonus (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'calc_type', 'label' => __('Points Calculation', 'gamify'), 'type' => 'select', 'width'   => '100%', 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Order Total (Pro)', 'value' => 'percent', 'is_pro' => true]]],
+                    ['key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'first_purchase', 'label' => __('First Purchase Only Bonus (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ])
             ],
             'woocommerce_purchase_specific_product' => [
@@ -51,9 +51,9 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'product_id', 'label' => __('Select Product', 'gamify'), 'type' => 'select', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
-                    ['key' => 'categories', 'label' => __('Select Entire Category (Pro)', 'gamify'), 'type' => 'select', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']],
-                    ['key' => 'qty_multiplier', 'label' => __('Quantity Based Multiplier (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'product_id', 'label' => __('Select Product', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
+                    ['key' => 'categories', 'label' => __('Select Entire Category (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']],
+                    ['key' => 'qty_multiplier', 'label' => __('Quantity Based Multiplier (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ])
             ],
             'woocommerce_publish_product' => [
@@ -66,7 +66,7 @@ class WooCommerce extends BaseIntegration
                     return $post->post_author;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'price_based', 'label' => __('Points based on Product Price (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'price_based', 'label' => __('Points based on Product Price (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ])
             ],
             'woocommerce_review_product' => [
@@ -80,7 +80,7 @@ class WooCommerce extends BaseIntegration
                     return $c ? $c->user_id : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'media_bonus', 'label' => __('Photo/Video Review Bonus (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'media_bonus', 'label' => __('Photo/Video Review Bonus (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ])
             ],
             'woocommerce_refund_purchase' => [
@@ -94,8 +94,8 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true],
-                    ['key' => 'refund_reason', 'label' => __('Specific Refund Reason (Pro)', 'gamify'), 'type' => 'text', 'is_pro' => true]
+                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
+                    ['key' => 'refund_reason', 'label' => __('Specific Refund Reason (Pro)', 'gamify'), 'type' => 'text', 'width'   => '50%', 'is_pro' => true]
                 ], 'deduct')
             ]
         ];
