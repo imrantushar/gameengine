@@ -6,17 +6,27 @@ if (!defined('ABSPATH')) exit;
 
 abstract class BaseIntegration implements IntegrationInterface
 {
+    /**
+     * Merge specific fields into the standard schema with correct ordering.
+     * Order: 1. Free Common -> 2. Trigger Specific -> 3. Pro Common
+     */
+    protected static function merge_schema(array $specific_fields = [], $type = 'award'): array
+    {
+        $common_free = self::get_common_free_schema($type);
+        $common_pro  = self::get_common_pro_schema();
 
-    protected static function get_standard_schema($type = 'award'): array
+        return array_merge($common_free, $specific_fields, $common_pro);
+    }
+
+    private static function get_common_free_schema($type): array
     {
         return [
-            // --- Free Fields ---
             [
                 'key'     => 'points',
                 'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
                 'default' => 10,
-                'scope'   => ['point_type', 'achievement', 'level']
+                'scope'   => ['point_type']
             ],
             [
                 'key'     => 'limit',
@@ -25,7 +35,6 @@ abstract class BaseIntegration implements IntegrationInterface
                 'options' => [
                     ['label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'],
                     ['label' => __('1 Time Only', 'gamify'), 'value' => '1_time'],
-                    // Pro Limits
                     ['label' => __('1 Per Day (Pro)', 'gamify'), 'value' => '1_per_day', 'is_pro' => true],
                     ['label' => __('1 Per Week (Pro)', 'gamify'), 'value' => '1_per_week', 'is_pro' => true],
                     ['label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true],
@@ -39,9 +48,13 @@ abstract class BaseIntegration implements IntegrationInterface
                 'type'    => 'text',
                 'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
                 'scope'   => ['point_type', 'achievement', 'level']
-            ],
+            ]
+        ];
+    }
 
-            // --- Common Pro Features (Time-Based) ---
+    private static function get_common_pro_schema(): array
+    {
+        return [
             [
                 'key'     => 'start_time',
                 'label'   => __('Start Time (Pro)', 'gamify'),
@@ -76,5 +89,11 @@ abstract class BaseIntegration implements IntegrationInterface
                 'scope'   => ['point_type', 'achievement', 'level']
             ]
         ];
+    }
+
+    // Kept for backward compatibility if needed, but recommended to use merge_schema()
+    protected static function get_standard_schema($type = 'award'): array
+    {
+        return self::merge_schema([], $type);
     }
 }
