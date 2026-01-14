@@ -2,16 +2,20 @@
 
 namespace Gamify\Integrations;
 
+if (!defined('ABSPATH')) exit;
+
 class WooCommerce extends BaseIntegration
 {
     public static function get_slug(): string
     {
         return 'woocommerce';
     }
+
     public static function get_name(): string
     {
         return __('WooCommerce', 'gamify');
     }
+
     public static function get_icon(): string
     {
         return 'dashicons-cart';
@@ -21,10 +25,10 @@ class WooCommerce extends BaseIntegration
     {
         return [
             'woocommerce_new_purchase' => [
-                'label' => __('New Purchase', 'gamify'),
-                'hook' => 'woocommerce_order_status_completed',
-                'args_count' => 1,
-                'description' => __('New purchase successfully  into your website.', 'gamify'),
+                'label'       => __('New Purchase', 'gamify'),
+                'hook'        => 'woocommerce_order_status_completed',
+                'args_count'  => 1,
+                'description' => __('New purchase successfully into your website.', 'gamify'),
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $o = wc_get_order($id);
@@ -36,10 +40,10 @@ class WooCommerce extends BaseIntegration
                 ], self::get_standard_schema())
             ],
             'woocommerce_purchase_specific_product' => [
-                'label' => __('Purchase Specific Product', 'gamify'),
-                'hook' => 'woocommerce_order_status_completed',
-                'description' => __('Purchase product successfully  into your website.', 'gamify'),
-                'args_count' => 1,
+                'label'       => __('Purchase Specific Product', 'gamify'),
+                'hook'        => 'woocommerce_order_status_completed',
+                'description' => __('Purchase product successfully into your website.', 'gamify'),
+                'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $o = wc_get_order($id);
@@ -51,21 +55,23 @@ class WooCommerce extends BaseIntegration
                 ], self::get_standard_schema())
             ],
             'woocommerce_publish_product' => [
-                'label' => __('Publish Product', 'gamify'),
-                'hook' => 'publish_product',
-                'description' => __('Publish product successfully  into your website.', 'gamify'),
-                'args_count' => 2,
+                'label'       => __('Publish Product', 'gamify'),
+                'hook'        => 'publish_product',
+                'description' => __('Publish product successfully into your website.', 'gamify'),
+                'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => self::get_standard_schema()
+                'schema' => self::merge_schema([
+                    ['key' => 'price_based', 'label' => __('Points based on Product Price (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                ])
             ],
             'woocommerce_review_product' => [
-                'label' => __('Review Product', 'gamify'),
-                'hook' => 'comment_post',
-                'description' => __('Review product successfully  into your website.', 'gamify'),
-                'args_count' => 2,
+                'label'       => __('Review Product', 'gamify'),
+                'hook'        => 'comment_post',
+                'description' => __('Review product successfully into your website.', 'gamify'),
+                'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $c = get_comment($id);
@@ -76,19 +82,23 @@ class WooCommerce extends BaseIntegration
                 ], self::get_standard_schema())
             ],
             'woocommerce_refund_purchase' => [
-                'label' => __('Refund Order', 'gamify'),
-                'hook' => 'woocommerce_order_status_refunded',
-                'description' => __('Refund purchase successfully  into your website.', 'gamify'),
-                'args_count' => 1,
+                'label'       => __('Refund Order', 'gamify'),
+                'hook'        => 'woocommerce_order_status_refunded',
+                'description' => __('Refund purchase successfully into your website.', 'gamify'),
+                'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $o = wc_get_order($id);
                     return $o ? $o->get_user_id() : 0;
                 },
-                'schema' => self::get_standard_schema('deduct')
+                'schema' => self::merge_schema([
+                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true],
+                    ['key' => 'refund_reason', 'label' => __('Specific Refund Reason (Pro)', 'gamify'), 'type' => 'text', 'is_pro' => true]
+                ], 'deduct')
             ]
         ];
     }
+
     public static function get_dynamic_queries(): array
     {
         return [
