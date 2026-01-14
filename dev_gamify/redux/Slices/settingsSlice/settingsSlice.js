@@ -1,54 +1,29 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
-export const fetchSettings = createAsyncThunk('settings/fetch', async () => {
+export const fetchSettings = createAsyncThunk('gamify/fetchSettings', async () => {
     return await apiFetch({ path: '/gamify/v1/settings' });
 });
 
-export const saveSettings = createAsyncThunk('settings/save', async (data) => {
+export const saveSettings = createAsyncThunk('gamify/saveSettings', async (data) => {
     return await apiFetch({ path: '/gamify/v1/settings', method: 'POST', data });
 });
 
-const initialState = {
-    general: { level_image_width: 100, level_image_height: 100 },
-    email: {
-        format: 'plain',
-        schedule: 'immediate',
-        from_name: '',
-        from_address: '',
-        default_content: ''
-    },
-    status: 'idle',
-    saveStatus: 'idle', // idle, saving, saved, failed
-};
-
 const settingsSlice = createSlice({
     name: 'settings',
-    initialState,
-    reducers: {
-        setGeneralField: (state, action) => {
-            state.general[action.payload.field] = action.payload.value;
-        },
-        setEmailField: (state, action) => {
-            state.email[action.payload.field] = action.payload.value;
-        },
-        // 🔥 NEW: Reducer to reset save status
-        resetSaveStatus: (state) => {
-            state.saveStatus = 'idle';
-        }
+    initialState: {
+        data: false
     },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchSettings.fulfilled, (state, action) => {
-                state.general = action.payload.general;
-                state.email = action.payload.email;
-                state.status = 'succeeded';
+                state.data = action.payload;
             })
-            .addCase(saveSettings.pending, (state) => { state.saveStatus = 'saving'; })
-            .addCase(saveSettings.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(saveSettings.fulfilled, (state) => { 
+                
+            });
     }
 });
 
-// Export resetSaveStatus
-export const { setGeneralField, setEmailField, resetSaveStatus } = settingsSlice.actions;
 export default settingsSlice.reducer;
