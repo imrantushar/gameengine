@@ -31,8 +31,8 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => array_merge([
-                    ['key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
-                    ['key' => 'calc_type', 'label' => __('Points Calculation (Pro)', 'gamify'), 'type' => 'select', 'is_pro' => true, 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Total', 'value' => 'percent']]]
+                    ['key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'calc_type', 'label' => __('Points Calculation (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_pro' => true, 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Total', 'value' => 'percent']]]
                 ], self::get_standard_schema())
             ],
             'woocommerce_purchase_specific_product' => [
@@ -46,8 +46,8 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => array_merge([
-                    ['key' => 'product_id', 'label' => __('Select Product', 'gamify'), 'type' => 'select', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
-                    ['key' => 'qty_multiplier', 'label' => __('Quantity Multiplier (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'product_id', 'label' => __('Select Product', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
+                    ['key' => 'qty_multiplier', 'label' => __('Quantity Multiplier (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ],
             'woocommerce_publish_product' => [
@@ -72,7 +72,7 @@ class WooCommerce extends BaseIntegration
                     return $c ? $c->user_id : 0;
                 },
                 'schema' => array_merge([
-                    ['key' => 'media_bonus', 'label' => __('Photo/Video Review Bonus (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'media_bonus', 'label' => __('Photo/Video Review Bonus (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ],
             'woocommerce_refund_purchase' => [

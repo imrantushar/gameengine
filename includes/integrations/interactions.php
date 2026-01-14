@@ -30,8 +30,8 @@ class Interactions extends BaseIntegration
                     return $id;
                 },
                 'schema' => array_merge([
-                    ['key' => 'streak_bonus', 'label' => __('Enable Streak Bonus (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true],
-                    ['key' => 'min_stay', 'label' => __('Min Stay Duration (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                    ['key' => 'streak_bonus', 'label' => __('Enable Streak Bonus (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
+                    ['key' => 'min_stay', 'label' => __('Min Stay Duration (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ],
             'visit_specific_post' => [
@@ -44,7 +44,7 @@ class Interactions extends BaseIntegration
                     return $id;
                 },
                 'schema' => array_merge([
-                    ['key' => 'post_id', 'label' => __('Select Post', 'gamify'), 'type' => 'select', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']]
+                    ['key' => 'post_id', 'label' => __('Select Post', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']]
                 ], self::get_standard_schema())
             ],
             'author_comment_reply' => [
@@ -60,7 +60,7 @@ class Interactions extends BaseIntegration
                     return ($p && (int)$p->post_author === (int)$c->user_id) ? $c->user_id : 0;
                 },
                 'schema' => array_merge([
-                    ['key' => 'min_reply_len', 'label' => __('Min Reply Length (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                    ['key' => 'min_reply_len', 'label' => __('Min Reply Length (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ]
         ];

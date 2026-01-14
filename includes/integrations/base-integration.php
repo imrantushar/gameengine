@@ -6,7 +6,13 @@ if (!defined('ABSPATH')) exit;
 
 abstract class BaseIntegration implements IntegrationInterface
 {
-
+    /**
+     * Get the standard schema for rewards/deductions.
+     * 
+     * Width breakdown:
+     * - select fields: 100%
+     * - text/number fields: 50%
+     */
     protected static function get_standard_schema($type = 'award'): array
     {
         return [
@@ -15,29 +21,33 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'points',
                 'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
+                'width'   => '50%', // Number field
                 'default' => 10,
                 'scope'   => ['point_type', 'achievement', 'level']
             ],
+
+            [
+                'key'     => 'log_label',
+                'label'   => __('Log Description', 'gamify'),
+                'type'    => 'text',
+                'width'   => '50%', // Text field
+                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
+                'scope'   => ['point_type', 'achievement', 'level']
+            ],
+
             [
                 'key'     => 'limit',
                 'label'   => __('Limit', 'gamify'),
                 'type'    => 'select',
+                'width'   => '100%', // Select field
                 'options' => [
                     ['label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'],
                     ['label' => __('1 Time Only', 'gamify'), 'value' => '1_time'],
-                    // Pro Limits
                     ['label' => __('1 Per Day (Pro)', 'gamify'), 'value' => '1_per_day', 'is_pro' => true],
                     ['label' => __('1 Per Week (Pro)', 'gamify'), 'value' => '1_per_week', 'is_pro' => true],
                     ['label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true],
                 ],
                 'default' => 'unlimited',
-                'scope'   => ['point_type', 'achievement', 'level']
-            ],
-            [
-                'key'     => 'log_label',
-                'label'   => __('Log Description', 'gamify'),
-                'type'    => 'text',
-                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
                 'scope'   => ['point_type', 'achievement', 'level']
             ],
 
@@ -46,6 +56,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'start_time',
                 'label'   => __('Start Time (Pro)', 'gamify'),
                 'type'    => 'text',
+                'width'   => '50%', // Text field
                 'placeholder' => '08:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
@@ -54,6 +65,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'end_time',
                 'label'   => __('End Time (Pro)', 'gamify'),
                 'type'    => 'text',
+                'width'   => '50%', // Text field
                 'placeholder' => '22:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
@@ -62,16 +74,17 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'active_days',
                 'label'   => __('Active Days (Pro)', 'gamify'),
                 'type'    => 'select',
+                'width'   => '100%', // Select field
                 'is_multi' => true,
                 'is_pro'  => true,
                 'options' => [
-                    ['label' => 'Monday', 'value' => 'mon'],
-                    ['label' => 'Tuesday', 'value' => 'tue'],
-                    ['label' => 'Wednesday', 'value' => 'wed'],
-                    ['label' => 'Thursday', 'value' => 'thu'],
-                    ['label' => 'Friday', 'value' => 'fri'],
-                    ['label' => 'Saturday', 'value' => 'sat'],
-                    ['label' => 'Sunday', 'value' => 'sun']
+                    ['label' => __('Monday', 'gamify'), 'value' => 'mon'],
+                    ['label' => __('Tuesday', 'gamify'), 'value' => 'tue'],
+                    ['label' => __('Wednesday', 'gamify'), 'value' => 'wed'],
+                    ['label' => __('Thursday', 'gamify'), 'value' => 'thu'],
+                    ['label' => __('Friday', 'gamify'), 'value' => 'fri'],
+                    ['label' => __('Saturday', 'gamify'), 'value' => 'sat'],
+                    ['label' => __('Sunday', 'gamify'), 'value' => 'sun']
                 ],
                 'scope'   => ['point_type', 'achievement', 'level']
             ]

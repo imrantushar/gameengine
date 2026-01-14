@@ -33,7 +33,7 @@ class Gamify extends BaseIntegration
                     return $user_id;
                 },
                 'schema'      => array_merge([
-                    ['key' => 'achievement_id', 'label' => __('Select Achievement', 'gamify'), 'type' => 'select', 'dynamic' => ['integration' => 'gamify', 'query' => 'achievements'], 'required' => true]
+                    ['key' => 'achievement_id', 'label' => __('Select Achievement', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'gamify', 'query' => 'achievements'], 'required' => true]
                 ], self::get_standard_schema())
             ]
         ];

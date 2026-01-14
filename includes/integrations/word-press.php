@@ -53,7 +53,7 @@ class WordPress extends BaseIntegration
                     return $post->post_author;
                 },
                 'schema' => array_merge([
-                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true, 'default' => 500]
+                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true, 'default' => 500]
                 ], self::get_standard_schema())
             ],
             'publish_page' => [
@@ -66,7 +66,7 @@ class WordPress extends BaseIntegration
                     return $post->post_author;
                 },
                 'schema' => array_merge([
-                    ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                    ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ],
             'comment_post' => [
@@ -80,8 +80,8 @@ class WordPress extends BaseIntegration
                     return $c ? $c->user_id : 0;
                 },
                 'schema' => array_merge([
-                    ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
-                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '50%', 'is_pro' => true]
                 ], self::get_standard_schema())
             ],
             'delete_post' => [
