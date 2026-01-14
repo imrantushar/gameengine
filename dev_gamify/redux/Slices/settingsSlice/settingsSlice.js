@@ -5,8 +5,9 @@ export const fetchSettings = createAsyncThunk('gamify/fetchSettings', async () =
     return await apiFetch({ path: '/gamify/v1/settings' });
 });
 
-export const saveSettings = createAsyncThunk('gamify/saveSettings', async (data) => {
-    return await apiFetch({ path: '/gamify/v1/settings', method: 'POST', data });
+export const saveSettings = createAsyncThunk('gamify/saveSettings', async ({key,data}) => {
+    await apiFetch({ path: '/gamify/v1/settings', method: 'POST', data });
+    return {key,data}
 });
 
 const settingsSlice = createSlice({
@@ -20,8 +21,15 @@ const settingsSlice = createSlice({
             .addCase(fetchSettings.fulfilled, (state, action) => {
                 state.data = action.payload;
             })
-            .addCase(saveSettings.fulfilled, (state) => { 
-                
+            .addCase(saveSettings.fulfilled, (state, action) => { 
+                const {key, data} = action.payload;
+                state.data = {
+                    ...state.data,
+                    [key]: {
+                        ...state.data[key],
+                        ...data
+                    }
+                }
             });
     }
 });

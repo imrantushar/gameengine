@@ -8350,9 +8350,15 @@ const Settings = () => {
     try {
       switch (tab) {
         case "general-settings":
-          return dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)(values?.general));
+          return dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)({
+            key: 'genearl',
+            data: values?.general
+          }));
         case "email-notice":
-          return dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)(values?.email));
+          return dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_11__.saveSettings)({
+            key: 'email',
+            data: values?.email
+          }));
       }
     } catch (error) {
       console.warn({
@@ -9642,12 +9648,19 @@ const fetchSettings = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsy
     path: '/gamify/v1/settings'
   });
 });
-const saveSettings = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/saveSettings', async data => {
-  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+const saveSettings = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/saveSettings', async ({
+  key,
+  data
+}) => {
+  await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/gamify/v1/settings',
     method: 'POST',
     data
   });
+  return {
+    key,
+    data
+  };
 });
 const settingsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
   name: 'settings',
@@ -9658,7 +9671,19 @@ const settingsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSli
   extraReducers: builder => {
     builder.addCase(fetchSettings.fulfilled, (state, action) => {
       state.data = action.payload;
-    }).addCase(saveSettings.fulfilled, state => {});
+    }).addCase(saveSettings.fulfilled, (state, action) => {
+      const {
+        key,
+        data
+      } = action.payload;
+      state.data = {
+        ...state.data,
+        [key]: {
+          ...state.data[key],
+          ...data
+        }
+      };
+    });
   }
 });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (settingsSlice.reducer);
