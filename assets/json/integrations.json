@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-14 07:50:48",
+    "generated_at": "2026-01-14 09:19:09",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -25,9 +25,7 @@
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -80,7 +78,7 @@
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -92,7 +90,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -163,9 +161,7 @@
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -218,7 +214,7 @@
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -230,7 +226,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -286,7 +282,7 @@
                 "publish_post": {
                     "label": "Publish Post",
                     "hook": "publish_post",
-                    "description": "Publish post successfully  into your website.",
+                    "description": "Publish post successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -296,21 +292,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_words",
-                            "label": "Min Word Count (Pro)",
-                            "type": "number",
-                            "is_pro": true,
-                            "default": 500
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -361,9 +348,38 @@
                             ]
                         },
                         {
+                            "key": "post_types",
+                            "label": "Post Types (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Post",
+                                    "value": "post"
+                                },
+                                {
+                                    "label": "Page",
+                                    "value": "page"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "min_words",
+                            "label": "Min Word Count (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "daily_limit",
+                            "label": "Daily Post Limit (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -375,7 +391,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -431,7 +447,7 @@
                 "publish_page": {
                     "label": "Publish Page",
                     "hook": "publish_page",
-                    "description": "Publish page successfully  into your website.",
+                    "description": "Publish page successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -441,20 +457,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_media",
-                            "label": "Min Media Count (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -505,9 +513,15 @@
                             ]
                         },
                         {
+                            "key": "min_media",
+                            "label": "Min Media Count (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -519,7 +533,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -575,7 +589,7 @@
                 "comment_post": {
                     "label": "Post Comment",
                     "hook": "comment_post",
-                    "description": "Comment post successfully  into your website.",
+                    "description": "Comment post successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -585,26 +599,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_chars",
-                            "label": "Min Character Count (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
-                            "key": "instant_reward",
-                            "label": "Instant Reward (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -655,9 +655,27 @@
                             ]
                         },
                         {
+                            "key": "instant_reward",
+                            "label": "Instant Reward (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "min_chars",
+                            "label": "Min Character Count (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "daily_cap",
+                            "label": "Daily Max Comments (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -669,7 +687,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -725,7 +743,7 @@
                 "delete_post": {
                     "label": "Delete Post",
                     "hook": "wp_trash_post",
-                    "description": "Delete post successfully  into your website.",
+                    "description": "Delete post successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -735,20 +753,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "age_check",
-                            "label": "Post Age Limit in Days (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Deduct",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -799,9 +809,21 @@
                             ]
                         },
                         {
+                            "key": "age_check",
+                            "label": "Only if Post < X days old (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "full_reversal",
+                            "label": "Full Points Reversal (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -813,7 +835,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -869,7 +891,7 @@
                 "user_role_change": {
                     "label": "Role Change",
                     "hook": "set_user_role",
-                    "description": "User role change successfully  into your website.",
+                    "description": "User role change successfully into your website.",
                     "args_count": 3,
                     "supports": [
                         "point_type",
@@ -879,23 +901,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "role",
-                            "label": "Target Role",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "wordpress",
-                                "query": "roles"
-                            }
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -946,9 +957,20 @@
                             ]
                         },
                         {
+                            "key": "role",
+                            "label": "Target Roles",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "wordpress",
+                                "query": "roles"
+                            }
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -960,7 +982,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1016,7 +1038,7 @@
                 "profile_update": {
                     "label": "Profile Update",
                     "hook": "profile_update",
-                    "description": "Profile update successfully  into your website.",
+                    "description": "Profile update successfully into your website.",
                     "supports": [
                         "point_type",
                         "achievement",
@@ -1031,9 +1053,7 @@
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1084,9 +1104,25 @@
                             ]
                         },
                         {
+                            "key": "field_specific",
+                            "label": "Field-specific Rewards (Pro)",
+                            "type": "select",
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Bio",
+                                    "value": "description"
+                                },
+                                {
+                                    "label": "Profile Picture",
+                                    "value": "avatar"
+                                }
+                            ]
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1098,7 +1134,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1154,7 +1190,7 @@
                 "post_updated": {
                     "label": "Post Updated",
                     "hook": "post_updated",
-                    "description": "Post update successfully  into your website.",
+                    "description": "Post update successfully into your website.",
                     "args_count": 3,
                     "supports": [
                         "point_type",
@@ -1164,20 +1200,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_change",
-                            "label": "Min Content Change % (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1228,9 +1256,15 @@
                             ]
                         },
                         {
+                            "key": "min_change",
+                            "label": "Min Content Change % (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1242,7 +1276,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1298,7 +1332,7 @@
                 "after_password_reset": {
                     "label": "Password Reset",
                     "hook": "after_password_reset",
-                    "description": "Reset password successfully  into your website.",
+                    "description": "Reset password successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -1313,9 +1347,7 @@
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1366,9 +1398,15 @@
                             ]
                         },
                         {
+                            "key": "cooldown",
+                            "label": "Cooldown in Days (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1380,7 +1418,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1451,24 +1489,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "achievement_id",
-                            "label": "Select Achievement",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "gamify",
-                                "query": "achievements"
-                            },
-                            "required": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1519,9 +1545,19 @@
                             ]
                         },
                         {
+                            "key": "achievement_id",
+                            "label": "Select Achievement",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "gamify",
+                                "query": "achievements"
+                            },
+                            "required": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1533,7 +1569,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1606,26 +1642,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "streak_bonus",
-                            "label": "Enable Streak Bonus (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
-                            "key": "min_stay",
-                            "label": "Min Stay Duration (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1676,9 +1698,28 @@
                             ]
                         },
                         {
+                            "key": "streak_bonus",
+                            "label": "Enable Streak Bonus (Pro)",
+                            "type": "switch",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "multiplier",
+                            "label": "Points Multiplier (Pro)",
+                            "type": "number",
+                            "is_pro": true,
+                            "placeholder": "2"
+                        },
+                        {
+                            "key": "min_stay",
+                            "label": "Min Stay Time in Mins (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1690,7 +1731,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1756,23 +1797,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "post_id",
-                            "label": "Select Post",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "interaction",
-                                "query": "posts"
-                            }
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1823,9 +1853,29 @@
                             ]
                         },
                         {
+                            "key": "post_id",
+                            "label": "Select Post",
+                            "type": "select",
+                            "dynamic": {
+                                "integration": "interaction",
+                                "query": "posts"
+                            }
+                        },
+                        {
+                            "key": "categories",
+                            "label": "Select Categories (Pro)",
+                            "type": "select",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "wordpress",
+                                "query": "categories"
+                            }
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1837,7 +1887,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1903,20 +1953,12 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_reply_len",
-                            "label": "Min Reply Length (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
                             "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                                "point_type"
                             ]
                         },
                         {
@@ -1967,9 +2009,15 @@
                             ]
                         },
                         {
+                            "key": "min_reply_len",
+                            "label": "Min Reply Length (Pro)",
+                            "type": "number",
+                            "is_pro": true
+                        },
+                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1981,7 +2029,7 @@
                         {
                             "key": "end_time",
                             "label": "End Time (Pro)",
-                            "type": "text",
+                            "type": "time",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [

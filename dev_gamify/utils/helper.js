@@ -14,6 +14,7 @@ export const {
 	gamify_nonce,
 	user_id,
 	is_plain_permalink,
+	is_pro,
 } = window?.GamifyGlobal;
 
 
