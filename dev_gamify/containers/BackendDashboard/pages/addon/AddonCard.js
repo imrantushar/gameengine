@@ -1,57 +1,60 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { __ } from '@wordpress/i18n';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { __, sprintf } from '@wordpress/i18n';
 import { Badge, Box, Button, Flex, Text } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
-import { toggleAddonStatus } from '../../../../redux/Slices/addonsSlice/addonsSlice';
-import { resetStatus as resetPointStatus } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice';
-import { resetStatus as resetAchievementStatus } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
-import { fetchTriggers as refreshPointTriggers } from '../../../../redux/Slices/pointTypesSlice/pointTypeSlice';
-import { fetchTriggers as refreshAchievementTriggers } from '../../../../redux/Slices/achivementSlice/achievementsSlice';
+import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
+import { useFormikContext } from 'formik';
+import { is_pro } from '@GFUtils/helper';
+import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
+import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 
-const AddonCard = ({ item }) => {
+const AddonCard = ({ item, index, value }) => {
+	const {values,setFieldValue } = useFormikContext()
+	const [updating, setUpdating] = useState(false);
 	const dispatch = useDispatch();
 
-	// Redux State 
-	const { activeAddons = [] } = useSelector(state => state.addons || {});
-	const isReduxActive = activeAddons?.includes(item.name);
+	const onChangeHandler = () => {
+		setUpdating(true)
+		const status = !value;
+		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
+			console.log({payload})
+			if (payload?.success) {
+				setFieldValue(item.name, status);
+				dispatch(fetchAddons());
+				const statusMessage = payload?.active_addons[item.name]
+					? __('Activated', 'academy')
+					: __('Deactivate', 'academy');
+				dispatch(
+					showNotification({
+						message: sprintf(
+							// translators: %1$s: AddonName, %2$s: AddonStatus
+							__('%1$s successfully %2$s', 'academy'),
+							item.label,
+							statusMessage
+						),
+						isShow: true,
+						type: 'success',
+					})
+				);
 
-	// Local State for Instant UI Update (Optimistic UI)
-	const [localChecked, setLocalChecked] = useState(isReduxActive);
-	const [isUpdating, setIsUpdating] = useState(false);
-
-	// Redux 
-	useEffect(() => {
-		setLocalChecked(isReduxActive);
-	}, [isReduxActive]);
-
-	const onChangeHandler = async (e) => {
-		const newStatus = e.target.checked;
-
-		setLocalChecked(newStatus);
-		setIsUpdating(true);
-
-		const result = await dispatch(toggleAddonStatus({
-			addon: item.name,
-			status: newStatus
-		}));
-
-
-		if (toggleAddonStatus.fulfilled.match(result)) {
-			// 🔥 Force trigger refresh on other pages
-			dispatch(resetPointStatus());
-			dispatch(resetAchievementStatus());
-			dispatch(refreshPointTriggers());
-			dispatch(refreshAchievementTriggers());
-
-			// No reload needed now!
-		} else {
-			setLocalChecked(!newStatus);
-			alert(__("Failed to update status.", "gamify"));
-		}
-
-		setIsUpdating(false);
+				setUpdating(false)
+				dispatch(fetchSettings());
+			} else {
+				setFieldValue(item.name, false);
+				dispatch(
+					showNotification({
+						message: payload.data,
+						isShow: true,
+						type: 'error',
+					})
+				);
+				setUpdating(false)
+			}
+		});
 	};
+
+	// const isShowProTag = !is_pro && item.is_pro;
 
 	const getIconBorder = () => {
 		if (item.name === 'certificates') return '1px solid #7b68ee';
@@ -113,11 +116,10 @@ const AddonCard = ({ item }) => {
 					)}
 
 					{!item.is_coming_soon && (
-						<Box pointerEvents={isUpdating ? 'none' : 'auto'} opacity={isUpdating ? 0.6 : 1}>
+						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
 							<CustomSwitch
 								name={item.name}
-								value={localChecked} // For custom logic
-								checked={localChecked} // Standard HTML attribute
+								value={values[item.name]} // Standard HTML attribute
 								onChange={onChangeHandler}
 							/>
 						</Box>

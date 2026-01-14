@@ -4573,9 +4573,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _GFComponents_CustomSwitch__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @GFComponents/CustomSwitch */ "./dev_gamify/components/CustomSwitch/index.js");
-/* harmony import */ var _redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../redux/Slices/addonsSlice/addonsSlice */ "./dev_gamify/redux/Slices/addonsSlice/addonsSlice.js");
-/* harmony import */ var _redux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../../redux/Slices/pointTypesSlice/pointTypeSlice */ "./dev_gamify/redux/Slices/pointTypesSlice/pointTypeSlice.js");
-/* harmony import */ var _redux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../../redux/Slices/achivementSlice/achievementsSlice */ "./dev_gamify/redux/Slices/achivementSlice/achievementsSlice.js");
+/* harmony import */ var _GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFRedux//Slices/addonsSlice/addonsSlice */ "./dev_gamify/redux/Slices/addonsSlice/addonsSlice.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _GFRedux_Slices_notificationSlice_notificationSlice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFRedux/Slices/notificationSlice/notificationSlice */ "./dev_gamify/redux/Slices/notificationSlice/notificationSlice.js");
+/* harmony import */ var _GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFRedux/Slices/settingsSlice/settingsSlice */ "./dev_gamify/redux/Slices/settingsSlice/settingsSlice.js");
 
 
 
@@ -4588,46 +4590,55 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const AddonCard = ({
-  item
+  item,
+  index,
+  value
 }) => {
-  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-
-  // Redux State 
   const {
-    activeAddons = []
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons || {});
-  const isReduxActive = activeAddons?.includes(item.name);
-
-  // Local State for Instant UI Update (Optimistic UI)
-  const [localChecked, setLocalChecked] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isReduxActive);
-  const [isUpdating, setIsUpdating] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-
-  // Redux 
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    setLocalChecked(isReduxActive);
-  }, [isReduxActive]);
-  const onChangeHandler = async e => {
-    const newStatus = e.target.checked;
-    setLocalChecked(newStatus);
-    setIsUpdating(true);
-    const result = await dispatch((0,_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.toggleAddonStatus)({
+    values,
+    setFieldValue
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_10__.useFormikContext)();
+  const [updating, setUpdating] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  const onChangeHandler = () => {
+    setUpdating(true);
+    const status = !value;
+    dispatch((0,_GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.saveAddon)({
       addon: item.name,
-      status: newStatus
-    }));
-    if (_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.toggleAddonStatus.fulfilled.match(result)) {
-      // 🔥 Force trigger refresh on other pages
-      dispatch((0,_redux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_10__.resetStatus)());
-      dispatch((0,_redux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_11__.resetStatus)());
-      dispatch((0,_redux_Slices_pointTypesSlice_pointTypeSlice__WEBPACK_IMPORTED_MODULE_10__.fetchTriggers)());
-      dispatch((0,_redux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_11__.fetchTriggers)());
-
-      // No reload needed now!
-    } else {
-      setLocalChecked(!newStatus);
-      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Failed to update status.", "gamify"));
-    }
-    setIsUpdating(false);
+      status
+    })).then(({
+      payload
+    }) => {
+      console.log({
+        payload
+      });
+      if (payload?.success) {
+        setFieldValue(item.name, status);
+        dispatch((0,_GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.fetchAddons)());
+        const statusMessage = payload?.active_addons[item.name] ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Activated', 'academy') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Deactivate', 'academy');
+        dispatch((0,_GFRedux_Slices_notificationSlice_notificationSlice__WEBPACK_IMPORTED_MODULE_12__.showNotification)({
+          message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.sprintf)(
+          // translators: %1$s: AddonName, %2$s: AddonStatus
+          (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('%1$s successfully %2$s', 'academy'), item.label, statusMessage),
+          isShow: true,
+          type: 'success'
+        }));
+        setUpdating(false);
+        dispatch((0,_GFRedux_Slices_settingsSlice_settingsSlice__WEBPACK_IMPORTED_MODULE_13__.fetchSettings)());
+      } else {
+        setFieldValue(item.name, false);
+        dispatch((0,_GFRedux_Slices_notificationSlice_notificationSlice__WEBPACK_IMPORTED_MODULE_12__.showNotification)({
+          message: payload.data,
+          isShow: true,
+          type: 'error'
+        }));
+        setUpdating(false);
+      }
+    });
   };
+
+  // const isShowProTag = !is_pro && item.is_pro;
+
   const getIconBorder = () => {
     if (item.name === 'certificates') return '1px solid #7b68ee';
     if (item.name === 'storeengine') return '1px solid #008dff';
@@ -4708,18 +4719,70 @@ const AddonCard = ({
     m: 0,
     key: childItemIndex
   }, childItem.plugin_name))), !item.is_coming_soon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Box, {
-    pointerEvents: isUpdating ? 'none' : 'auto',
-    opacity: isUpdating ? 0.6 : 1
+    pointerEvents: updating ? 'none' : 'auto',
+    opacity: updating ? 0.6 : 1
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_CustomSwitch__WEBPACK_IMPORTED_MODULE_8__["default"], {
     name: item.name,
-    value: localChecked // For custom logic
-    ,
-    checked: localChecked // Standard HTML attribute
+    value: values[item.name] // Standard HTML attribute
     ,
     onChange: onChangeHandler
   })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddonCard);
+
+/***/ }),
+
+/***/ "./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js":
+/*!**********************************************************************************!*\
+  !*** ./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js ***!
+  \**********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/skeleton/skeleton.js");
+
+
+const AddonCardsSkeleton = ({
+  count = 6
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "academy-dashboard-addon-cards"
+  }, Array.from({
+    length: count
+  }).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    key: i,
+    p: "16px",
+    border: "1px solid var(--academy-border-color)",
+    borderRadius: "6px",
+    bg: "white"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
+    height: "18px",
+    width: "60%",
+    mb: "8px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.SkeletonText, {
+    noOfLines: 2,
+    spacing: "6px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    mt: "16px",
+    display: "flex",
+    justifyContent: "space-between"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
+    height: "14px",
+    width: "80px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
+    height: "28px",
+    width: "60px",
+    borderRadius: "4px"
+  })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddonCardsSkeleton);
 
 /***/ }),
 
@@ -4743,10 +4806,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/tabs/tabs.js");
-/* harmony import */ var _redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../redux/Slices/addonsSlice/addonsSlice */ "./dev_gamify/redux/Slices/addonsSlice/addonsSlice.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFRedux/Slices/addonsSlice/addonsSlice */ "./dev_gamify/redux/Slices/addonsSlice/addonsSlice.js");
 /* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gamify/utils/icons.js");
+/* harmony import */ var _GFComponents_Search__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/Search */ "./dev_gamify/components/Search/index.js");
+/* harmony import */ var _GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/GamifyBox */ "./dev_gamify/components/GamifyBox/index.js");
+/* harmony import */ var _AddonsCardSkeleton__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./AddonsCardSkeleton */ "./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js");
+/* harmony import */ var _GFComponents_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFComponents/Oops/CustomTableMessage */ "./dev_gamify/components/Oops/CustomTableMessage.js");
+
+
+
+
 
 
 
@@ -4868,13 +4939,10 @@ const filterOptions = [{
 }, {
   slug: 'inactive',
   title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Inactive', 'academy')
-}, {
-  slug: 'free',
-  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Free', 'academy')
-}, {
-  slug: 'pro',
-  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Pro', 'academy')
-}];
+}
+// { slug: 'free', title: __('Free', 'academy') },
+// { slug: 'pro', title: __('Pro', 'academy') },
+];
 const filterAddons = (addons, filter, activeAddons = {}) => {
   switch (filter) {
     case 'free':
@@ -4901,7 +4969,7 @@ const RenderCards = ({
       opacity: 0.6
     }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('No add-ons found.', 'academy'));
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
     flexWrap: "wrap",
     gap: 6
   }, filteredAddons.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -4914,39 +4982,114 @@ const RenderCards = ({
   })));
 };
 const Addons = () => {
-  const {
-    activeAddons = []
-  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons || {});
-  const addonsSavedData = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons || {});
+  const addonsSavedData = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons);
+  const [filterText, setFilterText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [filterMenu, setFilterMenu] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('all');
   const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_redux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.fetchActiveAddons)());
-  }, [dispatch]);
+    setLoading(true);
+    dispatch((0,_GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_9__.fetchAddons)()).then(() => {
+      setLoading(false);
+    });
+  }, []);
+  const getAddonLists = values => {
+    return infoCardsData.filter(item => {
+      if (item.label.toLowerCase().includes(filterText.toLowerCase())) {
+        if (filterMenu === 'all') {
+          setLoading(false);
+          return item;
+        } else if (filterMenu === 'active' && values[item.name]) {
+          return item;
+        } else if (filterMenu === 'inactive' && !values[item.name]) {
+          return item;
+        } else if (filterMenu === 'pro' && item.is_pro) {
+          return item;
+        } else if (filterMenu === 'free' && !item.is_pro) {
+          return item;
+        }
+      }
+      setLoading(false);
+      return false;
+    });
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Addons", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
-    className: "academy-page-content academy-page-content--addons",
-    maxWidth: "1200px",
-    marginInline: "auto"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.TabsRoot, {
-    defaultValue: "all"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.TabsList, null, filterOptions.map(option => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.TabsTrigger, {
-    key: option.slug,
-    value: option.slug
-  }, option.title))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_3__.Formik, {
-    enableReinitialize: true
+    path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Add-ons", "gamify")
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    heading: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Add-ons", "gamify"),
+    dynamicClasses: "addons"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderBottom: '1px solid var(--gamify-border-color)',
+    padding: '0 0 10px 0',
+    margin: '20px 0'
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, null, filterOptions.map((option, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Button, {
+    key: index,
+    bg: 'transparent',
+    minWidth: '0',
+    height: '35px',
+    padding: '6px 12px',
+    fontSize: '14px',
+    fontWeight: '500',
+    lineHeight: '20px',
+    color: 'var(--gamify-font-color)',
+    _after: {
+      content: '""',
+      position: "absolute",
+      left: 0,
+      bottom: "-13px",
+      width: "100%",
+      height: "2px",
+      bg: "var(--gamify-primary)",
+      transform: filterMenu === option.slug ? "scaleX(1)" : "scaleX(0)",
+      transformOrigin: "left",
+      transition: "transform 0.2s ease"
+    },
+    _hover: {
+      _after: {
+        transform: "scaleX(1)"
+      }
+    },
+    className: `gamify-addons-filter-option ${filterMenu === option.slug ? 'active-filter' : ''}`,
+    onClick: () => {
+      setFilterMenu(option.slug);
+      setLoading(true);
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, option.title)))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Search__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Search Add-ons', 'gamify'),
+    onSearchHandler: keyword => setFilterText(keyword.trim())
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
+    className: "gamify-addons"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_3__.Formik, {
+    enableReinitialize: true,
+    initialValues: {
+      ...addonsSavedData
+    }
   }, ({
     setFieldValue,
     values
-  }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, filterOptions.map(option => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.TabsContent, {
-    key: option.slug,
-    value: option.slug
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(RenderCards, {
-    filter: option.slug,
-    values: values,
-    setFieldValue: setFieldValue,
-    activeAddons: activeAddons
-  }))))))));
+  }) => {
+    const addonLists = getAddonLists(values);
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonsCardSkeleton__WEBPACK_IMPORTED_MODULE_13__["default"], null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
+      width: '100%',
+      gap: '20px',
+      className: "gamify-dashboard-addon-cards"
+    }, addonLists.length ? addonLists.map((item, index) => {
+      return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        item: item,
+        key: index,
+        index: index,
+        value: values[item.name],
+        setFieldValue: setFieldValue
+      });
+    }) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
+      className: "academy-dashboard-addon-cards-message"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_14__["default"], {
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('No Addons Found!', 'academy')
+    }))));
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Addons);
 
@@ -8381,24 +8524,26 @@ const {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   fetchActiveAddons: () => (/* binding */ fetchActiveAddons),
-/* harmony export */   toggleAddonStatus: () => (/* binding */ toggleAddonStatus)
+/* harmony export */   fetchAddons: () => (/* binding */ fetchAddons),
+/* harmony export */   saveAddon: () => (/* binding */ saveAddon)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2__);
 
 
-const fetchActiveAddons = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('addons/fetch', async () => {
-  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+
+const fetchAddons = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('gamify/fetchAddons', async () => {
+  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
     path: '/gamify/v1/addons'
   });
 });
-const toggleAddonStatus = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('addons/toggle', async ({
+const saveAddon = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('gamify/saveAddon', async ({
   addon,
   status
 }) => {
-  return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
+  const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_2___default()({
     path: '/gamify/v1/addons',
     method: 'POST',
     data: {
@@ -8406,20 +8551,20 @@ const toggleAddonStatus = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.creat
       status
     }
   });
+  return {
+    active_addons: response?.active_addons,
+    success: true
+  };
 });
-const addonsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
+const addonsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
   name: 'addons',
-  initialState: {
-    activeAddons: [],
-    // Array of active addon slugs ['woocommerce', 'certificates']
-    status: 'idle'
-  },
+  initialState: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_0__.addons,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchActiveAddons.fulfilled, (state, action) => {
-      state.activeAddons = action.payload;
-    }).addCase(toggleAddonStatus.fulfilled, (state, action) => {
-      state.activeAddons = action.payload.active_addons;
+    builder.addCase(fetchAddons.fulfilled, (state, action) => {
+      return action.payload;
+    }).addCase(saveAddon.fulfilled, (state, action) => {
+      return action.payload.active_addons;
     });
   }
 });
@@ -9583,12 +9728,14 @@ const store = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.configureStore)({
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   API: () => (/* binding */ API),
+/* harmony export */   addons: () => (/* binding */ addons),
 /* harmony export */   admin_url: () => (/* binding */ admin_url),
 /* harmony export */   ajaxurl: () => (/* binding */ ajaxurl),
 /* harmony export */   gamify_nonce: () => (/* binding */ gamify_nonce),
 /* harmony export */   handleSliceError: () => (/* binding */ handleSliceError),
 /* harmony export */   handleSliceSuccess: () => (/* binding */ handleSliceSuccess),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
+/* harmony export */   is_pro: () => (/* binding */ is_pro),
 /* harmony export */   makeRequest: () => (/* binding */ makeRequest),
 /* harmony export */   menu: () => (/* binding */ menu),
 /* harmony export */   namespace: () => (/* binding */ namespace),
@@ -9612,13 +9759,15 @@ const {
   nonce,
   ajaxurl,
   menu,
+  addons,
   route_path,
   rest_url,
   admin_url,
   namespace,
   gamify_nonce,
   user_id,
-  is_plain_permalink
+  is_plain_permalink,
+  is_pro
 } = window?.GamifyGlobal;
 const reactDebounce = (callback, wait) => {
   let timeout;
@@ -10179,85 +10328,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const listboxAnatomy = _zag_js_listbox__WEBPACK_IMPORTED_MODULE_0__.anatomy.extendWith("empty");
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js":
-/*!*************************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js ***!
-  \*************************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   PresenceProvider: () => (/* binding */ PresenceProvider),
-/* harmony export */   usePresenceContext: () => (/* binding */ usePresenceContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [PresenceProvider, usePresenceContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "PresenceContext",
-  hookName: "usePresenceContext",
-  providerName: "<PresenceProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/presence/use-presence.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/presence/use-presence.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   usePresence: () => (/* binding */ usePresence)
-/* harmony export */ });
-/* harmony import */ var _zag_js_presence__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/presence */ "./node_modules/@zag-js/presence/dist/index.mjs");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_use_event_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/use-event.js */ "./node_modules/@ark-ui/react/dist/utils/use-event.js");
-'use client';
-
-
-
-
-
-const usePresence = (props = {}) => {
-  const { lazyMount, unmountOnExit, present, skipAnimationOnMount = false, ...rest } = props;
-  const wasEverPresent = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(false);
-  const machineProps = {
-    ...rest,
-    present,
-    onExitComplete: (0,_utils_use_event_js__WEBPACK_IMPORTED_MODULE_3__.useEvent)(props.onExitComplete)
-  };
-  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.useMachine)(_zag_js_presence__WEBPACK_IMPORTED_MODULE_0__.machine, machineProps);
-  const api = _zag_js_presence__WEBPACK_IMPORTED_MODULE_0__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_1__.normalizeProps);
-  if (api.present) {
-    wasEverPresent.current = true;
-  }
-  const unmounted = !api.present && !wasEverPresent.current && lazyMount || unmountOnExit && !api.present && wasEverPresent.current;
-  const getPresenceProps = () => ({
-    "data-state": api.skip && skipAnimationOnMount ? void 0 : present ? "open" : "closed",
-    hidden: !api.present
-  });
-  return {
-    ref: api.setNode,
-    getPresenceProps,
-    present: api.present,
-    unmounted
-  };
-};
 
 
 
@@ -11071,332 +11141,6 @@ const useSwitch = (props) => {
 
 /***/ }),
 
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tab-content.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tab-content.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabContent: () => (/* binding */ TabContent)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/compose-refs.js */ "./node_modules/@ark-ui/react/dist/utils/compose-refs.js");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/render-strategy.js */ "./node_modules/@ark-ui/react/dist/utils/render-strategy.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _presence_use_presence_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../presence/use-presence.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence.js");
-/* harmony import */ var _presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../presence/use-presence-context.js */ "./node_modules/@ark-ui/react/dist/components/presence/use-presence-context.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-
-
-const TabContent = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [contentProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_4__.createSplitProps)()(props, ["value"]);
-  const tabs = (0,_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_9__.useTabsContext)();
-  const renderStrategyProps = (0,_utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_5__.useRenderStrategyPropsContext)();
-  const presence = (0,_presence_use_presence_js__WEBPACK_IMPORTED_MODULE_7__.usePresence)({
-    ...renderStrategyProps,
-    present: tabs.value === props.value,
-    immediate: true
-  });
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getContentProps(contentProps), presence.getPresenceProps(), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_presence_use_presence_context_js__WEBPACK_IMPORTED_MODULE_8__.PresenceProvider, { value: presence, children: presence.unmounted ? null : /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_6__.ark.div, { ...mergedProps, ref: (0,_utils_compose_refs_js__WEBPACK_IMPORTED_MODULE_3__.composeRefs)(presence.ref, ref) }) });
-});
-TabContent.displayName = "TabContent";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tab-indicator.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tab-indicator.js ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabIndicator: () => (/* binding */ TabIndicator)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-const TabIndicator = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const tabs = (0,_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_4__.useTabsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getIndicatorProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-TabIndicator.displayName = "TabIndicator";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tab-list.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tab-list.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabList: () => (/* binding */ TabList)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-const TabList = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const tabs = (0,_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_4__.useTabsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getListProps(), props);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_3__.ark.div, { ...mergedProps, ref });
-});
-TabList.displayName = "TabList";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tab-trigger.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tab-trigger.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabTrigger: () => (/* binding */ TabTrigger)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-
-const TabTrigger = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [tabProps, localProps] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(props, ["disabled", "value"]);
-  const tabs = (0,_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_5__.useTabsContext)();
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getTriggerProps(tabProps), localProps);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_4__.ark.button, { ...mergedProps, ref });
-});
-TabTrigger.displayName = "TabTrigger";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tabs-root-provider.js":
-/*!*******************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tabs-root-provider.js ***!
-  \*******************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabsRootProvider: () => (/* binding */ TabsRootProvider)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/render-strategy.js */ "./node_modules/@ark-ui/react/dist/utils/render-strategy.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-
-
-const TabsRootProvider = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [renderStrategyProps, tabsProps] = (0,_utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__.splitRenderStrategyProps)(props);
-  const [{ value: tabs }, localprops] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(tabsProps, ["value"]);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getRootProps(), localprops);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_6__.TabsProvider, { value: tabs, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__.RenderStrategyPropsProvider, { value: renderStrategyProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_5__.ark.div, { ...mergedProps, ref }) }) });
-});
-TabsRootProvider.displayName = "TabsRootProvider";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/tabs-root.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/tabs-root.js ***!
-  \**********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabsRoot: () => (/* binding */ TabsRoot)
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-/* harmony import */ var _utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/render-strategy.js */ "./node_modules/@ark-ui/react/dist/utils/render-strategy.js");
-/* harmony import */ var _factory_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../factory.js */ "./node_modules/@ark-ui/react/dist/components/factory.js");
-/* harmony import */ var _use_tabs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./use-tabs.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs.js");
-/* harmony import */ var _use_tabs_context_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./use-tabs-context.js */ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js");
-'use client';
-
-
-
-
-
-
-
-
-
-const TabsRoot = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)((props, ref) => {
-  const [renderStrategyProps, tabsProps] = (0,_utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__.splitRenderStrategyProps)(props);
-  const [useTabsProps, localprops] = (0,_utils_create_split_props_js__WEBPACK_IMPORTED_MODULE_3__.createSplitProps)()(tabsProps, [
-    "activationMode",
-    "composite",
-    "defaultValue",
-    "deselectable",
-    "id",
-    "ids",
-    "loopFocus",
-    "navigate",
-    "onFocusChange",
-    "onValueChange",
-    "orientation",
-    "translations",
-    "value"
-  ]);
-  const tabs = (0,_use_tabs_js__WEBPACK_IMPORTED_MODULE_6__.useTabs)(useTabsProps);
-  const mergedProps = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_1__.mergeProps)(tabs.getRootProps(), localprops);
-  return /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_use_tabs_context_js__WEBPACK_IMPORTED_MODULE_7__.TabsProvider, { value: tabs, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_utils_render_strategy_js__WEBPACK_IMPORTED_MODULE_4__.RenderStrategyPropsProvider, { value: renderStrategyProps, children: /* @__PURE__ */ (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_factory_js__WEBPACK_IMPORTED_MODULE_5__.ark.div, { ...mergedProps, ref }) }) });
-});
-TabsRoot.displayName = "TabsRoot";
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js":
-/*!*****************************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/use-tabs-context.js ***!
-  \*****************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabsProvider: () => (/* binding */ TabsProvider),
-/* harmony export */   useTabsContext: () => (/* binding */ useTabsContext)
-/* harmony export */ });
-/* harmony import */ var _utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utils/create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-'use client';
-
-
-const [TabsProvider, useTabsContext] = (0,_utils_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "TabsContext",
-  hookName: "useTabsContext",
-  providerName: "<TabsProvider />"
-});
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/components/tabs/use-tabs.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/components/tabs/use-tabs.js ***!
-  \*********************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useTabs: () => (/* binding */ useTabs)
-/* harmony export */ });
-/* harmony import */ var _zag_js_react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/react */ "./node_modules/@zag-js/react/dist/index.mjs");
-/* harmony import */ var _zag_js_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/tabs */ "./node_modules/@zag-js/tabs/dist/index.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var _providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../providers/environment/use-environment-context.js */ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js");
-/* harmony import */ var _providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../providers/locale/use-locale-context.js */ "./node_modules/@ark-ui/react/dist/providers/locale/use-locale-context.js");
-'use client';
-
-
-
-
-
-
-const useTabs = (props) => {
-  const id = (0,react__WEBPACK_IMPORTED_MODULE_2__.useId)();
-  const { getRootNode } = (0,_providers_environment_use_environment_context_js__WEBPACK_IMPORTED_MODULE_3__.useEnvironmentContext)();
-  const { dir } = (0,_providers_locale_use_locale_context_js__WEBPACK_IMPORTED_MODULE_4__.useLocaleContext)();
-  const machineProps = {
-    id,
-    dir,
-    getRootNode,
-    ...props
-  };
-  const service = (0,_zag_js_react__WEBPACK_IMPORTED_MODULE_0__.useMachine)(_zag_js_tabs__WEBPACK_IMPORTED_MODULE_1__.machine, machineProps);
-  return _zag_js_tabs__WEBPACK_IMPORTED_MODULE_1__.connect(service, _zag_js_react__WEBPACK_IMPORTED_MODULE_0__.normalizeProps);
-};
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js":
 /*!******************************************************************************************!*\
   !*** ./node_modules/@ark-ui/react/dist/providers/environment/use-environment-context.js ***!
@@ -11569,74 +11313,6 @@ const createSplitProps = () => (props, keys) => keys.reduce(
   },
   [{}, { ...props }]
 );
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/utils/render-strategy.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/utils/render-strategy.js ***!
-  \******************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   RenderStrategyPropsProvider: () => (/* binding */ RenderStrategyPropsProvider),
-/* harmony export */   splitRenderStrategyProps: () => (/* binding */ splitRenderStrategyProps),
-/* harmony export */   useRenderStrategyPropsContext: () => (/* binding */ useRenderStrategyPropsContext)
-/* harmony export */ });
-/* harmony import */ var _create_context_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./create-context.js */ "./node_modules/@ark-ui/react/dist/utils/create-context.js");
-/* harmony import */ var _create_split_props_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./create-split-props.js */ "./node_modules/@ark-ui/react/dist/utils/create-split-props.js");
-'use client';
-
-
-
-const [RenderStrategyPropsProvider, useRenderStrategyPropsContext] = (0,_create_context_js__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  name: "RenderStrategyContext",
-  hookName: "useRenderStrategyContext",
-  providerName: "<RenderStrategyPropsProvider />"
-});
-const splitRenderStrategyProps = (props) => (0,_create_split_props_js__WEBPACK_IMPORTED_MODULE_1__.createSplitProps)()(props, ["lazyMount", "unmountOnExit"]);
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@ark-ui/react/dist/utils/use-event.js":
-/*!************************************************************!*\
-  !*** ./node_modules/@ark-ui/react/dist/utils/use-event.js ***!
-  \************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useEvent: () => (/* binding */ useEvent)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-'use client';
-
-
-function useEvent(callback, opts = {}) {
-  const { sync = false } = opts;
-  const callbackRef = useLatestRef(callback);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(
-    (...args) => {
-      if (sync) return queueMicrotask(() => callbackRef.current?.(...args));
-      return callbackRef.current?.(...args);
-    },
-    [sync, callbackRef]
-  );
-}
-function useLatestRef(value) {
-  const ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(value);
-  ref.current = value;
-  return ref;
-}
 
 
 
@@ -13861,77 +13537,6 @@ const TableBody = withContext(
 const TableColumnGroup = withContext("colgroup");
 const TableColumn = withContext(
   "col"
-);
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@chakra-ui/react/dist/esm/components/tabs/tabs.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/@chakra-ui/react/dist/esm/components/tabs/tabs.js ***!
-  \************************************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   TabsContent: () => (/* binding */ TabsContent),
-/* harmony export */   TabsContentGroup: () => (/* binding */ TabsContentGroup),
-/* harmony export */   TabsIndicator: () => (/* binding */ TabsIndicator),
-/* harmony export */   TabsList: () => (/* binding */ TabsList),
-/* harmony export */   TabsPropsProvider: () => (/* binding */ TabsPropsProvider),
-/* harmony export */   TabsRoot: () => (/* binding */ TabsRoot),
-/* harmony export */   TabsRootProvider: () => (/* binding */ TabsRootProvider),
-/* harmony export */   TabsTrigger: () => (/* binding */ TabsTrigger),
-/* harmony export */   useTabsStyles: () => (/* binding */ useTabsStyles)
-/* harmony export */ });
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tabs-root-provider.js");
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tabs-root.js");
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tab-trigger.js");
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tab-content.js");
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tab-list.js");
-/* harmony import */ var _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @ark-ui/react/tabs */ "./node_modules/@ark-ui/react/dist/components/tabs/tab-indicator.js");
-/* harmony import */ var _styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../styled-system/create-slot-recipe-context.js */ "./node_modules/@chakra-ui/react/dist/esm/styled-system/create-slot-recipe-context.js");
-
-"use client";
-
-
-
-const {
-  withProvider,
-  withContext,
-  useStyles: useTabsStyles,
-  PropsProvider
-} = (0,_styled_system_create_slot_recipe_context_js__WEBPACK_IMPORTED_MODULE_6__.createSlotRecipeContext)({ key: "tabs" });
-const TabsRootProvider = withProvider(_ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_0__.TabsRootProvider, "root", { forwardAsChild: true });
-const TabsRoot = withProvider(
-  _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_1__.TabsRoot,
-  "root",
-  { forwardAsChild: true }
-);
-const TabsPropsProvider = PropsProvider;
-const TabsTrigger = withContext(
-  _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_2__.TabTrigger,
-  "trigger",
-  { forwardAsChild: true }
-);
-const TabsContent = withContext(
-  _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_3__.TabContent,
-  "content",
-  { forwardAsChild: true }
-);
-const TabsContentGroup = withContext("div", "contentGroup");
-const TabsList = withContext(
-  _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_4__.TabList,
-  "list",
-  { forwardAsChild: true }
-);
-const TabsIndicator = withContext(
-  _ark_ui_react_tabs__WEBPACK_IMPORTED_MODULE_5__.TabIndicator,
-  "indicator",
-  { forwardAsChild: true }
 );
 
 
@@ -67430,206 +67035,6 @@ function getPlacementStyles(options = {}) {
 
 /***/ }),
 
-/***/ "./node_modules/@zag-js/presence/dist/index.mjs":
-/*!******************************************************!*\
-  !*** ./node_modules/@zag-js/presence/dist/index.mjs ***!
-  \******************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   connect: () => (/* binding */ connect),
-/* harmony export */   machine: () => (/* binding */ machine),
-/* harmony export */   props: () => (/* binding */ props)
-/* harmony export */ });
-/* harmony import */ var _zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/dom-query */ "./node_modules/@zag-js/dom-query/dist/index.mjs");
-/* harmony import */ var _zag_js_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/core */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var _zag_js_types__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @zag-js/types */ "./node_modules/@zag-js/types/dist/index.mjs");
-
-
-
-
-// src/presence.connect.ts
-function connect(service, _normalize) {
-  const { state, send, context } = service;
-  const present = state.matches("mounted", "unmountSuspended");
-  return {
-    skip: !context.get("initial"),
-    present,
-    setNode(node) {
-      if (!node) return;
-      send({ type: "NODE.SET", node });
-    },
-    unmount() {
-      send({ type: "UNMOUNT" });
-    }
-  };
-}
-var machine = (0,_zag_js_core__WEBPACK_IMPORTED_MODULE_1__.createMachine)({
-  props({ props: props2 }) {
-    return { ...props2, present: !!props2.present };
-  },
-  initialState({ prop }) {
-    return prop("present") ? "mounted" : "unmounted";
-  },
-  refs() {
-    return {
-      node: null,
-      styles: null
-    };
-  },
-  context({ bindable }) {
-    return {
-      unmountAnimationName: bindable(() => ({ defaultValue: null })),
-      prevAnimationName: bindable(() => ({ defaultValue: null })),
-      present: bindable(() => ({ defaultValue: false })),
-      initial: bindable(() => ({
-        sync: true,
-        defaultValue: false
-      }))
-    };
-  },
-  exit: ["clearInitial", "cleanupNode"],
-  watch({ track, prop, send }) {
-    track([() => prop("present")], () => {
-      send({ type: "PRESENCE.CHANGED" });
-    });
-  },
-  on: {
-    "NODE.SET": {
-      actions: ["setupNode"]
-    },
-    "PRESENCE.CHANGED": {
-      actions: ["setInitial", "syncPresence"]
-    }
-  },
-  states: {
-    mounted: {
-      on: {
-        UNMOUNT: {
-          target: "unmounted",
-          actions: ["clearPrevAnimationName", "invokeOnExitComplete"]
-        },
-        "UNMOUNT.SUSPEND": {
-          target: "unmountSuspended"
-        }
-      }
-    },
-    unmountSuspended: {
-      effects: ["trackAnimationEvents"],
-      on: {
-        MOUNT: {
-          target: "mounted",
-          actions: ["setPrevAnimationName"]
-        },
-        UNMOUNT: {
-          target: "unmounted",
-          actions: ["clearPrevAnimationName", "invokeOnExitComplete"]
-        }
-      }
-    },
-    unmounted: {
-      on: {
-        MOUNT: {
-          target: "mounted",
-          actions: ["setPrevAnimationName"]
-        }
-      }
-    }
-  },
-  implementations: {
-    actions: {
-      setInitial: ({ context }) => {
-        if (context.get("initial")) return;
-        queueMicrotask(() => {
-          context.set("initial", true);
-        });
-      },
-      clearInitial: ({ context }) => {
-        context.set("initial", false);
-      },
-      invokeOnExitComplete: ({ prop }) => {
-        prop("onExitComplete")?.();
-      },
-      setupNode: ({ refs, event }) => {
-        if (refs.get("node") === event.node) return;
-        refs.set("node", event.node);
-        refs.set("styles", (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.getComputedStyle)(event.node));
-      },
-      cleanupNode: ({ refs }) => {
-        refs.set("node", null);
-        refs.set("styles", null);
-      },
-      syncPresence: ({ context, refs, send, prop }) => {
-        const presentProp = prop("present");
-        if (presentProp) {
-          return send({ type: "MOUNT", src: "presence.changed" });
-        }
-        const node = refs.get("node");
-        if (!presentProp && node?.ownerDocument.visibilityState === "hidden") {
-          return send({ type: "UNMOUNT", src: "visibilitychange" });
-        }
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.raf)(() => {
-          const animationName = getAnimationName(refs.get("styles"));
-          context.set("unmountAnimationName", animationName);
-          if (animationName === "none" || animationName === context.get("prevAnimationName") || refs.get("styles")?.display === "none" || refs.get("styles")?.animationDuration === "0s") {
-            send({ type: "UNMOUNT", src: "presence.changed" });
-          } else {
-            send({ type: "UNMOUNT.SUSPEND" });
-          }
-        });
-      },
-      setPrevAnimationName: ({ context, refs }) => {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.raf)(() => {
-          context.set("prevAnimationName", getAnimationName(refs.get("styles")));
-        });
-      },
-      clearPrevAnimationName: ({ context }) => {
-        context.set("prevAnimationName", null);
-      }
-    },
-    effects: {
-      trackAnimationEvents: ({ context, refs, send, prop }) => {
-        const node = refs.get("node");
-        if (!node) return;
-        const onStart = (event) => {
-          const target = event.composedPath?.()?.[0] ?? event.target;
-          if (target === node) {
-            context.set("prevAnimationName", getAnimationName(refs.get("styles")));
-          }
-        };
-        const onEnd = (event) => {
-          const animationName = getAnimationName(refs.get("styles"));
-          const target = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.getEventTarget)(event);
-          if (target === node && animationName === context.get("unmountAnimationName") && !prop("present")) {
-            send({ type: "UNMOUNT", src: "animationend" });
-          }
-        };
-        node.addEventListener("animationstart", onStart);
-        node.addEventListener("animationcancel", onEnd);
-        node.addEventListener("animationend", onEnd);
-        const cleanupStyles = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.setStyle)(node, { animationFillMode: "forwards" });
-        return () => {
-          node.removeEventListener("animationstart", onStart);
-          node.removeEventListener("animationcancel", onEnd);
-          node.removeEventListener("animationend", onEnd);
-          (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_0__.nextTick)(() => cleanupStyles());
-        };
-      }
-    }
-  }
-});
-function getAnimationName(styles) {
-  return styles?.animationName || "none";
-}
-var props = (0,_zag_js_types__WEBPACK_IMPORTED_MODULE_2__.createProps)()(["onExitComplete", "present", "immediate"]);
-
-
-
-
-/***/ }),
-
 /***/ "./node_modules/@zag-js/progress/dist/index.mjs":
 /*!******************************************************!*\
   !*** ./node_modules/@zag-js/progress/dist/index.mjs ***!
@@ -73776,561 +73181,6 @@ var props = (0,_zag_js_types__WEBPACK_IMPORTED_MODULE_4__.createProps)()([
   "value"
 ]);
 var splitProps = (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_5__.createSplitProps)(props);
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@zag-js/tabs/dist/index.mjs":
-/*!**************************************************!*\
-  !*** ./node_modules/@zag-js/tabs/dist/index.mjs ***!
-  \**************************************************/
-/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   anatomy: () => (/* binding */ anatomy),
-/* harmony export */   connect: () => (/* binding */ connect),
-/* harmony export */   contentProps: () => (/* binding */ contentProps),
-/* harmony export */   machine: () => (/* binding */ machine),
-/* harmony export */   props: () => (/* binding */ props),
-/* harmony export */   splitContentProps: () => (/* binding */ splitContentProps),
-/* harmony export */   splitProps: () => (/* binding */ splitProps),
-/* harmony export */   splitTriggerProps: () => (/* binding */ splitTriggerProps),
-/* harmony export */   triggerProps: () => (/* binding */ triggerProps)
-/* harmony export */ });
-/* harmony import */ var _zag_js_anatomy__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @zag-js/anatomy */ "./node_modules/@zag-js/anatomy/dist/index.mjs");
-/* harmony import */ var _zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @zag-js/dom-query */ "./node_modules/@zag-js/dom-query/dist/index.mjs");
-/* harmony import */ var _zag_js_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @zag-js/utils */ "./node_modules/@zag-js/utils/dist/index.mjs");
-/* harmony import */ var _zag_js_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @zag-js/core */ "./node_modules/@zag-js/core/dist/index.mjs");
-/* harmony import */ var _zag_js_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @zag-js/types */ "./node_modules/@zag-js/types/dist/index.mjs");
-
-
-
-
-
-
-// src/tabs.anatomy.ts
-var anatomy = (0,_zag_js_anatomy__WEBPACK_IMPORTED_MODULE_0__.createAnatomy)("tabs").parts("root", "list", "trigger", "content", "indicator");
-var parts = anatomy.build();
-var getRootId = (ctx) => ctx.ids?.root ?? `tabs:${ctx.id}`;
-var getListId = (ctx) => ctx.ids?.list ?? `tabs:${ctx.id}:list`;
-var getContentId = (ctx, id) => ctx.ids?.content?.(id) ?? `tabs:${ctx.id}:content-${id}`;
-var getTriggerId = (ctx, id) => ctx.ids?.trigger?.(id) ?? `tabs:${ctx.id}:trigger-${id}`;
-var getIndicatorId = (ctx) => ctx.ids?.indicator ?? `tabs:${ctx.id}:indicator`;
-var getListEl = (ctx) => ctx.getById(getListId(ctx));
-var getContentEl = (ctx, id) => ctx.getById(getContentId(ctx, id));
-var getTriggerEl = (ctx, id) => ctx.getById(getTriggerId(ctx, id));
-var getIndicatorEl = (ctx) => ctx.getById(getIndicatorId(ctx));
-var getElements = (ctx) => {
-  const ownerId = CSS.escape(getListId(ctx));
-  const selector = `[role=tab][data-ownedby='${ownerId}']:not([disabled])`;
-  return (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.queryAll)(getListEl(ctx), selector);
-};
-var getFirstTriggerEl = (ctx) => (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_2__.first)(getElements(ctx));
-var getLastTriggerEl = (ctx) => (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_2__.last)(getElements(ctx));
-var getNextTriggerEl = (ctx, opts) => (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.nextById)(getElements(ctx), getTriggerId(ctx, opts.value), opts.loopFocus);
-var getPrevTriggerEl = (ctx, opts) => (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.prevById)(getElements(ctx), getTriggerId(ctx, opts.value), opts.loopFocus);
-var getOffsetRect = (el) => ({
-  left: el?.offsetLeft ?? 0,
-  top: el?.offsetTop ?? 0,
-  width: el?.offsetWidth ?? 0,
-  height: el?.offsetHeight ?? 0
-});
-var getRectById = (ctx, id) => {
-  const tab = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.itemById)(getElements(ctx), getTriggerId(ctx, id));
-  return resolveRect(getOffsetRect(tab));
-};
-var resolveRect = (rect) => ({
-  width: `${rect.width}px`,
-  height: `${rect.height}px`,
-  left: `${rect.left}px`,
-  top: `${rect.top}px`
-});
-
-// src/tabs.connect.ts
-function connect(service, normalize) {
-  const { state, send, context, prop, scope } = service;
-  const translations = prop("translations");
-  const focused = state.matches("focused");
-  const isVertical = prop("orientation") === "vertical";
-  const isHorizontal = prop("orientation") === "horizontal";
-  const composite = prop("composite");
-  function getTriggerState(props2) {
-    return {
-      selected: context.get("value") === props2.value,
-      focused: context.get("focusedValue") === props2.value,
-      disabled: !!props2.disabled
-    };
-  }
-  return {
-    value: context.get("value"),
-    focusedValue: context.get("focusedValue"),
-    setValue(value) {
-      send({ type: "SET_VALUE", value });
-    },
-    clearValue() {
-      send({ type: "CLEAR_VALUE" });
-    },
-    setIndicatorRect(value) {
-      const id = getTriggerId(scope, value);
-      send({ type: "SET_INDICATOR_RECT", id });
-    },
-    syncTabIndex() {
-      send({ type: "SYNC_TAB_INDEX" });
-    },
-    selectNext(fromValue) {
-      send({ type: "TAB_FOCUS", value: fromValue, src: "selectNext" });
-      send({ type: "ARROW_NEXT", src: "selectNext" });
-    },
-    selectPrev(fromValue) {
-      send({ type: "TAB_FOCUS", value: fromValue, src: "selectPrev" });
-      send({ type: "ARROW_PREV", src: "selectPrev" });
-    },
-    focus() {
-      const value = context.get("value");
-      if (!value) return;
-      getTriggerEl(scope, value)?.focus();
-    },
-    getRootProps() {
-      return normalize.element({
-        ...parts.root.attrs,
-        id: getRootId(scope),
-        "data-orientation": prop("orientation"),
-        "data-focus": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(focused),
-        dir: prop("dir")
-      });
-    },
-    getListProps() {
-      return normalize.element({
-        ...parts.list.attrs,
-        id: getListId(scope),
-        role: "tablist",
-        dir: prop("dir"),
-        "data-focus": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(focused),
-        "aria-orientation": prop("orientation"),
-        "data-orientation": prop("orientation"),
-        "aria-label": translations?.listLabel,
-        onKeyDown(event) {
-          if (event.defaultPrevented) return;
-          if ((0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.isComposingEvent)(event)) return;
-          if (!(0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.contains)(event.currentTarget, (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.getEventTarget)(event))) return;
-          const keyMap = {
-            ArrowDown() {
-              if (isHorizontal) return;
-              send({ type: "ARROW_NEXT", key: "ArrowDown" });
-            },
-            ArrowUp() {
-              if (isHorizontal) return;
-              send({ type: "ARROW_PREV", key: "ArrowUp" });
-            },
-            ArrowLeft() {
-              if (isVertical) return;
-              send({ type: "ARROW_PREV", key: "ArrowLeft" });
-            },
-            ArrowRight() {
-              if (isVertical) return;
-              send({ type: "ARROW_NEXT", key: "ArrowRight" });
-            },
-            Home() {
-              send({ type: "HOME" });
-            },
-            End() {
-              send({ type: "END" });
-            }
-          };
-          let key = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.getEventKey)(event, {
-            dir: prop("dir"),
-            orientation: prop("orientation")
-          });
-          const exec = keyMap[key];
-          if (exec) {
-            event.preventDefault();
-            exec(event);
-            return;
-          }
-        }
-      });
-    },
-    getTriggerState,
-    getTriggerProps(props2) {
-      const { value, disabled } = props2;
-      const triggerState = getTriggerState(props2);
-      return normalize.button({
-        ...parts.trigger.attrs,
-        role: "tab",
-        type: "button",
-        disabled,
-        dir: prop("dir"),
-        "data-orientation": prop("orientation"),
-        "data-disabled": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(disabled),
-        "aria-disabled": disabled,
-        "data-value": value,
-        "aria-selected": triggerState.selected,
-        "data-selected": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(triggerState.selected),
-        "data-focus": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(triggerState.focused),
-        "aria-controls": triggerState.selected ? getContentId(scope, value) : void 0,
-        "data-ownedby": getListId(scope),
-        "data-ssr": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(context.get("ssr")),
-        id: getTriggerId(scope, value),
-        tabIndex: triggerState.selected && composite ? 0 : -1,
-        onFocus() {
-          send({ type: "TAB_FOCUS", value });
-        },
-        onBlur(event) {
-          const target = event.relatedTarget;
-          if (target?.getAttribute("role") !== "tab") {
-            send({ type: "TAB_BLUR" });
-          }
-        },
-        onClick(event) {
-          if (event.defaultPrevented) return;
-          if ((0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.isOpeningInNewTab)(event)) return;
-          if (disabled) return;
-          if ((0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.isSafari)()) {
-            event.currentTarget.focus();
-          }
-          send({ type: "TAB_CLICK", value });
-        }
-      });
-    },
-    getContentProps(props2) {
-      const { value } = props2;
-      const selected = context.get("value") === value;
-      return normalize.element({
-        ...parts.content.attrs,
-        dir: prop("dir"),
-        id: getContentId(scope, value),
-        tabIndex: composite ? 0 : -1,
-        "aria-labelledby": getTriggerId(scope, value),
-        role: "tabpanel",
-        "data-ownedby": getListId(scope),
-        "data-selected": (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.dataAttr)(selected),
-        "data-orientation": prop("orientation"),
-        hidden: !selected
-      });
-    },
-    getIndicatorProps() {
-      const indicatorRect = context.get("indicatorRect");
-      const indicatorTransition = context.get("indicatorTransition");
-      return normalize.element({
-        id: getIndicatorId(scope),
-        ...parts.indicator.attrs,
-        dir: prop("dir"),
-        "data-orientation": prop("orientation"),
-        style: {
-          "--transition-property": "left, right, top, bottom, width, height",
-          "--left": indicatorRect.left,
-          "--top": indicatorRect.top,
-          "--width": indicatorRect.width,
-          "--height": indicatorRect.height,
-          position: "absolute",
-          willChange: "var(--transition-property)",
-          transitionProperty: "var(--transition-property)",
-          transitionDuration: indicatorTransition ? "var(--transition-duration, 150ms)" : "0ms",
-          transitionTimingFunction: "var(--transition-timing-function)",
-          [isHorizontal ? "left" : "top"]: isHorizontal ? "var(--left)" : "var(--top)"
-        }
-      });
-    }
-  };
-}
-var { createMachine } = (0,_zag_js_core__WEBPACK_IMPORTED_MODULE_3__.setup)();
-var machine = createMachine({
-  props({ props: props2 }) {
-    return {
-      dir: "ltr",
-      orientation: "horizontal",
-      activationMode: "automatic",
-      loopFocus: true,
-      composite: true,
-      navigate(details) {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.clickIfLink)(details.node);
-      },
-      defaultValue: null,
-      ...props2
-    };
-  },
-  initialState() {
-    return "idle";
-  },
-  context({ prop, bindable }) {
-    return {
-      value: bindable(() => ({
-        defaultValue: prop("defaultValue"),
-        value: prop("value"),
-        onChange(value) {
-          prop("onValueChange")?.({ value });
-        }
-      })),
-      focusedValue: bindable(() => ({
-        defaultValue: prop("value") || prop("defaultValue"),
-        sync: true,
-        onChange(value) {
-          prop("onFocusChange")?.({ focusedValue: value });
-        }
-      })),
-      ssr: bindable(() => ({ defaultValue: true })),
-      indicatorTransition: bindable(() => ({ defaultValue: false })),
-      indicatorRect: bindable(() => ({
-        defaultValue: { left: "0px", top: "0px", width: "0px", height: "0px" }
-      }))
-    };
-  },
-  watch({ context, prop, track, action }) {
-    track([() => context.get("value")], () => {
-      action(["allowIndicatorTransition", "syncIndicatorRect", "syncTabIndex", "navigateIfNeeded"]);
-    });
-    track([() => prop("dir"), () => prop("orientation")], () => {
-      action(["syncIndicatorRect"]);
-    });
-  },
-  on: {
-    SET_VALUE: {
-      actions: ["setValue"]
-    },
-    CLEAR_VALUE: {
-      actions: ["clearValue"]
-    },
-    SET_INDICATOR_RECT: {
-      actions: ["setIndicatorRect"]
-    },
-    SYNC_TAB_INDEX: {
-      actions: ["syncTabIndex"]
-    }
-  },
-  entry: ["syncIndicatorRect", "syncTabIndex", "syncSsr"],
-  exit: ["cleanupObserver"],
-  states: {
-    idle: {
-      on: {
-        TAB_FOCUS: {
-          target: "focused",
-          actions: ["setFocusedValue"]
-        },
-        TAB_CLICK: {
-          target: "focused",
-          actions: ["setFocusedValue", "setValue"]
-        }
-      }
-    },
-    focused: {
-      on: {
-        TAB_CLICK: {
-          actions: ["setFocusedValue", "setValue"]
-        },
-        ARROW_PREV: [
-          {
-            guard: "selectOnFocus",
-            actions: ["focusPrevTab", "selectFocusedTab"]
-          },
-          {
-            actions: ["focusPrevTab"]
-          }
-        ],
-        ARROW_NEXT: [
-          {
-            guard: "selectOnFocus",
-            actions: ["focusNextTab", "selectFocusedTab"]
-          },
-          {
-            actions: ["focusNextTab"]
-          }
-        ],
-        HOME: [
-          {
-            guard: "selectOnFocus",
-            actions: ["focusFirstTab", "selectFocusedTab"]
-          },
-          {
-            actions: ["focusFirstTab"]
-          }
-        ],
-        END: [
-          {
-            guard: "selectOnFocus",
-            actions: ["focusLastTab", "selectFocusedTab"]
-          },
-          {
-            actions: ["focusLastTab"]
-          }
-        ],
-        TAB_FOCUS: {
-          actions: ["setFocusedValue"]
-        },
-        TAB_BLUR: {
-          target: "idle",
-          actions: ["clearFocusedValue"]
-        }
-      }
-    }
-  },
-  implementations: {
-    guards: {
-      selectOnFocus: ({ prop }) => prop("activationMode") === "automatic"
-    },
-    actions: {
-      selectFocusedTab({ context, prop }) {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          const focusedValue = context.get("focusedValue");
-          if (!focusedValue) return;
-          const nullable = prop("deselectable") && context.get("value") === focusedValue;
-          const value = nullable ? null : focusedValue;
-          context.set("value", value);
-        });
-      },
-      setFocusedValue({ context, event, flush }) {
-        if (event.value == null) return;
-        flush(() => {
-          context.set("focusedValue", event.value);
-        });
-      },
-      clearFocusedValue({ context }) {
-        context.set("focusedValue", null);
-      },
-      setValue({ context, event, prop }) {
-        const nullable = prop("deselectable") && context.get("value") === context.get("focusedValue");
-        context.set("value", nullable ? null : event.value);
-      },
-      clearValue({ context }) {
-        context.set("value", null);
-      },
-      focusFirstTab({ scope }) {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          getFirstTriggerEl(scope)?.focus();
-        });
-      },
-      focusLastTab({ scope }) {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          getLastTriggerEl(scope)?.focus();
-        });
-      },
-      focusNextTab({ context, prop, scope, event }) {
-        const focusedValue = event.value ?? context.get("focusedValue");
-        if (!focusedValue) return;
-        const triggerEl = getNextTriggerEl(scope, {
-          value: focusedValue,
-          loopFocus: prop("loopFocus")
-        });
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          if (prop("composite")) {
-            triggerEl?.focus();
-          } else if (triggerEl?.dataset.value != null) {
-            context.set("focusedValue", triggerEl.dataset.value);
-          }
-        });
-      },
-      focusPrevTab({ context, prop, scope, event }) {
-        const focusedValue = event.value ?? context.get("focusedValue");
-        if (!focusedValue) return;
-        const triggerEl = getPrevTriggerEl(scope, {
-          value: focusedValue,
-          loopFocus: prop("loopFocus")
-        });
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          if (prop("composite")) {
-            triggerEl?.focus();
-          } else if (triggerEl?.dataset.value != null) {
-            context.set("focusedValue", triggerEl.dataset.value);
-          }
-        });
-      },
-      syncTabIndex({ context, scope }) {
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.raf)(() => {
-          const value = context.get("value");
-          if (!value) return;
-          const contentEl = getContentEl(scope, value);
-          if (!contentEl) return;
-          const focusables = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.getFocusables)(contentEl);
-          if (focusables.length > 0) {
-            contentEl.removeAttribute("tabindex");
-          } else {
-            contentEl.setAttribute("tabindex", "0");
-          }
-        });
-      },
-      cleanupObserver({ refs }) {
-        const cleanup = refs.get("indicatorCleanup");
-        if (cleanup) cleanup();
-      },
-      allowIndicatorTransition({ context }) {
-        context.set("indicatorTransition", true);
-      },
-      setIndicatorRect({ context, event, scope }) {
-        const value = event.id ?? context.get("value");
-        const indicatorEl = getIndicatorEl(scope);
-        if (!indicatorEl) return;
-        if (!value) {
-          context.set("indicatorTransition", false);
-          return;
-        }
-        const triggerEl = getTriggerEl(scope, value);
-        if (!triggerEl) return;
-        context.set("indicatorRect", getRectById(scope, value));
-        (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.nextTick)(() => {
-          context.set("indicatorTransition", false);
-        });
-      },
-      syncSsr({ context }) {
-        context.set("ssr", false);
-      },
-      syncIndicatorRect({ context, refs, scope }) {
-        const cleanup = refs.get("indicatorCleanup");
-        if (cleanup) cleanup();
-        const value = context.get("value");
-        if (!value) {
-          context.set("indicatorTransition", false);
-          return;
-        }
-        const triggerEl = getTriggerEl(scope, value);
-        const indicatorEl = getIndicatorEl(scope);
-        if (!triggerEl || !indicatorEl) return;
-        const indicatorCleanup = (0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.trackElementRect)([triggerEl], {
-          measure(el) {
-            return getOffsetRect(el);
-          },
-          onEntry({ rects }) {
-            const [rect] = rects;
-            context.set("indicatorRect", resolveRect(rect));
-          }
-        });
-        refs.set("indicatorCleanup", indicatorCleanup);
-      },
-      navigateIfNeeded({ context, prop, scope }) {
-        const value = context.get("value");
-        if (!value) return;
-        const triggerEl = getTriggerEl(scope, value);
-        if ((0,_zag_js_dom_query__WEBPACK_IMPORTED_MODULE_1__.isAnchorElement)(triggerEl)) {
-          prop("navigate")?.({ value, node: triggerEl, href: triggerEl.href });
-        }
-      }
-    }
-  }
-});
-var props = (0,_zag_js_types__WEBPACK_IMPORTED_MODULE_4__.createProps)()([
-  "activationMode",
-  "composite",
-  "deselectable",
-  "dir",
-  "getRootNode",
-  "id",
-  "ids",
-  "loopFocus",
-  "navigate",
-  "onFocusChange",
-  "onValueChange",
-  "orientation",
-  "translations",
-  "value",
-  "defaultValue"
-]);
-var splitProps = (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_2__.createSplitProps)(props);
-var triggerProps = (0,_zag_js_types__WEBPACK_IMPORTED_MODULE_4__.createProps)()(["disabled", "value"]);
-var splitTriggerProps = (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_2__.createSplitProps)(triggerProps);
-var contentProps = (0,_zag_js_types__WEBPACK_IMPORTED_MODULE_4__.createProps)()(["value"]);
-var splitContentProps = (0,_zag_js_utils__WEBPACK_IMPORTED_MODULE_2__.createSplitProps)(contentProps);
 
 
 

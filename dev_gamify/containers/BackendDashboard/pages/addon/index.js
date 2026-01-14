@@ -1,12 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddonCard from './AddonCard';
 import { Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
-import { Box, Flex, Tabs } from '@chakra-ui/react';
-import { fetchActiveAddons } from '../../../../redux/Slices/addonsSlice/addonsSlice';
+import { Box, Button, Flex, Tabs } from '@chakra-ui/react';
+import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
+import Search from '@GFComponents/Search';
+import GamifyBox from '@GFComponents/GamifyBox';
+import AddonCardsSkeleton from './AddonsCardSkeleton';
+import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
 const infoCardsData = [
 	{
@@ -133,8 +137,8 @@ const filterOptions = [
 	{ slug: 'all', title: __('All', 'academy') },
 	{ slug: 'active', title: __('Active', 'academy') },
 	{ slug: 'inactive', title: __('Inactive', 'academy') },
-	{ slug: 'free', title: __('Free', 'academy') },
-	{ slug: 'pro', title: __('Pro', 'academy') },
+	// { slug: 'free', title: __('Free', 'academy') },
+	// { slug: 'pro', title: __('Pro', 'academy') },
 ];
 
 const filterAddons = (addons, filter, activeAddons = {}) => {
@@ -183,53 +187,164 @@ const RenderCards = ({ filter, values, setFieldValue, activeAddons }) => {
 };
 
 const Addons = () => {
-	const { activeAddons = [] } = useSelector(state => state.addons || {});
-	const addonsSavedData = useSelector(state => state.addons || {});
+	const addonsSavedData = useSelector((state) => state.addons);
+	const [filterText, setFilterText] = useState('');
+	const [loading, setLoading] = useState(false);
+	const [filterMenu, setFilterMenu] = useState('all');
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		dispatch(fetchActiveAddons());
-	}, [dispatch]);
+		setLoading(true)
+		dispatch(fetchAddons()).then(() => {
+			setLoading(false)
+		});
+	}, []);
+
+		const getAddonLists = (values) => {
+		return infoCardsData.filter((item) => {
+			if (item.label.toLowerCase().includes(filterText.toLowerCase())) {
+				if (filterMenu === 'all') {
+					setLoading(false);
+					return item;
+				} else if (filterMenu === 'active' && values[item.name]) {
+					return item;
+				} else if (filterMenu === 'inactive' && !values[item.name]) {
+					return item;
+				} else if (filterMenu === 'pro' && item.is_pro) {
+					return item;
+				} else if (filterMenu === 'free' && !item.is_pro) {
+					return item;
+				}
+			}
+			setLoading(false);
+			return false;
+		});
+	};
 
 	return (
 		<>
-			<TopBar path={__("Addons", "gamify")} />
+			<TopBar path={__("Add-ons", "gamify")} />
 
-			<Box
-				className="academy-page-content academy-page-content--addons"
-				maxWidth="1200px"
-				marginInline="auto"
+			<GamifyBox
+				heading={__("Add-ons", "gamify")}
+				dynamicClasses="addons"
 			>
-				<Tabs.Root defaultValue="all">
-					<Tabs.List>
-						{filterOptions.map(option => (
-							<Tabs.Trigger key={option.slug} value={option.slug}>
-								{option.title}
-							</Tabs.Trigger>
+				<Flex 
+					width={'100%'}
+					justifyContent={'space-between'}
+					alignItems={'center'}
+					borderBottom={'1px solid var(--gamify-border-color)'}
+					padding={'0 0 10px 0'}
+					margin={'20px 0'}
+				>
+					<Flex>
+						{filterOptions.map((option, index) => (
+							<Button
+								key={index}
+								bg={'transparent'}
+								minWidth={'0'}
+								height={'35px'}
+								padding={'6px 12px'}
+								fontSize={'14px'}
+								fontWeight={'500'}
+								lineHeight={'20px'}
+								color={'var(--gamify-font-color)'}
+								_after={{
+									content: '""',
+									position: "absolute",
+									left: 0,
+									bottom: "-13px",
+									width: "100%",
+									height: "2px",
+									bg: "var(--gamify-primary)",
+									transform:
+										filterMenu === option.slug ? "scaleX(1)" : "scaleX(0)",
+									transformOrigin: "left",
+									transition: "transform 0.2s ease",
+								}}
+								_hover={{
+									_after: {
+										transform: "scaleX(1)",
+									},
+								}}
+								className={`gamify-addons-filter-option ${filterMenu === option.slug
+										? 'active-filter'
+										: ''
+									}`}
+								onClick={() => {
+									setFilterMenu(option.slug);
+									setLoading(true);
+								}}
+							>
+								<span>{option.title}</span>
+							</Button>
 						))}
-					</Tabs.List>
-
-					<Formik enableReinitialize>
-						{({ setFieldValue, values }) => (
-							<>
-								{filterOptions.map(option => (
-									<Tabs.Content
-										key={option.slug}
-										value={option.slug}
-									>
-										<RenderCards
-											filter={option.slug}
-											values={values}
-											setFieldValue={setFieldValue}
-											activeAddons={activeAddons}
-										/>
-									</Tabs.Content>
-								))}
-							</>
-						)}
+					</Flex>
+					<Box>
+						<Search
+							placeholder={__('Search Add-ons', 'gamify')}
+							onSearchHandler={(keyword) =>
+								setFilterText(keyword.trim())
+							}
+						/>
+					</Box>
+				</Flex>
+				<Box className="gamify-addons">
+					<Formik 
+						enableReinitialize
+						initialValues={{...addonsSavedData}}
+					>
+						{({ setFieldValue, values }) => {
+							const addonLists = getAddonLists(values);
+							return (
+								<>
+									{loading ? (
+										<AddonCardsSkeleton />
+									) : (
+										<Flex 
+											width={'100%'}
+											gap={'20px'}
+											className='gamify-dashboard-addon-cards'
+										>
+											{addonLists.length ? (
+												addonLists.map(
+													(item, index) => {
+														return (
+															<AddonCard
+																item={item}
+																key={index}
+																index={index}
+																value={
+																	values[
+																	item
+																		.name
+																	]
+																}
+																setFieldValue={
+																	setFieldValue
+																}
+															/>
+														);
+													}
+												)
+											) : (
+												<Box className="academy-dashboard-addon-cards-message">
+													<CustomTableMessage
+														title={__(
+															'No Addons Found!',
+															'academy'
+														)}
+													/>
+												</Box>
+											)}
+										</Flex>
+									)}
+								</>
+							)}
+						}
 					</Formik>
-				</Tabs.Root>
-			</Box>
+				</Box>
+			</GamifyBox>
 		</>
 	);
 };
