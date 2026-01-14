@@ -51,7 +51,7 @@ class Assets
         $active_addons = get_option('gamify_active_addons', []);
 
         $addons_status = [
-            'email'       => in_array('email', $active_addons),
+            'storeengine'       => in_array('storeengine', $active_addons),
             'woocommerce' => in_array('woocommerce', $active_addons),
             'academylms'  => in_array('academylms', $active_addons),
         ];
