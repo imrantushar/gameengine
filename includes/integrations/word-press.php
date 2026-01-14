@@ -2,16 +2,20 @@
 
 namespace Gamify\Integrations;
 
+if (!defined('ABSPATH')) exit;
+
 class WordPress extends BaseIntegration
 {
     public static function get_slug(): string
     {
         return 'wordpress';
     }
+
     public static function get_name(): string
     {
         return __('WordPress Core', 'gamify');
     }
+
     public static function get_icon(): string
     {
         return 'dashicons-wordpress';
@@ -21,133 +25,142 @@ class WordPress extends BaseIntegration
     {
         return [
             'wp_login' => [
-                'label' => __('User Login', 'gamify'),
-                'hook' => 'wp_login',
-                'args_count' => 2,
+                'label'       => __('User Login', 'gamify'),
+                'hook'        => 'wp_login',
+                'args_count'  => 2,
                 'description' => __('Awarded when a user successfully logs into your website.', 'gamify'),
                 'get_user_id' => function ($login, $user) {
                     return $user->ID;
                 },
                 'supports'    => ['achievement', 'point_type', 'level'],
-                'schema' => self::get_standard_schema()
+                'schema'      => self::merge_schema([])
             ],
             'user_register' => [
-                'label' => __('User Register', 'gamify'),
-                'hook' => 'user_register',
+                'label'       => __('User Register', 'gamify'),
+                'hook'        => 'user_register',
                 'description' => __('Awarded when a user successfully register into your website.', 'gamify'),
-                'args_count' => 1,
+                'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-
-                'schema' => self::get_standard_schema()
+                'schema'      => self::merge_schema([])
             ],
             'publish_post' => [
-                'label' => __('Publish Post', 'gamify'),
-                'hook' => 'publish_post',
-                'description' => __('Publish post successfully  into your website.', 'gamify'),
-                'args_count' => 2,
+                'label'       => __('Publish Post', 'gamify'),
+                'hook'        => 'publish_post',
+                'description' => __('Publish post successfully into your website.', 'gamify'),
+                'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => array_merge([
-                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true, 'default' => 500]
-                ], self::get_standard_schema())
+                'schema' => self::merge_schema([
+                    ['key' => 'post_types', 'label' => __('Post Types (Pro)', 'gamify'), 'type' => 'select', 'is_multi' => true, 'is_pro' => true, 'options' => [['label' => 'Post', 'value' => 'post'], ['label' => 'Page', 'value' => 'page']]],
+                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
+                    ['key' => 'daily_limit', 'label' => __('Daily Post Limit (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                ])
+
             ],
             'publish_page' => [
-                'label' => __('Publish Page', 'gamify'),
-                'hook' => 'publish_page',
-                'description' => __('Publish page successfully  into your website.', 'gamify'),
-                'args_count' => 2,
+                'label'       => __('Publish Page', 'gamify'),
+                'hook'        => 'publish_page',
+                'description' => __('Publish page successfully into your website.', 'gamify'),
+                'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
                     ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
-                ], self::get_standard_schema())
+                ])
             ],
             'comment_post' => [
-                'label' => __('Post Comment', 'gamify'),
-                'hook' => 'comment_post',
-                'description' => __('Comment post successfully  into your website.', 'gamify'),
-                'args_count' => 2,
+                'label'       => __('Post Comment', 'gamify'),
+                'hook'        => 'comment_post',
+                'description' => __('Comment post successfully into your website.', 'gamify'),
+                'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     $c = get_comment($id);
                     return $c ? $c->user_id : 0;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
+                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true],
                     ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
-                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
-                ], self::get_standard_schema())
+                    ['key' => 'daily_cap', 'label' => __('Daily Max Comments (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                ])
             ],
             'delete_post' => [
-                'label' => __('Delete Post', 'gamify'),
-                'hook' => 'wp_trash_post',
-                'description' => __('Delete post successfully  into your website.', 'gamify'),
-                'args_count' => 1,
+                'label'       => __('Delete Post', 'gamify'),
+                'hook'        => 'wp_trash_post',
+                'description' => __('Delete post successfully into your website.', 'gamify'),
+                'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($post_id) {
                     $post = get_post($post_id);
                     return $post ? $post->post_author : 0;
                 },
-                'schema' => array_merge([
-                    ['key' => 'age_check', 'label' => __('Post Age Limit in Days (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
-                ], self::get_standard_schema('deduct'))
+                'schema' => self::merge_schema([
+                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
+                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                ], 'deduct')
             ],
             'user_role_change' => [
-                'label' => __('Role Change', 'gamify'),
-                'hook' => 'set_user_role',
-                'description' => __('User role change successfully  into your website.', 'gamify'),
-                'args_count' => 3,
+                'label'       => __('Role Change', 'gamify'),
+                'hook'        => 'set_user_role',
+                'description' => __('User role change successfully into your website.', 'gamify'),
+                'args_count'  => 3,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => array_merge([
-                    ['key' => 'role', 'label' => __('Target Role', 'gamify'), 'type' => 'select', 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
-                ], self::get_standard_schema())
+                'schema'      => self::merge_schema([
+                    ['key' => 'role', 'label' => __('Target Roles', 'gamify'), 'type' => 'select', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
+                ])
             ],
             'profile_update' => [
-                'label' => __('Profile Update', 'gamify'),
-                'hook' => 'profile_update',
-                'description' => __('Profile update successfully  into your website.', 'gamify'),
+                'label'       => __('Profile Update', 'gamify'),
+                'hook'        => 'profile_update',
+                'description' => __('Profile update successfully into your website.', 'gamify'),
                 'supports'    => ['point_type', 'achievement', 'level'],
-                'args_count' => 2,
+                'args_count'  => 2,
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => self::get_standard_schema()
+                'schema' => self::merge_schema([
+                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gamify'), 'type' => 'select', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
+                ])
             ],
             'post_updated' => [
-                'label' => __('Post Updated', 'gamify'),
-                'hook' => 'post_updated',
-                'description' => __('Post update successfully  into your website.', 'gamify'),
-                'args_count' => 3,
+                'label'       => __('Post Updated', 'gamify'),
+                'hook'        => 'post_updated',
+                'description' => __('Post update successfully into your website.', 'gamify'),
+                'args_count'  => 3,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
                     ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
-                ], self::get_standard_schema())
+                ])
             ],
             'after_password_reset' => [
-                'label' => __('Password Reset', 'gamify'),
-                'hook' => 'after_password_reset',
-                'description' => __('Reset password successfully  into your website.', 'gamify'),
-                'args_count' => 1,
+                'label'       => __('Password Reset', 'gamify'),
+                'hook'        => 'after_password_reset',
+                'description' => __('Reset password successfully into your website.', 'gamify'),
+                'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($u) {
                     return $u->ID;
                 },
-                'schema' => self::get_standard_schema()
+                'schema' => self::merge_schema([
+                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                ])
             ]
         ];
     }
+
     public static function get_dynamic_queries(): array
     {
         return [

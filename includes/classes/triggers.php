@@ -134,13 +134,25 @@ class Triggers
     }
 
     /**
-     * Handles the rewarding or revoking of points/achievements/levels.
+     * Handles the rewarding or revoking logic for a single rule.
+     * Updated to support Pro features via filters.
      */
     private function process_single_rule($rule, $user_id, $config, $hook_args)
     {
         $params = json_decode($rule->parameters, true);
 
-        // Check frequency limits (Daily, Weekly, Monthly, etc.)
+        //  Validate Time-Based restrictions (Pro Logic Hook)
+        if (!$this->check_timing_validity($params)) {
+            return;
+        }
+
+        //  Validate Pro Conditional Logic (Word Count, Min Spend, etc.)
+        // This filter allows the Pro folder to stop the process if conditions aren't met.
+        if (!apply_filters('gamify_validate_pro_logic', true, $rule->trigger_key, $params, $hook_args)) {
+            return;
+        }
+
+        //  Check frequency limits (Daily, Weekly, Monthly, etc.)
         if (!$this->check_limit_validity((int) $user_id, (int) $rule->id, $params)) {
             return;
         }
@@ -151,6 +163,11 @@ class Triggers
         // A. Handle Point-based rewards/penalties
         if ($rule->reward_type === 'point_type') {
             $points = isset($params['points']) ? intval($params['points']) : 0;
+
+            //  Apply Pro Point Multiplier or Percentage Calculation
+            // If Pro is active, this will modify the points based on logic (e.g., 2x points).
+            $points = apply_filters('gamify_pro_point_amount', $points, $rule, $params, $hook_args);
+
             $args = [
                 'description'    => $params['log_label'] ?? ($params['label'] ?? $config['label']),
                 'requirement_id' => $rule->id,
@@ -163,7 +180,7 @@ class Triggers
                 $success = $this->points_manager->add($safe_user_id, $points, $rule->trigger_key, $args);
             }
         }
-        // B. Handle Achievement-based rewards/penalties
+        //  Handle Achievement-based rewards/penalties
         elseif ($rule->reward_type === 'achievement') {
             if ($rule->action_type === 'deduct') {
                 $success = $this->achievements_manager->revoke($safe_user_id, (int) $rule->reward_id);
