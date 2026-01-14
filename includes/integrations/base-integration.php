@@ -58,7 +58,7 @@ abstract class BaseIntegration implements IntegrationInterface
             [
                 'key'     => 'start_time',
                 'label'   => __('Start Time (Pro)', 'gamify'),
-                'type'    => 'text',
+                'type'    => 'time',
                 'placeholder' => '08:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
@@ -66,7 +66,7 @@ abstract class BaseIntegration implements IntegrationInterface
             [
                 'key'     => 'end_time',
                 'label'   => __('End Time (Pro)', 'gamify'),
-                'type'    => 'text',
+                'type'    => 'time',
                 'placeholder' => '22:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
