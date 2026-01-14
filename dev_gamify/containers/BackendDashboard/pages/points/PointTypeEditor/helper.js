@@ -1,4 +1,4 @@
-export const getlPointtypesInitialValues = (id=null, data) => {
+export const getPointTypesInitialValues = (id=null, data) => {
   if (id && data && data.length > 0) {
     const filteredData = data.find(item => Number(item.id) === Number(id))
     

@@ -1,15 +1,13 @@
+import { API, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import apiFetch from '@wordpress/api-fetch';
-import { addQueryArgs } from '@wordpress/url';
 
 // --- 1. Fetch Available Triggers (Modular API) ---
 export const fetchTriggers = createAsyncThunk(
     'gamify/fetchTriggers',
-    async (scope = 'point_type', { rejectWithValue }) => { // Default scope 'point_type'
+    async (scope = 'point_type', { rejectWithValue }) => {
         try {
-            return await apiFetch({
-                path: `/gamify/v1/triggers?scope=${scope}`
-            });
+            const res = await API.get(`${namespace}triggers?scope=${scope}`);
+            return res?.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -21,11 +19,8 @@ export const fetchDynamicOptions = createAsyncThunk(
     'gamify/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
-            return await apiFetch({
-                path: '/gamify/v1/dynamic',
-                method: 'POST',
-                data: { integration, query }
-            });
+            const res = await API.post(`${namespace}dynamic`, { integration, query });
+            return res?.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -33,31 +28,22 @@ export const fetchDynamicOptions = createAsyncThunk(
 );
 
 // --- 3. Save Point Type (Create) ---
-export const savePointType = createAsyncThunk(
-    'gamify/savePointType',
-    async (pointData, { rejectWithValue }) => {
-        try {
-            return await apiFetch({
-                path: '/gamify/v1/point-types',
-                method: 'POST',
-                data: pointData,
-            });
-        } catch (error) {
-            return rejectWithValue(error.message);
-        }
+export const savePointType = createAsyncThunk('gamify/savePointType', async (pointData, { rejectWithValue }) => {
+    try {
+        const res = await API.post(`${namespace}point-types`, pointData);
+        return res?.data;
+    } catch (error) {
+        return rejectWithValue(error.message);
     }
-);
+});
 
 // --- 4. Update Point Type (Edit) ---
 export const updatePointType = createAsyncThunk(
     'gamify/updatePointType',
     async ({ id, data }, { rejectWithValue }) => {
         try {
-            return await apiFetch({
-                path: `/gamify/v1/point-types/${id}`,
-                method: 'PUT',
-                data: data,
-            });
+            const res = await API.put(`${namespace}point-types/${id}`, data);
+            return res?.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -69,7 +55,8 @@ export const fetchPointTypeById = createAsyncThunk(
     'gamify/fetchPointTypeById',
     async (id, { rejectWithValue }) => {
         try {
-            return await apiFetch({ path: `/gamify/v1/point-types/${id}` });
+            const res = await API.get(`${namespace}point-types/${id}`);
+            return res?.data;
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -81,7 +68,8 @@ export const fetchPointTypes = createAsyncThunk(
     'gamify/fetchPointTypes',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await apiFetch({ path: '/gamify/v1/point-types' });
+            const res = await API.get(`${namespace}point-types`);
+            const response = res?.data;
             if (Array.isArray(response)) {
                 return response.map(item => ({
                     id: item.id,
@@ -105,10 +93,7 @@ export const deletePointType = createAsyncThunk(
     'gamify/deletePointType',
     async (id, { rejectWithValue }) => {
         try {
-            await apiFetch({
-                path: `/gamify/v1/point-types/${id}`,
-                method: 'DELETE',
-            });
+            await API.delete(`${namespace}point-types/${id}`);
             return id;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -118,9 +103,8 @@ export const deletePointType = createAsyncThunk(
 
 const initialState = {
     pointTypes: [],
-    currentPointTypeId: null,
-    integrations: {}, // Object format for modular UI
-    allHooks: [], // Flat array for backward compatibility
+    integrations: {},
+    allHooks: [],
     hookSettings: {},
     status: 'idle',
     listStatus: false,
@@ -139,7 +123,7 @@ const pointTypeSlice = createSlice({
         },
         resetStatus: (state) => {
             state.status = 'idle';
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -171,15 +155,39 @@ const pointTypeSlice = createSlice({
                 state.error = action.payload;
             })
 
-            // --- Save / Update ---
-            .addCase(savePointType.pending, (state) => { state.saveStatus = 'saving'; })
-            .addCase(savePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
+            // --- Save ---
+            .addCase(savePointType.pending, (state) => { 
+                state.saveStatus = 'saving'; 
+            })
+            .addCase(savePointType.fulfilled, (state, action) => {
+                state.saveStatus = 'saved';
+                const created = action.payload;
+                
+                // Add the new item at the beginning of the list
+                const existingIndex = state.pointTypes.findIndex(pt => Number(pt.id) === Number(created.id));
+                if (existingIndex === -1) {
+                    state.pointTypes.unshift(created);
+                }
+
+                state.currentPointTypeId = created.id;
+            })
             .addCase(savePointType.rejected, (state, action) => {
                 state.saveStatus = 'failed';
                 state.error = action.payload;
             })
-            .addCase(updatePointType.pending, (state) => { state.saveStatus = 'saving'; })
-            .addCase(updatePointType.fulfilled, (state) => { state.saveStatus = 'saved'; })
+
+            // --- Update ---
+            .addCase(updatePointType.pending, (state) => { 
+                state.saveStatus = 'saving'; 
+            })
+            .addCase(updatePointType.fulfilled, (state, action) => {
+                state.saveStatus = 'saved';
+                const updated = action.payload;
+                const idx = state.pointTypes.findIndex(pt => Number(pt.id) === Number(updated.id));
+                if (idx !== -1) {
+                    state.pointTypes[idx] = { ...state.pointTypes[idx], ...updated };
+                }
+            })
             .addCase(updatePointType.rejected, (state, action) => {
                 state.saveStatus = 'failed';
                 state.error = action.payload;
@@ -188,32 +196,34 @@ const pointTypeSlice = createSlice({
             // --- Fetch Single by ID ---
             .addCase(fetchPointTypeById.fulfilled, (state, action) => {
                 const data = action.payload;
-                if(state.pointTypes.length === 0) {
-                    state.pointTypes = [data]
+                const existingIndex = state.pointTypes.findIndex(pt => Number(pt.id) === Number(data.id));
+                
+                if (existingIndex !== -1) {
+                    // Update existing item
+                    state.pointTypes[existingIndex] = { ...state.pointTypes[existingIndex], ...data };
                 } else {
-                    state.pointTypes = state.pointTypes.map(item => {
-                        if(Number(item.id) === Number(data.id)) {
-                            return {...item, ...data};
-                        }
-                        return item;
-                    })
+                    // Add new item if not present
+                    state.pointTypes.unshift(data);
                 }
 
                 state.currentPointTypeId = data.id;
                 state.hookSettings = {};
             })
 
-            // --- Fetch List & Delete ---
+            // --- Fetch List ---
             .addCase(fetchPointTypes.pending, (state) => {
                 state.listStatus = true;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
                 state.listStatus = false;
+                // Replace the entire list with fresh data from server
                 state.pointTypes = action.payload;
             })
             .addCase(fetchPointTypes.rejected, (state) => {
                 state.listStatus = false;
             })
+
+            // --- Delete ---
             .addCase(deletePointType.fulfilled, (state, action) => {
                 state.pointTypes = state.pointTypes.filter(pt => pt.id !== action.payload);
             });
@@ -222,7 +232,7 @@ const pointTypeSlice = createSlice({
 
 export const {
     updateHookSettings,
-    resetStatus
+    resetStatus,
 } = pointTypeSlice.actions;
 
 export default pointTypeSlice.reducer;

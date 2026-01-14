@@ -1,59 +1,56 @@
-import React, { useState } from 'react';
-import { __, sprintf } from '@wordpress/i18n';
-import { Text, Button, Flex } from '@chakra-ui/react';
-import { Link } from 'react-router-dom';
-import { sliceString } from '@GFUtils/helper';
-import { clearBtn, clearPrimaryBtn } from '../../../assets/scss/chakra/recipe';
+import React from 'react';
+import { __ } from '@wordpress/i18n';
+import { Text } from '@chakra-ui/react';
 
 const GFLabel = ({
 	type = "title",
 	label = "",
-	fontSize = "",
-	fontWeight = "",
-	textTransform = "",
-	margin = "0",
-	padding = "",
-	color = "",
-	bg = "",
-	borderRadius = "",
-	href = null,
-	textAlign = "",
-	borderBottomWidth = "",
-	borderColor = "",
-	icon,
-	whiteSpace = "",
-	lineClamp = "",
-	truncate,
+	fontSize,
+	fontWeight,
+	textTransform,
+	margin,
+	padding,
+	color,
+	bg,
+	borderRadius,
+	textAlign,
+	borderBottom,
+	borderColor,
+	whiteSpace,
 	lineHeight,
-	enableSlice = false,
-	sliceLength = 100,
-	sliceMore = '...',
-	showToggle = true,
-	seeMoreText = __('See more', 'gamifymunity'),
-	seeLessText = __('See less', 'gamifymunity'),
 }) => {
-	const [isExpanded, setIsExpanded] = useState(false);
-
 	const variantStyles = {
 		heading: {
 			fontSize: "20px",
-			fontWeight: "200",
+			fontWeight: "500",
 			color: "var(--gamify-font-color)",
+			lineHeight: "30px",
+			margin: "0 0 24px 0",
+			padding: "0 0 24px 0",
+			borderBottom: "1px solid var(--gamify-border-color)",
+		},
+		plainHeading: {
+			fontSize: "20px",
+			fontWeight: "500",
+			color: "var(--gamify-font-color)",
+			lineHeight: "30px",
+			margin: "0 0 24px 0",
+			padding: "0",
+			borderBottom: "none",
 		},
 		title: {
-			fontSize: "sm",
-			fontWeight: "medium",
+			fontSize: "14px",
+			fontWeight: "600",
+			lineHeight: "20px",
 			color: "var(--gamify-font-color)",
+			margin: "0",
 		},
 		subtitle: {
-			fontSize: "sm",
-			fontWeight: "normal",
-			color: "gray.600",
-		},
-		miniTitle: {
-			fontSize: "xs",
-			fontWeight: "normal",
-			color: "gray.600",
+			fontSize: "12px",
+			fontWeight: "400",
+			lineHeight: "16px",
+			color: "#101828",
+			margin: "0"
 		},
 		basic: {
 			fontSize: "14px",
@@ -63,116 +60,35 @@ const GFLabel = ({
 		simple: {
 			fontSize: "14px",
 			fontWeight: "400",
-			color: "var(--gamify-gray-color)",
+			lineHeight: "16px",
+			color: "#738496",
+			margin: "0"
 		},
-		simpleLight: {
-			fontSize: "12px",
-			fontWeight: "400",
-			color: "var(--gamify-gray-color)",
-		},
-		bold: {
-			fontSize: "16px",
-			fontWeight: "500",
-			color: "var(--gamify-font-color)",
-		},
-		boldLight: {
-			fontSize: "16px",
-			fontWeight: "500",
-			color: "var(--gamify-gray-color)",
-		},
-		inputLabel: {
-			fontSize: "0.875rem",                 
-			fontWeight: "600",              
-			color: "var(--gamify-font-color)", 
-			
-		}
-		
 	};
 
-	const styles = variantStyles[type] || variantStyles?.title;
+	const styles = variantStyles[type] || variantStyles.title;
 
 	const textProps = {
-		fontSize: fontSize || styles?.fontSize,
-		fontWeight: fontWeight || styles?.fontWeight,
-		textTransform: textTransform,
-		color: color || styles?.color,
-		bg: bg,
-		borderRadius: borderRadius,
-		margin: margin,
-		padding: padding,
 		fontFamily: "var(--gamify-font)",
-		textAlign: textAlign,
-		borderBottomWidth: borderBottomWidth,
-		borderColor: borderColor,
-		whiteSpace: whiteSpace,
-		truncate: truncate,
-		lineClamp: lineClamp,
-		lineHeight: lineHeight,
-	};
-
-	const needsSlicing = enableSlice && label && label.length > sliceLength;
-
-	const getDisplayText = () => {
-		if (!enableSlice || !needsSlicing) {
-			return label;
-		}
-
-		if (isExpanded) {
-			return label;
-		}
-
-		return sliceString(label, sliceLength, sliceMore);
-	};
-
-	const displayText = getDisplayText();
-
-	const toggleExpansion = () => {
-		setIsExpanded(!isExpanded);
-	};
-
-	const renderContent = () => {
-		if (href) {
-			return (
-				<Button {...clearBtn}>
-					<Link to={href} color="var(--gamify-primary-color)">
-						{displayText}
-					</Link>
-				</Button>
-			);
-		}
-
-		if (icon) {
-			return (
-				<Flex alignItems="center" gap="2">
-					{icon} {displayText}
-				</Flex>
-			);
-		}
-
-		return displayText;
+		fontSize: fontSize ?? styles.fontSize,
+		fontWeight: fontWeight ?? styles.fontWeight,
+		color: color ?? styles.color,
+		lineHeight: lineHeight ?? styles.lineHeight,
+		margin: margin ?? styles.margin,
+		padding: padding ?? styles.padding,
+		borderBottom: borderBottom ?? styles.borderBottom,
+		textTransform,
+		bg,
+		borderRadius,
+		textAlign,
+		borderColor,
+		whiteSpace,
 	};
 
 	return (
-		<>
-			<Text  {...textProps}>
-				{renderContent()}
-
-				{enableSlice && needsSlicing && showToggle && !href && (
-					<Button
-						{...clearPrimaryBtn}
-						fontSize="14px"
-						fontWeight="400"
-						lineHeight="24px"
-						variant="plain"
-						size="md"
-						marginLeft={1}
-						onClick={toggleExpansion}
-					>
-						{isExpanded ? seeLessText : seeMoreText}
-					</Button>
-				)}
-			</Text>
-		</>
+		<Text {...textProps}>
+			{label}
+		</Text>
 	);
 };
 

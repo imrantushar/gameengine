@@ -1,39 +1,19 @@
-// export default Logs;
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
-
-// Custom Components
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
-import OptionMenu from '@GFComponents/OptionMenu';
 import Search from '@GFComponents/Search';
-import LabeledInput from "@GFComponents/LabeledInput";
 import WPModal from '@GFComponents/Modal/WPModal';
-
-// Icons
-import { FiMoreHorizontal, FiEdit, FiClock, FiRefreshCw, FiPlus } from "react-icons/fi";
-
-
-// Redux Actions
+import { FiEdit, FiClock } from "react-icons/fi";
 import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
-
-// Chakra UI Imports
-import {
-    Box,
-    Button,
-    Icon,
-    Badge,
-    Flex,
-    Spinner,
-    Text,
-    Tooltip,
-} from '@chakra-ui/react';
+import { Button, Icon, Badge, Flex, Spinner, Text, Input, Textarea, } from '@chakra-ui/react';
 import Select from 'react-select';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
-import { FaChevronRight } from 'react-icons/fa6';
+import { commonInput, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { GoPlus } from 'react-icons/go';
+import GamifyInput from '@GFComponents/GamifyInput';
 
 const Logs = () => {
     const navigate = useNavigate();
@@ -124,7 +104,7 @@ const Logs = () => {
 
     // --- Submit Handler (Create & Update) ---
     const handleSubmit = async () => {
-        if (!formData.user_id && modalMode === 'create') {
+        if (!formData?.user_id && modalMode === 'create') {
             alert(__('User ID is required', 'gamify'));
             return;
         }
@@ -136,17 +116,17 @@ const Logs = () => {
         const payload = {
             ...formData,
             // Map 'reference' to 'trigger_key' for backend compatibility if needed
-            trigger_key: formData.reference
+            trigger_key: formData?.reference
         };
 
         if (modalMode === 'edit') {
             // Update Action
             result = await dispatch(updateLogAction({
-                id: formData.log_id,
+                id: formData?.log_id,
                 data: {
-                    points_awarded: formData.points,
-                    type: formData.type,
-                    message: formData.description
+                    points_awarded: formData?.points,
+                    type: formData?.type,
+                    message: formData?.description
                 }
             }));
         } else {
@@ -276,7 +256,7 @@ const Logs = () => {
                         variant="outline"
                         borderRadius="8px"
                         color="gray.700"
-                        height="32px"       
+                        height="32px"
                         fontSize="14px"
                         fontWeight="500"
                         borderColor="gray.300"
@@ -298,18 +278,11 @@ const Logs = () => {
                             dispatch(setPage(1));
                         }}
                     />
-                    <Button
-                        {...primaryBtn}
-                        height="36px"
-                        onClick={openCreateModal}
-                        leftIcon={<Icon as={FiPlus} />}
-                    >
-                        {__('Manual Trigger', 'gamify')}
-                    </Button>
                 </div>
             </>
         );
     }, [status, searchQuery]);
+
     const userOptions = [
         { value: 1, label: "User 1" },
         { value: 2, label: "User 2" },
@@ -318,29 +291,17 @@ const Logs = () => {
 
     return (
         <>
-            <TopBar
-                leftContent={() => (
-                    <>
-                        <span className="gamify-topbar-logo gamify-icon gamify-icon--gamify">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36" fill="none">
-                                <rect opacity="0.8" width="36" height="36" rx="9.6" fill="#006BFF" />
-                                <path d="M18.3393 12.0783L13.4437 27H9.5L16.1882 9H18.6978L18.3393 12.0783ZM22.4066 27L17.4986 12.0783L17.103 9H19.6374L24.6306 24L22.4066 27ZM22.1841 20.2995V23.2047H12.6772V20.2995H22.1841Z" fill="white" />
-                            </svg>
-                            </span>
-                        <span className="gamify-icon gamify-icon--angle-right">
-                             <FaChevronRight />
-                            </span>
-                        <GFLabel as="h2"
-                            color="var(--gamify-font-color)"
-                            type="subtitle"
-                            fontWeight="400" 
-                            fontSize='12px'
-                            label={__(`Dashboard`, 'gamify')} />
-                    </>
-                )}
-            />
+            <TopBar path={__("Logs", "gamify")} />
 
-            <Box width="1174px" margin="0 auto" >
+            <div className='gamify-page-content'>
+                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                    <GFLabel type="plainHeading" margin={0} label={__("Logs", "gamify")} />
+
+                    <Button {...primaryBtn} onClick={openCreateModal}>
+                        <Icon as={GoPlus} boxSize="20px" />  {__('Manual Trigger', 'gamify')}
+                    </Button>
+                </Flex>
+
                 {status === 'loading' && (!items || items.length === 0) ? (
                     <Flex justify="center" align="center" height="200px"><Spinner /></Flex>
                 ) : (
@@ -360,118 +321,101 @@ const Logs = () => {
                         onChangeItemsPerPage={handlePerPageChange}
                     />
                 )}
-            </Box>
+            </div>
 
-            {/* --- Unified Create/Edit Modal --- */}
             <WPModal
-                title={modalMode === 'edit' ? `Edit Log #${formData.log_id}` : "Manual Trigger"}
+                title={modalMode === 'edit' ? `Edit Log #${formData?.log_id}` : "Manual Trigger"}
                 isOpen={isModalOpen}
                 onRequestClose={() => setIsModalOpen(false)}
                 size="medium"
+                suffix='manual-trigger'
             >
-                <Box px={4}>
-                    <Flex gap={4} mb={4}>
-                        <Box flex="1">
-                            <Text
-                                fontWeight="500" fontSize="0.875rem" margin={0}
-                            >
-                                {__(`User ID`, "gamify")}
-                            </Text>
-
-                            <Select
-                                classNamePrefix='gamify-select'
-                                className='gamify-select'
-                                placeholder="e.g. 1"
-                                options={userOptions}
-                                value={userOptions.find(opt => opt.value === formData.user_id)}
-                                onChange={(selected) =>
-                                    setFormData({
-                                        ...formData,
-                                        user_id: selected ? selected.value : ""
-                                    })
-                                }
-                                isDisabled={modalMode === "edit"}
-                                styles={{
-                                    container: (base) => ({
-                                        ...base,
-                                        width: "100%",
-                                        opacity: modalMode === "edit" ? 0.6 : 1,
-                                    }),
-                                }}
-                            />
-                        </Box>
-                        <Box flex="1">
-                            <Text
-                                fontWeight="500" fontSize="0.875rem" margin={0}
-                            >
-                                {__(`Action Type`, "gamify")}
-                            </Text>
-
-                            <Select
-                                classNamePrefix='gamify-select'
-                                className='gamify-select'
-                                defaultValue={formData?.type ?? formData?.type?.items?.label}
-                                onChange={(val) => setFormData({ ...formData, type: val?.value })}
-                                options={[
-                                    { label: 'Award Points (+)', value: 'award' },
-                                    { label: 'Deduct Points (-)', value: 'deduct' },
-                                ]}
-                            />
-
-
-                        </Box>
-                    </Flex>
-
-                    <Flex gap={4} mb={4}>
-                        <Box flex="1">
-                            <LabeledInput
-                                label={'Points Amount'}
-                                type="number"
-                                placeholder={'e.g. 50'}
-                                value={formData.points}
-                                onChange={(e) => setFormData({ ...formData, points: e.target.value })}
-                                style={{ width: '100%' }}
-                            />
-                        </Box>
-                        <Box flex="1">
-                            {/* Only show schedule for new triggers */}
-                            {modalMode === 'create' && (
-                                <LabeledInput
-                                    label="Schedule (Optional)"
-                                    type="datetime-local"
-                                    value={formData.schedule_date}
-                                    onChange={(e) => setFormData({ ...formData, schedule_date: e.target.value })}
-                                    style={{ width: '100%' }}
-                                />
-                            )}
-                        </Box>
-                    </Flex>
-
-                    <Box mb={4}>
-                        <LabeledInput
-                            label="Description / Message"
-                            type='textarea'
-                            placeholder="Reason for adjustment..."
-                            value={formData.description}
-                            onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            style={{ width: '100%' }}
-                            inputStyle={{ height: '70px' }}
+                <Flex gap={4}>
+                    <GamifyInput label={__("User ID", "gamify")}>
+                        <Select
+                            classNamePrefix='gamify-select'
+                            className='gamify-select'
+                            placeholder="e.g. 1"
+                            options={userOptions}
+                            value={userOptions.find(opt => opt.value === formData?.user_id)}
+                            onChange={(selected) =>
+                                setFormData({
+                                    ...formData,
+                                    user_id: selected ? selected.value : ""
+                                })
+                            }
+                            isDisabled={modalMode === "edit"}
+                            styles={{
+                                container: (base) => ({
+                                    ...base,
+                                    width: "100%",
+                                    opacity: modalMode === "edit" ? 0.6 : 1,
+                                }),
+                            }}
                         />
-                    </Box>
+                    </GamifyInput>
 
-                    <Flex justifyContent='flex-end' >
-                        <Button variant="ghost" mr={3} onClick={() => setIsModalOpen(false)}>
-                            {__('Cancel', 'gamify')}
-                        </Button>
-                        <Button
-                            {...primaryBtn}
-                            onClick={handleSubmit}
-                            isLoading={isSubmitting}
-                        >
-                            {modalMode === 'edit' ? __('Update Log', 'gamify') : __('Process Trigger', 'gamify')}
-                        </Button>
-                    </Flex>
-                </Box>
+                    <GamifyInput label={__("Action Type", "gamify")}>
+                        <Select
+                            classNamePrefix='gamify-select'
+                            className='gamify-select'
+                            defaultValue={formData?.type ?? formData?.type?.items?.label}
+                            onChange={(val) => setFormData({ ...formData, type: val?.value })}
+                            options={[
+                                { label: 'Award Points (+)', value: 'award' },
+                                { label: 'Deduct Points (-)', value: 'deduct' },
+                            ]}
+                        />
+                    </GamifyInput>
+                </Flex>
+
+                <Flex gap={4}>
+                    <GamifyInput label={__("Points Amount", "gamify")}>
+                        <Input
+                            placeholder={__("Exp: 50", "gamify")}
+                            type="number"
+                            value={formData?.points}
+                            onChange={(e) => setFormData({ ...formData, points: e.target.value })}
+                            {...commonInput}
+                        />
+                    </GamifyInput>
+
+                    {modalMode === 'create' && (
+                        <GamifyInput label={__("Schedule(Optional)", "gamify")}>
+                            <Input
+                                placeholder={__("Exp: 50", "gamify")}
+                                type="datetime-local"
+                                value={formData?.schedule_date}
+                                onChange={(e) => setFormData({ ...formData, schedule_date: e.target.value })}
+                                {...commonInput}
+                            />
+                        </GamifyInput>
+                    )}
+                </Flex>
+
+                <GamifyInput label={__("Description(Optional)", "gamify")}>
+                    <Textarea
+                        placeholder={__("Reason for adjustment...", "gamify")}
+                        size="md"
+                        minH="100px"
+                        value={formData?.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                    />
+                </GamifyInput>
+
+                <Flex gap={3} justifyContent='flex-end' pt="20px" borderTop="1px solid var(--gamify-border-color)">
+                    <Button variant="ghost" border="1px solid var(--gamify-border-color)" onClick={() => setIsModalOpen(false)}>
+                        {__('Cancel', 'gamify')}
+                    </Button>
+                    <Button
+                        {...primaryBtn}
+                        onClick={handleSubmit}
+                        isLoading={isSubmitting}
+                        border="1px solid var(--gamify-primary)"
+                    >
+                        {modalMode === 'edit' ? __('Update Log', 'gamify') : __('Process Trigger', 'gamify')}
+                    </Button>
+                </Flex>
             </WPModal>
         </>
     );

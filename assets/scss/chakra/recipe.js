@@ -1,8 +1,10 @@
 export const primaryBtn = {
     bg: "var(--gamify-primary)",
     color: "#fff",
+    fontSize: "14px",
     fontWeight: "600",
-
+    lineHeight: "20px",
+    border: "1px solid var(--gamify-primary)"
 }
 
 export const primaryClearBtn = {
@@ -44,4 +46,14 @@ export const clearBtn = {
     color: "var(--gamify-font-color)",
     height: "auto",
     padding: "0"
+}
+
+export const commonInput = {
+    color: "var(--gamify-font-color) !important",
+    borderColor: "var(--gamify-border-color) !important",
+    outline: "var(--gamify-primary) !important",
+    _active: "var(--gamify-primary)",
+    _focus: "var(--gamify-primary)",
+    focusRing: "var(--gamify-primary)",
+    boxShadow: "none !important"
 }

@@ -3,20 +3,11 @@ import React from 'react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";
 import Divider from '@GFComponents/Divider';
+import SettingsInner from './Components/SettingsInner';
 
 const HelpSupport = () => {
     return (
-        <Box
-            bg="var(--gamify-background)"
-            borderRight="1px solid var(--gamify-border-color)"
-            h="auto"
-            pos="sticky"
-            top="0"
-            display={{ base: "none", lg: "flex" }}
-            flexDirection="column"
-            borderRadius='4px'
-            width="802px"
-        >
+        <SettingsInner heading={__(`Help & Support`, "gamify")}>
             <VStack padding='32px' width="100%" align="stretch" gap='16px'>
                 <Box>
                     <GFLabel
@@ -30,6 +21,7 @@ const HelpSupport = () => {
                         margin='0'>{__(`Gamify Pro is a powerful WordPress gamification plugin that boosts user engagement with points, badges, and leaderboards.`, 'gamify')}</Text>
                 </Box>
                 <Divider width='100%' />
+
                 <Box>
                     <GFLabel
                         type="title"
@@ -91,7 +83,7 @@ const HelpSupport = () => {
 
 
             </VStack>
-        </Box>
+        </SettingsInner>
     );
 };
 

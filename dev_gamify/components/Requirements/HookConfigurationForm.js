@@ -1,15 +1,13 @@
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import CustomCollapsible from '@GFComponents/Collapsible';
-import Divider from '@GFComponents/Divider';
 import { __ } from '@wordpress/i18n';
-import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions, updateHookSettings } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
 import LabeledInput from '@GFComponents/LabeledInput';
 import Select from 'react-select';
-
+import { primaryBtn } from '../../../assets/scss/chakra/recipe';
 
 const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type }) => {
     const dispatch = useDispatch();
@@ -109,7 +107,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex direction="column" gap="16px" p={4}>
+            <Flex direction="column" gap="16px" className='gamify-active-hooks__inner'>
                 {fieldsConfig.map((config) => {
                     if (config.scope && !config.scope.includes('point_type')) {
                         return null;
@@ -129,9 +127,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                 })}
             </Flex>
 
-            <Divider width='100%' margin='12px 0' />
-
-            <Flex padding="0 24px 12px 24px" justifyContent='flex-end'>
+            <Flex borderTop="1px solid var(--gamify-border-color)" mt="24px" pt="16px" justifyContent='flex-end'>
                 <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
                     {__('Done', 'gamify')}
                 </Button>
@@ -150,7 +146,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
     };
 
     return (
-        <Box background="white" borderRadius="4px" mb={2}>
+        <Box background="white" borderRadius="4px" mb={2} className='gamify-active-hooks'>
             <DynamicHookForm
                 hookId={hookId}
                 hookInfo={hookInfo}
