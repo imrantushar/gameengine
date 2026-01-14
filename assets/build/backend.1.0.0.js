@@ -4943,44 +4943,6 @@ const filterOptions = [{
 // { slug: 'free', title: __('Free', 'academy') },
 // { slug: 'pro', title: __('Pro', 'academy') },
 ];
-const filterAddons = (addons, filter, activeAddons = {}) => {
-  switch (filter) {
-    case 'free':
-      return addons.filter(item => !item.is_pro);
-    case 'pro':
-      return addons.filter(item => item.is_pro);
-    case 'active':
-      return addons.filter(item => activeAddons.includes(item.name));
-    case 'inactive':
-      return addons.filter(item => !activeAddons.includes(item.name));
-    default:
-      return addons;
-  }
-};
-const RenderCards = ({
-  filter,
-  values,
-  setFieldValue,
-  activeAddons
-}) => {
-  const filteredAddons = filterAddons(infoCardsData, filter, activeAddons);
-  if (!filteredAddons.length) {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
-      opacity: 0.6
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('No add-ons found.', 'academy'));
-  }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
-    flexWrap: "wrap",
-    gap: 6
-  }, filteredAddons.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonCard__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    key: item.name,
-    item: item,
-    index: index
-    // value={values[item.name]}
-    ,
-    setFieldValue: setFieldValue
-  })));
-};
 const Addons = () => {
   const addonsSavedData = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons);
   const [filterText, setFilterText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');

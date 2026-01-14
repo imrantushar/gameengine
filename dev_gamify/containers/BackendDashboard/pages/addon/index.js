@@ -141,51 +141,6 @@ const filterOptions = [
 	// { slug: 'pro', title: __('Pro', 'academy') },
 ];
 
-const filterAddons = (addons, filter, activeAddons = {}) => {
-	switch (filter) {
-		case 'free':
-			return addons.filter(item => !item.is_pro);
-
-		case 'pro':
-			return addons.filter(item => item.is_pro);
-
-		case 'active':
-			return addons.filter(item => activeAddons.includes(item.name));
-
-		case 'inactive':
-			return addons.filter(item => !activeAddons.includes(item.name));
-
-		default:
-			return addons;
-	}
-};
-
-const RenderCards = ({ filter, values, setFieldValue, activeAddons }) => {
-	const filteredAddons = filterAddons(
-		infoCardsData,
-		filter,
-		activeAddons
-	);
-
-	if (!filteredAddons.length) {
-		return <Box opacity={0.6}>{__('No add-ons found.', 'academy')}</Box>;
-	}
-
-	return (
-		<Flex flexWrap="wrap" gap={6}>
-			{filteredAddons.map((item, index) => (
-				<AddonCard
-					key={item.name}
-					item={item}
-					index={index}
-					// value={values[item.name]}
-					setFieldValue={setFieldValue}
-				/>
-			))}
-		</Flex>
-	);
-};
-
 const Addons = () => {
 	const addonsSavedData = useSelector((state) => state.addons);
 	const [filterText, setFilterText] = useState('');
