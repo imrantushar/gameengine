@@ -9,7 +9,7 @@ class Time_Based_Rewards
 
     public static function init()
     {
-        // কোরের ফিল্টারে হুক করা
+
         add_filter('gamify_check_timing_validity', [__CLASS__, 'validate_timing'], 10, 2);
     }
 
@@ -19,21 +19,24 @@ class Time_Based_Rewards
     public static function validate_timing($is_valid, $params)
     {
 
-        if (!empty($params['active_days']) && is_array($params['active_days'])) {
-            $today = strtolower(current_time('D')); // e.g., mon, tue, wed
-            if (!in_array($today, $params['active_days'])) {
+        if (!empty($params['active_days'])) {
+            $active_days = (array) $params['active_days'];
+            $today = strtolower(current_time('D')); // mon, tue, etc.
+            if (!in_array($today, $active_days)) {
                 return false;
             }
         }
 
-        // ২. সময় চেক করা (Start/End Time)
         if (!empty($params['start_time']) && !empty($params['end_time'])) {
-            $current_time = current_time('H:i'); // সার্ভারের বর্তমান সময় (২৪ ঘণ্টা ফরম্যাট)
+            $current_time = current_time('H:i');
+            $start = date("H:i", strtotime($params['start_time']));
+            $end   = date("H:i", strtotime($params['end_time']));
 
-            if ($current_time < $params['start_time'] || $current_time > $params['end_time']) {
-                return false; // নির্দিষ্ট সময়ের বাইরে
+            if ($current_time < $start || $current_time > $end) {
+                return false;
             }
         }
+
 
         return $is_valid;
     }
