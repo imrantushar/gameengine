@@ -26,12 +26,22 @@ abstract class BaseIntegration implements IntegrationInterface
                 'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
                 'default' => 10,
+                'width'   => '50%',
                 'scope'   => ['point_type']
+            ],
+            [
+                'key'     => 'log_label',
+                'label'   => __('Log Description', 'gamify'),
+                'type'    => 'text',
+                'width'   => '50%',
+                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
+                'scope'   => ['point_type', 'achievement', 'level']
             ],
             [
                 'key'     => 'limit',
                 'label'   => __('Limit', 'gamify'),
                 'type'    => 'select',
+                'width'   => '100%',
                 'options' => [
                     ['label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'],
                     ['label' => __('1 Time Only', 'gamify'), 'value' => '1_time'],
@@ -42,13 +52,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'default' => 'unlimited',
                 'scope'   => ['point_type', 'achievement', 'level']
             ],
-            [
-                'key'     => 'log_label',
-                'label'   => __('Log Description', 'gamify'),
-                'type'    => 'text',
-                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
-                'scope'   => ['point_type', 'achievement', 'level']
-            ]
+
         ];
     }
 
@@ -59,6 +63,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'start_time',
                 'label'   => __('Start Time (Pro)', 'gamify'),
                 'type'    => 'time',
+                'width'   => '50%',
                 'placeholder' => '08:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
@@ -67,6 +72,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'end_time',
                 'label'   => __('End Time (Pro)', 'gamify'),
                 'type'    => 'time',
+                'width'   => '50%',
                 'placeholder' => '22:00',
                 'is_pro'  => true,
                 'scope'   => ['point_type', 'achievement', 'level']
@@ -75,6 +81,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'active_days',
                 'label'   => __('Active Days (Pro)', 'gamify'),
                 'type'    => 'select',
+                'width'   => '100%',
                 'is_multi' => true,
                 'is_pro'  => true,
                 'options' => [
