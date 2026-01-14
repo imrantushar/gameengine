@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-14 15:53:07",
+    "generated_at": "2026-01-14 16:03:03",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -24,6 +24,17 @@
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -34,6 +45,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -67,20 +79,10 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
-                        },
-                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -93,6 +95,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -105,6 +108,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -162,6 +166,17 @@
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -172,6 +187,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -205,20 +221,10 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
-                        },
-                        {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -231,6 +237,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -243,6 +250,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -286,7 +294,7 @@
                 "publish_post": {
                     "label": "Publish Post",
                     "hook": "publish_post",
-                    "description": "Publish post successfully  into your website.",
+                    "description": "Publish post successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -296,17 +304,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_words",
-                            "label": "Min Word Count (Pro)",
-                            "type": "number",
-                            "is_pro": true,
-                            "default": 500
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -317,6 +329,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -350,20 +363,42 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                            "key": "post_types",
+                            "label": "Post Types (Pro)",
+                            "type": "select",
+                            "width": "100%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Post",
+                                    "value": "post"
+                                },
+                                {
+                                    "label": "Page",
+                                    "value": "page"
+                                }
                             ]
+                        },
+                        {
+                            "key": "min_words",
+                            "label": "Min Word Count (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "daily_limit",
+                            "label": "Daily Post Limit (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -376,6 +411,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -388,6 +424,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -431,7 +468,7 @@
                 "publish_page": {
                     "label": "Publish Page",
                     "hook": "publish_page",
-                    "description": "Publish page successfully  into your website.",
+                    "description": "Publish page successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -441,16 +478,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_media",
-                            "label": "Min Media Count (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -461,6 +503,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -494,20 +537,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "min_media",
+                            "label": "Min Media Count (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -520,6 +560,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -532,6 +573,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -575,7 +617,7 @@
                 "comment_post": {
                     "label": "Post Comment",
                     "hook": "comment_post",
-                    "description": "Comment post successfully  into your website.",
+                    "description": "Comment post successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -585,22 +627,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_chars",
-                            "label": "Min Character Count (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
-                            "key": "instant_reward",
-                            "label": "Instant Reward (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -611,6 +652,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -644,20 +686,31 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "instant_reward",
+                            "label": "Instant Reward (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "min_chars",
+                            "label": "Min Character Count (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "daily_cap",
+                            "label": "Daily Max Comments (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -670,6 +723,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -682,6 +736,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -725,7 +780,7 @@
                 "delete_post": {
                     "label": "Delete Post",
                     "hook": "wp_trash_post",
-                    "description": "Delete post successfully  into your website.",
+                    "description": "Delete post successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -735,16 +790,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "age_check",
-                            "label": "Post Age Limit in Days (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Deduct",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Penalty",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -755,6 +815,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -788,20 +849,24 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Penalty",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "age_check",
+                            "label": "Only if Post < X days old (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "full_reversal",
+                            "label": "Full Points Reversal (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -814,6 +879,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -826,6 +892,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -869,7 +936,7 @@
                 "user_role_change": {
                     "label": "Role Change",
                     "hook": "set_user_role",
-                    "description": "User role change successfully  into your website.",
+                    "description": "User role change successfully into your website.",
                     "args_count": 3,
                     "supports": [
                         "point_type",
@@ -879,19 +946,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "role",
-                            "label": "Target Role",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "wordpress",
-                                "query": "roles"
-                            }
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -902,6 +971,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -935,20 +1005,22 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "role",
+                            "label": "Target Roles",
+                            "type": "select",
+                            "width": "100%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "wordpress",
+                                "query": "roles"
+                            }
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -961,6 +1033,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -973,6 +1046,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1016,7 +1090,7 @@
                 "profile_update": {
                     "label": "Profile Update",
                     "hook": "profile_update",
-                    "description": "Profile update successfully  into your website.",
+                    "description": "Profile update successfully into your website.",
                     "supports": [
                         "point_type",
                         "achievement",
@@ -1030,6 +1104,17 @@
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1040,6 +1125,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1073,20 +1159,27 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                            "key": "field_specific",
+                            "label": "Field-specific Rewards (Pro)",
+                            "type": "select",
+                            "width": "100%",
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Bio",
+                                    "value": "description"
+                                },
+                                {
+                                    "label": "Profile Picture",
+                                    "value": "avatar"
+                                }
                             ]
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1099,6 +1192,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1111,6 +1205,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1154,7 +1249,7 @@
                 "post_updated": {
                     "label": "Post Updated",
                     "hook": "post_updated",
-                    "description": "Post update successfully  into your website.",
+                    "description": "Post update successfully into your website.",
                     "args_count": 3,
                     "supports": [
                         "point_type",
@@ -1164,16 +1259,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_change",
-                            "label": "Min Content Change % (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1184,6 +1284,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1217,20 +1318,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "min_change",
+                            "label": "Min Content Change % (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1243,6 +1341,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1255,6 +1354,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1298,7 +1398,7 @@
                 "after_password_reset": {
                     "label": "Password Reset",
                     "hook": "after_password_reset",
-                    "description": "Reset password successfully  into your website.",
+                    "description": "Reset password successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -1312,6 +1412,17 @@
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1322,6 +1433,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1355,20 +1467,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "cooldown",
+                            "label": "Cooldown in Days (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1381,6 +1490,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1393,6 +1503,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1451,20 +1562,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "achievement_id",
-                            "label": "Select Achievement",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "gamify",
-                                "query": "achievements"
-                            },
-                            "required": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1475,6 +1587,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1508,20 +1621,21 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "achievement_id",
+                            "label": "Select Achievement",
+                            "type": "select",
+                            "width": "100%",
+                            "dynamic": {
+                                "integration": "gamify",
+                                "query": "achievements"
+                            },
+                            "required": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1534,6 +1648,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1546,6 +1661,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1606,22 +1722,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "streak_bonus",
-                            "label": "Enable Streak Bonus (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
-                            "key": "min_stay",
-                            "label": "Min Stay Duration (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1632,6 +1747,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1665,20 +1781,32 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "streak_bonus",
+                            "label": "Enable Streak Bonus (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "multiplier",
+                            "label": "Points Multiplier (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true,
+                            "placeholder": "2"
+                        },
+                        {
+                            "key": "min_stay",
+                            "label": "Min Stay Time in Mins (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1691,6 +1819,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1703,6 +1832,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1756,19 +1886,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "post_id",
-                            "label": "Select Post",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "interaction",
-                                "query": "posts"
-                            }
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1779,6 +1911,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1812,20 +1945,32 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "post_id",
+                            "label": "Select Post",
+                            "type": "select",
+                            "width": "100%",
+                            "dynamic": {
+                                "integration": "interaction",
+                                "query": "posts"
+                            }
+                        },
+                        {
+                            "key": "categories",
+                            "label": "Select Categories (Pro)",
+                            "type": "select",
+                            "width": "100%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "wordpress",
+                                "query": "categories"
+                            }
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1838,6 +1983,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1850,6 +1996,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1903,16 +2050,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_reply_len",
-                            "label": "Min Reply Length (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1923,6 +2075,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1956,20 +2109,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "min_reply_len",
+                            "label": "Min Reply Length (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -1982,6 +2132,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -1994,6 +2145,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2045,7 +2197,7 @@
                     "label": "New Purchase",
                     "hook": "woocommerce_order_status_completed",
                     "args_count": 1,
-                    "description": "New purchase successfully  into your website.",
+                    "description": "New purchase successfully into your website.",
                     "supports": [
                         "point_type",
                         "achievement",
@@ -2054,32 +2206,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "min_spend",
-                            "label": "Minimum Spend (Pro)",
-                            "type": "number",
-                            "is_pro": true
-                        },
-                        {
-                            "key": "calc_type",
-                            "label": "Points Calculation (Pro)",
-                            "type": "select",
-                            "is_pro": true,
-                            "options": [
-                                {
-                                    "label": "Fixed",
-                                    "value": "fixed"
-                                },
-                                {
-                                    "label": "Percent of Total",
-                                    "value": "percent"
-                                }
-                            ]
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2090,6 +2231,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2123,20 +2265,41 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
+                            "key": "calc_type",
+                            "label": "Points Calculation",
+                            "type": "select",
+                            "width": "100%",
+                            "options": [
+                                {
+                                    "label": "Fixed",
+                                    "value": "fixed"
+                                },
+                                {
+                                    "label": "Percent of Order Total (Pro)",
+                                    "value": "percent",
+                                    "is_pro": true
+                                }
                             ]
+                        },
+                        {
+                            "key": "min_spend",
+                            "label": "Minimum Spend (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "first_purchase",
+                            "label": "First Purchase Only Bonus (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -2149,6 +2312,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -2161,6 +2325,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2204,7 +2369,7 @@
                 "woocommerce_purchase_specific_product": {
                     "label": "Purchase Specific Product",
                     "hook": "woocommerce_order_status_completed",
-                    "description": "Purchase product successfully  into your website.",
+                    "description": "Purchase product successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -2214,25 +2379,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "product_id",
-                            "label": "Select Product",
-                            "type": "select",
-                            "dynamic": {
-                                "integration": "woocommerce",
-                                "query": "products"
-                            }
-                        },
-                        {
-                            "key": "qty_multiplier",
-                            "label": "Quantity Multiplier (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2243,6 +2404,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2276,20 +2438,39 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "product_id",
+                            "label": "Select Product",
+                            "type": "select",
+                            "width": "100%",
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "products"
+                            }
+                        },
+                        {
+                            "key": "categories",
+                            "label": "Select Entire Category (Pro)",
+                            "type": "select",
+                            "width": "100%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "product_cats"
+                            }
+                        },
+                        {
+                            "key": "qty_multiplier",
+                            "label": "Quantity Based Multiplier (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -2302,6 +2483,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -2314,6 +2496,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2357,7 +2540,7 @@
                 "woocommerce_publish_product": {
                     "label": "Publish Product",
                     "hook": "publish_product",
-                    "description": "Publish product successfully  into your website.",
+                    "description": "Publish product successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -2371,6 +2554,17 @@
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2381,6 +2575,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2414,20 +2609,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "price_based",
+                            "label": "Points based on Product Price (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -2440,6 +2632,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -2452,6 +2645,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2495,7 +2689,7 @@
                 "woocommerce_review_product": {
                     "label": "Review Product",
                     "hook": "comment_post",
-                    "description": "Review product successfully  into your website.",
+                    "description": "Review product successfully into your website.",
                     "args_count": 2,
                     "supports": [
                         "point_type",
@@ -2505,16 +2699,21 @@
                     "get_user_id": {},
                     "schema": [
                         {
-                            "key": "media_bonus",
-                            "label": "Photo/Video Review Bonus (Pro)",
-                            "type": "switch",
-                            "is_pro": true
-                        },
-                        {
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2525,6 +2724,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2558,20 +2758,17 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "key": "media_bonus",
+                            "label": "Photo/Video Review Bonus (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -2584,6 +2781,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -2596,6 +2794,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2639,7 +2838,7 @@
                 "woocommerce_refund_purchase": {
                     "label": "Refund Order",
                     "hook": "woocommerce_order_status_refunded",
-                    "description": "Refund purchase successfully  into your website.",
+                    "description": "Refund purchase successfully into your website.",
                     "args_count": 1,
                     "supports": [
                         "point_type",
@@ -2653,6 +2852,17 @@
                             "label": "Points to Deduct",
                             "type": "number",
                             "default": 10,
+                            "width": "50%",
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Penalty",
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2663,6 +2873,7 @@
                             "key": "limit",
                             "label": "Limit",
                             "type": "select",
+                            "width": "100%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2696,20 +2907,24 @@
                             ]
                         },
                         {
-                            "key": "log_label",
-                            "label": "Log Description",
+                            "key": "full_reversal",
+                            "label": "Full Points Reversal (Pro)",
+                            "type": "switch",
+                            "width": "100%",
+                            "is_pro": true
+                        },
+                        {
+                            "key": "refund_reason",
+                            "label": "Specific Refund Reason (Pro)",
                             "type": "text",
-                            "default": "Activity Penalty",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
+                            "width": "50%",
+                            "is_pro": true
                         },
                         {
                             "key": "start_time",
                             "label": "Start Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "08:00",
                             "is_pro": true,
                             "scope": [
@@ -2722,6 +2937,7 @@
                             "key": "end_time",
                             "label": "End Time (Pro)",
                             "type": "time",
+                            "width": "50%",
                             "placeholder": "22:00",
                             "is_pro": true,
                             "scope": [
@@ -2734,6 +2950,7 @@
                             "key": "active_days",
                             "label": "Active Days (Pro)",
                             "type": "select",
+                            "width": "100%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
