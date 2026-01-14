@@ -35,7 +35,7 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
-                    return dispatch(saveSettings({key: 'genearl', data: values?.general}));
+                    return dispatch(saveSettings({key: 'general', data: values?.general}));
                 case "email-notice":
                     return dispatch(saveSettings({key: 'email', data: values?.email}));
             }
@@ -56,8 +56,7 @@ const Settings = () => {
                     initialValues={settingsData}
                     onSubmit={onSubmitHandle}
                 >
-                    {({values, submitForm, isSubmitting, dirty}) => {
-                        console.log({values})
+                    {({submitForm, isSubmitting, dirty}) => {
                         return (
                             <>
                                 <TopBar
