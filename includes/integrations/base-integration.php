@@ -2,15 +2,22 @@
 
 namespace Gamify\Integrations;
 
-if (!defined('ABSPATH')) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
+/**
+ * Abstract class BaseIntegration
+ * Provides a standard schema and helper methods for integrations.
+ */
 abstract class BaseIntegration implements IntegrationInterface
 {
+
     /**
-     * Merge specific fields into the standard schema with correct ordering.
+     * Merges trigger-specific fields into the standard schema.
      * Order: 1. Free Common -> 2. Trigger Specific -> 3. Pro Common
      */
-    protected static function merge_schema(array $specific_fields = [], $type = 'award'): array
+    protected static function merge_schema(array $specific_fields = array(), $type = 'award'): array
     {
         $common_free = self::get_common_free_schema($type);
         $common_pro  = self::get_common_pro_schema();
@@ -18,89 +25,96 @@ abstract class BaseIntegration implements IntegrationInterface
         return array_merge($common_free, $specific_fields, $common_pro);
     }
 
+    /**
+     * Standard Free Fields (Points, Limit, Log)
+     */
     private static function get_common_free_schema($type): array
     {
-        return [
-            [
+        return array(
+            array(
                 'key'     => 'points',
-                'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
+                'label'   => ('award' === $type) ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
+                'width'   => '50%', // Number field
                 'default' => 10,
-                'width'   => '50%',
-                'scope'   => ['point_type']
-            ],
-            [
+                'scope'   => array('point_type'),
+            ),
+            array(
                 'key'     => 'log_label',
                 'label'   => __('Log Description', 'gamify'),
                 'type'    => 'text',
-                'width'   => '50%',
-                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
-                'scope'   => ['point_type', 'achievement', 'level']
-            ],
-            [
+                'width'   => '50%', // Text field
+                'default' => ('award' === $type) ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
+                'scope'   => array('point_type', 'achievement', 'level'),
+            ),
+            array(
                 'key'     => 'limit',
                 'label'   => __('Limit', 'gamify'),
                 'type'    => 'select',
-                'width'   => '100%',
-                'options' => [
-                    ['label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'],
-                    ['label' => __('1 Time Only', 'gamify'), 'value' => '1_time'],
-                    ['label' => __('1 Per Day (Pro)', 'gamify'), 'value' => '1_per_day', 'is_pro' => true],
-                    ['label' => __('1 Per Week (Pro)', 'gamify'), 'value' => '1_per_week', 'is_pro' => true],
-                    ['label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true],
-                ],
+                'width'   => '100%', // Select field
+                'options' => array(
+                    array('label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'),
+                    array('label' => __('1 Time Only', 'gamify'), 'value' => '1_time'),
+                    array('label' => __('1 Per Day (Pro)', 'gamify'), 'value' => '1_per_day', 'is_pro' => true),
+                    array('label' => __('1 Per Week (Pro)', 'gamify'), 'value' => '1_per_week', 'is_pro' => true),
+                    array('label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true),
+                ),
                 'default' => 'unlimited',
-                'scope'   => ['point_type', 'achievement', 'level']
-            ],
-
-        ];
+                'scope'   => array('point_type', 'achievement', 'level'),
+            ),
+        );
     }
 
+    /**
+     * Common Pro Fields (Time-Based & Days)
+     */
     private static function get_common_pro_schema(): array
     {
-        return [
-            [
-                'key'     => 'start_time',
-                'label'   => __('Start Time (Pro)', 'gamify'),
-                'type'    => 'time',
-                'width'   => '50%',
+        return array(
+            array(
+                'key'         => 'start_time',
+                'label'       => __('Start Time (Pro)', 'gamify'),
+                'type'        => 'time',
+                'width'       => '50%', // Time field
                 'placeholder' => '08:00',
-                'is_pro'  => true,
-                'scope'   => ['point_type', 'achievement', 'level']
-            ],
-            [
-                'key'     => 'end_time',
-                'label'   => __('End Time (Pro)', 'gamify'),
-                'type'    => 'time',
-                'width'   => '50%',
+                'is_pro'      => true,
+                'scope'       => array('point_type', 'achievement', 'level'),
+            ),
+            array(
+                'key'         => 'end_time',
+                'label'       => __('End Time (Pro)', 'gamify'),
+                'type'        => 'time',
+                'width'       => '50%', // Time field
                 'placeholder' => '22:00',
-                'is_pro'  => true,
-                'scope'   => ['point_type', 'achievement', 'level']
-            ],
-            [
-                'key'     => 'active_days',
-                'label'   => __('Active Days (Pro)', 'gamify'),
-                'type'    => 'select',
-                'width'   => '100%',
+                'is_pro'      => true,
+                'scope'       => array('point_type', 'achievement', 'level'),
+            ),
+            array(
+                'key'      => 'active_days',
+                'label'    => __('Active Days (Pro)', 'gamify'),
+                'type'     => 'select',
+                'width'    => '100%', // Select field
                 'is_multi' => true,
-                'is_pro'  => true,
-                'options' => [
-                    ['label' => 'Monday', 'value' => 'mon'],
-                    ['label' => 'Tuesday', 'value' => 'tue'],
-                    ['label' => 'Wednesday', 'value' => 'wed'],
-                    ['label' => 'Thursday', 'value' => 'thu'],
-                    ['label' => 'Friday', 'value' => 'fri'],
-                    ['label' => 'Saturday', 'value' => 'sat'],
-                    ['label' => 'Sunday', 'value' => 'sun']
-                ],
-                'scope'   => ['point_type', 'achievement', 'level']
-            ]
-        ];
+                'is_pro'   => true,
+                'options'  => array(
+                    array('label' => __('Monday', 'gamify'), 'value' => 'mon'),
+                    array('label' => __('Tuesday', 'gamify'), 'value' => 'tue'),
+                    array('label' => __('Wednesday', 'gamify'), 'value' => 'wed'),
+                    array('label' => __('Thursday', 'gamify'), 'value' => 'thu'),
+                    array('label' => __('Friday', 'gamify'), 'value' => 'fri'),
+                    array('label' => __('Saturday', 'gamify'), 'value' => 'sat'),
+                    array('label' => __('Sunday', 'gamify'), 'value' => 'sun'),
+                ),
+                'scope'    => array('point_type', 'achievement', 'level'),
+            ),
+        );
     }
 
-    // Kept for backward compatibility if needed, but recommended to use merge_schema()
+    /**
+     * Returns the combined standard schema for backward compatibility.
+     */
     protected static function get_standard_schema($type = 'award'): array
     {
-        return self::merge_schema([], $type);
+        return self::merge_schema(array(), $type);
     }
 }

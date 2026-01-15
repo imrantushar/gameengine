@@ -1,21 +1,21 @@
-import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon, Input, Text } from '@chakra-ui/react';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useFormikContext } from 'formik';
 import { fetchDynamicOptions, updateHookSettings } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
-import LabeledInput from '@GFComponents/LabeledInput';
 import Select from 'react-select';
-import { primaryBtn } from '../../../assets/scss/chakra/recipe';
+import { commonInput, primaryBtn } from '../../../assets/scss/chakra/recipe';
+import { is_pro } from '@GFUtils/helper';
+import GamifyInput from '@GFComponents/GamifyInput';
 
 const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type }) => {
     const dispatch = useDispatch();
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
-
-    const isProActive = window.GamifyGlobal?.is_pro || false;
-    const isDisabled = config.is_pro && !isProActive;
+    const isDisabled = !is_pro && config?.is_pro;
 
     useEffect(() => {
         if (config.dynamic && !isDisabled) {
@@ -53,15 +53,33 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
         return (
             <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
                 {labelElement}
+
                 <Select
+                    isMulti={config?.is_multi}
                     isDisabled={isDisabled}
                     isLoading={loading}
-                    placeholder={isDisabled ? __('Upgrade to Pro', 'gamify') : __('Select...', 'gamify')}
+                    placeholder={
+                        isDisabled
+                            ? __('Upgrade to Pro', 'gamify')
+                            : __('Select...', 'gamify')
+                    }
                     className="gamify-select"
                     classNamePrefix="gamify-select"
                     options={optionsSource}
-                    value={optionsSource.find(opt => opt.value == value) || null}
-                    onChange={(val) => onChange(val ? val.value : '')}
+                    value={
+                        config?.is_multi
+                            ? optionsSource.filter(opt =>
+                                Array.isArray(value) && value.includes(opt.value)
+                            )
+                            : optionsSource.find(opt => opt.value == value) || null
+                    }
+                    onChange={(val) => {
+                        if (config?.is_multi) {
+                            onChange(val ? val.map(v => v.value) : []);
+                        } else {
+                            onChange(val ? val.value : '');
+                        }
+                    }}
                 />
             </Box>
         );
@@ -83,15 +101,18 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
 
     return (
         <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
-            <LabeledInput
-                label={displayLabel}
-                placeholder={isDisabled ? __('Locked Feature', 'gamify') : (config.placeholder || '')}
-                type={config.type === 'number' ? 'number' : 'text'}
-                value={value}
-                onChange={(e) => onChange(e.target.value)}
-                required={config.required}
-                disabled={isDisabled}
-            />
+            <GamifyInput label={displayLabel}>
+                <Input
+                    {...commonInput}
+                    label={displayLabel}
+                    placeholder={isDisabled ? __('Locked Feature', 'gamify') : (config.placeholder || '')}
+                    type={config.type}
+                    value={value}
+                    onChange={(e) => onChange(e.target.value)}
+                    required={config.required}
+                    disabled={isDisabled}
+                />
+            </GamifyInput>
         </Box>
     );
 };
@@ -126,23 +147,46 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                     );
                 })}
             </Flex>
-
-            <Flex borderTop="1px solid var(--gamify-border-color)" mt="24px" pt="16px" justifyContent='flex-end'>
-                <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
-                    {__('Done', 'gamify')}
-                </Button>
-            </Flex>
         </CustomCollapsible>
     );
 };
 
 const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen, setIsOpen }) => {
+    const { values, setFieldValue } = useFormikContext();
+
     const handleChange = (field, value) => {
         dispatch(updateHookSettings({
             type: type,
             hookId: hookInfo.id,
             settings: { [field]: value }
         }));
+
+        try {
+            const requirements = Array.isArray(values?.requirements) ? values.requirements : [];
+            const idx = requirements.findIndex(r => String(r.trigger_key) === String(hookInfo.id) && r.action_type === type);
+
+            if (idx > -1) {
+                const updatedReq = {
+                    ...requirements[idx],
+                    parameters: {
+                        ...(requirements[idx].parameters || {}),
+                        [field]: value
+                    }
+                };
+                const newRequirements = [...requirements];
+                newRequirements[idx] = updatedReq;
+                setFieldValue('requirements', newRequirements);
+            } else {
+                const newReq = {
+                    trigger_key: hookInfo.id,
+                    action_type: type,
+                    parameters: { [field]: value }
+                };
+                setFieldValue('requirements', [...requirements, newReq]);
+            }
+        } catch (e) {
+            console.error(e);
+        }
     };
 
     return (
