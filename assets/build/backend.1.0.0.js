@@ -9646,16 +9646,18 @@ const fetchSettings = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsy
 });
 const saveSettings = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/saveSettings', async ({
   key,
-  data
+  payloadData
 }) => {
   await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/gamify/v1/settings',
     method: 'POST',
-    data
+    data: {
+      [`${key}`]: payloadData
+    }
   });
   return {
     key,
-    data
+    data: payloadData
   };
 });
 const settingsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice)({
@@ -9674,8 +9676,8 @@ const settingsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSli
       } = action.payload;
       state.data = {
         ...state.data,
-        [key]: {
-          ...state.data[key],
+        [`${key}`]: {
+          ...state.data[`${key}`],
           ...data
         }
       };
