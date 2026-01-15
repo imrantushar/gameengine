@@ -3,7 +3,7 @@ import React from 'react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";
 import Divider from '@GFComponents/Divider';
-import SettingsInner from './Components/SettingsInner';
+import SettingsInner from '../Components/SettingsInner';
 
 const HelpSupport = () => {
     return (

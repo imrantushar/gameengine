@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
@@ -8,49 +8,76 @@ import GeneralSettings from './Tabs/GeneralSettings';
 import EmailNotice from './Tabs/EmailNotice';
 import HelpSupport from './Tabs/HelpSupport';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
-import { saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
+import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Formik } from 'formik';
+import SettingsPageSkeleton from './Components/SettingsPageSkeleton';
 
 const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const tab = tabMatch ? tabMatch[1] : 'general-settings';
+    const { data: settingsData } = useSelector(state => state.settings);
+    const [settingsLoading, setSettingsLoading] = useState(!settingsData);
     const dispatch = useDispatch();
-    const { email, general, saveStatus, status } = useSelector(state => state.settings);
 
-    const handleSave = () => {
-        switch (tab) {
-            case "general-settings":
-                dispatch(saveSettings({ general }));
-                break;
+    useEffect(() => {
+        if(!settingsData) {
+            setSettingsLoading(true)
+            dispatch(fetchSettings()).then(() => {
+                setSettingsLoading(false)
+            });
+        }
+    }, [])
 
-            case "email-notice":
-                dispatch(saveSettings({ email }));
-                break;
-
-            default:
-                break;
+    const onSubmitHandle = (values, actions) => {
+        actions.setSubmitting(true);
+        try {
+            switch (tab) {
+                case "general-settings":
+                    return dispatch(saveSettings({key: 'general', data: values?.general}));
+                case "email-notice":
+                    return dispatch(saveSettings({key: 'email', data: values?.email}));
+            }
+        } catch (error) {
+            console.warn({error})
+        } finally {
+            actions.setSubmitting(false);
         }
     };
 
     return (
         <>
-            <TopBar
-                path={__("Settings", "gamify")}
-                rightContent={
-                    <Button {...primaryBtn} onClick={handleSave} isLoading={saveStatus === 'saving'}>
-                        {__('Save Changes', 'gamify')}
-                    </Button>
-                }
-            />
-
-            <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
-                <LeftBar />
-
-                {tab === "general-settings" && <GeneralSettings saveStatus={saveStatus} status={status} general={general} />}
-                {tab === "email-notice" && <EmailNotice saveStatus={saveStatus} status={status} />}
-                {tab === "help-support" && <HelpSupport />}
-            </Flex>
+            {settingsLoading ? (
+                <SettingsPageSkeleton />
+            ) : (
+                <Formik
+                    enableReinitialize
+                    initialValues={settingsData}
+                    onSubmit={onSubmitHandle}
+                >
+                    {({submitForm, isSubmitting, dirty}) => {
+                        return (
+                            <>
+                                <TopBar
+                                    path={__("Settings", "gamify")}
+                                    rightContent={
+                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                            {__('Save Changes', 'gamify')}
+                                        </Button>
+                                    }
+                                />
+                                <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
+                                    <LeftBar />
+                                    {tab === "general-settings" && <GeneralSettings />}
+                                    {tab === "email-notice" && <EmailNotice />}
+                                    {tab === "help-support" && <HelpSupport />}
+                                </Flex>
+                            </>
+                        )
+                    }}
+                </Formik>
+            )}
         </>
     );
 };
