@@ -46,16 +46,21 @@ const LevelType = () => {
     useEffect(() => {
         dispatch(fetchLevelTriggers('level'));
         dispatch(fetchPointTypes());
-        dispatch(fetchLevels());
     }, []);
     
     useEffect(() => {
-        if (exitstignItem) return;
-        setFormLoading(true);
-        dispatch(fetchLevelById(editId))
-            .finally(() => {
+        (async() => {
+            try {
+                if (!editId) return;
+                if (exitstignItem) return;
+                setFormLoading(true);
+                await dispatch(fetchLevelById(editId));
+            } catch (error) {
+                console.warn(error)
+            } finally {
                 setFormLoading(false);
-            });
+            }
+        })()
     }, [editId, exitstignItem]);
 
     // useEffect(() => { 

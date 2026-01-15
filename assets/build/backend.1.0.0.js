@@ -6876,14 +6876,20 @@ const LevelType = () => {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
     dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_13__.fetchLevelTriggers)('level'));
     dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_13__.fetchPointTypes)());
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_13__.fetchLevels)());
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    if (exitstignItem) return;
-    setFormLoading(true);
-    dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_13__.fetchLevelById)(editId)).finally(() => {
-      setFormLoading(false);
-    });
+    (async () => {
+      try {
+        if (!editId) return;
+        if (exitstignItem) return;
+        setFormLoading(true);
+        await dispatch((0,_redux_Slices_levelsSlice_levelsSlice_js__WEBPACK_IMPORTED_MODULE_13__.fetchLevelById)(editId));
+      } catch (error) {
+        console.warn(error);
+      } finally {
+        setFormLoading(false);
+      }
+    })();
   }, [editId, exitstignItem]);
 
   // useEffect(() => { 
@@ -9174,8 +9180,6 @@ const {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   addCategoryToList: () => (/* binding */ addCategoryToList),
-/* harmony export */   addHook: () => (/* binding */ addHook),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   deleteLevel: () => (/* binding */ deleteLevel),
 /* harmony export */   fetchDynamicOptions: () => (/* binding */ fetchDynamicOptions),
@@ -9183,10 +9187,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   fetchLevelTriggers: () => (/* binding */ fetchLevelTriggers),
 /* harmony export */   fetchLevels: () => (/* binding */ fetchLevels),
 /* harmony export */   fetchPointTypes: () => (/* binding */ fetchPointTypes),
-/* harmony export */   removeHook: () => (/* binding */ removeHook),
-/* harmony export */   resetForm: () => (/* binding */ resetForm),
 /* harmony export */   saveLevel: () => (/* binding */ saveLevel),
-/* harmony export */   setField: () => (/* binding */ setField),
 /* harmony export */   updateHookSettings: () => (/* binding */ updateHookSettings),
 /* harmony export */   updateLevel: () => (/* binding */ updateLevel)
 /* harmony export */ });
@@ -9197,24 +9198,24 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // --- Async Thunks ---
-const fetchLevels = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchAll', async () => {
+const fetchLevels = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchLevels', async () => {
   return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/gamify/v1/levels'
   });
 });
-const fetchLevelById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchById', async id => {
+const fetchLevelById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchLevelById', async id => {
   return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: `/gamify/v1/levels/${id}`
   });
 });
-const saveLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/save', async data => {
+const saveLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/saveLevel', async data => {
   return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/gamify/v1/levels',
     method: 'POST',
     data
   });
 });
-const updateLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/update', async ({
+const updateLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/updateLevel', async ({
   id,
   data
 }) => {
@@ -9224,14 +9225,14 @@ const updateLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsync
     data
   });
 });
-const deleteLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/delete', async id => {
+const deleteLevel = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/deleteLevel', async id => {
   await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: `/gamify/v1/levels/${id}`,
     method: 'DELETE'
   });
   return id;
 });
-const fetchLevelTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchTriggers', async (scope = 'level', {
+const fetchLevelTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchLevelTriggers', async (scope = 'level', {
   rejectWithValue
 }) => {
   try {
@@ -9243,7 +9244,7 @@ const fetchLevelTriggers = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.crea
     return rejectWithValue(error.message);
   }
 });
-const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchDynamicOptions', async ({
+const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchDynamicOptions', async ({
   integration,
   query
 }, {
@@ -9262,28 +9263,15 @@ const fetchDynamicOptions = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.cre
     return rejectWithValue(error.message);
   }
 });
-const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('levels/fetchPointTypes', async () => {
+const fetchPointTypes = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('gamify/fetchPointTypes', async () => {
   return await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
     path: '/gamify/v1/point-types'
   });
 });
 const initialState = {
   levels: [],
-  currentLevelId: null,
-  title: '',
-  pluralName: '',
-  congratulationsMessage: '',
-  unlockWithPoints: true,
-  minPoints: '',
-  maxPoints: '',
-  selectedPointTypeId: null,
-  levelIcon: '',
-  category: '',
-  availableCategories: [],
-  integrations: {},
+  integrations: [],
   allHooks: [],
-  availablePointTypes: [],
-  selectedHookIds: [],
   hookSettings: {},
   status: 'idle',
   saveStatus: 'idle'
@@ -9292,35 +9280,6 @@ const levelsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
   name: 'levels',
   initialState,
   reducers: {
-    setField: (state, action) => {
-      state[action.payload.field] = action.payload.value;
-    },
-    resetForm: state => {
-      state.currentLevelId = null;
-      state.title = '';
-      state.pluralName = '';
-      state.congratulationsMessage = '';
-      state.unlockWithPoints = true;
-      state.minPoints = '';
-      state.maxPoints = '';
-      state.selectedPointTypeId = null;
-      state.levelIcon = '';
-      state.category = '';
-      state.selectedHookIds = [];
-      state.hookSettings = {};
-      state.saveStatus = 'idle';
-    },
-    addCategoryToList: (state, action) => {
-      if (!state.availableCategories.includes(action.payload)) {
-        state.availableCategories.push(action.payload);
-      }
-    },
-    addHook: (state, action) => {
-      if (!state.selectedHookIds.includes(action.payload)) state.selectedHookIds.push(action.payload);
-    },
-    removeHook: (state, action) => {
-      state.selectedHookIds = state.selectedHookIds.filter(id => id !== action.payload);
-    },
     updateHookSettings: (state, action) => {
       const {
         hookId,
@@ -9335,8 +9294,6 @@ const levelsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
   extraReducers: builder => {
     builder.addCase(fetchLevels.fulfilled, (state, action) => {
       state.levels = action.payload;
-      const categories = action.payload.map(i => i.category).filter(c => c);
-      state.availableCategories = [...new Set([...state.availableCategories, ...categories])];
     }).addCase(fetchLevelTriggers.fulfilled, (state, action) => {
       state.integrations = action.payload;
       const flattened = [];
@@ -9358,23 +9315,18 @@ const levelsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
       }));
     }).addCase(fetchLevelById.fulfilled, (state, action) => {
       const data = action.payload;
-      state.currentLevelId = data.id;
-      state.title = data.title;
-      state.pluralName = data.plural_name;
-      state.category = data.category || '';
-      state.congratulationsMessage = data.congratulations_message || '';
-      state.unlockWithPoints = !!parseInt(data.unlock_with_points_enabled);
-      state.minPoints = data.min_points;
-      state.maxPoints = data.max_points;
-      state.selectedPointTypeId = data.point_type_id;
-      state.levelIcon = data.icon;
-      state.selectedHookIds = [];
-      state.hookSettings = {};
-      if (data.requirements) {
-        data.requirements.forEach(req => {
-          state.selectedHookIds.push(req.trigger_key);
-          state.hookSettings[req.trigger_key] = req.parameters;
+      if (state.levels.length > 0) {
+        state.levels = state.levels.map(item => {
+          if (Number(item.id) === Number(data.id)) {
+            return {
+              ...item,
+              ...data
+            };
+          }
+          return item;
         });
+      } else {
+        state.levels = [data];
       }
     }).addCase(saveLevel.fulfilled, state => {
       state.saveStatus = 'saved';
@@ -9384,12 +9336,7 @@ const levelsSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createSlice
   }
 });
 const {
-  setField,
-  resetForm,
-  addHook,
-  removeHook,
-  updateHookSettings,
-  addCategoryToList
+  updateHookSettings
 } = levelsSlice.actions;
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (levelsSlice.reducer);
 
