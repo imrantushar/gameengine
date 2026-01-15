@@ -207,7 +207,14 @@ const pointTypeSlice = createSlice({
                 }
 
                 state.currentPointTypeId = data.id;
+
                 state.hookSettings = {};
+                if (Array.isArray(data.requirements)) {
+                    data.requirements.forEach(req => {
+                        const key = `${req.action_type}_${req.trigger_key}`;
+                        state.hookSettings[key] = req.parameters || {};
+                    });
+                }
             })
 
             // --- Fetch List ---

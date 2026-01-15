@@ -53,6 +53,7 @@ const PointTypeEditor = () => {
         try {
             if (editId) {
                 await dispatch(updatePointType({ id: editId, data: values })).unwrap();
+                await dispatch(fetchPointTypeById(editId)).unwrap();
             } else {
                 const action = await dispatch(savePointType(values)).unwrap();
                 if (action?.id) {

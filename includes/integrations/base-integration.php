@@ -7,28 +7,35 @@ if (!defined('ABSPATH')) exit;
 abstract class BaseIntegration implements IntegrationInterface
 {
     /**
-     * Merge specific fields into the standard schema with correct ordering.
-     * Order: 1. Free Common -> 2. Trigger Specific -> 3. Pro Common
+     * Get the standard schema for rewards/deductions.
+     * 
+     * Width breakdown:
+     * - select fields: 100%
+     * - text/number fields: 50%
      */
-    protected static function merge_schema(array $specific_fields = [], $type = 'award'): array
-    {
-        $common_free = self::get_common_free_schema($type);
-        $common_pro  = self::get_common_pro_schema();
-
-        return array_merge($common_free, $specific_fields, $common_pro);
-    }
-
-    private static function get_common_free_schema($type): array
+    protected static function get_standard_schema($type = 'award'): array
     {
         return [
+            // --- Free Fields ---
             [
                 'key'     => 'points',
                 'label'   => ($type === 'award') ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
                 'type'    => 'number',
+                'width'   => '50%', // Number field
                 'default' => 10,
                 'width'   => '50%',
                 'scope'   => ['point_type']
             ],
+
+            [
+                'key'     => 'log_label',
+                'label'   => __('Log Description', 'gamify'),
+                'type'    => 'text',
+                'width'   => '50%', // Text field
+                'default' => ($type === 'award') ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
+                'scope'   => ['point_type', 'achievement', 'level']
+            ],
+
             [
                 'key'     => 'log_label',
                 'label'   => __('Log Description', 'gamify'),
@@ -56,9 +63,7 @@ abstract class BaseIntegration implements IntegrationInterface
         ];
     }
 
-    private static function get_common_pro_schema(): array
-    {
-        return [
+            // --- Common Pro Features (Time-Based) ---
             [
                 'key'     => 'start_time',
                 'label'   => __('Start Time (Pro)', 'gamify'),
@@ -85,22 +90,16 @@ abstract class BaseIntegration implements IntegrationInterface
                 'is_multi' => true,
                 'is_pro'  => true,
                 'options' => [
-                    ['label' => 'Monday', 'value' => 'mon'],
-                    ['label' => 'Tuesday', 'value' => 'tue'],
-                    ['label' => 'Wednesday', 'value' => 'wed'],
-                    ['label' => 'Thursday', 'value' => 'thu'],
-                    ['label' => 'Friday', 'value' => 'fri'],
-                    ['label' => 'Saturday', 'value' => 'sat'],
-                    ['label' => 'Sunday', 'value' => 'sun']
+                    ['label' => __('Monday', 'gamify'), 'value' => 'mon'],
+                    ['label' => __('Tuesday', 'gamify'), 'value' => 'tue'],
+                    ['label' => __('Wednesday', 'gamify'), 'value' => 'wed'],
+                    ['label' => __('Thursday', 'gamify'), 'value' => 'thu'],
+                    ['label' => __('Friday', 'gamify'), 'value' => 'fri'],
+                    ['label' => __('Saturday', 'gamify'), 'value' => 'sat'],
+                    ['label' => __('Sunday', 'gamify'), 'value' => 'sun']
                 ],
                 'scope'   => ['point_type', 'achievement', 'level']
             ]
         ];
-    }
-
-    // Kept for backward compatibility if needed, but recommended to use merge_schema()
-    protected static function get_standard_schema($type = 'award'): array
-    {
-        return self::merge_schema([], $type);
     }
 }
