@@ -75,6 +75,21 @@ class SettingsController extends BaseController
             update_option('gamify_email_content', wp_kses_post($params['email']['default_content']));
         }
 
-        return new \WP_REST_Response(['message' => __('Settings saved successfully.', 'gamify')], 200);
+
+        $updated_settings = [
+            'general' => [
+                'level_image_width'  => get_option('gamify_level_img_width', 100),
+                'level_image_height' => get_option('gamify_level_img_height', 100),
+            ],
+            'email' => [
+                'format'          => get_option('gamify_email_format', 'plain'),
+                'schedule'        => get_option('gamify_email_schedule', 'immediate'),
+                'from_name'       => get_option('gamify_email_from_name', get_bloginfo('name')),
+                'from_address'    => get_option('gamify_email_from_email', get_option('admin_email')),
+                'default_content' => get_option('gamify_email_content', ''),
+            ]
+        ];
+
+        return new \WP_REST_Response($updated_settings, 200);
     }
 }

@@ -37,15 +37,29 @@ const settingsSlice = createSlice({
             state.saveStatus = 'idle';
         }
     },
+    // ... আগের ইমপোর্টগুলো থাকবে
+
     extraReducers: (builder) => {
         builder
+            .addCase(fetchSettings.pending, (state) => {
+                state.status = 'loading';
+            })
             .addCase(fetchSettings.fulfilled, (state, action) => {
                 state.general = action.payload.general;
                 state.email = action.payload.email;
                 state.status = 'succeeded';
             })
-            .addCase(saveSettings.pending, (state) => { state.saveStatus = 'saving'; })
-            .addCase(saveSettings.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(saveSettings.pending, (state) => {
+                state.saveStatus = 'saving';
+            })
+            .addCase(saveSettings.fulfilled, (state, action) => {
+                state.saveStatus = 'saved';
+                if (action.payload.general) state.general = action.payload.general;
+                if (action.payload.email) state.email = action.payload.email;
+            })
+            .addCase(saveSettings.rejected, (state) => {
+                state.saveStatus = 'failed';
+            });
     }
 });
 

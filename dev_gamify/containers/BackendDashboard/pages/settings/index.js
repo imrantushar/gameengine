@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
@@ -8,7 +8,7 @@ import GeneralSettings from './Tabs/GeneralSettings';
 import EmailNotice from './Tabs/EmailNotice';
 import HelpSupport from './Tabs/HelpSupport';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
-import { saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
+import { saveSettings, fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Settings = () => {
@@ -17,6 +17,12 @@ const Settings = () => {
     const tab = tabMatch ? tabMatch[1] : 'general-settings';
     const dispatch = useDispatch();
     const { email, general, saveStatus, status } = useSelector(state => state.settings);
+
+    useEffect(() => {
+        if (status === 'idle') {
+            dispatch(fetchSettings());
+        }
+    }, [dispatch, status]);
 
     const handleSave = () => {
         switch (tab) {
@@ -48,7 +54,7 @@ const Settings = () => {
                 <LeftBar />
 
                 {tab === "general-settings" && <GeneralSettings saveStatus={saveStatus} status={status} general={general} />}
-                {tab === "email-notice" && <EmailNotice saveStatus={saveStatus} status={status} />}
+                {tab === "email-notice" && <EmailNotice saveStatus={saveStatus} status={status} email={email} />}
                 {tab === "help-support" && <HelpSupport />}
             </Flex>
         </>
