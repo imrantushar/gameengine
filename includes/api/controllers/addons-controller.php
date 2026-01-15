@@ -27,7 +27,7 @@ class AddonsController extends BaseController
      */
     public function register_routes()
     {
-        // GET Addons status (Key-Value format)
+        // Route to get active status map: { "email": true, ... }
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base,
@@ -40,7 +40,20 @@ class AddonsController extends BaseController
             )
         );
 
-        // UPDATE Addon Status
+        // NEW Route to get detailed list for UI cards
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/list',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_detailed_addons_list'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                ),
+            )
+        );
+
+        // Route to update/toggle addon status
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base,
@@ -55,8 +68,7 @@ class AddonsController extends BaseController
     }
 
     /**
-     * Returns all addons with their active/inactive status as a boolean object.
-     * Format: { "email": true, "woocommerce": false }
+     * Returns current status of all addons as a boolean map.
      *
      * @return \WP_REST_Response
      */
@@ -66,10 +78,57 @@ class AddonsController extends BaseController
     }
 
     /**
-     * Updates the status of a specific addon.
+     * Returns detailed list of addons with metadata for frontend UI.
      *
-     * @param \WP_REST_Request $request
-     * @return \WP_REST_Response|\WP_Error
+     * @return \WP_REST_Response
+     */
+    public function get_detailed_addons_list()
+    {
+        $active_addons = get_option('gamify_active_addons', array());
+
+        $addons = array(
+            array(
+                'slug'   => 'academylms',
+                'name'   => __('Academy LMS', 'gamify'),
+                'desc'   => __('Reward users for course completions and quiz attempts.', 'gamify'),
+                'icon'   => 'dashicons-welcome-learn-more',
+                'active' => in_array('academylms', $active_addons, true),
+            ),
+            array(
+                'slug'   => 'woocommerce',
+                'name'   => __('WooCommerce', 'gamify'),
+                'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gamify'),
+                'icon'   => 'dashicons-cart',
+                'active' => in_array('woocommerce', $active_addons, true),
+            ),
+            array(
+                'slug'   => 'storeengine',
+                'name'   => __('StoreEngine', 'gamify'),
+                'desc'   => __('Advanced WooCommerce features and rewards integration.', 'gamify'),
+                'icon'   => 'dashicons-store',
+                'active' => in_array('storeengine', $active_addons, true),
+            ),
+            array(
+                'slug'   => 'restrict_unlock',
+                'name'   => __('Restrict Unlock', 'gamify'),
+                'desc'   => __('Set dependencies between achievements and levels.', 'gamify'),
+                'icon'   => 'dashicons-lock',
+                'active' => in_array('restrict_unlock', $active_addons, true),
+            ),
+            array(
+                'slug'   => 'progress_map',
+                'name'   => __('Progress Map', 'gamify'),
+                'desc'   => __('Display a visual roadmap of user progress on frontend.', 'gamify'),
+                'icon'   => 'dashicons-location-alt',
+                'active' => in_array('progress_map', $active_addons, true),
+            ),
+        );
+
+        return new \WP_REST_Response($addons, 200);
+    }
+
+    /**
+     * Updates the status of a specific addon.
      */
     public function update_addons($request)
     {
@@ -84,19 +143,16 @@ class AddonsController extends BaseController
         $active_addons = get_option('gamify_active_addons', array());
 
         if ($status) {
-            // Activate Addon
             if (! in_array($addon_name, $active_addons, true)) {
                 $active_addons[] = $addon_name;
             }
         } else {
-            // Deactivate Addon
             $active_addons = array_diff($active_addons, array($addon_name));
         }
 
-        // Save updated list back to options
         update_option('gamify_active_addons', array_values($active_addons));
 
-        // Reset Registry and Force JSON Regeneration
+        // Reset Triggers and Regenerate JSON
         if (class_exists('\Gamify\Classes\TriggerRegistry')) {
             \Gamify\Classes\TriggerRegistry::reset();
         }
@@ -108,7 +164,7 @@ class AddonsController extends BaseController
         return new \WP_REST_Response(
             array(
                 'message'       => 'Addon status updated.',
-                'active_addons' => $this->get_addons_status_mapped(), // Return mapped format
+                'active_addons' => $this->get_addons_status_mapped(),
             ),
             200
         );
@@ -116,13 +172,11 @@ class AddonsController extends BaseController
 
     /**
      * Helper to map active addons to a Key-Value pair boolean object.
-     *
-     * @return array
      */
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gamify_active_addons', array());
-        $all_addons    = array('email', 'woocommerce', 'storeengine');
+        $all_addons    = array('academylms', 'woocommerce', 'storeengine', 'restrict_unlock', 'progress_map');
 
         $mapped = array();
         foreach ($all_addons as $slug) {

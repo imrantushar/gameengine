@@ -341,7 +341,7 @@ const FormInner = () => {
                     </GamifyInput>
 
                     <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc(50% - 6px)">
-                        <Select
+                        {/* <Select
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             options={availablePointTypes}
@@ -350,7 +350,7 @@ const FormInner = () => {
                                 setFieldValue('required_point_type_id', option.value)
                             }}
                             menuPlacement="top"
-                        />
+                        /> */}
                     </GamifyInput>
                 </Flex>
             ) : (
