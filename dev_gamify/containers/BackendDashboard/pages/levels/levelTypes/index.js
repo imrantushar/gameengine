@@ -28,6 +28,7 @@ import { GoPlus } from "react-icons/go";
 import { Formik } from "formik";
 import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
+import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
 
 
 const LevelType = () => {
@@ -62,43 +63,49 @@ const LevelType = () => {
     // }, [congratulationsMessage]);
 
     const onSubmiHandler = async (values, actions) => {
-        if (!title) return alert("Level Name is required");
-        const payload = {
-            title, plural_name: pluralName, congratulations_message: message, unlock_with_points_enabled: unlockWithPoints,
-            min_points: minPoints, max_points: maxPoints, point_type_id: selectedPointTypeId, icon: levelIcon, category,
-            requirements: activeHooks.map(h => ({ trigger_key: h.id, parameters: Object.fromEntries((h.schema || []).map(f => [f.key, (hookSettings[h.id] || {})[f.key] ?? f.default])) }))
-        };
-        const res = editId ? await dispatch(updateLevel({ id: editId, data: payload })) : await dispatch(saveLevel(payload));
-        if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-levels`);
+        if (!values?.title) return alert("Level Name is required");
+        actions.setSubmitting(true)
+        try {
+            const res = editId ? await dispatch(updateLevel({ id: editId, data: values })) : await dispatch(saveLevel(values));
+            // if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-levels`);
+        } catch (error) {
+            console.warn(error)
+        } finally {
+            actions.setSubmitting(false)
+        }
+        
     };
 
     return (
         <>
-            <Formik
-                enableReinitialize={true}
-                initialValues={getLevelsInitialValues(editId, levels)}
-                onSubmit={onSubmiHandler}
-            >
-                {({values, submitForm, isSubmitting, dirty}) => {
-                    console.log({values})
-                    return (
-                        <>
-                            <TopBar
-                                path={__("Level Type", "gamify")}
-                                rightContent={
-                                    <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
-                                        {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
-                                    </Button>
-                                }
-                            />
+            {formLoading ? (
+                <LevelsFormSkeleton />
+            ) : (
+                <Formik
+                    enableReinitialize={true}
+                    initialValues={getLevelsInitialValues(editId, levels)}
+                    onSubmit={onSubmiHandler}
+                >
+                    {({submitForm, isSubmitting, dirty}) => {
+                        return (
+                            <>
+                                <TopBar
+                                    path={__("Level Type", "gamify")}
+                                    rightContent={
+                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                            {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
+                                        </Button>
+                                    }
+                                />
 
-                            <GamifyBox dynamicClasses="gamify-levels" heading={__(`Level Type`, "gamify")}>
-                                <FormInner />
-                            </GamifyBox>
-                        </>
-                    )
-                }}
-            </Formik>
+                                <GamifyBox dynamicClasses="gamify-levels" heading={__(`Level Type`, "gamify")}>
+                                    <FormInner />
+                                </GamifyBox>
+                            </>
+                        )
+                    }}
+                </Formik>
+            )}
         </>
     );
 };

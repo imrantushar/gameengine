@@ -17,7 +17,7 @@ const HookSidebarSkeleton = ({ items = 2 }) => (
   </Flex>
 );
 
-const AchievementFormSkeleton = () => {
+const LevelsFormSkeleton = () => {
   return (
     <>
       <Flex justify="space-between" align="center" mb={6} padding={'20px'}>
@@ -78,4 +78,4 @@ const AchievementFormSkeleton = () => {
   );
 };
 
-export default AchievementFormSkeleton;
+export default LevelsFormSkeleton;
