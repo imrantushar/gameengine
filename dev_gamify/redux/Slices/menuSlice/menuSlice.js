@@ -4,7 +4,7 @@ import { showNotification } from '../notificationSlice/notificationSlice';
 
 export const fetchAdminMenuItems = createAsyncThunk(
 	'gamify/fetchAdminMenuItems',
-	( thunkAPI ) => {
+	(thunkAPI ) => {
 		try {
 			return makeRequest( 'get_admin_menu_items' ).then( ( res ) => {
 				return JSON.parse( res?.data?.data );

@@ -4,23 +4,15 @@ import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import LabeledInput from '@GFComponents/LabeledInput';
 import { fetchSettings, setGeneralField, resetSaveStatus } from '../../../../../redux/Slices/settingsSlice/settingsSlice';
-import SettingsInner from './Components/SettingsInner';
+import SettingsInner from '../Components/SettingsInner';
 import { useDispatch } from 'react-redux';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import GamifyInput from '@GFComponents/GamifyInput';
+import { useFormikContext } from 'formik';
 
-const GeneralSettings = ({ saveStatus, status, general }) => {
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     if (status === 'idle') {
-    //         dispatch(fetchSettings());
-    //     }
-
-    //     // 🔥 FIX: Reset status when component mounts/unmounts to prevent auto-alert on tab switch
-    //     return () => {
-    //         dispatch(resetSaveStatus());
-    //     };
-    // }, [dispatch, status]);
+const GeneralSettings = () => {
+    const {values, setFieldValue} = useFormikContext();
+    const { general } = values;
 
     return (
         <SettingsInner heading={__("General Settings", "gamify")}>
@@ -32,8 +24,8 @@ const GeneralSettings = ({ saveStatus, status, general }) => {
                         <Input
                             placeholder={__("Enter max width", "gamify")}
                             type="number"
-                            value={general.level_image_width || ''}
-                            onChange={(e) => dispatch(setGeneralField({ field: 'level_image_width', value: e.target.value }))}
+                            value={general?.level_image_width}
+                            onChange={(e) => setFieldValue('general.level_image_width', e.target.value )}
                             {...commonInput}
                         />
                     </GamifyInput>
@@ -42,8 +34,8 @@ const GeneralSettings = ({ saveStatus, status, general }) => {
                         <Input
                             placeholder={__("Enter max height", "gamify")}
                             type="number"
-                            value={general.level_image_height || ''}
-                            onChange={(e) => dispatch(setGeneralField({ field: 'level_image_height', value: e.target.value }))}
+                            value={general?.level_image_height}
+                            onChange={(e) => setFieldValue('general.level_image_height', e.target.value )}
                             {...commonInput}
                         />
                     </GamifyInput>

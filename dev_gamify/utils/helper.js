@@ -7,6 +7,7 @@ export const {
 	nonce,
 	ajaxurl,
 	menu,
+	addons,
 	route_path,
 	rest_url,
 	admin_url,
@@ -14,7 +15,7 @@ export const {
 	gamify_nonce,
 	user_id,
 	is_plain_permalink,
-	is_pro,
+	is_pro
 } = window?.GamifyGlobal;
 
 

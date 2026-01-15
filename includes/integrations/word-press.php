@@ -55,9 +55,12 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => array_merge([
-                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true, 'default' => 500]
-                ], self::get_standard_schema())
+                'schema' => self::merge_schema([
+                    ['key' => 'post_types', 'label' => __('Post Types (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'options' => [['label' => 'Post', 'value' => 'post'], ['label' => 'Page', 'value' => 'page']]],
+                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'daily_limit', 'label' => __('Daily Post Limit (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                ])
+
             ],
             'publish_page' => [
                 'label'       => __('Publish Page', 'gamify'),
@@ -68,9 +71,9 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
                     ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
-                ], self::get_standard_schema())
+                ])
             ],
             'comment_post' => [
                 'label'       => __('Post Comment', 'gamify'),
@@ -82,10 +85,11 @@ class WordPress extends BaseIntegration
                     $c = get_comment($id);
                     return $c ? $c->user_id : 0;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
+                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
                     ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
-                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '50%', 'is_pro' => true]
-                ], self::get_standard_schema())
+                    ['key' => 'daily_cap', 'label' => __('Daily Max Comments (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                ])
             ],
             'delete_post' => [
                 'label'       => __('Delete Post', 'gamify'),
@@ -98,8 +102,8 @@ class WordPress extends BaseIntegration
                     return $post ? $post->post_author : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true],
-                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'is_pro' => true]
+                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ], 'deduct')
             ],
             'user_role_change' => [
@@ -112,7 +116,7 @@ class WordPress extends BaseIntegration
                     return $id;
                 },
                 'schema'      => self::merge_schema([
-                    ['key' => 'role', 'label' => __('Target Roles', 'gamify'), 'type' => 'select', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
+                    ['key' => 'role', 'label' => __('Target Roles', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
                 ])
             ],
             'profile_update' => [
@@ -125,7 +129,7 @@ class WordPress extends BaseIntegration
                     return $id;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gamify'), 'type' => 'select', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
+                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
                 ])
             ],
             'post_updated' => [
@@ -138,7 +142,7 @@ class WordPress extends BaseIntegration
                     return $post->post_author;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                    ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ],
             'after_password_reset' => [
@@ -151,7 +155,7 @@ class WordPress extends BaseIntegration
                     return $u->ID;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gamify'), 'type' => 'number', 'is_pro' => true]
+                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ]
         ];

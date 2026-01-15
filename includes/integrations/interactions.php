@@ -29,10 +29,11 @@ class Interactions extends BaseIntegration
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
                     ['key' => 'streak_bonus', 'label' => __('Enable Streak Bonus (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
-                    ['key' => 'min_stay', 'label' => __('Min Stay Duration (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
-                ], self::get_standard_schema())
+                    ['key' => 'multiplier', 'label' => __('Points Multiplier (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true, 'placeholder' => '2'],
+                    ['key' => 'min_stay', 'label' => __('Min Stay Time in Mins (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                ])
             ],
             'visit_specific_post' => [
                 'label' => __('Visit Specific Post', 'gamify'),
@@ -43,9 +44,10 @@ class Interactions extends BaseIntegration
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => array_merge([
-                    ['key' => 'post_id', 'label' => __('Select Post', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']]
-                ], self::get_standard_schema())
+                'schema' => self::merge_schema([
+                    ['key' => 'post_id', 'label' => __('Select Post', 'gamify'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']],
+                    ['key' => 'categories', 'label' => __('Select Categories (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'categories']]
+                ])
             ],
             'author_comment_reply' => [
                 'label' => __('Author Reply', 'gamify'),
@@ -59,9 +61,9 @@ class Interactions extends BaseIntegration
                     $p = get_post($c->comment_post_ID);
                     return ($p && (int)$p->post_author === (int)$c->user_id) ? $c->user_id : 0;
                 },
-                'schema' => array_merge([
+                'schema' => self::merge_schema([
                     ['key' => 'min_reply_len', 'label' => __('Min Reply Length (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
-                ], self::get_standard_schema())
+                ])
             ]
         ];
     }
