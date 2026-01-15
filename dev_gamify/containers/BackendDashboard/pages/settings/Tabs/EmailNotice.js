@@ -5,32 +5,24 @@ import LabeledInput from '@GFComponents/LabeledInput';
 import Select from 'react-select';
 import { commonInput, primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import { fetchSettings, setEmailField, resetSaveStatus } from '../../../../../redux/Slices/settingsSlice/settingsSlice';
-import SettingsInner from './Components/SettingsInner';
+import SettingsInner from '../Components/SettingsInner';
 import { useDispatch } from 'react-redux';
 import GamifyInput from '@GFComponents/GamifyInput';
+import { useFormikContext } from 'formik';
 
-const EmailNotice = ({ saveStatus, status, email }) => {
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     if (status === 'idle') {
-    //         dispatch(fetchSettings());
-    //     }
-
-    //     // 🔥 FIX: Reset status when component mounts/unmounts
-    //     return () => {
-    //         dispatch(resetSaveStatus());
-    //     };
-    // }, [dispatch, status]);
+const EmailNotice = () => {
+    const {values, setFieldValue} = useFormikContext();
+    const { email } = values;
 
     // Helper options
     const formatOptions = [
-        { label: 'Plain Text', value: 'plain' },
-        { label: 'HTML', value: 'html' }
+        { label: __('Plain Text', 'gamify'), value: 'plain' },
+        { label: __('HTML', 'gamify'), value: 'html' }
     ];
 
     const scheduleOptions = [
-        { label: 'Immediate', value: 'immediate' },
-        { label: 'Daily Digest', value: 'daily' }
+        { label: __('Immediate', 'gamify'), value: 'immediate' },
+        { label: __('Daily Digest', 'gamify'), value: 'daily' }
     ];
 
     return (
@@ -42,9 +34,8 @@ const EmailNotice = ({ saveStatus, status, email }) => {
                         classNamePrefix="gamify-select"
                         placeholder="Choose one"
                         options={formatOptions}
-                        value={formatOptions
-                            .find(opt => opt?.value === email?.format)}
-                        onChange={(opt) => dispatch(setEmailField({ field: 'format', value: opt ? opt.value : 'plain' }))}
+                        value={formatOptions.find(opt => opt?.value === email?.format)}
+                        onChange={(opt) => setFieldValue('email.format', opt.value)}
                     />
                 </GamifyInput>
 
@@ -55,7 +46,7 @@ const EmailNotice = ({ saveStatus, status, email }) => {
                         placeholder="Choose one"
                         options={scheduleOptions}
                         value={scheduleOptions.find(opt => opt?.value === email?.schedule)}
-                        onChange={(opt) => dispatch(setEmailField({ field: 'schedule', value: opt ? opt.value : 'immediate' }))}
+                        onChange={(opt) => setFieldValue('email.schedule', opt.value)}
                     />
                 </GamifyInput>
 
@@ -63,7 +54,7 @@ const EmailNotice = ({ saveStatus, status, email }) => {
                     <Input
                         placeholder={__("Enter from name", "gamify")}
                         value={email?.from_name || ''}
-                        onChange={(e) => dispatch(setEmailField({ field: 'from_name', value: e.target.value }))}
+                        onChange={(e) => setFieldValue('email.from_name',e.target.value )}
                         {...commonInput}
                     />
                 </GamifyInput>
@@ -72,7 +63,7 @@ const EmailNotice = ({ saveStatus, status, email }) => {
                     <Input
                         placeholder={__("Enter from address", "gamify")}
                         value={email?.from_address || ''}
-                        onChange={(e) => dispatch(setEmailField({ field: 'from_address', value: e.target.value }))}
+                        onChange={(e) => setFieldValue('email.from_address',e.target.value )}
                         {...commonInput}
                     />
                 </GamifyInput>
@@ -81,7 +72,7 @@ const EmailNotice = ({ saveStatus, status, email }) => {
                     <Textarea
                         placeholder={__("Enter email content", "gamify")}
                         value={email?.default_content || ''}
-                        onChange={(e) => dispatch(setEmailField({ field: 'default_content', value: e.target.value }))}
+                        onChange={(e) => setFieldValue('email.default_content', e.target.value)}
                     />
                 </GamifyInput>
 
