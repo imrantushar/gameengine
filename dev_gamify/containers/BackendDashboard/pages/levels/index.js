@@ -7,7 +7,6 @@ const Levels = () => {
     return (
         <>
             <TopBar path={__("Levels", "gamify")} />
-
             <LevelTable />
         </>
     );

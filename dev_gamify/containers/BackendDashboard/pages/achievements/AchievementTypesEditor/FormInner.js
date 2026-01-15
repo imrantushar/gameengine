@@ -307,8 +307,8 @@ const FormInner = () => {
 
         <Box>
             <GFLabel margin="0 0 12px 0" type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
-            <GamifyEditor n
-                ame={'congratulations_message'} 
+            <GamifyEditor 
+                name={'congratulations_message'} 
                 defaultValue={values.congratulations_message} 
                 saveValueHandler={setFieldValue} 
                 suffix={'acivements-message'}
@@ -346,7 +346,7 @@ const FormInner = () => {
                         className="gamify-select"
                         classNamePrefix="gamify-select"
                         options={availablePointTypes}
-                        value={availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
+                        value={availablePointTypes?.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
                         onChange={option => {
                             setFieldValue('required_point_type_id', option.value)
                         }}
@@ -398,7 +398,15 @@ const FormInner = () => {
                             <DroppableArea id="awards-sidebar">
                                 {activeHooks && activeHooks.map(h => (
                                     <DraggableItem key={h.id} id={h.id}>
-                                        <DynamicHookForm key={h.id} hookId={h.id} hookInfo={h} settings={hookSettings[h.id] || {}} onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} isOpen={openedHooks.includes(h.id)} setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))} />
+                                        <DynamicHookForm 
+                                            key={h.id} 
+                                            hookId={h.id} 
+                                            hookInfo={h} 
+                                            settings={hookSettings[h.id] || {}} 
+                                            onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} 
+                                            isOpen={openedHooks.includes(h.id)} 
+                                            setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))} 
+                                        />
                                     </DraggableItem>
                                 ))}
                             </DroppableArea>
