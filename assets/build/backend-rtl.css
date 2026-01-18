@@ -2732,6 +2732,107 @@ h2.react-datepicker__current-month {
 .gamify-wp-modal {
   width: 600px;
 }
+
+body.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.gamify-modal-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: rgba(41, 42, 46, 0.28);
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.gamify-modal-overlay--top {
+  align-items: flex-start;
+  padding-top: 20px;
+}
+.gamify-modal-overlay--bottom {
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+.gamify-modal-overlay--center {
+  align-items: center;
+}
+
+.gamify-modal {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  transition: all ease 0.8s;
+  margin: 0 auto;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.gamify-modal--small {
+  width: 600px;
+}
+.gamify-modal--medium {
+  width: 1020px;
+}
+.gamify-modal--large {
+  width: calc(100vw - 17px);
+  min-height: 100vh;
+}
+.gamify-modal__head {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gamify-border-color);
+}
+.gamify-modal__head .gamify-modal-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gamify-modal__head .gamify-modal-buttons button {
+  padding: 8px;
+  background: #fff;
+  color: #111;
+  border: 1px solid var(--gamify-border-color) !important;
+  border-radius: 4px;
+  display: flex;
+  transition: all 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+.gamify-modal__head .gamify-modal-buttons button:hover {
+  border-color: var(--gamify-primary-color) !important;
+}
+.gamify-modal__content {
+  background: #fff;
+  padding: 24px;
+}
+.gamify-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gamify-border-color);
+  background: #fff;
+}
+
+.gamify-modal__content {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+.gamify-modal__content::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
 /*!****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Modal/suffix.scss ***!
   \****************************************************************************************************************************************************************************************************************************************************************/

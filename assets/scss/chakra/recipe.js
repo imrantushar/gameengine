@@ -7,6 +7,14 @@ export const primaryBtn = {
     border: "1px solid var(--gamify-primary)"
 }
 
+export const xCloseBtn = {
+    size: "xs" ,
+    color: "var(--gamify-font-color)" ,
+    bg: "transparent" ,
+    border: "1px solid var(--gamify-border-color)" ,
+    _hover: {bg: "var(--gamify-secondary-color)"},
+}
+
 export const primaryClearBtn = {
     fontSize: "14px",
     fontWeight: "500",
