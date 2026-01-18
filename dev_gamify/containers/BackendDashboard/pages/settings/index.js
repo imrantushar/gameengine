@@ -12,6 +12,7 @@ import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/setti
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import SettingsPageSkeleton from './Components/SettingsPageSkeleton';
+import GetHelp from '@GFComponents/GetHelp';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -62,9 +63,12 @@ const Settings = () => {
                                 <TopBar
                                     path={__("Settings", "gamify")}
                                     rightContent={
-                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
-                                            {__('Save Changes', 'gamify')}
-                                        </Button>
+                                        <>
+                                            <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                                {__('Save Changes', 'gamify')}
+                                            </Button>
+                                            <GetHelp filterText={['setting']} />
+                                        </>
                                     }
                                 />
                                 <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
