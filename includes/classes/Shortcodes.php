@@ -11,44 +11,40 @@ use Gamify\Classes\AchievementsManager;
 use Gamify\Classes\LevelsManager;
 
 /**
- * Handles Frontend Shortcodes.
+ * Class Shortcodes
+ * Handles frontend display via modern styled WordPress shortcodes.
  */
 class Shortcodes
 {
+
     /**
      * Initialize Shortcodes.
      */
     public static function init()
     {
         $self = new self();
-        add_shortcode('gamify_profile', [$self, 'render_profile']);
-        add_shortcode('gamify_points', [$self, 'render_points']);
-        add_shortcode('gamify_achievements', [$self, 'render_achievements']);
-        add_shortcode('gamify_level', [$self, 'render_level']);
+        add_shortcode('gamify_profile', array($self, 'render_profile'));
+        add_shortcode('gamify_points', array($self, 'render_points'));
+        add_shortcode('gamify_achievements', array($self, 'render_achievements'));
+        add_shortcode('gamify_level', array($self, 'render_level'));
+        add_shortcode('gamify_progress_map', array($self, 'render_progress_map')); // 🔥 নতুন শর্টকোড
     }
 
     /**
-     * [gamify_profile] - Displays full user profile card.
-     *
-     * @param array $atts Shortcode attributes.
-     * @return string HTML output.
+     * [gamify_profile] - Full modern dashboard.
      */
     public function render_profile($atts)
     {
-        if (!is_user_logged_in()) {
+        if (! is_user_logged_in()) {
             return '';
         }
 
         $user_id   = get_current_user_id();
         $user_data = get_userdata($user_id);
 
-        if (!$user_data) {
-            return '';
-        }
-
         $points_manager       = new PointsManager();
-        $levels_manager       = new LevelsManager();
         $achievements_manager = new AchievementsManager();
+        $levels_manager       = new LevelsManager();
 
         $points     = $points_manager->get_grand_total($user_id);
         $badges     = $achievements_manager->get_user_achievements($user_id);
@@ -56,134 +52,169 @@ class Shortcodes
 
         ob_start();
 ?>
-        <div class="gamify-frontend-card">
-            <!-- Header: User Info -->
-            <div class="gamify-card-header">
-                <div class="gamify-user-avatar">
-                    <?php echo wp_kses_post(get_avatar($user_id, 64)); ?>
+        <div class="gamify-dashboard-v3">
+            <div class="gamify-v3-header">
+                <div class="gamify-v3-user">
+                    <?php echo get_avatar($user_id, 60); ?>
+                    <div class="gamify-v3-user-info">
+                        <h3><?php echo esc_html($user_data->display_name); ?></h3>
+                        <span class="gamify-v3-points-tag">🪙 <?php echo number_format_i18n($points); ?> <?php _e('Points', 'gamify'); ?></span>
+                    </div>
                 </div>
-                <div class="gamify-user-info">
-                    <h3><?php echo esc_html($user_data->display_name); ?></h3>
-                    <div class="gamify-user-meta">
-                        <span class="gamify-badge-pill">
-                            <?php
-                            if (!empty($all_levels)) {
-                                $level_names = array_map(function ($l) {
-                                    return $l->title;
-                                }, $all_levels);
-                                // translators: %s: Comma separated level names
-                                echo esc_html(sprintf(__('🏆 %s', 'gamify'), implode(', ', $level_names)));
-                            } else {
-                                echo '🏆 ' . esc_html__('No Level', 'gamify');
-                            }
-                            ?>
-                        </span>
-                        <span class="gamify-points-pill">
-                            🪙 <?php echo esc_html(number_format_i18n($points)); ?> <?php esc_html_e('Points', 'gamify'); ?>
-                        </span>
+                <div class="gamify-v3-actions">
+                    <div class="gamify-notification-bell">
+                        <span>🔔</span>
+                        <span class="noti-dot"></span>
                     </div>
                 </div>
             </div>
 
-            <!-- Body: Achievements Grid -->
-            <div class="gamify-card-body">
-                <h4 class="gamify-section-title"><?php esc_html_e('Achievements Unlocked', 'gamify'); ?></h4>
+            <div class="gamify-v3-main">
+                <div class="gamify-v3-sidebar">
+                    <button class="gamify-tab-btn active" data-tab="progress-map">
+                        <span class="icon">🗺️</span> <?php _e('Progress Map', 'gamify'); ?>
+                    </button>
+                    <button class="gamify-tab-btn" data-tab="achievements">
+                        <span class="icon">🏅</span> <?php _e('Achievements', 'gamify'); ?>
+                    </button>
+                    <button class="gamify-tab-btn" data-tab="levels">
+                        <span class="icon">🏆</span> <?php _e('Levels', 'gamify'); ?>
+                    </button>
+                </div>
 
-                <?php if (!empty($badges)) : ?>
-                    <div class="gamify-badges-grid">
-                        <?php foreach ($badges as $badge) : ?>
-                            <?php
-                            $title = isset($badge['title']) ? $badge['title'] : '';
-                            $image = isset($badge['badge_image']) ? $badge['badge_image'] : '';
-                            ?>
-                            <div class="gamify-badge-item" title="<?php echo esc_attr($title); ?>">
-                                <?php if (!empty($image)) : ?>
-                                    <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($title); ?>">
-                                <?php else : ?>
-                                    <div class="gamify-default-icon">🎖️</div>
-                                <?php endif; ?>
-                                <span class="gamify-badge-name"><?php echo esc_html($title); ?></span>
-                            </div>
-                        <?php endforeach; ?>
+                <div class="gamify-v3-content">
+                    <div class="gamify-tab-content active" id="progress-map">
+                        <?php
+                        if (class_exists('\Gamify\Addons\ProgressMap\Progress_Map_Logic')) {
+                            echo \Gamify\Addons\ProgressMap\Progress_Map_Logic::render_html($user_id);
+                        }
+                        ?>
                     </div>
-                <?php else : ?>
-                    <p class="gamify-empty-state"><?php esc_html_e('No achievements earned yet. Keep going!', 'gamify'); ?></p>
-                <?php endif; ?>
+
+                    <div class="gamify-tab-content" id="achievements">
+                        <h4><?php _e('My Achievements', 'gamify'); ?></h4>
+                        <div class="gamify-v3-badge-grid">
+                            <?php if (! empty($badges)) : ?>
+                                <?php foreach ($badges as $badge) : ?>
+                                    <div class="badge-card">
+                                        <img src="<?php echo esc_url($badge['badge_image'] ?: GAMIFY_URL . 'assets/images/default.png'); ?>">
+                                        <p><?php echo esc_html($badge['title']); ?></p>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php else : ?>
+                                <p><?php _e('No achievements yet.', 'gamify'); ?></p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <div class="gamify-tab-content" id="levels">
+                        <h4><?php _e('Unlocked Levels', 'gamify'); ?></h4>
+                        <div class="gamify-level-list">
+                            <?php foreach ($all_levels as $lvl) : ?>
+                                <div class="gamify-level-item">
+                                    <span class="lvl-icon">🏆</span>
+                                    <span class="lvl-name"><?php echo esc_html($lvl->title); ?></span>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-<?php
+    <?php
         return ob_get_clean();
     }
 
     /**
-     * [gamify_points] - Displays current points.
+     * [gamify_points] - Styled point display.
      */
-    public function render_points($atts)
+    public function render_points()
     {
-        if (!is_user_logged_in()) {
-            return '';
+        if (! is_user_logged_in()) {
+            return '0';
         }
         $manager = new PointsManager();
         $points  = $manager->get_grand_total(get_current_user_id());
-        return '<span class="gamify-points-text">' . esc_html(number_format_i18n($points)) . '</span>';
+        return sprintf(
+            '<span class="gamify-pill-points"><span class="icon">🪙</span> %s %s</span>',
+            number_format_i18n($points),
+            __('Points', 'gamify')
+        );
     }
 
     /**
-     * [gamify_level] - Displays current level title.
+     * [gamify_level] - Styled level display with icon.
      */
-    public function render_level($atts)
+    public function render_level()
     {
-        if (!is_user_logged_in()) {
+        if (! is_user_logged_in()) {
             return '';
         }
-
         $manager = new LevelsManager();
-        $levels = $manager->get_all_user_levels(get_current_user_id());
+        $levels  = $manager->get_all_user_levels(get_current_user_id());
 
         if (empty($levels)) {
-            return esc_html__('No Level', 'gamify');
+            return sprintf('<span class="gamify-pill-level no-lvl">%s</span>', __('No Level', 'gamify'));
         }
 
-        $titles = array_map(function ($level) {
-            return $level->title;
-        }, $levels);
+        // Get the highest level (assuming last one is highest)
+        $current = end($levels);
 
-        return esc_html(implode(', ', $titles));
+        return sprintf(
+            '<div class="gamify-pill-level">
+                <span class="lvl-icon">🏆</span>
+                <span class="lvl-text">%s</span>
+            </div>',
+            esc_html($current->title)
+        );
     }
 
     /**
-     * [gamify_achievements] - Displays badge grid.
+     * [gamify_achievements] - Clean responsive grid of badges.
      */
-    public function render_achievements($atts)
+    public function render_achievements()
     {
-        if (!is_user_logged_in()) {
+        if (! is_user_logged_in()) {
             return '';
         }
         $manager = new AchievementsManager();
         $badges  = $manager->get_user_achievements(get_current_user_id());
 
         if (empty($badges)) {
-            return '<p>' . esc_html__('No achievements yet.', 'gamify') . '</p>';
+            return sprintf('<p class="gamify-empty-msg">%s</p>', __('No achievements earned yet.', 'gamify'));
         }
 
         ob_start();
-        echo '<div class="gamify-badges-grid">';
-        foreach ($badges as $badge) {
-            $title = isset($badge['title']) ? $badge['title'] : '';
-            $image = isset($badge['badge_image']) ? $badge['badge_image'] : '';
-
-            echo '<div class="gamify-badge-item" title="' . esc_attr($title) . '">';
-
-            if (!empty($image)) {
-                echo '<img src="' . esc_url($image) . '" alt="' . esc_attr($title) . '">';
-            } else {
-                echo '<div class="gamify-default-icon">🎖️</div>';
-            }
-
-            echo '<span class="gamify-badge-name">' . esc_html($title) . '</span>';
-            echo '</div>';
-        }
-        echo '</div>';
+    ?>
+        <div class="gamify-badges-grid-standalone">
+            <?php foreach ($badges as $badge) : ?>
+                <div class="gamify-standalone-badge" title="<?php echo esc_attr($badge['title']); ?>">
+                    <div class="badge-wrapper">
+                        <?php if (! empty($badge['badge_image'])) : ?>
+                            <img src="<?php echo esc_url($badge['badge_image']); ?>" alt="">
+                        <?php else : ?>
+                            <span class="badge-default">🏅</span>
+                        <?php endif; ?>
+                    </div>
+                    <span class="badge-title"><?php echo esc_html($badge['title']); ?></span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+<?php
         return ob_get_clean();
+    }
+
+    /**
+     * [gamify_progress_map] - Dedicated shortcode for roadmap.
+     */
+    public function render_progress_map()
+    {
+        if (! is_user_logged_in()) {
+            return '';
+        }
+        if (class_exists('\Gamify\Addons\ProgressMap\Progress_Map_Logic')) {
+            return \Gamify\Addons\ProgressMap\Progress_Map_Logic::render_html(get_current_user_id());
+        }
+        return sprintf('<p>%s</p>', __('Progress Map addon is not active.', 'gamify'));
     }
 }

@@ -52,7 +52,7 @@ class Assets
         $active_addons = get_option('gamify_active_addons', []);
 
         // Define all possible addons and map their status
-        $all_addons = ['storeengine', 'woocommerce', 'academylms'];
+        $all_addons = ['storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map'];
         $addons_status = [];
 
         foreach ($all_addons as $slug) {
@@ -149,6 +149,8 @@ class Assets
 
         $style_path = GAMIFY_PATH . 'assets/css/frontend.css';
         $style_url  = GAMIFY_URL . 'assets/css/frontend.css';
+        $js_path = GAMIFY_PATH . 'assets/js/frontend.js';
+        $js_url  = GAMIFY_URL . 'assets/js/frontend.js';
 
         if (file_exists($style_path)) {
             wp_enqueue_style(
@@ -156,6 +158,16 @@ class Assets
                 $style_url,
                 [],
                 GAMIFY_VERSION
+            );
+        }
+
+        if (file_exists($js_path)) {
+            wp_enqueue_script(
+                'gamify-frontend-script', // Handle Name
+                $js_url,                  // URL
+                array(),                  // Dependencies (e.g. jquery if needed)
+                GAMIFY_VERSION,           // Version
+                true                      // Load in footer
             );
         }
     }
