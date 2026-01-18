@@ -4882,7 +4882,6 @@ const infoCardsData = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Academy LMS', 'gamify'),
   name: 'academylms',
   is_pro: false,
-  is_active: true,
   is_coming_soon: false,
   details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('When users complete or pass a quiz.', 'gamify'),
   required_plugin: [{
@@ -4895,7 +4894,6 @@ const infoCardsData = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('StoreEngine', 'gamify'),
   name: 'storeengine',
   is_pro: false,
-  is_active: false,
   is_coming_soon: true,
   details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Sell certificates, quiz access, or digital products directly with StoreEngine integration.', 'gamify'),
   required_plugin: [{
@@ -4907,13 +4905,30 @@ const infoCardsData = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('WooCommerce', 'gamify'),
   name: 'woocommerce',
   is_pro: false,
-  is_active: true,
   is_coming_soon: false,
   details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.', 'gamify'),
   required_plugin: [{
     plugin_dir_path: 'woocommerce/woocommerce.php',
     plugin_name: 'WooCommerce'
   }],
+  icon: (0,_GFUtils_icons__WEBPACK_IMPORTED_MODULE_10__.wooCommerce)(),
+  docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Restrict Unlock', 'gamify'),
+  name: 'restrict_unlock',
+  is_pro: false,
+  is_coming_soon: false,
+  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.', 'gamify'),
+  required_plugin: false,
+  icon: (0,_GFUtils_icons__WEBPACK_IMPORTED_MODULE_10__.wooCommerce)(),
+  docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Progress Map', 'gamify'),
+  name: 'progress_map',
+  is_pro: false,
+  is_coming_soon: false,
+  details: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.', 'gamify'),
+  required_plugin: false,
   icon: (0,_GFUtils_icons__WEBPACK_IMPORTED_MODULE_10__.wooCommerce)(),
   docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/'
 }
@@ -5086,6 +5101,7 @@ const Addons = () => {
     const addonLists = getAddonLists(values);
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonsCardSkeleton__WEBPACK_IMPORTED_MODULE_13__["default"], null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Flex, {
       width: '100%',
+      flexWrap: 'wrap',
       gap: '20px',
       className: "gamify-dashboard-addon-cards"
     }, addonLists.length ? addonLists.map((item, index) => {

@@ -17,7 +17,6 @@ const infoCardsData = [
 		label: __('Academy LMS', 'gamify'),
 		name: 'academylms',
 		is_pro: false,
-		is_active: true,
 		is_coming_soon: false,
 		details: __(
 			'When users complete or pass a quiz.',
@@ -36,7 +35,6 @@ const infoCardsData = [
 		label: __('StoreEngine', 'gamify'),
 		name: 'storeengine',
 		is_pro: false,
-		is_active: false,
 		is_coming_soon: true,
 		details: __(
 			'Sell certificates, quiz access, or digital products directly with StoreEngine integration.',
@@ -54,7 +52,6 @@ const infoCardsData = [
 		label: __('WooCommerce', 'gamify'),
 		name: 'woocommerce',
 		is_pro: false,
-		is_active: true,
 		is_coming_soon: false,
 		details: __(
 			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
@@ -66,6 +63,32 @@ const infoCardsData = [
 				plugin_name: 'WooCommerce',
 			},
 		],
+		icon: wooCommerce(),
+		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+	},
+	{
+		label: __('Restrict Unlock', 'gamify'),
+		name: 'restrict_unlock',
+		is_pro: false,
+		is_coming_soon: false,
+		details: __(
+			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'gamify'
+		),
+		required_plugin: false,
+		icon: wooCommerce(),
+		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+	},
+	{
+		label: __('Progress Map', 'gamify'),
+		name: 'progress_map',
+		is_pro: false,
+		is_coming_soon: false,
+		details: __(
+			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'gamify'
+		),
+		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 	},
@@ -258,6 +281,7 @@ const Addons = () => {
 									) : (
 										<Flex 
 											width={'100%'}
+											flexWrap={'wrap'}
 											gap={'20px'}
 											className='gamify-dashboard-addon-cards'
 										>
