@@ -13,6 +13,7 @@ import { getAchivementsInitialValues } from "./helper";
 import { Formik } from "formik";
 import FormInner from "./FormInner";
 import AchievementFormLoader from "@GFComponents/GamifyLoader/AchievementFormSkeleton";
+import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
 
 const AchievementTypesEditor = () => {
     const dispatch = useDispatch();
@@ -43,7 +44,15 @@ const AchievementTypesEditor = () => {
 
     const onSubmitHandler =  (values,actions) => {
         actions.setSubmitting(true);
-        if (!values?.title) return alert("Name is required");
+        if (!values?.title) {
+            dispatch(showNotification({
+                message: __('Name is required!', 'gamify'),
+                isShow: true,
+                type: 'error',
+            }))
+            actions.setSubmitting(false);
+            return;
+        }
         try {
             const action = editId ? dispatch(updateAchievement({ id: editId, data: values })) : dispatch(saveAchievement(values));
             const res = dispatch(action);

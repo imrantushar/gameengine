@@ -11,6 +11,7 @@ import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
+import Notification from '@GFComponents/Notification';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -64,6 +65,7 @@ export default function BackendDashboard() {
 
 	return (
 		<div className="gamify-admin-content">
+			<Notification />
 			{renderSwitch(
 				query.get('page'),
 				parseInt(query.get('id')),

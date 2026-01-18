@@ -7,8 +7,8 @@
   --gamify-border-color: #CBD1D7;
   --gamify-font-color: #141A24;
   --gamify-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
-  --gamify-secondary-color: #F6F7F8;
   --gamify-second-primary: #8F7EE7;
+  --gamify-body-background: #F6F7F8;
   --gamify-background: #FFFFFF;
   --gamify-secondary: #738496;
   --gamify-warn-muted: #738496;
@@ -24,7 +24,7 @@
 
 .gamify-admin-content {
   margin-left: -20px;
-  background: var(--gamify-secondary-color);
+  background: var(--gamify-body-background);
   min-height: 100vh;
   padding-bottom: 100px;
 }
@@ -1542,6 +1542,118 @@ input.gamify-checkbox:checked::before {
     transform: translate(50px, 0px) scale(0.1);
   }
 }
+
+.gamify-notification {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 16px;
+  box-shadow: 0px 12px 72px -8px rgba(16, 24, 40, 0.25);
+  border-radius: 4px;
+  background: #FFF;
+  min-width: 300px;
+  z-index: 99999999;
+}
+.gamify-notification--dashboard {
+  position: fixed;
+  right: 50px;
+  top: 10%;
+}
+.gamify-notification--dashboard .gamify-btn {
+  padding: 4px;
+}
+.gamify-notification--success {
+  background: #00AD6B;
+  color: #fff;
+}
+.gamify-notification--info {
+  background: #7B68EE;
+  color: #fff;
+}
+.gamify-notification--warning {
+  background: #FDB022;
+  color: #fff;
+}
+.gamify-notification--error {
+  background: #FF4D4D;
+  color: #fff;
+}
+.gamify-notification .gamify-icon {
+  font-size: 24px;
+}
+.gamify-notification .gamify-icon:not(.gamify-icon--close) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-radius: 50%;
+  border-style: solid;
+  padding: 3px;
+}
+.gamify-notification .gamify-icon--check {
+  border-color: #4CAF50;
+}
+.gamify-notification .gamify-icon--check::before {
+  font-size: 8px;
+  color: #4CAF50;
+}
+.gamify-notification .gamify-icon--success {
+  border: 1px solid #91dcbf;
+  background: #F0FAF6;
+}
+.gamify-notification .gamify-icon--info {
+  border: 1px solid #C6BEF8;
+  background: #F2F0FD;
+}
+.gamify-notification .gamify-icon--warning {
+  border: 1px solid #FEDDA0;
+  background: #FFF7E9;
+}
+.gamify-notification .gamify-icon--error {
+  border: 1px solid #FFB2B2;
+  background: #FFEDED;
+}
+.gamify-notification .gamify-icon--notification {
+  font-size: 25px;
+}
+.gamify-notification .gamify-icon--notification::before {
+  color: #FF9800;
+}
+.gamify-notification .gamify-icon--information {
+  font-size: 22px;
+}
+.gamify-notification .gamify-icon--information::before {
+  color: #2196F3;
+}
+.gamify-notification .gamify-icon--information-error {
+  font-size: 22px;
+}
+.gamify-notification .gamify-icon--information-error::before {
+  color: #F44336;
+}
+.gamify-notification .gamify-btn {
+  padding: 12px 0;
+}
+.gamify-notification .gamify-btn--close-notification {
+  padding: 0;
+}
+.gamify-notification .gamify-btn .gamify-icon--close {
+  background: transparent;
+}
+.gamify-notification .gamify-btn .gamify-icon--close::before {
+  color: #fff;
+}
+.gamify-notification__message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 24px 5px 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 0;
+}
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/TopBar/styles.scss ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
@@ -2470,7 +2582,7 @@ h2.react-datepicker__current-month {
   border: 1px solid var(--gamify-border-color);
 }
 .gamify-pagination .gamify-pagination-list__item:hover {
-  background: var(--gamify-secondary-color);
+  background: var(--gamify-body-background);
 }
 .gamify-pagination .gamify-pagination-list__item-dots {
   letter-spacing: 4px;
@@ -2505,7 +2617,7 @@ h2.react-datepicker__current-month {
   padding: 5px 12px !important;
 }
 .gamify-dropdown-menu:focus, .gamify-dropdown-menu:hover {
-  background: var(--gamify-secondary-color);
+  background: var(--gamify-body-background);
   color: none;
 }
 .gamify-dropdown-menu svg {
@@ -2540,7 +2652,7 @@ h2.react-datepicker__current-month {
   margin-bottom: 4px;
 }
 .gamify-dropdown-menu__lists .gamify-more-options__item a:hover, .gamify-dropdown-menu__lists .gamify-more-options__item button:hover {
-  background: var(--gamify-secondary-color);
+  background: var(--gamify-body-background);
   color: var(--gamify-font-color);
   border-radius: 4px;
 }
@@ -2733,6 +2845,107 @@ h2.react-datepicker__current-month {
   \****************************************************************************************************************************************************************************************************************************************************************/
 .gamify-wp-modal {
   width: 600px;
+}
+
+body.ReactModal__Body--open {
+  overflow: hidden;
+}
+
+.gamify-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(41, 42, 46, 0.28);
+  overflow-y: scroll;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+.gamify-modal-overlay--top {
+  align-items: flex-start;
+  padding-top: 20px;
+}
+.gamify-modal-overlay--bottom {
+  align-items: flex-end;
+  padding-bottom: 20px;
+}
+.gamify-modal-overlay--center {
+  align-items: center;
+}
+
+.gamify-modal {
+  position: relative;
+  background: #fff;
+  border-radius: 8px;
+  transition: all ease 0.8s;
+  margin: 0 auto;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.gamify-modal--small {
+  width: 600px;
+}
+.gamify-modal--medium {
+  width: 1020px;
+}
+.gamify-modal--large {
+  width: calc(100vw - 17px);
+  min-height: 100vh;
+}
+.gamify-modal__head {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--gamify-border-color);
+}
+.gamify-modal__head .gamify-modal-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gamify-modal__head .gamify-modal-buttons button {
+  padding: 8px;
+  background: #fff;
+  color: #111;
+  border: 1px solid var(--gamify-border-color) !important;
+  border-radius: 4px;
+  display: flex;
+  transition: all 0.3s ease;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  cursor: pointer;
+}
+.gamify-modal__head .gamify-modal-buttons button:hover {
+  border-color: var(--gamify-primary-color) !important;
+}
+.gamify-modal__content {
+  background: #fff;
+  padding: 24px;
+}
+.gamify-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0 24px;
+  padding: 20px 0;
+  border-top: 1px solid var(--gamify-border-color);
+  background: #fff;
+}
+
+.gamify-modal__content {
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  overflow-y: scroll;
+}
+.gamify-modal__content::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
 }
 /*!****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Modal/suffix.scss ***!
