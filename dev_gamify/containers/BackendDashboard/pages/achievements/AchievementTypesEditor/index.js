@@ -12,7 +12,7 @@ import GamifyBox from "@GFComponents/GamifyBox";
 import { getAchivementsInitialValues } from "./helper";
 import { Formik } from "formik";
 import FormInner from "./FormInner";
-import AchievementFormSkeleton from "./components/AchievementFormSkeleton";
+import AchievementFormLoader from "@GFComponents/GamifyLoader/AchievementFormSkeleton";
 
 const AchievementTypesEditor = () => {
     const dispatch = useDispatch();
@@ -60,15 +60,14 @@ const AchievementTypesEditor = () => {
     return (
         <>
             {formLoading ? (
-                <AchievementFormSkeleton />
+                <AchievementFormLoader />
             ) : (
                 <Formik
                     enableReinitialize={true}
                     initialValues={getAchivementsInitialValues(editId, achievements)}
                     onSubmit={onSubmitHandler}
                 >
-                    {({values, submitForm, isSubmitting}) => {
-                        console.log({values})
+                    {({ submitForm, isSubmitting}) => {
                         return (
                             <>
                                 <TopBar

@@ -7,12 +7,12 @@ if (! defined('ABSPATH')) {
 }
 
 /**
- * Handles plugin installation, table creation, and populating all fields with default data.
+ * Handles plugin installation, table creation, and default data seeding.
  */
 class Installer
 {
     /**
-     * Entry point for activation.
+     * Run the installer (Activation Hook).
      */
     public function run()
     {
@@ -63,7 +63,7 @@ class Installer
     }
 
     /**
-     * Inserts default data into all main tables with full field coverage.
+     * Inserts default starting data.
      */
     private function insert_default_data()
     {
@@ -78,89 +78,67 @@ class Installer
         ]);
         $xp_id = $wpdb->insert_id;
 
-        // 2. Insert Default Achievement (All Fields)
+        // 2. Insert Default Achievement
         $wpdb->insert("{$wpdb->prefix}gamify_achievements", [
             'title'                      => 'Welcome Member',
             'plural_name'                => 'Welcome Members',
-            'badge_image'                => '',
             'category'                   => 'General',
-            'congratulations_message'    => 'Welcome to our community! You have earned your first badge.',
-            'secret_achievement'         => 0,
+            'congratulations_message'    => 'Welcome! You earned your first badge.',
             'max_earnings_per_user'      => 1,
             'unlock_with_points_enabled' => 0,
             'required_point_type_id'     => $xp_id,
-            'required_points_amount'     => 0,
+            // Restrict fields default to NULL
+            'required_achievement_id'    => null,
+            'required_level_id'          => null,
+            'restriction_message'        => 'You must complete earlier tasks first.',
             'created_at'                 => current_time('mysql'),
         ]);
         $achievement_id = $wpdb->insert_id;
 
-        // 3. Insert Default Level (All Fields)
+        // 3. Insert Default Level
         $wpdb->insert("{$wpdb->prefix}gamify_levels", [
             'title'                      => 'Newbie',
             'plural_name'                => 'Newbies',
-            'icon'                       => '',
             'category'                   => 'Progression',
-            'congratulations_message'    => 'Congratulations! You have reached the Newbie level. Keep engaged to climb higher!',
+            'priority'                   => 1,
             'unlock_with_points_enabled' => 1,
             'point_type_id'              => $xp_id,
             'min_points'                 => 0,
             'max_points'                 => 500,
-            'priority'                   => 1,
+            'congratulations_message'    => 'Welcome to the Newbie level!',
+            // Restrict fields default to NULL
+            'required_achievement_id'    => null,
+            'required_level_id'          => null,
+            'restriction_message'        => 'Reach the required status to unlock.',
             'created_at'                 => current_time('mysql'),
         ]);
         $level_id = $wpdb->insert_id;
 
-        // 4. Setup Automated Reward Rules
+        // 4. Seeding default triggers
         $this->insert_default_triggers($xp_id, $achievement_id, $level_id);
     }
 
-    /**
-     * Connects point types, achievements, and levels to system triggers.
-     */
     private function insert_default_triggers($xp_id, $achievement_id, $level_id)
     {
         global $wpdb;
         $table = "{$wpdb->prefix}gamify_requirements";
 
-        // Rule: On Login -> Award 10 XP
+        // Login -> 10 XP
         $wpdb->insert($table, [
             'reward_type' => 'point_type',
             'reward_id'   => $xp_id,
             'trigger_key' => 'wp_login',
-            'action_type' => 'award',
-            'parameters'  => json_encode([
-                'points'    => 10,
-                'limit'     => 'unlimited',
-                'log_label' => 'Daily Login Reward'
-            ]),
+            'parameters'  => json_encode(['points' => 10, 'limit' => 'unlimited', 'log_label' => 'Daily Login']),
             'is_active'   => 1,
-            'created_at'  => current_time('mysql'),
         ]);
 
-        // Rule: On Registration -> Award Welcome Badge
+        // Register -> Welcome Achievement
         $wpdb->insert($table, [
             'reward_type' => 'achievement',
             'reward_id'   => $achievement_id,
             'trigger_key' => 'user_register',
-            'action_type' => 'award',
-            'parameters'  => json_encode([
-                'log_label' => 'Joined the Community'
-            ]),
+            'parameters'  => json_encode(['log_label' => 'Joined Community']),
             'is_active'   => 1,
-            'created_at'  => current_time('mysql'),
-        ]);
-
-        // Rule: On Registration -> Set Level to Newbie
-        $wpdb->insert($table, [
-            'reward_type' => 'level',
-            'reward_id'   => $level_id,
-            'trigger_key' => 'user_register',
-            'action_type' => 'award',
-            'parameters'  => json_encode([
-                'log_label' => 'Starting Level Assigned'
-            ]),
-            'is_active'   => 1,
-            'created_at'  => current_time('mysql'),
         ]);
     }
 }
