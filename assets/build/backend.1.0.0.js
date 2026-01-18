@@ -4015,6 +4015,9 @@ const FormInner = () => {
     fontWeight: "500",
     lineHeight: "20px"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Enable Require Unlock", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchControl, null)), values?.restrict_unlock && isRestrictContentActive && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    direction: 'column',
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Required Achievements", "gamify"),
@@ -4050,6 +4053,17 @@ const FormInner = () => {
       setFieldValue('required_level_id', option.value);
     },
     menuPlacement: "bottom"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Restriction Message", "gamify")
+    // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Restriction message", "gamify"),
+    type: "textarea",
+    value: values.restriction_message,
+    onChange: e => {
+      setFieldValue('restriction_message', e.target.value);
+    },
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_20__.commonInput
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchRoot, {
     checked: values.unlock_with_points_enabled,
     onCheckedChange: e => {
@@ -4384,6 +4398,7 @@ const getAchivementsInitialValues = (id = null, data) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id
     };
   }
@@ -4397,6 +4412,7 @@ const getAchivementsInitialValues = (id = null, data) => {
     restrict_unlock: false,
     required_achievement_id: 0,
     required_level_id: 0,
+    restriction_message: "",
     congratulations_message: "",
     requirements: []
   };
@@ -6849,6 +6865,9 @@ const FormInner = () => {
     fontWeight: "500",
     lineHeight: "20px"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Enable Require Unlock", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.SwitchControl, null)), values?.restrict_unlock && isRestrictContentActive && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    direction: 'column',
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Required Achievements", "gamify"),
@@ -6884,6 +6903,17 @@ const FormInner = () => {
       setFieldValue('required_level_id', option.value);
     },
     menuPlacement: "bottom"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Restriction Message", "gamify")
+    // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Restriction message", "gamify"),
+    type: "textarea",
+    value: values.restriction_message,
+    onChange: e => {
+      setFieldValue('restriction_message', e.target.value);
+    },
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_17__.commonInput
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.SwitchRoot, {
     checked: values.unlock_with_points_enabled,
     onCheckedChange: e => {
@@ -7065,6 +7095,7 @@ const getLevelsInitialValues = (id = null, data = []) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id
     };
   }
@@ -7084,6 +7115,7 @@ const getLevelsInitialValues = (id = null, data = []) => {
     requirements: [],
     restrict_unlock: false,
     required_achievement_id: 0,
+    restriction_message: "",
     required_level_id: 0
   };
 };

@@ -15,6 +15,7 @@ export const getLevelsInitialValues = (id=null, data = []) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
     }
   }
@@ -35,6 +36,7 @@ export const getLevelsInitialValues = (id=null, data = []) => {
     requirements: [],
     restrict_unlock: false,
     required_achievement_id: 0,
+    restriction_message: "",
     required_level_id: 0,
   }
 }
