@@ -50,14 +50,14 @@ const FormInner = () => {
         try {
             setAchivementsLoading(true);
             let url = namespace + 'achievements';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const achievements = response.data?.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setAchivementsData(achievements);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setAchivementsLoading(false)
         }
@@ -66,25 +66,25 @@ const FormInner = () => {
         try {
             setLevelsLoading(true);
             let url = namespace + 'levels';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const levels = response.data.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setLevelsData(levels);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setLevelsLoading(false)
         }
     }
 
     useEffect(() => {
-        if(isRestrictContentActive) {
-            if(achivementsData.length === 0) {
+        if (isRestrictContentActive) {
+            if (achivementsData.length === 0) {
                 fetchAchivements();
             }
-            if(levelsData.length === 0) {
+            if (levelsData.length === 0) {
                 fetchLevels();
             }
         }
@@ -131,7 +131,7 @@ const FormInner = () => {
             </DraggableItem>
         );
     };
-    
+
     const availableHooks = useMemo(() => {
         const usedHookIds = new Set(
             values.requirements?.map(r => r.trigger_key)
@@ -148,11 +148,11 @@ const FormInner = () => {
 
 
     const activeHooks = useMemo(() => {
-        if(values.requirements?.length > 0) {
+        if (values.requirements?.length > 0) {
             return values.requirements?.map(item => allHooks.find(h => h.id === item.trigger_key)).filter(Boolean)
         }
     }, [values?.requirements]);
-        
+
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
 
@@ -205,7 +205,7 @@ const FormInner = () => {
                         placeholder={__("Enter level name", "gamify")}
                         value={values?.title}
                         onChange={e => {
-                            setFieldValue('title',e.target.value);
+                            setFieldValue('title', e.target.value);
                         }}
                         {...commonInput}
                     />
@@ -219,115 +219,114 @@ const FormInner = () => {
                     <RadioGroup.Root
                         value={values.category.find(c => c.is_selected)?.value}
                         onValueChange={(item) => {
-                        setFieldValue(
-                            'category',
-                            values.category.map(cat =>
-                            cat.value === item.value
-                                ? { ...cat, is_selected: true }
-                                : { ...cat, is_selected: false }
-                            )
-                        );
+                            setFieldValue(
+                                'category',
+                                values.category.map(cat =>
+                                    cat.value === item.value
+                                        ? { ...cat, is_selected: true }
+                                        : { ...cat, is_selected: false }
+                                )
+                            );
                         }}
                         size="sm"
                     >
                         <Flex
-                        mt="4px"
-                        gap="24px"
-                        p="12px"
-                        border="1px solid var(--gamify-border-color)"
-                        borderRadius="4px"
-                        flexWrap="wrap"
+                            mt="4px"
+                            gap="24px"
+                            p="12px"
+                            border="1px solid var(--gamify-border-color)"
+                            borderRadius="4px"
+                            flexWrap="wrap"
                         >
-                        {values.category.map((cat, index) => (
-                            <RadioGroup.Item key={index} value={cat.value}>
-                            <RadioGroup.ItemHiddenInput />
+                            {values.category.map((cat, index) => (
+                                <RadioGroup.Item key={index} value={cat.value}>
+                                    <RadioGroup.ItemHiddenInput />
 
-                            <RadioGroup.ItemIndicator
-                                style={{
-                                width: "20px",
-                                height: "20px",
-                                borderRadius: "9999px",
-                                border: cat.is_selected
-                                    ? "1px solid #007AFF"
-                                    : "1px solid #ccc",
-                                backgroundColor: cat.is_selected
-                                    ? "#007AFF"
-                                    : "transparent",
-                                }}
-                            />
+                                    <RadioGroup.ItemIndicator
+                                        style={{
+                                            width: "20px",
+                                            height: "20px",
+                                            borderRadius: "9999px",
+                                            border: cat.is_selected
+                                                ? "1px solid #007AFF"
+                                                : "1px solid #ccc",
+                                            backgroundColor: cat.is_selected
+                                                ? "#007AFF"
+                                                : "transparent",
+                                        }}
+                                    />
 
-                            <RadioGroup.ItemText>
-                                {sprintf(__('%s', 'gemboards'), cat.label)}
-                            </RadioGroup.ItemText>
-                            </RadioGroup.Item>
-                        ))}
+                                    <RadioGroup.ItemText>
+                                        {sprintf(__('%s', 'gemboards'), cat.label)}
+                                    </RadioGroup.ItemText>
+                                </RadioGroup.Item>
+                            ))}
                         </Flex>
                     </RadioGroup.Root>
                 )}
 
                 {showInput ? (
-                <Flex mt="6px" gap={2}>
-                    <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
+                    <Flex mt="6px" gap={2}>
+                        <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
 
+                        <Button
+                            size="xs"
+                            bg="var(--gamify-border-color)"
+                            fontSize="12px"
+                            fontWeight="500"
+                            lineHeight="16px"
+                            p="6px 8px"
+                            height="auto"
+                            variant="ghost"
+                            onClick={() => setShowInput(false)}
+                        >
+                            {__("Cancel", "gamify")}
+                        </Button>
+
+                        <Button
+                            size="xs"
+                            bg="var(--gamify-primary)"
+                            color="#fff"
+                            fontSize="12px"
+                            fontWeight="500"
+                            lineHeight="16px"
+                            p="6px 8px"
+                            height="auto"
+                            variant="ghost"
+                            onClick={() => {
+                                setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
+                                setNewCat("");
+                                setShowInput(false);
+                            }}
+                        >
+                            {__("Add", "gamify")}
+                        </Button>
+                    </Flex>
+                ) : (
                     <Button
-                        size="xs"
-                        bg="var(--gamify-border-color)"
+                        color="var(--gamify-primary)"
                         fontSize="12px"
                         fontWeight="500"
                         lineHeight="16px"
                         p="6px 8px"
                         height="auto"
                         variant="ghost"
-                        onClick={() => setShowInput(false)}
+                        mt="12px"
+                        onClick={() => setShowInput(true)}
                     >
-                        {__("Cancel", "gamify")}
+                        <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
                     </Button>
-
-                    <Button
-                        size="xs"
-                        bg="var(--gamify-primary)"
-                        color="#fff"
-                        fontSize="12px"
-                        fontWeight="500"
-                        lineHeight="16px"
-                        p="6px 8px"
-                        height="auto"
-                        variant="ghost"
-                        onClick={() => {
-                            setFieldValue('category', [...values.category, {label: newCat, value: newCat, is_selected: false}])
-                            setNewCat("");
-                            setShowInput(false);
-                        }}
-                    >
-                        {__("Add", "gamify")}
-                    </Button>
-                </Flex>
-            ) : (
-                <Button
-                    color="var(--gamify-primary)"
-                    fontSize="12px"
-                    fontWeight="500"
-                    lineHeight="16px"
-                    p="6px 8px"
-                    height="auto"
-                    variant="ghost"
-                    mt="12px"
-                    onClick={() => setShowInput(true)}
-                >
-                    <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
-                </Button>
-            )}
+                )}
             </Box>
 
-            <Box>
-                <GFLabel margin='0 0 12px 0' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
-                <GamifyEditor 
-                    name={'congratulations_message'} 
-                    defaultValue={values.congratulations_message} 
+            <GamifyInput label={__("Congratulations Message", "gamify")} width="100%">
+                <GamifyEditor
+                    name={'congratulations_message'}
+                    defaultValue={values.congratulations_message}
                     saveValueHandler={setFieldValue}
                     suffix={'levels-message'}
                 />
-            </Box>
+            </GamifyInput>
 
             <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gamify")} />
 
@@ -358,7 +357,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     achivementsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                        opt => Number(opt.value) === Number(values?.required_achievement_id)
                                     ) || null
                                 }
                                 isLoading={achivementsLoading}
@@ -368,6 +367,7 @@ const FormInner = () => {
                                 menuPlacement="bottom"
                             />
                         </GamifyInput>
+
                         <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
                             <Select
                                 className="gamify-select"
@@ -379,7 +379,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     levelsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_level_id)
+                                        opt => Number(opt.value) === Number(values?.required_level_id)
                                     ) || null
                                 }
                                 isLoading={levelsLoading}
@@ -390,10 +390,8 @@ const FormInner = () => {
                             />
                         </GamifyInput>
                     </Flex>
-                    <GamifyInput
-                        label={__("Restriction Message", "gamify")}
-                        // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
-                    >
+
+                    <GamifyInput label={__("Restriction Message", "gamify")}>
                         <Input
                             placeholder={__("Restriction message", "gamify")}
                             type="textarea"
@@ -401,7 +399,38 @@ const FormInner = () => {
                             onChange={e => {
                                 setFieldValue('restriction_message', e.target.value)
                             }}
-                            {...commonInput}
+                            value={
+                                achivementsData?.find(
+                                    opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                ) || null
+                            }
+                            isLoading={achivementsLoading}
+                            onChange={(option) => {
+                                setFieldValue('required_achievement_id', option?.value || null);
+                            }}
+                            menuPlacement="bottom"
+                        />
+                    </GamifyInput>
+
+                    <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
+                        <Select
+                            className="gamify-select"
+                            classNamePrefix="gamify-select"
+                            options={levelsData}
+                            onInputChange={(inputValue) => {
+                                fetchLevels(inputValue);
+                                return inputValue;
+                            }}
+                            value={
+                                levelsData?.find(
+                                    opt => Number(opt.value) === Number(values?.required_level_id)
+                                ) || null
+                            }
+                            isLoading={levelsLoading}
+                            onChange={option => {
+                                setFieldValue('required_level_id', option.value)
+                            }}
+                            menuPlacement="bottom"
                         />
                     </GamifyInput>
                 </Flex>
@@ -446,8 +475,8 @@ const FormInner = () => {
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             placeholder="Choose one"
-                            options={availablePointTypes} 
-                            value={availablePointTypes?.find(opt => opt.value == values.point_type_id)} 
+                            options={availablePointTypes}
+                            value={availablePointTypes?.find(opt => opt.value == values.point_type_id)}
                             onChange={sel => setFieldValue('point_type_id', sel.value)}
                         />
                     </GamifyInput>
@@ -459,8 +488,8 @@ const FormInner = () => {
 
                         <Flex gap="24px">
                             <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-level-requirements">
-                                <Flex direction="column" gap="12px">
-                                    <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
+                                <Flex direction="column" gap="4px">
+                                    <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gamify")} />
                                     <GFLabel
                                         type="subtitle"
                                         color="var(--gamify-font-color)"
@@ -485,8 +514,8 @@ const FormInner = () => {
                             </Flex>
 
                             <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
-                                <Flex direction="column" gap="12px">
-                                    <GFLabel type="plainHeading" label={__("Active Hooks", "gamify")} />
+                                <Flex direction="column" gap="4px">
+                                    <GFLabel type="plainHeading" margin={0} label={__("Active Hooks", "gamify")} />
                                     <GFLabel
                                         type="subtitle"
                                         color="var(--gamify-font-color)"
@@ -497,11 +526,11 @@ const FormInner = () => {
                                 <DroppableArea id="awards-sidebar">
                                     {activeHooks?.map(h => (
                                         <DynamicHookForm
-                                            key={h.id} 
-                                            hookId={h.id} 
-                                            hookInfo={h} 
-                                            settings={hookSettings[h.id] || {}} 
-                                            onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} 
+                                            key={h.id}
+                                            hookId={h.id}
+                                            hookInfo={h}
+                                            settings={hookSettings[h.id] || {}}
+                                            onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))}
                                         />
                                     ))}
                                 </DroppableArea>
@@ -547,6 +576,6 @@ const FormInner = () => {
             </BoxView>
         </Flex>
     );
-    };
+};
 
 export default FormInner;

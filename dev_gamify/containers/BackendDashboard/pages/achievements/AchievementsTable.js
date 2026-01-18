@@ -40,7 +40,7 @@ const AchievementsTable = () => {
         {
             name: __('Name', 'gamify'),
             cell: (row) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: "pointer" }} onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row.id}&path=achievements-type`)}>
                     {/* Optional: Show icon if available */}
                     {row.badge_image && <img src={row.badge_image} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
                     <span style={{ fontWeight: 500 }}>{row.title}</span>

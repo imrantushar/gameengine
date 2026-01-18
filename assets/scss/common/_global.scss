@@ -4,9 +4,9 @@
     --gamify-border-color: #CBD1D7;
     --gamify-font-color: #141A24;
     --gamify-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
+    --gamify-secondary-color: #F6F7F8;
 
     --gamify-second-primary: #8F7EE7;
-    --gamify-body-background: #F6F7F8;
     --gamify-background: #FFFFFF;
     --gamify-secondary: #738496;
     --gamify-warn-muted: #738496;
@@ -22,7 +22,7 @@
 
 .gamify-admin-content {
     margin-left: -20px;
-    background: var(--gamify-body-background);
+    background: var(--gamify-secondary-color);
     min-height: 100vh;
     padding-bottom: 100px;
 }

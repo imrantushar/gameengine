@@ -109,7 +109,7 @@ export const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex direction="column" gap="16px" p={4}>
+            <Flex direction="column" gap="16px">
                 {fieldsConfig.map((config) => {
                     if (config.scope && !config.scope.includes(context)) {
                         return null;
@@ -127,14 +127,6 @@ export const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange
                         />
                     );
                 })}
-            </Flex>
-
-            <Divider width='100%' margin='12px 0' />
-
-            <Flex padding="0 24px 12px 24px" justifyContent='flex-end'>
-                <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>
-                    {__('Done', 'gamify')}
-                </Button>
             </Flex>
         </CustomCollapsible>
     );

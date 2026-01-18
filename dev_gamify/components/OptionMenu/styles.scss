@@ -6,7 +6,7 @@
     background: transparent;
     padding: 5px 12px !important;
     &:focus, &:hover {
-        background: var(--gamify-body-background);
+        background: var(--gamify-secondary-color);
         color: none;
     }
 
@@ -41,7 +41,7 @@
                     display: flex;
                     margin-bottom: 4px;
                     &:hover {
-                        background: var(--gamify-body-background);
+                        background: var(--gamify-secondary-color);
                         color: var(--gamify-font-color);
                         border-radius: 4px;
                     }

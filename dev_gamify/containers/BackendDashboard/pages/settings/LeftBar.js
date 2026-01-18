@@ -1,14 +1,11 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Box, Flex, Text, VStack } from "@chakra-ui/react";
-
-// Icons
-import { IoArrowBack } from "react-icons/io5";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
-import { FiBookOpen } from "react-icons/fi";
 import { FiHelpCircle } from "react-icons/fi";
 import { route_path } from "@GFUtils/helper";
+import { general, mail } from "@GFUtils/icons";
 
 const LeftBar = () => {
     const navigate = useNavigate();
@@ -20,20 +17,19 @@ const LeftBar = () => {
             label: __("General", "gamify"),
             key: "general-settings",
             desc: __("Basic plugin settings", "gamify"),
-            icon: <FiBookOpen size={20} />,
+            icon: general(),
         },
         {
             label: __("Email Notice", "gamify"),
             key: "email-notice",
             desc: __("User email alerts", "gamify"),
-            icon: <FiMail size={20} />,
+            icon: mail(),
         },
-        {
-            label: __("Help/Support", "gamify"),
-            key: "help-support",
-            desc: __("Basic Service Details", "gamify"),
-            icon: <FiHelpCircle size={20} />,
-        },
+        // {
+        //     label: __("Help/Support", "gamify"),
+        //     key: "help-support",
+        //     desc: __("Basic Service Details", "gamify"),
+        // },
     ];
 
     return (
@@ -54,35 +50,34 @@ const LeftBar = () => {
                         <Flex
                             key={i}
                             align="flex-start"
-                            px="20px"
-                            py="12px"
-                            columnGap="12px"
+                            p="8px 16px"
                             cursor="pointer"
-                            bg={isActive ? "#F6F7F8" : "transparent"}
-                            color={isActive ? "#F6F7F8" : "#374151"}
+                            bg={isActive ? "var(--gamify-secondary-color)" : "transparent"}
                             transition="0.25s ease"
                             _hover={{ bg: "#F9FAFB" }}
                             onClick={() => navigate(
                                 `${route_path}admin.php?page=gamify-settings&settings=1&tab=${item.key}`
                             )}
-
-
+                            gap="12px"
                         >
-                            <Box mt="2px" color={isActive ? "#2563EB" : "#6B7280"} opacity={isActive ? 1 : 0.8}>
-                                {item.icon}
-                            </Box>
+                            <Icon color={isActive ? "var(--gamify-primary)" : "var(--gamify-font-color)"} mt={1}>{item?.icon}</Icon>
+
                             <Box>
                                 <Text
                                     fontWeight={isActive ? "600" : "500"}
                                     fontSize="14px"
-                                    color={isActive ? "#2563EB" : "#6B7280"}
+                                    lineHeight="20px"
+                                    color={isActive ? "var(--gamify-primary)" : "var(--gamify-font-color)"}
                                     margin='0'
                                 >
                                     {item.label}
                                 </Text>
+
                                 <Text
                                     fontSize="12px"
-                                    color={isActive ? "#2563EB" : "#6B7280"}
+                                    fontWeight="400"
+                                    lineHeight="16px"
+                                    color={isActive ? "var(--gamify-primary)" : "#738496"}
                                     mt="-2px"
                                     margin='0'
                                 >
