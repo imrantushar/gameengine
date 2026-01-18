@@ -13,6 +13,9 @@ export const getLevelsInitialValues = (id=null, data = []) => {
       icon: filteredData?.icon,
       category: filteredData?.category,
       requirements: filteredData?.requirements,
+      restrict_unlock: filteredData?.restrict_unlock,
+      required_achievement_id: filteredData?.required_achievement_id,
+      required_level_id: filteredData?.required_level_id,
     }
   }
 
@@ -29,6 +32,9 @@ export const getLevelsInitialValues = (id=null, data = []) => {
       label: 'Progression',
       is_selected: false,
     }],
-    requirements: []
+    requirements: [],
+    restrict_unlock: false,
+    required_achievement_id: 0,
+    required_level_id: 0,
   }
 }
