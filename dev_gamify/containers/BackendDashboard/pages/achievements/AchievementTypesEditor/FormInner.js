@@ -51,6 +51,7 @@ const FormInner = () => {
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
+    const {availablePointTypes} = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
 
 
@@ -443,7 +444,7 @@ const FormInner = () => {
                     </GamifyInput>
 
                     <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc(50% - 6px)">
-                        {/* <Select
+                        <Select
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             options={availablePointTypes}
@@ -452,7 +453,7 @@ const FormInner = () => {
                                 setFieldValue('required_point_type_id', option.value)
                             }}
                             menuPlacement="top"
-                        /> */}
+                        />
                     </GamifyInput>
                 </Flex>
             ) : (

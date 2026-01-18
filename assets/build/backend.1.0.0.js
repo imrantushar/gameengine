@@ -3704,6 +3704,9 @@ const FormInner = () => {
   const [levelsLoading, setLevelsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [levelsData, setLevelsData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const addons = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons);
+  const {
+    availablePointTypes
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   const isRestrictContentActive = (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.getAddonActiveStatus)(addons, 'restrict_unlock');
   const {
     values,
@@ -4075,7 +4078,16 @@ const FormInner = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Choose the Points Type", "gamify"),
     width: "calc(50% - 6px)"
-  })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    options: availablePointTypes,
+    value: availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id)),
+    onChange: option => {
+      setFieldValue('required_point_type_id', option.value);
+    },
+    menuPlacement: "top"
+  }))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
