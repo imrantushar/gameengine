@@ -211,7 +211,7 @@ const FormInner = () => {
             <Flex gap="12px">
                 <GamifyInput
                     label={__("Point Name", "gamify")}
-                    width="calc(50% - 6px)"
+                    width="100%"
                 >
                     <Input
                         placeholder={__("Enter point name", "gamify")}

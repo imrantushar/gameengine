@@ -3890,7 +3890,7 @@ const FormInner = () => {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Point Name", "gamify"),
-    width: "calc(50% - 6px)"
+    width: "100%"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Enter point name", "gamify"),
     value: values.title,
