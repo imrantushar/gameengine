@@ -16,7 +16,6 @@ import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyInput from "@GFComponents/GamifyInput";
 import { useFormikContext } from "formik";
 import DynamicHookForm from "./components/DynamicHookForm";
-import apiFetch from "@wordpress/api-fetch";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 
 // --- Draggable Components ---
@@ -49,6 +48,7 @@ const FormInner = () => {
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
+    const {availablePointTypes} = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
 
 
@@ -99,7 +99,7 @@ const FormInner = () => {
     }, [isRestrictContentActive])
 
     const {
-        allHooks, category, hookSettings, availablePointTypes, congratulationsMessage, availableCategories = [],
+        allHooks, hookSettings, congratulationsMessage
     } = useSelector(state => state.achievements);
 
     const hookCategoryIconMap = {
@@ -365,47 +365,63 @@ const FormInner = () => {
             </Switch.Root>
 
             {(values?.restrict_unlock && isRestrictContentActive) && (
-                <Flex gap="12px">
-                    <GamifyInput label={__("Required Achievements", "gamify")} width="calc(50% - 6px)">
-                        <Select
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={achivementsData}
-                            onInputChange={(inputValue) => {
-                                fetchAchivements(inputValue);
-                                return inputValue;
+                <Flex direction={'column'} gap="12px">
+                    <Flex gap="12px">
+                        <GamifyInput label={__("Required Achievements", "gamify")} width="calc(50% - 6px)">
+                            <Select
+                                className="gamify-select"
+                                classNamePrefix="gamify-select"
+                                options={achivementsData}
+                                onInputChange={(inputValue) => {
+                                    fetchAchivements(inputValue);
+                                    return inputValue;
+                                }}
+                                value={
+                                    achivementsData?.find(
+                                    opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                    ) || null
+                                }
+                                isLoading={achivementsLoading}
+                                onChange={(option) => {
+                                    setFieldValue('required_achievement_id', option?.value || null);
+                                }}
+                                menuPlacement="bottom"
+                            />
+                        </GamifyInput>
+                        <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
+                            <Select
+                                className="gamify-select"
+                                classNamePrefix="gamify-select"
+                                options={levelsData}
+                                onInputChange={(inputValue) => {
+                                    fetchLevels(inputValue);
+                                    return inputValue;
+                                }}
+                                value={
+                                    levelsData?.find(
+                                    opt => Number(opt.value) === Number(values?.required_level_id)
+                                    ) || null
+                                }
+                                isLoading={levelsLoading}
+                                onChange={option => {
+                                    setFieldValue('required_level_id', option.value)
+                                }}
+                                menuPlacement="bottom"
+                            />
+                        </GamifyInput>
+                    </Flex>
+                    <GamifyInput
+                        label={__("Restriction Message", "gamify")}
+                        // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
+                    >
+                        <Input
+                            placeholder={__("Restriction message", "gamify")}
+                            type="textarea"
+                            value={values.restriction_message}
+                            onChange={e => {
+                                setFieldValue('restriction_message', e.target.value)
                             }}
-                            value={
-                                achivementsData?.find(
-                                opt => Number(opt.value) === Number(values?.required_achievement_id)
-                                ) || null
-                            }
-                            isLoading={achivementsLoading}
-                            onChange={(option) => {
-                                setFieldValue('required_achievement_id', option?.value || null);
-                            }}
-                            menuPlacement="bottom"
-                        />
-                    </GamifyInput>
-                    <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
-                        <Select
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={levelsData}
-                            onInputChange={(inputValue) => {
-                                fetchLevels(inputValue);
-                                return inputValue;
-                            }}
-                            value={
-                                levelsData?.find(
-                                opt => Number(opt.value) === Number(values?.required_level_id)
-                                ) || null
-                            }
-                            isLoading={levelsLoading}
-                            onChange={option => {
-                                setFieldValue('required_level_id', option.value)
-                            }}
-                            menuPlacement="bottom"
+                            {...commonInput}
                         />
                     </GamifyInput>
                 </Flex>
@@ -438,7 +454,7 @@ const FormInner = () => {
                     </GamifyInput>
 
                     <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc(50% - 6px)">
-                        {/* <Select
+                        <Select
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             options={availablePointTypes}
@@ -447,7 +463,7 @@ const FormInner = () => {
                                 setFieldValue('required_point_type_id', option.value)
                             }}
                             menuPlacement="top"
-                        /> */}
+                        />
                     </GamifyInput>
                 </Flex>
             ) : (

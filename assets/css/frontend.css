@@ -91,6 +91,7 @@
     border-left: 4px solid #cbd5e1;
 }
 
+
 .is-active .gamify-node-card {
     border-left: 4px solid var(--gf-completed);
 }

@@ -14,6 +14,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
     }
   }
@@ -23,11 +24,12 @@ export const getAchivementsInitialValues = (id=null, data) => {
     description: "",
     category: [],
     max_earnings_per_user: 0,
-    unlock_with_points_enabled: false,
+    unlock_with_points_enabled: true,
     required_points_amount: 0,
     restrict_unlock: false,
     required_achievement_id: 0,
     required_level_id: 0,
+    restriction_message: "",
     congratulations_message: "",
     requirements: []
   }
