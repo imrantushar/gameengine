@@ -306,7 +306,7 @@ const FormInner = () => {
             </Box>
 
             <GamifyInput label={__("Congratulations Message", "gamify")}>
-                <GamifyEditor 
+                <GamifyEditor
                     name={'congratulations_message'}
                     defaultValue={values.congratulations_message}
                     saveValueHandler={setFieldValue}
@@ -402,6 +402,8 @@ const FormInner = () => {
                                                 hookId={h.id}
                                                 hookInfo={h}
                                                 settings={hookSettings[h.id] || {}}
+                                                type="award"
+                                                context="achievement"
                                                 onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))}
                                                 isOpen={openedHooks.includes(h.id)}
                                                 setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))}
