@@ -2,8 +2,7 @@ import React from "react";
 import { Chart as ChartJS, LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler } from "chart.js";
 import { __ } from '@wordpress/i18n';
 import { Line } from "react-chartjs-2";
-import { Box } from "@chakra-ui/react";
-import GFLabel from "@GFComponents/Labels/GFLabel";
+import BoxView from "@GFComponents/BoxView/BoxView";
 
 ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement, Tooltip, Legend, Filler);
 
@@ -74,12 +73,9 @@ function Distribution({ chartData }) {
     };
 
     return (
-        <Box p={6} w='100%' background="var(--gamify-background)" borderRadius="4px">
-            <GFLabel type="title" fontWeight="600" fontSize="xl" mb='4' label={__(`Point Distribution Chart`, 'gamify')} />
-            <Box w="100%" h="320px">
-                <Line data={data} options={options} />
-            </Box>
-        </Box>
+        <BoxView width='100%' title={__('Point Distribution Chart', 'gamify')}>
+            <Line data={data} options={options} />
+        </BoxView>
     );
 }
 
