@@ -18,7 +18,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
   return {
     title: "",
     description: "",
-    category: "",
+    category: [],
     max_earnings_per_user: 0,
     unlock_with_points_enabled: false,
     required_points_amount: 0,

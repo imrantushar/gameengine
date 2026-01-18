@@ -1,131 +1,205 @@
-/* Gamify Profile Card Container */
-.gamify-frontend-card {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    max-width: 600px;
-    margin: 20px auto;
-    overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    box-sizing: border-box;
+/**
+ * Gamify Unified Stylesheet
+ * Includes Profile Dashboard & Zig-Zag Progress Map
+ */
+
+:root {
+    --gf-primary: #006BFF;
+    --gf-completed: #006BFF;
+    --gf-locked: #cbd5e1;
+    --gf-bg-card: #ffffff;
+    --gf-text-main: #1e293b;
+    --gf-text-sub: #64748b;
+    --gf-border: #eef2f6;
+    --gf-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Header Section */
-.gamify-card-header {
+/* --- 1. Dashboard Layout (Shortcode: [gamify_profile]) --- */
+.gamify-dashboard-v3 {
+    max-width: 950px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: var(--gf-shadow);
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid var(--gf-border);
+}
+
+.gamify-v3-header {
+    display: flex; justify-content: space-between; padding: 20px 30px;
+    background: #fff; border-bottom: 2px solid #e5e5e5; align-items: center;
+}
+
+.gamify-v3-user-info h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.gamify-v3-user { display: flex; align-items: center; gap: 15px; }
+.gamify-v3-user img { border-radius: 50%; border: 3px solid var(--gf-primary); width: 50px; height: 50px; }
+.gamify-v3-points-tag { font-size: 12px; color: #f08c00; font-weight: 700; background: #fff9db; padding: 2px 10px; border-radius: 20px; }
+
+.gamify-v3-main { display: flex; min-height: 450px; }
+
+.gamify-v3-sidebar { width: 220px; background: #fcfdfe; border-right: 1px solid var(--gf-border); padding: 20px 0; }
+
+.gamify-tab-btn {
+    width: 100%; padding: 15px 25px; border: none; background: transparent;
+    text-align: left; font-size: 14px; font-weight: 600; color: #64748b;
+    cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.3s;
+}
+
+.gamify-tab-btn.active { background: #fff; color: var(--gf-primary); border-right: 4px solid var(--gf-primary); }
+
+.gamify-v3-content { flex: 1; padding: 30px; background: #fff; }
+.gamify-tab-content { display: none; }
+.gamify-tab-content.active { display: block; animation: gfFadeIn 0.4s ease; }
+
+@keyframes gfFadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+/* --- 2. Zig-Zag Progress Map (Logic Engine Output) --- */
+.gamify-roadmap-v2 {
+    padding: 30px 10px;
+    position: relative;
+}
+
+.gamify-timeline {
+    position: relative;
+    max-width: 100%;
+}
+
+/* সেন্ট্রাল ভার্টিক্যাল লাইন */
+.gamify-timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #e2e8f0;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.gamify-timeline-node {
+    position: relative;
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* নাম্বার সার্কেল */
+.gamify-node-circle {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    background: #fff;
+    border: 4px solid var(--gf-locked);
+    color: var(--gf-text-sub);
+    border-radius: 50%;
     display: flex;
     align-items: center;
-    padding: 24px;
-    background: #f8fafc;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.gamify-user-avatar img {
-    border-radius: 50%;
-    border: 3px solid #fff;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 64px;
-    height: 64px;
-    display: block;
-}
-
-.gamify-user-info {
-    margin-left: 16px;
-}
-
-.gamify-user-info h3 {
-    margin: 0 0 6px 0;
-    font-size: 18px;
-    color: #1e293b;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.gamify-user-meta {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.gamify-badge-pill, .gamify-points-pill {
+    justify-content: center;
+    font-weight: 800;
     font-size: 12px;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-weight: 600;
-    display: inline-block;
+    z-index: 10;
 }
 
-.gamify-badge-pill {
-    background: #dbeafe;
-    color: #2563eb;
+.is-active .gamify-node-circle {
+    border-color: var(--gf-completed);
+    background: var(--gf-completed);
+    color: #fff;
 }
 
-.gamify-points-pill {
-    background: #fef3c7;
-    color: #d97706;
+/* কানেক্টর লাইন কালার (Blue for completed) */
+.gamify-connector {
+    position: absolute;
+    left: 50%;
+    top: 32px;
+    width: 4px;
+    height: 100%;
+    transform: translateX(-50%);
+    z-index: 2;
 }
+.line-blue { background: var(--gf-completed); }
+.line-gray { background: #e2e8f0; }
 
-/* Body Section */
-.gamify-card-body {
-    padding: 24px;
-}
-
-.gamify-section-title {
-    font-size: 14px;
-    text-transform: uppercase;
-    color: #64748b;
-    letter-spacing: 0.05em;
-    margin-bottom: 16px;
-    font-weight: 600;
-    margin-top: 0;
-}
-
-/* Badges Grid */
-.gamify-badges-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 16px;
-}
-
-.gamify-badge-item {
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #f1f5f9;
-    border-radius: 8px;
-    transition: transform 0.2s;
+/* কার্ড ডিজাইন */
+.gamify-node-card {
+    width: 42%; /* অর্ধেক স্ক্রিন */
     background: #fff;
+    border-radius: 12px;
+    border: 1px solid var(--gf-border);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
 }
 
-.gamify-badge-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+.node-left .gamify-node-card { margin-right: auto; text-align: right; }
+.node-right .gamify-node-card { margin-left: auto; text-align: left; }
+
+.gamify-card-inner {
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
-.gamify-badge-item img {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    margin-bottom: 6px;
-    display: inline-block;
+.node-left .gamify-card-inner { flex-direction: row-reverse; }
+
+.gamify-card-media img { width: 45px; height: 45px; object-fit: contain; }
+.icon-placeholder { font-size: 30px; }
+
+.gamify-card-info h5 { margin: 0; font-size: 16px; color: var(--gf-text-main); font-weight: 700; }
+.gamify-card-info p { font-size: 12px; color: var(--gf-text-sub); margin: 5px 0 0; }
+
+/* টাইপ ব্যাজ */
+.gamify-type-badge {
+    display: inline-block; font-size: 8px; font-weight: 900;
+    padding: 2px 6px; border-radius: 4px; text-transform: uppercase;
+}
+.gamify-type-badge.level { background: #fff4e6; color: #f76707; }
+.gamify-type-badge.achievement { background: #e7f5ff; color: #1c7ed6; }
+
+/* লকড স্টেট */
+.is-locked .gamify-node-card { opacity: 0.6; filter: grayscale(1); background: #f8fafc; }
+
+/* --- 3. Standalone Pills & Badges --- */
+.gamify-pill-points {
+    display: inline-flex; align-items: center; padding: 6px 16px;
+    background: #fff9db; color: #f08c00; border-radius: 50px; font-weight: 700; border: 1px solid #ffe066;
 }
 
-.gamify-default-icon {
-    font-size: 32px;
-    margin-bottom: 5px;
-    line-height: 1;
+.gamify-pill-level {
+    display: inline-flex; align-items: center; padding: 6px 16px;
+    background: #e7f5ff; color: #1971c2; border-radius: 8px; font-weight: 600; border: 1px solid #a5d8ff;
 }
 
-.gamify-badge-name {
-    display: block;
-    font-size: 11px;
-    color: #475569;
-    line-height: 1.2;
-    font-weight: 500;
+.gamify-badges-grid-standalone {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 15px;
 }
 
-.gamify-empty-state {
-    color: #94a3b8;
-    font-style: italic;
-    font-size: 14px;
-    margin: 0;
+.gamify-standalone-badge { text-align: center; }
+.badge-wrapper {
+    width: 60px; height: 60px; background: #f8fafc; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; border: 2px solid #e2e8f0;
+}
+
+/* --- 4. Responsive Design --- */
+@media (max-width: 768px) {
+    .gamify-v3-main { flex-direction: column; }
+    .gamify-v3-sidebar { width: 100%; display: flex; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--gf-border); }
+    .gamify-tab-btn { white-space: nowrap; border-bottom: 3px solid transparent; }
+    .gamify-tab-btn.active { border-right: none; border-bottom: 3px solid var(--gf-primary); }
+
+    /* Mobile Roadmap Fix */
+    .gamify-timeline::before { left: 20px; }
+    .gamify-node-circle { left: 20px; transform: none; }
+    .gamify-connector { left: 34px; transform: none; }
+    .gamify-node-card { width: calc(100% - 60px); margin-left: 60px !important; }
+    .node-left .gamify-card-inner { flex-direction: row; }
 }

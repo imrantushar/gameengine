@@ -19,7 +19,7 @@ const LevelTable = () => {
 
     useEffect(() => {
         dispatch(fetchLevels());
-    }, [dispatch]);
+    }, []);
 
     const getCategoryColor = (cat) => {
         switch (cat?.toLowerCase()) {
