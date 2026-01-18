@@ -4,7 +4,7 @@ import AddonCard from './AddonCard';
 import { Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
-import { Box, Button, Flex, Tabs } from '@chakra-ui/react';
+import { Button, Flex, } from '@chakra-ui/react';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
@@ -178,7 +178,7 @@ const Addons = () => {
 		});
 	}, []);
 
-		const getAddonLists = (values) => {
+	const getAddonLists = (values) => {
 		return infoCardsData.filter((item) => {
 			if (item.label.toLowerCase().includes(filterText.toLowerCase())) {
 				if (filterMenu === 'all') {
@@ -207,15 +207,15 @@ const Addons = () => {
 				heading={__("Add-ons", "gamify")}
 				dynamicClasses="addons"
 			>
-				<Flex 
+				<Flex
 					width={'100%'}
 					justifyContent={'space-between'}
 					alignItems={'center'}
 					borderBottom={'1px solid var(--gamify-border-color)'}
-					padding={'0 0 10px 0'}
-					margin={'20px 0'}
+					pb="10px"
+					mb='20px'
 				>
-					<Flex>
+					<Flex gap={0} alignItems="center">
 						{filterOptions.map((option, index) => (
 							<Button
 								key={index}
@@ -246,83 +246,67 @@ const Addons = () => {
 									},
 								}}
 								className={`gamify-addons-filter-option ${filterMenu === option.slug
-										? 'active-filter'
-										: ''
+									? 'active-filter'
+									: ''
 									}`}
 								onClick={() => {
 									setFilterMenu(option.slug);
 									setLoading(true);
 								}}
 							>
-								<span>{option.title}</span>
+								{option.title}
 							</Button>
 						))}
 					</Flex>
-					<Box>
-						<Search
-							placeholder={__('Search Add-ons', 'gamify')}
-							onSearchHandler={(keyword) =>
-								setFilterText(keyword.trim())
-							}
-						/>
-					</Box>
-				</Flex>
-				<Box className="gamify-addons">
-					<Formik 
-						enableReinitialize
-						initialValues={{...addonsSavedData}}
-					>
-						{({ setFieldValue, values }) => {
-							const addonLists = getAddonLists(values);
-							return (
-								<>
-									{loading ? (
-										<AddonCardsSkeleton />
-									) : (
-										<Flex 
-											width={'100%'}
-											flexWrap={'wrap'}
-											gap={'20px'}
-											className='gamify-dashboard-addon-cards'
-										>
-											{addonLists.length ? (
-												addonLists.map(
-													(item, index) => {
-														return (
-															<AddonCard
-																item={item}
-																key={index}
-																index={index}
-																value={
-																	values[
-																	item
-																		.name
-																	]
-																}
-																setFieldValue={
-																	setFieldValue
-																}
-															/>
-														);
-													}
-												)
-											) : (
-												<Box className="academy-dashboard-addon-cards-message">
-													<CustomTableMessage
-														title={__(
-															'No Addons Found!',
-															'academy'
-														)}
-													/>
-												</Box>
-											)}
-										</Flex>
-									)}
-								</>
-							)}
+
+					<Search
+						placeholder={__('Search Add-ons', 'gamify')}
+						onSearchHandler={(keyword) =>
+							setFilterText(keyword.trim())
 						}
-					</Formik>
-				</Box>
+					/>
+				</Flex>
+
+				<Formik
+					enableReinitialize
+					initialValues={{ ...addonsSavedData }}
+				>
+					{({ setFieldValue, values }) => {
+						const addonLists = getAddonLists(values);
+						return (
+							<>
+								{loading ? (
+									<AddonCardsSkeleton />
+								) : (
+									<Flex
+										width={'100%'}
+										flexWrap={'wrap'}
+										gap={'20px'}
+										className='gamify-dashboard-addon-cards'
+									>
+										{addonLists.length ? (
+											addonLists.map(
+												(item, index) => {
+													return (
+														<AddonCard
+															item={item}
+															key={index}
+															index={index}
+															value={values[item.name]}
+															setFieldValue={setFieldValue}
+														/>
+													);
+												}
+											)
+										) : (
+											<CustomTableMessage title={__('No Addons Found!', 'academy')} />
+										)}
+									</Flex>
+								)}
+							</>
+						)
+					}}
+				</Formik>
 			</GamifyBox>
 		</>
 	);

@@ -1,12 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { VStack, Spinner, Center, Box, Flex } from "@chakra-ui/react";
+import { Spinner, Center, Flex } from "@chakra-ui/react";
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
-import GFLabel from '@GFComponents/Labels/GFLabel';
-import { FaChevronRight } from 'react-icons/fa6';
-
-// Components
 import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
 import Overview from "./Overview";
