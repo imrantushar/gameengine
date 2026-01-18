@@ -4045,6 +4045,8 @@ const FormInner = () => {
     hookId: h.id,
     hookInfo: h,
     settings: hookSettings[h.id] || {},
+    type: "award",
+    context: "achievement",
     onChange: (k, v) => dispatch((0,_GFRedux_Slices_achivementSlice_achievementsSlice__WEBPACK_IMPORTED_MODULE_19__.updateHookSettings)({
       hookId: h.id,
       settings: {
@@ -4208,7 +4210,8 @@ const DynamicHookForm = ({
   settings,
   handleChange,
   isOpen,
-  setIsOpen
+  setIsOpen,
+  context = 'point_type'
 }) => {
   const fieldsConfig = hookInfo.schema || [];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Collapsible__WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -4223,7 +4226,7 @@ const DynamicHookForm = ({
     p: 4
   }, fieldsConfig.map(config => {
     var _ref, _settings$config$key;
-    if (config.scope && !config.scope.includes('point_type')) {
+    if (config.scope && !config.scope.includes(context)) {
       return null;
     }
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DynamicField, {
