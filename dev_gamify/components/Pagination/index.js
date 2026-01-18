@@ -227,7 +227,7 @@ const Pagination = ({
 						borderWidth="1px"
 						bg="transparent"
 						_hover={{
-							bg: 'var(--gamify-body-background)',
+							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
 						padding="6px"
@@ -247,7 +247,7 @@ const Pagination = ({
 						borderWidth="1px"
 						bg="transparent"
 						_hover={{
-							bg: 'var(--gamify-body-background)',
+							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
 						padding="6px"
@@ -273,7 +273,7 @@ const Pagination = ({
 						borderWidth="1px"
 						bg="transparent"
 						_hover={{
-							bg: 'var(--gamify-body-background)',
+							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
 						padding="6px"
@@ -290,7 +290,7 @@ const Pagination = ({
 						borderWidth="1px"
 						bg="transparent"
 						_hover={{
-							bg: 'var(--gamify-body-background)',
+							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
 						padding="6px"

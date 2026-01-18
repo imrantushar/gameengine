@@ -11,8 +11,8 @@ import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import SettingsPageSkeleton from './Components/SettingsPageSkeleton';
 import GetHelp from '@GFComponents/GetHelp';
+import SettingsLoader from '@GFComponents/GamifyLoader/SettingsLoader';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -50,7 +50,7 @@ const Settings = () => {
     return (
         <>
             {settingsLoading ? (
-                <SettingsPageSkeleton />
+                <SettingsLoader />
             ) : (
                 <Formik
                     enableReinitialize
@@ -71,6 +71,7 @@ const Settings = () => {
                                         </>
                                     }
                                 />
+                                
                                 <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
                                     <LeftBar />
                                     {tab === "general-settings" && <GeneralSettings />}

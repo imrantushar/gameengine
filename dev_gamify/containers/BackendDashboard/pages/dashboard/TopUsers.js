@@ -21,7 +21,7 @@ const TopUsers = ({ users }) => {
                     </Table.Header>
                     <Table.Body>
                         {users.map((item, index) => (
-                            <Table.Row key={index} borderRadius="4px" background={index % 2 === 0 ? 'var(--gamify-background)' : 'var(--gamify-body-background)'}>
+                            <Table.Row key={index} borderRadius="4px" background={index % 2 === 0 ? 'var(--gamify-background)' : 'var(--gamify-secondary-color)'}>
                                 <Table.Cell borderLeftRadius={index % 2 !== 0 ? '4px' : ''} paddingLeft="24px">
                                     <Text as="span" fontSize="14px">#{index + 1}</Text>
                                 </Table.Cell>
