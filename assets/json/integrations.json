@@ -23,8 +23,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -165,8 +165,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -307,8 +307,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -481,8 +481,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -630,8 +630,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -793,8 +793,8 @@
                             "key": "points",
                             "label": "Points to Deduct",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -949,8 +949,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1103,8 +1103,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1262,8 +1262,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1411,8 +1411,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1565,8 +1565,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1725,8 +1725,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -1889,8 +1889,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2053,8 +2053,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2209,8 +2209,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2382,8 +2382,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2553,8 +2553,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2702,8 +2702,8 @@
                             "key": "points",
                             "label": "Points to Award",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]
@@ -2851,8 +2851,8 @@
                             "key": "points",
                             "label": "Points to Deduct",
                             "type": "number",
-                            "default": 10,
                             "width": "50%",
+                            "default": 10,
                             "scope": [
                                 "point_type"
                             ]

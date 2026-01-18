@@ -4,6 +4,9 @@ namespace Gamify\Core;
 
 if (! defined('ABSPATH')) exit;
 
+/**
+ * Defines the database schema for the Gamify plugin.
+ */
 final class Schema
 {
     public static function get_tables()
@@ -52,9 +55,15 @@ final class Schema
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
             required_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_points_amount INT(11) DEFAULT 0,
+            -- Restrict Unlock Fields
+            required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            restriction_message TEXT DEFAULT NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY required_point_type_id (required_point_type_id)
+            KEY required_point_type_id (required_point_type_id),
+            KEY required_achievement_id (required_achievement_id),
+            KEY required_level_id (required_level_id)
         ) $charset_collate;";
     }
 
@@ -65,21 +74,23 @@ final class Schema
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255),
             description TEXT,
-            icon VARCHAR(255), -- Level Logo URL/ID
+            icon VARCHAR(255),
             category VARCHAR(255) DEFAULT NULL,
-            -- Logic Fields
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
             point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
             min_points INT(11) DEFAULT 0,
             max_points INT(11) DEFAULT 0,
-            
-            -- Messages
             congratulations_message TEXT DEFAULT NULL,
-            
+            -- Restrict Unlock Fields
+            required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            restriction_message TEXT DEFAULT NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY point_type_id (point_type_id)
+            KEY point_type_id (point_type_id),
+            KEY required_achievement_id (required_achievement_id),
+            KEY required_level_id (required_level_id)
         ) $charset_collate;";
     }
 

@@ -152,6 +152,9 @@ class AchievementsController extends BaseController
             'category'                   => sanitize_text_field($params['category']),
             'required_point_type_id'     => intval($params['required_point_type_id']),
             'congratulations_message'    => wp_kses_post($params['congratulations_message']),
+            'required_achievement_id'    => !empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
+            'required_level_id'          => !empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
+            'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
             'created_at'                 => current_time('mysql'),
         ];
 

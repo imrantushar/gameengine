@@ -1,35 +1,27 @@
-
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
+import { Box, Button, Flex, Icon, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
-import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
 import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
+import GFLabel from "@GFComponents/Labels/GFLabel";
 import GamifyEditor from "@GFComponents/editor";
+import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
-import { GoPlus } from "react-icons/go";
-import {
-    updateHookSettings, addCategoryToList
-} from "@GFRedux/Slices/achivementSlice/achievementsSlice";
-import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
+import { updateHookSettings } from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
 import GamifyInput from "@GFComponents/GamifyInput";
+import BoxView from "@GFComponents/BoxView/BoxView";
+import { GoPlus } from "react-icons/go";
 import { useFormikContext } from "formik";
-import DynamicHookForm from "./components/DynamicHookForm";
-import apiFetch from "@wordpress/api-fetch";
+import DynamicHookForm from "./Components/DynamicHookForm";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 
-// --- Draggable Components ---
+// --- Helpers ---
 const DraggableItem = ({ id, children }) => {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        opacity: isDragging ? 0.85 : 1,
-        cursor: "grab",
-        marginBottom: "24px"
-    };
+    const style = { transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined, opacity: isDragging ? 0.85 : 1, cursor: "grab", marginBottom: "24px" };
     return <Box ref={setNodeRef} {...listeners} {...attributes} style={style}>{children}</Box>;
 };
 
@@ -39,22 +31,20 @@ const DroppableArea = ({ id, children }) => {
 };
 
 const FormInner = () => {
-    const dispatch = useDispatch();
+    const [message, setMessage] = useState("");
     const [openedHooks, setOpenedHooks] = useState([]);
+    const [selectedFilter, setSelectedFilter] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [showInput, setShowInput] = useState(false);
     const [newCat, setNewCat] = useState("");
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
-    const [message, setMessage] = useState("");
     const [achivementsLoading, setAchivementsLoading] = useState(false);
     const [achivementsData, setAchivementsData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
-    const addons = useSelector(state => state.addons);
-    const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
-
 
     const { values, setFieldValue } = useFormikContext();
+    const addons = useSelector(state => state.addons);
+    const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
 
     const fetchAchivements = async (key) => {
         try {
@@ -100,9 +90,15 @@ const FormInner = () => {
         }
     }, [isRestrictContentActive])
 
-    const {
-        allHooks, category, hookSettings, availablePointTypes, congratulationsMessage, availableCategories = [],
-    } = useSelector(state => state.achievements);
+    const { hookSettings, allHooks, availablePointTypes } = useSelector(state => state.levels);
+
+    const handleImageUpload = () => {
+        if (typeof wp !== 'undefined' && wp.media) {
+            const frame = wp.media({ title: 'Select Level Icon', button: { text: 'Use this Icon' }, multiple: false });
+            frame.on('select', () => { setFieldValue('icon', frame.state().get('selection').first().toJSON().url); });
+            frame.open();
+        }
+    };
 
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
@@ -135,9 +131,7 @@ const FormInner = () => {
             </DraggableItem>
         );
     };
-
-    useEffect(() => { if (congratulationsMessage) setMessage(congratulationsMessage); }, [congratulationsMessage]);
-
+    
     const availableHooks = useMemo(() => {
         const usedHookIds = new Set(
             values.requirements?.map(r => r.trigger_key)
@@ -146,19 +140,19 @@ const FormInner = () => {
         return allHooks.filter(hook =>
             !usedHookIds.has(hook.id) &&
             (
-                selectedFilterHookType.length === 0 ||
-                selectedFilterHookType.includes(hook.integrationSlug)
+                selectedFilter.length === 0 ||
+                selectedFilter.includes(hook.integrationSlug)
             )
         );
-    }, [allHooks, values.requirements, selectedFilterHookType]);
+    }, [allHooks, values.requirements, selectedFilter]);
 
 
     const activeHooks = useMemo(() => {
-        if (values.requirements?.length > 0) {
+        if(values.requirements?.length > 0) {
             return values.requirements?.map(item => allHooks.find(h => h.id === item.trigger_key)).filter(Boolean)
         }
     }, [values?.requirements]);
-
+        
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
 
@@ -203,158 +197,139 @@ const FormInner = () => {
         }
     };
 
-    const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
-
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                <GamifyInput
-                    label={__("Point Name", "gamify")}
-                    width="calc(50% - 6px)"
-                >
+                <GamifyInput label={__("Level Name", "gamify")} width="100%">
                     <Input
-                        placeholder={__("Enter point name", "gamify")}
-                        value={values.title}
+                        placeholder={__("Enter level name", "gamify")}
+                        value={values?.title}
                         onChange={e => {
-                            const value = e.target.value
-                            setFieldValue('title', value)
-                            setFieldValue('plural_name', `${value}s`)
+                            setFieldValue('title',e.target.value);
                         }}
                         {...commonInput}
                     />
                 </GamifyInput>
             </Flex>
 
-            <GamifyInput
-                label={__("Maximum earnings per user", "gamify")}
-                desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
-            >
-                <Input
-                    placeholder={__("Maximum Earnings Per User:", "gamify")}
-                    type="number"
-                    value={values.max_earnings_per_user}
-                    onChange={e => {
-                        setFieldValue('max_earnings_per_user', e.target.value)
-                    }}
-                    {...commonInput}
-                />
-            </GamifyInput>
+            <Box className="gamify-add-level-type">
+                <GFLabel type="title" label={__("Level Type", "gamify")} />
 
-            <Box className="gamify-add-achievement-type">
-                <GFLabel type="title" label={__("Achievement Type", "gamify")} />
-
-                {values.category.length > 0 && (
+                {values?.category?.length > 0 && (
                     <RadioGroup.Root
                         value={values.category.find(c => c.is_selected)?.value}
                         onValueChange={(item) => {
-                            setFieldValue(
-                                'category',
-                                values.category.map(cat =>
-                                    cat.value === item.value
-                                        ? { ...cat, is_selected: true }
-                                        : { ...cat, is_selected: false }
-                                )
-                            );
+                        setFieldValue(
+                            'category',
+                            values.category.map(cat =>
+                            cat.value === item.value
+                                ? { ...cat, is_selected: true }
+                                : { ...cat, is_selected: false }
+                            )
+                        );
                         }}
                         size="sm"
                     >
                         <Flex
-                            mt="4px"
-                            gap="24px"
-                            p="12px"
-                            border="1px solid var(--gamify-border-color)"
-                            borderRadius="4px"
-                            flexWrap="wrap"
+                        mt="4px"
+                        gap="24px"
+                        p="12px"
+                        border="1px solid var(--gamify-border-color)"
+                        borderRadius="4px"
+                        flexWrap="wrap"
                         >
-                            {values.category.map((cat, index) => (
-                                <RadioGroup.Item key={index} value={cat.value}>
-                                    <RadioGroup.ItemHiddenInput />
+                        {values.category.map((cat, index) => (
+                            <RadioGroup.Item key={index} value={cat.value}>
+                            <RadioGroup.ItemHiddenInput />
 
-                                    <RadioGroup.ItemIndicator
-                                        style={{
-                                            width: "20px",
-                                            height: "20px",
-                                            borderRadius: "9999px",
-                                            border: cat.is_selected
-                                                ? "1px solid #007AFF"
-                                                : "1px solid #ccc",
-                                            backgroundColor: cat.is_selected
-                                                ? "#007AFF"
-                                                : "transparent",
-                                        }}
-                                    />
+                            <RadioGroup.ItemIndicator
+                                style={{
+                                width: "20px",
+                                height: "20px",
+                                borderRadius: "9999px",
+                                border: cat.is_selected
+                                    ? "1px solid #007AFF"
+                                    : "1px solid #ccc",
+                                backgroundColor: cat.is_selected
+                                    ? "#007AFF"
+                                    : "transparent",
+                                }}
+                            />
 
-                                    <RadioGroup.ItemText>
-                                        {sprintf(__('%s', 'gemboards'), cat.label)}
-                                    </RadioGroup.ItemText>
-                                </RadioGroup.Item>
-                            ))}
+                            <RadioGroup.ItemText>
+                                {sprintf(__('%s', 'gemboards'), cat.label)}
+                            </RadioGroup.ItemText>
+                            </RadioGroup.Item>
+                        ))}
                         </Flex>
                     </RadioGroup.Root>
                 )}
 
                 {showInput ? (
-                    <Flex mt="6px" gap={2}>
-                        <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
+                <Flex mt="6px" gap={2}>
+                    <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
 
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-border-color)"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={() => setShowInput(false)}
-                        >
-                            {__("Cancel", "gamify")}
-                        </Button>
-
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-primary)"
-                            color="#fff"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={() => {
-                                setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
-                                setNewCat("");
-                                setShowInput(false);
-                            }}
-                        >
-                            {__("Add", "gamify")}
-                        </Button>
-                    </Flex>
-                ) : (
                     <Button
-                        color="var(--gamify-primary)"
+                        size="xs"
+                        bg="var(--gamify-border-color)"
                         fontSize="12px"
                         fontWeight="500"
                         lineHeight="16px"
                         p="6px 8px"
                         height="auto"
                         variant="ghost"
-                        mt="12px"
-                        onClick={() => setShowInput(true)}
+                        onClick={() => setShowInput(false)}
                     >
-                        <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
+                        {__("Cancel", "gamify")}
                     </Button>
-                )}
+
+                    <Button
+                        size="xs"
+                        bg="var(--gamify-primary)"
+                        color="#fff"
+                        fontSize="12px"
+                        fontWeight="500"
+                        lineHeight="16px"
+                        p="6px 8px"
+                        height="auto"
+                        variant="ghost"
+                        onClick={() => {
+                            setFieldValue('category', [...values.category, {label: newCat, value: newCat, is_selected: false}])
+                            setNewCat("");
+                            setShowInput(false);
+                        }}
+                    >
+                        {__("Add", "gamify")}
+                    </Button>
+                </Flex>
+            ) : (
+                <Button
+                    color="var(--gamify-primary)"
+                    fontSize="12px"
+                    fontWeight="500"
+                    lineHeight="16px"
+                    p="6px 8px"
+                    height="auto"
+                    variant="ghost"
+                    mt="12px"
+                    onClick={() => setShowInput(true)}
+                >
+                    <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
+                </Button>
+            )}
             </Box>
 
-            <GamifyInput label={__("Congratulations Message", "gamify")}>
-                <GamifyEditor
-                    name={'congratulations_message'}
-                    defaultValue={values.congratulations_message}
+            <Box>
+                <GFLabel margin='0 0 12px 0' type="inputLabel" label={__(`Congratulations Message:`, "gamify")} />
+                <GamifyEditor 
+                    name={'congratulations_message'} 
+                    defaultValue={values.congratulations_message} 
                     saveValueHandler={setFieldValue}
-                    suffix={'acivements-message'}
+                    suffix={'levels-message'}
                 />
-            </GamifyInput>
+            </Box>
+
+            <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gamify")} />
 
             <Switch.Root
                 checked={values.restrict_unlock}
@@ -429,39 +404,45 @@ const FormInner = () => {
             </Switch.Root>
 
             {values?.unlock_with_points_enabled ? (
-                <Flex gap="12px" className="gamify-allow-unlock-point">
-                    <GamifyInput label={__("Points", "gamify")} width="calc(50% - 6px)">
+                <Flex gap="12px">
+                    <GamifyInput label={__("Minimum Balance", "gamify")} width="calc((100% / 3) - 6px)">
                         <Input
-                            placeholder={__("Enter point", "gamify")}
+                            placeholder={__("Enter minimum balance", "gamify")}
+                            value={values.min_points}
                             type="number"
-                            value={values.required_points_amount}
-                            onChange={e => {
-                                setFieldValue('required_points_amount', e.target.value)
-                            }}
+                            onChange={e => setFieldValue('min_oints', e.target.value)}
                             {...commonInput}
                         />
                     </GamifyInput>
 
-                    <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc(50% - 6px)">
-                        {/* <Select
+                    <GamifyInput label={__("Maximum Balance", "gamify")} width="calc((100% / 3) - 6px)">
+                        <Input
+                            placeholder={__("Enter maximum balance", "gamify")}
+                            value={values.min_points}
+                            type="number"
+                            onChange={e => setFieldValue('min_oints', e.target.value)}
+                            {...commonInput}
+                        />
+                    </GamifyInput>
+
+                    <GamifyInput label={__("Choose the Points Type", "gamify")} width="calc((100% / 3) - 6px)">
+                        <Select
                             className="gamify-select"
                             classNamePrefix="gamify-select"
-                            options={availablePointTypes}
-                            value={availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
-                            onChange={option => {
-                                setFieldValue('required_point_type_id', option.value)
-                            }}
-                            menuPlacement="top"
-                        /> */}
+                            placeholder="Choose one"
+                            options={availablePointTypes} 
+                            value={availablePointTypes?.find(opt => opt.value == values.point_type_id)} 
+                            onChange={sel => setFieldValue('point_type_id', sel.value)}
+                        />
                     </GamifyInput>
                 </Flex>
             ) : (
                 <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                    <Box p="24px" border="1px solid var(--gamify-border-color)" borderRadius="4px" className="gamify-achievement-requirements">
-                        <GFLabel type="plainHeading" label={__("Achievement Requirements", "gamify")} />
+                    <Box p="24px" border="1px solid var(--gamify-border-color)" borderRadius="4px" className="gamify-level-requirements">
+                        <GFLabel type="plainHeading" label={__("Level Requirements", "gamify")} />
 
                         <Flex gap="24px">
-                            <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-achievement-requirements">
+                            <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-level-requirements">
                                 <Flex direction="column" gap="12px">
                                     <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
                                     <GFLabel
@@ -474,11 +455,12 @@ const FormInner = () => {
                                 <Box p="12px" border="1px solid var(--gamify-border-color)" borderRadius="4px">
                                     <GamifyInput label={__("Filter Hooks Type", "gamify")}>
                                         <Select
+                                            isMulti
+                                            placeholder={__("Filter...", "gamify")}
+                                            options={Object.keys(hookCategoryIconMap).map(k => ({ label: k, value: k }))}
+                                            onChange={v => setSelectedFilter(v.map(o => o.value))}
                                             className="gamify-select"
                                             classNamePrefix="gamify-select"
-                                            isMulti
-                                            options={hookTypeOptions}
-                                            onChange={v => setSelectedFilterHookType(v.map(o => o.value))}
                                         />
                                     </GamifyInput>
                                 </Box>
@@ -497,20 +479,14 @@ const FormInner = () => {
                                 </Flex>
 
                                 <DroppableArea id="awards-sidebar">
-                                    {activeHooks && activeHooks.map(h => (
-                                        <DraggableItem key={h.id} id={h.id}>
-                                            <DynamicHookForm
-                                                key={h.id}
-                                                hookId={h.id}
-                                                hookInfo={h}
-                                                settings={hookSettings[h.id] || {}}
-                                                type="award"
-                                                context="achievement"
-                                                onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))}
-                                                isOpen={openedHooks.includes(h.id)}
-                                                setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))}
-                                            />
-                                        </DraggableItem>
+                                    {activeHooks?.map(h => (
+                                        <DynamicHookForm
+                                            key={h.id} 
+                                            hookId={h.id} 
+                                            hookInfo={h} 
+                                            settings={hookSettings[h.id] || {}} 
+                                            onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))} 
+                                        />
                                     ))}
                                 </DroppableArea>
                             </Box>
@@ -518,8 +494,43 @@ const FormInner = () => {
                     </Box>
                 </DndContext>
             )}
+
+            <BoxView title={__(`Levels Logo`, "gamify")} width="100%">
+                {values?.icon ? (
+                    <Flex alignItems="center" justifyContent="space-between">
+                        <Image src={values?.icon} width="100px" objectFit="cover" />
+                        <Button
+                            bg="var(--gamify-primary)"
+                            color="#fff"
+                            fontSize="12px"
+                            fontWeight="500"
+                            lineHeight="16px"
+                            p="6px 8px"
+                            height="auto"
+                            variant="ghost"
+                            onClick={handleImageUpload}
+                        >
+                            {__("Change Level Logo", "gamify")}
+                        </Button>
+                    </Flex>
+                ) : (
+                    <Button
+                        bg="var(--gamify-primary)"
+                        color="#fff"
+                        fontSize="12px"
+                        fontWeight="500"
+                        lineHeight="16px"
+                        p="6px 8px"
+                        height="auto"
+                        variant="ghost"
+                        onClick={handleImageUpload}
+                    >
+                        {__("Set Level Logo", "gamify")}
+                    </Button>
+                )}
+            </BoxView>
         </Flex>
     );
-};
+    };
 
 export default FormInner;

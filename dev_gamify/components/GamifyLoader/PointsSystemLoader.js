@@ -28,11 +28,7 @@ export const PointsSystemLoader = () => {
 
             <GamifyBox dynamicClasses="gamify-points-system" heading={<Skeleton height="20px" width="50%" />}>
                 <Flex gap="12px">
-                    <GamifyInput label={<Skeleton height="20px" width="50%" />} width="calc(50% - 6px)">
-                        <Skeleton height="40px" width="100%" />
-                    </GamifyInput>
-
-                    <GamifyInput label={<Skeleton height="20px" width="50%" />} width="calc(50% - 6px)">
+                    <GamifyInput label={<Skeleton height="20px" width="50%" />}>
                         <Skeleton height="40px" width="100%" />
                     </GamifyInput>
                 </Flex>

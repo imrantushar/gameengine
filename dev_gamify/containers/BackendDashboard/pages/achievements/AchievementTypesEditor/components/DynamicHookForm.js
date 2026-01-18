@@ -26,8 +26,8 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                 integration: config.dynamic.integration || integrationSlug,
                 query: config.dynamic.query
             })).unwrap()
-            .then(res => setDynamicOptions(res))
-            .finally(() => setLoading(false));
+                .then(res => setDynamicOptions(res))
+                .finally(() => setLoading(false));
         }
     }, [config.dynamic, isDisabled, integrationSlug]);
 
@@ -98,7 +98,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     );
 };
 
-export const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
+export const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen, context = 'point_type' }) => {
     const fieldsConfig = hookInfo.schema || [];
 
     return (
@@ -111,7 +111,7 @@ export const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange
         >
             <Flex direction="column" gap="16px" p={4}>
                 {fieldsConfig.map((config) => {
-                    if (config.scope && !config.scope.includes('point_type')) {
+                    if (config.scope && !config.scope.includes(context)) {
                         return null;
                     }
 

@@ -141,6 +141,12 @@ class Triggers
     {
         $params = json_decode($rule->parameters, true);
 
+        $can_unlock = apply_filters('gamify_can_user_unlock_reward', true, $user_id, $rule);
+
+        if (!$can_unlock) {
+            return;
+        }
+
         //  Validate Time-Based restrictions (Pro Logic Hook)
         if (!$this->check_timing_validity($params)) {
             return;

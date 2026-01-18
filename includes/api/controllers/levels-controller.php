@@ -152,6 +152,9 @@ class LevelsController extends BaseController
             'min_points'                 => intval($params['min_points']),
             'max_points'                 => intval($params['max_points']),
             'priority'                   => intval($params['priority']),
+            'required_achievement_id'    => !empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
+            'required_level_id'          => !empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
+            'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
             'created_at'                 => current_time('mysql'),
         ];
 
