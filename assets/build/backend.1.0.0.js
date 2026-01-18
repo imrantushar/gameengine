@@ -851,6 +851,85 @@ const AchievementFormLoader = () => {
 
 /***/ }),
 
+/***/ "./dev_gamify/components/GamifyLoader/AddOnsLoader.js":
+/*!************************************************************!*\
+  !*** ./dev_gamify/components/GamifyLoader/AddOnsLoader.js ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/separator/separator.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/skeleton/skeleton.js");
+
+
+const AddOnsLoader = ({
+  count = 5
+}) => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    width: "100%",
+    flexWrap: "wrap",
+    gap: "20px",
+    className: "gamify-dashboard-addon-cards"
+  }, Array.from({
+    length: count
+  }).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    key: i,
+    p: "16px 0",
+    border: "1px solid var(--academy-border-color)",
+    borderRadius: "6px",
+    bg: "white",
+    width: "calc((100% / 3) - 16px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    p: "0 16px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "50px",
+    width: "64px",
+    mb: "8px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "40%",
+    mb: "8px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    direction: "column",
+    gap: 1
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "100%"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "80%"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "60px",
+    mt: "16px"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Separator, {
+    borderColor: "var(--gamify-border-color)",
+    m: "16px 0"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    display: "flex",
+    justifyContent: "space-between",
+    p: "0 16px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "100px"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Skeleton, {
+    height: "20px",
+    width: "40px",
+    borderRadius: "4px"
+  })))));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddOnsLoader);
+
+/***/ }),
+
 /***/ "./dev_gamify/components/GamifyLoader/PointsSystemLoader.js":
 /*!******************************************************************!*\
   !*** ./dev_gamify/components/GamifyLoader/PointsSystemLoader.js ***!
@@ -1016,6 +1095,745 @@ const RequirementsLoader = () => {
   }))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RequirementsLoader);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/GetHelp/DocListsArray.js":
+/*!********************************************************!*\
+  !*** ./dev_gamify/components/GetHelp/DocListsArray.js ***!
+  \********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   docLists: () => (/* binding */ docLists)
+/* harmony export */ });
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
+
+const docLists = [{
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Advanced Analytics', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-advanced-analytics/',
+  tags: 'analytics, advance'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to create course', 'academy'),
+  link: 'https://academylms.net/docs/how-to-create-course/',
+  tags: 'course, create '
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to create lesson', 'academy'),
+  link: 'https://academylms.net/docs/how-to-create-lesson/',
+  tags: 'lesson, create'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Automatic WooCommerce Product Creation', 'academy'),
+  link: 'https://academylms.net/docs/automatic-woocommerce-product-creation/',
+  tags: 'woocommerce, product'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Announcement And QA Section Disabling', 'academy'),
+  link: 'https://academylms.net/docs/announcement-and-qa-section-disabling/',
+  tags: 'announcement, disable, q&a, disable'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Public Course Explanation', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-public-course-explanation/',
+  tags: 'course, public'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Content Drip', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-content-drip/',
+  tags: 'course, drip, content'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Course Prerequisites', 'academy'),
+  link: 'https://academylms.net/docs/course-prerequisites/',
+  tags: 'course, prerequisites'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to embed Canva design in Academy LMS', 'academy'),
+  link: 'https://academylms.net/docs/how-to-embed-canva-design-in-academy-lms/',
+  tags: 'canva, design'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS quiz builder', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-quiz-builder/',
+  tags: 'quiz, builder'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Zoom Integration in Academy LMS', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-zoom-integration-in-academy-lms/',
+  tags: 'zoom, setup'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS Assignment', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-assignment/',
+  tags: 'assignment'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to ask questions from teachers', 'academy'),
+  link: 'https://academylms.net/docs/how-to-ask-questions-from-teachers/',
+  tags: 'q&a, question, teacher'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Money management', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-money-management/',
+  tags: 'money, management'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Set a Course Expiration Date', 'academy'),
+  link: 'https://academylms.net/docs/how-to-set-expire-enrollment/',
+  tags: 'course, expire, enrollment, expiration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy Certificate Builder', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-certificate-builder/',
+  tags: 'certificate, builder'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to add Global Announcement', 'academy'),
+  link: 'https://academylms.net/docs/global-announcement-usage/',
+  tags: 'global, announcement'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use the Multi Instructor addon', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-the-multi-instructor-addon/',
+  tags: 'multi , instructor, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to complete a lesson', 'academy'),
+  link: 'https://academylms.net/docs/how-to-complete-a-lesson/',
+  tags: 'lesson, complete'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to complete a course', 'academy'),
+  link: 'https://academylms.net/docs/how-to-complete-a-course/',
+  tags: 'course, complete'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to get announcements from teachers', 'academy'),
+  link: 'https://academylms.net/docs/how-to-get-announcements-from-teachers/',
+  tags: 'announcement, teacher, instructor'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to download certificates', 'academy'),
+  link: 'https://academylms.net/docs/how-to-download-certificates/',
+  tags: 'certificate, download'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to access my courses', 'academy'),
+  link: 'https://academylms.net/docs/how-to-access-my-courses/',
+  tags: 'course'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to enroll in a free course', 'academy'),
+  link: 'https://academylms.net/docs/how-to-enroll-in-a-free-course/',
+  tags: 'course, free, enroll'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to enroll in a paid course', 'academy'),
+  link: 'https://academylms.net/docs/how-to-enroll-in-a-paid-course/',
+  tags: 'paid, course'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use/active Academy LMS addons?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-addons/',
+  tags: 'addon, active '
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to re-generate pages', 'academy'),
+  link: 'https://academylms.net/docs/how-to-re-generate-pages/',
+  tags: 'regenerate, pages'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How use Academy LMS Shortcode', 'academy'),
+  link: 'https://academylms.net/docs-category/shortcodes/',
+  tags: 'shortcode'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS settings?', 'academy'),
+  link: 'https://academylms.net/Docs/mastering-the-academy-lms-settings/',
+  tags: 'setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use reCAPTCHA', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-recaptcha/',
+  tags: 'recaptcha, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Activate Academy LMS License', 'academy'),
+  link: 'https://academylms.net/docs/how-to-activate-academy-lms-license/',
+  tags: 'license, activate'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS manual enrollment', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-manual-enrollment/',
+  tags: 'student, enrollment, manual'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Bulk Instructor Import From CSV File', 'academy'),
+  link: 'https://academylms.net/docs/bulk-instructor-import-from-csv-file/',
+  tags: 'bulk, instructor, import'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Lesson Export/Import', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-email-settings/',
+  tags: 'lesson, import, export'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Quiz Export/Import', 'academy'),
+  link: 'https://academylms.net/docs/quiz-export-import/',
+  tags: 'quizzes, import, export'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Course grid shortcode', 'academy'),
+  link: 'https://academylms.net/docs/course-grid-shortcode/',
+  tags: 'course, shortcode'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Login shortcode', 'academy'),
+  link: 'https://academylms.net/docs/login-shortcode/',
+  tags: 'shortcode, login'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS dashboard shortcode?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-dashboard-shortcode/',
+  tags: 'shortcode, dashboard'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS PDF shortcode?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-pdf-shortcode/',
+  tags: 'shortcode'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS student registration shortcode?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-student-registration-shortcode/',
+  tags: 'student, shortcode, registration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS instructor registration shortcode?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-instructor-registration-shortcode/',
+  tags: 'instructor, registration, shortcode'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS search shortcode?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+  tags: 'shortcode, search'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Enroll Form Shortcode', 'academy'),
+  link: 'https://academylms.net/docs/enroll-form-shortcode/',
+  tags: 'shortcode, enroll'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Course Filter Shortcode', 'academy'),
+  link: 'https://academylms.net/docs/course-filter-shortcode/',
+  tags: 'shortcode, course, filter'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Email Notification?', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-email-settings/',
+  tags: 'setting, notification'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use White Label Addon?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-white-label-addon/',
+  tags: 'addon, setting, white label'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use SCORM Content in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-scorm-content-in-academy-lms/',
+  tags: 'addon, course, scorm, xapi'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS migration tool?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-migration-tool/',
+  tags: 'migration, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS form builder?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-lms-form-builder/',
+  tags: 'form builder, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS certificate builder?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-certificate-builder/',
+  tags: 'certificate builder, certificate, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Presto Player With Academy Lms?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-presto-player-with-academy-lms/',
+  tags: 'presto player, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use H5P Player Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-h5p-player-with-academy-lms/',
+  tags: 'h5p player, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Make Academy LMS Courses Private?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-make-academy-lms-courses-private/',
+  tags: 'courses private, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Sell Courses with WooCommerce And Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/sell-courses-with-woocommerce-and-academy-lms/',
+  tags: 'woocommerce, setting, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Easy Digital Download with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/easy-digital-download-with-academy-lms/',
+  tags: 'easy digital download, setting, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Apply Coupon Code?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-apply-coupon-code/',
+  tags: 'coupon, discount, promotion'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Change Course Permalink?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-change-course-permalink/',
+  tags: 'permalink, course, settings'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Create Courses from a YouTube Playlist in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/create-courses-from-a-youtube-playlist/',
+  tags: 'YouTube, course creation, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Download Academy LMS Beta Free and Pro Version?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-download-academy-lms-beta-free-and-pro-version/',
+  tags: 'download, beta, pro version'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Enable Learn Page PHP Rendering in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-enable-learn-page-php-rendering-in-academy-lms/',
+  tags: 'PHP, rendering, learn page'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Setup Academy LMS Necessary Pages?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-setup-academy-lms-necessary-pages/',
+  tags: 'setup, pages, configuration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Translate the Language of Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-translate-the-language-of-academy-lms/',
+  tags: 'translation, language, localization'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Mastering The Academy LMS Settings', 'academy'),
+  link: 'https://academylms.net/docs/mastering-the-academy-lms-settings/',
+  tags: 'settings, configuration, guide'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Course Schedule', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-course-schedule/',
+  tags: 'course, schedule, management'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Enable and Use the Course Preview Feature in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/course-preview-feature-in-academy-lms/',
+  tags: 'course preview, feature, usage'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Enable Auto-Load Next Lesson and Auto-Complete Topics in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/course-preview-feature-in-academy-lms/',
+  tags: 'auto-load, auto-complete, lessons'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Hide the Course Rating?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-hide-the-course-rating/',
+  tags: 'course rating, hide, settings'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Hide Wishlist?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-hide-wishlist/',
+  tags: 'wishlist, hide, settings'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Course Export/Import Features in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/course-export-import-features-in-academy-lms/',
+  tags: 'export, import, courses'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use the Password-Protected Course in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-the-password-protected-course-in-academy-lms/',
+  tags: 'password, protection, course'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Popup Course Review: How Does It Work?', 'academy'),
+  link: 'https://academylms.net/Docs/popup-course-review/',
+  tags: 'popup, course review, feature'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Step-by-Step Guide: Create and Publish a Course on Academy LMS Frontend Dashboard', 'academy'),
+  link: 'https://academylms.net/Docs/step-by-step-guide-create-and-publish-a-course-on-academy-lms-frontend-dashboard/',
+  tags: 'course creation, frontend, guide'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Automating Order Completion in Academy LMS with WooCommerce', 'academy'),
+  link: 'https://academylms.net/Docs/automatic-order-completion/',
+  tags: 'automation, order completion, WooCommerce'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Native Payment Integration', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-native-payment-integration/',
+  tags: 'payment, integration, native'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Modify Frontend Dashboard in Academy LMS', 'academy'),
+  link: 'https://academylms.net/Docs/modify-frontend-dashboard/',
+  tags: 'frontend, dashboard, customization'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Override Academy Templates Files from Themes?', 'academy'),
+  link: 'https://academylms.net/Docs/override-academy-templates-files-from-themes/',
+  tags: 'templates, override, themes'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use the Certificate Verification Shortcode?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-the-certificate-verification-shortcode/',
+  tags: 'certificate, verification, shortcode'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Introducing Academy Player: How to Use It?', 'academy'),
+  link: 'https://academylms.net/docs/introducing-academy-player-how-to-use-it/',
+  tags: 'academy player, usage, guide'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy Course Searchbar Block', 'academy'),
+  link: 'https://academylms.net/Docs/academy-course-searchbar-block/',
+  tags: 'searchbar, block, course'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy Login Form Block', 'academy'),
+  link: 'https://academylms.net/docs/academy-login-form-block/',
+  tags: 'login form, block, authentication'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Password Reset Block', 'academy'),
+  link: 'https://academylms.net/docs/password-reset-block/',
+  tags: 'password reset, block, authentication'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Password Reset Form Shortcode', 'academy'),
+  link: 'https://academylms.net/Docs/password-reset-form-shortcode/',
+  tags: 'password reset, shortcode, form'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Course Bundle', 'academy'),
+  link: 'https://academylms.net/Docs/course-bundle/',
+  tags: 'course bundle, package, offering'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Tutor Booking: Your One-Stop Solution for Booking', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-tutor-booking/',
+  tags: 'tutor booking, scheduling, management'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Webhooks', 'academy'),
+  link: 'https://academylms.net/Docs/academy-lms-webhooks/',
+  tags: 'webhooks, automation, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS WooCommerce subscriptions', 'academy'),
+  link: 'https://academylms.net/Docs/academy-lms-woocommerce-subscriptions/',
+  tags: 'woocommerce, subscriptions, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to cancel enrolment?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-cancel-enrolment/',
+  tags: 'enrolment, course, user'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Configure Device Login Restrictions in Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/device-login-restrictions-in-academy-lms/',
+  tags: 'login, device, restriction'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Customize Academy Starter Templates?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-customize-academy-starter-templates/',
+  tags: 'customize, template, design'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Integrate Academy LMS with FluentCommunity?', 'academy'),
+  link: 'https://academylms.net/Docs/integrate-academy-lms-with-fluentcommunity/',
+  tags: 'integration, community, FluentCommunity'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Integrate BuddyPress with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-integrate-buddypress-with-academy-lms/',
+  tags: 'integration, BuddyPress, social'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Integrate Restrict Content Pro with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-integrate-restrict-content-pro-with-academy-lms/',
+  tags: 'restrict content, integration, membership'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy Elementor Addons?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-academy-elementor-addons/',
+  tags: 'elementor, addons, builder'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS Google Meet Integration?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-lms-google-meet-integration/',
+  tags: 'google meet, video, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS Grade Book Addon?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-lms-grade-book-addon/',
+  tags: 'grade book, addon, results'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy LMS Meeting Addon?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-lms-meeting-addon/',
+  tags: 'meeting, addon, communication'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS Notification Addon?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-lms-notification-addon/',
+  tags: 'notification, alerts, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Academy LMS SureCart Integration?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-lms-surecart-integration/',
+  tags: 'SureCart, payment, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Academy Starter Templates?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-academy-starter-template/',
+  tags: 'starter template, design, theme'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Calendar with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-calendar-with-academy-lms/',
+  tags: 'calendar, events, schedule'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use FluentCRM with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-fluentcrm-with-academy-lms/',
+  tags: 'FluentCRM, email, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use GamiPress with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-gamipress-with-academy-lms/',
+  tags: 'GamiPress, gamification, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Google Classroom with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-google-classroom-with-academy-lms/',
+  tags: 'google classroom, integration, education'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use MailChimp with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-mailchimp-with-academy-lms/',
+  tags: 'mailchimp, email, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Social Login with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-social-login-with-academy-lms/',
+  tags: 'social login, authentication, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use the Academy Divi Module?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-the-academy-divi-module/',
+  tags: 'module, setting'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use WishList Member with Academy LMS?', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-wishlist-member-with-academy-lms/',
+  tags: 'wishlist member, addon, membership'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Paid Memberships Pro Integration', 'academy'),
+  link: 'https://academylms.net/Docs/paid-memberships-pro-integration/',
+  tags: 'membership, addon'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('setting Up BuddyBoss Integration in Academy LMS', 'academy'),
+  link: 'https://academylms.net/Docs/buddyboss-integration-in-academy-lms/',
+  tags: 'setting, buddyboss, community'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Simplified Membership Management in Academy LMS with SureMembers', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-suremembers-with-academy-lms/',
+  tags: 'suremembers, membership, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use WPML With Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-wpml-with-academy-lms/',
+  tags: 'setting ,wpml, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use SendFox With Academy LMS?', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-sendfox-with-academy-lms/',
+  tags: 'setting,sendfox, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Lesson Edit in Gutenberg', 'academy'),
+  link: 'https://academylms.net/docs/lesson-edit-in-gutenberg/',
+  tags: 'lesson, gutenberg, editor'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Lesson Migration (Default table to WP Post Table)', 'academy'),
+  link: 'https://academylms.net/docs/lesson-migration/',
+  tags: 'lesson,migration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use ChatGPT with Academy LMS: AI Studio', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-chatgpt-with-academy-lms-ai-studio/',
+  tags: 'setting, chatgpt, integration'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS Notes Feature', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-notes-feature/',
+  tags: 'setting, student, notes'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to Use Group Plus Addon (Group Access)?', 'academy'),
+  link: 'https://academylms.net/docs/group-plus-addon/',
+  tags: 'group, addon, access'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy LMS: Setting Up the Frontend Login Page', 'academy'),
+  link: 'https://academylms.net/docs/academy-lms-frontend-login-page/',
+  tags: 'setting, login, frontend'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Using LaTeX in Academy LMS for Mathematical Equations', 'academy'),
+  link: 'https://academylms.net/docs/latex-in-academy-lms/',
+  tags: 'lesson, math, equations'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Enroll Form Block', 'academy'),
+  link: 'https://academylms.net/docs/enroll-form-block/',
+  tags: 'setting, form, block'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Course Grid Block', 'academy'),
+  link: 'https://academylms.net/docs/course-grid-block/',
+  tags: 'course, grid, block'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Instructor Registration Block', 'academy'),
+  link: 'https://academylms.net/docs/instructor-registration-block/',
+  tags: 'instructor, registration, block'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Student Registration Block', 'academy'),
+  link: 'https://academylms.net/docs/student-registration-block/',
+  tags: 'student, registration, block'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Academy Course Searchbar Block', 'academy'),
+  link: 'https://academylms.net/docs/academy-course-searchbar-block/',
+  tags: 'course, searchbar, block'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Attendance', 'academy'),
+  link: 'https://academylms.net/docs/how-to-use-attendance-in-academy-lms',
+  tags: 'addon, attendance'
+}, {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('How to use Memberpress', 'academy'),
+  link: 'https://academylms.net/Docs/how-to-use-memberpress-with-academy-lms/',
+  tags: 'addon, integration, membership, memberpress'
+}];
+
+/***/ }),
+
+/***/ "./dev_gamify/components/GetHelp/DocsList.js":
+/*!***************************************************!*\
+  !*** ./dev_gamify/components/GetHelp/DocsList.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+// import { sliceString } from '@GFUtils/helper';
+
+const DocList = ({
+  title,
+  data,
+  notDocsFound
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: `gamify-get-help-list`
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: "gamify-get-help-list__title"
+}, title, data.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, " (", data.length, ") ")), data.length > 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+  className: "gamify-get-help-list__list-items"
+}, data.map((item, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+  key: index
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {
+  href: item.link,
+  target: "_blank",
+  rel: "noreferrer"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: "gamify-docs-title"
+}, item.title), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: "gamify-icon gamify-icon--go-on"
+}))))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "gamify-item-center"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "gamify-item-center--linear"
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: "gamify-icon gamify-icon--search"
+})), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: "gamify-item-center__title"
+}, notDocsFound)));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DocList);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/GetHelp/HelpModal.js":
+/*!****************************************************!*\
+  !*** ./dev_gamify/components/GetHelp/HelpModal.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _GFComponents_Modal_WPModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Modal/WPModal */ "./dev_gamify/components/Modal/WPModal.js");
+/* harmony import */ var _GFComponents_Search__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/Search */ "./dev_gamify/components/Search/index.js");
+/* harmony import */ var _DocsList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DocsList */ "./dev_gamify/components/GetHelp/DocsList.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+
+
+
+
+// import Button from '@Components/Button';
+
+
+
+const HelpModal = ({
+  isOpen,
+  closeModal,
+  searchText,
+  setSearchText,
+  relatedData,
+  commonData,
+  searchedData
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Modal_WPModal__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  isOpen: isOpen,
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Help', 'academy'),
+  suffix: "help",
+  onRequestClose: closeModal,
+  contentLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Need Help?', 'academy'),
+  shouldCloseOnClickOutside: true
+}, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button
+// icon={<span className="academy-icon academy-icon--angle-left" />}
+, {
+  onClick: closeModal,
+  suffix: "close-modal"
+}), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Search__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Search Docs', 'academy'),
+  onSearchHandler: value => setSearchText(value.trim()),
+  value: searchText,
+  searchText: searchText,
+  setSearchText: setSearchText
+}), searchText.length === 0 ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Related Docs', 'academy'),
+  data: relatedData,
+  notDocsFound: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No Related docs available', 'academy')
+}), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Common Docs', 'academy'),
+  data: commonData,
+  notDocsFound: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No Related docs available', 'academy')
+})) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_DocsList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Search Results', 'academy'),
+  data: searchedData,
+  notDocsFound: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('No results found!', 'academy')
+}));
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (HelpModal);
+
+/***/ }),
+
+/***/ "./dev_gamify/components/GetHelp/index.js":
+/*!************************************************!*\
+  !*** ./dev_gamify/components/GetHelp/index.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
+/* harmony import */ var _HelpModal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./HelpModal */ "./dev_gamify/components/GetHelp/HelpModal.js");
+/* harmony import */ var _DocListsArray__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./DocListsArray */ "./dev_gamify/components/GetHelp/DocListsArray.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+
+
+
+// import { getAddonActiveStatus } from '@GFUtils/helper';
+
+
+// import './styles.scss';
+
+
+
+const GetHelp = ({
+  filterText
+}) => {
+  const allAddons = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(state => state.addons);
+  const [openModal, setOpenModal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
+  const [searchText, setSearchText] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('');
+  const relatedData = _DocListsArray__WEBPACK_IMPORTED_MODULE_4__.docLists.filter(item => {
+    const titleIncludesFilterText = filterText.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()));
+    const tagsIncludeFilterText = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
+    return titleIncludesFilterText || tagsIncludeFilterText;
+  });
+  const commonData = _DocListsArray__WEBPACK_IMPORTED_MODULE_4__.docLists.filter(item => {
+    const hasTitleMatch = filterText.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()));
+    const hasTagMatch = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
+    return !hasTitleMatch || !hasTagMatch;
+  });
+  const searchedData = _DocListsArray__WEBPACK_IMPORTED_MODULE_4__.docLists.filter(item => {
+    if (item.title.toLowerCase().includes(searchText.toLowerCase()) || item.tags.includes(searchText.toLowerCase())) {
+      return item;
+    }
+    return false;
+  });
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    className: "gamify-get-help-text",
+    position: 'fixed',
+    top: '85vh',
+    right: '30px'
+    // width={'220px'}
+    ,
+    height: '40px',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: '9',
+    background: 'var(--gamify-primary)',
+    padding: '0',
+    borderRadius: '40px',
+    onClick: () => setOpenModal(true)
+    // icon={
+    // 	<span className="gamify-icon gamify-icon--questions" />
+    // }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_icons_fa6__WEBPACK_IMPORTED_MODULE_6__.FaQuestion, null))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-ripple-effect"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-ripple-effect-container"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-ripple-effect-rain"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "gamify-ripple-effect-waves"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null)))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_HelpModal__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    isOpen: openModal,
+    closeModal: () => {
+      setOpenModal(false);
+      setSearchText('');
+    },
+    searchText: searchText,
+    setSearchText: setSearchText,
+    relatedData: relatedData,
+    commonData: commonData,
+    searchedData: searchedData
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (GetHelp);
 
 /***/ }),
 
@@ -2847,6 +3665,7 @@ const Requirements = props => {
     childLeft,
     childRight,
     filterHookType,
+    selectedFilterType,
     renderHookCard,
     allHooks,
     hookTypeOptions,
@@ -2903,7 +3722,7 @@ const Requirements = props => {
     onChange: filterHookType
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: `${actionName}s-available`
-  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
+  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType.includes(item.integrationSlug)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     key: h.id
   }, renderHookCard(h, actionName), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     fontSize: "xs",
@@ -3639,10 +4458,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _components_DynamicHookForm__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./components/DynamicHookForm */ "./dev_gamify/containers/BackendDashboard/pages/achievements/AchievementTypesEditor/components/DynamicHookForm.js");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @wordpress/api-fetch */ "@wordpress/api-fetch");
-/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
-
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gamify/utils/helper.js");
 
 
 
@@ -3723,7 +4539,10 @@ const FormInner = () => {
   const [levelsLoading, setLevelsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [levelsData, setLevelsData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const addons = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons);
-  const isRestrictContentActive = (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.getAddonActiveStatus)(addons, 'restrict_unlock');
+  const {
+    availablePointTypes
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
+  const isRestrictContentActive = (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.getAddonActiveStatus)(addons, 'restrict_unlock');
   const {
     values,
     setFieldValue
@@ -3731,9 +4550,9 @@ const FormInner = () => {
   const fetchAchivements = async key => {
     try {
       setAchivementsLoading(true);
-      let url = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.namespace + 'achievements';
+      let url = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.namespace + 'achievements';
       if (key) url += "?search=" + key;
-      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.API.get(url);
+      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.API.get(url);
       const achievements = response.data?.map(item => {
         return {
           label: item.title,
@@ -3752,9 +4571,9 @@ const FormInner = () => {
   const fetchLevels = async key => {
     try {
       setLevelsLoading(true);
-      let url = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.namespace + 'levels';
+      let url = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.namespace + 'levels';
       if (key) url += "?search=" + key;
-      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.API.get(url);
+      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_24__.API.get(url);
       const levels = response.data.map(item => {
         return {
           label: item.title,
@@ -3782,11 +4601,8 @@ const FormInner = () => {
   }, [isRestrictContentActive]);
   const {
     allHooks,
-    category,
     hookSettings,
-    availablePointTypes,
-    congratulationsMessage,
-    availableCategories = []
+    congratulationsMessage
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   const hookCategoryIconMap = {
     wordpress: {
@@ -4034,6 +4850,9 @@ const FormInner = () => {
     fontWeight: "500",
     lineHeight: "20px"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Enable Require Unlock", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchControl, null)), values?.restrict_unlock && isRestrictContentActive && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    direction: 'column',
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Required Achievements", "gamify"),
@@ -4069,6 +4888,17 @@ const FormInner = () => {
       setFieldValue('required_level_id', option.value);
     },
     menuPlacement: "bottom"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Restriction Message", "gamify")
+    // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Restriction message", "gamify"),
+    type: "textarea",
+    value: values.restriction_message,
+    onChange: e => {
+      setFieldValue('restriction_message', e.target.value);
+    },
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_20__.commonInput
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.SwitchRoot, {
     checked: values.unlock_with_points_enabled,
     onCheckedChange: e => {
@@ -4096,7 +4926,16 @@ const FormInner = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Choose the Points Type", "gamify"),
     width: "calc(50% - 6px)"
-  })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    options: availablePointTypes,
+    value: availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id)),
+    onChange: option => {
+      setFieldValue('required_point_type_id', option.value);
+    },
+    menuPlacement: "top"
+  }))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
@@ -4393,6 +5232,7 @@ const getAchivementsInitialValues = (id = null, data) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id
     };
   }
@@ -4401,11 +5241,12 @@ const getAchivementsInitialValues = (id = null, data) => {
     description: "",
     category: [],
     max_earnings_per_user: 0,
-    unlock_with_points_enabled: false,
+    unlock_with_points_enabled: true,
     required_points_amount: 0,
     restrict_unlock: false,
     required_achievement_id: 0,
     required_level_id: 0,
+    restriction_message: "",
     congratulations_message: "",
     requirements: []
   };
@@ -4783,9 +5624,6 @@ const AddonCard = ({
     })).then(({
       payload
     }) => {
-      console.log({
-        payload
-      });
       if (payload?.success) {
         setFieldValue(item.name, status);
         dispatch((0,_GFRedux_Slices_addonsSlice_addonsSlice__WEBPACK_IMPORTED_MODULE_10__.fetchAddons)());
@@ -4928,60 +5766,6 @@ const AddonCard = ({
 
 /***/ }),
 
-/***/ "./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js":
-/*!**********************************************************************************!*\
-  !*** ./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js ***!
-  \**********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/skeleton/skeleton.js");
-
-
-const AddonCardsSkeleton = ({
-  count = 6
-}) => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "academy-dashboard-addon-cards"
-  }, Array.from({
-    length: count
-  }).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    key: i,
-    p: "16px",
-    border: "1px solid var(--academy-border-color)",
-    borderRadius: "6px",
-    bg: "white"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
-    height: "18px",
-    width: "60%",
-    mb: "8px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.SkeletonText, {
-    noOfLines: 2,
-    spacing: "6px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
-    mt: "16px",
-    display: "flex",
-    justifyContent: "space-between"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
-    height: "14px",
-    width: "80px"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Skeleton, {
-    height: "28px",
-    width: "60px",
-    borderRadius: "4px"
-  })))));
-};
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (AddonCardsSkeleton);
-
-/***/ }),
-
 /***/ "./dev_gamify/containers/BackendDashboard/pages/addon/index.js":
 /*!*********************************************************************!*\
   !*** ./dev_gamify/containers/BackendDashboard/pages/addon/index.js ***!
@@ -5007,7 +5791,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gamify/utils/icons.js");
 /* harmony import */ var _GFComponents_Search__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/Search */ "./dev_gamify/components/Search/index.js");
 /* harmony import */ var _GFComponents_GamifyBox__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFComponents/GamifyBox */ "./dev_gamify/components/GamifyBox/index.js");
-/* harmony import */ var _AddonsCardSkeleton__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./AddonsCardSkeleton */ "./dev_gamify/containers/BackendDashboard/pages/addon/AddonsCardSkeleton.js");
+/* harmony import */ var _GFComponents_GamifyLoader_AddOnsLoader__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @GFComponents/GamifyLoader/AddOnsLoader */ "./dev_gamify/components/GamifyLoader/AddOnsLoader.js");
 /* harmony import */ var _GFComponents_Oops_CustomTableMessage__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @GFComponents/Oops/CustomTableMessage */ "./dev_gamify/components/Oops/CustomTableMessage.js");
 
 
@@ -5245,7 +6029,7 @@ const Addons = () => {
     values
   }) => {
     const addonLists = getAddonLists(values);
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_AddonsCardSkeleton__WEBPACK_IMPORTED_MODULE_12__["default"], null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, loading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyLoader_AddOnsLoader__WEBPACK_IMPORTED_MODULE_12__["default"], null) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       width: '100%',
       flexWrap: 'wrap',
       gap: '20px',
@@ -5633,21 +6417,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _TopUsers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./TopUsers */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/TopUsers.js");
-/* harmony import */ var _Distribution__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Distribution */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Distribution.js");
-/* harmony import */ var _Overview__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Overview */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Overview.js");
-/* harmony import */ var _GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFRedux/Slices/dashboardSlice/dashboardSlice */ "./dev_gamify/redux/Slices/dashboardSlice/dashboardSlice.js");
+/* harmony import */ var _TopUsers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./TopUsers */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/TopUsers.js");
+/* harmony import */ var _Distribution__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Distribution */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Distribution.js");
+/* harmony import */ var _Overview__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Overview */ "./dev_gamify/containers/BackendDashboard/pages/dashboard/Overview.js");
+/* harmony import */ var _GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFRedux/Slices/dashboardSlice/dashboardSlice */ "./dev_gamify/redux/Slices/dashboardSlice/dashboardSlice.js");
 
 
 
 
 
 
-
-
-
-// Components
 
 
 
@@ -5667,10 +6446,10 @@ const Dashboard = () => {
 
   // Initial Load
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    dispatch((0,_GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_11__.fetchDashboardData)());
+    dispatch((0,_GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_10__.fetchDashboardData)());
   }, [dispatch]);
   const handleFilterChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((start, end) => {
-    dispatch((0,_GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_11__.fetchDashboardData)({
+    dispatch((0,_GFRedux_Slices_dashboardSlice_dashboardSlice__WEBPACK_IMPORTED_MODULE_10__.fetchDashboardData)({
       start_date: start,
       end_date: end
     }));
@@ -5691,16 +6470,16 @@ const Dashboard = () => {
     direction: "column",
     gap: 6,
     className: "gamify-page-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Overview__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Overview__WEBPACK_IMPORTED_MODULE_9__["default"], {
     data: overview,
     onFilterChange: handleFilterChange,
     startDate: startDate,
     setStartDate: setStartDate,
     endDate: endDate,
     setEndDate: setEndDate
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Distribution__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Distribution__WEBPACK_IMPORTED_MODULE_8__["default"], {
     chartData: chart
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TopUsers__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_TopUsers__WEBPACK_IMPORTED_MODULE_7__["default"], {
     users: topUsers
   })));
 };
@@ -5947,8 +6726,10 @@ const LevelTable = () => {
       style: {
         display: 'flex',
         alignItems: 'center',
-        gap: '8px'
-      }
+        gap: '8px',
+        cursor: 'pointer'
+      },
+      onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_13__.route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)
     }, row.icon && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: row.icon,
       alt: "",
@@ -5962,9 +6743,6 @@ const LevelTable = () => {
         fontWeight: 500
       }
     }, row.title))
-  }, {
-    name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Plural Name', 'gamify'),
-    cell: row => row.plural_name
   }, {
     name: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Category', 'gamify'),
     cell: row => row.category ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Badge, {
@@ -6758,6 +7536,9 @@ const FormInner = () => {
     fontWeight: "500",
     lineHeight: "20px"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Enable Require Unlock", "gamify")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.SwitchControl, null)), values?.restrict_unlock && isRestrictContentActive && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+    direction: 'column',
+    gap: "12px"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Required Achievements", "gamify"),
@@ -6769,6 +7550,38 @@ const FormInner = () => {
     onInputChange: inputValue => {
       fetchAchivements(inputValue);
       return inputValue;
+    },
+    value: achivementsData?.find(opt => Number(opt.value) === Number(values?.required_achievement_id)) || null,
+    isLoading: achivementsLoading,
+    onChange: option => {
+      setFieldValue('required_achievement_id', option?.value || null);
+    },
+    menuPlacement: "bottom"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Required Levels", "gamify"),
+    width: "calc(50% - 6px)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    options: levelsData,
+    onInputChange: inputValue => {
+      fetchLevels(inputValue);
+      return inputValue;
+    },
+    value: levelsData?.find(opt => Number(opt.value) === Number(values?.required_level_id)) || null,
+    isLoading: levelsLoading,
+    onChange: option => {
+      setFieldValue('required_level_id', option.value);
+    },
+    menuPlacement: "bottom"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Restriction Message", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_11__.__)("Restriction message", "gamify"),
+    type: "textarea",
+    value: values.restriction_message,
+    onChange: e => {
+      setFieldValue('restriction_message', e.target.value);
     },
     value: achivementsData?.find(opt => Number(opt.value) === Number(values?.required_achievement_id)) || null,
     isLoading: achivementsLoading,
@@ -6976,13 +7789,14 @@ const getLevelsInitialValues = (id = null, data = []) => {
       requirements: filteredData?.requirements,
       restrict_unlock: filteredData?.restrict_unlock,
       required_achievement_id: filteredData?.required_achievement_id,
+      restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id
     };
   }
   return {
     title: "",
     congratulations_message: "",
-    unlock_with_points_enabled: "",
+    unlock_with_points_enabled: true,
     min_points: 0,
     max_points: false,
     point_type_id: 0,
@@ -6995,6 +7809,7 @@ const getLevelsInitialValues = (id = null, data = []) => {
     requirements: [],
     restrict_unlock: false,
     required_achievement_id: 0,
+    restriction_message: "",
     required_level_id: 0
   };
 };
@@ -7839,7 +8654,8 @@ const FormInner = ({
     openHookType: openedAwardHooks,
     setOpenHookType: setOpenedAwardHooks,
     selectedHookIds: selectedAwardHookIds,
-    actionName: "award"
+    actionName: "award",
+    selectedFilterType: selectedFilterHookType
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Requirements__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Automatic Point Deductions", "gamify"),
     onClick: e => {
@@ -7859,7 +8675,8 @@ const FormInner = ({
     openHookType: openedDeductHooks,
     setOpenHookType: setOpenedDeductHooks,
     selectedHookIds: selectedDeductHookIds,
-    actionName: "deduct"
+    actionName: "deduct",
+    selectedFilterType: selectedDeductFilterType
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormInner);
@@ -8792,6 +9609,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _Components_SettingsPageSkeleton__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Components/SettingsPageSkeleton */ "./dev_gamify/containers/BackendDashboard/pages/settings/Components/SettingsPageSkeleton.js");
+/* harmony import */ var _GFComponents_GetHelp__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @GFComponents/GetHelp */ "./dev_gamify/components/GetHelp/index.js");
+
 
 
 
@@ -8858,12 +9677,14 @@ const Settings = () => {
   }) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_1__["default"], {
       path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Settings", "gamify"),
-      rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+      rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
         ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_10__.primaryBtn,
         onClick: submitForm,
         loading: isSubmitting,
         disabled: !dirty
-      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Changes', 'gamify'))
+      }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Changes', 'gamify')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GetHelp__WEBPACK_IMPORTED_MODULE_15__["default"], {
+        filterText: ['setting']
+      }))
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
       alignItems: "flex-start",
       gap: "16px",

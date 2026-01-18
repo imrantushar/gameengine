@@ -9,7 +9,7 @@ import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
 import GamifyBox from '@GFComponents/GamifyBox';
-import AddonCardsSkeleton from './AddonsCardSkeleton';
+import AddOnsLoader from '@GFComponents/GamifyLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
 const infoCardsData = [
@@ -276,7 +276,7 @@ const Addons = () => {
 						return (
 							<>
 								{loading ? (
-									<AddonCardsSkeleton />
+									<AddOnsLoader />
 								) : (
 									<Flex
 										width={'100%'}
