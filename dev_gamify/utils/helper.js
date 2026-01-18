@@ -58,14 +58,25 @@ export const handleSliceSuccess = ( thunkAPI, message ) => {
 	);
 };
 
-export const API = axios.create( {
+export const getAddonActiveStatus = (allAddons, addonName, isPro = false) => {
+	// if pro is inactive
+	if (isPro && !is_pro) {
+		return false;
+	}
+	if (allAddons[addonName]) {
+		return allAddons[addonName] === true;
+	}
+	return false;
+};
+
+export const API = axios.create({
 	baseURL: rest_url,
 	headers: {
 		'content-type': 'application/json',
 		'X-WP-Nonce': nonce,
-		'Cache-Control': 'no-cache', 
+		'Cache-Control': 'no-cache', // Prevent caching
 	},
-} );
+});
 export const makeRequest = async (
 	action,
 	payload = {},

@@ -11,15 +11,17 @@ class Progress_Map_Logic
     {
         global $wpdb;
 
-        // 1. Fetch all Levels & Achievements
-        $levels = $wpdb->get_results("SELECT id, title, icon, congratulations_message as congrats, 'level' as type, priority FROM {$wpdb->prefix}gamify_levels ORDER BY priority ASC", ARRAY_A);
-        $achievements = $wpdb->get_results("SELECT id, title, badge_image as icon, congratulations_message as congrats, 'achievement' as type, created_at FROM {$wpdb->prefix}gamify_achievements ORDER BY created_at ASC", ARRAY_A);
+        // ১. সব লেভেল নিন (নতুন ৩টি কলামসহ)
+        $levels = $wpdb->get_results("SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority FROM {$wpdb->prefix}gamify_levels ORDER BY priority ASC", ARRAY_A);
 
-        // 2. Fetch User Earned Data
+        // ২. সব অ্যাচিভমেন্ট নিন (নতুন ৩টি কলামসহ)
+        $achievements = $wpdb->get_results("SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at FROM {$wpdb->prefix}gamify_achievements ORDER BY created_at ASC", ARRAY_A);
+
+        // ৩. ইউজারের অর্জিত ডাটা নিন
         $user_levels = $wpdb->get_col($wpdb->prepare("SELECT level_id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d", $user_id));
         $user_achievements = $wpdb->get_col($wpdb->prepare("SELECT achievement_id FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d", $user_id));
 
-        // 3. Process Status
+        // ৪. প্রসেস ডাটা
         $journey = array_merge($levels, $achievements);
         $unlocked = [];
         $locked = [];
@@ -35,7 +37,6 @@ class Progress_Map_Logic
             }
         }
 
-        // অর্জিতগুলো আগে, তারপর লক করাগুলো
         return array_merge($unlocked, $locked);
     }
 
@@ -55,23 +56,17 @@ class Progress_Map_Logic
                     $is_completed = ($node['status'] === 'completed');
                     $next_completed = (!$is_last && $journey[$index + 1]['status'] === 'completed');
 
-                    // লাইন কালার লজিক: যদি বর্তমান এবং পরেরটি উভয়ই কমপ্লিট হয় তবে নীল লাইন
                     $line_class = ($is_completed && $next_completed) ? 'line-blue' : 'line-gray';
                     $side_class = ($index % 2 === 0) ? 'node-left' : 'node-right';
                 ?>
                     <div class="gamify-timeline-node <?php echo $side_class; ?> <?php echo $is_completed ? 'is-active' : 'is-locked'; ?>">
 
-                        <!-- The Number Circle on Line -->
-                        <div class="gamify-node-circle">
-                            <?php echo $index + 1; ?>
-                        </div>
+                        <div class="gamify-node-circle"><?php echo $index + 1; ?></div>
 
-                        <!-- The Connecting Line -->
                         <?php if (!$is_last) : ?>
                             <div class="gamify-connector <?php echo $line_class; ?>"></div>
                         <?php endif; ?>
 
-                        <!-- Content Card -->
                         <div class="gamify-node-card">
                             <div class="gamify-card-inner">
                                 <div class="gamify-card-media">
@@ -86,7 +81,16 @@ class Progress_Map_Logic
                                         <?php echo strtoupper($node['type']); ?>
                                     </div>
                                     <h5><?php echo esc_html($node['title']); ?></h5>
-                                    <p><?php echo $is_completed ? esc_html($node['congrats']) : __('Complete tasks to unlock this milestone.', 'gamify'); ?></p>
+
+                                    <?php if ($is_completed) : ?>
+                                        <p class="gf-congrats"><?php echo esc_html($node['congrats']); ?></p>
+                                    <?php else : ?>
+                                        <!-- রেস্ট্রিকশন মেসেজ এখানে দেখাবে -->
+                                        <div class="gf-restriction-info">
+                                            <span class="gf-lock-label">🔒 <?php _e('Locked', 'gamify'); ?></span>
+                                            <p class="gf-lock-msg"><?php echo !empty($node['restriction_message']) ? esc_html($node['restriction_message']) : __('Earn pre-requisites to unlock.', 'gamify'); ?></p>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>
