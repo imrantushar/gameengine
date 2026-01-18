@@ -1,6 +1,5 @@
 import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
 import CustomCollapsible from '@GFComponents/Collapsible';
-import Divider from '@GFComponents/Divider';
 import { __ } from '@wordpress/i18n';
 import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { useDispatch } from 'react-redux';

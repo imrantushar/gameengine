@@ -1,30 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Box, Button, Flex, Icon, Text, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
-import { __, sprintf } from "@wordpress/i18n";
-import Select from "react-select";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple, FaLock } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
+import { Button } from "@chakra-ui/react";
+import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
-import GFLabel from "@GFComponents/Labels/GFLabel";
-import LabeledInput from "@GFComponents/LabeledInput";
-import GamifyEditor from "@GFComponents/editor";
-import CustomCollapsible from "@GFComponents/Collapsible";
-import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
-import { route_path } from "@GFUtils/helper";
-import { AiFillInteraction } from "react-icons/ai";
-import { SiWoocommerce } from "react-icons/si";
 import {
-    fetchLevelById, saveLevel, updateLevel, resetForm, setField,
-    addHook, removeHook, updateHookSettings,
-    fetchLevelTriggers, fetchPointTypes, addCategoryToList, fetchLevels,
-    fetchDynamicOptions
-} from "../../../../../redux/Slices/levelsSlice/levelsSlice.js";
+    fetchLevelById, saveLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
+} from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
 import GamifyBox from "@GFComponents/GamifyBox";
-import GamifyInput from "@GFComponents/GamifyInput";
-import BoxView from "@GFComponents/BoxView/BoxView";
-import { GoPlus } from "react-icons/go";
 import { Formik } from "formik";
 import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
@@ -36,9 +19,7 @@ const LevelType = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const editId = searchParams.get('id');
-    const {
-        levels, levelIcon, hookSettings
-    } = useSelector(state => state.levels);
+    const { levels } = useSelector(state => state.levels);
 
     const exitstignItem = levels.find(item => Number(item.id) === Number(editId));
     const [formLoading, setFormLoading] = useState(!exitstignItem);

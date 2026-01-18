@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
@@ -7,12 +7,10 @@ import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa
 import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GamifyEditor from "@GFComponents/editor";
-import { commonInput, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
-import {
-    setField, addHook, removeHook, updateHookSettings,
-} from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
+import { updateHookSettings } from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
 import GamifyInput from "@GFComponents/GamifyInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
 import { GoPlus } from "react-icons/go";
@@ -30,7 +28,6 @@ const DroppableArea = ({ id, children }) => {
     const { setNodeRef } = useDroppable({ id });
     return <Box ref={setNodeRef} minH="150px" height='100%' mt="12px">{children}</Box>;
 };
-
 
 const FormInner = () => {
   const [message, setMessage] = useState("");
