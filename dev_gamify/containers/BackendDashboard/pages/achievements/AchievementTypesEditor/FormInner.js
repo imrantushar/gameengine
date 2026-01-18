@@ -11,9 +11,7 @@ import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
-import {
-    updateHookSettings, addCategoryToList
-} from "@GFRedux/Slices/achivementSlice/achievementsSlice";
+import { updateHookSettings, } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyInput from "@GFComponents/GamifyInput";
 import { useFormikContext } from "formik";
@@ -208,10 +206,7 @@ const FormInner = () => {
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                <GamifyInput
-                    label={__("Point Name", "gamify")}
-                    width="calc(50% - 6px)"
-                >
+                <GamifyInput label={__("Point Name", "gamify")}>
                     <Input
                         placeholder={__("Enter point name", "gamify")}
                         value={values.title}
@@ -243,14 +238,14 @@ const FormInner = () => {
             <Box className="gamify-add-achievement-type">
                 <GFLabel type="title" label={__("Achievement Type", "gamify")} />
 
-                {values.category.length > 0 && (
+                {values?.category?.length > 0 && (
                     <RadioGroup.Root
-                        value={values.category.find(c => c.is_selected)?.value}
+                        value={values?.category?.find(c => c.is_selected)?.value}
                         onValueChange={(item) => {
                             setFieldValue(
                                 'category',
-                                values.category.map(cat =>
-                                    cat.value === item.value
+                                values?.category.map(cat =>
+                                    cat?.value === item?.value
                                         ? { ...cat, is_selected: true }
                                         : { ...cat, is_selected: false }
                                 )
@@ -266,8 +261,8 @@ const FormInner = () => {
                             borderRadius="4px"
                             flexWrap="wrap"
                         >
-                            {values.category.map((cat, index) => (
-                                <RadioGroup.Item key={index} value={cat.value}>
+                            {values?.category.map((cat, index) => (
+                                <RadioGroup.Item key={index} value={cat?.value}>
                                     <RadioGroup.ItemHiddenInput />
 
                                     <RadioGroup.ItemIndicator
@@ -275,17 +270,17 @@ const FormInner = () => {
                                             width: "20px",
                                             height: "20px",
                                             borderRadius: "9999px",
-                                            border: cat.is_selected
+                                            border: cat?.is_selected
                                                 ? "1px solid #007AFF"
                                                 : "1px solid #ccc",
-                                            backgroundColor: cat.is_selected
+                                            backgroundColor: cat?.is_selected
                                                 ? "#007AFF"
                                                 : "transparent",
                                         }}
                                     />
 
                                     <RadioGroup.ItemText>
-                                        {sprintf(__('%s', 'gemboards'), cat.label)}
+                                        {sprintf(__('%s', 'gemboards'), cat?.label)}
                                     </RadioGroup.ItemText>
                                 </RadioGroup.Item>
                             ))}
@@ -462,8 +457,8 @@ const FormInner = () => {
 
                         <Flex gap="24px">
                             <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-achievement-requirements">
-                                <Flex direction="column" gap="12px">
-                                    <GFLabel type="plainHeading" label={__("Available Hooks", "gamify")} />
+                                <Flex direction="column" gap="4px">
+                                    <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gamify")} />
                                     <GFLabel
                                         type="subtitle"
                                         color="var(--gamify-font-color)"
@@ -487,8 +482,8 @@ const FormInner = () => {
                             </Flex>
 
                             <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
-                                <Flex direction="column" gap="12px">
-                                    <GFLabel type="plainHeading" label={__("Active Hooks", "gamify")} />
+                                <Flex direction="column" gap="4px">
+                                    <GFLabel type="plainHeading" margin={0} label={__("Active Hooks", "gamify")} />
                                     <GFLabel
                                         type="subtitle"
                                         color="var(--gamify-font-color)"

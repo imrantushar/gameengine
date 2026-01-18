@@ -3908,8 +3908,7 @@ const FormInner = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Point Name", "gamify"),
-    width: "calc(50% - 6px)"
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Point Name", "gamify")
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Enter point name", "gamify"),
     value: values.title,
@@ -3935,10 +3934,10 @@ const FormInner = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "title",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Achievement Type", "gamify")
-  }), values.category.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupRoot, {
-    value: values.category.find(c => c.is_selected)?.value,
+  }), values?.category?.length > 0 && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupRoot, {
+    value: values?.category?.find(c => c.is_selected)?.value,
     onValueChange: item => {
-      setFieldValue('category', values.category.map(cat => cat.value === item.value ? {
+      setFieldValue('category', values?.category.map(cat => cat?.value === item?.value ? {
         ...cat,
         is_selected: true
       } : {
@@ -3954,18 +3953,18 @@ const FormInner = () => {
     border: "1px solid var(--gamify-border-color)",
     borderRadius: "4px",
     flexWrap: "wrap"
-  }, values.category.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItem, {
+  }, values?.category.map((cat, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItem, {
     key: index,
-    value: cat.value
+    value: cat?.value
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemIndicator, {
     style: {
       width: "20px",
       height: "20px",
       borderRadius: "9999px",
-      border: cat.is_selected ? "1px solid #007AFF" : "1px solid #ccc",
-      backgroundColor: cat.is_selected ? "#007AFF" : "transparent"
+      border: cat?.is_selected ? "1px solid #007AFF" : "1px solid #ccc",
+      backgroundColor: cat?.is_selected ? "#007AFF" : "transparent"
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('%s', 'gemboards'), cat.label)))))), showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.RadioGroupItemText, null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.sprintf)((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)('%s', 'gemboards'), cat?.label)))))), showInput ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     mt: "6px",
     gap: 2
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
@@ -4120,9 +4119,10 @@ const FormInner = () => {
     className: "gamify-achievement-requirements"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
-    gap: "12px"
+    gap: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "plainHeading",
+    margin: 0,
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Available Hooks", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "subtitle",
@@ -4150,9 +4150,10 @@ const FormInner = () => {
     className: "gamify-achievement-requirements"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
     direction: "column",
-    gap: "12px"
+    gap: "4px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "plainHeading",
+    margin: 0,
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Active Hooks", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_11__["default"], {
     type: "subtitle",
@@ -4345,8 +4346,7 @@ const DynamicHookForm = ({
     singleIcon: true
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
     direction: "column",
-    gap: "16px",
-    p: 4
+    gap: "16px"
   }, fieldsConfig.map(config => {
     var _ref, _settings$config$key;
     if (config.scope && !config.scope.includes(context)) {
@@ -4361,18 +4361,7 @@ const DynamicHookForm = ({
       type: type,
       onChange: val => handleChange(config.key, val)
     });
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Divider__WEBPACK_IMPORTED_MODULE_7__["default"], {
-    width: "100%",
-    margin: "12px 0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Flex, {
-    padding: "0 24px 12px 24px",
-    justifyContent: "flex-end"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn,
-    size: "sm",
-    width: "auto",
-    onClick: () => setIsOpen(false)
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)('Done', 'gamify'))));
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DynamicHookForm);
 
@@ -4609,8 +4598,10 @@ const AchievementsTable = () => {
       style: {
         display: 'flex',
         alignItems: 'center',
-        gap: '8px'
-      }
+        gap: '8px',
+        cursor: "pointer"
+      },
+      onClick: () => navigate(`${_GFUtils_helper__WEBPACK_IMPORTED_MODULE_14__.route_path}admin.php?page=gamify-achievements&action=edit&id=${row.id}&path=achievements-type`)
     }, row.badge_image && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
       src: row.badge_image,
       alt: "",
