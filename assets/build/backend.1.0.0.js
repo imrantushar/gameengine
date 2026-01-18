@@ -4390,7 +4390,7 @@ const getAchivementsInitialValues = (id = null, data) => {
     description: "",
     category: [],
     max_earnings_per_user: 0,
-    unlock_with_points_enabled: false,
+    unlock_with_points_enabled: true,
     required_points_amount: 0,
     restrict_unlock: false,
     required_achievement_id: 0,
