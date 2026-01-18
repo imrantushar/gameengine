@@ -10,6 +10,7 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+
 /**
  * Class ActionsController
  * Handles manual point adjustments and scheduling via REST API.
