@@ -18,7 +18,7 @@ class ActionsController extends BaseController
 {
 
     /**
-     * REST route base
+     * REST route base.
      *
      * @var string
      */
