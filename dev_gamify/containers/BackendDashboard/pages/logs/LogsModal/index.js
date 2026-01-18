@@ -5,14 +5,20 @@ import ReactModalFormik from '@GFComponents/Modal/ReactModalFormik';
 import { getLogsInitailaValues } from './helper';
 import FormInner from './FormInner';
 import { useDispatch } from 'react-redux';
+import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 
-const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
+const LogsModal = ({formData, isModalOpen, onRequestClose}) => {
   const id = formData?.id ;
   const dispatch = useDispatch();
 
   const onSubmitHandler = async (values, actions) => {
     if (!values?.user_id && !values?.id) {
-      alert(__('User ID is required', 'gamify'));
+      dispatch(showNotification({
+          message: __('User ID is required!', 'gamify'),
+          isShow: true,
+          type: 'error',
+      }))
+      actions.setSubmitting(false);
       return;
     }
     
@@ -26,7 +32,9 @@ const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
     } catch (error) {
       console.warn({error})
     } finally {
-      actions.setSubmitting(false)
+      actions.setSubmitting(false);
+      actions.resetForm({});
+      onRequestClose();
     }
   };
   
@@ -36,7 +44,7 @@ const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
       title={id ? __(`Edit Log`, 'gamify') + " " + id : __("Manual Trigger", 'gamify')}
       isOpen={isModalOpen}
       isEnabledFooter={true}
-      onRequestClose={() => setIsModalOpen(false)}
+      onRequestClose={onRequestClose}
       cancelButtonLabel={__("Cancel", 'gamify')}
       submitButtonLabel={!id ? __("Create Log", 'gamify') : __("Update Log", 'gamify')}
       formik={{

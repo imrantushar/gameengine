@@ -20,6 +20,11 @@ const Logs = () => {
         setIsModalOpen(true);
     };
 
+    const onRequestClose = () => {
+        setFormData(null)
+        setIsModalOpen(false)
+    }
+
     return (
         <>
             <TopBar path={__("Logs", "gamify")} />
@@ -35,7 +40,7 @@ const Logs = () => {
                 <LogsTable modalOpenHandler={modalOpenHandler} />
                 <LogsModal 
                     isModalOpen={isModalOpen}
-                    setIsModalOpen={setIsModalOpen}
+                    onRequestClose={onRequestClose}
                     formData={formData}
                 />
             </Box>

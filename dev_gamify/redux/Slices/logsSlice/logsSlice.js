@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
+import { showNotification } from '../notificationSlice/notificationSlice';
+import { __ } from '@wordpress/i18n';
 
 // --- 1. Fetch Logs ---
 export const fetchLogs = createAsyncThunk(
@@ -27,6 +29,11 @@ export const manualLogAction = createAsyncThunk(
                 method: 'POST',
                 data: formData
             });
+            dispatch(showNotification({
+                message: __('Log created successfully!', 'gamify'),
+                isShow: true,
+                type: 'success',
+            }))
             dispatch(fetchLogs({ page: 1, per_page: 10 }));
             return response;
         } catch (error) {
@@ -38,13 +45,18 @@ export const manualLogAction = createAsyncThunk(
 // --- 3. Update Log Action (NEW) ---
 export const updateLogAction = createAsyncThunk(
     'logs/updateLog',
-    async ({ data }, { rejectWithValue, dispatch }) => {
+    async (data , { rejectWithValue, dispatch }) => {
         try {
             const response = await apiFetch({
                 path: `/gamify/v1/logs/${data?.id}`,
                 method: 'PUT', // or PATCH
                 data: data
             });
+            dispatch(showNotification({
+                message: __('Log updated successfully!', 'gamify'),
+                isShow: true,
+                type: 'success',
+            }))
 
             // Refresh logs to reflect changes
             dispatch(fetchLogs({ page: 1, per_page: 10 }));
