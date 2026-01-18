@@ -3566,6 +3566,7 @@ const Requirements = props => {
     childLeft,
     childRight,
     filterHookType,
+    selectedFilterType,
     renderHookCard,
     allHooks,
     hookTypeOptions,
@@ -3622,7 +3623,7 @@ const Requirements = props => {
     onChange: filterHookType
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: `${actionName}s-available`
-  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
+  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType.includes(item.integrationSlug)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     key: h.id
   }, renderHookCard(h, actionName), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     fontSize: "xs",
@@ -4442,6 +4443,9 @@ const FormInner = () => {
   const [levelsLoading, setLevelsLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   const [levelsData, setLevelsData] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
   const addons = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.addons);
+  const {
+    availablePointTypes
+  } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   const isRestrictContentActive = (0,_GFUtils_helper__WEBPACK_IMPORTED_MODULE_25__.getAddonActiveStatus)(addons, 'restrict_unlock');
   const {
     values,
@@ -4501,11 +4505,8 @@ const FormInner = () => {
   }, [isRestrictContentActive]);
   const {
     allHooks,
-    category,
     hookSettings,
-    availablePointTypes,
-    congratulationsMessage,
-    availableCategories = []
+    congratulationsMessage
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   const hookCategoryIconMap = {
     wordpress: {
@@ -4628,7 +4629,7 @@ const FormInner = () => {
     gap: "12px"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Point Name", "gamify"),
-    width: "calc(50% - 6px)"
+    width: "100%"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Input, {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Enter point name", "gamify"),
     value: values.title,
@@ -4830,7 +4831,16 @@ const FormInner = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_21__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_10__.__)("Choose the Points Type", "gamify"),
     width: "calc(50% - 6px)"
-  })) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    className: "gamify-select",
+    classNamePrefix: "gamify-select",
+    options: availablePointTypes,
+    value: availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id)),
+    onChange: option => {
+      setFieldValue('required_point_type_id', option.value);
+    },
+    menuPlacement: "top"
+  }))) : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_dnd_kit_core__WEBPACK_IMPORTED_MODULE_14__.DndContext, {
     sensors: sensors,
     onDragEnd: handleDragEnd
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
@@ -5146,7 +5156,7 @@ const getAchivementsInitialValues = (id = null, data) => {
     description: "",
     category: [],
     max_earnings_per_user: 0,
-    unlock_with_points_enabled: false,
+    unlock_with_points_enabled: true,
     required_points_amount: 0,
     restrict_unlock: false,
     required_achievement_id: 0,
@@ -7841,7 +7851,7 @@ const getLevelsInitialValues = (id = null, data = []) => {
   return {
     title: "",
     congratulations_message: "",
-    unlock_with_points_enabled: "",
+    unlock_with_points_enabled: true,
     min_points: 0,
     max_points: false,
     point_type_id: 0,
@@ -8699,7 +8709,8 @@ const FormInner = ({
     openHookType: openedAwardHooks,
     setOpenHookType: setOpenedAwardHooks,
     selectedHookIds: selectedAwardHookIds,
-    actionName: "award"
+    actionName: "award",
+    selectedFilterType: selectedFilterHookType
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Requirements__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Automatic Point Deductions", "gamify"),
     onClick: e => {
@@ -8719,7 +8730,8 @@ const FormInner = ({
     openHookType: openedDeductHooks,
     setOpenHookType: setOpenedDeductHooks,
     selectedHookIds: selectedDeductHookIds,
-    actionName: "deduct"
+    actionName: "deduct",
+    selectedFilterType: selectedDeductFilterType
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormInner);

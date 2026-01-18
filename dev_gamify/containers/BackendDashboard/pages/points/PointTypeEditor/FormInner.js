@@ -42,6 +42,7 @@ const FormInner = ({ hooksLoading }) => {
         }
     }, [values?.requirements]);
 
+
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
@@ -208,6 +209,7 @@ const FormInner = ({ hooksLoading }) => {
                         setOpenHookType={setOpenedAwardHooks}
                         selectedHookIds={selectedAwardHookIds}
                         actionName="award"
+                        selectedFilterType={selectedFilterHookType}
                     />
 
                     <Requirements
@@ -230,6 +232,7 @@ const FormInner = ({ hooksLoading }) => {
                         setOpenHookType={setOpenedDeductHooks}
                         selectedHookIds={selectedDeductHookIds}
                         actionName="deduct"
+                        selectedFilterType={selectedDeductFilterType}
                     />
                 </DndContext>
             )}
