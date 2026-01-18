@@ -12,7 +12,7 @@ import { getLogsInitailaValues } from './helper';
 import FormInner from './FormInner';
 
 const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
-  const id = formData?.id ?? null ;
+  const id = formData?.id ;
 
     // const handleSubmit = async () => {
     //     if (!formData?.user_id && modalMode === 'create') {
@@ -53,22 +53,15 @@ const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
     //         alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
     //     }
     // };
-
-  const userOptions = [
-      { value: 1, label: "User 1" },
-      { value: 2, label: "User 2" },
-      { value: 3, label: "User 3" },
-  ];
-
   return (
     <ReactModalFormik
       suffix='logs'
-      title={id ? `Edit Log #${formData?.log_id}` : "Manual Trigger"}
+      title={id ? `Edit Log #${id}` : "Manual Trigger"}
       isOpen={isModalOpen}
       isEnabledFooter={true}
       onRequestClose={() => setIsModalOpen(false)}
       cancelButtonLabel={__("Cancel", 'gamify')}
-      submitButtonLabel={id ? __("Create Log", 'gamify') : __("Update Log", 'gamify')}
+      submitButtonLabel={!id ? __("Create Log", 'gamify') : __("Update Log", 'gamify')}
       formik={{
         enableReinitialize: true,
         initialValues: getLogsInitailaValues(formData),
@@ -82,112 +75,3 @@ const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
 };
 
 export default LogsModal;
-
-
-
-
-{/* <WPModal
-      title={id ? `Edit Log #${formData?.log_id}` : "Manual Trigger"}
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      size="medium"
-      suffix='manual-trigger'
-    >
-      <Formik>
-        {({values, }) => {
-          return (
-          )
-        }}
-      </Formik>
-            <>
-              <Flex gap={4}>
-                  <GamifyInput label={__("User ID", "gamify")}>
-                      <Select
-                        classNamePrefix='gamify-select'
-                        className='gamify-select'
-                        placeholder="e.g. 1"
-                        options={userOptions}
-                        value={userOptions.find(opt => opt.value === formData?.user_id)}
-                        // onChange={(selected) =>
-                        //     setFormData({
-                        //         ...formData,
-                        //         user_id: selected ? selected.value : ""
-                        //     })
-                        // }
-                        isDisabled={id}
-                        styles={{
-                            container: (base) => ({
-                                ...base,
-                                width: "100%",
-                                opacity: id ? 0.6 : 1,
-                            }),
-                        }}
-                      />
-                  </GamifyInput>
-
-                  <GamifyInput label={__("Action Type", "gamify")}>
-                      <Select
-                          classNamePrefix='gamify-select'
-                          className='gamify-select'
-                          defaultValue={formData?.type ?? formData?.type?.items?.label}
-                          // onChange={(val) => setFormData({ ...formData, type: val?.value })}
-                          options={[
-                              { label: 'Award Points (+)', value: 'award' },
-                              { label: 'Deduct Points (-)', value: 'deduct' },
-                          ]}
-                      />
-                  </GamifyInput>
-              </Flex>
-
-              <Flex gap={4}>
-                  <GamifyInput label={__("Points Amount", "gamify")}>
-                      <Input
-                          placeholder={__("Exp: 50", "gamify")}
-                          type="number"
-                          value={formData?.points}
-                          // onChange={(e) => setFormData({ ...formData, points: e.target.value })}
-                          {...commonInput}
-                      />
-                  </GamifyInput>
-
-                  {!id && (
-                      <GamifyInput label={__("Schedule(Optional)", "gamify")}>
-                          <Input
-                              placeholder={__("Exp: 50", "gamify")}
-                              type="datetime-local"
-                              value={formData?.schedule_date}
-                              // onChange={(e) => setFormData({ ...formData, schedule_date: e.target.value })}
-                              {...commonInput}
-                          />
-                      </GamifyInput>
-                  )}
-              </Flex>
-
-              <GamifyInput label={__("Description(Optional)", "gamify")}>
-                  <Textarea
-                      placeholder={__("Reason for adjustment...", "gamify")}
-                      size="md"
-                      minH="100px"
-                      value={formData?.description}
-                      // onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  />
-              </GamifyInput>
-
-              <Flex gap={3} justifyContent='flex-end' pt="20px" borderTop="1px solid var(--gamify-border-color)">
-                  <Button variant="ghost" border="1px solid var(--gamify-border-color)" 
-                    // onClick={() => setIsModalOpen(false)}
-                  >
-                      {__('Cancel', 'gamify')}
-                  </Button>
-                  <Button
-                      {...primaryBtn}
-                      // onClick={handleSubmit}
-                      // isLoading={isSubmitting}
-                      border="1px solid var(--gamify-primary)"
-                  >
-                      {id ? __('Update Log', 'gamify') : __('Process Trigger', 'gamify')}
-                  </Button>
-              </Flex>
-            </>
-    </WPModal> 
-  */}

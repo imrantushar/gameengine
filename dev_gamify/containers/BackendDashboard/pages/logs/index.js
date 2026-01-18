@@ -37,7 +37,7 @@ const Logs = () => {
                 <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
                     <GFLabel type="plainHeading" margin={0} label={__("Logs", "gamify")} />
 
-                    <Button {...primaryBtn} onClick={modalOpenHandler}>
+                    <Button {...primaryBtn} onClick={() => modalOpenHandler()}>
                         <Icon as={GoPlus} boxSize="20px" />  {__('Manual Trigger', 'gamify')}
                     </Button>
                 </Flex>

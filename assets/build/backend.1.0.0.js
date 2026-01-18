@@ -8329,10 +8329,101 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/input/input.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/textarea/textarea.js");
+/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_select__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-select */ "./node_modules/react-select/dist/react-select.esm.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+
+
+
+
+
+
 
 
 const FormInner = () => {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", null);
+  const {
+    values,
+    setFieldValue
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_7__.useFormikContext)();
+  const userOptions = [{
+    value: 1,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("User 1", 'gamify')
+  }, {
+    value: 2,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("User 2", 'gamify')
+  }, {
+    value: 3,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("User 3", 'gamify')
+  }];
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    direction: 'column',
+    gap: '12px'
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    gap: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("User ID", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    classNamePrefix: "gamify-select",
+    className: "gamify-select",
+    placeholder: "e.g. 1",
+    options: userOptions,
+    value: userOptions.find(opt => opt.value === values?.user_id),
+    onChange: selected => setFieldValue("user_id", selected.value),
+    isDisabled: values?.id,
+    styles: {
+      container: base => ({
+        ...base,
+        width: "100%",
+        opacity: values?.id ? 0.6 : 1
+      })
+    }
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Action Type", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_select__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    classNamePrefix: "gamify-select",
+    className: "gamify-select",
+    defaultValue: values?.type,
+    onChange: val => setFieldValue("type", val?.value),
+    options: [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Award Points (+)', 'gamify'),
+      value: 'award'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Deduct Points (-)', 'gamify'),
+      value: 'deduct'
+    }]
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Flex, {
+    gap: 4
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Points Amount", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Exp: 50", "gamify"),
+    type: "number",
+    value: values?.points_awarded,
+    onChange: e => setFieldValue("points_awarded", e.target.value),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.commonInput
+  })), !values?.id && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Schedule(Optional)", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Input, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Exp: 50", "gamify"),
+    type: "datetime-local",
+    value: values?.schedule_date,
+    onChange: e => setFieldValue("schedule_date", e.target.value),
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.commonInput
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Description(Optional)", "gamify")
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Textarea, {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)("Reason for adjustment...", "gamify"),
+    size: "md",
+    minH: "100px",
+    value: values?.message,
+    onChange: e => setFieldValue('message', e.target.value)
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormInner);
 
@@ -8350,8 +8441,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getLogsInitailaValues: () => (/* binding */ getLogsInitailaValues)
 /* harmony export */ });
 const getLogsInitailaValues = (formData = null) => {
-  if (formData) {}
-  return {};
+  if (formData) {
+    const points = parseInt(formData?.points_awarded || formData?.meta?.points || 0);
+    return {
+      id: formData?.id,
+      points_awarded: Math.abs(points),
+      type: points >= 0 ? 'award' : 'deduct',
+      reference: formData?.trigger_key,
+      message: formData?.message,
+      schedule_date: ''
+    };
+  }
+  return {
+    points_awarded: 10,
+    type: 'award',
+    reference: 'manual_adjustment',
+    message: '',
+    schedule_date: ''
+  };
 };
 
 /***/ }),
@@ -8396,8 +8503,7 @@ const LogsModal = ({
   isModalOpen,
   setIsModalOpen
 }) => {
-  var _formData$id;
-  const id = (_formData$id = formData?.id) !== null && _formData$id !== void 0 ? _formData$id : null;
+  const id = formData?.id;
 
   // const handleSubmit = async () => {
   //     if (!formData?.user_id && modalMode === 'create') {
@@ -8438,25 +8544,14 @@ const LogsModal = ({
   //         alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
   //     }
   // };
-
-  const userOptions = [{
-    value: 1,
-    label: "User 1"
-  }, {
-    value: 2,
-    label: "User 2"
-  }, {
-    value: 3,
-    label: "User 3"
-  }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Modal_ReactModalFormik__WEBPACK_IMPORTED_MODULE_6__["default"], {
     suffix: "logs",
-    title: id ? `Edit Log #${formData?.log_id}` : "Manual Trigger",
+    title: id ? `Edit Log #${id}` : "Manual Trigger",
     isOpen: isModalOpen,
     isEnabledFooter: true,
     onRequestClose: () => setIsModalOpen(false),
     cancelButtonLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Cancel", 'gamify'),
-    submitButtonLabel: id ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Create Log", 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Update Log", 'gamify'),
+    submitButtonLabel: !id ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Create Log", 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Update Log", 'gamify'),
     formik: {
       enableReinitialize: true,
       initialValues: (0,_helper__WEBPACK_IMPORTED_MODULE_7__.getLogsInitailaValues)(formData)
@@ -8466,106 +8561,6 @@ const LogsModal = ({
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_FormInner__WEBPACK_IMPORTED_MODULE_8__["default"], null));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LogsModal);
-{/* <WPModal
-      title={id ? `Edit Log #${formData?.log_id}` : "Manual Trigger"}
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      size="medium"
-      suffix='manual-trigger'
-    >
-      <Formik>
-        {({values, }) => {
-          return (
-          )
-        }}
-      </Formik>
-            <>
-              <Flex gap={4}>
-                  <GamifyInput label={__("User ID", "gamify")}>
-                      <Select
-                        classNamePrefix='gamify-select'
-                        className='gamify-select'
-                        placeholder="e.g. 1"
-                        options={userOptions}
-                        value={userOptions.find(opt => opt.value === formData?.user_id)}
-                        // onChange={(selected) =>
-                        //     setFormData({
-                        //         ...formData,
-                        //         user_id: selected ? selected.value : ""
-                        //     })
-                        // }
-                        isDisabled={id}
-                        styles={{
-                            container: (base) => ({
-                                ...base,
-                                width: "100%",
-                                opacity: id ? 0.6 : 1,
-                            }),
-                        }}
-                      />
-                  </GamifyInput>
-                   <GamifyInput label={__("Action Type", "gamify")}>
-                      <Select
-                          classNamePrefix='gamify-select'
-                          className='gamify-select'
-                          defaultValue={formData?.type ?? formData?.type?.items?.label}
-                          // onChange={(val) => setFormData({ ...formData, type: val?.value })}
-                          options={[
-                              { label: 'Award Points (+)', value: 'award' },
-                              { label: 'Deduct Points (-)', value: 'deduct' },
-                          ]}
-                      />
-                  </GamifyInput>
-              </Flex>
-               <Flex gap={4}>
-                  <GamifyInput label={__("Points Amount", "gamify")}>
-                      <Input
-                          placeholder={__("Exp: 50", "gamify")}
-                          type="number"
-                          value={formData?.points}
-                          // onChange={(e) => setFormData({ ...formData, points: e.target.value })}
-                          {...commonInput}
-                      />
-                  </GamifyInput>
-                   {!id && (
-                      <GamifyInput label={__("Schedule(Optional)", "gamify")}>
-                          <Input
-                              placeholder={__("Exp: 50", "gamify")}
-                              type="datetime-local"
-                              value={formData?.schedule_date}
-                              // onChange={(e) => setFormData({ ...formData, schedule_date: e.target.value })}
-                              {...commonInput}
-                          />
-                      </GamifyInput>
-                  )}
-              </Flex>
-               <GamifyInput label={__("Description(Optional)", "gamify")}>
-                  <Textarea
-                      placeholder={__("Reason for adjustment...", "gamify")}
-                      size="md"
-                      minH="100px"
-                      value={formData?.description}
-                      // onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  />
-              </GamifyInput>
-               <Flex gap={3} justifyContent='flex-end' pt="20px" borderTop="1px solid var(--gamify-border-color)">
-                  <Button variant="ghost" border="1px solid var(--gamify-border-color)" 
-                    // onClick={() => setIsModalOpen(false)}
-                  >
-                      {__('Cancel', 'gamify')}
-                  </Button>
-                  <Button
-                      {...primaryBtn}
-                      // onClick={handleSubmit}
-                      // isLoading={isSubmitting}
-                      border="1px solid var(--gamify-primary)"
-                  >
-                      {id ? __('Update Log', 'gamify') : __('Process Trigger', 'gamify')}
-                  </Button>
-              </Flex>
-            </>
-    </WPModal> 
-  */}
 
 /***/ }),
 
@@ -8874,7 +8869,7 @@ const Logs = () => {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logs", "gamify")
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.primaryBtn,
-    onClick: modalOpenHandler
+    onClick: () => modalOpenHandler()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.Icon, {
     as: react_icons_go__WEBPACK_IMPORTED_MODULE_13__.GoPlus,
     boxSize: "20px"
