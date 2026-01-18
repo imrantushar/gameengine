@@ -12,6 +12,7 @@ import { Formik } from "formik";
 import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
 import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
+import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 
 
 const LevelType = () => {

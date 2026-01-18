@@ -163,8 +163,9 @@ const FormInner = () => {
 
       <Box className="gamify-add-level-type">
           <GFLabel type="title" label={__("Level Type", "gamify")} />
+          {console.log({values})}
 
-          {values.category.length > 0 && (
+          {values?.category?.length > 0 && (
               <RadioGroup.Root
                   value={values.category.find(c => c.is_selected)?.value}
                   onValueChange={(item) => {
