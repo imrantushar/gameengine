@@ -101,7 +101,7 @@ const FormInner = () => {
     }, [isRestrictContentActive])
 
     const {
-        allHooks, category, hookSettings, availablePointTypes, congratulationsMessage, availableCategories = [],
+        allHooks, hookSettings, congratulationsMessage
     } = useSelector(state => state.achievements);
 
     const hookCategoryIconMap = {

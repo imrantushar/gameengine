@@ -2827,6 +2827,7 @@ const Requirements = props => {
     childLeft,
     childRight,
     filterHookType,
+    selectedFilterType,
     renderHookCard,
     allHooks,
     hookTypeOptions,
@@ -2883,7 +2884,7 @@ const Requirements = props => {
     onChange: filterHookType
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DroppableArea, {
     id: `${actionName}s-available`
-  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
+  }, allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType.includes(item.integrationSlug)).map(h => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Box, {
     key: h.id
   }, renderHookCard(h, actionName), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     fontSize: "xs",
@@ -3762,11 +3763,8 @@ const FormInner = () => {
   }, [isRestrictContentActive]);
   const {
     allHooks,
-    category,
     hookSettings,
-    availablePointTypes,
-    congratulationsMessage,
-    availableCategories = []
+    congratulationsMessage
   } = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(state => state.achievements);
   const hookCategoryIconMap = {
     wordpress: {
@@ -7928,7 +7926,8 @@ const FormInner = ({
     openHookType: openedAwardHooks,
     setOpenHookType: setOpenedAwardHooks,
     selectedHookIds: selectedAwardHookIds,
-    actionName: "award"
+    actionName: "award",
+    selectedFilterType: selectedFilterHookType
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Requirements__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Automatic Point Deductions", "gamify"),
     onClick: e => {
@@ -7948,7 +7947,8 @@ const FormInner = ({
     openHookType: openedDeductHooks,
     setOpenHookType: setOpenedDeductHooks,
     selectedHookIds: selectedDeductHookIds,
-    actionName: "deduct"
+    actionName: "deduct",
+    selectedFilterType: selectedDeductFilterType
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FormInner);

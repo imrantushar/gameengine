@@ -37,7 +37,7 @@ const DroppableArea = ({ id, children }) => {
 
 const Requirements = (props) => {
     const {
-        label, onClick, open, parent, child, childLeft, childRight, filterHookType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName
+        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName
     } = props;
     const dispatch = useDispatch();
 
@@ -80,6 +80,7 @@ const Requirements = (props) => {
                         <DroppableArea id={`${actionName}s-available`}>
                             {allHooks
                                 .filter(item => !selectedHookIds?.includes(item?.id))
+                                .filter(item => selectedFilterType.length === 0 || selectedFilterType.includes(item.integrationSlug))
                                 .map(h => (
                                     <Box key={h.id}>
                                         {renderHookCard(h, actionName)}
