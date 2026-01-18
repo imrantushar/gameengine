@@ -18,6 +18,8 @@ import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyInput from "@GFComponents/GamifyInput";
 import { useFormikContext } from "formik";
 import DynamicHookForm from "./components/DynamicHookForm";
+import apiFetch from "@wordpress/api-fetch";
+import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 
 // --- Draggable Components ---
 const DraggableItem = ({ id, children }) => {
@@ -44,8 +46,59 @@ const FormInner = () => {
     const [newCat, setNewCat] = useState("");
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [message, setMessage] = useState("");
+    const [achivementsLoading, setAchivementsLoading] = useState(false);
+    const [achivementsData, setAchivementsData] = useState([]);
+    const [levelsLoading, setLevelsLoading] = useState(false);
+    const [levelsData, setLevelsData] = useState([]);
+    const addons = useSelector(state => state.addons);
+    const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
+
 
     const { values, setFieldValue } = useFormikContext();
+
+    const fetchAchivements = async (key) => {
+        try {
+            setAchivementsLoading(true);
+            let url = namespace + 'achievements';
+            if(key) url += "?search=" + key;
+            const response = await API.get(url);
+            const achievements = response.data?.map(item => {
+                return {label: item.title, value: item.id}
+            })
+            setAchivementsData(achievements);
+        } catch (error) {
+            console.warn({error})
+        } finally {
+            setAchivementsLoading(false)
+        }
+    }
+    const fetchLevels = async (key) => {
+        try {
+            setLevelsLoading(true);
+            let url = namespace + 'levels';
+            if(key) url += "?search=" + key;
+            const response = await API.get(url);
+            const levels = response.data.map(item => {
+                return {label: item.title, value: item.id}
+            })
+            setLevelsData(levels);
+        } catch (error) {
+            console.warn({error})
+        } finally {
+            setLevelsLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        if(isRestrictContentActive) {
+            if(achivementsData.length === 0) {
+                fetchAchivements();
+            }
+            if(levelsData.length === 0) {
+                fetchLevels();
+            }
+        }
+    }, [isRestrictContentActive])
 
     const {
         allHooks, category, hookSettings, availablePointTypes, congratulationsMessage, availableCategories = [],
@@ -167,17 +220,6 @@ const FormInner = () => {
                             setFieldValue('title', value)
                             setFieldValue('plural_name', `${value}s`)
                         }}
-                        {...commonInput}
-                    />
-                </GamifyInput>
-
-                <GamifyInput
-                    label={__("Plural Name", "gamify")}
-                    width="calc(50% - 6px)"
-                >
-                    <Input
-                        placeholder={__("Enter point name", "gamify")}
-                        value={values.plural_name}
                         {...commonInput}
                     />
                 </GamifyInput>
@@ -313,6 +355,66 @@ const FormInner = () => {
                     suffix={'acivements-message'}
                 />
             </GamifyInput>
+
+            <Switch.Root
+                checked={values.restrict_unlock}
+                onCheckedChange={e => {
+                    setFieldValue('restrict_unlock', e.checked)
+                }}
+                colorPalette="blue"
+                disabled={!isRestrictContentActive}
+            >
+                <Switch.HiddenInput />
+                <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Enable Require Unlock", "gamify")}</Switch.Label>
+                <Switch.Control />
+            </Switch.Root>
+
+            {(values?.restrict_unlock && isRestrictContentActive) && (
+                <Flex gap="12px">
+                    <GamifyInput label={__("Required Achievements", "gamify")} width="calc(50% - 6px)">
+                        <Select
+                            className="gamify-select"
+                            classNamePrefix="gamify-select"
+                            options={achivementsData}
+                            onInputChange={(inputValue) => {
+                                fetchAchivements(inputValue);
+                                return inputValue;
+                            }}
+                            value={
+                                achivementsData?.find(
+                                opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                ) || null
+                            }
+                            isLoading={achivementsLoading}
+                            onChange={(option) => {
+                                setFieldValue('required_achievement_id', option?.value || null);
+                            }}
+                            menuPlacement="bottom"
+                        />
+                    </GamifyInput>
+                    <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
+                        <Select
+                            className="gamify-select"
+                            classNamePrefix="gamify-select"
+                            options={levelsData}
+                            onInputChange={(inputValue) => {
+                                fetchLevels(inputValue);
+                                return inputValue;
+                            }}
+                            value={
+                                levelsData?.find(
+                                opt => Number(opt.value) === Number(values?.required_level_id)
+                                ) || null
+                            }
+                            isLoading={levelsLoading}
+                            onChange={option => {
+                                setFieldValue('required_level_id', option.value)
+                            }}
+                            menuPlacement="bottom"
+                        />
+                    </GamifyInput>
+                </Flex>
+            )}
 
             <Switch.Root
                 checked={values.unlock_with_points_enabled}
