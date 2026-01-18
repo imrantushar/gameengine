@@ -6,6 +6,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BoxView from '@GFComponents/BoxView/BoxView';
+import { achievement, star, trophy, user } from '@GFUtils/icons';
 
 function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setEndDate }) {
     const dateOnly = (d) => {
@@ -22,11 +23,11 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
     }, [startDate, endDate]);
 
     const cards = [
-        { label: "Points Given", value: data?.points || "0", icon: FiStar, bg: "yellow.50", iconColor: "yellow.500" },
+        { label: "Points Given", value: data?.points || "0", icon: star, bg: "yellow.50", iconColor: "#F3C838" },
         { label: "Points Deducted", value: data?.points_deducted || "0", icon: FiMinusCircle, bg: "red.50", iconColor: "red.500" },
-        { label: "Achievements Given", value: data?.achievements || "0", icon: FiAward, bg: "blue.50", iconColor: "blue.500" },
-        { label: "Levels Given", value: data?.levels || "0", icon: FiTrendingUp, bg: "green.50", iconColor: "green.500" },
-        { label: "Active Users", value: data?.active_users || "0", icon: FiUser, bg: "red.50", iconColor: "red.500" },
+        { label: "Achievements Given", value: data?.achievements || "0", icon: achievement, bg: "blue.50", iconColor: "#4BC0F8" },
+        { label: "Levels Given", value: data?.levels || "0", icon: trophy, bg: "green.50", iconColor: "#46AD92" },
+        { label: "Active Users", value: data?.active_users || "0", icon: user, bg: "red.50", iconColor: "#FF9381" },
     ];
 
     return (
@@ -82,7 +83,9 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                                 <Text fontSize="30px" fontWeight="700" lineHeight="38px" m={0}>{card.value}</Text>
                                 <Text fontSize="16px" fontWeight="500" lineHeight="24px" m={0}>{card.label}</Text>
                             </Flex>
-                            <Icon as={card.icon} boxSize={8} color={card.iconColor} />
+                            <Box bg={card?.iconColor} p="14px" borderRadius="full">
+                                <Icon as={card.icon} boxSize={8} color="#fff" />
+                            </Box>
                         </Flex>
                     ))}
                 </Flex>

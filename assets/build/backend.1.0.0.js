@@ -6180,16 +6180,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/index.es.js");
-/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
-/* harmony import */ var _GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/BoxView/BoxView */ "./dev_gamify/components/BoxView/BoxView.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var react_icons_fi__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/fi */ "./node_modules/react-icons/fi/index.mjs");
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-datepicker */ "./node_modules/react-datepicker/dist/index.es.js");
+/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./node_modules/react-datepicker/dist/react-datepicker.css");
+/* harmony import */ var _GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @GFComponents/BoxView/BoxView */ "./dev_gamify/components/BoxView/BoxView.js");
+/* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gamify/utils/icons.js");
+
 
 
 
@@ -6221,75 +6224,75 @@ function Overview({
   const cards = [{
     label: "Points Given",
     value: data?.points || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiStar,
+    icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_11__.star,
     bg: "yellow.50",
-    iconColor: "yellow.500"
+    iconColor: "#F3C838"
   }, {
     label: "Points Deducted",
     value: data?.points_deducted || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiMinusCircle,
+    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiMinusCircle,
     bg: "red.50",
     iconColor: "red.500"
   }, {
     label: "Achievements Given",
     value: data?.achievements || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiAward,
+    icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_11__.achievement,
     bg: "blue.50",
-    iconColor: "blue.500"
+    iconColor: "#4BC0F8"
   }, {
     label: "Levels Given",
     value: data?.levels || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiTrendingUp,
+    icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_11__.trophy,
     bg: "green.50",
-    iconColor: "green.500"
+    iconColor: "#46AD92"
   }, {
     label: "Active Users",
     value: data?.active_users || "0",
-    icon: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiUser,
+    icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_11__.user,
     bg: "red.50",
-    iconColor: "red.500"
+    iconColor: "#FF9381"
   }];
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_BoxView_BoxView__WEBPACK_IMPORTED_MODULE_10__["default"], {
     width: "100%",
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Overview', 'gamify'),
-    rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Overview', 'gamify'),
+    rightContent: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
       align: "center",
       gap: 2
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
-      as: react_icons_fi__WEBPACK_IMPORTED_MODULE_5__.FiCalendar,
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Icon, {
+      as: react_icons_fi__WEBPACK_IMPORTED_MODULE_6__.FiCalendar,
       color: "gray.600",
       boxSize: 4
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_datepicker__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_datepicker__WEBPACK_IMPORTED_MODULE_8__["default"], {
       selected: startDate,
       onChange: date => setStartDate(date),
-      placeholderText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Start date', 'gamify'),
+      placeholderText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Start date', 'gamify'),
       dateFormat: "MMM dd, yyyy",
-      customInput: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+      customInput: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
         fontSize: "sm",
         fontWeight: "500",
         m: "0"
-      }, startDate ? startDate.toLocaleDateString() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Start date', 'gamify'))
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+      }, startDate ? startDate.toLocaleDateString() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Start date', 'gamify'))
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
       fontSize: "sm",
       fontWeight: "500",
       margin: "0 4px",
       color: "gray.500"
-    }, "-"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_datepicker__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    }, "-"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_datepicker__WEBPACK_IMPORTED_MODULE_8__["default"], {
       selected: endDate,
       onChange: date => setEndDate(date),
-      placeholderText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('End date', 'gamify'),
+      placeholderText: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('End date', 'gamify'),
       dateFormat: "MMM dd, yyyy",
       minDate: startDate,
-      customInput: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+      customInput: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
         fontSize: "sm",
         fontWeight: "500",
         m: "0"
-      }, endDate ? endDate.toLocaleDateString() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('End date', 'gamify'))
+      }, endDate ? endDate.toLocaleDateString() : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('End date', 'gamify'))
     })))
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     gap: "16px",
     flexWrap: "wrap"
-  }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+  }, cards.map((card, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     key: i,
     align: "center",
     justify: "space-between",
@@ -6298,24 +6301,28 @@ function Overview({
     gap: 6,
     flexShrink: 0,
     flexBasis: "calc((100% - 32px) / 3)"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     direction: "column",
     gap: 1
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
     fontSize: "30px",
     fontWeight: "700",
     lineHeight: "38px",
     m: 0
-  }, card.value), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Text, {
+  }, card.value), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
     fontSize: "16px",
     fontWeight: "500",
     lineHeight: "24px",
     m: 0
-  }, card.label)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+  }, card.label)), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
+    bg: card?.iconColor,
+    p: "14px",
+    borderRadius: "full"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Icon, {
     as: card.icon,
     boxSize: 8,
-    color: card.iconColor
-  }))))));
+    color: "#fff"
+  })))))));
 }
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Overview);
 
@@ -11138,8 +11145,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   aIcon: () => (/* binding */ aIcon),
 /* harmony export */   academyLms: () => (/* binding */ academyLms),
+/* harmony export */   achievement: () => (/* binding */ achievement),
 /* harmony export */   gIcon: () => (/* binding */ gIcon),
+/* harmony export */   star: () => (/* binding */ star),
 /* harmony export */   storeEngine: () => (/* binding */ storeEngine),
+/* harmony export */   trophy: () => (/* binding */ trophy),
+/* harmony export */   user: () => (/* binding */ user),
 /* harmony export */   wooCommerce: () => (/* binding */ wooCommerce)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
@@ -11269,6 +11280,85 @@ const wooCommerce = () => {
     fill: "white",
     transform: "translate(1 18)"
   }))));
+};
+const star = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("g", {
+    "clip-path": "url(#clip0_335_7842)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z",
+    fill: "white"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 20.7422C16.8282 20.7422 20.7422 16.8282 20.7422 12C20.7422 7.17182 16.8282 3.25781 12 3.25781C7.17182 3.25781 3.25781 7.17182 3.25781 12C3.25781 16.8282 7.17182 20.7422 12 20.7422Z",
+    fill: "#F3C838"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M13.1063 7.54697L14.1235 9.4876L16.2844 9.85322C17.2782 10.022 17.6719 11.236 16.9688 11.9579L15.436 13.5235L15.7547 15.6892C15.9001 16.6876 14.8688 17.4376 13.9641 16.9923L12 16.022L10.036 16.9923C9.1313 17.4376 8.10005 16.6876 8.24536 15.6892L8.56411 13.5235L7.0313 11.9579C6.32817 11.236 6.72192 10.022 7.71567 9.85322L9.87661 9.4876L10.8938 7.54697C11.3625 6.65166 12.6375 6.65166 13.1063 7.54697Z",
+    fill: "white"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("defs", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("clipPath", {
+    id: "clip0_335_7842"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    width: "24",
+    height: "24",
+    fill: "white"
+  }))));
+};
+const achievement = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12.0992 8.45061L11.9996 8.25146L11.9042 8.44236C11.731 8.79892 11.3801 8.82704 11.3754 8.83173L11.1543 8.86469L11.306 9.01437C11.4726 9.17296 11.5546 9.41214 11.5121 9.64616L11.4771 9.85833L11.6755 9.75534C11.7757 9.70345 11.8868 9.67636 11.9996 9.67636C12.1124 9.67636 12.2236 9.70345 12.3237 9.75534L12.5222 9.85833L12.4858 9.63791C12.4672 9.52673 12.4756 9.41271 12.5104 9.30548C12.5452 9.19826 12.6053 9.101 12.6856 9.02192L12.8449 8.86469L12.6238 8.83173C12.5122 8.81488 12.4063 8.77147 12.315 8.70514C12.2237 8.63881 12.1497 8.55152 12.0992 8.45061Z",
+    fill: "white"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M11.9994 4.21729C9.28557 4.21729 7.07715 6.42571 7.07715 9.13957C7.07715 11.8534 9.28557 14.0619 11.9994 14.0619C14.7133 14.0619 16.9217 11.8534 16.9217 9.13957C16.9217 6.42571 14.7133 4.21729 11.9994 4.21729ZM14.8341 8.8793L13.9325 9.76719L14.1399 11.0156C14.1615 11.1444 14.1467 11.2767 14.0972 11.3975C14.0477 11.5184 13.9655 11.623 13.8597 11.6996C13.7541 11.7765 13.6291 11.8224 13.4988 11.8322C13.3686 11.842 13.2382 11.8154 13.1222 11.7552L11.9994 11.1722L10.8767 11.7552C10.6391 11.8761 10.3555 11.8562 10.1392 11.6996C10.0334 11.623 9.95115 11.5184 9.90164 11.3975C9.85213 11.2767 9.83736 11.1444 9.85899 11.0156L10.0664 9.76719L9.16476 8.8793C8.97129 8.68874 8.90908 8.40751 8.98967 8.16102C9.03021 8.03686 9.10446 7.92642 9.20414 7.84202C9.30382 7.75763 9.42499 7.7026 9.55414 7.68309L10.8053 7.49492L11.3705 6.36392C11.608 5.88735 12.3909 5.88735 12.6285 6.36392L13.1937 7.49492L14.4448 7.68309C14.574 7.70262 14.6951 7.75766 14.7948 7.84205C14.8945 7.92644 14.9687 8.03688 15.0093 8.16102C15.0496 8.28521 15.0546 8.41818 15.0237 8.54504C14.9928 8.6719 14.9271 8.78764 14.8341 8.8793Z",
+    fill: "white"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M21.1411 9.13929C21.1411 8.55011 20.9619 7.98082 20.6069 7.44246C20.7291 6.8162 20.6776 6.21189 20.4565 5.68314C20.2292 5.12143 19.8343 4.65377 19.2815 4.28915C19.1517 3.63608 18.8778 3.09701 18.4685 2.68706C18.0702 2.27504 17.5511 2.0038 16.8891 1.86302C16.5217 1.3219 16.0685 0.935989 15.5473 0.718986C15.0034 0.477935 14.3792 0.420977 13.724 0.557629C12.6164 -0.183996 11.3817 -0.179214 10.3029 0.532221C9.67591 0.410007 9.0723 0.462183 8.54355 0.682608C7.98184 0.909924 7.51418 1.30408 7.14956 1.85754C6.49649 1.98734 5.95677 2.26201 5.54817 2.6699C5.13545 3.06818 4.86421 3.58732 4.72343 4.25C4.18231 4.61739 3.7964 5.07062 3.5794 5.59182C3.33835 6.135 3.28411 6.7599 3.41804 7.41503C3.04652 7.96989 2.8584 8.5481 2.8584 9.13933C2.8584 9.72851 3.03762 10.2978 3.39263 10.8362C3.27042 11.4624 3.32189 12.0667 3.54302 12.5955C3.77033 13.1572 4.16515 13.6256 4.71935 13.9902C4.85971 14.6783 5.16405 15.2217 5.53101 15.5916C5.9293 16.0036 6.44843 16.2748 7.11041 16.4156C7.4778 16.9574 7.93103 17.3426 8.45152 17.559C8.99335 17.8007 9.61754 17.8543 10.2747 17.7217C10.8022 18.0678 11.361 18.2807 11.9997 18.2807C12.6159 18.2807 13.1872 18.0757 13.6966 17.7465C14.3256 17.8694 14.9279 17.8165 15.4559 17.5961C16.0176 17.3688 16.4853 16.974 16.8499 16.4212C17.503 16.2914 18.0441 16.0154 18.4623 15.5978C18.8493 15.2059 19.1169 14.7499 19.2726 14.0301C19.8158 13.6627 20.2024 13.2088 20.4201 12.6869C20.6611 12.1438 20.7154 11.5189 20.5815 10.8637C20.9529 10.3087 21.1411 9.73053 21.1411 9.13929ZM11.9997 15.4679C8.50989 15.4679 5.67104 12.6291 5.67104 9.13929C5.67104 5.64948 8.50989 2.81063 11.9997 2.81063C15.4895 2.81063 18.3284 5.64948 18.3284 9.13929C18.3284 12.6291 15.4895 15.4679 11.9997 15.4679ZM17.6794 17.7523C17.2104 18.3105 16.6418 18.7267 15.9832 18.9931C15.3527 19.2573 14.6554 19.3515 13.974 19.296C13.6782 19.4544 13.349 19.5748 13.0047 19.6575L14.1381 23.4958C14.1775 23.6293 14.2557 23.748 14.3626 23.837C14.4696 23.926 14.6005 23.9812 14.7389 23.9957C15.0114 24.026 15.2912 23.8895 15.4304 23.6318L16.9934 20.7497L19.8755 22.325C19.9977 22.3915 20.1368 22.4204 20.2754 22.4079C20.414 22.3955 20.5458 22.3422 20.6542 22.255C20.7626 22.1675 20.8426 22.0498 20.8841 21.9168C20.9255 21.7838 20.9265 21.6414 20.887 21.5078L19.4588 16.6827C18.9637 17.1759 18.3685 17.5337 17.6794 17.7523ZM9.98489 19.2754C9.85313 19.2869 9.72093 19.2926 9.58867 19.2925C8.98229 19.2925 8.40755 19.173 7.87876 18.9368C7.28269 18.6903 6.74227 18.2865 6.2815 17.7419C5.60649 17.5223 5.03574 17.1704 4.56887 16.7015L3.14052 21.5072C3.10092 21.6407 3.10183 21.783 3.14315 21.916C3.18447 22.049 3.26433 22.1667 3.37261 22.2543C3.48085 22.3421 3.61276 22.3957 3.75155 22.4083C3.89035 22.4209 4.02975 22.3919 4.15202 22.3251L7.03409 20.7497L8.59704 23.6318C8.6573 23.7432 8.74655 23.8362 8.85535 23.901C8.96415 23.9658 9.08845 24 9.21509 23.9999C9.36671 23.9998 9.51426 23.9508 9.63577 23.8601C9.75728 23.7694 9.84625 23.6419 9.88944 23.4966L11.0247 19.66C10.6708 19.5757 10.3228 19.4512 9.98489 19.2754Z",
+    fill: "white"
+  }));
+};
+const trophy = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("g", {
+    "clip-path": "url(#clip0_335_7862)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M19.0312 22.5938H18.3281V20.4375C18.3281 20.0491 18.0134 19.7344 17.625 19.7344H6.375C5.98664 19.7344 5.67188 20.0491 5.67188 20.4375V22.5938H4.96875C4.58016 22.5938 4.26562 22.9083 4.26562 23.2969C4.26562 23.6855 4.58016 24 4.96875 24H19.0312C19.4198 24 19.7344 23.6855 19.7344 23.2969C19.7344 22.9083 19.4198 22.5938 19.0312 22.5938ZM21.8906 0H2.10938C0.946266 0 0 0.946312 0 2.10938V3.18056C0 4.91564 0.597281 6.618 1.68094 7.97334C2.60648 9.13036 3.83972 9.9893 5.24597 10.4582L5.99231 10.7073C6.85805 12.1166 8.21409 13.203 9.84375 13.7192V14.8125C9.84375 15.2005 9.52791 15.5156 9.14062 15.5156C7.97752 15.5156 7.03125 16.4619 7.03125 17.625V18.3281H16.9688V17.625C16.9688 16.4619 16.0224 15.5156 14.8594 15.5156C14.4721 15.5156 14.1562 15.2005 14.1562 14.8125V13.7192C15.7859 13.2028 17.142 12.1166 18.0077 10.7073L18.754 10.4582C20.1603 9.9893 21.3935 9.13036 22.3191 7.97334C23.4027 6.618 24 4.91569 24 3.18056V2.10938C24 0.946312 23.0537 0 21.8906 0ZM2.77955 7.09444C1.89366 5.98753 1.40625 4.59778 1.40625 3.18056V2.10938C1.40625 1.72139 1.72209 1.40625 2.10938 1.40625H4.29234L5.0085 7.84627C5.0497 8.21742 5.12512 8.57812 5.22291 8.93044C4.27167 8.5252 3.42881 7.9065 2.77955 7.09444ZM15.2974 6.02053L14.1643 7.09866L14.4307 8.6175C14.4774 8.87972 14.3703 9.14611 14.1561 9.30469C13.9405 9.4627 13.6549 9.48741 13.4172 9.36436L12 8.63653L10.5828 9.36436C10.4663 9.42417 10.3354 9.45027 10.2049 9.43973C10.0743 9.42918 9.94933 9.38242 9.84394 9.30469C9.73867 9.22711 9.65718 9.12167 9.60864 9.00025C9.5601 8.87883 9.54646 8.74626 9.56925 8.6175L9.83569 7.09861L8.70281 6.02048C8.60736 5.92926 8.53938 5.8131 8.5066 5.6852C8.47381 5.5573 8.47753 5.42277 8.51733 5.29688C8.55774 5.17101 8.63274 5.05905 8.73377 4.9738C8.8348 4.88855 8.95777 4.83343 9.08864 4.81477L10.6694 4.59023L11.3725 3.19852C11.6115 2.7248 12.3887 2.7248 12.6277 3.19852L13.3308 4.59023L14.9114 4.81477C15.0422 4.83346 15.1652 4.88858 15.2663 4.97382C15.3673 5.05907 15.4424 5.17102 15.4829 5.29688C15.5636 5.55361 15.4924 5.83448 15.2974 6.02053ZM22.5938 3.18056C22.5938 4.59778 22.1063 5.98753 21.2205 7.09444C20.5712 7.9065 19.7283 8.5252 18.7771 8.93044C18.8749 8.57812 18.9503 8.21742 18.9915 7.84622L19.7077 1.40625H21.8906C22.2779 1.40625 22.5938 1.72139 22.5938 2.10938V3.18056Z",
+    fill: "white"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12.242 5.55192L12.0003 5.07422L11.7586 5.55192C11.6542 5.75738 11.4579 5.89875 11.2299 5.93095L10.7246 6.00239L11.0789 6.33947C11.1628 6.41945 11.2256 6.51892 11.2618 6.62904C11.2979 6.73915 11.3063 6.8565 11.2862 6.97064L11.1997 7.46705L11.6789 7.22058C11.8821 7.11745 12.1211 7.11745 12.3216 7.22058L12.801 7.46705L12.7144 6.97064C12.6732 6.73917 12.7515 6.50227 12.9218 6.33947L13.2762 6.00239L12.7708 5.93095C12.5426 5.89875 12.3463 5.75738 12.242 5.55192Z",
+    fill: "white"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("defs", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("clipPath", {
+    id: "clip0_335_7862"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    width: "24",
+    height: "24",
+    fill: "white"
+  }))));
+};
+const user = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 0C8.51067 0 5.67188 2.8388 5.67188 6.32812C5.67188 9.81745 8.51067 12.6562 12 12.6562C15.4893 12.6562 18.3281 9.81745 18.3281 6.32812C18.3281 2.8388 15.4893 0 12 0ZM12 11.25C9.28608 11.25 7.07812 9.04205 7.07812 6.32812C7.07812 3.6142 9.28608 1.40625 12 1.40625C14.7139 1.40625 16.9219 3.6142 16.9219 6.32812C16.9219 9.04205 14.7139 11.25 12 11.25ZM19.8734 16.7904C18.1409 15.0313 15.8442 14.0625 13.4062 14.0625H10.5938C8.15588 14.0625 5.85909 15.0313 4.12659 16.7904C2.40258 18.5409 1.45312 20.8515 1.45312 23.2969C1.45312 23.6852 1.76794 24 2.15625 24H21.8438C22.2321 24 22.5469 23.6852 22.5469 23.2969C22.5469 20.8515 21.5974 18.5409 19.8734 16.7904ZM2.89031 22.5938C3.24258 18.6053 6.56302 15.4688 10.5938 15.4688H13.4062C17.437 15.4688 20.7574 18.6053 21.1097 22.5938H2.89031Z",
+    fill: "white"
+  }));
 };
 
 /***/ }),
