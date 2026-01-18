@@ -1,62 +1,39 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import WPModal from '@GFComponents/Modal/WPModal';
-import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
-import { Button, Flex, Input, Textarea, } from '@chakra-ui/react';
-import Select from 'react-select';
-import { commonInput, primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
-import GamifyInput from '@GFComponents/GamifyInput';
-import { Formik } from 'formik';
+import { manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
 import ReactModalFormik from '@GFComponents/Modal/ReactModalFormik';
 import { getLogsInitailaValues } from './helper';
 import FormInner from './FormInner';
+import { useDispatch } from 'react-redux';
 
 const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
   const id = formData?.id ;
+  const dispatch = useDispatch();
 
-    // const handleSubmit = async () => {
-    //     if (!formData?.user_id && modalMode === 'create') {
-    //         alert(__('User ID is required', 'gamify'));
-    //         return;
-    //     }
-
-    //     setIsSubmitting(true);
-    //     let result;
-
-    //     // Prepare Payload
-    //     const payload = {
-    //         ...formData,
-    //         // Map 'reference' to 'trigger_key' for backend compatibility if needed
-    //         trigger_key: formData?.reference
-    //     };
-
-    //     if (modalMode === 'edit') {
-    //         // Update Action
-    //         result = await dispatch(updateLogAction({
-    //             id: formData?.log_id,
-    //             data: {
-    //                 points_awarded: formData?.points,
-    //                 type: formData?.type,
-    //                 message: formData?.description
-    //             }
-    //         }));
-    //     } else {
-    //         // Create Action
-    //         result = await dispatch(manualLogAction(payload));
-    //     }
-
-    //     setIsSubmitting(false);
-
-    //     if (manualLogAction.fulfilled.match(result) || updateLogAction.fulfilled.match(result)) {
-    //         setIsModalOpen(false);
-    //     } else {
-    //         alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
-    //     }
-    // };
+  const onSubmitHandler = async (values, actions) => {
+    if (!values?.user_id && !values?.id) {
+      alert(__('User ID is required', 'gamify'));
+      return;
+    }
+    
+    actions.setSubmitting(true)
+    try {
+      if (!values.id) {
+        await dispatch(manualLogAction(values));
+      } else {
+        await dispatch(updateLogAction(values));
+      }
+    } catch (error) {
+      console.warn({error})
+    } finally {
+      actions.setSubmitting(false)
+    }
+  };
+  
   return (
     <ReactModalFormik
       suffix='logs'
-      title={id ? `Edit Log #${id}` : "Manual Trigger"}
+      title={id ? __(`Edit Log`, 'gamify') + " " + id : __("Manual Trigger", 'gamify')}
       isOpen={isModalOpen}
       isEnabledFooter={true}
       onRequestClose={() => setIsModalOpen(false)}
@@ -65,7 +42,7 @@ const LogsModal = ({formData, isModalOpen, setIsModalOpen}) => {
       formik={{
         enableReinitialize: true,
         initialValues: getLogsInitailaValues(formData),
-        // onSubmit: onSubmitHandler
+        onSubmit: onSubmitHandler
       }}
       size='small'
     >

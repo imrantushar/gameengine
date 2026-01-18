@@ -38,10 +38,10 @@ export const manualLogAction = createAsyncThunk(
 // --- 3. Update Log Action (NEW) ---
 export const updateLogAction = createAsyncThunk(
     'logs/updateLog',
-    async ({ id, data }, { rejectWithValue, dispatch }) => {
+    async ({ data }, { rejectWithValue, dispatch }) => {
         try {
             const response = await apiFetch({
-                path: `/gamify/v1/logs/${id}`,
+                path: `/gamify/v1/logs/${data?.id}`,
                 method: 'PUT', // or PATCH
                 data: data
             });

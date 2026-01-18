@@ -1,19 +1,10 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import ListTable from '@GFComponents/ListTable';
-import Search from '@GFComponents/Search';
-import WPModal from '@GFComponents/Modal/WPModal';
-import { FiEdit, FiClock } from "react-icons/fi";
-import { fetchLogs, setPage, setRowsPerPage, setSearchQuery, manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
-import { Button, Icon, Badge, Flex, Spinner, Text, Input, Textarea, Box, } from '@chakra-ui/react';
-import Select from 'react-select';
-import { commonInput, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { Button, Icon, Flex, Box, } from '@chakra-ui/react';
+import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { GoPlus } from 'react-icons/go';
-import GamifyInput from '@GFComponents/GamifyInput';
 import LogsTable from './LogsTable';
 import LogsModal from './LogsModal';
 
@@ -48,8 +39,6 @@ const Logs = () => {
                     formData={formData}
                 />
             </Box>
-
-            
         </>
     );
 };

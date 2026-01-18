@@ -8445,17 +8445,19 @@ const getLogsInitailaValues = (formData = null) => {
     const points = parseInt(formData?.points_awarded || formData?.meta?.points || 0);
     return {
       id: formData?.id,
+      user_id: formData?.user_id,
       points_awarded: Math.abs(points),
       type: points >= 0 ? 'award' : 'deduct',
-      reference: formData?.trigger_key,
+      trigger_key: formData?.trigger_key,
       message: formData?.message,
       schedule_date: ''
     };
   }
   return {
+    user_id: '',
     points_awarded: 10,
     type: 'award',
-    reference: 'manual_adjustment',
+    trigger_key: 'manual_adjustment',
     message: '',
     schedule_date: ''
   };
@@ -8478,18 +8480,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _GFComponents_Modal_WPModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Modal/WPModal */ "./dev_gamify/components/Modal/WPModal.js");
-/* harmony import */ var _GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFRedux/Slices/logsSlice/logsSlice */ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
-/* harmony import */ var _GFComponents_Modal_ReactModalFormik__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Modal/ReactModalFormik */ "./dev_gamify/components/Modal/ReactModalFormik.js");
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./helper */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/helper.js");
-/* harmony import */ var _FormInner__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./FormInner */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/FormInner.js");
-
-
-
-
-
+/* harmony import */ var _GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFRedux/Slices/logsSlice/logsSlice */ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js");
+/* harmony import */ var _GFComponents_Modal_ReactModalFormik__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/Modal/ReactModalFormik */ "./dev_gamify/components/Modal/ReactModalFormik.js");
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./helper */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/helper.js");
+/* harmony import */ var _FormInner__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./FormInner */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/FormInner.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/dist/react-redux.mjs");
 
 
 
@@ -8504,49 +8499,30 @@ const LogsModal = ({
   setIsModalOpen
 }) => {
   const id = formData?.id;
-
-  // const handleSubmit = async () => {
-  //     if (!formData?.user_id && modalMode === 'create') {
-  //         alert(__('User ID is required', 'gamify'));
-  //         return;
-  //     }
-
-  //     setIsSubmitting(true);
-  //     let result;
-
-  //     // Prepare Payload
-  //     const payload = {
-  //         ...formData,
-  //         // Map 'reference' to 'trigger_key' for backend compatibility if needed
-  //         trigger_key: formData?.reference
-  //     };
-
-  //     if (modalMode === 'edit') {
-  //         // Update Action
-  //         result = await dispatch(updateLogAction({
-  //             id: formData?.log_id,
-  //             data: {
-  //                 points_awarded: formData?.points,
-  //                 type: formData?.type,
-  //                 message: formData?.description
-  //             }
-  //         }));
-  //     } else {
-  //         // Create Action
-  //         result = await dispatch(manualLogAction(payload));
-  //     }
-
-  //     setIsSubmitting(false);
-
-  //     if (manualLogAction.fulfilled.match(result) || updateLogAction.fulfilled.match(result)) {
-  //         setIsModalOpen(false);
-  //     } else {
-  //         alert(__('Error: ', 'gamify') + (result.payload || 'Failed'));
-  //     }
-  // };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Modal_ReactModalFormik__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  const dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_6__.useDispatch)();
+  const onSubmitHandler = async (values, actions) => {
+    if (!values?.user_id && !values?.id) {
+      alert((0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('User ID is required', 'gamify'));
+      return;
+    }
+    actions.setSubmitting(true);
+    try {
+      if (!values.id) {
+        await dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_2__.manualLogAction)(values));
+      } else {
+        await dispatch((0,_GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_2__.updateLogAction)(values));
+      }
+    } catch (error) {
+      console.warn({
+        error
+      });
+    } finally {
+      actions.setSubmitting(false);
+    }
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Modal_ReactModalFormik__WEBPACK_IMPORTED_MODULE_3__["default"], {
     suffix: "logs",
-    title: id ? `Edit Log #${id}` : "Manual Trigger",
+    title: id ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)(`Edit Log`, 'gamify') + " " + id : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Manual Trigger", 'gamify'),
     isOpen: isModalOpen,
     isEnabledFooter: true,
     onRequestClose: () => setIsModalOpen(false),
@@ -8554,11 +8530,11 @@ const LogsModal = ({
     submitButtonLabel: !id ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Create Log", 'gamify') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Update Log", 'gamify'),
     formik: {
       enableReinitialize: true,
-      initialValues: (0,_helper__WEBPACK_IMPORTED_MODULE_7__.getLogsInitailaValues)(formData)
-      // onSubmit: onSubmitHandler
+      initialValues: (0,_helper__WEBPACK_IMPORTED_MODULE_4__.getLogsInitailaValues)(formData),
+      onSubmit: onSubmitHandler
     },
     size: "small"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_FormInner__WEBPACK_IMPORTED_MODULE_8__["default"], null));
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_FormInner__WEBPACK_IMPORTED_MODULE_5__["default"], null));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LogsModal);
 
@@ -8812,28 +8788,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gamify/components/TopBar/index.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gamify/components/Labels/GFLabel.js");
-/* harmony import */ var _GFComponents_ListTable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/ListTable */ "./dev_gamify/components/ListTable/index.js");
-/* harmony import */ var _GFComponents_Search__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFComponents/Search */ "./dev_gamify/components/Search/index.js");
-/* harmony import */ var _GFComponents_Modal_WPModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Modal/WPModal */ "./dev_gamify/components/Modal/WPModal.js");
-/* harmony import */ var _GFRedux_Slices_logsSlice_logsSlice__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFRedux/Slices/logsSlice/logsSlice */ "./dev_gamify/redux/Slices/logsSlice/logsSlice.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
-/* harmony import */ var _GFComponents_GamifyInput__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @GFComponents/GamifyInput */ "./dev_gamify/components/GamifyInput/index.js");
-/* harmony import */ var _LogsTable__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./LogsTable */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsTable.js");
-/* harmony import */ var _LogsModal__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./LogsModal */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/index.js");
-
-
-
-
-
-
-
-
-
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/box/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/button/button.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var react_icons_go__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-icons/go */ "./node_modules/react-icons/go/index.mjs");
+/* harmony import */ var _LogsTable__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./LogsTable */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsTable.js");
+/* harmony import */ var _LogsModal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./LogsModal */ "./dev_gamify/containers/BackendDashboard/pages/logs/LogsModal/index.js");
 
 
 
@@ -8857,9 +8819,9 @@ const Logs = () => {
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_2__["default"], {
     path: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logs", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Box, {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.Box, {
     className: "gamify-page-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_10__.Flex, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Flex, {
     justifyContent: "space-between",
     alignItems: "center",
     p: "24px 0"
@@ -8867,15 +8829,15 @@ const Logs = () => {
     type: "plainHeading",
     margin: 0,
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Logs", "gamify")
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_9__.Button, {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.primaryBtn,
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Button, {
+    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.primaryBtn,
     onClick: () => modalOpenHandler()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_11__.Icon, {
-    as: react_icons_go__WEBPACK_IMPORTED_MODULE_13__.GoPlus,
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Icon, {
+    as: react_icons_go__WEBPACK_IMPORTED_MODULE_9__.GoPlus,
     boxSize: "20px"
-  }), "  ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Manual Trigger', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LogsTable__WEBPACK_IMPORTED_MODULE_15__["default"], {
+  }), "  ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Manual Trigger', 'gamify'))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LogsTable__WEBPACK_IMPORTED_MODULE_10__["default"], {
     modalOpenHandler: modalOpenHandler
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LogsModal__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_LogsModal__WEBPACK_IMPORTED_MODULE_11__["default"], {
     isModalOpen: isModalOpen,
     setIsModalOpen: setIsModalOpen,
     formData: formData
@@ -10897,7 +10859,6 @@ const manualLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
 
 // --- 3. Update Log Action (NEW) ---
 const updateLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createAsyncThunk)('logs/updateLog', async ({
-  id,
   data
 }, {
   rejectWithValue,
@@ -10905,7 +10866,7 @@ const updateLogAction = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_0__.createA
 }) => {
   try {
     const response = await _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_1___default()({
-      path: `/gamify/v1/logs/${id}`,
+      path: `/gamify/v1/logs/${data?.id}`,
       method: 'PUT',
       // or PATCH
       data: data
