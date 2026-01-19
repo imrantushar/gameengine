@@ -19,11 +19,9 @@ export const fetchAchievementById = createAsyncThunk('gamify/fetchAchievementByI
 });
 
 export const createAchievement = createAsyncThunk('gamify/createAchievement', async (data) => {
-    // return await apiFetch({ path: '/gamify/v1/achievements', method: 'POST', data });
     const response =  await API.post(namespace + 'achievements', {
         ...data
     });
-    console.log({createAchievement: response})
     return response.data;
 });
 
@@ -138,7 +136,7 @@ const achievementsSlice = createSlice({
                 }
             })
             .addCase(createAchievement.fulfilled, (state, {payload}) => { 
-                state.achievements = [...state.achievements, payload]
+                state.achievements = [payload, ...state.achievements]
             })
             .addCase(updateAchievement.fulfilled, (state, {payload}) => { 
                 state.achievements = state.achievements.map(item => {

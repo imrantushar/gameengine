@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
 import {
-    fetchAchievementById, saveAchievement, updateAchievement, fetchTriggers, fetchPointTypes, fetchAchievements
+    fetchAchievementById, createAchievement, updateAchievement, fetchTriggers, fetchPointTypes, fetchAchievements
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyBox from "@GFComponents/GamifyBox";
@@ -58,7 +58,7 @@ const AchievementTypesEditor = () => {
             if(editId) {
                 await dispatch(updateAchievement({ id: editId, data: values })) 
             } else {
-                const { payload } = await dispatch(saveAchievement(values));
+                const { payload } = await dispatch(createAchievement(values));
                 if(payload.id) {
                     navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${payload.id}&path=achievemenxts-type`)
                     actions.setValue(getAchivementsInitialValues(payload.id, [payload]))
