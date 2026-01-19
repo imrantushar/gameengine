@@ -177,7 +177,6 @@ const FormInner = () => {
     };
 
     const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
-
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
@@ -430,7 +429,7 @@ const FormInner = () => {
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             options={availablePointTypes}
-                            value={availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
+                            value={availablePointTypes.length > 0 && availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
                             onChange={option => {
                                 setFieldValue('required_point_type_id', option.value)
                             }}
