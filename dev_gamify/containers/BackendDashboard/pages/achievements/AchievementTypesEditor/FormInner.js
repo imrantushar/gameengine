@@ -26,8 +26,8 @@ const FormInner = () => {
     const [newCat, setNewCat] = useState("");
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [message, setMessage] = useState("");
-    const [achivementsLoading, setAchivementsLoading] = useState(false);
-    const [achivementsData, setAchivementsData] = useState([]);
+    const [achievementsLoading, setAchievementsLoading] = useState(false);
+    const [achievementsData, setAchievementsData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
@@ -35,20 +35,20 @@ const FormInner = () => {
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
     const { values, setFieldValue } = useFormikContext();
 
-    const fetchAchivements = async (key) => {
+    const fetchAchievements = async (key) => {
         try {
-            setAchivementsLoading(true);
+            setAchievementsLoading(true);
             let url = namespace + 'achievements';
             if(key) url += "?search=" + key;
             const response = await API.get(url);
             const achievements = response.data?.map(item => {
                 return {label: item.title, value: item.id}
             })
-            setAchivementsData(achievements);
+            setAchievementsData(achievements);
         } catch (error) {
             console.warn({error})
         } finally {
-            setAchivementsLoading(false)
+            setAchievementsLoading(false)
         }
     };
 
@@ -71,8 +71,8 @@ const FormInner = () => {
 
     useEffect(() => {
         if(isRestrictContentActive) {
-            if(achivementsData.length === 0) {
-                fetchAchivements();
+            if(achievementsData.length === 0) {
+                fetchAchievements();
             }
             if(levelsData.length === 0) {
                 fetchLevels();
@@ -346,17 +346,17 @@ const FormInner = () => {
                             <Select
                                 className="gamify-select"
                                 classNamePrefix="gamify-select"
-                                options={achivementsData}
+                                options={achievementsData}
                                 onInputChange={(inputValue) => {
-                                    fetchAchivements(inputValue);
+                                    fetchAchievements(inputValue);
                                     return inputValue;
                                 }}
                                 value={
-                                    achivementsData?.find(
+                                    achievementsData?.find(
                                     opt => Number(opt.value) === Number(values?.required_achievement_id)
                                     ) || null
                                 }
-                                isLoading={achivementsLoading}
+                                isLoading={achievementsLoading}
                                 onChange={(option) => {
                                     setFieldValue('required_achievement_id', option?.value || null);
                                 }}
