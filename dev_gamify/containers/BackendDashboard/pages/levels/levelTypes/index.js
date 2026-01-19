@@ -13,6 +13,8 @@ import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
 import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { route_path } from "@GFUtils/helper";
+import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
 
 
 const LevelType = () => {
@@ -50,17 +52,31 @@ const LevelType = () => {
     // }, [congratulationsMessage]);
 
     const onSubmiHandler = async (values, actions) => {
-        if (!values?.title) return alert("Level Name is required");
+        if (!values?.title) {
+            dispatch(showNotification({
+                message: __('Level Name is required.', 'gamify'),
+                isShow: true,
+                type: 'error',
+            }));
+            actions.setSubmitting(false)
+            return;
+        }
         actions.setSubmitting(true)
         try {
-            const res = editId ? await dispatch(updateLevel({ id: editId, data: values })) : await dispatch(saveLevel(values));
-            // if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-levels`);
+            if(editId) {
+                await dispatch(updateLevel({ id: editId, data: values }))
+            } else {
+                const {payload} = await dispatch(saveLevel(values));
+                if(payload.id) {
+                    navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${payload.id}`)
+                    actions.setValue(getLevelsInitialValues(payload.id, [payload]))
+                }
+            }
         } catch (error) {
             console.warn(error)
         } finally {
             actions.setSubmitting(false)
         }
-        
     };
 
     return (

@@ -1,4 +1,4 @@
-import { API, namespace } from '@GFUtils/helper';
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 import { showNotification } from '../notificationSlice/notificationSlice';
@@ -15,11 +15,15 @@ export const fetchAchievementById = createAsyncThunk('gamify/fetchAchievementByI
     return response.data;
 });
 
-export const createAchievement = createAsyncThunk('gamify/createAchievement', async (data) => {
-    const response =  await API.post(namespace + 'achievements', {
-        ...data
-    });
-    return response.data;
+export const createAchievement = createAsyncThunk('gamify/createAchievement', async (data, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'achievements', {
+            ...data
+        });
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const updateAchievement = createAsyncThunk('gamify/updateAchievement', async ({ id, data }, {dispatch}) => {
