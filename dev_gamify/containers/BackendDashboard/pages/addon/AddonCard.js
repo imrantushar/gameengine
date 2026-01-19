@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Badge, Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Separator, Text } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
@@ -10,7 +10,7 @@ import { showNotification } from '@GFRedux/Slices/notificationSlice/notification
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 
 const AddonCard = ({ item, index, value }) => {
-	const {values,setFieldValue } = useFormikContext()
+	const { values, setFieldValue } = useFormikContext()
 	const [updating, setUpdating] = useState(false);
 	const dispatch = useDispatch();
 
@@ -18,7 +18,6 @@ const AddonCard = ({ item, index, value }) => {
 		setUpdating(true)
 		const status = !value;
 		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
-			console.log({payload})
 			if (payload?.success) {
 				setFieldValue(item.name, status);
 				dispatch(fetchAddons());
@@ -68,11 +67,11 @@ const AddonCard = ({ item, index, value }) => {
 			width="calc((100% / 3) - 16px)"
 			background="#FFF"
 			boxShadow="var(--gamify-shadow)"
-			padding={6}
+			padding="24px 0"
 			flexDirection="column"
 			borderRadius="4px"
 		>
-			<Flex justifyContent="space-between" width="100%" height="50px">
+			<Flex justifyContent="space-between" width="100%" height="50px" padding="0 24px">
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
 					{item.icon}
 				</Box>
@@ -88,7 +87,7 @@ const AddonCard = ({ item, index, value }) => {
 				</Box>
 			</Flex>
 
-			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 0">
+			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 24px">
 				<Flex flexDirection="column" gap={1}>
 					<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>{item.label}</Text>
 					<Text fontSize="12px" fontWeight="400" color="#738496" m={0}>{item.details}</Text>
@@ -99,21 +98,39 @@ const AddonCard = ({ item, index, value }) => {
 				</Button>
 			</Flex>
 
-			<Flex direction="column" gap="8px" paddingTop={6} borderTop="1px solid var(--gamify-border-color)">
-				<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>
-					{!item.required_plugin ? __('No extra plugin required', 'gamify') : __('Required plugins', 'gamify')}
-				</Text>
+			<Separator borderColor="var(--gamify-border-color)" />
 
-				<Flex justifyContent="space-between" alignItems="center" width="100%">
-					{item?.required_plugin?.length > 0 && (
-						<>
-							{item.required_plugin.map((childItem, childItemIndex) => (
+			{item.required_plugin ? (
+				<Flex direction="column" gap="4px" p="16px 24px 0 24px">
+					<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>
+						{__('Required plugins', 'gamify')}
+					</Text>
+
+					<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%">
+						{item?.required_plugin?.length > 0 && (
+							item.required_plugin.map((childItem, childItemIndex) => (
 								<Text fontSize="14px" fontWeight="400" color="#738496" m={0} key={childItemIndex}>
 									{childItem.plugin_name}
 								</Text>
-							))}
-						</>
-					)}
+							))
+						)}
+
+						{!item.is_coming_soon && (
+							<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]} // Standard HTML attribute
+									onChange={onChangeHandler}
+								/>
+							</Box>
+						)}
+					</Flex>
+				</Flex>
+			) : (
+				<Flex justifyContent="space-between" alignItems="flex-end" gap="4px" width="100%" p="16px 24px 0 24px">
+					<Text fontSize="14px" fontWeight="500" color="var(--gamify-font-color)" m={0}>
+						{__('No extra plugin required', 'gamify')}
+					</Text>
 
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
@@ -125,7 +142,7 @@ const AddonCard = ({ item, index, value }) => {
 						</Box>
 					)}
 				</Flex>
-			</Flex>
+			)}
 		</Flex>
 	);
 };

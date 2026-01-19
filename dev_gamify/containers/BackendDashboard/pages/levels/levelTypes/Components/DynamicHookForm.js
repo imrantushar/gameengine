@@ -1,7 +1,6 @@
-import { Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import { __ } from '@wordpress/i18n';
-import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
@@ -35,7 +34,7 @@ const DynamicLevelField = ({ fieldKey, config, value, onChange, integrationSlug 
         return (
             <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
                 {labelElement}
-                <Select isDisabled={isDisabled} isLoading={loading} options={optionsSource} value={optionsSource.find(opt => String(opt.value) === String(value)) || null} onChange={(sel) => onChange(sel ? sel.value : '')} classNamePrefix="gamify-select" />
+                <Select className="gamify-select" classNamePrefix="gamify-select" isDisabled={isDisabled} isLoading={loading} options={optionsSource} value={optionsSource.find(opt => String(opt.value) === String(value)) || null} onChange={(sel) => onChange(sel ? sel.value : '')} />
             </Box>
         );
     }
@@ -54,9 +53,6 @@ const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {
                             <DynamicLevelField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} onChange={(newValue) => onChange(config.key, newValue)} />
                         );
                     })}
-                </Flex>
-                <Flex borderTop="1px solid var(--gamify-border-color)" mt="24px" pt="16px" justifyContent='flex-end'>
-                    <Button {...primaryBtn} size="sm" width='auto' onClick={() => setIsOpen(false)}>{__('Done', 'gamify')}</Button>
                 </Flex>
             </CustomCollapsible>
         </>

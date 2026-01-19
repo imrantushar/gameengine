@@ -1,3 +1,114 @@
 .gamify-wp-modal {
        width: 600px;
 }
+
+// react formik modal
+body.ReactModal__Body--open {
+       overflow: hidden;
+}
+
+.gamify-modal-overlay {
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background: rgba(41, 42, 46, 0.28);
+       overflow-y: scroll;
+       display: flex;
+       justify-content: center;
+       align-items: center;
+       z-index: 9999;
+       &--top {
+              align-items: flex-start;
+              padding-top: 20px;
+       }
+       
+       &--bottom {
+              align-items: flex-end;
+              padding-bottom: 20px;
+       }
+       
+       &--center {
+              align-items: center;
+       }
+}
+
+.gamify-modal {
+       position: relative;
+       background: #fff;
+       border-radius: 8px;
+       transition: all ease 0.8s;
+       margin: 0 auto;
+       height: fit-content;
+       &--small {
+              width: 600px;
+       }
+       &--medium {
+              width: 1020px;
+       }
+       &--large {
+              width: calc(100vw - 17px);
+              min-height: 100vh;
+       }
+
+       &__head {
+              display: flex;
+              gap: 10px;
+              justify-content: space-between;
+              flex-direction: row;
+              align-items: center;
+              padding: 20px 24px;
+              border-bottom: 1px solid var(--gamify-border-color);
+
+              .gamify-modal-buttons {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              button {
+                     padding: 8px;
+                     background: #fff;
+                     color: #111;
+                     border: 1px solid var(--gamify-border-color) !important;
+                     border-radius: 4px;
+                     display: flex;
+                     transition: all .3s ease;
+                     justify-content: center;
+                     align-items: center;
+                     font-size: 16px;
+                     cursor: pointer;
+                     &:hover {
+                     border-color: var(--gamify-primary-color) !important;
+                     }
+              }
+              }
+       }
+
+       &__content {
+              background: #fff;
+              padding: 24px;
+       }
+
+       &__footer {
+              display: flex;
+              justify-content: flex-end;
+              gap: 16px;
+              margin: 0 24px;
+              padding: 20px 0;
+              border-top: 1px solid var(--gamify-border-color);
+              background: #fff;
+       }
+}
+
+// modal scrollbar hide
+.gamify-modal {
+       &__content {
+              -ms-overflow-style: none; /* for Internet Explorer, Edge */
+              scrollbar-width: none; /* for Firefox */
+              overflow-y: scroll;
+       }
+
+       &__content::-webkit-scrollbar {
+              display: none; /* for Chrome, Safari, and Opera */
+       }
+}

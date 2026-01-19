@@ -11,7 +11,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class LogsController
- * Handles API requests for fetching and updating logs.
+ * Handles API requests for fetching, creating (Manual Adjustment), and updating logs.
  */
 class LogsController extends BaseController
 {
@@ -38,6 +38,11 @@ class LogsController extends BaseController
                     'permission_callback' => array($this, 'admin_permission_check'),
                     'args'                => $this->get_collection_params(),
                 ),
+                array(
+                    'methods'             => \WP_REST_Server::CREATABLE,
+                    'callback'            => array($this, 'create_item'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                ),
             )
         );
 
@@ -56,21 +61,16 @@ class LogsController extends BaseController
 
     /**
      * Retrieve logs with pagination and search.
-     *
-     * @param \WP_REST_Request $request API request object.
-     * @return \WP_REST_Response
      */
     public function get_items(\WP_REST_Request $request)
     {
         global $wpdb;
 
-        //  Sanitize Inputs.
         $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
-        // Object Caching.
         $cache_key   = 'gamify_logs_' . md5($per_page . $page . $search);
         $cached_data = wp_cache_get($cache_key, 'gamify_logs');
 
@@ -87,7 +87,6 @@ class LogsController extends BaseController
 
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
-        // Count Query (Using a static structure to avoid concatenation).
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $total_items = (int) $wpdb->get_var(
             $wpdb->prepare(
@@ -102,7 +101,6 @@ class LogsController extends BaseController
             )
         );
 
-        // Main Query (Static string with placeholders).
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $results = $wpdb->get_results(
             $wpdb->prepare(
@@ -125,7 +123,6 @@ class LogsController extends BaseController
             ARRAY_A
         );
 
-        // Formatting Meta & Trigger Labels.
         foreach ($results as &$row) {
             $row['meta']       = ! empty($row['meta']) ? json_decode($row['meta'], true) : array();
             $event_label       = ucwords(str_replace(array('_', '-'), ' ', $row['trigger_key']));
@@ -140,24 +137,74 @@ class LogsController extends BaseController
         }
 
         $total_pages = (int) ceil($total_items / $per_page);
-
-        // Save Cache.
-        $cache_to_save = array(
-            'results' => $results,
-            'total'   => $total_items,
-            'pages'   => $total_pages,
+        $headers     = array(
+            'X-WP-Total'      => $total_items,
+            'X-WP-TotalPages' => $total_pages,
         );
-        wp_cache_set($cache_key, $cache_to_save, 'gamify_logs', 30);
 
-        $response = new \WP_REST_Response($results, 200);
-        $response->header('X-WP-Total', $total_items);
-        $response->header('X-WP-TotalPages', $total_pages);
+        wp_cache_set($cache_key, array('results' => $results, 'total' => $total_items, 'pages' => $total_pages), 'gamify_logs', 30);
 
-        return $response;
+        return new \WP_REST_Response($results, 200, $headers);
     }
 
     /**
-     * Update a log entry.
+     * Manual Points Adjustment (Create Log Entry).
+     */
+    public function create_item(\WP_REST_Request $request)
+    {
+        global $wpdb;
+
+        $params         = $request->get_json_params();
+        $user_id        = isset($params['user_id']) ? absint($params['user_id']) : 0;
+        $points_awarded = isset($params['points_awarded']) ? intval($params['points_awarded']) : 0;
+        $type           = isset($params['type']) ? sanitize_text_field($params['type']) : 'award';
+        $trigger_key    = isset($params['trigger_key']) ? sanitize_key($params['trigger_key']) : 'manual_adjustment';
+        $message        = isset($params['message']) ? sanitize_text_field($params['message']) : '';
+
+        if (0 === $user_id || 0 === $points_awarded) {
+            return new \WP_Error('missing_params', __('User ID and Points are required.', 'gamify'), array('status' => 400));
+        }
+
+        // Calculate signed points.
+        $final_points = ('deduct' === $type) ? -abs($points_awarded) : abs($points_awarded);
+
+        // 1. Insert into Points Log first.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+        $wpdb->insert(
+            "{$wpdb->prefix}gamify_points_log",
+            array(
+                'user_id'       => $user_id,
+                'point_type_id' => 1,
+                'points'        => $final_points,
+                'context'       => $trigger_key,
+                'description'   => $message,
+                'created_at'    => current_time('mysql'),
+            )
+        );
+
+        $points_log_id = $wpdb->insert_id;
+
+        // 2. Insert into Activity Logs.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+        $wpdb->insert(
+            "{$wpdb->prefix}gamify_logs",
+            array(
+                'user_id'        => $user_id,
+                'trigger_key'    => $trigger_key,
+                'status'         => 'success',
+                'points_awarded' => $final_points,
+                'message'        => $message,
+                'meta'           => wp_json_encode(array('log_id' => $points_log_id)),
+                'created_at'     => current_time('mysql'),
+            )
+        );
+
+        wp_cache_delete('gamify_logs_list', 'gamify_logs');
+        return new \WP_REST_Response(array('message' => __('Points adjusted successfully.', 'gamify')), 200);
+    }
+
+    /**
+     * Update an existing log entry.
      */
     public function update_item(\WP_REST_Request $request)
     {
@@ -188,21 +235,16 @@ class LogsController extends BaseController
             }
             $data['points_awarded'] = $new_points;
 
+            // Sync with Points Log table.
             $meta = is_array($existing['meta']) ? $existing['meta'] : json_decode($existing['meta'], true);
             if (isset($meta['log_id'])) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->update(
                     "{$wpdb->prefix}gamify_points_log",
-                    array('points' => $new_points),
-                    array('id' => absint($meta['log_id'])),
-                    array('%d'),
-                    array('%d')
+                    array('points' => $new_points, 'description' => $data['message'] ?? $existing['message']),
+                    array('id' => absint($meta['log_id']))
                 );
             }
-        }
-
-        if (isset($params['trigger_key'])) {
-            $data['trigger_key'] = sanitize_key($params['trigger_key']);
         }
 
         if (empty($data)) {
@@ -210,34 +252,21 @@ class LogsController extends BaseController
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $updated = $wpdb->update("{$wpdb->prefix}gamify_logs", $data, array('id' => $log_id));
+        $wpdb->update("{$wpdb->prefix}gamify_logs", $data, array('id' => $log_id));
 
-        if (false === $updated) {
-            return new \WP_Error('db_error', __('Could not update log.', 'gamify'), array('status' => 500));
-        }
-
-        wp_cache_delete('gamify_logs_' . md5('201'), 'gamify_logs');
+        wp_cache_delete('gamify_logs_list', 'gamify_logs');
         return new \WP_REST_Response(array('message' => __('Log updated successfully.', 'gamify')), 200);
     }
 
     /**
-     * Get collection parameters.
+     * Collection parameters.
      */
     public function get_collection_params()
     {
         return array(
-            'page'     => array(
-                'default'           => 1,
-                'sanitize_callback' => 'absint',
-            ),
-            'per_page' => array(
-                'default'           => 20,
-                'sanitize_callback' => 'absint',
-            ),
-            'search'   => array(
-                'default'           => '',
-                'sanitize_callback' => 'sanitize_text_field',
-            ),
+            'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
+            'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
+            'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
         );
     }
 }

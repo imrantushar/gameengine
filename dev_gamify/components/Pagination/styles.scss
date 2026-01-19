@@ -38,7 +38,7 @@
             color: var(--gamify-font-color);
             border: 1px solid var(--gamify-border-color);
             &:hover {
-                background:  var(--gamify-body-background);
+                background:  var(--gamify-secondary-color);
             }
         }
         &__item-dots {

@@ -87,7 +87,7 @@ const SortableColumns = ( {
 					bg="transparent"
 					onClick={ handleToggle }
 					_hover={ {
-						bg: 'var(--gamify-body-background)',
+						bg: 'var(--gamify-secondary-color)',
 					} }
 				>
 					<span className="gamify-icon gamify-icon--columns" />
@@ -152,7 +152,7 @@ const SortableColumns = ( {
 							borderWidth="1px"
 							bg="transparent"
 							_hover={ {
-								bg: 'var(--gamify-body-background)',
+								bg: 'var(--gamify-secondary-color)',
 							} }
 							onClick={ () => {
 								setTempCopyColumns( [ ...copyColumns ] );

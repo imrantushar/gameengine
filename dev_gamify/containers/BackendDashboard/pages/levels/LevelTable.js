@@ -34,16 +34,12 @@ const LevelTable = () => {
         {
             name: __('Name', 'gamify'),
             cell: (row) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }} onClick={() => navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)}>
                     {/* Optional: Show Level Icon if available */}
                     {row.icon && <img src={row.icon} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
                     <span style={{ fontWeight: 500 }}>{row.title}</span>
                 </div>
             )
-        },
-        {
-            name: __('Plural Name', 'gamify'),
-            cell: (row) => row.plural_name
         },
         {
             name: __('Category', 'gamify'),
