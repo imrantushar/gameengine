@@ -7,14 +7,11 @@ import { __ } from '@wordpress/i18n';
 // --- Async Thunks ---
 export const fetchAchievements = createAsyncThunk('gamify/fetchAchievements', async () => {
     const response =  await API.get(namespace + 'achievements');
-
-    console.log({fetchAchievements: response})
     return response.data;
 });
 
 export const fetchAchievementById = createAsyncThunk('gamify/fetchAchievementById', async (id) => {
     const response =  await API.get(namespace + 'achievements/' + id);
-    console.log({response})
     return response.data;
 });
 
