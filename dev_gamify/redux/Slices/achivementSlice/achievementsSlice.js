@@ -18,21 +18,24 @@ export const fetchAchievementById = createAsyncThunk('gamify/fetchAchievementByI
     return response.data;
 });
 
-export const saveAchievement = createAsyncThunk('gamify/saveAchievement', async (data) => {
+export const createAchievement = createAsyncThunk('gamify/createAchievement', async (data) => {
     // return await apiFetch({ path: '/gamify/v1/achievements', method: 'POST', data });
     const response =  await API.post(namespace + 'achievements', {
         ...data
     });
-    console.log({saveAchievement: response})
+    console.log({createAchievement: response})
     return response.data;
 });
 
-export const updateAchievement = createAsyncThunk('gamify/updateAchievement', async ({ id, data }) => {
-    // return await apiFetch({ path: `/gamify/v1/achievements/${id}`, method: 'PUT', data });
+export const updateAchievement = createAsyncThunk('gamify/updateAchievement', async ({ id, data }, {dispatch}) => {
     const response =  await API.post(namespace + 'achievements/' + id, {
         ...data
     });
-    console.log({updateAchievement: response})
+    dispatch(showNotification({
+        message: __('Achivement updated successfully.', 'gamify'),
+        isShow: true,
+        type: 'success',
+    }))
     return response.data;
 });
 
@@ -134,8 +137,17 @@ const achievementsSlice = createSlice({
                     });
                 }
             })
-            // .addCase(saveAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            // .addCase(updateAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(createAchievement.fulfilled, (state, {payload}) => { 
+                state.achievements = [...state.achievements, payload]
+            })
+            .addCase(updateAchievement.fulfilled, (state, {payload}) => { 
+                state.achievements = state.achievements.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            })
             .addCase(deleteAchievement.fulfilled, (state, {payload}) => { 
                 state.achievements = state.achievements.filter(item => Number(item.id) !== Number(payload)) 
             })
