@@ -1,16 +1,22 @@
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
 // --- Async Thunks ---
-export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async () => {
-    return await apiFetch({ path: '/gamify/v1/levels' });
+export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunkAPI) => {
+    try {
+        const response =  await API.get(namespace + 'levels');
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (id) => {
     return await apiFetch({ path: `/gamify/v1/levels/${id}` });
 });
 
-export const saveLevel = createAsyncThunk('gamify/saveLevel', async (data) => {
+export const createLevel = createAsyncThunk('gamify/createLevel', async (data) => {
     return await apiFetch({ path: '/gamify/v1/levels', method: 'POST', data });
 });
 
@@ -23,11 +29,9 @@ export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id) => 
     return id;
 });
 
-export const fetchLevelTriggers = createAsyncThunk(
-    'gamify/fetchLevelTriggers',
+export const fetchLevelTriggers = createAsyncThunk('gamify/fetchLevelTriggers',
     async (scope = 'level', { rejectWithValue }) => {
         try {
-            // শুধুমাত্র level স্কোপের ট্রিগার আনবে
             return await apiFetch({ path: `/gamify/v1/triggers?scope=${scope}` });
         } catch (error) {
             return rejectWithValue(error.message);
@@ -35,8 +39,7 @@ export const fetchLevelTriggers = createAsyncThunk(
     }
 );
 
-export const fetchDynamicOptions = createAsyncThunk(
-    'gamify/fetchDynamicOptions',
+export const fetchDynamicOptions = createAsyncThunk('gamify/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
             return await apiFetch({ path: '/gamify/v1/dynamic', method: 'POST', data: { integration, query } });
@@ -104,8 +107,8 @@ const levelsSlice = createSlice({
                     state.levels = [data]
                 }
             })
-            .addCase(saveLevel.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(updateLevel.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            // .addCase(createLevel.fulfilled, (state) => { state.saveStatus = 'saved'; })
+            // .addCase(updateLevel.fulfilled, (state) => { state.saveStatus = 'saved'; });
     }
 });
 

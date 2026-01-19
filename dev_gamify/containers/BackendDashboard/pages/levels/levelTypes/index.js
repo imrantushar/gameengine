@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
 import {
-    fetchLevelById, saveLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
+    fetchLevelById, createLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
 } from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
 import GamifyBox from "@GFComponents/GamifyBox";
 import { Formik } from "formik";
@@ -66,7 +66,7 @@ const LevelType = () => {
             if(editId) {
                 await dispatch(updateLevel({ id: editId, data: values }))
             } else {
-                const {payload} = await dispatch(saveLevel(values));
+                const {payload} = await dispatch(createLevel(values));
                 if(payload.id) {
                     navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${payload.id}`)
                     actions.setValue(getLevelsInitialValues(payload.id, [payload]))
