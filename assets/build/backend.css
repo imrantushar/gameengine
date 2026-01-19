@@ -1007,7 +1007,7 @@ input.gamify-checkbox:checked::before {
   min-height: 30px;
   display: flex;
   align-items: center;
-  background: var(--gamify-body-background);
+  background: var(--gamify-secondary-color);
   padding-right: 16px;
 }
 .gamify-table__head-cell:nth-child(2) {
@@ -1021,7 +1021,7 @@ input.gamify-checkbox:checked::before {
 }
 .gamify-table__head-cell-checkbox {
   padding: 11px 14px;
-  background: var(--gamify-body-background);
+  background: var(--gamify-secondary-color);
 }
 .gamify-table__head-cell-checkbox input {
   width: 16px;

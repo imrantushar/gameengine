@@ -146,7 +146,7 @@
         min-height: 30px;
         display: flex;
         align-items: center;
-        background: var(--gamify-body-background);
+        background: var(--gamify-secondary-color);
         padding-right: 16px;
 
         &:nth-child(2) {
@@ -164,7 +164,7 @@
 
     &__head-cell-checkbox {
         padding: 11px 14px;
-        background: var(--gamify-body-background);
+        background: var(--gamify-secondary-color);
 
         input {
             width: 16px;

@@ -48,10 +48,6 @@ const AchievementsTable = () => {
             )
         },
         {
-            name: __('Plural Name', 'gamify'),
-            cell: (row) => row.description,
-        },
-        {
             name: __('Category', 'gamify'),
             cell: (row) => (
                 row.category ? (
