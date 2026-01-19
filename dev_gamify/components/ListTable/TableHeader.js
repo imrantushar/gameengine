@@ -1,40 +1,43 @@
 import React from 'react';
+import {
+	Table,
+	Checkbox,
+} from '@chakra-ui/react';
 
-const TableHeader = ( {
+const TableHeader = ({
 	visibleColumn,
 	isCheckboxColumnVisible,
 	copyDataArr,
 	selectAllRow,
 	data,
-} ) => {
-	const isCheckboxChecked = data.length > 0 && copyDataArr;
+}) => {
+	const isCheckboxChecked =
+		data?.length > 0 &&
+		copyDataArr?.length > 0 &&
+		copyDataArr?.every((row) => row.select);
 
 	return (
-		<div className="gamify-table__head">
-			{ isCheckboxColumnVisible && (
-				<div className="gamify-table__head-cell-checkbox">
-					<input
-						checked={
-							isCheckboxChecked &&
-							copyDataArr?.every( ( row ) => row.select )
-						}
-						type="checkbox"
-						onChange={ selectAllRow }
-					/>
-				</div>
-			) }
+		<Table.Header>
+			<Table.Row>
+				{isCheckboxColumnVisible && (
+					<Table.ColumnHeader width="40px">
+						<Checkbox
+							isChecked={isCheckboxChecked}
+							onChange={selectAllRow}
+						/>
+					</Table.ColumnHeader>
+				)}
 
-			{ visibleColumn?.map( ( column, index ) => (
-				<div
-					className={ `gamify-table__head-cell ${
-						column.isWidth ?? 'gamify-table__head-cell-width'
-					}` }
-					key={ index }
-				>
-					{ column.name }
-				</div>
-			) ) }
-		</div>
+				{visibleColumn?.map((column, index) => (
+					<Table.ColumnHeader
+						key={index}
+						width={column?.isWidth ?? 'auto'}
+					>
+						{column?.name}
+					</Table.ColumnHeader>
+				))}
+			</Table.Row>
+		</Table.Header>
 	);
 };
 

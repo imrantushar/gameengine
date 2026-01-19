@@ -8,6 +8,7 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import _ from 'lodash';
+import { Table } from '@chakra-ui/react';
 
 const propTypes = {
 	columns: PropTypes.array,
@@ -56,6 +57,28 @@ const ListTable = ( props ) => {
 		Button = false,
 		hoverAction = false,
 	} = props;
+
+	console.log({
+		columns,
+		data,
+		isRowSelectable,
+		getSelectRowValue,
+		showSubHeader,
+		subHeaderComponent,
+		showColumnFilter,
+		showPagination,
+		onChangePage,
+		onChangeItemsPerPage,
+		suffix,
+		noDataText,
+		totalItems,
+		dataFetchingStatus,
+		resetSelected,
+		currentPageNumber,
+		rowsPerPage,
+		Button,
+		hoverAction,
+	})
 
 	const bodyRef = useRef( null );
 
@@ -133,6 +156,11 @@ const ListTable = ( props ) => {
 	// Reset copyDataArr if shouldRerender is false
 	useEffect( () => {
 		if ( ! shouldRerender ) {
+			console.log({map: data?.map( ( row, index ) => ( {
+					...row,
+					rowId: `row-${ index }`,
+					select: false,
+				} ) )})
 			setCopyDataArr(
 				data?.map( ( row, index ) => ( {
 					...row,
@@ -142,9 +170,15 @@ const ListTable = ( props ) => {
 			);
 		}
 	}, [ shouldRerender, data ] );
+	console.log({shouldRerender, data})
 
 	//side effect
 	useEffect( () => {
+		console.log({set: data?.map( ( row, index ) => ( {
+					...row,
+					rowId: `row-${ index }`,
+					select: false,
+				} ) )})
 		setCopyDataArr(
 			data &&
 				data?.map( ( row, index ) => ( {
@@ -252,7 +286,7 @@ const ListTable = ( props ) => {
 			} ${ ! is_admin ? 'gamify-dashboard__content' : '' }` }
 		>
 			<div className="gamify-table__container">
-				{ showSubHeader && (
+				{/* { showSubHeader && (
 					<TableSubHeader
 						subHeaderComponent={ subHeaderComponent }
 						setTempCopyColumns={ setTempCopyColumns }
@@ -263,33 +297,31 @@ const ListTable = ( props ) => {
 						copyColumns={ copyColumns }
 						suffix={ suffix }
 					/>
-				) }
+				) } */}
 
-				<div
-					className={ `gamify-table__table ${
-						showSlider && 'gamify-table--has-slider'
-					}` }
-				>
-					<TableHeader
-						data={ data }
-						visibleColumn={ visibleColumn }
-						copyDataArr={ copyDataArr }
-						selectAllRow={ selectAllRow }
-						isCheckboxColumnVisible={ isCheckboxColumnVisible }
-					/>
-					<TableBody
-						dataFetchingStatus={ dataFetchingStatus }
-						copyDataArr={ copyDataArr }
-						visibleColumn={ visibleColumn }
-						isCheckboxColumnVisible={ isCheckboxColumnVisible }
-						selectRowChange={ selectRowChange }
-						noDataText={ noDataText }
-						button={ Button }
-						hoverAction={ hoverAction }
-						loadingHeight={ loadingHeight }
-						bodyRef={ bodyRef }
-					/>
-				</div>
+				<Table.ScrollArea maxH="500px" h={'100%'} borderWidth="1px" rounded="md" maxW="100%" marginTop={'20px'}>
+					<Table.Root>
+						<TableHeader
+							data={ data }
+							visibleColumn={ visibleColumn }
+							copyDataArr={ copyDataArr }
+							selectAllRow={ selectAllRow }
+							isCheckboxColumnVisible={ isCheckboxColumnVisible }
+						/>
+						<TableBody
+							dataFetchingStatus={ dataFetchingStatus }
+							copyDataArr={ copyDataArr }
+							visibleColumn={ visibleColumn }
+							isCheckboxColumnVisible={ isCheckboxColumnVisible }
+							selectRowChange={ selectRowChange }
+							noDataText={ noDataText }
+							button={ Button }
+							hoverAction={ hoverAction }
+							loadingHeight={ loadingHeight }
+							bodyRef={ bodyRef }
+						/>
+					</Table.Root>
+				</Table.ScrollArea>
 
 				{ showPaginationData && (
 					<TableFooter

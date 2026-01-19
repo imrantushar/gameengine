@@ -74,7 +74,6 @@ const LogsTable = ({modalOpenHandler}) => {
                                 fontSize: '12px',
                                 color: '#2f855a' // Dark Green Text
                             }}
-                            // Using dangerouslySetInnerHTML because it may contain HTML formatting from the editor
                             dangerouslySetInnerHTML={{ __html: congratsMsg }}
                         />
                     )}
@@ -101,7 +100,9 @@ const LogsTable = ({modalOpenHandler}) => {
     },
     {
         name: __('Date', 'gamify'),
-        cell: (row) => new Date(row.created_at).toLocaleString(),
+        cell: (row) => <Text>
+            {new Date(row.created_at).toLocaleString()}
+        </Text>,
     },
     {
         name: __('Status', 'gamify'),
@@ -170,7 +171,7 @@ const LogsTable = ({modalOpenHandler}) => {
         </>
     );
   }, [status, searchQuery]);
-
+console.log({items})
   return (
     <>
       {status === 'loading' && (!items || items.length === 0) ? (
@@ -192,6 +193,7 @@ const LogsTable = ({modalOpenHandler}) => {
           rowsPerPage={rowsPerPage}
           onChangePage={handlePageChange}
           onChangeItemsPerPage={handlePerPageChange}
+          suffix="logs-table"
         />
       )}
     </>

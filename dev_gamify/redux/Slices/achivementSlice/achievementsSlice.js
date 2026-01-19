@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
 // --- Async Thunks ---
-export const fetchAchievements = createAsyncThunk('achievements/fetchAll', async () => {
+export const fetchAchievements = createAsyncThunk('achievements/fetchAchievements', async () => {
     return await apiFetch({ path: '/gamify/v1/achievements' });
 });
 

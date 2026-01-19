@@ -54,7 +54,7 @@ const AchievementTypesEditor = () => {
             return;
         }
         try {
-            const action = editId ? dispatch(updateAchievement({ id: editId, data: values })) : dispatch(saveAchievement(values));
+            const action = values?.id ? dispatch(updateAchievement({ id: values.id, data: values })) : dispatch(saveAchievement(values));
             const res = dispatch(action);
             if (res.meta.requestStatus === 'fulfilled') {
                 actions.setSubmitting(false);
