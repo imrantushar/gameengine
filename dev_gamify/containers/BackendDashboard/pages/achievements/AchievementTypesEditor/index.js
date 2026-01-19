@@ -61,7 +61,7 @@ const AchievementTypesEditor = () => {
                 const { payload } = await dispatch(createAchievement(values));
                 if(payload.id) {
                     navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${payload.id}&path=achievemenxts-type`)
-                    actions.setValue(getAchivementsInitialValues(payload.id, [payload]))
+                    actions.setValues(getAchivementsInitialValues(payload.id, [payload]))
                 }
             }
             console.log({res})

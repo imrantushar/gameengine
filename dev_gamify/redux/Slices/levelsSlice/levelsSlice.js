@@ -2,7 +2,6 @@ import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 
-// --- Async Thunks ---
 export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunkAPI) => {
     try {
         const response =  await API.get(namespace + 'levels');
@@ -21,8 +20,13 @@ export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (i
     }
 });
 
-export const createLevel = createAsyncThunk('gamify/createLevel', async (data) => {
-    return await apiFetch({ path: '/gamify/v1/levels', method: 'POST', data });
+export const createLevel = createAsyncThunk('gamify/createLevel', async (payload, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'levels/', {...payload});
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, data }) => {
@@ -112,7 +116,9 @@ const levelsSlice = createSlice({
                     state.levels = [data]
                 }
             })
-            // .addCase(createLevel.fulfilled, (state) => { state.saveStatus = 'saved'; })
+            .addCase(createLevel.fulfilled, (state, {payload}) => { 
+                state.levels = [payload, ...state.levels]
+            })
             // .addCase(updateLevel.fulfilled, (state) => { state.saveStatus = 'saved'; });
     }
 });

@@ -47,10 +47,6 @@ const LevelType = () => {
         })()
     }, [editId, exitstignItem]);
 
-    // useEffect(() => { 
-    //     if (congratulationsMessage) setMessage(congratulationsMessage); 
-    // }, [congratulationsMessage]);
-
     const onSubmiHandler = async (values, actions) => {
         if (!values?.title) {
             dispatch(showNotification({
@@ -67,9 +63,9 @@ const LevelType = () => {
                 await dispatch(updateLevel({ id: editId, data: values }))
             } else {
                 const {payload} = await dispatch(createLevel(values));
-                if(payload.id) {
-                    navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${payload.id}`)
-                    actions.setValue(getLevelsInitialValues(payload.id, [payload]))
+                if(payload?.id) {
+                    navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${payload?.id}`)
+                    actions.setValues(getLevelsInitialValues(payload?.id, [payload]))
                 }
             }
         } catch (error) {
