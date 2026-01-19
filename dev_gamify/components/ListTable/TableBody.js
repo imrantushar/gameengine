@@ -23,7 +23,6 @@ const TableBody = ({
 	hoverAction,
 }) => {
 	const isLoading = dataFetchingStatus || !copyDataArr;
-	console.log({copyDataArr,visibleColumn, isLoading})
 
 	if (isLoading) {
 		return (
@@ -74,15 +73,21 @@ const TableBody = ({
 						>
 							{isCheckboxColumnVisible && (
 								<Table.Cell width="40px">
-									<Checkbox
-										isChecked={row.select}
-										onChange={(e) =>
+									<Checkbox.Root
+										size="sm"
+										mt="0.5"
+										aria-label="Select row"
+										checked={row.select}
+										onCheckedChange={(changes) => 
 											selectRowChange({
 												row,
-												select: e.target.checked,
+												select: changes.checked,
 											})
 										}
-									/>
+									>
+										<Checkbox.HiddenInput />
+										<Checkbox.Control />
+									</Checkbox.Root>
 								</Table.Cell>
 							)}
 

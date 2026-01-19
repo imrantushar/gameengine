@@ -171,7 +171,7 @@ const LogsTable = ({modalOpenHandler}) => {
         </>
     );
   }, [status, searchQuery]);
-console.log({items})
+  
   return (
     <>
       {status === 'loading' && (!items || items.length === 0) ? (

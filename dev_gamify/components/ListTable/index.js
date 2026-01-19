@@ -58,35 +58,13 @@ const ListTable = ( props ) => {
 		hoverAction = false,
 	} = props;
 
-	console.log({
-		columns,
-		data,
-		isRowSelectable,
-		getSelectRowValue,
-		showSubHeader,
-		subHeaderComponent,
-		showColumnFilter,
-		showPagination,
-		onChangePage,
-		onChangeItemsPerPage,
-		suffix,
-		noDataText,
-		totalItems,
-		dataFetchingStatus,
-		resetSelected,
-		currentPageNumber,
-		rowsPerPage,
-		Button,
-		hoverAction,
-	})
-
 	const bodyRef = useRef( null );
 
 	// ListTable state
 	// eslint-disable-next-line
 	const [isRowsPerPage, setIsRowsPerPage] = useState('10');
 	const [ loadingHeight, setLoadingHeight ] = useState( '0px' );
-	const [ copyDataArr, setCopyDataArr ] = useState( false );
+	const [ copyDataArr, setCopyDataArr ] = useState( [] );
 	const [ copyColumns, setCopyColumns ] = useState(
 		columns?.map( ( copyColumn, index ) => ( {
 			...copyColumn,
@@ -116,11 +94,11 @@ const ListTable = ( props ) => {
 		setCopyDataArr( updatedDataArr );
 	};
 
-	const selectAllRow = ( event ) =>
+	const selectAllRow = ( changes ) =>
 		setCopyDataArr( ( prev ) =>
 			prev.map( ( prevData ) => ( {
 				...prevData,
-				select: event.target.checked,
+				select: changes.checked,
 			} ) )
 		);
 
@@ -156,11 +134,6 @@ const ListTable = ( props ) => {
 	// Reset copyDataArr if shouldRerender is false
 	useEffect( () => {
 		if ( ! shouldRerender ) {
-			console.log({map: data?.map( ( row, index ) => ( {
-					...row,
-					rowId: `row-${ index }`,
-					select: false,
-				} ) )})
 			setCopyDataArr(
 				data?.map( ( row, index ) => ( {
 					...row,
@@ -170,15 +143,9 @@ const ListTable = ( props ) => {
 			);
 		}
 	}, [ shouldRerender, data ] );
-	console.log({shouldRerender, data})
 
 	//side effect
 	useEffect( () => {
-		console.log({set: data?.map( ( row, index ) => ( {
-					...row,
-					rowId: `row-${ index }`,
-					select: false,
-				} ) )})
 		setCopyDataArr(
 			data &&
 				data?.map( ( row, index ) => ( {
@@ -286,7 +253,7 @@ const ListTable = ( props ) => {
 			} ${ ! is_admin ? 'gamify-dashboard__content' : '' }` }
 		>
 			<div className="gamify-table__container">
-				{/* { showSubHeader && (
+				{ showSubHeader && (
 					<TableSubHeader
 						subHeaderComponent={ subHeaderComponent }
 						setTempCopyColumns={ setTempCopyColumns }
@@ -297,7 +264,7 @@ const ListTable = ( props ) => {
 						copyColumns={ copyColumns }
 						suffix={ suffix }
 					/>
-				) } */}
+				) }
 
 				<Table.ScrollArea maxH="500px" h={'100%'} borderWidth="1px" rounded="md" maxW="100%" marginTop={'20px'}>
 					<Table.Root>

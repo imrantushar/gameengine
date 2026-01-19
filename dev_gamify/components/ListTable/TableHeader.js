@@ -21,10 +21,16 @@ const TableHeader = ({
 			<Table.Row>
 				{isCheckboxColumnVisible && (
 					<Table.ColumnHeader width="40px">
-						<Checkbox
-							isChecked={isCheckboxChecked}
-							onChange={selectAllRow}
-						/>
+						<Checkbox.Root
+							size="sm"
+							mt="0.5"
+							aria-label="Select row"
+							checked={isCheckboxChecked}
+							onCheckedChange={selectAllRow}
+						>
+							<Checkbox.HiddenInput />
+							<Checkbox.Control />
+						</Checkbox.Root>
 					</Table.ColumnHeader>
 				)}
 
