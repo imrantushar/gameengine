@@ -50,9 +50,27 @@ export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, p
     }
 });
 
-export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id) => {
-    await apiFetch({ path: `/gamify/v1/levels/${id}`, method: 'DELETE' });
-    return id;
+export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id, thunkAPI) => {
+    try {
+        await API.post(namespace + 'levels/' + id,
+            { force: false },
+            {
+                headers: {
+                    'X-HTTP-Method-Override': 'DELETE',
+                },
+            }
+        );
+    
+        thunkAPI.dispatch(showNotification({
+            message: __('Level deleted successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
+    
+        return id;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const fetchLevelTriggers = createAsyncThunk('gamify/fetchLevelTriggers',
@@ -143,6 +161,9 @@ const levelsSlice = createSlice({
                     }
                     return item;
                 }) 
+            })
+            .addCase(deleteLevel.fulfilled, (state, {payload}) => { 
+                state.levels = state.levels.filter(item => Number(item.id) !== Number(payload)) 
             });
     }
 });
