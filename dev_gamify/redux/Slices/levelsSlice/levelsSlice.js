@@ -1,6 +1,8 @@
 import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
+import { showNotification } from '../notificationSlice/notificationSlice';
+import { __ } from '@wordpress/i18n';
 
 export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunkAPI) => {
     try {
@@ -23,14 +25,29 @@ export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (i
 export const createLevel = createAsyncThunk('gamify/createLevel', async (payload, thunkAPI) => {
     try {
         const response =  await API.post(namespace + 'levels/', {...payload});
+        thunkAPI.dispatch(showNotification({
+            message: __('Level create successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
         return response.data;
     } catch (error) {
         return handleSliceError(thunkAPI, error)
     }
 });
 
-export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, data }) => {
-    return await apiFetch({ path: `/gamify/v1/levels/${id}`, method: 'PUT', data });
+export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, payload }, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'levels/' + id, {...payload});
+        thunkAPI.dispatch(showNotification({
+            message: __('Level update successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id) => {
@@ -119,7 +136,14 @@ const levelsSlice = createSlice({
             .addCase(createLevel.fulfilled, (state, {payload}) => { 
                 state.levels = [payload, ...state.levels]
             })
-            // .addCase(updateLevel.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(updateLevel.fulfilled, (state,{payload}) => { 
+                state.levels = state.levels.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            });
     }
 });
 
