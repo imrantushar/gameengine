@@ -2,20 +2,29 @@
 
 namespace Gamify\Core;
 
-if (! defined('ABSPATH')) exit;
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 /**
- * Defines the database schema for the Gamify plugin.
+ * Class Schema
+ * Defines the database table structures for the Gamify plugin.
  */
 final class Schema
 {
+
+    /**
+     * Returns an array of SQL statements to create all plugin tables.
+     *
+     * @return array
+     */
     public static function get_tables()
     {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
-        $prefix = $wpdb->prefix;
+        $prefix          = $wpdb->prefix;
 
-        return [
+        return array(
             self::get_point_types_table_schema($prefix, $charset_collate),
             self::get_achievements_table_schema($prefix, $charset_collate),
             self::get_levels_table_schema($prefix, $charset_collate),
@@ -25,7 +34,7 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
-        ];
+        );
     }
 
     private static function get_point_types_table_schema($prefix, $charset_collate)
@@ -53,9 +62,9 @@ final class Schema
             secret_achievement TINYINT(1) DEFAULT 0,
             max_earnings_per_user INT(11) DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
+            is_restricted TINYINT(1) DEFAULT 0,
             required_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_points_amount INT(11) DEFAULT 0,
-            -- Restrict Unlock Fields
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
             restriction_message TEXT DEFAULT NULL,
@@ -78,11 +87,11 @@ final class Schema
             category VARCHAR(255) DEFAULT NULL,
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
+            is_restricted TINYINT(1) DEFAULT 0,
             point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
             min_points INT(11) DEFAULT 0,
             max_points INT(11) DEFAULT 0,
             congratulations_message TEXT DEFAULT NULL,
-            -- Restrict Unlock Fields
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
             restriction_message TEXT DEFAULT NULL,
