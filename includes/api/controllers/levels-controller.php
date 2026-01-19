@@ -167,6 +167,13 @@ class LevelsController extends BaseController
     {
         global $wpdb;
         $params = $request->get_json_params();
+        if ( empty( $params['title'] ) ) {
+            return new \WP_Error( 
+                'missing_data', 
+                __( 'Level Name (title) is required.', 'gamify' ), 
+                array( 'status' => 400 ) 
+            );
+        }
         $table  = "{$wpdb->prefix}gamify_levels";
 
         $data = array(
