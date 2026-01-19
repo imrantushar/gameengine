@@ -12,8 +12,13 @@ export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunk
     }
 });
 
-export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (id) => {
-    return await apiFetch({ path: `/gamify/v1/levels/${id}` });
+export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (id, thunkAPI) => {
+    try {
+        const response =  await API.get(namespace + 'levels/' + id);
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
 export const createLevel = createAsyncThunk('gamify/createLevel', async (data) => {
