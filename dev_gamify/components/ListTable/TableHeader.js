@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-	Table,
-	Checkbox,
-} from '@chakra-ui/react';
+import { Table, Checkbox } from '@chakra-ui/react';
 
 const TableHeader = ({
 	visibleColumn,
@@ -17,7 +14,7 @@ const TableHeader = ({
 		copyDataArr?.every((row) => row.select);
 
 	return (
-		<Table.Header>
+		<Table.Header bg="var(--gamify-secondary-color)">
 			<Table.Row>
 				{isCheckboxColumnVisible && (
 					<Table.ColumnHeader width="40px">
@@ -35,9 +32,12 @@ const TableHeader = ({
 				)}
 
 				{visibleColumn?.map((column, index) => (
-					<Table.ColumnHeader
-						key={index}
-						width={column?.isWidth ?? 'auto'}
+					<Table.ColumnHeader 
+						key={index} 
+						minW={column?.columnWidth ? column?.columnWidth : "auto"} 
+						maxW={column?.columnWidth ? column?.columnWidth : "auto"} 
+						w={column?.columnWidth ? column?.columnWidth : "auto"} 
+						textAlign={column?.textAlign ? column?.textAlign : "center"}
 					>
 						{column?.name}
 					</Table.ColumnHeader>

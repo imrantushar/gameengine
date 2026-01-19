@@ -51,7 +51,9 @@ const AchievementsTable = () => {
                     {row?.badge_image && <img src={row?.badge_image} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
                     <span style={{ fontWeight: 500 }}>{row?.title}</span>
                 </div>
-            )
+            ),
+            columnWidth: "180px",
+            textAlign: "start",
         },
         {
             name: __('Category', 'gamify'),
@@ -90,6 +92,7 @@ const AchievementsTable = () => {
                     ]}
                 />
             ),
+            textAlign: "end",
         },
     ];
 

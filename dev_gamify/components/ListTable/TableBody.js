@@ -1,12 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import {
-	Table,
-	Checkbox,
-	Box,
-	Flex,
-} from '@chakra-ui/react';
-
+import { Table, Checkbox, Box, Flex } from '@chakra-ui/react';
 import Preloader from '@GFComponents/Loader/Preloader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
@@ -20,7 +14,6 @@ const TableBody = ({
 	loadingHeight,
 	bodyRef,
 	button,
-	hoverAction,
 }) => {
 	const isLoading = dataFetchingStatus || !copyDataArr;
 
@@ -37,18 +30,6 @@ const TableBody = ({
 		);
 	}
 
-	if (copyDataArr.length === 0) {
-		return (
-			<Box ref={bodyRef}>
-				<CustomTableMessage
-					title={__('No Data Available!!!', 'gamify')}
-					subText={noDataText}
-					button={button}
-				/>
-			</Box>
-		);
-	}
-
 	if (visibleColumn.length === 0) {
 		return (
 			<Box ref={bodyRef}>
@@ -60,78 +41,47 @@ const TableBody = ({
 	}
 
 	return (
-				<Table.Body ref={bodyRef}>
-					{copyDataArr.length > 0 && copyDataArr.map((row, rowIndex) => (
-						<Table.Row
-							key={rowIndex}
-							role="group"
-							_hover={
-								hoverAction
-									? { bg: 'gray.50' }
-									: undefined
-							}
-						>
-							{isCheckboxColumnVisible && (
-								<Table.Cell width="40px">
-									<Checkbox.Root
-										size="sm"
-										mt="0.5"
-										aria-label="Select row"
-										checked={row.select}
-										onCheckedChange={(changes) => 
-											selectRowChange({
-												row,
-												select: changes.checked,
-											})
-										}
-									>
-										<Checkbox.HiddenInput />
-										<Checkbox.Control />
-									</Checkbox.Root>
-								</Table.Cell>
-							)}
+		<Table.Body ref={bodyRef}>
+			{copyDataArr.length > 0 && copyDataArr.map((row, rowIndex) => (
+				<Table.Row
+					key={rowIndex}
+					role="group"
+					borderBottomWidth="1px" borderColor="var(--gamify-border-color)"
+				>
+					{isCheckboxColumnVisible && (
+						<Table.Cell width="40px">
+							<Checkbox.Root
+								size="sm"
+								mt="0.5"
+								aria-label="Select row"
+								checked={row.select}
+								onCheckedChange={(changes) =>
+									selectRowChange({
+										row,
+										select: changes.checked,
+									})
+								}
+							>
+								<Checkbox.HiddenInput />
+								<Checkbox.Control />
+							</Checkbox.Root>
+						</Table.Cell>
+					)}
 
-							{visibleColumn.map(
-								(column, columnIndex) => (
-									<Table.Cell
-										key={columnIndex}
-										position="relative"
-										width={
-											column?.isWidth ??
-											'auto'
-										}
-									>
-										{column?.cell(
-											row,
-											rowIndex
-										)}
-
-										{columnIndex === 0 &&
-											hoverAction &&
-											typeof hoverAction.cell ===
-												'function' && (
-												<Box
-													position="absolute"
-													right="8px"
-													top="50%"
-													transform="translateY(-50%)"
-													opacity={0}
-													_groupHover={{
-														opacity: 1,
-													}}
-												>
-													{hoverAction.cell(
-														row,
-														rowIndex
-													)}
-												</Box>
-											)}
-									</Table.Cell>
-								)
-							)}
-						</Table.Row>
-					))}
-				</Table.Body>
+					{visibleColumn.map(
+						(column, columnIndex) => (
+							<Table.Cell
+								key={columnIndex}
+								position="relative"
+								textAlign={column?.textAlign ? column?.textAlign : "center"}
+							>
+								{column?.cell(row, rowIndex)}
+							</Table.Cell>
+						)
+					)}
+				</Table.Row>
+			))}
+		</Table.Body>
 	);
 };
 
