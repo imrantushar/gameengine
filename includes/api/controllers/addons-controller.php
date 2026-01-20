@@ -122,6 +122,13 @@ class AddonsController extends BaseController
                 'icon'   => 'dashicons-location-alt',
                 'active' => in_array('progress_map', $active_addons, true),
             ),
+            array(
+                'slug'   => 'restrict_content',
+                'name'   => __('Restrict Content', 'gamify'),
+                'desc'   => __('Lock specific posts, pages, images or links based on points and badges.', 'gamify'),
+                'icon'   => 'dashicons-visibility',
+                'active' => in_array('restrict_content', $active_addons, true),
+            ),
         );
 
         return new \WP_REST_Response($addons, 200);
