@@ -36,6 +36,7 @@ const PointTypesTable = () => {
           <span style={{cursor: "pointer"}} onClick={() => navigate(`${route_path}admin.php?page=gamify-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
         </>
       ),
+      textAlign: "start",
     },
     {
       name: __('Date', 'gamify'),
@@ -62,6 +63,7 @@ const PointTypesTable = () => {
           ]}
         />
       ),
+      textAlign: "end",
     },
   ];
 

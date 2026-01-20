@@ -4,15 +4,10 @@
     border: 1px solid var(--gamify-border-color) !important;
     cursor: pointer;
     background: transparent;
-    padding: 5px 12px !important;
+    padding: 0px 4px !important;
     &:focus, &:hover {
         background: var(--gamify-secondary-color);
         color: none;
-    }
-
-    svg {
-        height: 16px;
-        pointer-events: none;
     }
 
     &__lists {

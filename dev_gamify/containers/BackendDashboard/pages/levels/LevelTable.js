@@ -39,7 +39,8 @@ const LevelTable = () => {
                     {row.icon && <img src={row.icon} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
                     <span style={{ fontWeight: 500 }}>{row.title}</span>
                 </div>
-            )
+            ),
+            textAlign: "start",
         },
         {
             name: __('Category', 'gamify'),
@@ -82,6 +83,7 @@ const LevelTable = () => {
                     },
                 ]} />
             ),
+            textAlign: "end",
         },
     ];
 
