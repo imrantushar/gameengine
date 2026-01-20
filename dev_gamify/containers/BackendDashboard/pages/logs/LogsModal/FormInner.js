@@ -19,7 +19,8 @@ const FormInner = () => {
             ...userOptions,
             isLoading: true
         })
-        const params = searchKey ? `?search=${searchKey}` : "";
+        let params = "";
+        if(searchKey) params += `?search=${searchKey}`;
         const response =  await API.get(namespace + 'actions/users' + params);
         setUserOptins({
             isLoading: false,
@@ -49,10 +50,8 @@ const FormInner = () => {
                         )
                     }
                     onMenuOpen={fetchUserOptions}
-                    const handleInputChange={(inputValue, { action }) => {
-                        if (action === 'input-change') {
-                            fetchUserOptions(inputValue);
-                        }
+                    onInputChange={(inputValue) => {
+                        fetchUserOptions(inputValue);
                         return inputValue;
                     }}
                     isDisabled={values?.id}
