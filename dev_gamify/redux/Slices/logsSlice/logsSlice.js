@@ -25,31 +25,25 @@ export const fetchLogs = createAsyncThunk('gamify/fetchLogs',
     }
 );
 
-// --- 2. Manual Action Trigger (Create) ---
-export const manualLogAction = createAsyncThunk('gamify/manualAction',
-    async (formData, { rejectWithValue, dispatch }) => {
+export const createLogAction = createAsyncThunk('gamify/createLogAction',
+    async (payload, thunkAPI) => {
         try {
-            const response = await apiFetch({
-                path: '/gamify/v1/actions/manual',
-                method: 'POST',
-                data: formData
-            });
-            dispatch(showNotification({
+            const response =  await API.post(namespace + 'actions/manual', {...payload});
+            thunkAPI.dispatch(showNotification({
                 message: __('Log created successfully!', 'gamify'),
                 isShow: true,
                 type: 'success',
             }))
-            // dispatch(fetchLogs({ page: 1, per_page: 10 }));
-            return response;
+            return response.data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
 
-// --- 3. Update Log Action (NEW) ---
-export const updateLogAction = createAsyncThunk('gamify/updateLog',
-    async (data , { rejectWithValue, dispatch }) => {
+export const updateLogAction = createAsyncThunk('gamify/updateLogAction',
+    async (data , thunkAPI) => {
         try {
             const response = await apiFetch({
                 path: `/gamify/v1/logs/${data?.id}`,
@@ -78,8 +72,8 @@ const logsSlice = createSlice({
         items: [],
         totalItems: 0,
         currentPage: 1,
-        rowsPerPage: 10,
-        searchQuery: '',
+        perPage: 10,
+        search: '',
         status: 'idle',
         actionStatus: 'idle',
         error: null,
@@ -92,20 +86,14 @@ const logsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch Logs
             .addCase(fetchLogs.fulfilled, (state, {payload}) => {
                 state.items = payload.data;
                 state.totalItems = payload.total;
-                state.page = payload.page;
-                state.per_page = payload.per_page;
+                state.currentPage = payload.page;
+                state.perPage = payload.per_page;
             })
-
-            // Manual & Update Actions (Share same loading logic)
-            .addCase(manualLogAction.pending, (state) => { state.actionStatus = 'loading'; })
-            .addCase(manualLogAction.fulfilled, (state) => { state.actionStatus = 'succeeded'; })
-            .addCase(manualLogAction.rejected, (state, action) => {
-                state.actionStatus = 'failed';
-                state.error = action.payload;
+            .addCase(createLogAction.fulfilled, (state) => { 
+                state.items = [payload, ...state.items];
             })
 
             .addCase(updateLogAction.pending, (state) => { state.actionStatus = 'loading'; })
