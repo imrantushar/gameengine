@@ -161,6 +161,27 @@
 .gamify-type-badge.level { background: #fff4e6; color: #f76707; }
 .gamify-type-badge.achievement { background: #e7f5ff; color: #1c7ed6; }
 
+.gamify-content-lock {
+    background: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.gamify-content-lock .lock-icon {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+.gamify-content-lock .lock-text {
+    font-size: 16px;
+    color: #475569;
+    font-weight: 600;
+    margin: 0;
+}
+
 /* --- 5. RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
     .gamify-v3-main { flex-direction: column; }
