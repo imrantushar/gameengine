@@ -2,26 +2,31 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 import { showNotification } from '../notificationSlice/notificationSlice';
 import { __ } from '@wordpress/i18n';
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 
 // --- 1. Fetch Logs ---
-export const fetchLogs = createAsyncThunk(
-    'logs/fetchLogs',
-    async ({ page, per_page, search = '' }, { rejectWithValue }) => {
+export const fetchLogs = createAsyncThunk('gamify/fetchLogs',
+    async ({ page=1, per_page=10, search = '' }, thunkAPI) => {
         try {
-            const path = `/gamify/v1/logs?page=${page}&per_page=${per_page}&search=${search}`;
-            const response = await apiFetch({ path, parse: false });
-            const total = response.headers.get('X-WP-Total');
-            const data = await response.json();
-            return { data, total: parseInt(total || 0, 10) };
+            let params = '?page=' + page;
+            if(per_page) params += '?per_page=' + per_page;
+            if(search) params += '?search=' + search;
+            const response =  await API.get(namespace + 'logs' + params);
+            return { 
+                data: response?.data, 
+                total: response.headers.get('X-WP-Total'),
+                page, 
+                per_page
+            };
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
 
 // --- 2. Manual Action Trigger (Create) ---
-export const manualLogAction = createAsyncThunk(
-    'logs/manualAction',
+export const manualLogAction = createAsyncThunk('gamify/manualAction',
     async (formData, { rejectWithValue, dispatch }) => {
         try {
             const response = await apiFetch({
@@ -34,7 +39,7 @@ export const manualLogAction = createAsyncThunk(
                 isShow: true,
                 type: 'success',
             }))
-            dispatch(fetchLogs({ page: 1, per_page: 10 }));
+            // dispatch(fetchLogs({ page: 1, per_page: 10 }));
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -43,8 +48,7 @@ export const manualLogAction = createAsyncThunk(
 );
 
 // --- 3. Update Log Action (NEW) ---
-export const updateLogAction = createAsyncThunk(
-    'logs/updateLog',
+export const updateLogAction = createAsyncThunk('gamify/updateLog',
     async (data , { rejectWithValue, dispatch }) => {
         try {
             const response = await apiFetch({
@@ -59,7 +63,7 @@ export const updateLogAction = createAsyncThunk(
             }))
 
             // Refresh logs to reflect changes
-            dispatch(fetchLogs({ page: 1, per_page: 10 }));
+            // dispatch(fetchLogs({ page: 1, per_page: 10 }));
 
             return response;
         } catch (error) {
@@ -89,15 +93,11 @@ const logsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // Fetch Logs
-            .addCase(fetchLogs.pending, (state) => { state.status = 'loading'; })
-            .addCase(fetchLogs.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.items = action.payload.data;
-                state.totalItems = action.payload.total;
-            })
-            .addCase(fetchLogs.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload;
+            .addCase(fetchLogs.fulfilled, (state, {payload}) => {
+                state.items = payload.data;
+                state.totalItems = payload.total;
+                state.page = payload.page;
+                state.per_page = payload.per_page;
             })
 
             // Manual & Update Actions (Share same loading logic)
