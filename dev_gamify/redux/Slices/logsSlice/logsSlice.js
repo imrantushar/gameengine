@@ -34,7 +34,7 @@ export const createLogAction = createAsyncThunk('gamify/createLogAction',
                 isShow: true,
                 type: 'success',
             }))
-            return response.data;
+            return response;
         } catch (error) {
             handleSliceError(thunkAPI, error)
             return thunkAPI.rejectWithValue(error.message);
@@ -43,25 +43,18 @@ export const createLogAction = createAsyncThunk('gamify/createLogAction',
 );
 
 export const updateLogAction = createAsyncThunk('gamify/updateLogAction',
-    async (data , thunkAPI) => {
+    async (payload , thunkAPI) => {
         try {
-            const response = await apiFetch({
-                path: `/gamify/v1/logs/${data?.id}`,
-                method: 'PUT', // or PATCH
-                data: data
-            });
-            dispatch(showNotification({
+            const response =  await API.post(namespace + 'logs/' + payload.id, {...payload});
+            thunkAPI.dispatch(showNotification({
                 message: __('Log updated successfully!', 'gamify'),
                 isShow: true,
                 type: 'success',
             }))
-
-            // Refresh logs to reflect changes
-            // dispatch(fetchLogs({ page: 1, per_page: 10 }));
-
-            return response;
+            return payload;
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
@@ -92,15 +85,16 @@ const logsSlice = createSlice({
                 state.currentPage = payload.page;
                 state.perPage = payload.per_page;
             })
-            .addCase(createLogAction.fulfilled, (state) => { 
+            .addCase(createLogAction.fulfilled, (state, {payload}) => { 
                 state.items = [payload, ...state.items];
             })
-
-            .addCase(updateLogAction.pending, (state) => { state.actionStatus = 'loading'; })
-            .addCase(updateLogAction.fulfilled, (state) => { state.actionStatus = 'succeeded'; })
-            .addCase(updateLogAction.rejected, (state, action) => {
-                state.actionStatus = 'failed';
-                state.error = action.payload;
+            .addCase(updateLogAction.fulfilled, (state, {payload}) => { 
+                state.items = state.items.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
             });
     },
 });
