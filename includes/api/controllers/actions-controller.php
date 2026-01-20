@@ -97,6 +97,7 @@ class ActionsController extends BaseController
         return new \WP_REST_Response($response, 200);
     }
 
+
     /**
      * Process manual point adjustment or schedule it for later.
      *
