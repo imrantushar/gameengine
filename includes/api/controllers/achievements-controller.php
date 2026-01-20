@@ -169,6 +169,13 @@ class AchievementsController extends BaseController
     {
         global $wpdb;
         $params = $request->get_json_params();
+        if ( empty( $params['title'] ) ) {
+            return new \WP_Error( 
+                'missing_data', 
+                __( 'Achievement Title is required.', 'gamify' ), 
+                array( 'status' => 400 ) 
+            );
+        }
         $table  = "{$wpdb->prefix}gamify_achievements";
 
         $data = array(
