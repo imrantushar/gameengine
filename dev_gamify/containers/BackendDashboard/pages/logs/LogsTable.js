@@ -14,24 +14,24 @@ const LogsTable = ({ modalOpenHandler }) => {
         items,
         totalItems,
         currentPage,
-        rowsPerPage,
-        searchQuery,
+        perPage,
+        search,
         status
     } = useSelector((state) => state.logs);
 
-    useEffect(() => {
-        dispatch(fetchLogs({ page: currentPage, per_page: rowsPerPage, search: searchQuery }));
-    }, [dispatch, currentPage, rowsPerPage, searchQuery]);
 
-    const handlePageChange = (newPage) => dispatch(setPage(newPage));
-
-    const handlePerPageChange = (newLimit) => {
-        dispatch(setRowsPerPage(newLimit));
-        dispatch(setPage(1));
+    const handleRefresh = (page = 1, per_page = 10, serchKey = "") => {
+        dispatch(fetchLogs({ page, per_page, search: serchKey }));
     };
 
-    const handleRefresh = () => {
-        dispatch(fetchLogs({ page: currentPage, per_page: rowsPerPage, search: searchQuery }));
+    useEffect(() => {
+        handleRefresh()
+    }, []);
+
+    const handlePageChange = (newPage) => handleRefresh(newPage, perPage);
+
+    const handlePerPageChange = (itemsPerPage) => {
+        handleRefresh(currentPage, itemsPerPage)
     };
 
     const columns = useMemo(() => [
@@ -171,7 +171,7 @@ const LogsTable = ({ modalOpenHandler }) => {
 
                 <Search
                     placeholder={__('Search Items', 'gamify')}
-                    defaultValue={searchQuery}
+                    defaultValue={search}
                     onSearchHandler={(val) => {
                         dispatch(setSearchQuery(val));
                         dispatch(setPage(1));
@@ -179,7 +179,7 @@ const LogsTable = ({ modalOpenHandler }) => {
                 />
             </>
         );
-    }, [status, searchQuery]);
+    }, [status, search]);
 
     return (
         <>
@@ -196,10 +196,10 @@ const LogsTable = ({ modalOpenHandler }) => {
                     subHeaderComponent={subHeaderComponentMemo}
                     showColumnFilter={false}
                     showPagination={true}
-                    noDataText="No logs found"
+                    noDataText={__("No logs found", "gamify")}
                     totalItems={totalItems}
                     currentPageNumber={currentPage}
-                    rowsPerPage={rowsPerPage}
+                    perPage={perPage}
                     onChangePage={handlePageChange}
                     onChangeItemsPerPage={handlePerPageChange}
                     suffix="logs-table"

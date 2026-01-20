@@ -34,7 +34,7 @@ export const createLogAction = createAsyncThunk('gamify/createLogAction',
                 isShow: true,
                 type: 'success',
             }))
-            return response;
+            return response.data;
         } catch (error) {
             handleSliceError(thunkAPI, error)
             return thunkAPI.rejectWithValue(error.message);
