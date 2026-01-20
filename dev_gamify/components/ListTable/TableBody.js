@@ -1,10 +1,10 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-
+import { Table, Checkbox, Box, Flex } from '@chakra-ui/react';
 import Preloader from '@GFComponents/Loader/Preloader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
-const TableBody = ( {
+const TableBody = ({
 	dataFetchingStatus,
 	copyDataArr,
 	visibleColumn,
@@ -14,111 +14,74 @@ const TableBody = ( {
 	loadingHeight,
 	bodyRef,
 	button,
-	hoverAction,
-} ) => {
-	const isLoading = dataFetchingStatus || ! copyDataArr;
+}) => {
+	const isLoading = dataFetchingStatus || !copyDataArr;
+
+	if (isLoading) {
+		return (
+			<Flex
+				minH={loadingHeight}
+				align="center"
+				justify="center"
+				ref={bodyRef}
+			>
+				<Preloader />
+			</Flex>
+		);
+	}
+
+	if (visibleColumn.length === 0) {
+		return (
+			<Box ref={bodyRef}>
+				<CustomTableMessage
+					title={__('No visible columns available!!', 'gamify')}
+				/>
+			</Box>
+		);
+	}
 
 	return (
-		<div className="gamify-table__body-wrap" ref={ bodyRef }>
-			{ isLoading ? (
-				<div
-					className="gamify-table__loader"
-					style={ { minHeight: loadingHeight } }
+		<Table.Body ref={bodyRef}>
+			{copyDataArr.length > 0 && copyDataArr.map((row, rowIndex) => (
+				<Table.Row
+					key={rowIndex}
+					role="group"
+					borderBottomWidth="1px" borderColor="var(--gamify-border-color)"
 				>
-					<Preloader />
-				</div>
-			) : (
-				<>
-					{ copyDataArr?.length > 0 ? (
-						<>
-							{ copyDataArr?.map( ( row, index ) => (
-								<div
-									key={ index }
-									className={ `gamify-table__body-row-wrap ${
-										hoverAction
-											? 'gamify-table__body-row-hovered'
-											: ''
-									}` }
-								>
-									{ isCheckboxColumnVisible && (
-										<div className="gamify-table__row-cell gamify-table__row-cell-checkbox ">
-											<input
-												type="checkbox"
-												checked={ row.select }
-												onChange={ ( event ) =>
-													selectRowChange( {
-														row,
-														select: event.target
-															.checked,
-													} )
-												}
-											/>
-										</div>
-									) }
-									{ visibleColumn.length > 0 ? (
-										<>
-											{ visibleColumn?.map(
-												(
-													copyColumn,
-													copyColumnIndex
-												) => (
-													<>
-														<div
-															className={ `gamify-table__body-row-cell ${
-																hoverAction
-																	? 'gamify-table__row-cell-hovered'
-																	: ''
-															} ${
-																copyColumn.isWidth ??
-																'gamify-table__body-row-cell-width'
-															}` }
-															key={
-																copyColumnIndex
-															}
-														>
-															{ copyColumn?.cell(
-																row,
-																index
-															) }
+					{isCheckboxColumnVisible && (
+						<Table.Cell width="40px">
+							<Checkbox.Root
+								size="sm"
+								mt="0.5"
+								aria-label="Select row"
+								checked={row.select}
+								onCheckedChange={(changes) =>
+									selectRowChange({
+										row,
+										select: changes.checked,
+									})
+								}
+							>
+								<Checkbox.HiddenInput />
+								<Checkbox.Control />
+							</Checkbox.Root>
+						</Table.Cell>
+					)}
 
-															{ copyColumnIndex ===
-																0 &&
-																hoverAction &&
-																typeof hoverAction.cell ===
-																	'function' && (
-																	<span className="gamify-table__hover-action">
-																		{ hoverAction.cell(
-																			row,
-																			index
-																		) }
-																	</span>
-																) }
-														</div>
-													</>
-												)
-											) }
-										</>
-									) : (
-										<CustomTableMessage
-											title={ __(
-												'No visible columns available!!',
-												'gamify'
-											) }
-										/>
-									) }
-								</div>
-							) ) }
-						</>
-					) : (
-						<CustomTableMessage
-							title={ __( 'No Data Available!!!', 'gamify' ) }
-							subText={ noDataText }
-							button={ button }
-						/>
-					) }
-				</>
-			) }
-		</div>
+					{visibleColumn.map(
+						(column, columnIndex) => (
+							<Table.Cell
+								key={columnIndex}
+								position="relative"
+								textAlign={column?.textAlign ? column?.textAlign : "center"}
+							>
+								{column?.cell(row, rowIndex)}
+							</Table.Cell>
+						)
+					)}
+				</Table.Row>
+			))}
+		</Table.Body>
 	);
 };
 

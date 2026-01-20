@@ -1,37 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
-import { is_admin } from '@GFUtils/helper';
-import PropTypes from 'prop-types';
-// component
 import TableSubHeader from './TableSubHeader';
 import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import _ from 'lodash';
+import { Table } from '@chakra-ui/react';
+import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 
-const propTypes = {
-	columns: PropTypes.array,
-	data: PropTypes.array,
-	isRowSelectable: PropTypes.bool,
-	getSelectRowValue: PropTypes.func,
-	showSubHeader: PropTypes.bool,
-	subHeaderComponent: PropTypes.func,
-	showColumnFilter: PropTypes.bool,
-	showPagination: PropTypes.bool,
-	onChangePage: PropTypes.func,
-	onChangeItemsPerPage: PropTypes.func,
-	suffix: PropTypes.string,
-	noDataText: PropTypes.string,
-	currentPageNumber: PropTypes.number,
-	totalItems: PropTypes.number,
-	dataFetchingStatus: PropTypes.bool,
-	resetSelected: PropTypes.bool,
-	rowsPerPage: PropTypes.number,
-	Button: PropTypes.node,
-	hoverAction: PropTypes.bool,
-};
-
-const ListTable = ( props ) => {
+const ListTable = (props) => {
 	const {
 		columns = [],
 		data = [],
@@ -55,256 +32,283 @@ const ListTable = ( props ) => {
 		rowsPerPage = 10,
 		Button = false,
 		hoverAction = false,
+		interactive = true,
+		striped = false,
+		showColumnBorder = false,
 	} = props;
 
-	const bodyRef = useRef( null );
+	const bodyRef = useRef(null);
 
-	// ListTable state
 	// eslint-disable-next-line
 	const [isRowsPerPage, setIsRowsPerPage] = useState('10');
-	const [ loadingHeight, setLoadingHeight ] = useState( '0px' );
-	const [ copyDataArr, setCopyDataArr ] = useState( false );
-	const [ copyColumns, setCopyColumns ] = useState(
-		columns?.map( ( copyColumn, index ) => ( {
+	const [loadingHeight, setLoadingHeight] = useState('0px');
+	const [copyDataArr, setCopyDataArr] = useState([]);
+	const [copyColumns, setCopyColumns] = useState(
+		columns?.map((copyColumn, index) => ({
 			...copyColumn,
 			visible: true,
-			id: `column-${ index }`,
-		} ) )
+			id: `column-${index}`,
+		}))
 	);
-	const shouldRerender = _.isEqual( data, copyDataArr );
+	const shouldRerender = _.isEqual(data, copyDataArr);
 
-	const [ visibleColumn, setVisibleColumn ] = useState(
-		copyColumns?.filter( ( copyColumn ) => copyColumn.visible )
+	const [visibleColumn, setVisibleColumn] = useState(
+		copyColumns?.filter((copyColumn) => copyColumn.visible)
 	);
-	const [ tempCopyColumns, setTempCopyColumns ] = useState( [
+	const [tempCopyColumns, setTempCopyColumns] = useState([
 		...copyColumns,
-	] );
-	const [ showSlider, setShowSlider ] = useState( false );
+	]);
+	const [showSlider, setShowSlider] = useState(false);
 
 	const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
 
-	const selectRowChange = ( { row, select } ) => {
-		const updatedDataArr = copyDataArr.map( ( dataItem ) => {
-			if ( dataItem.rowId === row.rowId ) {
+	const selectRowChange = ({ row, select }) => {
+		const updatedDataArr = copyDataArr.map((dataItem) => {
+			if (dataItem.rowId === row.rowId) {
 				return { ...dataItem, select };
 			}
 			return dataItem;
-		} );
-		setCopyDataArr( updatedDataArr );
+		});
+		setCopyDataArr(updatedDataArr);
 	};
 
-	const selectAllRow = ( event ) =>
-		setCopyDataArr( ( prev ) =>
-			prev.map( ( prevData ) => ( {
+	const selectAllRow = (changes) =>
+		setCopyDataArr((prev) =>
+			prev.map((prevData) => ({
 				...prevData,
-				select: event.target.checked,
-			} ) )
+				select: changes.checked,
+			}))
 		);
 
-	const checkedChange = ( { id, visible } ) => {
+	const checkedChange = ({ id, visible }) => {
 		let updatedColumns;
 
-		if ( id === 'reset' ) {
-			updatedColumns = tempCopyColumns.map( ( column ) => ( {
+		if (id === 'reset') {
+			updatedColumns = tempCopyColumns.map((column) => ({
 				...column,
 				visible: true,
-			} ) );
+			}));
 		} else {
-			updatedColumns = tempCopyColumns.map( ( column ) => {
-				if ( column.id === id ) {
+			updatedColumns = tempCopyColumns.map((column) => {
+				if (column.id === id) {
 					return { ...column, visible };
 				}
 				return column;
-			} );
+			});
 		}
 
-		setTempCopyColumns( updatedColumns );
+		setTempCopyColumns(updatedColumns);
 	};
 
-	const paginationPerPageChange = ( option ) => {
-		setIsRowsPerPage( option.value );
-		setLoadingHeight( `${ bodyRef.current.offsetHeight }px` );
+	const paginationPerPageChange = (option) => {
+		setIsRowsPerPage(option.value);
+		setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
 		onChangeItemsPerPage(
-			Number( option.value ),
-			Number( currentPageNumber )
+			Number(option.value),
+			Number(currentPageNumber)
 		);
 	};
 
 	// Reset copyDataArr if shouldRerender is false
-	useEffect( () => {
-		if ( ! shouldRerender ) {
+	useEffect(() => {
+		if (!shouldRerender) {
 			setCopyDataArr(
-				data?.map( ( row, index ) => ( {
+				data?.map((row, index) => ({
 					...row,
-					rowId: `row-${ index }`,
+					rowId: `row-${index}`,
 					select: false,
-				} ) )
+				}))
 			);
 		}
-	}, [ shouldRerender, data ] );
+	}, [shouldRerender, data]);
 
 	//side effect
-	useEffect( () => {
+	useEffect(() => {
 		setCopyDataArr(
 			data &&
-				data?.map( ( row, index ) => ( {
-					...row,
-					rowId: `row-${ index }`,
-					select: false,
-				} ) )
+			data?.map((row, index) => ({
+				...row,
+				rowId: `row-${index}`,
+				select: false,
+			}))
 		);
-	}, [ data?.length ] );
+	}, [data?.length]);
 
-	useEffect( () => {
-		if ( 0 === data.length || false === data ) {
-			setLoadingHeight( '400px' );
-		} else if ( bodyRef.current.offsetHeight < 100 ) {
-			setLoadingHeight( `100px` );
+	useEffect(() => {
+		if (0 === data.length || false === data) {
+			setLoadingHeight('400px');
+		} else if (bodyRef.current.offsetHeight < 100) {
+			setLoadingHeight(`100px`);
 		} else {
-			setLoadingHeight( `${ bodyRef.current.offsetHeight }px` );
+			setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
 		}
-	}, [ data?.length, bodyRef, rowsPerPage ] );
+	}, [data?.length, bodyRef, rowsPerPage]);
 
-	useEffect( () => {
+	useEffect(() => {
 		const visibleColumns = copyColumns.filter(
-			( item ) => item.visible === true
+			(item) => item.visible === true
 		);
 
 		function handleResponsiveSlideShow() {
-			if ( window.innerWidth < 1280 || visibleColumns.length > 6 ) {
-				setShowSlider( true );
+			if (window.innerWidth < 1280 || visibleColumns.length > 6) {
+				setShowSlider(true);
 			} else {
-				setShowSlider( false );
+				setShowSlider(false);
 			}
 		}
 
 		// Add event listener for window resize
-		window.addEventListener( 'resize', handleResponsiveSlideShow );
+		window.addEventListener('resize', handleResponsiveSlideShow);
 
 		// Initial check on component mount
 		handleResponsiveSlideShow();
 
 		// Clean up the event listener when the component unmounts
 		return () => {
-			window.removeEventListener( 'resize', handleResponsiveSlideShow );
+			window.removeEventListener('resize', handleResponsiveSlideShow);
 		};
-	}, [ window.innerWidth, copyColumns ] );
+	}, [window.innerWidth, copyColumns]);
 
-	useEffect( () => {
+	useEffect(() => {
 		setVisibleColumn(
-			copyColumns?.filter( ( copyColumn ) => copyColumn.visible )
+			copyColumns?.filter((copyColumn) => copyColumn.visible)
 		);
-		setLoadingHeight( false );
-	}, [ copyColumns ] );
+		setLoadingHeight(false);
+	}, [copyColumns]);
 
 	// get Local storage data every time page refresh
-	useEffect( () => {
-		const localColumns = JSON.parse( localStorage.getItem( suffix ) );
-		if ( localColumns ) {
-			const mergeColumns = copyColumns.reduce( ( acc, column ) => {
-				localColumns.forEach( ( item ) => {
-					if ( item.id === column.id ) {
-						acc.push( { ...item, cell: column.cell } );
+	useEffect(() => {
+		const localColumns = JSON.parse(localStorage.getItem(suffix));
+		if (localColumns) {
+			const mergeColumns = copyColumns.reduce((acc, column) => {
+				localColumns.forEach((item) => {
+					if (item.id === column.id) {
+						acc.push({ ...item, cell: column.cell });
 					}
-				} );
+				});
 				return acc;
-			}, [] );
+			}, []);
 
-			const sortColumn = localColumns.reduce( ( acc, column ) => {
-				mergeColumns.forEach( ( item ) => {
-					if ( column.id === item.id ) {
-						acc.push( { ...item } );
+			const sortColumn = localColumns.reduce((acc, column) => {
+				mergeColumns.forEach((item) => {
+					if (column.id === item.id) {
+						acc.push({ ...item });
 					}
-				} );
+				});
 				return acc;
-			}, [] );
-			setTempCopyColumns( sortColumn );
-			setCopyColumns( sortColumn );
+			}, []);
+			setTempCopyColumns(sortColumn);
+			setCopyColumns(sortColumn);
 		}
-	}, [] );
+	}, []);
 
 	// current select row
-	useEffect( () => {
-		if ( typeof getSelectRowValue === 'function' ) {
+	useEffect(() => {
+		if (typeof getSelectRowValue === 'function') {
 			getSelectRowValue(
 				copyDataArr &&
-					copyDataArr?.filter( ( copyRow ) => copyRow.select )
+				copyDataArr?.filter((copyRow) => copyRow.select)
 			);
 		}
-	}, [ copyDataArr ] );
+	}, [copyDataArr]);
 
 	// reset selected
-	useEffect( () => {
-		if ( resetSelected && copyDataArr ) {
+	useEffect(() => {
+		if (resetSelected && copyDataArr) {
 			setCopyDataArr(
 				copyDataArr &&
-					copyDataArr?.map( ( row ) => ( { ...row, select: false } ) )
+				copyDataArr?.map((row) => ({ ...row, select: false }))
 			);
 		}
-	}, [ resetSelected ] );
+	}, [resetSelected]);
 
 	const showPaginationData = showPagination && copyDataArr?.length > 0;
 
+	const classes = [
+		'gamify-table',
+		suffix && 'gamify-table--' + suffix,
+	].filter(Boolean).join(" ");
+
 	return (
-		<div
-			className={ `gamify-table ${
-				suffix && 'gamify-table--' + suffix
-			} ${ ! is_admin ? 'gamify-dashboard__content' : '' }` }
-		>
-			<div className="gamify-table__container">
-				{ showSubHeader && (
-					<TableSubHeader
-						subHeaderComponent={ subHeaderComponent }
-						setTempCopyColumns={ setTempCopyColumns }
-						tempCopyColumns={ tempCopyColumns }
-						showColumnFilter={ showColumnFilter }
-						checkedChange={ checkedChange }
-						setCopyColumns={ setCopyColumns }
-						copyColumns={ copyColumns }
-						suffix={ suffix }
-					/>
-				) }
+		<div className={classes}>
+			{showSubHeader && (
+				<TableSubHeader
+					subHeaderComponent={subHeaderComponent}
+					setTempCopyColumns={setTempCopyColumns}
+					tempCopyColumns={tempCopyColumns}
+					showColumnFilter={showColumnFilter}
+					checkedChange={checkedChange}
+					setCopyColumns={setCopyColumns}
+					copyColumns={copyColumns}
+					suffix={suffix}
+				/>
+			)}
 
-				<div
-					className={ `gamify-table__table ${
-						showSlider && 'gamify-table--has-slider'
-					}` }
-				>
-					<TableHeader
-						data={ data }
-						visibleColumn={ visibleColumn }
-						copyDataArr={ copyDataArr }
-						selectAllRow={ selectAllRow }
-						isCheckboxColumnVisible={ isCheckboxColumnVisible }
-					/>
-					<TableBody
-						dataFetchingStatus={ dataFetchingStatus }
-						copyDataArr={ copyDataArr }
-						visibleColumn={ visibleColumn }
-						isCheckboxColumnVisible={ isCheckboxColumnVisible }
-						selectRowChange={ selectRowChange }
-						noDataText={ noDataText }
-						button={ Button }
-						hoverAction={ hoverAction }
-						loadingHeight={ loadingHeight }
-						bodyRef={ bodyRef }
-					/>
-				</div>
+			{copyDataArr.length === 0 ? (
+				<>
+					<Table.Root variant="outline">
+						<TableHeader
+							data={data}
+							visibleColumn={visibleColumn}
+							copyDataArr={copyDataArr}
+							selectAllRow={selectAllRow}
+							isCheckboxColumnVisible={isCheckboxColumnVisible}
+						/>
+					</Table.Root>
 
-				{ showPaginationData && (
-					<TableFooter
-						data={ data }
-						totalItems={ totalItems }
-						paginationPerPageChange={ paginationPerPageChange }
-						rowsPerPage={ rowsPerPage }
-						onChangePage={ onChangePage }
-						currentPageNumber={ currentPageNumber }
-					/>
-				) }
-			</div>
+					<div ref={bodyRef}>
+						<CustomTableMessage
+							title={__('No Data Available!!!', 'gamify')}
+							subText={noDataText}
+						/>
+					</div>
+				</>
+			) : (
+				<Table.ScrollArea>
+					<Table.Root
+						borderBottomWidth="1px"
+						borderColor="var(--gamify-border-color)"
+						variant="outline"
+						interactive={interactive}
+						showColumnBorder={showColumnBorder}
+						striped={striped}
+					>
+						<TableHeader
+							data={data}
+							visibleColumn={visibleColumn}
+							copyDataArr={copyDataArr}
+							selectAllRow={selectAllRow}
+							isCheckboxColumnVisible={isCheckboxColumnVisible}
+						/>
+
+						<TableBody
+							dataFetchingStatus={dataFetchingStatus}
+							copyDataArr={copyDataArr}
+							visibleColumn={visibleColumn}
+							isCheckboxColumnVisible={isCheckboxColumnVisible}
+							selectRowChange={selectRowChange}
+							noDataText={noDataText}
+							button={Button}
+							hoverAction={hoverAction}
+							loadingHeight={loadingHeight}
+							bodyRef={bodyRef}
+						/>
+					</Table.Root>
+				</Table.ScrollArea>
+			)}
+
+			{showPaginationData && (
+				<TableFooter
+					data={data}
+					totalItems={totalItems}
+					paginationPerPageChange={paginationPerPageChange}
+					rowsPerPage={rowsPerPage}
+					onChangePage={onChangePage}
+					currentPageNumber={currentPageNumber}
+				/>
+			)}
 		</div>
 	);
 };
 
-ListTable.propTypes = propTypes;
 export default ListTable;
