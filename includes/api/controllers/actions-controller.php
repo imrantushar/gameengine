@@ -42,36 +42,61 @@ class ActionsController extends BaseController
             )
         );
 
-        register_rest_route($this->namespace, '/' . $this->rest_base . '/users', [
-            [
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => [$this, 'get_users_list'],
-                'permission_callback' => [$this, 'admin_permission_check'],
-            ],
-        ]);
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/users',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_users_list'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                    'args'                => array(
+                        'search' => array(
+                            'required'          => false,
+                            'sanitize_callback' => 'sanitize_text_field',
+                        ),
+                    ),
+                ),
+            )
+        );
     }
 
     /**
-     * Returns a simple list of users for dropdown selection.
+     * Returns a filtered list of users for dropdown selection.
+     *
+     * @param \WP_REST_Request $request API request object.
+     * @return \WP_REST_Response
      */
-    public function get_users_list()
+    public function get_users_list($request)
     {
+        // Extract sanitized search parameter
+        $search = $request->get_param('search');
 
-        $users = get_users(array(
-            'fields' => array('ID', 'display_name'),
-            'number' => 100,
-        ));
+        $query_args = array(
+            'fields' => array('ID', 'display_name', 'user_email'),
+            'number' => 20, // Limit results for performance
+        );
+
+        // Apply search filters if the parameter is provided
+        if (! empty($search)) {
+            $query_args['search']         = '*' . $wpdb->esc_like($search) . '*';
+            $query_args['search_columns'] = array('user_login', 'display_name', 'user_email');
+        }
+
+        $users = get_users($query_args);
 
         $response = array();
         foreach ($users as $user) {
             $response[] = array(
-                'label' => $user->display_name,
-                'value' => $user->ID
+                // Format label as "Name (Email)" to help Admins identify users
+                'label' => sprintf('%s (%s)', $user->display_name, $user->user_email),
+                'value' => $user->ID,
             );
         }
 
         return new \WP_REST_Response($response, 200);
     }
+
 
     /**
      * Process manual point adjustment or schedule it for later.
