@@ -41,6 +41,36 @@ class ActionsController extends BaseController
                 ),
             )
         );
+
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/users', [
+            [
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => [$this, 'get_users_list'],
+                'permission_callback' => [$this, 'admin_permission_check'],
+            ],
+        ]);
+    }
+
+    /**
+     * Returns a simple list of users for dropdown selection.
+     */
+    public function get_users_list()
+    {
+
+        $users = get_users(array(
+            'fields' => array('ID', 'display_name'),
+            'number' => 100,
+        ));
+
+        $response = array();
+        foreach ($users as $user) {
+            $response[] = array(
+                'label' => $user->display_name,
+                'value' => $user->ID
+            );
+        }
+
+        return new \WP_REST_Response($response, 200);
     }
 
     /**
