@@ -52,7 +52,7 @@ class Assets
         $active_addons = get_option('gamify_active_addons', []);
 
         // Define all possible addons and map their status
-        $all_addons = ['storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map'];
+        $all_addons = ['storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content'];
         $addons_status = [];
 
         foreach ($all_addons as $slug) {

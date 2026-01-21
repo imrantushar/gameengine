@@ -166,6 +166,10 @@ final class Gamify
         if (file_exists(GAMIFY_PATH . 'includes/addons/progress-map/init.php')) {
             require_once GAMIFY_PATH . 'includes/addons/progress-map/init.php';
         }
+
+        if (file_exists(GAMIFY_PATH . 'includes/addons/restrict-content/init.php')) {
+            require_once GAMIFY_PATH . 'includes/addons/restrict-content/init.php';
+        }
     }
 
     /**
