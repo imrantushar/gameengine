@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -18,17 +18,22 @@ const LogsTable = ({ modalOpenHandler }) => {
         search,
         status
     } = useSelector((state) => state.logs);
+    const [loading, setLoading] = useState(items.length === 0);
 
 
-    const handleRefresh = (page = 1, per_page = 10, serchKey = "") => {
-        dispatch(fetchLogs({ page, per_page, search: serchKey }));
+    const handleRefresh = async (page = 1, per_page = 10, serchKey = "") => {
+        setLoading(true)
+        await dispatch(fetchLogs({ page, per_page, search: serchKey }));
+        setLoading(false)
     };
 
     useEffect(() => {
         handleRefresh()
     }, []);
 
-    const handlePageChange = (newPage) => handleRefresh(newPage, perPage);
+    const handlePageChange = (newPage) => {
+        handleRefresh(newPage, perPage)
+    };
 
     const handlePerPageChange = (itemsPerPage) => {
         handleRefresh(currentPage, itemsPerPage)
@@ -163,7 +168,7 @@ const LogsTable = ({ modalOpenHandler }) => {
                         fontWeight="400"
                         lineHeight="16px"
                         borderRadius="4px"
-                        onClick={handleRefresh}
+                        onClick={() => handleRefresh()}
                     >
                         {status === "loading" ? "loading..." : "refresh"}
                     </Button>
@@ -198,7 +203,7 @@ const LogsTable = ({ modalOpenHandler }) => {
                 perPage={perPage}
                 onChangePage={handlePageChange}
                 onChangeItemsPerPage={handlePerPageChange}
-                dataFetchingStatus={status === 'loading'}
+                dataFetchingStatus={loading}
                 suffix="logs-table"
             />
         </>
