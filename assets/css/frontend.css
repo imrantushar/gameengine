@@ -182,6 +182,29 @@
     margin: 0;
 }
 
+/* Styled Badge for Hidden Links */
+.gamify-link-lock {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff1f2;
+    color: #e11d48;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    border: 1px solid #fecdd3;
+    margin: 0 4px;
+    cursor: not-allowed;
+    box-shadow: 0 2px 4px rgba(225, 29, 72, 0.05);
+}
+
+/* Image Restriction Box Adjustments */
+.gamify-restriction-box {
+    border: 2px dashed #e2e8f0;
+    background-color: #f8fafc;
+}
+
 /* --- 5. RESPONSIVE DESIGN --- */
 @media (max-width: 768px) {
     .gamify-v3-main { flex-direction: column; }
