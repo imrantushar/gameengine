@@ -5,8 +5,10 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import _ from 'lodash';
-import { Table } from '@chakra-ui/react';
+import { Flex, Table } from '@chakra-ui/react';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
+import Preloader from '@GFComponents/Loader/Preloader';
+import TableSkeleton from '../GamifyLoader/TableSkeleton';
 
 const ListTable = (props) => {
 	const {
@@ -229,6 +231,8 @@ const ListTable = (props) => {
 		suffix && 'gamify-table--' + suffix,
 	].filter(Boolean).join(" ");
 
+	const isLoading = dataFetchingStatus;
+
 	return (
 		<div className={classes}>
 			{showSubHeader && (
@@ -244,57 +248,71 @@ const ListTable = (props) => {
 				/>
 			)}
 
-			{copyDataArr.length === 0 ? (
-				<>
-					<Table.Root variant="outline">
-						<TableHeader
-							data={data}
-							visibleColumn={visibleColumn}
-							copyDataArr={copyDataArr}
-							selectAllRow={selectAllRow}
-							isCheckboxColumnVisible={isCheckboxColumnVisible}
-						/>
-					</Table.Root>
-
-					<div ref={bodyRef}>
-						<CustomTableMessage
-							title={__('No Data Available!!!', 'gamify')}
-							subText={noDataText}
-						/>
-					</div>
-				</>
+			{isLoading ? (
+				<Flex
+					minH={loadingHeight}
+					align="center"
+					justify="center"
+					ref={bodyRef}
+					width={'100%'}
+				>
+					<TableSkeleton />
+				</Flex>
 			) : (
-				<Table.ScrollArea>
-					<Table.Root
-						borderBottomWidth="1px"
-						borderColor="var(--gamify-border-color)"
-						variant="outline"
-						interactive={interactive}
-						showColumnBorder={showColumnBorder}
-						striped={striped}
-					>
-						<TableHeader
-							data={data}
-							visibleColumn={visibleColumn}
-							copyDataArr={copyDataArr}
-							selectAllRow={selectAllRow}
-							isCheckboxColumnVisible={isCheckboxColumnVisible}
-						/>
-
-						<TableBody
-							dataFetchingStatus={dataFetchingStatus}
-							copyDataArr={copyDataArr}
-							visibleColumn={visibleColumn}
-							isCheckboxColumnVisible={isCheckboxColumnVisible}
-							selectRowChange={selectRowChange}
-							noDataText={noDataText}
-							button={Button}
-							hoverAction={hoverAction}
-							loadingHeight={loadingHeight}
-							bodyRef={bodyRef}
-						/>
-					</Table.Root>
-				</Table.ScrollArea>
+				<>
+					{copyDataArr.length === 0 ? (
+						<>
+							<Table.Root variant="outline">
+								<TableHeader
+									data={data}
+									visibleColumn={visibleColumn}
+									copyDataArr={copyDataArr}
+									selectAllRow={selectAllRow}
+									isCheckboxColumnVisible={isCheckboxColumnVisible}
+								/>
+							</Table.Root>
+		
+							<div ref={bodyRef}>
+								<CustomTableMessage
+									title={__('No Data Available!!!', 'gamify')}
+									subText={noDataText}
+								/>
+							</div>
+						</>
+					) : (
+						<Table.ScrollArea>
+							<Table.Root
+								borderBottomWidth="1px"
+								borderColor="var(--gamify-border-color)"
+								variant="outline"
+								interactive={interactive}
+								showColumnBorder={showColumnBorder}
+								striped={striped}
+							>
+								<TableHeader
+									data={data}
+									visibleColumn={visibleColumn}
+									copyDataArr={copyDataArr}
+									selectAllRow={selectAllRow}
+									isCheckboxColumnVisible={isCheckboxColumnVisible}
+								/>
+		
+								<TableBody
+									dataFetchingStatus={dataFetchingStatus}
+									copyDataArr={copyDataArr}
+									visibleColumn={visibleColumn}
+									isCheckboxColumnVisible={isCheckboxColumnVisible}
+									selectRowChange={selectRowChange}
+									noDataText={noDataText}
+									button={Button}
+									hoverAction={hoverAction}
+									loadingHeight={loadingHeight}
+									bodyRef={bodyRef}
+								/>
+							</Table.Root>
+						</Table.ScrollArea>
+					)}
+				</>
 			)}
 
 			{showPaginationData && (

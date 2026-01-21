@@ -11,7 +11,7 @@ import { commonInput, primaryBtn } from '../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 import GamifyInput from '@GFComponents/GamifyInput';
 
-const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type }) => {
+const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type, parameters }) => {
     const dispatch = useDispatch();
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -69,9 +69,9 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                     value={
                         config?.is_multi
                             ? optionsSource.filter(opt =>
-                                Array.isArray(value) && value.includes(opt.value)
+                                Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)
                             )
-                            : optionsSource.find(opt => opt.value == value) || null
+                            : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null
                     }
                     onChange={(val) => {
                         if (config?.is_multi) {
@@ -107,7 +107,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                     label={displayLabel}
                     placeholder={isDisabled ? __('Locked Feature', 'gamify') : (config.placeholder || '')}
                     type={config.type}
-                    value={value}
+                    value={parameters[fieldKey]}
                     onChange={(e) => onChange(e.target.value)}
                     required={config.required}
                     disabled={isDisabled}
@@ -119,6 +119,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
 
 const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
     const fieldsConfig = hookInfo.schema || [];
+    const { values } = useFormikContext();
 
     return (
         <CustomCollapsible
@@ -133,6 +134,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                     if (config.scope && !config.scope.includes('point_type')) {
                         return null;
                     }
+                    const currentHook = values.requirements.find(item => item.trigger_key === hookId );
 
                     return (
                         <DynamicField
@@ -142,7 +144,8 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                             value={settings[config.key] ?? config.default ?? ''}
                             integrationSlug={hookInfo.integrationSlug}
                             type={type}
-                            onChange={(val) => handleChange(config.key, val)}
+                            parameters={currentHook?.parameters}
+                            onChange={(val) => handleChange(config.key, val, hookInfo.hook)}
                         />
                     );
                 })}
@@ -153,40 +156,22 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
 
 const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen, setIsOpen }) => {
     const { values, setFieldValue } = useFormikContext();
-
-    const handleChange = (field, value) => {
-        dispatch(updateHookSettings({
-            type: type,
-            hookId: hookInfo.id,
-            settings: { [field]: value }
-        }));
-
-        try {
-            const requirements = Array.isArray(values?.requirements) ? values.requirements : [];
-            const idx = requirements.findIndex(r => String(r.trigger_key) === String(hookInfo.id) && r.action_type === type);
-
-            if (idx > -1) {
-                const updatedReq = {
-                    ...requirements[idx],
+    
+    const handleChange = (field, value, hook) => {
+        const updatedFieldValue = values.requirements.map(item => {
+            if(item.trigger_key === hook) {
+                return { 
+                    ...item,
                     parameters: {
-                        ...(requirements[idx].parameters || {}),
-                        [field]: value
+                        ...item.parameters,
+                        [`${field}`]: value
                     }
-                };
-                const newRequirements = [...requirements];
-                newRequirements[idx] = updatedReq;
-                setFieldValue('requirements', newRequirements);
-            } else {
-                const newReq = {
-                    trigger_key: hookInfo.id,
-                    action_type: type,
-                    parameters: { [field]: value }
-                };
-                setFieldValue('requirements', [...requirements, newReq]);
+                }
             }
-        } catch (e) {
-            console.error(e);
-        }
+            return item;
+        })
+        setFieldValue('requirements', updatedFieldValue);
+        
     };
 
     return (

@@ -60,7 +60,8 @@ const LevelType = () => {
         actions.setSubmitting(true)
         try {
             if(editId) {
-                await dispatch(updateLevel({ id: editId, payload: values }))
+                const {payload} = await dispatch(updateLevel({ id: editId, payload: values }))
+                actions.setValues(getLevelsInitialValues(payload?.id, [payload]))
             } else {
                 const {payload} = await dispatch(createLevel(values));
                 if(payload?.id) {
