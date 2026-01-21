@@ -177,10 +177,7 @@ const LogsTable = ({ modalOpenHandler }) => {
                 <Search
                     placeholder={__('Search Items', 'gamify')}
                     defaultValue={search}
-                    onSearchHandler={(val) => {
-                        dispatch(setSearchQuery(val));
-                        dispatch(setPage(1));
-                    }}
+                    onSearchHandler={(val) => dispatch(fetchLogs({ currentPage, perPage, search: val }))}
                 />
             </>
         );
