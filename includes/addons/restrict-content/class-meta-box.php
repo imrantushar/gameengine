@@ -83,7 +83,7 @@ class Meta_Box
             <p style="margin-top:15px;">
                 <label>
                     <input type="checkbox" name="gamify_lock_media" value="1" <?php checked($lock_media, '1'); ?> />
-                    <?php esc_html_e('Lock Media Only?', 'gamify'); ?>
+                    <?php esc_html_e('Lock Images & Links Only?', 'gamify'); ?>
                 </label>
             </p>
 

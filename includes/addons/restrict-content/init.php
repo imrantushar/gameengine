@@ -24,14 +24,7 @@ class Init
         /**
          * Self-check: Only load if the addon is enabled in settings.
          */
-        // if (in_array('restrict_content', $active_addons, true)) {
-        //     self::load_dependencies();
-        //     self::register_hooks();
-        // }
-
-        $force_enable = true;
-
-        if ($force_enable) {
+        if (in_array('restrict_content', $active_addons, true)) {
             self::load_dependencies();
             self::register_hooks();
         }
