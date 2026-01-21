@@ -109,19 +109,18 @@ const AchievementsTable = () => {
                 </Button>
             </Flex>
 
-            {loading ? "loading" : (
-                <ListTable
-                    key={'acievements-table-'+ achievements?.length}
-                    columns={columns}
-                    data={achievements}
-                    showSubHeader={false}
-                    showColumnFilter={false}
-                    isRowSelectable={false}
-                    showPagination={true}
-                    noDataText={__("No data found for Achievements", "gamify")}
-                    suffix="achievements-table"
-                />
-            )}
+            <ListTable
+                key={'acievements-table-'+ achievements?.length}
+                columns={columns}
+                data={achievements}
+                showSubHeader={false}
+                showColumnFilter={false}
+                isRowSelectable={false}
+                dataFetchingStatus={loading}
+                showPagination={true}
+                noDataText={__("No data found for Achievements", "gamify")}
+                suffix="achievements-table"
+            />
         </div>
     );
 };

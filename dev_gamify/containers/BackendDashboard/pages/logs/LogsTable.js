@@ -183,28 +183,24 @@ const LogsTable = ({ modalOpenHandler }) => {
 
     return (
         <>
-            {status === 'loading' && (!items || items.length === 0) ? (
-                <Flex justify="center" align="center" height="200px">
-                    <Spinner />
-                </Flex>
-            ) : (
-                <ListTable
-                    columns={columns}
-                    isRowSelectable={false}
-                    data={items}
-                    showSubHeader={true}
-                    subHeaderComponent={subHeaderComponentMemo}
-                    showColumnFilter={false}
-                    showPagination={true}
-                    noDataText={__("No logs found", "gamify")}
-                    totalItems={totalItems}
-                    currentPageNumber={currentPage}
-                    perPage={perPage}
-                    onChangePage={handlePageChange}
-                    onChangeItemsPerPage={handlePerPageChange}
-                    suffix="logs-table"
-                />
-            )}
+            
+            <ListTable
+                columns={columns}
+                isRowSelectable={false}
+                data={items}
+                showSubHeader={true}
+                subHeaderComponent={subHeaderComponentMemo}
+                showColumnFilter={false}
+                showPagination={true}
+                noDataText={__("No logs found", "gamify")}
+                totalItems={totalItems}
+                currentPageNumber={currentPage}
+                perPage={perPage}
+                onChangePage={handlePageChange}
+                onChangeItemsPerPage={handlePerPageChange}
+                dataFetchingStatus={status === 'loading'}
+                suffix="logs-table"
+            />
         </>
     );
 };

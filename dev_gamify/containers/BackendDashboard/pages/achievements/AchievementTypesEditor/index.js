@@ -56,7 +56,8 @@ const AchievementTypesEditor = () => {
         }
         try {
             if(editId) {
-                await dispatch(updateAchievement({ id: editId, data: values })) 
+                const { payload } = await dispatch(updateAchievement({ id: editId, data: values })) 
+                actions.setValues(getAchivementsInitialValues(payload.id, [payload]))
             } else {
                 const { payload } = await dispatch(createAchievement(values));
                 if(payload.id) {
@@ -64,7 +65,6 @@ const AchievementTypesEditor = () => {
                     actions.setValues(getAchivementsInitialValues(payload.id, [payload]))
                 }
             }
-            console.log({res})
         } catch (error) {}
         finally {
             actions.setSubmitting(false);
@@ -81,13 +81,13 @@ const AchievementTypesEditor = () => {
                     initialValues={getAchivementsInitialValues(editId, achievements)}
                     onSubmit={onSubmitHandler}
                 >
-                    {({ submitForm, isSubmitting}) => {
+                    {({ submitForm, isSubmitting, dirty}) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Achievement Types", "gamify")}
                                     rightContent={
-                                        <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting}>
+                                        <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
                                             {editId ? __("Update", "gamify") : __("Save Changes", "gamify")}
                                         </Button>
                                     } 
