@@ -40,7 +40,6 @@ const Requirements = (props) => {
         label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName
     } = props;
     const dispatch = useDispatch();
-
     return (
         <CollapsibleItem
             // translators: %s: label

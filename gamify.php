@@ -98,6 +98,10 @@ final class Gamify
      */
     public function init_modules()
     {
+
+        if (class_exists('\Gamify\Classes\TaxonomyManager')) {
+            \Gamify\Classes\TaxonomyManager::init();
+        }
         // Assets & API.
         if (class_exists('\Gamify\Assets')) {
             \Gamify\Assets::init();

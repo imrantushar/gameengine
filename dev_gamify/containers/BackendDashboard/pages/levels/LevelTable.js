@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Button, Flex, Icon, Badge } from '@chakra-ui/react';
@@ -16,9 +16,13 @@ const LevelTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { levels = [], status } = useSelector(state => state.levels || {});
+        const [loading, setLoading] = useState(levels.length === 0);
 
     useEffect(() => {
-        dispatch(fetchLevels());
+        setLoading(true)
+        dispatch(fetchLevels()).then(() => {
+            setLoading(false)
+        });
     }, []);
 
     const getCategoryColor = (cat) => {
@@ -105,7 +109,7 @@ const LevelTable = () => {
                 showSubHeader={false}
                 data={levels}
                 noDataText={__("No data found for levels", "gamify")}
-                isLoading={status === 'loading'}
+                dataFetchingStatus={loading}
                 isRowSelectable={false}
             />
         </div>

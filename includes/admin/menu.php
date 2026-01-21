@@ -8,16 +8,20 @@ if (! defined('ABSPATH')) {
 
 use Gamify\Helper;
 
+/**
+ * Class Menu
+ * Handles Admin Menu registration for the Gamify plugin.
+ */
 class Menu
 {
+
     /**
      * Initialize the Menu class.
-     * Called by Gamify\Admin::init()
      */
     public static function init()
     {
         $self = new self();
-        add_action('admin_menu', [$self, 'admin_menu']);
+        add_action('admin_menu', array($self, 'admin_menu'));
     }
 
     /**
@@ -25,46 +29,81 @@ class Menu
      */
     public function admin_menu()
     {
-        $page_title = __('Gamify Dashboard', 'gamify');
-        $main_slug  = 'gamify';
+        $main_slug = 'gamify';
 
-        // 1. Add Parent Menu
+        //  Register Main Parent Menu (Dashboard)
         $main_hook = add_menu_page(
-            $page_title,
+            __('Gamify Dashboard', 'gamify'),
             'Gamify',
             'manage_options',
             $main_slug,
-            [$this, 'render_app'],
+            array($this, 'render_app'),
             'dashicons-star-filled',
             20
         );
-
-        // Add cleanup hook for the main page
         $this->add_cleanup_hook($main_hook);
 
-        // 2. Add Submenus from Helper
+        //  Loop through Helper menu list to register standard sub-menus
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
+            // Register standard sub-menus (Achievements, Levels, etc.)
             $sub_hook = add_submenu_page(
                 $item['parent_slug'],
                 $item['title'],
                 $item['title'],
                 $item['capability'],
                 $menu_slug,
-                [$this, 'render_app']
+                array($this, 'render_app')
             );
-
-            // Add cleanup hook for subpages
             $this->add_cleanup_hook($sub_hook);
+
+            /**
+             *  Inject "Types" Sub-menus
+             * These point to the React App using a 'path' parameter.
+             */
+            if ('gamify-achievements' === $menu_slug) {
+                $this->add_type_submenu('Achievement Types', 'achievement-types');
+            }
+
+            if ('gamify-levels' === $menu_slug) {
+                $this->add_type_submenu('Level Types', 'level-types');
+            }
         }
     }
 
     /**
-     * Helper to register the load-{page} hook immediately.
+     * Helper to add a "Types" submenu under the main Gamify parent.
+     * 
+     * @param string $label The menu label.
+     * @param string $path  The React router path.
+     */
+    private function add_type_submenu($label, $path)
+    {
+        $main_slug = 'gamify';
+
+        // The slug format 'parent&path=slug' allows React Router to pick it up via query string.
+        $menu_slug = $main_slug . '-' . (('achievement-types' === $path) ? 'achievements' : 'levels') . '&path=' . $path;
+
+        $hook = add_submenu_page(
+            $main_slug,
+            __($label, 'gamify'),
+            '— ' . __($label, 'gamify'), // Indented with dash for visual hierarchy
+            'manage_options',
+            $menu_slug,
+            array($this, 'render_app')
+        );
+
+        $this->add_cleanup_hook($hook);
+    }
+
+    /**
+     * Registers a hook to remove WP notices and footers for a clean React UI experience.
+     *
+     * @param string $hook The page hook suffix.
      */
     private function add_cleanup_hook($hook)
     {
         if ($hook) {
-            add_action('load-' . $hook, [$this, 'remove_all_notices_and_footer']);
+            add_action('load-' . $hook, array($this, 'remove_all_notices_and_footer'));
         }
     }
 
@@ -77,7 +116,7 @@ class Menu
     }
 
     /**
-     * Remove Admin Notices and Footer for SPA experience.
+     * Removes default WordPress Admin Notices and Footer for a Single Page App experience.
      */
     public function remove_all_notices_and_footer()
     {

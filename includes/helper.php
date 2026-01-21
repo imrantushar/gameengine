@@ -6,12 +6,17 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Class Helper
+ * Utility functions and centralized data for the Gamify plugin.
+ */
 class Helper
 {
+
     /**
      * Sanitize a checkbox field to boolean.
-     * 
-     * @param mixed $boolean
+     *
+     * @param mixed $boolean Input value.
      * @return bool
      */
     public static function sanitize_checkbox_field($boolean)
@@ -21,7 +26,7 @@ class Helper
 
     /**
      * Get the client IP address.
-     * 
+     *
      * @return string
      */
     public static function get_client_ip_address()
@@ -46,7 +51,7 @@ class Helper
 
     /**
      * Get current time with offset.
-     * 
+     *
      * @return int
      */
     public static function get_time()
@@ -56,84 +61,95 @@ class Helper
 
     /**
      * List of admin menu items.
-     * This centralizes the menu structure for the plugin.
-     * 
+     * Centralized menu structure with dynamic taxonomy integration.
+     *
      * @return array
      */
     public static function get_admin_menu_list()
     {
         $slug = 'gamify'; // Main plugin slug
+        $menu = array();
 
-        $menu = [];
-
-        // Dashboard (matches parent slug)
-        $menu[$slug] = [
+        // 1. Dashboard
+        $menu[$slug] = array(
             'parent_slug' => $slug,
             'title'       => __('Dashboard', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
-        // Points System
-        $menu[$slug . '-points'] = [
+        // 2. Points System
+        $menu[$slug . '-points'] = array(
             'parent_slug' => $slug,
             'title'       => __('Points System', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
-        // Achievements
-        $menu[$slug . '-achievements'] = [
+        // Achievements with Submenu
+        $menu[$slug . '-achievements'] = array(
             'parent_slug' => $slug,
             'title'       => __('Achievements', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+            'sub_items'   => array(
+                array(
+                    'title' => __('Achievement Types', 'gamify'),
+                    'slug'  => 'achievement-types', // This path will be handled by React
+                )
+            )
+        );
 
-        // Levels
-        $menu[$slug . '-levels'] = [
+        // Levels with Submenu
+        $menu[$slug . '-levels'] = array(
             'parent_slug' => $slug,
             'title'       => __('Levels', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+            'sub_items'   => array(
+                array(
+                    'title' => __('Level Types', 'gamify'),
+                    'slug'  => 'level-types', // This path will be handled by React
+                )
+            )
+        );
 
-        // Logs
-        $menu[$slug . '-logs'] = [
+        // 5. Logs
+        $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,
             'title'       => __('Logs', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
-        // Leaderboards
-        $menu[$slug . '-leaderboards'] = [
+        // 6. Leaderboards
+        $menu[$slug . '-leaderboards'] = array(
             'parent_slug' => $slug,
             'title'       => __('Leaderboards', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
-        // Addons
-        $menu[$slug . '-addons'] = [
+        // 7. Addons
+        $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,
             'title'       => __('Addons', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
-        // Settings
-        $menu[$slug . '-settings'] = [
+        // 8. Settings
+        $menu[$slug . '-settings'] = array(
             'parent_slug' => $slug,
             'title'       => __('Settings', 'gamify'),
             'capability'  => 'manage_options',
-        ];
+        );
 
         return apply_filters('gamify/admin_menu_list', $menu);
     }
 
     /**
-     * Template loader similar to gamify.
-     * 
-     * @param string $template_name
-     * @param array $args
-     * @param string $template_path
-     * @param string $default_path
+     * Template loader for standardizing template parts.
+     *
+     * @param string $template_name Name of the template.
+     * @param array  $args          Arguments to extract.
+     * @param string $template_path Custom path.
+     * @param string $default_path  Default path.
      */
-    public static function get_template($template_name, $args = [], $template_path = '', $default_path = '')
+    public static function get_template($template_name, $args = array(), $template_path = '', $default_path = '')
     {
         $template = self::locate_template($template_name, $template_path, $default_path);
 
@@ -147,7 +163,7 @@ class Helper
         do_action('gamify_before_get_template', $action_args);
 
         if (! empty($args) && is_array($args)) {
-            extract($args, EXTR_SKIP);
+            extract($args, EXTR_SKIP); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
         }
 
         if ($template && file_exists($template)) {
@@ -156,11 +172,11 @@ class Helper
     }
 
     /**
-     * Locate template path.
-     * 
-     * @param string $template_name
-     * @param string $template_path
-     * @param string $default_path
+     * Locate template path with theme override support.
+     *
+     * @param string $template_name Name of the template.
+     * @param string $template_path Custom folder in theme.
+     * @param string $default_path  Plugin template folder.
      * @return string
      */
     public static function locate_template($template_name, $template_path = '', $default_path = '')
@@ -173,7 +189,7 @@ class Helper
             $default_path = trailingslashit(GAMIFY_PATH) . 'templates/';
         }
 
-        $template = locate_template([trailingslashit($template_path) . $template_name]);
+        $template = locate_template(array(trailingslashit($template_path) . $template_name));
 
         if (! $template) {
             $template = $default_path . $template_name;

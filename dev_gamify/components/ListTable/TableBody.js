@@ -1,45 +1,14 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Table, Checkbox, Box, Flex } from '@chakra-ui/react';
-import Preloader from '@GFComponents/Loader/Preloader';
-import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
+import { Table, Checkbox } from '@chakra-ui/react';
 
 const TableBody = ({
-	dataFetchingStatus,
 	copyDataArr,
 	visibleColumn,
 	isCheckboxColumnVisible,
 	selectRowChange,
-	noDataText,
-	loadingHeight,
 	bodyRef,
-	button,
 }) => {
-	const isLoading = dataFetchingStatus || !copyDataArr;
-
-	if (isLoading) {
-		return (
-			<Flex
-				minH={loadingHeight}
-				align="center"
-				justify="center"
-				ref={bodyRef}
-			>
-				<Preloader />
-			</Flex>
-		);
-	}
-
-	if (visibleColumn.length === 0) {
-		return (
-			<Box ref={bodyRef}>
-				<CustomTableMessage
-					title={__('No visible columns available!!', 'gamify')}
-				/>
-			</Box>
-		);
-	}
-
 	return (
 		<Table.Body ref={bodyRef}>
 			{copyDataArr.length > 0 && copyDataArr.map((row, rowIndex) => (

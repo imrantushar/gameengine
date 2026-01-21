@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class AchievementsController
- * Handles API requests for achievements including restrictions and full data returns.
+ * Handles API requests for achievements with Taxonomy support.
  */
 class AchievementsController extends BaseController
 {
@@ -69,7 +69,7 @@ class AchievementsController extends BaseController
     }
 
     /**
-     * Retrieve achievements with pagination and search.
+     * Retrieve achievements with resolved category names.
      */
     public function get_items($request)
     {
@@ -90,43 +90,24 @@ class AchievementsController extends BaseController
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $total_items = (int) $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )",
-                $search,
-                $like_search,
-                $like_search
-            )
-        );
+        $total_items = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )", $search, $like_search, $like_search));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $results = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT * FROM {$wpdb->prefix}gamify_achievements 
-                WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) 
-                ORDER BY id DESC LIMIT %d OFFSET %d",
-                $search,
-                $like_search,
-                $like_search,
-                $per_page,
-                $offset
-            ),
-            ARRAY_A
-        );
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) ORDER BY id DESC LIMIT %d OFFSET %d", $search, $like_search, $like_search, $per_page, $offset), ARRAY_A);
 
         if (! empty($results)) {
             foreach ($results as &$ach) {
                 $ach['unlock_with_points_enabled'] = (bool) $ach['unlock_with_points_enabled'];
                 $ach['is_restricted']             = isset($ach['is_restricted']) ? (bool) $ach['is_restricted'] : false;
 
+                // Resolve Category Name from Taxonomy.
+                $term_id             = absint($ach['category']);
+                $term                = get_term($term_id, 'achievement_type');
+                $ach['category_id']   = $term_id;
+                $ach['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
+
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $reqs = $wpdb->get_results(
-                    $wpdb->prepare(
-                        "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1",
-                        absint($ach['id'])
-                    ),
-                    ARRAY_A
-                );
+                $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1", absint($ach['id'])), ARRAY_A);
 
                 foreach ($reqs as &$r) {
                     $r['parameters'] = json_decode($r['parameters'], true);
@@ -146,46 +127,33 @@ class AchievementsController extends BaseController
         return new \WP_REST_Response($results, 200, $headers);
     }
 
-    /**
-     * Create Item.
-     */
     public function create_item($request)
     {
         return $this->save_item($request);
     }
 
-    /**
-     * Update Item.
-     */
     public function update_item($request)
     {
         return $this->save_item($request, $request->get_param('id'));
     }
 
-    /**
-     * Save (Create/Update) achievement and return full updated data.
-     */
     private function save_item($request, $id = null)
     {
         global $wpdb;
         $params = $request->get_json_params();
-        if ( empty( $params['title'] ) ) {
-            return new \WP_Error( 
-                'missing_data', 
-                __( 'Achievement Title is required.', 'gamify' ), 
-                array( 'status' => 400 ) 
-            );
+
+        if (empty($params['title'])) {
+            return new \WP_Error('missing_data', __('Achievement Title is required.', 'gamify'), array('status' => 400));
         }
-        $table  = "{$wpdb->prefix}gamify_achievements";
 
         $data = array(
             'title'                      => sanitize_text_field($params['title']),
             'plural_name'                => sanitize_text_field($params['plural_name']),
             'max_earnings_per_user'      => intval($params['max_earnings_per_user']),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
-            'is_restricted'              => ! empty($params['is_restricted']) ? 1 : 0, // 
+            'is_restricted'              => ! empty($params['is_restricted']) ? 1 : 0,
             'required_points_amount'     => intval($params['required_points_amount']),
-            'category'                   => sanitize_text_field($params['category']),
+            'category'                   => absint($params['category_id'] ?? 0), // Store Term ID
             'required_point_type_id'     => intval($params['required_point_type_id']),
             'congratulations_message'    => wp_kses_post($params['congratulations_message']),
             'required_achievement_id'    => ! empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
@@ -197,28 +165,20 @@ class AchievementsController extends BaseController
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->update($table, $data, array('id' => absint($id)));
+            $wpdb->update("{$wpdb->prefix}gamify_achievements", $data, array('id' => absint($id)));
             $achievement_id = absint($id);
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert($table, $data);
+            $wpdb->insert("{$wpdb->prefix}gamify_achievements", $data);
             $achievement_id = $wpdb->insert_id;
         }
 
-        // Save Triggers/Requirements.
         $this->save_requirements($achievement_id, $params['requirements'] ?? array());
-
-        // Clear Caches.
         delete_transient('gamify_achievements_list');
-        wp_cache_delete('gamify_ach_list_', 'gamify_achievements');
 
-        //  Return full data instead of just the ID.
         return $this->get_full_item_response($achievement_id);
     }
 
-    /**
-     * Helper to fetch full achievement details for the response.
-     */
     private function get_full_item_response($id)
     {
         global $wpdb;
@@ -229,15 +189,14 @@ class AchievementsController extends BaseController
             $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
             $item['is_restricted']             = (bool) $item['is_restricted'];
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $reqs = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d",
-                    $id
-                ),
-                ARRAY_A
-            );
+            // Resolve Category Name.
+            $term_id                = absint($item['category']);
+            $term                   = get_term($term_id, 'achievement_type');
+            $item['category_id']   = $term_id;
+            $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d", $id), ARRAY_A);
             foreach ($reqs as &$r) {
                 $r['parameters'] = json_decode($r['parameters'], true);
             }
@@ -247,63 +206,36 @@ class AchievementsController extends BaseController
         return new \WP_REST_Response($item, 200);
     }
 
-    /**
-     * Save requirements helper.
-     */
     private function save_requirements($achievement_id, $requirements)
     {
         global $wpdb;
         $table_req = "{$wpdb->prefix}gamify_requirements";
-
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->delete($table_req, array('reward_type' => 'achievement', 'reward_id' => $achievement_id));
-
         if (! empty($requirements)) {
             foreach ($requirements as $req) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-                $wpdb->insert(
-                    $table_req,
-                    array(
-                        'reward_type' => 'achievement',
-                        'reward_id'   => $achievement_id,
-                        'trigger_key' => sanitize_text_field($req['trigger_key']),
-                        'action_type' => 'award',
-                        'parameters'  => wp_json_encode($req['parameters']),
-                        'is_active'   => 1,
-                        'created_at'  => current_time('mysql'),
-                    )
-                );
+                $wpdb->insert($table_req, array('reward_type' => 'achievement', 'reward_id' => $achievement_id, 'trigger_key' => sanitize_text_field($req['trigger_key']), 'action_type' => 'award', 'parameters' => wp_json_encode($req['parameters']), 'is_active' => 1, 'created_at' => current_time('mysql')));
             }
         }
     }
 
-    /**
-     * Retrieve a single achievement.
-     */
     public function get_item($request)
     {
         return $this->get_full_item_response(absint($request->get_param('id')));
     }
 
-    /**
-     * Delete an achievement.
-     */
     public function delete_item($request)
     {
         global $wpdb;
         $id = absint($request->get_param('id'));
-
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->delete("{$wpdb->prefix}gamify_achievements", array('id' => $id));
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->delete("{$wpdb->prefix}gamify_requirements", array('reward_type' => 'achievement', 'reward_id' => $id));
-
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }
 
-    /**
-     * Get collection parameters.
-     */
     public function get_collection_params()
     {
         return array(
