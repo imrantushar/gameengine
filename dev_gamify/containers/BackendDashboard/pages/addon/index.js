@@ -80,6 +80,19 @@ const infoCardsData = [
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 	},
 	{
+		label: __('Restrict Content', 'gamify'),
+		name: 'restrict_content',
+		is_pro: false,
+		is_coming_soon: false,
+		details: __(
+			'Lock specific posts, pages, images or links based on points and badges.',
+			'gamify'
+		),
+		required_plugin: false,
+		icon: wooCommerce(),
+		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+	},
+	{
 		label: __('Progress Map', 'gamify'),
 		name: 'progress_map',
 		is_pro: false,
