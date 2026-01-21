@@ -326,9 +326,9 @@ const FormInner = () => {
             </GamifyInput>
 
             <Switch.Root
-                checked={values.restrict_unlock}
+                checked={values.is_restricted}
                 onCheckedChange={e => {
-                    setFieldValue('restrict_unlock', e.checked)
+                    setFieldValue('is_restricted', e.checked)
                 }}
                 colorPalette="blue"
                 disabled={!isRestrictContentActive}
@@ -338,7 +338,7 @@ const FormInner = () => {
                 <Switch.Control />
             </Switch.Root>
 
-            {(values?.restrict_unlock && isRestrictContentActive) && (
+            {(values?.is_restricted && isRestrictContentActive) && (
                 <Flex direction={'column'} gap="12px">
                     <Flex gap="12px">
                         <GamifyInput label={__("Required Achievements", "gamify")} width="calc(50% - 6px)">
