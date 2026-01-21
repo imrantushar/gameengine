@@ -106,6 +106,7 @@ const LevelTable = () => {
                 data={levels}
                 noDataText={__("No data found for levels", "gamify")}
                 isLoading={status === 'loading'}
+                isRowSelectable={false}
             />
         </div>
     );

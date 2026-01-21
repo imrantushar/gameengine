@@ -116,7 +116,7 @@ const AchievementsTable = () => {
                     data={achievements}
                     showSubHeader={false}
                     showColumnFilter={false}
-                    isRowSelectable={true}
+                    isRowSelectable={false}
                     showPagination={true}
                     noDataText={__("No data found for Achievements", "gamify")}
                     suffix="achievements-table"
