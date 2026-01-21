@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
 import {
-    fetchLevelById, saveLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
+    fetchLevelById, createLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
 } from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
 import GamifyBox from "@GFComponents/GamifyBox";
 import { Formik } from "formik";
@@ -13,6 +13,8 @@ import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
 import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { route_path } from "@GFUtils/helper";
+import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
 
 
 const LevelType = () => {
@@ -45,22 +47,32 @@ const LevelType = () => {
         })()
     }, [editId, exitstignItem]);
 
-    // useEffect(() => { 
-    //     if (congratulationsMessage) setMessage(congratulationsMessage); 
-    // }, [congratulationsMessage]);
-
     const onSubmiHandler = async (values, actions) => {
-        if (!values?.title) return alert("Level Name is required");
+        if (!values?.title) {
+            dispatch(showNotification({
+                message: __('Level Name is required.', 'gamify'),
+                isShow: true,
+                type: 'error',
+            }));
+            actions.setSubmitting(false)
+            return;
+        }
         actions.setSubmitting(true)
         try {
-            const res = editId ? await dispatch(updateLevel({ id: editId, data: values })) : await dispatch(saveLevel(values));
-            // if (res.meta.requestStatus === 'fulfilled') navigate(`${route_path}admin.php?page=gamify-levels`);
+            if(editId) {
+                await dispatch(updateLevel({ id: editId, payload: values }))
+            } else {
+                const {payload} = await dispatch(createLevel(values));
+                if(payload?.id) {
+                    navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${payload?.id}`)
+                    actions.setValues(getLevelsInitialValues(payload?.id, [payload]))
+                }
+            }
         } catch (error) {
             console.warn(error)
         } finally {
             actions.setSubmitting(false)
         }
-        
     };
 
     return (

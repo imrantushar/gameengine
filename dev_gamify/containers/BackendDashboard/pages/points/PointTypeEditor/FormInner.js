@@ -42,7 +42,6 @@ const FormInner = ({ hooksLoading }) => {
         }
     }, [values?.requirements]);
 
-
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },

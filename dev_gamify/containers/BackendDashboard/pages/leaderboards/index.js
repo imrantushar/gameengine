@@ -134,6 +134,7 @@ const Leaderboards = () => {
                     showSubHeader={false}
                     showColumnFilter={false}
                     showPagination={true}
+                    isRowSelectable={false}
                     noDataText="No leaderboard data found"
                     totalItems={totalItems}
                     currentPageNumber={currentPage}

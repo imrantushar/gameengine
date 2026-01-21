@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { manualLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
+import { createLogAction, updateLogAction } from '@GFRedux/Slices/logsSlice/logsSlice';
 import ReactModalFormik from '@GFComponents/Modal/ReactModalFormik';
 import { getLogsInitailaValues } from './helper';
 import FormInner from './FormInner';
@@ -25,7 +25,7 @@ const LogsModal = ({formData, isModalOpen, onRequestClose}) => {
     actions.setSubmitting(true)
     try {
       if (!values.id) {
-        await dispatch(manualLogAction(values));
+        await dispatch(createLogAction(values));
       } else {
         await dispatch(updateLogAction(values));
       }

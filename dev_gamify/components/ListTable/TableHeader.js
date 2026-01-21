@@ -38,6 +38,7 @@ const TableHeader = ({
 						maxW={column?.columnWidth ? column?.columnWidth : "auto"} 
 						w={column?.columnWidth ? column?.columnWidth : "auto"} 
 						textAlign={column?.textAlign ? column?.textAlign : "center"}
+						whiteSpace="nowrap"
 					>
 						{column?.name}
 					</Table.ColumnHeader>

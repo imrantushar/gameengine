@@ -4,19 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    .gamify-btn {
-        width: 30px;
-        height: 30px;
-        border-radius: 4px;
-        background: rgba(0, 0, 0, 0.08);
-        padding: 0;
-        &:hover {
-            background: var(--gamify-primary);
-        }
-        .gamify-icon {
-            font-size: 14px;
-        }
-    }
+    
     .gamify-pagination-list {
         display: flex;
         align-items: center;

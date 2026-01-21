@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
@@ -6,70 +5,53 @@ import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
 import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors, useDraggable, useDroppable } from "@dnd-kit/core";
+import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
-import { updateHookSettings, } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyInput from "@GFComponents/GamifyInput";
 import { useFormikContext } from "formik";
-import DynamicHookForm from "./components/DynamicHookForm";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
-
-// --- Draggable Components ---
-const DraggableItem = ({ id, children }) => {
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        opacity: isDragging ? 0.85 : 1,
-        cursor: "grab",
-        marginBottom: "24px"
-    };
-    return <Box ref={setNodeRef} {...listeners} {...attributes} style={style}>{children}</Box>;
-};
-
-const DroppableArea = ({ id, children }) => {
-    const { setNodeRef } = useDroppable({ id });
-    return <Box ref={setNodeRef} minH="150px" height='100%' mt="12px">{children}</Box>;
-};
+import Requirements from "@GFComponents/Requirements";
+import { DraggableItem } from "@GFComponents/Requirements/helper";
 
 const FormInner = () => {
     const dispatch = useDispatch();
+    const [achievements, setAchievements] = useState(true);
     const [openedHooks, setOpenedHooks] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [showInput, setShowInput] = useState(false);
     const [newCat, setNewCat] = useState("");
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [message, setMessage] = useState("");
-    const [achivementsLoading, setAchivementsLoading] = useState(false);
-    const [achivementsData, setAchivementsData] = useState([]);
+    const [achievementsLoading, setAchievementsLoading] = useState(false);
+    const [achievementsData, setAchievementsData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
     const {availablePointTypes} = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
-
-
     const { values, setFieldValue } = useFormikContext();
 
-    const fetchAchivements = async (key) => {
+    const fetchAchievements = async (key) => {
         try {
-            setAchivementsLoading(true);
+            setAchievementsLoading(true);
             let url = namespace + 'achievements';
             if(key) url += "?search=" + key;
             const response = await API.get(url);
             const achievements = response.data?.map(item => {
                 return {label: item.title, value: item.id}
             })
-            setAchivementsData(achievements);
+            setAchievementsData(achievements);
         } catch (error) {
             console.warn({error})
         } finally {
-            setAchivementsLoading(false)
+            setAchievementsLoading(false)
         }
-    }
+    };
+
     const fetchLevels = async (key) => {
         try {
             setLevelsLoading(true);
@@ -89,8 +71,8 @@ const FormInner = () => {
 
     useEffect(() => {
         if(isRestrictContentActive) {
-            if(achivementsData.length === 0) {
-                fetchAchivements();
+            if(achievementsData.length === 0) {
+                fetchAchievements();
             }
             if(levelsData.length === 0) {
                 fetchLevels();
@@ -109,11 +91,11 @@ const FormInner = () => {
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
 
-    const renderHookCard = (item) => {
+    const renderHookCard = (item, type) => {
         const slug = item.integrationSlug || 'wordpress';
         const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
         return (
-            <DraggableItem key={item.id} id={item.id}>
+            <DraggableItem key={`${type}_${item.id}`} id={`${type}_${item.id}`}>
                 <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
                     <Flex justify="space-between" align="center" padding="10px 16px" borderRadius="4px" border="1px solid var(--gamify-border-color)">
                         <Flex align="center" gap='8px'>
@@ -136,26 +118,15 @@ const FormInner = () => {
 
     useEffect(() => { if (congratulationsMessage) setMessage(congratulationsMessage); }, [congratulationsMessage]);
 
-    const availableHooks = useMemo(() => {
-        const usedHookIds = new Set(
-            values.requirements?.map(r => r.trigger_key)
-        );
-
-        return allHooks.filter(hook =>
-            !usedHookIds.has(hook.id) &&
-            (
-                selectedFilterHookType.length === 0 ||
-                selectedFilterHookType.includes(hook.integrationSlug)
-            )
-        );
-    }, [allHooks, values.requirements, selectedFilterHookType]);
-
-
     const activeHooks = useMemo(() => {
-        if (values.requirements?.length > 0) {
-            return values.requirements?.map(item => allHooks.find(h => h.id === item.trigger_key)).filter(Boolean)
+        if (values?.requirements?.length > 0) {
+            return values?.requirements
+                .filter(item => item?.action_type === "award")
+                ?.map(item => allHooks.find(h => h.id === item.trigger_key))
+                .filter(Boolean)
         }
-    }, [values?.requirements]);
+        return [];
+    }, [values?.requirements, allHooks]);
 
     const handleDragEnd = ({ active, over }) => {
         if (!over) return;
@@ -163,46 +134,49 @@ const FormInner = () => {
         const draggedId = active.id;
         const requirements = values.requirements || [];
 
-        const exists = requirements.some(
-            r => r.trigger_key === draggedId
-        );
-
-        if (over.id === "awards-sidebar" && !exists) {
-            const hook = allHooks.find(h => h.id === draggedId);
-            if (!hook) return;
-
-            const newRequirement = {
-                trigger_key: draggedId,
-                parameters: Object.fromEntries(
-                    (hook.schema || []).map(f => [
-                        f.key,
-                        (hookSettings[draggedId]?.[f.key]) ?? f.default
-                    ])
-                ),
-            };
-
-            setFieldValue("requirements", [
-                ...requirements,
-                newRequirement,
-            ]);
-
-            setOpenedHooks([draggedId]);
-            return;
-        }
-
-        if (over.id === "awards-available" && exists) {
-            setFieldValue(
-                "requirements",
-                requirements.filter(r => r.trigger_key !== draggedId)
+        if (draggedId.startsWith("award_")) {
+            const pureId = draggedId.replace("award_", "");
+            const exists = requirements.some(
+                r => r.trigger_key === pureId && r.action_type === "award"
             );
 
-            setOpenedHooks(prev => prev.filter(id => id !== draggedId));
-            return;
+            if (over.id === "awards-sidebar" && !exists) {
+                const hook = allHooks.find(h => h.id === pureId);
+                if (!hook) return;
+
+                const newRequirement = {
+                    trigger_key: pureId,
+                    action_type: "award",
+                    parameters: Object.fromEntries(
+                        (hook.schema || []).map(f => [
+                            f.key,
+                            (hookSettings[`award_${pureId}`]?.[f.key]) ?? f.default
+                        ])
+                    ),
+                };
+
+                setFieldValue("requirements", [
+                    ...requirements,
+                    newRequirement,
+                ]);
+
+                setOpenedHooks([pureId]);
+                return;
+            }
+
+            if (over.id === "awards-available" && exists) {
+                setFieldValue(
+                    "requirements",
+                    requirements.filter(r => !(r.trigger_key === pureId && r.action_type === "award"))
+                );
+
+                setOpenedHooks(prev => prev.filter(id => id !== pureId));
+                return;
+            }
         }
     };
 
     const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
-
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
@@ -352,9 +326,9 @@ const FormInner = () => {
             </GamifyInput>
 
             <Switch.Root
-                checked={values.restrict_unlock}
+                checked={values.is_restricted}
                 onCheckedChange={e => {
-                    setFieldValue('restrict_unlock', e.checked)
+                    setFieldValue('is_restricted', e.checked)
                 }}
                 colorPalette="blue"
                 disabled={!isRestrictContentActive}
@@ -364,24 +338,24 @@ const FormInner = () => {
                 <Switch.Control />
             </Switch.Root>
 
-            {(values?.restrict_unlock && isRestrictContentActive) && (
+            {(values?.is_restricted && isRestrictContentActive) && (
                 <Flex direction={'column'} gap="12px">
                     <Flex gap="12px">
                         <GamifyInput label={__("Required Achievements", "gamify")} width="calc(50% - 6px)">
                             <Select
                                 className="gamify-select"
                                 classNamePrefix="gamify-select"
-                                options={achivementsData}
+                                options={achievementsData}
                                 onInputChange={(inputValue) => {
-                                    fetchAchivements(inputValue);
+                                    fetchAchievements(inputValue);
                                     return inputValue;
                                 }}
                                 value={
-                                    achivementsData?.find(
+                                    achievementsData?.find(
                                     opt => Number(opt.value) === Number(values?.required_achievement_id)
                                     ) || null
                                 }
-                                isLoading={achivementsLoading}
+                                isLoading={achievementsLoading}
                                 onChange={(option) => {
                                     setFieldValue('required_achievement_id', option?.value || null);
                                 }}
@@ -410,10 +384,7 @@ const FormInner = () => {
                             />
                         </GamifyInput>
                     </Flex>
-                    <GamifyInput
-                        label={__("Restriction Message", "gamify")}
-                        // desc={__("Number of times a user can earn this badge (0 = unlimited).", "gamify")}
-                    >
+                    <GamifyInput label={__("Restriction Message", "gamify")}>
                         <Input
                             placeholder={__("Restriction message", "gamify")}
                             type="textarea"
@@ -458,7 +429,7 @@ const FormInner = () => {
                             className="gamify-select"
                             classNamePrefix="gamify-select"
                             options={availablePointTypes}
-                            value={availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
+                            value={availablePointTypes.length > 0 && availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))}
                             onChange={option => {
                                 setFieldValue('required_point_type_id', option.value)
                             }}
@@ -468,65 +439,28 @@ const FormInner = () => {
                 </Flex>
             ) : (
                 <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                    <Box p="24px" border="1px solid var(--gamify-border-color)" borderRadius="4px" className="gamify-achievement-requirements">
-                        <GFLabel type="plainHeading" label={__("Achievement Requirements", "gamify")} />
-
-                        <Flex gap="24px">
-                            <Flex width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" direction="column" gap="24px" className="gamify-achievement-requirements">
-                                <Flex direction="column" gap="4px">
-                                    <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gamify")} />
-                                    <GFLabel
-                                        type="subtitle"
-                                        color="var(--gamify-font-color)"
-                                        label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gamify")}
-                                    />
-                                </Flex>
-
-                                <Box p="12px" border="1px solid var(--gamify-border-color)" borderRadius="4px">
-                                    <GamifyInput label={__("Filter Hooks Type", "gamify")}>
-                                        <Select
-                                            className="gamify-select"
-                                            classNamePrefix="gamify-select"
-                                            isMulti
-                                            options={hookTypeOptions}
-                                            onChange={v => setSelectedFilterHookType(v.map(o => o.value))}
-                                        />
-                                    </GamifyInput>
-                                </Box>
-
-                                <DroppableArea id="awards-available">{availableHooks.map(h => renderHookCard(h))}</DroppableArea>
-                            </Flex>
-
-                            <Box width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gamify-shadow)" className="gamify-achievement-requirements">
-                                <Flex direction="column" gap="4px">
-                                    <GFLabel type="plainHeading" margin={0} label={__("Active Hooks", "gamify")} />
-                                    <GFLabel
-                                        type="subtitle"
-                                        color="var(--gamify-font-color)"
-                                        label={__("The following hooks are used for all users", "gamify")}
-                                    />
-                                </Flex>
-
-                                <DroppableArea id="awards-sidebar">
-                                    {activeHooks && activeHooks.map(h => (
-                                        <DraggableItem key={h.id} id={h.id}>
-                                            <DynamicHookForm
-                                                key={h.id}
-                                                hookId={h.id}
-                                                hookInfo={h}
-                                                settings={hookSettings[h.id] || {}}
-                                                type="award"
-                                                context="achievement"
-                                                onChange={(k, v) => dispatch(updateHookSettings({ hookId: h.id, settings: { [k]: v } }))}
-                                                isOpen={openedHooks.includes(h.id)}
-                                                setIsOpen={v => setOpenedHooks(v ? [...openedHooks, h.id] : openedHooks.filter(i => i !== h.id))}
-                                            />
-                                        </DraggableItem>
-                                    ))}
-                                </DroppableArea>
-                            </Box>
-                        </Flex>
-                    </Box>
+                    <Requirements
+                        label={__("Achievement Requirements", "gamify")}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setAchievements(!achievements)
+                        }}
+                        open={achievements}
+                        parent="gamify-achievement-requirements"
+                        child="gamify-achievement-requirements-wrap"
+                        childLeft="gamify-achievement-requirements-available-hooks"
+                        childRight="gamify-achievement-requirements-active-hooks"
+                        hookTypeOptions={hookTypeOptions}
+                        filterHookType={v => setSelectedFilterHookType(v.map(o => o.value))}
+                        renderHookCard={renderHookCard}
+                        selectedHookIds={activeHooks?.map(h => h?.id)}
+                        openHookType={openedHooks}
+                        setOpenHookType={setOpenedHooks}
+                        allHooks={allHooks}
+                        hookSettings={hookSettings}
+                        actionName="award"
+                        selectedFilterType={selectedFilterHookType}
+                    />
                 </DndContext>
             )}
         </Flex>

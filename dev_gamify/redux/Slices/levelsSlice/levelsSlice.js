@@ -1,33 +1,81 @@
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
+import { showNotification } from '../notificationSlice/notificationSlice';
+import { __ } from '@wordpress/i18n';
 
-// --- Async Thunks ---
-export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async () => {
-    return await apiFetch({ path: '/gamify/v1/levels' });
+export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunkAPI) => {
+    try {
+        const response =  await API.get(namespace + 'levels');
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (id) => {
-    return await apiFetch({ path: `/gamify/v1/levels/${id}` });
+export const fetchLevelById = createAsyncThunk('gamify/fetchLevelById', async (id, thunkAPI) => {
+    try {
+        const response =  await API.get(namespace + 'levels/' + id);
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const saveLevel = createAsyncThunk('gamify/saveLevel', async (data) => {
-    return await apiFetch({ path: '/gamify/v1/levels', method: 'POST', data });
+export const createLevel = createAsyncThunk('gamify/createLevel', async (payload, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'levels/', {...payload});
+        thunkAPI.dispatch(showNotification({
+            message: __('Level create successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, data }) => {
-    return await apiFetch({ path: `/gamify/v1/levels/${id}`, method: 'PUT', data });
+export const updateLevel = createAsyncThunk('gamify/updateLevel', async ({ id, payload }, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'levels/' + id, {...payload});
+        thunkAPI.dispatch(showNotification({
+            message: __('Level update successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id) => {
-    await apiFetch({ path: `/gamify/v1/levels/${id}`, method: 'DELETE' });
-    return id;
+export const deleteLevel = createAsyncThunk('gamify/deleteLevel', async (id, thunkAPI) => {
+    try {
+        await API.post(namespace + 'levels/' + id,
+            { force: false },
+            {
+                headers: {
+                    'X-HTTP-Method-Override': 'DELETE',
+                },
+            }
+        );
+    
+        thunkAPI.dispatch(showNotification({
+            message: __('Level deleted successfully.', 'gamify'),
+            isShow: true,
+            type: 'success',
+        }))
+    
+        return id;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const fetchLevelTriggers = createAsyncThunk(
-    'gamify/fetchLevelTriggers',
+export const fetchLevelTriggers = createAsyncThunk('gamify/fetchLevelTriggers',
     async (scope = 'level', { rejectWithValue }) => {
         try {
-            // শুধুমাত্র level স্কোপের ট্রিগার আনবে
             return await apiFetch({ path: `/gamify/v1/triggers?scope=${scope}` });
         } catch (error) {
             return rejectWithValue(error.message);
@@ -35,8 +83,7 @@ export const fetchLevelTriggers = createAsyncThunk(
     }
 );
 
-export const fetchDynamicOptions = createAsyncThunk(
-    'gamify/fetchDynamicOptions',
+export const fetchDynamicOptions = createAsyncThunk('gamify/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
             return await apiFetch({ path: '/gamify/v1/dynamic', method: 'POST', data: { integration, query } });
@@ -104,8 +151,20 @@ const levelsSlice = createSlice({
                     state.levels = [data]
                 }
             })
-            .addCase(saveLevel.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(updateLevel.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(createLevel.fulfilled, (state, {payload}) => { 
+                state.levels = [payload, ...state.levels]
+            })
+            .addCase(updateLevel.fulfilled, (state,{payload}) => { 
+                state.levels = state.levels.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            })
+            .addCase(deleteLevel.fulfilled, (state, {payload}) => { 
+                state.levels = state.levels.filter(item => Number(item.id) !== Number(payload)) 
+            });
     }
 });
 

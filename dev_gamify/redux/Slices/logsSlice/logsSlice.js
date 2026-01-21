@@ -2,68 +2,59 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 import { showNotification } from '../notificationSlice/notificationSlice';
 import { __ } from '@wordpress/i18n';
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 
 // --- 1. Fetch Logs ---
-export const fetchLogs = createAsyncThunk(
-    'logs/fetchLogs',
-    async ({ page, per_page, search = '' }, { rejectWithValue }) => {
+export const fetchLogs = createAsyncThunk('gamify/fetchLogs',
+    async ({ page=1, per_page=10, search = '' }, thunkAPI) => {
         try {
-            const path = `/gamify/v1/logs?page=${page}&per_page=${per_page}&search=${search}`;
-            const response = await apiFetch({ path, parse: false });
-            const total = response.headers.get('X-WP-Total');
-            const data = await response.json();
-            return { data, total: parseInt(total || 0, 10) };
+            let params = '?page=' + page;
+            if(per_page) params += '?per_page=' + per_page;
+            if(search) params += '?search=' + search;
+            const response =  await API.get(namespace + 'logs' + params);
+            return { 
+                data: response?.data, 
+                total: response.headers.get('X-WP-Total'),
+                page, 
+                per_page
+            };
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
 
-// --- 2. Manual Action Trigger (Create) ---
-export const manualLogAction = createAsyncThunk(
-    'logs/manualAction',
-    async (formData, { rejectWithValue, dispatch }) => {
+export const createLogAction = createAsyncThunk('gamify/createLogAction',
+    async (payload, thunkAPI) => {
         try {
-            const response = await apiFetch({
-                path: '/gamify/v1/actions/manual',
-                method: 'POST',
-                data: formData
-            });
-            dispatch(showNotification({
+            const response =  await API.post(namespace + 'actions/manual', {...payload});
+            thunkAPI.dispatch(showNotification({
                 message: __('Log created successfully!', 'gamify'),
                 isShow: true,
                 type: 'success',
             }))
-            dispatch(fetchLogs({ page: 1, per_page: 10 }));
-            return response;
+            return response.data;
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
 
-// --- 3. Update Log Action (NEW) ---
-export const updateLogAction = createAsyncThunk(
-    'logs/updateLog',
-    async (data , { rejectWithValue, dispatch }) => {
+export const updateLogAction = createAsyncThunk('gamify/updateLogAction',
+    async (payload , thunkAPI) => {
         try {
-            const response = await apiFetch({
-                path: `/gamify/v1/logs/${data?.id}`,
-                method: 'PUT', // or PATCH
-                data: data
-            });
-            dispatch(showNotification({
+            const response =  await API.post(namespace + 'logs/' + payload.id, {...payload});
+            thunkAPI.dispatch(showNotification({
                 message: __('Log updated successfully!', 'gamify'),
                 isShow: true,
                 type: 'success',
             }))
-
-            // Refresh logs to reflect changes
-            dispatch(fetchLogs({ page: 1, per_page: 10 }));
-
-            return response;
+            return payload;
         } catch (error) {
-            return rejectWithValue(error.message);
+            handleSliceError(thunkAPI, error)
+            return thunkAPI.rejectWithValue(error.message);
         }
     }
 );
@@ -74,8 +65,8 @@ const logsSlice = createSlice({
         items: [],
         totalItems: 0,
         currentPage: 1,
-        rowsPerPage: 10,
-        searchQuery: '',
+        perPage: 10,
+        search: '',
         status: 'idle',
         actionStatus: 'idle',
         error: null,
@@ -88,31 +79,22 @@ const logsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            // Fetch Logs
-            .addCase(fetchLogs.pending, (state) => { state.status = 'loading'; })
-            .addCase(fetchLogs.fulfilled, (state, action) => {
-                state.status = 'succeeded';
-                state.items = action.payload.data;
-                state.totalItems = action.payload.total;
+            .addCase(fetchLogs.fulfilled, (state, {payload}) => {
+                state.items = payload.data;
+                state.totalItems = payload.total;
+                state.currentPage = payload.page;
+                state.perPage = payload.per_page;
             })
-            .addCase(fetchLogs.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.payload;
+            .addCase(createLogAction.fulfilled, (state, {payload}) => { 
+                state.items = [payload, ...state.items];
             })
-
-            // Manual & Update Actions (Share same loading logic)
-            .addCase(manualLogAction.pending, (state) => { state.actionStatus = 'loading'; })
-            .addCase(manualLogAction.fulfilled, (state) => { state.actionStatus = 'succeeded'; })
-            .addCase(manualLogAction.rejected, (state, action) => {
-                state.actionStatus = 'failed';
-                state.error = action.payload;
-            })
-
-            .addCase(updateLogAction.pending, (state) => { state.actionStatus = 'loading'; })
-            .addCase(updateLogAction.fulfilled, (state) => { state.actionStatus = 'succeeded'; })
-            .addCase(updateLogAction.rejected, (state, action) => {
-                state.actionStatus = 'failed';
-                state.error = action.payload;
+            .addCase(updateLogAction.fulfilled, (state, {payload}) => { 
+                state.items = state.items.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
             });
     },
 });

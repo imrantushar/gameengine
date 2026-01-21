@@ -1,30 +1,63 @@
+import { API, handleSliceError, namespace } from '@GFUtils/helper';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
+import { showNotification } from '../notificationSlice/notificationSlice';
+import { __ } from '@wordpress/i18n';
 
 // --- Async Thunks ---
-export const fetchAchievements = createAsyncThunk('achievements/fetchAchievements', async () => {
-    return await apiFetch({ path: '/gamify/v1/achievements' });
+export const fetchAchievements = createAsyncThunk('gamify/fetchAchievements', async () => {
+    const response =  await API.get(namespace + 'achievements');
+    return response.data;
 });
 
-export const fetchAchievementById = createAsyncThunk('achievements/fetchById', async (id) => {
-    return await apiFetch({ path: `/gamify/v1/achievements/${id}` });
+export const fetchAchievementById = createAsyncThunk('gamify/fetchAchievementById', async (id) => {
+    const response =  await API.get(namespace + 'achievements/' + id);
+    return response.data;
 });
 
-export const saveAchievement = createAsyncThunk('achievements/save', async (data) => {
-    return await apiFetch({ path: '/gamify/v1/achievements', method: 'POST', data });
+export const createAchievement = createAsyncThunk('gamify/createAchievement', async (data, thunkAPI) => {
+    try {
+        const response =  await API.post(namespace + 'achievements', {
+            ...data
+        });
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
 });
 
-export const updateAchievement = createAsyncThunk('achievements/update', async ({ id, data }) => {
-    return await apiFetch({ path: `/gamify/v1/achievements/${id}`, method: 'PUT', data });
+export const updateAchievement = createAsyncThunk('gamify/updateAchievement', async ({ id, data }, {dispatch}) => {
+    const response =  await API.post(namespace + 'achievements/' + id, {
+        ...data
+    });
+    dispatch(showNotification({
+        message: __('Achivement updated successfully.', 'gamify'),
+        isShow: true,
+        type: 'success',
+    }))
+    return response.data;
 });
 
-export const deleteAchievement = createAsyncThunk('achievements/delete', async (id) => {
-    await apiFetch({ path: `/gamify/v1/achievements/${id}`, method: 'DELETE' });
+export const deleteAchievement = createAsyncThunk('gamify/deleteAchievement', async (id, {dispatch}) => {
+    await API.post(namespace + 'achievements/' + id,
+        { force: false },
+        {
+            headers: {
+                'X-HTTP-Method-Override': 'DELETE',
+            },
+        }
+    );
+
+    dispatch(showNotification({
+        message: __('Achivement deleted successfully.', 'gamify'),
+        isShow: true,
+        type: 'success',
+    }))
+
     return id;
 });
 
-export const fetchTriggers = createAsyncThunk(
-    'achievements/fetchTriggers',
+export const fetchTriggers = createAsyncThunk('gamify/fetchTriggers',
     async (scope = 'achievement', { rejectWithValue }) => {
         try {
             return await apiFetch({ path: `/gamify/v1/triggers?scope=${scope}` });
@@ -34,8 +67,7 @@ export const fetchTriggers = createAsyncThunk(
     }
 );
 
-export const fetchDynamicOptions = createAsyncThunk(
-    'achievements/fetchDynamicOptions',
+export const fetchDynamicOptions = createAsyncThunk('gamify/fetchDynamicOptions',
     async ({ integration, query }, { rejectWithValue }) => {
         try {
             return await apiFetch({ path: '/gamify/v1/dynamic', method: 'POST', data: { integration, query } });
@@ -45,12 +77,14 @@ export const fetchDynamicOptions = createAsyncThunk(
     }
 );
 
-export const fetchPointTypes = createAsyncThunk('achievements/fetchPointTypes', async () => {
-    return await apiFetch({ path: '/gamify/v1/point-types' });
+export const fetchPointTypes = createAsyncThunk('gamify/fetchPointTypes', async () => {
+    const response =  await API.get(namespace + 'point-types');
+    return response.data;
 });
 
 const initialState = {
     achievements: [],
+    availablePointTypes: [],
     integrations: {},
     allHooks: [],
     hookSettings: {},
@@ -102,8 +136,20 @@ const achievementsSlice = createSlice({
                     });
                 }
             })
-            .addCase(saveAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; })
-            .addCase(updateAchievement.fulfilled, (state) => { state.saveStatus = 'saved'; });
+            .addCase(createAchievement.fulfilled, (state, {payload}) => { 
+                state.achievements = [payload, ...state.achievements]
+            })
+            .addCase(updateAchievement.fulfilled, (state, {payload}) => { 
+                state.achievements = state.achievements.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            })
+            .addCase(deleteAchievement.fulfilled, (state, {payload}) => { 
+                state.achievements = state.achievements.filter(item => Number(item.id) !== Number(payload)) 
+            })
     }
 });
 

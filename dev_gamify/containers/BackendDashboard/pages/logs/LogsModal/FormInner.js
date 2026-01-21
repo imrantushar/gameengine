@@ -1,19 +1,33 @@
 import { Flex, Input, Textarea } from '@chakra-ui/react';
 import GamifyInput from '@GFComponents/GamifyInput';
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import Select from 'react-select';
 import { useFormikContext } from 'formik';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
+import { API, namespace } from '@GFUtils/helper';
 
 const FormInner = () => {
     const { values, setFieldValue } = useFormikContext();
+    const [userOptions, setUserOptins] = useState({
+        options: [],
+        isLoading: false
+    })
 
-    const userOptions = [
-        { value: 1, label: __("User 1", 'gamify') },
-        { value: 2, label: __("User 2", 'gamify') },
-        { value: 3, label: __("User 3", 'gamify') },
-    ];
+    const fetchUserOptions = async (searchKey) => {
+        setUserOptins({
+            ...userOptions,
+            isLoading: true
+        })
+        let params = "";
+        if(searchKey) params += `?search=${searchKey}`;
+        const response =  await API.get(namespace + 'actions/users' + params);
+        setUserOptins({
+            isLoading: false,
+            options: response.data
+        })
+    }
+
     const actionOptions = [
         { label: __('Award Points (+)', 'gamify'), value: 'award' },
         { label: __('Deduct Points (-)', 'gamify'), value: 'deduct' },
@@ -27,15 +41,21 @@ const FormInner = () => {
                     classNamePrefix='gamify-select'
                     className='gamify-select'
                     placeholder="e.g. 1"
-                    options={userOptions}
-                    value={userOptions.find(opt => opt.value === Number(values?.user_id))}
+                    options={userOptions?.options}
+                    value={userOptions?.options.find(opt => Number(opt.value) === Number(values?.user_id))}
                     onChange={(selected) =>
                         setFieldValue(
                             "user_id",
                             selected.value
                         )
                     }
+                    onMenuOpen={fetchUserOptions}
+                    onInputChange={(inputValue) => {
+                        fetchUserOptions(inputValue);
+                        return inputValue;
+                    }}
                     isDisabled={values?.id}
+                    isLoading={userOptions.isLoading}
                     styles={{
                         container: (base) => ({
                             ...base,

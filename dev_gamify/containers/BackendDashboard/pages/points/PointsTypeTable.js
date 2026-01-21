@@ -75,7 +75,7 @@ const PointTypesTable = () => {
         showSubHeader={false}
         showColumnFilter={false}
         dataFetchingStatus={listStatus}
-        isRowSelectable={true}
+        isRowSelectable={false}
         showPagination={false}
         noDataText={__("No data found", "gamify")}
       />
