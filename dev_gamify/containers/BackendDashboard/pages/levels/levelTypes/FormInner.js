@@ -374,37 +374,7 @@ const FormInner = () => {
                             onChange={e => {
                                 setFieldValue('restriction_message', e.target.value)
                             }}
-                            // value={
-                            //     achivementsData?.find(
-                            //         opt => Number(opt.value) === Number(values?.required_achievement_id)
-                            //     ) || null
-                            // }
-                            // onChange={(option) => {
-                            //     setFieldValue('required_achievement_id', option?.value || null);
-                            // }}
                             isLoading={levelTypesLoading}
-                            menuPlacement="bottom"
-                        />
-                    </GamifyInput>
-
-                    <GamifyInput label={__("Required Levels", "gamify")} width="calc(50% - 6px)">
-                        <Select
-                            className="gamify-select"
-                            classNamePrefix="gamify-select"
-                            options={levelsData}
-                            onInputChange={(inputValue) => {
-                                fetchLevels(inputValue);
-                                return inputValue;
-                            }}
-                            value={
-                                levelsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_level_id)
-                                ) || null
-                            }
-                            isLoading={levelsLoading}
-                            onChange={option => {
-                                setFieldValue('required_level_id', option.value)
-                            }}
                             menuPlacement="bottom"
                         />
                     </GamifyInput>
