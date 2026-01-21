@@ -31,7 +31,7 @@ export const fetchDynamicOptions = createAsyncThunk(
 export const savePointType = createAsyncThunk('gamify/savePointType', async (pointData, { rejectWithValue }) => {
     try {
         const res = await API.post(`${namespace}point-types`, pointData);
-        return res?.data;
+        return {...pointData, id: res?.data.id};
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -42,8 +42,8 @@ export const updatePointType = createAsyncThunk(
     'gamify/updatePointType',
     async ({ id, data }, { rejectWithValue }) => {
         try {
-            const res = await API.put(`${namespace}point-types/${id}`, data);
-            return res?.data;
+            await API.put(`${namespace}point-types/${id}`, data);
+            return { id, ...data };
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -156,41 +156,17 @@ const pointTypeSlice = createSlice({
             })
 
             // --- Save ---
-            .addCase(savePointType.pending, (state) => { 
-                state.saveStatus = 'saving'; 
-            })
-            .addCase(savePointType.fulfilled, (state, action) => {
-                state.saveStatus = 'saved';
-                const created = action.payload;
-                
-                // Add the new item at the beginning of the list
-                const existingIndex = state.pointTypes.findIndex(pt => Number(pt.id) === Number(created.id));
-                if (existingIndex === -1) {
-                    state.pointTypes.unshift(created);
-                }
-
-                state.currentPointTypeId = created.id;
-            })
-            .addCase(savePointType.rejected, (state, action) => {
-                state.saveStatus = 'failed';
-                state.error = action.payload;
+            .addCase(savePointType.fulfilled, (state, {payload}) => {
+                state.pointTypes = [payload,...state.pointTypes]
             })
 
             // --- Update ---
-            .addCase(updatePointType.pending, (state) => { 
-                state.saveStatus = 'saving'; 
-            })
             .addCase(updatePointType.fulfilled, (state, action) => {
-                state.saveStatus = 'saved';
                 const updated = action.payload;
                 const idx = state.pointTypes.findIndex(pt => Number(pt.id) === Number(updated.id));
                 if (idx !== -1) {
                     state.pointTypes[idx] = { ...state.pointTypes[idx], ...updated };
                 }
-            })
-            .addCase(updatePointType.rejected, (state, action) => {
-                state.saveStatus = 'failed';
-                state.error = action.payload;
             })
 
             // --- Fetch Single by ID ---

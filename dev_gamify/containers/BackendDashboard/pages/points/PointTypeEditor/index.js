@@ -52,12 +52,13 @@ const PointTypeEditor = () => {
         actions.setSubmitting(true);
         try {
             if (editId) {
-                await dispatch(updatePointType({ id: editId, data: values })).unwrap();
-                await dispatch(fetchPointTypeById(editId)).unwrap();
+                const {payload} = await dispatch(updatePointType({ id: editId, data: values }));
+                actions.setValues(getPointTypesInitialValues(payload.id, [{...values, id: payload.id}]))
             } else {
-                const action = await dispatch(savePointType(values)).unwrap();
-                if (action?.id) {
-                    navigate(`${route_path}admin.php?page=gamify-points&action=edit&id=${action.id}&path=name`, { replace: true });
+                const {payload} = await dispatch(savePointType(values));
+                if (payload?.id) {
+                    navigate(`${route_path}admin.php?page=gamify-points&action=edit&id=${payload.id}&path=name`, { replace: true });
+                    actions.setValues(getPointTypesInitialValues(payload.id, [{...values, id: payload.id}]))
                 }
             }
         } catch (error) {
