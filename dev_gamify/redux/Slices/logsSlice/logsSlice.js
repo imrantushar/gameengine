@@ -9,8 +9,8 @@ export const fetchLogs = createAsyncThunk('gamify/fetchLogs',
     async ({ page=1, per_page=10, search = '' }, thunkAPI) => {
         try {
             let params = '?page=' + page;
-            if(per_page) params += '?per_page=' + per_page;
-            if(search) params += '?search=' + search;
+            if(per_page) params += '&per_page=' + per_page;
+            if(search) params += '&search=' + search;
             const response =  await API.get(namespace + 'logs' + params);
             return { 
                 data: response?.data, 
