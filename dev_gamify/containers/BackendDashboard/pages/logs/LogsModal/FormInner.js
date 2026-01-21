@@ -36,7 +36,7 @@ const FormInner = () => {
     return (
         <Flex direction={'column'} gap={'12px'}>
             <Flex gap={4}>
-                <GamifyInput label={__("User ID", "gamify")}>
+                <GamifyInput label={__("User Name", "gamify")}>
                     <Select
                     classNamePrefix='gamify-select'
                     className='gamify-select'
