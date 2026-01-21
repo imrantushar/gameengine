@@ -5,7 +5,7 @@ import { Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
 import {
-    fetchAchievementById, createAchievement, updateAchievement, fetchTriggers, fetchPointTypes, fetchAchievements
+    fetchAchievementById, createAchievement, updateAchievement, fetchTriggers, fetchPointTypes
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import GamifyBox from "@GFComponents/GamifyBox";

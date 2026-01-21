@@ -25,8 +25,6 @@ const AchievementsTable = () => {
         });
     }, []);
 
-    if(loading) return "loading"
-
     const handleDelete = (id) => {
         if (confirm(__('Are you sure?', 'gamify'))) {
             dispatch(deleteAchievement(id));

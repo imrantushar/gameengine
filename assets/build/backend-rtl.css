@@ -2068,75 +2068,6 @@ h2.react-datepicker__current-month {
   margin-top: -0.7em;
 }
 
-/*!********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Loader/preloader.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************/
-.gamify-preloader {
-  overflow: visible;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.gamify-preloader svg {
-  width: 45px;
-  height: 45px;
-  overflow: visible !important;
-  margin: 15px !important;
-}
-.gamify-preloader svg circle {
-  stroke-width: 4px;
-}
-.gamify-preloader svg path {
-  stroke-width: 4px;
-  color: var(--ecm-primary);
-}
-/*!***************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Oops/styles.scss ***!
-  \***************************************************************************************************************************************************************************************************************************************************************/
-.gamify-oops__icon {
-  display: flex;
-  justify-content: center;
-}
-.gamify-oops__icon img {
-  width: 100%;
-}
-.gamify-oops__message {
-  padding: 0 0 40px 0;
-}
-.gamify-oops__message svg {
-  width: 100%;
-}
-.gamify-oops__message .gamify-oops__heading {
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 36px;
-  text-align: center;
-  padding-top: 12px;
-  margin: 0;
-  color: var(--gamify-font-color);
-}
-.gamify-oops__message .gamify-oops__text {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 20px;
-  text-align: center;
-  margin: 0;
-  padding-top: 4px;
-  color: var(--gamify-text-muted);
-}
-.gamify-oops__content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-.gamify-oops__button {
-  max-width: -moz-fit-content;
-  max-width: fit-content;
-  margin-top: 24px;
-}
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Pagination/styles.scss ***!
   \*********************************************************************************************************************************************************************************************************************************************************************/
@@ -2192,6 +2123,75 @@ h2.react-datepicker__current-month {
 .gamify-pagination .gamify-pagination-list__item-active:hover {
   background: var(--gamify-primary);
   color: #fff;
+}
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Oops/styles.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+.gamify-oops__icon {
+  display: flex;
+  justify-content: center;
+}
+.gamify-oops__icon img {
+  width: 100%;
+}
+.gamify-oops__message {
+  padding: 0 0 40px 0;
+}
+.gamify-oops__message svg {
+  width: 100%;
+}
+.gamify-oops__message .gamify-oops__heading {
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 36px;
+  text-align: center;
+  padding-top: 12px;
+  margin: 0;
+  color: var(--gamify-font-color);
+}
+.gamify-oops__message .gamify-oops__text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  margin: 0;
+  padding-top: 4px;
+  color: var(--gamify-text-muted);
+}
+.gamify-oops__content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.gamify-oops__button {
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+  margin-top: 24px;
+}
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/Loader/preloader.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+.gamify-preloader {
+  overflow: visible;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.gamify-preloader svg {
+  width: 45px;
+  height: 45px;
+  overflow: visible !important;
+  margin: 15px !important;
+}
+.gamify-preloader svg circle {
+  stroke-width: 4px;
+}
+.gamify-preloader svg path {
+  stroke-width: 4px;
+  color: var(--ecm-primary);
 }
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gamify/components/OptionMenu/styles.scss ***!
