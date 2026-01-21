@@ -2,7 +2,7 @@ import React from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { Text } from '@chakra-ui/react';
 import Pagination from '@GFComponents/Pagination';
-// import Select from 'react-select';
+import Select from 'react-select';
 
 const options = [
 	{ value: '10', label: __('10', 'gamify') },
@@ -23,7 +23,7 @@ const TableFooter = ({
 
 	React.useEffect(() => {
 		const selector = document.getElementById('gamify-table-row-per-page-selector');
-		 if (!selector) return;
+		if (!selector) return;
 		selector.childNodes.forEach(function (element) {
 			if (element.className.includes('gamify-select__control')) {
 				return element.id = 'gamify-table-row-per-page-selector-control';
@@ -31,7 +31,7 @@ const TableFooter = ({
 			return element;
 		})
 		const selectorControl = document.getElementById('gamify-table-row-per-page-selector-control');
-		   if (!selectorControl) return;
+		if (!selectorControl) return;
 		selectorControl.childNodes.forEach(function (element) {
 			if (element.className.includes('gamify-select__indicators')) {
 				return element.id = 'gamify-table-row-per-page-selector-indicators';
@@ -39,7 +39,7 @@ const TableFooter = ({
 			return element;
 		})
 		const selectorIndicators = document.getElementById('gamify-table-row-per-page-selector-indicators');
-		 if (!selectorIndicators) return;
+		if (!selectorIndicators) return;
 		selectorIndicators.removeChild(selectorIndicators.childNodes[0]);
 		selectorIndicators.childNodes[0].style.padding = '0 8px 0 0';
 		selectorControl.childNodes[0].style.padding = '2px 0px 0px 8px';
@@ -47,11 +47,7 @@ const TableFooter = ({
 
 	return (
 		<div className="gamify-table__footer">
-			<Text
-				color="var(--gamify-font-color)"
-				fontSize="sm"
-				fontWeight="normal"
-			>
+			<p className="gamify-table__footer-label">
 				{ /* eslint-disable-next-line */}
 				{sprintf(
 					// translators: %s: totalItems
@@ -59,22 +55,18 @@ const TableFooter = ({
 					data?.length,
 					totalItems
 				)}
-			</Text>
+			</p>
 
 			<div className="gamify-table__footer-right">
-				<div className="gamify-table__footer-pagination per__page">
-					<Text
-						color="var(--gamify-font-color)"
-						fontSize="sm"
-						fontWeight="normal"
-					>
+				<div className="gamify-table__footer-pagination-per-page">
+					<p className="gamify-table__footer-label">
 						{__('Rows per page', 'gamify')}
-					</Text>
+					</p>
 
-					{/* <Select
+					<Select
 						id='gamify-table-row-per-page-selector'
 						menuPlacement='top'
-						className='gamify-select'
+						className='gamify-select gamify-select--65'
 						classNamePrefix='gamify-select'
 						options={options}
 						value={
@@ -87,9 +79,9 @@ const TableFooter = ({
 								: options[0]
 						}
 						onChange={paginationPerPageChange}
-					/> */}
-
+					/>
 				</div>
+
 				<div className="gamify-table__footer-pagination-pages icons">
 					<Pagination
 						totalItems={totalItems}

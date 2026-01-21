@@ -900,6 +900,29 @@ input.gamify-checkbox:checked::before {
   flex-direction: column;
   gap: 4px;
 }
+.gamify-table__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+}
+.gamify-table__footer-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.gamify-table__footer-pagination-per-page {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.gamify-table__footer-label {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 14px;
+  margin: 0;
+}
 
 .gamify-table--logs-table .gamify-table__sub-header-left {
   display: flex;
@@ -915,6 +938,9 @@ input.gamify-checkbox:checked::before {
 
 .gamify-select--width-full {
   width: 100%;
+}
+.gamify-select--65 {
+  width: 65px;
 }
 .gamify-select--120 {
   width: 120px;
@@ -2120,19 +2146,6 @@ h2.react-datepicker__current-month {
   justify-content: center;
   align-items: center;
   gap: 5px;
-}
-.gamify-pagination .gamify-btn {
-  width: 30px;
-  height: 30px;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.08);
-  padding: 0;
-}
-.gamify-pagination .gamify-btn:hover {
-  background: var(--gamify-primary);
-}
-.gamify-pagination .gamify-btn .gamify-icon {
-  font-size: 14px;
 }
 .gamify-pagination .gamify-pagination-list {
   display: flex;

@@ -1,16 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { Button, Icon } from '@chakra-ui/react';
-
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import './styles.scss';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
-
-const propTypes = {
-	totalItems: PropTypes.number,
-	currentPageNumber: PropTypes.number,
-	fetchHandler: PropTypes.func,
-	rowsPerPage: PropTypes.number,
-};
 
 const Pagination = ({
 	totalItems = 0,
@@ -230,16 +222,13 @@ const Pagination = ({
 							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
+						minWidth="auto"
 						padding="6px"
 						onClick={() => {
 							handlePageChange(1);
 						}}
 					>
-						<Icon as={FaChevronLeft} size={"sm"} />
-						<span>
-							<span className="gamify-icon gamify-icon--angle-left" />
-							<span className="gamify-icon gamify-icon--angle-left" />
-						</span>
+						<Icon as={IoIosArrowBack} boxSize="16px" />
 					</Button>
 					<Button
 						color="var(--gamify-font-color)"
@@ -250,13 +239,13 @@ const Pagination = ({
 							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
+						minWidth="auto"
 						padding="6px"
 						onClick={() => {
 							handlePageChange(page - 1);
 						}}
 					>
-						<Icon as={FaChevronLeft} size={"sm"} />
-						<span className="gamify-icon gamify-icon--angle-left" />
+						<Icon as={HiChevronDoubleLeft} boxSize="16px" />
 					</Button>
 				</>
 			)}
@@ -276,13 +265,13 @@ const Pagination = ({
 							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
+						minWidth="auto"
 						padding="6px"
 						onClick={() => {
 							handlePageChange(page + 1);
 						}}
 					>
-						<Icon as={FaChevronRight} size={"sm"} />
-						<span className="gamify-icon gamify-icon--angle-right" />
+						<Icon as={IoIosArrowForward} boxSize="16px" />
 					</Button>
 					<Button
 						color="var(--gamify-font-color)"
@@ -293,16 +282,13 @@ const Pagination = ({
 							bg: 'var(--gamify-secondary-color)',
 						}}
 						height="auto"
+						minWidth="auto"
 						padding="6px"
 						onClick={() => {
 							handlePageChange(pageNumbers.length);
 						}}
 					>
-						<Icon as={FaChevronRight} size={"sm"} />
-						<span>
-							<span className="gamify-icon gamify-icon--angle-right" />
-							<span className="gamify-icon gamify-icon--angle-right" />
-						</span>
+						<Icon as={HiChevronDoubleRight} boxSize="16px" />
 					</Button>
 				</>
 			)}
@@ -310,5 +296,4 @@ const Pagination = ({
 	);
 };
 
-Pagination.propTypes = propTypes;
 export default Pagination;
