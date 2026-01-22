@@ -126,8 +126,11 @@ final class Gamify
         if (class_exists('\Gamify\Classes\EmailManager')) {
             \Gamify\Classes\EmailManager::init();
         }
-        if (class_exists('\Gamify\Classes\Shortcodes')) {
-            \Gamify\Classes\Shortcodes::init();
+        // if (class_exists('\Gamify\Classes\Shortcodes')) {
+        //     \Gamify\Classes\Shortcodes::init();
+        // }
+        if (class_exists('\Gamify\Shortcode')) {
+            \Gamify\Shortcode::init();
         }
 
         // Triggers.
