@@ -7,7 +7,19 @@ export const capitalizeFirstLetter = (string="") => {
 
 export const getTermInitalValues = (ID = null, data) => {
   if(ID && data.length > 0) {
-    return {}
+    const filteredItem = data.find(item => Number(item.id) === Numbner(ID))
+    
+    return {
+      name: filteredItem?.name,
+      slug: filteredItem?.slug,
+      description: filteredItem?.description,
+      parent: filteredItem?.parent,
+    }
   }
-  return {}
+  return {
+    name: "",
+    slug: "",
+    description: "",
+    parent: "",
+  }
 }
