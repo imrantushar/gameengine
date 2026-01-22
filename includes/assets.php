@@ -140,35 +140,40 @@ class Assets
     }
 
     /**
-     * Enqueue Frontend Assets.
+     * Enqueue Frontend Assets from the Build directory.
      */
     public function enqueue_frontend_assets()
     {
-        // Enqueue Google Fonts (Roboto) for frontend as well
+        // ১. গুগল ফন্ট লোড (Roboto)
         wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), null);
 
-        $style_path = GAMIFY_PATH . 'assets/css/frontend.css';
-        $style_url  = GAMIFY_URL . 'assets/css/frontend.css';
-        $js_path = GAMIFY_PATH . 'assets/js/frontend.js';
-        $js_url  = GAMIFY_URL . 'assets/js/frontend.js';
+        // ২. বিল্ড করা ফাইলের নাম ও ভার্সন ঠিক করা
+        $versioned_filename = 'frontend.' . GAMIFY_VERSION;
+        $script_asset_path  = GAMIFY_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
 
-        if (file_exists($style_path)) {
+        // ৩. যদি বিল্ড ফাইল থাকে তবে সেটি লোড করো
+        if (file_exists($script_asset_path)) {
+            $script_asset = require $script_asset_path;
+
+            // বিল্ড ফোল্ডার থেকে CSS লোড
             wp_enqueue_style(
                 'gamify-frontend-style',
-                $style_url,
-                [],
-                GAMIFY_VERSION
+                GAMIFY_URL . 'assets/build/frontend.css',
+                array(),
+                $script_asset['version']
             );
-        }
 
-        if (file_exists($js_path)) {
+            // বিল্ড ফোল্ডার থেকে JS লোড
             wp_enqueue_script(
-                'gamify-frontend-script', // Handle Name
-                $js_url,                  // URL
-                array(),                  // Dependencies (e.g. jquery if needed)
-                GAMIFY_VERSION,           // Version
-                true                      // Load in footer
+                'gamify-frontend-script',
+                GAMIFY_URL . 'assets/build/' . $versioned_filename . '.js',
+                $script_asset['dependencies'],
+                $script_asset['version'],
+                true
             );
+
+            // গ্লোবাল ডাটা (GamifyGlobal) ফ্রন্টএন্ডেও পাঠানো
+            wp_localize_script('gamify-frontend-script', 'GamifyGlobal', $this->get_scripts_data());
         }
     }
 }

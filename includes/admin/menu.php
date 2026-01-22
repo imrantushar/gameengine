@@ -31,7 +31,7 @@ class Menu
     {
         $main_slug = 'gamify';
 
-        //  Register Main Parent Menu (Dashboard)
+        // Register Main Parent Menu (Dashboard).
         $main_hook = add_menu_page(
             __('Gamify Dashboard', 'gamify'),
             'Gamify',
@@ -43,9 +43,8 @@ class Menu
         );
         $this->add_cleanup_hook($main_hook);
 
-        //  Loop through Helper menu list to register standard sub-menus
+        // Loop through Helper menu list to register standard sub-menus.
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
-            // Register standard sub-menus (Achievements, Levels, etc.)
             $sub_hook = add_submenu_page(
                 $item['parent_slug'],
                 $item['title'],
@@ -57,23 +56,23 @@ class Menu
             $this->add_cleanup_hook($sub_hook);
 
             /**
-             *  Inject "Types" Sub-menus
-             * These point to the React App using a 'path' parameter.
+             * Inject "Types" Sub-menus.
+             * Labels are translated here as literals to pass Plugin Check.
              */
             if ('gamify-achievements' === $menu_slug) {
-                $this->add_type_submenu('Achievement Types', 'achievement-types');
+                $this->add_type_submenu(__('Achievement Types', 'gamify'), 'achievement-types');
             }
 
             if ('gamify-levels' === $menu_slug) {
-                $this->add_type_submenu('Level Types', 'level-types');
+                $this->add_type_submenu(__('Level Types', 'gamify'), 'level-types');
             }
         }
     }
 
     /**
      * Helper to add a "Types" submenu under the main Gamify parent.
-     * 
-     * @param string $label The menu label.
+     *
+     * @param string $label The translated menu label.
      * @param string $path  The React router path.
      */
     private function add_type_submenu($label, $path)
@@ -83,10 +82,14 @@ class Menu
         // The slug format 'parent&path=slug' allows React Router to pick it up via query string.
         $menu_slug = $main_slug . '-' . (('achievement-types' === $path) ? 'achievements' : 'levels') . '&path=' . $path;
 
+        /**
+         * $label is already translated in the call site, 
+         * so we use it directly to satisfy WPCS.
+         */
         $hook = add_submenu_page(
             $main_slug,
-            __($label, 'gamify'),
-            '— ' . __($label, 'gamify'), // Indented with dash for visual hierarchy
+            $label,
+            '— ' . $label, // Visual hierarchy with dash
             'manage_options',
             $menu_slug,
             array($this, 'render_app')
@@ -96,7 +99,7 @@ class Menu
     }
 
     /**
-     * Registers a hook to remove WP notices and footers for a clean React UI experience.
+     * Registers a hook to remove WP notices and footers.
      *
      * @param string $hook The page hook suffix.
      */
@@ -116,7 +119,7 @@ class Menu
     }
 
     /**
-     * Removes default WordPress Admin Notices and Footer for a Single Page App experience.
+     * Removes default WordPress Admin Notices and Footer for a clean UI.
      */
     public function remove_all_notices_and_footer()
     {
