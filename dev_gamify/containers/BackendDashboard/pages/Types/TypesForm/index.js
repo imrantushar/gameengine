@@ -9,14 +9,11 @@ import { commonInput, primaryBtn } from '../../../../../../assets/scss/chakra/re
 import GamifyInput from '@GFComponents/GamifyInput';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { createAchievementType } from '@GFRedux/Slices/achivementSlice/types';
-import { createLevelType } from '@GFRedux/Slices/levelsSlice/types';
+import { createAchievementType, updateAchievementType } from '@GFRedux/Slices/achivementSlice/types';
+import { createLevelType, updateLevelType } from '@GFRedux/Slices/levelsSlice/types';
 
-const TypesForm = ({type=""}) => {
+const TypesForm = ({type="", resetForm, formData}) => {
   const dispatch = useDispatch();
-  const {types: {data: achivementTypes}} = useSelector(state => state.achievements);
-  const {types: {data: levelTypes}} = useSelector(state => state.levels);
-  const data = type === "achievement" ? achivementTypes : levelTypes;
 
   const onSubmitHandler = (values, actions) => {
     actions.setSubmitting(true)
@@ -32,23 +29,41 @@ const TypesForm = ({type=""}) => {
     
     try {
       if(type === "achievement") {
-        dispatch(createAchievementType(values))
+        if(formData?.id) {
+          dispatch(updateAchievementType({id: formData?.id, data: values}))
+        } else {
+          dispatch(createAchievementType(values))
+        }
       }
       if(type === "level") {
-        dispatch(createLevelType(values))
+        if(formData?.id) {
+          dispatch(updateLevelType({id: formData?.id, data: values}))
+        } else {
+          dispatch(createLevelType(values))
+        }
 
       }
     } catch (error) {
       console.warn(error)
     } finally {
       actions.setSubmitting(true)
+      actions.resetForm()
+      resetForm();
     }
-
-    console.log({values})
   }
+
   return (
     <BoxView width='35%'>
-      <GFLabel type='heading' label={__("Add New", "gamify") + " " +  capitalizeFirstLetter(type) + " " + __("Tpes", "gamify")}  />
+      <GFLabel 
+        type='heading' 
+        label={
+          formData?.id ? __("Add New", "gamify") : __("Update", "gamify") 
+          + " " 
+          +  capitalizeFirstLetter(type) 
+          + " " 
+          + __("Types", "gamify")
+        }
+      />
       <Formik
         enableReinitialize={true}
         initialValues={getTermInitalValues()}
@@ -114,7 +129,7 @@ const TypesForm = ({type=""}) => {
                 onClick={submitForm}
                 marginLeft={'auto'}
               >
-                {__("Create", "gamify")}
+                {formData?.id ? __("Create", "gamify") : __("Update", "gamify")}
               </Button>
             </Flex>
           )

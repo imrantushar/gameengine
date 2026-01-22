@@ -61,7 +61,7 @@ const renderSwitch = (page, id, action, path) => {
 			return <Addons/>;
 
 		default:
-			return <>No page found</>;
+			return <Dashboard />;
 	}
 };
 

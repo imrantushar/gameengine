@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import TopBar from "@GFComponents/TopBar";
 import { __ } from '@wordpress/i18n';
@@ -12,6 +12,17 @@ import TypesTable from './TypesTable';
 import { capitalizeFirstLetter } from './TypesForm/helper';
 
 const Types = ({type}) => {
+    const [formData, setFormData] = useState(null);
+
+    const editHandler = (params = null) => {
+        if(params) {
+            setFormData(params);
+        }
+    }
+    
+    const resetForm = () => {
+        setFormData(null);
+    }
     
     return (
         <>
@@ -21,8 +32,8 @@ const Types = ({type}) => {
                 display="flex"
                 gap={'24px'}
             >
-                <TypesForm type={type} />
-                <TypesTable type={type}/>
+                <TypesForm type={type} resetForm={resetForm} formData={formData} />
+                <TypesTable type={type} editHandler={editHandler}/>
             </Box>
         </>
     );
