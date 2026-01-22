@@ -1,7 +1,6 @@
 /*!*************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/backend.scss ***!
   \*************************************************************************************************************************************************************************************************************************************************/
-@charset "UTF-8";
 :root {
   --gamify-font: "Roboto", sans-serif;
   --gamify-primary: #006BFF;
@@ -31,7 +30,7 @@
 }
 
 .gamify-inner-page-content {
-  max-width: 1042px;
+  max-width: 1250px;
   width: 100%;
   margin: 0 auto;
   padding: 24px;
@@ -43,7 +42,7 @@
 }
 
 .gamify-page-content {
-  max-width: 1042px;
+  max-width: 1250px;
   width: 100%;
   margin: 0 auto;
   padding: 0 24px;
@@ -265,58 +264,6 @@
   100% {
     transform: translate(50px, 0px) scale(0.1);
   }
-}
-
-#adminmenu .wp-submenu-wrap li.current > a {
-  color: #fff;
-  font-weight: 600;
-}
-#adminmenu .wp-submenu-wrap li.current > a .gamify-icon {
-  rotate: 90deg;
-}
-#adminmenu .wp-submenu-wrap li:not(.current):focus {
-  color: rgba(240, 246, 252, 0.7) !important;
-}
-#adminmenu .wp-submenu-wrap li a .gamify-icon {
-  margin-left: auto;
-  margin-top: 4px;
-  float: right;
-}
-#adminmenu .wp-submenu-wrap li a .gamify-icon::before {
-  font-size: 8px;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu {
-  padding: 0 !important;
-  margin: 0 !important;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li {
-  position: relative;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li a {
-  font-size: 13px;
-  line-height: 1.4;
-  font-weight: 400;
-  color: rgba(240, 246, 252, 0.7) !important;
-  box-shadow: none;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li a::before {
-  content: "↳";
-  padding: 0 5px;
-  color: rgba(240, 246, 252, 0.7);
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li a:hover {
-  font-weight: 400;
-  box-shadow: none;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li a:focus {
-  color: rgba(240, 246, 252, 0.7) !important;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li.current a {
-  color: #fff !important;
-  font-weight: 500;
-}
-#adminmenu .wp-submenu-wrap li ul.wp-submenu li.current a::before {
-  color: #E1E3EA;
 }
 
 .gamify-content-wrap {

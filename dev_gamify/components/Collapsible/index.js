@@ -4,8 +4,14 @@ import { LuChevronDown, LuChevronRight, LuChevronUp } from "react-icons/lu";
 import { FaUndo } from 'react-icons/fa';
 import { __, sprintf } from '@wordpress/i18n';
 import GFLabel from "@GFComponents/Labels/GFLabel";
+import { arrowBackward } from "@GFUtils/icons";
 
-const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon = false }) => {
+const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon = false, suffix }) => {
+    const classes = [
+        'gamify-collapsible',
+        suffix && `gamify-collapsible--${suffix}`,
+    ].filter(Boolean).join(" ");
+
     return (
         <>
             <Flex
@@ -16,6 +22,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                 justifyContent="space-between"
                 cursor="pointer"
                 onClick={onClick}
+                className={classes}
             >
                 <GFLabel
                     type="title"
@@ -33,7 +40,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                     <Icon as={isOpen ? LuChevronUp : LuChevronDown} boxSize={5} />
                 ) : (
                     <Box
-                        bg="red.500"
+                        bg="#FF3E2F"
                         borderRadius="full"
                         width="24px"
                         height="24px"
@@ -42,7 +49,7 @@ const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon 
                         justifyContent="center"
                         color="white"
                     >
-                        <Icon as={FaUndo} boxSize={4} />
+                        <Icon as={arrowBackward} boxSize={4} />
                     </Box>
                 )}
             </Flex>

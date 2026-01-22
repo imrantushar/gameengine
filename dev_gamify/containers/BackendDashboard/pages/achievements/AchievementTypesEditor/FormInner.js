@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
+import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
@@ -16,9 +16,9 @@ import { useFormikContext } from "formik";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
+import { arrowForward,  } from "@GFUtils/icons";
 
 const FormInner = () => {
-    const dispatch = useDispatch();
     const [achievements, setAchievements] = useState(true);
     const [openedHooks, setOpenedHooks] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
@@ -105,8 +105,8 @@ const FormInner = () => {
                             <GFLabel type="title" fontWeight="400" label={item?.label} />
                         </Flex>
 
-                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
-                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        <Box bg="#0CDC01" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={arrowForward} />
                         </Box>
                     </Flex>
 
@@ -263,7 +263,7 @@ const FormInner = () => {
                 )}
 
                 {showInput ? (
-                    <Flex mt="6px" gap={2}>
+                    <Flex alignItems="center" mt="6px" gap={2}>
                         <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
 
                         <Button
@@ -273,7 +273,6 @@ const FormInner = () => {
                             fontWeight="500"
                             lineHeight="16px"
                             p="6px 8px"
-                            height="auto"
                             variant="ghost"
                             onClick={() => setShowInput(false)}
                         >
@@ -288,7 +287,6 @@ const FormInner = () => {
                             fontWeight="500"
                             lineHeight="16px"
                             p="6px 8px"
-                            height="auto"
                             variant="ghost"
                             onClick={() => {
                                 setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
