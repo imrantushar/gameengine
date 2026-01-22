@@ -5,15 +5,14 @@ export const capitalizeFirstLetter = (string="") => {
 }
 
 
-export const getTermInitalValues = (ID = null, data) => {
-  if(ID && data.length > 0) {
-    const filteredItem = data.find(item => Number(item.id) === Numbner(ID))
-    
+export const getTermInitalValues = (data=null) => {
+  if(data) {
     return {
-      name: filteredItem?.name,
-      slug: filteredItem?.slug,
-      description: filteredItem?.description,
-      parent: filteredItem?.parent,
+      id: data?.id,
+      name: data?.name,
+      slug: data?.slug,
+      description: data?.description,
+      parent: data?.parent,
     }
   }
   return {

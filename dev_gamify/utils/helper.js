@@ -59,6 +59,13 @@ export const handleSliceSuccess = ( thunkAPI, message ) => {
 	);
 };
 
+export const generateSlug = (value) => {
+	return value
+		.toLowerCase()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '');
+};
+
 export const getAddonActiveStatus = (allAddons, addonName, isPro = false) => {
 	// if pro is inactive
 	if (isPro && !is_pro) {

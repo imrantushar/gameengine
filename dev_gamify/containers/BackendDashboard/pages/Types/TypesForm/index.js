@@ -11,6 +11,7 @@ import { showNotification } from '@GFRedux/Slices/notificationSlice/notification
 import { useDispatch, useSelector } from 'react-redux';
 import { createAchievementType, updateAchievementType } from '@GFRedux/Slices/achivementSlice/types';
 import { createLevelType, updateLevelType } from '@GFRedux/Slices/levelsSlice/types';
+import { generateSlug } from '@GFUtils/helper';
 
 const TypesForm = ({type="", resetForm, formData}) => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const TypesForm = ({type="", resetForm, formData}) => {
       <GFLabel 
         type='heading' 
         label={
-          formData?.id ? __("Add New", "gamify") : __("Update", "gamify") 
+          !formData?.id ? __("Add New", "gamify") : __("Update", "gamify") 
           + " " 
           +  capitalizeFirstLetter(type) 
           + " " 
@@ -66,10 +67,11 @@ const TypesForm = ({type="", resetForm, formData}) => {
       />
       <Formik
         enableReinitialize={true}
-        initialValues={getTermInitalValues()}
+        initialValues={getTermInitalValues(formData)}
         onSubmit={onSubmitHandler}
       >
         {({values, submitForm, isSubmitting, dirty, setFieldValue}) => {
+          console.log({values, formData})
           return (
             <Flex
               direction={'column'}
@@ -82,6 +84,7 @@ const TypesForm = ({type="", resetForm, formData}) => {
                     onChange={e => {
                         const value = e.target.value
                         setFieldValue('name', value)
+                        setFieldValue('slug', generateSlug(value))
                     }}
                     {...commonInput}
                 />
@@ -89,7 +92,7 @@ const TypesForm = ({type="", resetForm, formData}) => {
               <GamifyInput label={__("Slug", "gamify")}>
                 <Input
                     placeholder={__("Enter slug", "gamify")}
-                    value={values.name}
+                    value={values.slug}
                     onChange={e => {
                         const value = e.target.value
                         setFieldValue('slug', value)
@@ -129,7 +132,7 @@ const TypesForm = ({type="", resetForm, formData}) => {
                 onClick={submitForm}
                 marginLeft={'auto'}
               >
-                {formData?.id ? __("Create", "gamify") : __("Update", "gamify")}
+                {!formData?.id ? __("Create", "gamify") : __("Update", "gamify")}
               </Button>
             </Flex>
           )

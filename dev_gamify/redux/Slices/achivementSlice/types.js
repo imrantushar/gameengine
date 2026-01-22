@@ -33,7 +33,7 @@ export const createAchievementType = createAsyncThunk('gamify/createAchievementT
       isShow: true,
       type: 'success',
     }))
-    return response.data;
+    return {id: response.data.term_id, ...data};
   } catch (error) {
       return handleSliceError(thunkAPI, error)
   }
@@ -49,7 +49,7 @@ export const updateAchievementType = createAsyncThunk('gamify/updateAchievementT
       isShow: true,
       type: 'success',
     }))
-    return response.data;
+    return {id: response.data.term_id, ...data};
   } catch (error) {
     return handleSliceError(thunkAPI, error)
   }
