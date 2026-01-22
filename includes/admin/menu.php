@@ -32,7 +32,7 @@ class Menu
     {
         $main_slug = 'gamify';
 
-        // Register Main Parent Menu (Dashboard).
+        // 1. Register Main Parent Menu (Dashboard).
         $main_hook = add_menu_page(
             __('Gamify Dashboard', 'gamify'),
             'Gamify',
@@ -44,7 +44,7 @@ class Menu
         );
         $this->add_cleanup_hook($main_hook);
 
-        // Loop through Helper menu list to register standard sub-menus.
+        // 2. Loop through Helper menu list to register standard sub-menus.
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
             // Skip parent slug registration if it matches main_slug to avoid duplicates.
             $sub_hook = add_submenu_page(
@@ -58,7 +58,7 @@ class Menu
             $this->add_cleanup_hook($sub_hook);
 
             /**
-             *  Inject "All" and "Types" Sub-menus for Achievements.
+             * 🔥 3. Inject "All" and "Types" Sub-menus for Achievements.
              */
             if ('gamify-achievements' === $menu_slug) {
                 // Add "All Achievements" link.
@@ -78,7 +78,7 @@ class Menu
             }
 
             /**
-             * Inject "All" and "Types" Sub-menus for Levels.
+             * 🔥 4. Inject "All" and "Types" Sub-menus for Levels.
              */
             if ('gamify-levels' === $menu_slug) {
                 // Add "All Levels" link.
