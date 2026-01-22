@@ -63,6 +63,7 @@ class UserProfile
 
         $is_admin = current_user_can('manage_options');
 
+
         // Add Nonce for security
         wp_nonce_field('gamify_update_user_points', 'gamify_points_nonce');
 ?>
