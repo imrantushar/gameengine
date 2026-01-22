@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
+import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GamifyEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
@@ -16,9 +16,9 @@ import { useFormikContext } from "formik";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
+import { arrowForward,  } from "@GFUtils/icons";
 
 const FormInner = () => {
-    const dispatch = useDispatch();
     const [achievements, setAchievements] = useState(true);
     const [openedHooks, setOpenedHooks] = useState([]);
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
@@ -26,6 +26,7 @@ const FormInner = () => {
     const [newCat, setNewCat] = useState("");
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [message, setMessage] = useState("");
+    const [achievementTypes, setAchievementTypes] = useState([]);
     const [achievementsLoading, setAchievementsLoading] = useState(false);
     const [achievementsData, setAchievementsData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
@@ -51,6 +52,20 @@ const FormInner = () => {
             setAchievementsLoading(false)
         }
     };
+
+    const fetchAcheivementTypes = async (searchKey="") => {
+        if(searchKey) searchKey = "&search=" + searchKey;
+        try {
+            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100'+ searchKey;
+            const response = await API.get(url);
+            const selectData = response.data.map(item => {
+                return {label: item.name, value: `${item.id}`}
+            })
+            setAchievementTypes(selectData)
+        } catch (error) {
+            console.warn(error)
+        }
+    }
 
     const fetchLevels = async (key) => {
         try {
@@ -78,6 +93,7 @@ const FormInner = () => {
                 fetchLevels();
             }
         }
+        fetchAcheivementTypes()
     }, [isRestrictContentActive])
 
     const {
@@ -105,8 +121,8 @@ const FormInner = () => {
                             <GFLabel type="title" fontWeight="400" label={item?.label} />
                         </Flex>
 
-                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
-                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        <Box bg="#0CDC01" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={arrowForward} />
                         </Box>
                     </Flex>
 
@@ -210,110 +226,32 @@ const FormInner = () => {
             </GamifyInput>
 
             <Box className="gamify-add-achievement-type">
-                <GFLabel type="title" label={__("Achievement Type", "gamify")} />
-
-                {values?.category?.length > 0 && (
-                    <RadioGroup.Root
-                        value={values?.category?.find(c => c.is_selected)?.value}
-                        onValueChange={(item) => {
-                            setFieldValue(
-                                'category',
-                                values?.category.map(cat =>
-                                    cat?.value === item?.value
-                                        ? { ...cat, is_selected: true }
-                                        : { ...cat, is_selected: false }
-                                )
-                            );
+                <GamifyInput 
+                    label={__("Achivement Type", "gamify")} 
+                    width="100%" 
+                    direction={'row'}
+                    justifyContent="space-between"
+                >
+                    <Select
+                        className="gamify-select gamify-select--width-half"
+                        classNamePrefix="gamify-select"
+                        options={achievementTypes}
+                        onInputChange={(inputValue) => {
+                            fetchAcheivementTypes(inputValue);
+                            return inputValue;
                         }}
-                        size="sm"
-                    >
-                        <Flex
-                            mt="4px"
-                            gap="24px"
-                            p="12px"
-                            border="1px solid var(--gamify-border-color)"
-                            borderRadius="4px"
-                            flexWrap="wrap"
-                        >
-                            {values?.category.map((cat, index) => (
-                                <RadioGroup.Item key={index} value={cat?.value}>
-                                    <RadioGroup.ItemHiddenInput />
-
-                                    <RadioGroup.ItemIndicator
-                                        style={{
-                                            width: "20px",
-                                            height: "20px",
-                                            borderRadius: "9999px",
-                                            border: cat?.is_selected
-                                                ? "1px solid #007AFF"
-                                                : "1px solid #ccc",
-                                            backgroundColor: cat?.is_selected
-                                                ? "#007AFF"
-                                                : "transparent",
-                                        }}
-                                    />
-
-                                    <RadioGroup.ItemText>
-                                        {sprintf(__('%s', 'gemboards'), cat?.label)}
-                                    </RadioGroup.ItemText>
-                                </RadioGroup.Item>
-                            ))}
-                        </Flex>
-                    </RadioGroup.Root>
-                )}
-
-                {showInput ? (
-                    <Flex mt="6px" gap={2}>
-                        <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
-
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-border-color)"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={() => setShowInput(false)}
-                        >
-                            {__("Cancel", "gamify")}
-                        </Button>
-
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-primary)"
-                            color="#fff"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={() => {
-                                setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
-                                setNewCat("");
-                                setShowInput(false);
-                            }}
-                        >
-                            {__("Add", "gamify")}
-                        </Button>
-                    </Flex>
-                ) : (
-                    <Button
-                        color="var(--gamify-primary)"
-                        fontSize="12px"
-                        fontWeight="500"
-                        lineHeight="16px"
-                        p="6px 8px"
-                        height="auto"
-                        variant="ghost"
-                        mt="12px"
-                        onClick={() => setShowInput(true)}
-                    >
-                        <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
-                    </Button>
-                )}
+                        value={
+                            achievementTypes?.find(
+                            opt => Number(opt.value) === Number(values?.category_id)
+                            ) || null
+                        }
+                        onMenuOpen={fetchAcheivementTypes}
+                        onChange={option => {
+                            setFieldValue('category_id', option.value)
+                        }}
+                        menuPlacement="bottom"
+                    />
+                </GamifyInput>
             </Box>
 
             <GamifyInput label={__("Congratulations Message", "gamify")}>

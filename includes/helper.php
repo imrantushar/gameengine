@@ -84,29 +84,25 @@ class Helper
             'capability'  => 'manage_options',
         );
 
-        // Achievements with Submenu
+        // Achievements with Nested Submenu
         $menu[$slug . '-achievements'] = array(
             'parent_slug' => $slug,
             'title'       => __('Achievements', 'gamify'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array(
-                    'title' => __('Achievement Types', 'gamify'),
-                    'slug'  => 'achievement-types', // This path will be handled by React
-                )
+                array('title' => __('All Achievements', 'gamify'), 'slug' => 'all'),
+                array('title' => __('Achievement Types', 'gamify'), 'slug' => 'achievement-types'),
             )
         );
 
-        // Levels with Submenu
+        // Levels with Nested Submenu
         $menu[$slug . '-levels'] = array(
             'parent_slug' => $slug,
             'title'       => __('Levels', 'gamify'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array(
-                    'title' => __('Level Types', 'gamify'),
-                    'slug'  => 'level-types', // This path will be handled by React
-                )
+                array('title' => __('All Levels', 'gamify'), 'slug' => 'all'),
+                array('title' => __('Level Types', 'gamify'), 'slug' => 'level-types'),
             )
         );
 

@@ -9,7 +9,7 @@ const Tools = () => {
   return (
     <Box className='gamify-page-content'>
       <TopBar path={__('Tools', "gamify")} />
-      <GamifyBox dynamicClasses={'gamify-tools'} heading={__('Short Code', 'academy')}>
+      <GamifyBox dynamicClasses={'gamify-tools'} heading={__('Shortcode', 'academy')}>
         <ShortCode />
       </GamifyBox>
     </Box>

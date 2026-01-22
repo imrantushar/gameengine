@@ -13,6 +13,7 @@ import Points from './pages/points';
 import Addons from './pages/addon';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
+import Types from './pages/Types';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -37,8 +38,8 @@ const renderSwitch = (page, id, action, path) => {
 			return <PointTypeEditor />;
 
 		case 'gamify-achievements':
-			if (path === 'achievements-type') {
-				return <AchievementTypesEditor />
+			if (path === 'achievement-types') {
+				return <Types type={'achievement'} />
 			}
 			if (action || id) {
 				return <AchievementTypesEditor action={action} id={id} />;
@@ -46,7 +47,10 @@ const renderSwitch = (page, id, action, path) => {
 			return <Achievements />;
 
 		case 'gamify-levels':
-			if (path === 'levels-types') {
+			if (path === 'level-types') {
+				return <Types type={'level'} />;
+			}
+			if (action || id) {
 				return <LevelType />;
 			}
 			return <Levels />;
@@ -60,7 +64,7 @@ const renderSwitch = (page, id, action, path) => {
 			return <Addons/>;
 
 		default:
-			return <>No page found</>;
+			return <Dashboard />;
 	}
 };
 

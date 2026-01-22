@@ -22,6 +22,7 @@ class Menu
     {
         $self = new self();
         add_action('admin_menu', array($self, 'admin_menu'));
+        add_action('admin_head', array($self, 'add_admin_menu_css'));
     }
 
     /**
@@ -45,6 +46,7 @@ class Menu
 
         // Loop through Helper menu list to register standard sub-menus.
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
+            // Skip parent slug registration if it matches main_slug to avoid duplicates.
             $sub_hook = add_submenu_page(
                 $item['parent_slug'],
                 $item['title'],
@@ -56,17 +58,86 @@ class Menu
             $this->add_cleanup_hook($sub_hook);
 
             /**
-             * Inject "Types" Sub-menus.
-             * Labels are translated here as literals to pass Plugin Check.
+             *  Inject "All" and "Types" Sub-menus for Achievements.
              */
             if ('gamify-achievements' === $menu_slug) {
+                // Add "All Achievements" link.
+                $all_ach_label = __('All Achievements', 'gamify');
+                $all_ach_hook  = add_submenu_page(
+                    $main_slug,
+                    $all_ach_label,
+                    '— ' . $all_ach_label,
+                    'manage_options',
+                    $menu_slug,
+                    array($this, 'render_app')
+                );
+                $this->add_cleanup_hook($all_ach_hook);
+
+                // Add "Achievement Types" link.
                 $this->add_type_submenu(__('Achievement Types', 'gamify'), 'achievement-types');
             }
 
+            /**
+             * Inject "All" and "Types" Sub-menus for Levels.
+             */
             if ('gamify-levels' === $menu_slug) {
+                // Add "All Levels" link.
+                $all_lvl_label = __('All Levels', 'gamify');
+                $all_lvl_hook  = add_submenu_page(
+                    $main_slug,
+                    $all_lvl_label,
+                    '— ' . $all_lvl_label,
+                    'manage_options',
+                    $menu_slug,
+                    array($this, 'render_app')
+                );
+                $this->add_cleanup_hook($all_lvl_hook);
+
+                // Add "Level Types" link.
                 $this->add_type_submenu(__('Level Types', 'gamify'), 'level-types');
             }
         }
+    }
+
+    /**
+     * Admin css.
+     */
+    function add_admin_menu_css()
+    {
+        echo '<style>
+			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image { 
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image img {
+				max-width: 20px;
+				height: auto;
+				padding: 0 !important;
+			}
+			#adminmenu li.toplevel_page_gamify ul li a, #adminmenu li.toplevel_page_gamify .wp-submenu > li > a {
+				padding: 7px 12px;
+			}
+
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li {
+				clear: both;
+			}
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-addons"],
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-addons"] {
+				color: #FDB022;
+			}
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gamify"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href*="admin.php?page=gamify"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-tools"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-tools"]:after {
+				border-bottom: 1px solid hsla(0,0%,100%,.2);
+				display: block;
+				float: left;
+				margin: 15px -15px 7px;
+				content: "";
+				width: calc(100% + 26px);
+			}
+		</style>';
     }
 
     /**
@@ -79,17 +150,17 @@ class Menu
     {
         $main_slug = 'gamify';
 
-        // The slug format 'parent&path=slug' allows React Router to pick it up via query string.
-        $menu_slug = $main_slug . '-' . (('achievement-types' === $path) ? 'achievements' : 'levels') . '&path=' . $path;
-
         /**
-         * $label is already translated in the call site, 
-         * so we use it directly to satisfy WPCS.
+         * The slug format 'parent&path=slug' allows React Router to pick it up via query string.
+         * Note: $label is already translated at the call-site to pass WPCS.
          */
+        $parent_key = ('achievement-types' === $path) ? 'achievements' : 'levels';
+        $menu_slug  = $main_slug . '-' . $parent_key . '&path=' . $path;
+
         $hook = add_submenu_page(
             $main_slug,
             $label,
-            '— ' . $label, // Visual hierarchy with dash
+            '— ' . $label, // Visual indentation with dash
             'manage_options',
             $menu_slug,
             array($this, 'render_app')
