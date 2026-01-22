@@ -1,0 +1,498 @@
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/frontend.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Gamify Premium UI Stylesheet
+ * Optimized for: [gamify_profile], [gamify_points], [gamify_level], [gamify_progress_map]
+ */
+:root {
+  --gf-primary: #006BFF;
+  --gf-primary-soft: #edf5ff;
+  --gf-success: #10b981;
+  --gf-warning: #f59e0b;
+  --gf-danger: #ef4444;
+  --gf-locked: #94a3b8;
+  --gf-bg-main: #ffffff;
+  --gf-bg-alt: #f8fafc;
+  --gf-text-header: #0f172a;
+  --gf-text-body: #475569;
+  --gf-border: #e2e8f0;
+  --gf-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --gf-shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  --gf-radius: 12px;
+}
+
+/* --- 1. Main Dashboard Wrapper --- */
+.gamify-dashboard {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: var(--gf-bg-main);
+  border-radius: var(--gf-radius);
+  box-shadow: var(--gf-shadow-md);
+  border: 1px solid var(--gf-border);
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+/* Header */
+.gamify-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 35px;
+  background: #fff;
+  border-bottom: 1px solid var(--gf-border);
+  align-items: center;
+}
+
+.gamify-user-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.gamify-user-meta-info img {
+  border-radius: 50%;
+  border: 3px solid var(--gf-primary);
+  padding: 2px;
+  box-shadow: var(--gf-shadow-sm);
+}
+
+.gamify-user-details h3 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--gf-text-header);
+  font-weight: 700;
+}
+
+.gamify-points-tag {
+  font-size: 13px;
+  color: var(--gf-warning);
+  font-weight: 700;
+  background: #fff9db;
+  padding: 4px 14px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  border: 1px solid #fff3bf;
+}
+
+/* Notification Bell */
+.gamify-header-actions .gamify-notification-bell {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  background: var(--gf-bg-alt);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.gamify-notification-bell:hover {
+  background: var(--gf-primary-soft);
+  transform: scale(1.05);
+}
+
+.noti-dot {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 8px;
+  height: 8px;
+  background: var(--gf-danger);
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/* Layout Main */
+.gamify-main-layout {
+  display: flex;
+  min-height: 500px;
+  background: var(--gf-bg-alt);
+}
+
+/* Sidebar */
+.gamify-sidebar {
+  width: 250px;
+  background: #fff;
+  padding: 25px 15px;
+  border-right: 1px solid var(--gf-border);
+}
+
+.gamify-tab-btn {
+  width: 100%;
+  padding: 14px 20px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gf-text-body);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+  margin-bottom: 5px;
+}
+
+.gamify-tab-btn:hover {
+  background: var(--gf-bg-alt);
+  color: var(--gf-primary);
+}
+
+.gamify-tab-btn.active {
+  background: var(--gf-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 107, 255, 0.2);
+}
+
+/* Content Area */
+.gamify-content-area {
+  flex: 1;
+  padding: 40px;
+  background: #fff;
+}
+
+.gamify-tab-content {
+  display: none;
+}
+
+.gamify-tab-content.active {
+  display: block;
+  animation: gfSlideUp 0.4s ease-out;
+}
+
+/* --- 2. Zig-Zag Roadmap --- */
+.gamify-roadmap {
+  padding: 10px 0;
+}
+
+.gamify-timeline {
+  position: relative;
+}
+
+.gamify-timeline::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gf-border);
+  transform: translateX(-50%);
+}
+
+.gamify-timeline-node {
+  position: relative;
+  width: 100%;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.gamify-node-circle {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 36px;
+  background: #fff;
+  border: 4px solid var(--gf-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--gf-locked);
+}
+
+.is-active .gamify-node-circle {
+  border-color: var(--gf-primary);
+  background: var(--gf-primary);
+  color: #fff;
+}
+
+.gamify-connector {
+  position: absolute;
+  left: 50%;
+  top: 36px;
+  width: 4px;
+  height: 100%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.line-blue {
+  background: var(--gf-primary);
+}
+
+.gamify-node-card {
+  width: 44%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid var(--gf-border);
+  box-shadow: var(--gf-shadow-sm);
+  transition: 0.3s;
+  position: relative;
+}
+
+.node-left .gamify-node-card {
+  margin-right: auto;
+  text-align: right;
+}
+
+.node-right .gamify-node-card {
+  margin-left: auto;
+  text-align: left;
+}
+
+.is-active .gamify-node-card {
+  border-top: 4px solid var(--gf-primary);
+}
+
+.is-locked .gamify-node-card {
+  background: var(--gf-bg-alt);
+  opacity: 0.8;
+}
+
+.gamify-card-inner {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.node-left .gamify-card-inner {
+  flex-direction: row-reverse;
+}
+
+.gamify-card-media img {
+  width: 50px;
+  height: 50px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.gamify-card-info h5 {
+  margin: 0;
+  font-size: 17px;
+  color: var(--gf-text-header);
+  font-weight: 700;
+}
+
+.gamify-card-info p {
+  font-size: 13px;
+  color: var(--gf-text-body);
+  margin-top: 5px;
+  line-height: 1.5;
+}
+
+/* --- 3. Achievements Grid --- */
+.gamify-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.gamify-achievement-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px 15px;
+  text-align: center;
+  border: 1px solid var(--gf-border);
+  transition: 0.3s;
+  position: relative;
+}
+
+.gamify-achievement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--gf-shadow-md);
+  border-color: var(--gf-primary);
+}
+
+.achievement-icon-box {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.achievement-icon-box img {
+  width: 65px;
+  height: 65px;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.is-locked .achievement-icon-box {
+  filter: grayscale(1);
+}
+
+.ach-title {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--gf-text-header);
+}
+
+.ach-hint {
+  font-size: 11px;
+  color: var(--gf-danger);
+  margin-top: 8px;
+  font-weight: 600;
+  cursor: help;
+}
+
+/* --- 4. Levels List --- */
+.gamify-level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gamify-level-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  background: var(--gf-bg-alt);
+  border-radius: 12px;
+  border: 1px solid var(--gf-border);
+  transition: 0.2s;
+}
+
+.gamify-level-item:hover {
+  border-color: var(--gf-primary);
+  background: #fff;
+}
+
+.lvl-info-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.lvl-icon {
+  font-size: 20px;
+}
+
+.lvl-name {
+  font-weight: 700;
+  color: var(--gf-text-header);
+  font-size: 15px;
+}
+
+.lvl-date {
+  font-size: 12px;
+  color: var(--gf-locked);
+  font-weight: 500;
+}
+
+/* --- 5. Standalone Pills (Shortcodes) --- */
+.gamify-pill-points {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #fff9db;
+  color: #f08c00;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 14px;
+  border: 1px solid #ffe066;
+  box-shadow: var(--gf-shadow-sm);
+}
+
+.gamify-pill-level {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--gf-primary-soft);
+  color: var(--gf-primary);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #d0e2ff;
+}
+
+/* Animations */
+@keyframes gfSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Responsive Fixes */
+@media (max-width: 768px) {
+  .gamify-dashboard {
+    margin: 10px;
+  }
+  .gamify-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+    padding: 20px;
+  }
+  .gamify-main-layout {
+    flex-direction: column;
+  }
+  .gamify-sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--gf-border);
+    padding: 10px;
+  }
+  .gamify-tab-btn {
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    width: auto;
+  }
+  .gamify-tab-btn.active {
+    border-right: none;
+    border-bottom: 3px solid var(--gf-primary);
+  }
+  .gamify-timeline::before {
+    left: 20px;
+  }
+  .gamify-node-circle {
+    left: 20px;
+    transform: none;
+  }
+  .gamify-connector {
+    left: 34px;
+    transform: none;
+  }
+  .gamify-node-card {
+    width: calc(100% - 65px);
+    margin-left: 65px !important;
+  }
+  .node-left .gamify-card-inner {
+    flex-direction: row;
+  }
+}
+
+/*# sourceMappingURL=frontend.css.map*/
