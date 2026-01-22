@@ -6,7 +6,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
       id: filteredData?.id,
       title: filteredData?.title,
       description: filteredData?.description,
-      category: filteredData?.category,
+      category_id: filteredData?.category_id,
       max_earnings_per_user: filteredData?.max_earnings_per_user,
       unlock_with_points_enabled: filteredData?.unlock_with_points_enabled,
       required_points_amount: filteredData?.required_points_amount,
@@ -22,7 +22,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
   return {
     title: "",
     description: "",
-    category: [],
+    category_id: 0,
     max_earnings_per_user: 0,
     unlock_with_points_enabled: true,
     required_points_amount: 0,

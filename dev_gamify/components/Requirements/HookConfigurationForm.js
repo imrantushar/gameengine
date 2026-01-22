@@ -4,10 +4,10 @@ import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
-import { fetchDynamicOptions, updateHookSettings } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
+import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
 import Select from 'react-select';
-import { commonInput, primaryBtn } from '../../../assets/scss/chakra/recipe';
+import { commonInput } from '../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 import GamifyInput from '@GFComponents/GamifyInput';
 
@@ -154,7 +154,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
     );
 };
 
-const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettings, isOpen, setIsOpen }) => {
+const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen, setIsOpen }) => {
     const { values, setFieldValue } = useFormikContext();
     
     const handleChange = (field, value, hook) => {
@@ -171,7 +171,6 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, dispatch, currentSettin
             return item;
         })
         setFieldValue('requirements', updatedFieldValue);
-        
     };
 
     return (

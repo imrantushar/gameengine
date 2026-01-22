@@ -76,10 +76,10 @@ const LevelTable = () => {
                         type: "button",
                         label: __('Edit', 'gamify'),
                         icon: <Icon as={FiEdit} />,
-                        onClick: () => navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types&id=${row.id}`)
+                        onClick: () => navigate(`${route_path}admin.php?page=gamify-levels&action=edit&id=${row.id}`)
                     },
                     {
-                        type: "button",
+                        type: "button", 
                         suffix: "trash",
                         label: __('Delete', 'gamify'),
                         icon: <Icon as={FiTrash2} />,
@@ -94,11 +94,11 @@ const LevelTable = () => {
     return (
         <div className='gamify-page-content'>
             <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                <GFLabel type="plainHeading" margin={0} label={__("Levels Types", "gamify")} />
+                <GFLabel type="plainHeading" margin={0} label={__("Levels", "gamify")} />
 
                 <Button
                     {...primaryBtn}
-                    onClick={() => navigate(`${route_path}admin.php?page=gamify-levels&path=levels-types`)}
+                    onClick={() => navigate(`${route_path}admin.php?page=gamify-levels&action=new`)}
                 >
                     <Icon as={GoPlus} boxSize="20px" /> {__('Add new level', 'gamify')}
                 </Button>
