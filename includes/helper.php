@@ -91,7 +91,7 @@ class Helper
             'capability'  => 'manage_options',
             'sub_items'   => array(
                 array(
-                    'title' => __('Achievement Types', 'gamify'),
+                    'title' => __('Types', 'gamify'),
                     'slug'  => 'achievement-types', // This path will be handled by React
                 )
             )
@@ -104,7 +104,7 @@ class Helper
             'capability'  => 'manage_options',
             'sub_items'   => array(
                 array(
-                    'title' => __('Level Types', 'gamify'),
+                    'title' => __('Types', 'gamify'),
                     'slug'  => 'level-types', // This path will be handled by React
                 )
             )

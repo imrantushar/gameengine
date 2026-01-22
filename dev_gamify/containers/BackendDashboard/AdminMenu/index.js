@@ -11,6 +11,8 @@ import {
 } from '@GFUtils/helper';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
+import { Icon } from '@chakra-ui/react';
+import { LiaAngleRightSolid } from "react-icons/lia";
 
 const AdminMenu = () => {
 	const adminmenu = useSelector( ( state ) => state.adminmenu.data );
@@ -79,7 +81,7 @@ const AdminMenu = () => {
 							>
 								{ item.title }
 								{ item?.sub_items && (
-									<span className="gamify-icon gamify-icon--angle-right"></span>
+									<Icon className='gamify-icon gamify-icon--angle-right' as={LiaAngleRightSolid} />
 								) }
 							</Link>
 						</MenuItem>

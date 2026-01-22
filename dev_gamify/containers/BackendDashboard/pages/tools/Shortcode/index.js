@@ -46,6 +46,12 @@ const shortCodeData = [
 		description: `[academy_course_search]`,
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
+	{
+		title: __('Content Restriction', 'academy'),
+		shortCode: '[gamify_restrict]',
+		description: `[academy_course_search]`,
+		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+	},
 ];
 
 const ShortCode = () => {

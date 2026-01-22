@@ -22,6 +22,7 @@ class Menu
     {
         $self = new self();
         add_action('admin_menu', array($self, 'admin_menu'));
+		add_action( 'admin_head', array( $self, 'add_admin_menu_css' ) );
     }
 
     /**
@@ -60,14 +61,54 @@ class Menu
              * Labels are translated here as literals to pass Plugin Check.
              */
             if ('gamify-achievements' === $menu_slug) {
-                $this->add_type_submenu(__('Achievement Types', 'gamify'), 'achievement-types');
+                $this->add_type_submenu(__('Types', 'gamify'), 'achievement-types');
             }
 
             if ('gamify-levels' === $menu_slug) {
-                $this->add_type_submenu(__('Level Types', 'gamify'), 'level-types');
+                $this->add_type_submenu(__('Types', 'gamify'), 'level-types');
             }
         }
     }
+
+    /**
+     * Admin css.
+     */
+    function add_admin_menu_css() {
+		echo '<style>
+			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image { 
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image img {
+				max-width: 20px;
+				height: auto;
+				padding: 0 !important;
+			}
+			#adminmenu li.toplevel_page_gamify ul li a, #adminmenu li.toplevel_page_gamify .wp-submenu > li > a {
+				padding: 7px 12px;
+			}
+
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li {
+				clear: both;
+			}
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-addons"],
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-addons"] {
+				color: #FDB022;
+			}
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gamify"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href*="admin.php?page=gamify"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-tools"]:after,
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-tools"]:after {
+				border-bottom: 1px solid hsla(0,0%,100%,.2);
+				display: block;
+				float: left;
+				margin: 15px -15px 7px;
+				content: "";
+				width: calc(100% + 26px);
+			}
+		</style>';
+	}	
 
     /**
      * Helper to add a "Types" submenu under the main Gamify parent.
@@ -89,7 +130,7 @@ class Menu
         $hook = add_submenu_page(
             $main_slug,
             $label,
-            '— ' . $label, // Visual hierarchy with dash
+            $label, // Visual hierarchy with dash
             'manage_options',
             $menu_slug,
             array($this, 'render_app')
