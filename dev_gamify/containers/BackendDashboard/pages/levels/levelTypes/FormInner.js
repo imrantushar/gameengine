@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaArrowRotateRight, FaGamepad, FaWordpressSimple } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors,} from "@dnd-kit/core";
+import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
+import { DndContext, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GamifyEditor from "@GFComponents/editor";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
@@ -17,6 +17,7 @@ import { useFormikContext } from "formik";
 import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
+import { arrowForward } from "@GFUtils/icons";
 
 const FormInner = () => {
     const [message, setMessage] = useState("");
@@ -111,8 +112,8 @@ const FormInner = () => {
                             <GFLabel type="title" fontWeight="400" label={item?.label} />
                         </Flex>
 
-                        <Box bg="green.500" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
-                            <Icon as={FaArrowRotateRight} boxSize={3} />
+                        <Box bg="#0CDC01" borderRadius="full" width="24px" height="24px" display="flex" alignItems="center" justifyContent="center" color="white">
+                            <Icon as={arrowForward} />
                         </Box>
                     </Flex>
 

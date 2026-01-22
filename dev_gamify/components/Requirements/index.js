@@ -18,6 +18,7 @@ const DraggableItem = ({ id, children }) => {
         cursor: "grab",
         zIndex: isDragging ? 999 : 1
     };
+    
     return (
         <Box ref={setNodeRef} {...listeners} {...attributes} style={style} marginBottom="24px">
             {children}
