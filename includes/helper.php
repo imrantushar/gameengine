@@ -134,7 +134,7 @@ class Helper
             'slug'        => 'tools',
         );
 
-        // 8. Settings
+        //  Settings
         $menu[$slug . '-settings'] = array(
             'parent_slug' => $slug,
             'title'       => __('Settings', 'gamify'),

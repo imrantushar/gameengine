@@ -10,7 +10,7 @@ use Gamify\Helper;
 
 /**
  * Class Menu
- * Handles Admin Menu registration for the Gamify plugin.
+ *  Admin Menu registration for the Gamify plugin.
  */
 class Menu
 {
