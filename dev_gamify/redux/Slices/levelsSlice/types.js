@@ -33,7 +33,7 @@ export const createLevelType = createAsyncThunk('gamify/createLevelType', async 
       isShow: true,
       type: 'success',
     }))
-    return response.data;
+    return {id: response.data.term_id, ...data};
   } catch (error) {
       return handleSliceError(thunkAPI, error)
   }
@@ -49,7 +49,7 @@ export const updateLevelType = createAsyncThunk('gamify/updateLevelType', async 
       isShow: true,
       type: 'success',
     }))
-    return response.data;
+    return  {id: response.data.term_id, ...data};
   } catch (error) {
     return handleSliceError(thunkAPI, error)
   }

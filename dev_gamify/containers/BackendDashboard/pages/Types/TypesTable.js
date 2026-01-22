@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Box, Icon } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import { clearBtn } from '../../../../../assets/scss/chakra/recipe';
+import { sliceString } from '@GFUtils/helper';
 
 const TypesTable = ({type, editHandler}) => {
   const dispatch = useDispatch();
@@ -39,13 +42,38 @@ const TypesTable = ({type, editHandler}) => {
         name: __('Name', 'gamify'),
         columnWidth: "180px",
         textAlign: "start",
-        cell: (row = {}) => <Box>{row?.name}</Box>
+        cell: (row = {}) => (
+          <Box>
+            <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+            <Flex gap={'8px'}>
+              <GFLabel type='simple' label={__("ID:", "gamify") + " " + row?.id} />
+              <Flex gap={'4px'}>
+                <Button
+                  {...clearBtn}
+                  minW={'16px'}
+                  height={'16px'}
+                  onClick={() => editHandler(row)}
+                  >
+                  <Icon as={FiEdit} width={'14px'} />
+                </Button>
+                <Button
+                  {...clearBtn}
+                  height={'16px'}
+                  minW={'16px'}
+                  // onClick={() => editHandler(row)}
+                >
+                  <Icon as={FiTrash2} width={'14px'} color={'red'} />
+                </Button>
+              </Flex>
+            </Flex>
+          </Box>
+        )
     },
     {
         name: __('Slug', 'gamify'),
         columnWidth: "180px",
         textAlign: "start",
-        cell: (row = {}) => <Box>{row?.slug}</Box>
+        cell: (row = {}) => <Box>{sliceString(row?.slug, 30)}</Box>
     },
     {
         name: __('Description', 'gamify'),

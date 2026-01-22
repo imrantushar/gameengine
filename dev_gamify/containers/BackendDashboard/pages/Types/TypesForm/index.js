@@ -5,7 +5,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { capitalizeFirstLetter, getTermInitalValues } from './helper';
 import { Formik } from 'formik';
-import { commonInput, primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+import { commonInput, primaryBtn, removeBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GamifyInput from '@GFComponents/GamifyInput';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -124,16 +124,25 @@ const TypesForm = ({type="", resetForm, formData}) => {
                     padding={'12px 16px'}
                 />
               </GamifyInput>
+              <Flex marginLeft={'auto'} gap={'10px'}>
+                {formData?.id && (
+                  <Button
+                    {...removeBtn}
+                    onClick={resetForm}
+                  >
+                    {__("Cancel", "gamify")}
+                  </Button>
+                )}
 
-              <Button
-                {...primaryBtn}
-                loading={isSubmitting}
-                disabled={!dirty}
-                onClick={submitForm}
-                marginLeft={'auto'}
-              >
-                {!formData?.id ? __("Create", "gamify") : __("Update", "gamify")}
-              </Button>
+                <Button
+                  {...primaryBtn}
+                  loading={isSubmitting}
+                  disabled={!dirty}
+                  onClick={submitForm}
+                >
+                  {!formData?.id ? __("Create", "gamify") : __("Update", "gamify")}
+                </Button>
+              </Flex>
             </Flex>
           )
         }}
