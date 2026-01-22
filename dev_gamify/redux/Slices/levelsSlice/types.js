@@ -58,7 +58,7 @@ export const updateLevelType = createAsyncThunk('gamify/updateLevelType', async 
 export const deleteLevelType = createAsyncThunk('gamify/deleteLevelType', async (id, thunkAPI) => {
   try{
     await API.post(namespace + 'taxonomies/level_type/' + id,
-      { force: false },
+      { force: true },
       {
         headers: {
             'X-HTTP-Method-Override': 'DELETE',

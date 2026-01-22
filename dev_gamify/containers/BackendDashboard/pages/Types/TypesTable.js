@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
-import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
+import { deleteAchievementType, fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
+import { deleteLevelType, fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { Box, Button, Flex, Icon } from '@chakra-ui/react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
@@ -37,6 +37,15 @@ const TypesTable = ({type, editHandler}) => {
     })()
   }, [type])
 
+  const deleteHandler = (row) => {
+    if(type === "achievement") {
+      dispatch(deleteAchievementType(row.id))
+    }
+    if(type === "level") {
+      dispatch(deleteLevelType(row.id))
+    }
+  }
+
   const columns = [
     {
         name: __('Name', 'gamify'),
@@ -60,7 +69,7 @@ const TypesTable = ({type, editHandler}) => {
                   {...clearBtn}
                   height={'16px'}
                   minW={'16px'}
-                  // onClick={() => editHandler(row)}
+                  onClick={() => deleteHandler(row)}
                 >
                   <Icon as={FiTrash2} width={'14px'} color={'red'} />
                 </Button>
@@ -112,7 +121,7 @@ const TypesTable = ({type, editHandler}) => {
                     suffix: 'trash',
                     label: __('Delete', 'gamify'),
                     icon: <Icon as={FiTrash2} />,
-                    // onClick: () => handleDelete(row?.id)
+                    onClick: () => deleteHandler(row)
                 },
               ]}
             />

@@ -58,7 +58,7 @@ export const updateAchievementType = createAsyncThunk('gamify/updateAchievementT
 export const deleteAchievementType = createAsyncThunk('gamify/deleteAchievementType', async (id, thunkAPI) => {
   try{
     await API.post(namespace + 'taxonomies/achievement_type/' + id,
-      { force: false },
+      { force: true },
       {
         headers: {
             'X-HTTP-Method-Override': 'DELETE',
