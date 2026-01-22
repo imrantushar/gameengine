@@ -54,16 +54,16 @@ const FormInner = () => {
     };
 
     const fetchAcheivementTypes = async (searchKey="") => {
-        if(searchKey) searchKey = "?search=" + searchKey;
+        if(searchKey) searchKey = "&search=" + searchKey;
         try {
-            const url = namespace + 'taxonomies/level_type'+ searchKey;
+            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100'+ searchKey;
             const response = await API.get(url);
             const selectData = response.data.map(item => {
                 return {label: item.name, value: `${item.id}`}
             })
             setAchievementTypes(selectData)
         } catch (error) {
-            
+            console.warn(error)
         }
     }
 
@@ -93,6 +93,7 @@ const FormInner = () => {
                 fetchLevels();
             }
         }
+        fetchAcheivementTypes()
     }, [isRestrictContentActive])
 
     const {
@@ -226,13 +227,13 @@ const FormInner = () => {
 
             <Box className="gamify-add-achievement-type">
                 <GamifyInput 
-                    label={__("Required Levels", "gamify")} 
+                    label={__("Achivement Type", "gamify")} 
                     width="100%" 
                     direction={'row'}
                     justifyContent="space-between"
                 >
                     <Select
-                        className="gamify-select gamify-select--300"
+                        className="gamify-select gamify-select--width-half"
                         classNamePrefix="gamify-select"
                         options={achievementTypes}
                         onInputChange={(inputValue) => {
@@ -241,12 +242,12 @@ const FormInner = () => {
                         }}
                         value={
                             achievementTypes?.find(
-                            opt => Number(opt.value) === Number(values?.category)
+                            opt => Number(opt.value) === Number(values?.category_id)
                             ) || null
                         }
                         onMenuOpen={fetchAcheivementTypes}
                         onChange={option => {
-                            setFieldValue('category', option.value)
+                            setFieldValue('category_id', option.value)
                         }}
                         menuPlacement="bottom"
                     />

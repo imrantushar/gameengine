@@ -32,11 +32,12 @@ const FormInner = () => {
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [types, setTypes] = useState([]);
     const { values, setFieldValue } = useFormikContext();
     const addons = useSelector(state => state.addons);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
 
-    const fetchLevelTypes = async (key) => {
+    const fetchAchievements = async (key) => {
         try {
             setLevelTypesLoading(true);
             let url = namespace + 'achievements';
@@ -70,15 +71,30 @@ const FormInner = () => {
         }
     };
 
+    const fetchTypes = async (searchKey="") => {
+        if(searchKey) searchKey = "&search=" + searchKey;
+        try {
+            const url = namespace + 'taxonomies/level_type?page=1&per_page=100'+ searchKey;
+            const response = await API.get(url);
+            const selectData = response.data.map(item => {
+                return {label: item.name, value: `${item.id}`}
+            })
+            setTypes(selectData)
+        } catch (error) {
+            console.warn(error)
+        }
+    }
+
     useEffect(() => {
         if (isRestrictContentActive) {
             if (levelTypesData.length === 0) {
-                fetchLevelTypes();
+                fetchAchievements();
             }
             if (levelsData.length === 0) {
                 fetchLevels();
             }
         }
+        fetchTypes();
     }, [isRestrictContentActive])
 
     const { hookSettings, allHooks, availablePointTypes } = useSelector(state => state.levels);
@@ -189,108 +205,32 @@ const FormInner = () => {
             </Flex>
 
             <Box className="gamify-add-level-type">
-                <GFLabel type="title" label={__("Level Type", "gamify")} />
-
-                {values?.category?.length > 0 && (
-                    <RadioGroup.Root
-                        value={values.category.find(c => c.is_selected)?.value}
-                        onValueChange={(item) => {
-                            setFieldValue(
-                                'category',
-                                values.category.map(cat =>
-                                    cat.value === item.value
-                                        ? { ...cat, is_selected: true }
-                                        : { ...cat, is_selected: false }
-                                )
-                            );
+                <GamifyInput 
+                    label={__("Level Type", "gamify")} 
+                    width="100%" 
+                    direction={'row'}
+                    justifyContent="space-between"
+                >
+                    <Select
+                        className="gamify-select gamify-select--width-half"
+                        classNamePrefix="gamify-select"
+                        options={types}
+                        onInputChange={(inputValue) => {
+                            fetchTypes(inputValue);
+                            return inputValue;
                         }}
-                        size="sm"
-                    >
-                        <Flex
-                            mt="4px"
-                            gap="24px"
-                            p="12px"
-                            border="1px solid var(--gamify-border-color)"
-                            borderRadius="4px"
-                            flexWrap="wrap"
-                        >
-                            {values.category.map((cat, index) => (
-                                <RadioGroup.Item key={index} value={cat.value}>
-                                    <RadioGroup.ItemHiddenInput />
-
-                                    <RadioGroup.ItemIndicator
-                                        style={{
-                                            width: "20px",
-                                            height: "20px",
-                                            borderRadius: "9999px",
-                                            border: cat.is_selected
-                                                ? "1px solid #007AFF"
-                                                : "1px solid #ccc",
-                                            backgroundColor: cat.is_selected
-                                                ? "#007AFF"
-                                                : "transparent",
-                                        }}
-                                    />
-
-                                    <RadioGroup.ItemText>
-                                        {sprintf(__('%s', 'gemboards'), cat.label)}
-                                    </RadioGroup.ItemText>
-                                </RadioGroup.Item>
-                            ))}
-                        </Flex>
-                    </RadioGroup.Root>
-                )}
-
-                {showInput ? (
-                    <Flex alignItems="center" mt="6px" gap={2}>
-                        <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
-
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-border-color)"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            variant="ghost"
-                            onClick={() => setShowInput(false)}
-                        >
-                            {__("Cancel", "gamify")}
-                        </Button>
-
-                        <Button
-                            size="xs"
-                            bg="var(--gamify-primary)"
-                            color="#fff"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            variant="ghost"
-                            onClick={() => {
-                                setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
-                                setNewCat("");
-                                setShowInput(false);
-                            }}
-                        >
-                            {__("Add", "gamify")}
-                        </Button>
-                    </Flex>
-                ) : (
-                    <Button
-                        color="var(--gamify-primary)"
-                        fontSize="12px"
-                        fontWeight="500"
-                        lineHeight="16px"
-                        p="6px 8px"
-                        height="auto"
-                        variant="ghost"
-                        mt="12px"
-                        onClick={() => setShowInput(true)}
-                    >
-                        <Icon as={GoPlus} boxSize="16px" />{__("Add Achievement Type", "gamify")}
-                    </Button>
-                )}
+                        value={
+                            types?.find(
+                            opt => Number(opt.value) === Number(values?.category_id)
+                            ) || null
+                        }
+                        onMenuOpen={fetchTypes}
+                        onChange={option => {
+                            setFieldValue('category_id', option.value)
+                        }}
+                        menuPlacement="bottom"
+                    />
+                </GamifyInput>
             </Box>
 
             <GamifyInput label={__("Congratulations Message", "gamify")} width="100%">
@@ -326,7 +266,7 @@ const FormInner = () => {
                                 classNamePrefix="gamify-select"
                                 options={levelTypesData}
                                 onInputChange={(inputValue) => {
-                                    fetchLevelTypes(inputValue);
+                                    fetchAchievements(inputValue);
                                     return inputValue;
                                 }}
                                 value={

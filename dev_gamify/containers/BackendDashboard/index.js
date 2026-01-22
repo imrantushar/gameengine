@@ -50,6 +50,9 @@ const renderSwitch = (page, id, action, path) => {
 			if (path === 'level-types') {
 				return <Types type={'level'} />;
 			}
+			if (action || id) {
+				return <LevelType />;
+			}
 			return <Levels />;
 		case 'gamify-leaderboards':
 			return <Leaderboards />;

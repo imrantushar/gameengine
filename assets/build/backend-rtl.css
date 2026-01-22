@@ -992,6 +992,9 @@ input.gamify-checkbox:checked::before {
 .gamify-select--width-full {
   width: 100%;
 }
+.gamify-select--width-half {
+  width: 50%;
+}
 .gamify-select--65 {
   width: 65px;
 }
@@ -2400,7 +2403,6 @@ h2.react-datepicker__current-month {
   margin: 0 !important;
   border-radius: 4px 4px 0 0;
   position: relative;
-  z-index: 9;
   background: #fff;
 }
 .ql-toolbar .ql-formats {
