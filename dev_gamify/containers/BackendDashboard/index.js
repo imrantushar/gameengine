@@ -12,6 +12,7 @@ import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
 import Notification from '@GFComponents/Notification';
+import Tools from './pages/tools';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -52,7 +53,10 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gamify-leaderboards':
 			return <Leaderboards />;
 
-		case 'gamify-addons':
+		case 'gamify-tools':
+			return <Tools />;
+
+			case 'gamify-addons':
 			return <Addons/>;
 
 		default:
