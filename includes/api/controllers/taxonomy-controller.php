@@ -27,7 +27,6 @@ class TaxonomyController extends BaseController
      */
     public function register_routes()
     {
-        // Route: gamify/v1/taxonomies/{tax_slug}
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base . '/(?P<tax>[a-zA-Z0-9_\-]+)',
@@ -36,6 +35,7 @@ class TaxonomyController extends BaseController
                     'methods'             => \WP_REST_Server::READABLE,
                     'callback'            => array($this, 'get_terms'),
                     'permission_callback' => array($this, 'admin_permission_check'),
+                    'args'                => $this->get_collection_params(),
                 ),
                 array(
                     'methods'             => \WP_REST_Server::CREATABLE,
@@ -45,7 +45,6 @@ class TaxonomyController extends BaseController
             )
         );
 
-        // Route for individual term by ID: gamify/v1/taxonomies/{tax_slug}/{id}
         register_rest_route(
             $this->namespace,
             '/' . $this->rest_base . '/(?P<tax>[a-zA-Z0-9_\-]+)/(?P<id>[\d]+)',
@@ -69,22 +68,29 @@ class TaxonomyController extends BaseController
      */
     public function get_terms($request)
     {
-        $tax = sanitize_text_field($request['tax']);
+        $tax      = sanitize_text_field($request['tax']);
+        $search   = $request->get_param('search');
+        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
+        $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
+        $offset   = ($page - 1) * $per_page;
 
         if (! taxonomy_exists($tax)) {
-            return new \WP_Error('invalid_taxonomy', __('Invalid taxonomy.', 'gamify'), array('status' => 404));
+            return new \WP_Error('invalid_taxonomy', 'Taxonomy not found', array('status' => 404));
         }
 
-        $terms = get_terms(
-            array(
-                'taxonomy'   => $tax,
-                'hide_empty' => false,
-            )
+        $args = array(
+            'taxonomy'   => $tax,
+            'hide_empty' => false,
+            'number'     => $per_page,
+            'offset'     => $offset,
         );
 
-        if (is_wp_error($terms)) {
-            return new \WP_Error('db_error', $terms->get_error_message(), array('status' => 500));
+        if (! empty($search)) {
+            $args['search'] = $search;
         }
+
+        $terms       = get_terms($args);
+        $total_terms = wp_count_terms($tax, array('search' => $search));
 
         $response = array();
         foreach ($terms as $term) {
@@ -97,7 +103,25 @@ class TaxonomyController extends BaseController
             );
         }
 
-        return new \WP_REST_Response($response, 200);
+        $total_pages = (int) ceil($total_terms / $per_page);
+        $res         = new \WP_REST_Response($response, 200);
+
+        $res->header('X-WP-Total', (int) $total_terms);
+        $res->header('X-WP-TotalPages', $total_pages);
+
+        return $res;
+    }
+
+    /**
+     * Param.
+     */
+    public function get_collection_params()
+    {
+        return array(
+            'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
+            'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
+            'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
+        );
     }
 
     /**
