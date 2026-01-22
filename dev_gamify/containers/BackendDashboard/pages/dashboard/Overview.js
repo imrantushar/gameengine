@@ -67,24 +67,26 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                     </Flex>
                 }
             >
-                <Flex gap="16px" flexWrap="wrap">
+                <Flex gap="16px" flexWrap="wrap" p={2}>
                     {cards.map((card, i) => (
                         <Flex
                             key={i}
                             align="center"
                             justify="space-between"
-                            bg={card.bg}
+                            bg={card?.bg}
                             p="32px 24px"
                             gap={6}
                             flexShrink={0}
-                            flexBasis="calc((100% - 32px) / 3)"
+                            flexBasis="calc((100% - 48px) / 4)"
+                            boxShadow="var(--gamify-shadow)"
+                            borderRadius="4px"
                         >
                             <Flex direction="column" gap={1}>
-                                <Text fontSize="30px" fontWeight="700" lineHeight="38px" m={0}>{card.value}</Text>
-                                <Text fontSize="16px" fontWeight="500" lineHeight="24px" m={0}>{card.label}</Text>
+                                <Text fontSize="30px" fontWeight="700" lineHeight="38px" m={0}>{card?.value}</Text>
+                                <Text fontSize="16px" fontWeight="500" lineHeight="24px" m={0}>{card?.label}</Text>
                             </Flex>
                             <Box bg={card?.iconColor} p="14px" borderRadius="full">
-                                <Icon as={card.icon} boxSize={8} color="#fff" />
+                                <Icon as={card?.icon} boxSize={8} color="#fff" />
                             </Box>
                         </Flex>
                     ))}
