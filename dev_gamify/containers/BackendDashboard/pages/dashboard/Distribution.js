@@ -19,7 +19,7 @@ function Distribution({ chartData }) {
             {
                 label: "Points",
                 data: points,
-                borderColor: "#F4C430", // Matched your custom color
+                borderColor: "#F4C430",
                 backgroundColor: "rgba(244, 196, 48, 0.25)",
                 pointRadius: 3,
                 borderWidth: 2,

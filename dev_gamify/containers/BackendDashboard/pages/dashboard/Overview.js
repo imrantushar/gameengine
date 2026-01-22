@@ -6,7 +6,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import BoxView from '@GFComponents/BoxView/BoxView';
-import { achievement, star, trophy, user } from '@GFUtils/icons';
+import { achievement, calendar, star, trophy, user } from '@GFUtils/icons';
 
 function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setEndDate }) {
     const dateOnly = (d) => {
@@ -36,8 +36,8 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                 width='100%'
                 title={__('Overview', 'gamify')}
                 rightContent={
-                    <Flex align="center" gap={2}>
-                        <Icon as={FiCalendar} color="gray.600" boxSize={4} />
+                    <Flex align="center" gap={2} border="1px solid var(--gamify-border-color)" borderRadius="4px" p="10px 12px" cursor="pointer">
+                        <Icon as={calendar} />
                         <Flex>
                             <DatePicker
                                 selected={startDate}
@@ -45,7 +45,7 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                                 placeholderText={__('Start date', 'gamify')}
                                 dateFormat="MMM dd, yyyy"
                                 customInput={
-                                    <Text fontSize="sm" fontWeight="500" m="0">
+                                    <Text fontSize="14px" fontWeight="400" lineHeight="20px" m="0">
                                         {startDate ? startDate.toLocaleDateString() : __('Start date', 'gamify')}
                                     </Text>
                                 }
@@ -58,7 +58,7 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                                 dateFormat="MMM dd, yyyy"
                                 minDate={startDate}
                                 customInput={
-                                    <Text fontSize="sm" fontWeight="500" m="0">
+                                    <Text fontSize="14px" fontWeight="400" lineHeight="20px" m="0">
                                         {endDate ? endDate.toLocaleDateString() : __('End date', 'gamify')}
                                     </Text>
                                 }
