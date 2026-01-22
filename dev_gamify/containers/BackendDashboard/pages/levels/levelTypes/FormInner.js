@@ -242,7 +242,7 @@ const FormInner = () => {
                 )}
 
                 {showInput ? (
-                    <Flex mt="6px" gap={2}>
+                    <Flex alignItems="center" mt="6px" gap={2}>
                         <Input {...commonInput} size="sm" value={newCat} onChange={e => setNewCat(e.target.value)} placeholder={__("Enter type name", "gamify")} />
 
                         <Button
@@ -252,7 +252,6 @@ const FormInner = () => {
                             fontWeight="500"
                             lineHeight="16px"
                             p="6px 8px"
-                            height="auto"
                             variant="ghost"
                             onClick={() => setShowInput(false)}
                         >
@@ -267,7 +266,6 @@ const FormInner = () => {
                             fontWeight="500"
                             lineHeight="16px"
                             p="6px 8px"
-                            height="auto"
                             variant="ghost"
                             onClick={() => {
                                 setFieldValue('category', [...values.category, { label: newCat, value: newCat, is_selected: false }])
