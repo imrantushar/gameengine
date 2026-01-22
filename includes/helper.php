@@ -70,14 +70,14 @@ class Helper
         $slug = 'gamify'; // Main plugin slug
         $menu = array();
 
-        // 1. Dashboard
+        //  Dashboard
         $menu[$slug] = array(
             'parent_slug' => $slug,
             'title'       => __('Dashboard', 'gamify'),
             'capability'  => 'manage_options',
         );
 
-        // 2. Points System
+        // Points System
         $menu[$slug . '-points'] = array(
             'parent_slug' => $slug,
             'title'       => __('Points System', 'gamify'),
@@ -110,25 +110,32 @@ class Helper
             )
         );
 
-        // 5. Logs
+        // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,
             'title'       => __('Logs', 'gamify'),
             'capability'  => 'manage_options',
         );
 
-        // 6. Leaderboards
+        // Leaderboards
         $menu[$slug . '-leaderboards'] = array(
             'parent_slug' => $slug,
             'title'       => __('Leaderboards', 'gamify'),
             'capability'  => 'manage_options',
         );
 
-        // 7. Addons
+        // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,
             'title'       => __('Addons', 'gamify'),
             'capability'  => 'manage_options',
+        );
+
+        $menu[$slug . '-tools'] = array(
+            'parent_slug' => $slug,
+            'title'       => __('Tools', 'gamify'),
+            'capability'  => 'manage_options',
+            'slug'        => 'tools',
         );
 
         // 8. Settings

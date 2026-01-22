@@ -18,6 +18,7 @@ use Gamify\API\Controllers\LeaderboardController;
 use Gamify\API\Controllers\SettingsController;
 use Gamify\API\Controllers\AddonsController;
 use Gamify\API\Controllers\TaxonomyController;
+use Gamify\API\Controllers\ToolsController;
 
 final class Manager
 {
@@ -49,6 +50,7 @@ final class Manager
             SettingsController::class,
             AddonsController::class,
             TaxonomyController::class,
+            ToolsController::class,
         ];
     }
 
