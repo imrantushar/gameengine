@@ -16,8 +16,23 @@ $gamify_user_lvls      = $gamify_levels_manager->get_all_user_levels($gamify_use
                     <span class="lvl-name"><?php echo esc_html($gamify_lvl->title); ?></span>
                 </div>
                 <span class="lvl-date">
-                    <?php echo esc_html(date_i18n(get_option('date_format'), strtotime($gamify_lvl->achieved_at))); ?>
+                    <?php
+                    $achieved_at = isset($gamify_lvl->achieved_at) ? $gamify_lvl->achieved_at : '';
+
+                    if (! empty($achieved_at)) {
+                        $ts = strtotime($achieved_at);
+                        if (false !== $ts) {
+                            echo esc_html(date_i18n(get_option('date_format'), $ts));
+                        } else {
+                            echo esc_html__('—', 'gamify');
+                        }
+                    } else {
+                        // যদি date না থাকে, সুন্দর fallback
+                        echo esc_html__('—', 'gamify');
+                    }
+                    ?>
                 </span>
+
             </div>
         <?php endforeach; ?>
     <?php else : ?>

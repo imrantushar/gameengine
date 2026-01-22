@@ -27,17 +27,38 @@ class Progress_Map_Logic
 
 		// 1. Fetch all Levels.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$levels = $wpdb->get_results("SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority FROM {$wpdb->prefix}gamify_levels ORDER BY priority ASC", ARRAY_A);
+		$levels = $wpdb->get_results(
+			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority
+			 FROM {$wpdb->prefix}gamify_levels
+			 ORDER BY priority ASC",
+			ARRAY_A
+		);
 
 		// 2. Fetch all Achievements.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$achievements = $wpdb->get_results("SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at FROM {$wpdb->prefix}gamify_achievements ORDER BY created_at ASC", ARRAY_A);
+		$achievements = $wpdb->get_results(
+			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at
+			 FROM {$wpdb->prefix}gamify_achievements
+			 ORDER BY created_at ASC",
+			ARRAY_A
+		);
 
 		// 3. Fetch user earned data.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$user_levels = $wpdb->get_col($wpdb->prepare("SELECT level_id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d", $user_id));
+		$user_levels = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT level_id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d",
+				$user_id
+			)
+		);
+
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-		$user_achievements = $wpdb->get_col($wpdb->prepare("SELECT achievement_id FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d", $user_id));
+		$user_achievements = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT achievement_id FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d",
+				$user_id
+			)
+		);
 
 		// 4. Merge and process status.
 		$journey  = array_merge($levels ? $levels : array(), $achievements ? $achievements : array());
@@ -46,7 +67,10 @@ class Progress_Map_Logic
 
 		if (! empty($journey)) {
 			foreach ($journey as $item) {
-				$is_completed   = ('level' === $item['type']) ? in_array((string) $item['id'], $user_levels, true) : in_array((string) $item['id'], $user_achievements, true);
+				$is_completed   = ('level' === $item['type'])
+					? in_array((string) $item['id'], $user_levels, true)
+					: in_array((string) $item['id'], $user_achievements, true);
+
 				$item['status'] = $is_completed ? 'completed' : 'locked';
 
 				if ($is_completed) {
@@ -69,10 +93,30 @@ class Progress_Map_Logic
 	private static function get_dependency_titles($journey)
 	{
 		global $wpdb;
+
 		$titles = array();
 
 		$ach_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_achievement_id'))));
 		$lvl_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_level_id'))));
+
+		/**
+		 * Local helper: build safe IN() placeholders and values for integer IDs.
+		 * - Prevents placeholder mismatch.
+		 * - Ensures empty arrays don't cause prepare() warnings (uses IN (0)).
+		 *
+		 * @param array $ids Raw ID list.
+		 * @return array{0:string,1:array} [placeholders, values]
+		 */
+		$build_in_clause_int = static function (array $ids) {
+			$ids = array_values(array_filter(array_map('absint', $ids)));
+
+			if (empty($ids)) {
+				return array('0', array()); // IN (0) = returns nothing safely.
+			}
+
+			$placeholders = implode(',', array_fill(0, count($ids), '%d'));
+			return array($placeholders, $ids);
+		};
 
 		// 1. Fetch Achievement Titles.
 		if (! empty($ach_ids)) {
@@ -80,9 +124,17 @@ class Progress_Map_Logic
 			$results   = wp_cache_get($cache_key, 'gamify');
 
 			if (false === $results) {
-				$placeholders = implode(',', array_fill(0, count($ach_ids), '%d'));
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-				$results = $wpdb->get_results($wpdb->prepare("SELECT id, title FROM {$wpdb->prefix}gamify_achievements WHERE id IN ($placeholders)", $ach_ids), OBJECT_K);
+				list($in_placeholders, $in_values) = $build_in_clause_int($ach_ids);
+
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$results = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT id, title FROM {$wpdb->prefix}gamify_achievements WHERE id IN ($in_placeholders)",
+						...$in_values
+					),
+					OBJECT_K
+				);
+
 				wp_cache_set($cache_key, $results, 'gamify', 300);
 			}
 
@@ -99,9 +151,17 @@ class Progress_Map_Logic
 			$results   = wp_cache_get($cache_key, 'gamify');
 
 			if (false === $results) {
-				$placeholders = implode(',', array_fill(0, count($lvl_ids), '%d'));
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-				$results = $wpdb->get_results($wpdb->prepare("SELECT id, title FROM {$wpdb->prefix}gamify_levels WHERE id IN ($placeholders)", $lvl_ids), OBJECT_K);
+				list($in_placeholders, $in_values) = $build_in_clause_int($lvl_ids);
+
+				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+				$results = $wpdb->get_results(
+					$wpdb->prepare(
+						"SELECT id, title FROM {$wpdb->prefix}gamify_levels WHERE id IN ($in_placeholders)",
+						...$in_values
+					),
+					OBJECT_K
+				);
+
 				wp_cache_set($cache_key, $results, 'gamify', 300);
 			}
 
@@ -135,15 +195,15 @@ class Progress_Map_Logic
 ?>
 		<div class="gamify-roadmap">
 			<div class="gamify-timeline">
-				<?php
-				foreach ($gamify_journey as $gamify_index => $gamify_node) :
+				<?php foreach ($gamify_journey as $gamify_index => $gamify_node) : ?>
+					<?php
 					$gamify_is_last        = ($gamify_index === $gamify_total_nodes - 1);
 					$gamify_is_completed   = ('completed' === $gamify_node['status']);
 					$gamify_next_completed = (! $gamify_is_last && 'completed' === $gamify_journey[$gamify_index + 1]['status']);
 
 					$gamify_line_class = ($gamify_is_completed && $gamify_next_completed) ? 'line-blue' : 'line-gray';
 					$gamify_side_class = (0 === $gamify_index % 2) ? 'node-left' : 'node-right';
-				?>
+					?>
 					<div class="gamify-timeline-node <?php echo esc_attr($gamify_side_class); ?> <?php echo $gamify_is_completed ? 'is-active' : 'is-locked'; ?>">
 						<div class="gamify-node-circle"><?php echo esc_html((int) $gamify_index + 1); ?></div>
 
@@ -160,30 +220,39 @@ class Progress_Map_Logic
 										<span class="icon-placeholder"><?php echo ('level' === $gamify_node['type']) ? '🏆' : '🏅'; ?></span>
 									<?php endif; ?>
 								</div>
+
 								<div class="gamify-card-info">
 									<div class="gamify-type-badge <?php echo esc_attr($gamify_node['type']); ?>">
 										<?php echo esc_html(strtoupper((string) $gamify_node['type'])); ?>
 									</div>
+
 									<h5><?php echo esc_html($gamify_node['title']); ?></h5>
 
 									<?php if ($gamify_is_completed) : ?>
-										<p class="gf-congrats"><?php echo esc_html($gamify_node['congrats']); ?></p>
+										<p class="gf-congrats"><?php echo wp_kses_post($gamify_node['congrats']); ?></p>
 									<?php else : ?>
 										<div class="gf-restriction-info">
 											<span class="gf-lock-label">🔒 <?php esc_html_e('Locked', 'gamify'); ?></span>
 											<p class="gf-lock-msg">
-												<?php echo ! empty($gamify_node['restriction_message']) ? esc_html($gamify_node['restriction_message']) : esc_html__('Complete pre-requisites to unlock.', 'gamify'); ?>
+												<?php
+												echo ! empty($gamify_node['restriction_message'])
+													? wp_kses_post($gamify_node['restriction_message'])
+													: esc_html__('Complete pre-requisites to unlock.', 'gamify');
+												?>
 											</p>
 										</div>
 									<?php endif; ?>
 								</div>
+
 							</div>
 						</div>
+
 					</div>
 				<?php endforeach; ?>
 			</div>
 		</div>
 <?php
+
 		return ob_get_clean();
 	}
 }
