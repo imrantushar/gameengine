@@ -38,7 +38,6 @@ final class Manager
     protected function get_controllers()
     {
         return [
-
             LogsController::class,
             PointTypesController::class,
             TriggersController::class,
