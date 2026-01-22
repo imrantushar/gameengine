@@ -3,24 +3,20 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-/**
- * Template for [gamify_level] and Levels tab in profile.
- */
-$levels_manager = new \Gamify\Classes\LevelsManager();
-$user_id        = get_current_user_id();
-$user_lvls      = $levels_manager->get_all_user_levels($user_id);
+$gamify_levels_manager = new \Gamify\Classes\LevelsManager();
+$gamify_user_id        = get_current_user_id();
+$gamify_user_lvls      = $gamify_levels_manager->get_all_user_levels($gamify_user_id);
 ?>
-
 <div class="gamify-level-list">
-    <?php if (! empty($user_lvls)) : ?>
-        <?php foreach ($user_lvls as $lvl) : ?>
+    <?php if (! empty($gamify_user_lvls)) : ?>
+        <?php foreach ($gamify_user_lvls as $gamify_lvl) : ?>
             <div class="gamify-level-item">
                 <div class="lvl-info-left">
                     <span class="lvl-icon">🏆</span>
-                    <span class="lvl-name"><?php echo esc_html($lvl->title); ?></span>
+                    <span class="lvl-name"><?php echo esc_html($gamify_lvl->title); ?></span>
                 </div>
                 <span class="lvl-date">
-                    <?php echo esc_html(date_i18n(get_option('date_format'), strtotime($lvl->achieved_at))); ?>
+                    <?php echo esc_html(date_i18n(get_option('date_format'), strtotime($gamify_lvl->achieved_at))); ?>
                 </span>
             </div>
         <?php endforeach; ?>

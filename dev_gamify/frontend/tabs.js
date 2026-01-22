@@ -1,7 +1,7 @@
 /**
- * Gamify Frontend Scripts
+ * Handles Tab Switching for Gamify Frontend Dashboard
  */
-document.addEventListener('DOMContentLoaded', function () {
+export const initGamifyTabs = () => {
     const tabButtons = document.querySelectorAll('.gamify-tab-btn');
     const tabContents = document.querySelectorAll('.gamify-tab-content');
 
@@ -23,4 +23,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-});
+};
