@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 import { showNotification } from '../notificationSlice/notificationSlice';
 import { __ } from '@wordpress/i18n';
+import { createAchievementType, deleteAchievementType, fetchAchievementTypeById, fetchAchievementTypes, updateAchievementType } from './types';
 
 // --- Async Thunks ---
 export const fetchAchievements = createAsyncThunk('gamify/fetchAchievements', async () => {
@@ -84,6 +85,9 @@ export const fetchPointTypes = createAsyncThunk('gamify/fetchPointTypes', async 
 
 const initialState = {
     achievements: [],
+    types: {
+        data: [],
+    },
     availablePointTypes: [],
     integrations: {},
     allHooks: [],
@@ -149,6 +153,28 @@ const achievementsSlice = createSlice({
             })
             .addCase(deleteAchievement.fulfilled, (state, {payload}) => { 
                 state.achievements = state.achievements.filter(item => Number(item.id) !== Number(payload)) 
+            })
+            // types
+            .addCase(fetchAchievementTypes.fulfilled, (state, action) => {
+                state.types.data = action.payload;
+            })
+            .addCase(fetchAchievementTypeById.fulfilled, (state, action) => {
+                const data = action.payload;
+                state.types.data = [data, ...state.types.data];
+            })
+            .addCase(createAchievementType.fulfilled, (state, {payload}) => { 
+                state.types.data = [payload, ...state.types.data]
+            })
+            .addCase(updateAchievementType.fulfilled, (state, {payload}) => { 
+                state.types.data = state.types.data.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            })
+            .addCase(deleteAchievementType.fulfilled, (state, {payload}) => { 
+                state.types.data = state.types.data.filter(item => Number(item.id) !== Number(payload)) 
             })
     }
 });

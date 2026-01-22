@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiFetch from '@wordpress/api-fetch';
 import { showNotification } from '../notificationSlice/notificationSlice';
 import { __ } from '@wordpress/i18n';
+import { createLevelType, deleteLevelType, fetchLevelTypeById, fetchLevelTypes, updateLevelType } from './types';
 
 export const fetchLevels = createAsyncThunk('gamify/fetchLevels', async (_,thunkAPI) => {
     try {
@@ -99,6 +100,9 @@ export const fetchPointTypes = createAsyncThunk('gamify/fetchPointTypes', async 
 
 const initialState = {
     levels: [],
+    types: {
+        data: [],
+    },
     integrations: [],
     allHooks: [],
     hookSettings: {},
@@ -164,7 +168,29 @@ const levelsSlice = createSlice({
             })
             .addCase(deleteLevel.fulfilled, (state, {payload}) => { 
                 state.levels = state.levels.filter(item => Number(item.id) !== Number(payload)) 
-            });
+            })
+            // types
+            .addCase(fetchLevelTypes.fulfilled, (state, action) => {
+                state.types.data = action.payload;
+            })
+            .addCase(fetchLevelTypeById.fulfilled, (state, action) => {
+                const data = action.payload;
+                state.types.data = [data, ...state.types.data];
+            })
+            .addCase(createLevelType.fulfilled, (state, {payload}) => { 
+                state.types.data = [payload, ...state.types.data]
+            })
+            .addCase(updateLevelType.fulfilled, (state, {payload}) => { 
+                state.types.data = state.types.data.map(item => {
+                    if(Number(item.id) === Number(payload.id)) {
+                        return {...item, ...payload}
+                    }
+                    return item;
+                }) 
+            })
+            .addCase(deleteLevelType.fulfilled, (state, {payload}) => { 
+                state.types.data = state.types.data.filter(item => Number(item.id) !== Number(payload)) 
+            })
     }
 });
 

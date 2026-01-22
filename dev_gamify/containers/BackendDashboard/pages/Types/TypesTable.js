@@ -1,10 +1,37 @@
 import BoxView from '@GFComponents/BoxView/BoxView';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
+import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 
 const TypesTable = ({type}) => {
-  const data = []
+  const dispatch = useDispatch();
+  const {types: {data: achivementTypes}} = useSelector(state => state.achievements);
+  const {types: {data: levelTypes}} = useSelector(state => state.levels);
+  const data = type === "achievment" ? achivementTypes : levelTypes;
+  const [loading, setLoading] = useState(data.length === 0)
+
+  useEffect(() => {
+    (async() => {
+      setLoading(true)
+      try {
+        if(type === "achievment") {
+          await dispatch(fetchAchievementTypes())
+        } 
+        if(type === "level") {
+          await dispatch(fetchLevelTypes())
+        }
+        
+      } catch (error) {
+        console.warn(error)
+      } finally {
+        setLoading(false)
+      }
+    })
+  }, [type])
+
   const columns = [
     {
         name: __('Name', 'gamify'),
@@ -43,15 +70,15 @@ const TypesTable = ({type}) => {
       <ListTable
         key={`${type}-table-`+ data?.length}
         columns={columns}
-        data={data ?? []}
+        data={data}
         showSubHeader={false}
         showColumnFilter={false}
         isRowSelectable={false}
-        // dataFetchingStatus={loading}
-          showPagination={true}
-          noDataText={sprintf(__("No data found for %s types", "gamify"), type)}
+        dataFetchingStatus={loading}
+        showPagination={false}
+        noDataText={sprintf(__("No data found for %s types", "gamify"), type)}
         suffix={type + "-table"}
-    />
+      />
     </BoxView>
   );
 };
