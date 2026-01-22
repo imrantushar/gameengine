@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 // --- Async Thunks ---
 export const fetchLevelTypes = createAsyncThunk('gamify/fetchLevelTypes', async (_, thunkAPI) => {
   try {
-    const response = await API.get(namespace + 'level_type');
+    const response = await API.get(namespace + 'taxonomies/level_type');
     return response.data;
   } catch (error) {
     return handleSliceError(thunkAPI, error)
@@ -16,7 +16,7 @@ export const fetchLevelTypes = createAsyncThunk('gamify/fetchLevelTypes', async 
 
 export const fetchLevelTypeById = createAsyncThunk('gamify/fetchLevelTypeById', async (id) => {
   try{
-    const response =  await API.get(namespace + 'level_type/' + id);
+    const response =  await API.get(namespace + 'taxonomies/level_type/' + id);
     return response.data;
   } catch (error) {
     return handleSliceError(thunkAPI, error)
@@ -25,7 +25,7 @@ export const fetchLevelTypeById = createAsyncThunk('gamify/fetchLevelTypeById', 
 
 export const createLevelType = createAsyncThunk('gamify/createLevelType', async (data, thunkAPI) => {
   try {
-    const response =  await API.post(namespace + 'level_type', {
+    const response =  await API.post(namespace + 'taxonomies/level_type', {
         ...data
     });
     thunkAPI.dispatch(showNotification({
@@ -41,7 +41,7 @@ export const createLevelType = createAsyncThunk('gamify/createLevelType', async 
 
 export const updateLevelType = createAsyncThunk('gamify/updateLevelType', async ({ id, data }, thunkAPI) => {
   try{
-    const response =  await API.post(namespace + 'level_type/' + id, {
+    const response =  await API.post(namespace + 'taxonomies/level_type/' + id, {
         ...data
     });
     thunkAPI.dispatch(showNotification({
@@ -57,7 +57,7 @@ export const updateLevelType = createAsyncThunk('gamify/updateLevelType', async 
 
 export const deleteLevelType = createAsyncThunk('gamify/deleteLevelType', async (id, thunkAPI) => {
   try{
-    await API.post(namespace + 'level_type/' + id,
+    await API.post(namespace + 'taxonomies/level_type/' + id,
       { force: false },
       {
         headers: {

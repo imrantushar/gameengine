@@ -47,7 +47,7 @@ const renderSwitch = (page, id, action, path) => {
 			return <Achievements />;
 
 		case 'gamify-levels':
-			if (path === 'levels-types') {
+			if (path === 'level-types') {
 				return <Types type={'level'} />;
 			}
 			return <Levels />;

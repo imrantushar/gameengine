@@ -1,16 +1,48 @@
-import { Box, Flex, Input, Textarea } from '@chakra-ui/react';
+import { Box, Button, Flex, Input, Textarea } from '@chakra-ui/react';
 import BoxView from '@GFComponents/BoxView/BoxView';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { capitalizeFirstLetter, getTermInitalValues } from './helper';
 import { Formik } from 'formik';
-import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
+import { commonInput, primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GamifyInput from '@GFComponents/GamifyInput';
+import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { createAchievementType } from '@GFRedux/Slices/achivementSlice/types';
+import { createLevelType } from '@GFRedux/Slices/levelsSlice/types';
 
 const TypesForm = ({type=""}) => {
+  const dispatch = useDispatch();
+  const {types: {data: achivementTypes}} = useSelector(state => state.achievements);
+  const {types: {data: levelTypes}} = useSelector(state => state.levels);
+  const data = type === "achievement" ? achivementTypes : levelTypes;
+
   const onSubmitHandler = (values, actions) => {
-    // actions.setSubmitting(true)
+    actions.setSubmitting(true)
+    if(!values.name) {
+      dispatch(showNotification({
+        message: __('Name is required!', 'gamify'),
+        isShow: true,
+        type: 'error',
+      }))
+      actions.setSubmitting(false)
+      return;
+    }
+    
+    try {
+      if(type === "achievement") {
+        dispatch(createAchievementType(values))
+      }
+      if(type === "level") {
+        dispatch(createLevelType(values))
+
+      }
+    } catch (error) {
+      console.warn(error)
+    } finally {
+      actions.setSubmitting(true)
+    }
 
     console.log({values})
   }
@@ -74,6 +106,16 @@ const TypesForm = ({type=""}) => {
                     padding={'12px 16px'}
                 />
               </GamifyInput>
+
+              <Button
+                {...primaryBtn}
+                loading={isSubmitting}
+                disabled={!dirty}
+                onClick={submitForm}
+                marginLeft={'auto'}
+              >
+                {__("Create", "gamify")}
+              </Button>
             </Flex>
           )
         }}

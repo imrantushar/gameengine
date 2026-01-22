@@ -10,26 +10,25 @@ const TypesTable = ({type}) => {
   const dispatch = useDispatch();
   const {types: {data: achivementTypes}} = useSelector(state => state.achievements);
   const {types: {data: levelTypes}} = useSelector(state => state.levels);
-  const data = type === "achievment" ? achivementTypes : levelTypes;
-  const [loading, setLoading] = useState(data.length === 0)
+  const data = type === "achievement" ? achivementTypes : levelTypes;
+  const [loading, setLoading] = useState(data.length === 0);
 
   useEffect(() => {
     (async() => {
       setLoading(true)
       try {
-        if(type === "achievment") {
+        if(type === "achievement") {
           await dispatch(fetchAchievementTypes())
         } 
         if(type === "level") {
           await dispatch(fetchLevelTypes())
         }
-        
       } catch (error) {
         console.warn(error)
       } finally {
         setLoading(false)
       }
-    })
+    })()
   }, [type])
 
   const columns = [
@@ -64,7 +63,7 @@ const TypesTable = ({type}) => {
         textAlign: "start",
     },
   ];
-  
+  console.log({loading})
   return (
     <BoxView width='65%'>
       <ListTable
