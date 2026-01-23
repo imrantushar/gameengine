@@ -65,6 +65,13 @@ class Logger
      */
     public static function log($trigger_key, $message, $user_id = 0, $points_awarded = 0, $meta = [], $status = 'success')
     {
+
+        $settings = get_option('gamify_log_settings', []);
+        $allowed_levels = isset($settings['log_levels']) ? (array) $settings['log_levels'] : ['success', 'error'];
+
+        if (!in_array($status, $allowed_levels, true)) {
+            return; // Stop if admin disabled this log level
+        }
         global $wpdb;
         $table = $wpdb->prefix . 'gamify_logs';
 

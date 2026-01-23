@@ -71,6 +71,16 @@ class LogsController extends BaseController
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
+        $settings = get_option('gamify_log_settings', []);
+        $cycle    = isset($settings['display_cycle']) ? $settings['display_cycle'] : 'immediate';
+
+        $interval_days = 0; // Default (Immediate)
+        if ('daily' === $cycle) {
+            $interval_days = 1;
+        } elseif ('weekly' === $cycle) {
+            $interval_days = 7;
+        }
+
         $cache_key   = 'gamify_logs_' . md5($per_page . $page . $search);
         $cached_data = wp_cache_get($cache_key, 'gamify_logs');
 
@@ -88,40 +98,39 @@ class LogsController extends BaseController
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $total_items = (int) $wpdb->get_var(
-            $wpdb->prepare(
-                "SELECT COUNT(l.id) FROM {$wpdb->prefix}gamify_logs as l 
-                LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID 
-                WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )",
-                $search,
-                $like_search,
-                $like_search,
-                $like_search,
-                $like_search
-            )
-        );
+        $total_items = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(l.id) FROM {$wpdb->prefix}gamify_logs as l 
+            LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID 
+            WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )
+            AND l.created_at <= DATE_SUB(NOW(), INTERVAL %d DAY)",
+            $search,
+            $like_search,
+            $like_search,
+            $like_search,
+            $like_search,
+            $interval_days
+        ));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $results = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT 
-                    l.id, l.user_id, l.trigger_key, l.status, l.points_awarded, l.message, l.meta, l.created_at,
-                    u.display_name as user_name, u.user_email
-                FROM {$wpdb->prefix}gamify_logs as l
-                LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID
-                WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )
-                ORDER BY l.created_at DESC 
-                LIMIT %d OFFSET %d",
-                $search,
-                $like_search,
-                $like_search,
-                $like_search,
-                $like_search,
-                $per_page,
-                $offset
-            ),
-            ARRAY_A
-        );
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT 
+                l.id, l.user_id, l.trigger_key, l.status, l.points_awarded, l.message, l.meta, l.created_at,
+                u.display_name as user_name, u.user_email
+            FROM {$wpdb->prefix}gamify_logs as l
+            LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID
+            WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )
+            AND l.created_at <= DATE_SUB(NOW(), INTERVAL %d DAY) 
+            ORDER BY l.created_at DESC 
+            LIMIT %d OFFSET %d",
+            $search,
+            $like_search,
+            $like_search,
+            $like_search,
+            $like_search,
+            $interval_days,
+            $per_page,
+            $offset
+        ), ARRAY_A);
 
         foreach ($results as &$row) {
             $row['meta']       = ! empty($row['meta']) ? json_decode($row['meta'], true) : array();
