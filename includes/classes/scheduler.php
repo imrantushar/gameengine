@@ -6,76 +6,96 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Classes\PointsManager;
-use Gamify\Classes\Logger;
-
 /**
- * Handles Async/Scheduled tasks using WP Cron / Action Scheduler.
+ * Class Scheduler
+ * Handles Async/Scheduled tasks and automatic database maintenance.
  */
 class Scheduler
 {
+
     /**
      * Initialize the Scheduler.
-     * This registers the hook for Action Scheduler.
      */
     public static function init()
     {
         $self = new self();
-        add_action('gamify_execute_scheduled_action', [$self, 'process_scheduled_action'], 10, 4);
+
+        // Hook for Action Scheduler (Points Adjustment).
+        add_action('gamify_execute_scheduled_action', array($self, 'process_scheduled_action'), 10, 4);
+
+        // Hook for Daily Log Cleanup Cron.
+        add_action('gamify_cleanup_logs_cron', array($self, 'handle_logs_cleanup'));
+
+        // Schedule the daily cleanup event if not already scheduled.
+        if (! wp_next_scheduled('gamify_cleanup_logs_cron')) {
+            wp_schedule_event(time(), 'daily', 'gamify_cleanup_logs_cron');
+        }
     }
 
     /**
-     * The callback function for the scheduled event.
-     * 
-     * @param int $user_id
-     * @param int $points
-     * @param string $action_type ('award' or 'deduct')
-     * @param array $meta (description, point_type_id etc)
+     * The callback function for the scheduled points adjustment.
      */
     public function process_scheduled_action($user_id, $points, $action_type, $meta)
     {
-        // Ensure PointsManager is loaded via Autoloader
         $points_manager = new PointsManager();
 
-        // Ensure we have a valid description
-        $description = isset($meta['description']) ? $meta['description'] : 'Scheduled Action';
+        $description         = isset($meta['description']) ? $meta['description'] : 'Scheduled Action';
         $meta['description'] = $description . ' (Executed)';
 
-        // Execute the action
         $log_id = false;
-
-        if ($action_type === 'deduct') {
+        if ('deduct' === $action_type) {
             $log_id = $points_manager->deduct($user_id, $points, 'scheduled_execution', $meta);
         } else {
             $log_id = $points_manager->add($user_id, $points, 'scheduled_execution', $meta);
         }
 
-        // Log the execution result explicitly
         if ($log_id) {
-            $final_points = ($action_type === 'deduct') ? -$points : $points;
-
+            $final_points = ('deduct' === $action_type) ? -$points : $points;
             Logger::log(
                 'schedule_executed',
                 "Successfully executed scheduled {$action_type} of {$points} points.",
                 $user_id,
-                $final_points, // Actual points awarded/deducted
-                [
+                $final_points,
+                array(
                     'scheduled_time' => current_time('mysql'),
                     'original_meta'  => $meta,
-                    'log_id'         => $log_id
-                ],
+                    'log_id'         => $log_id,
+                ),
                 'success'
             );
         } else {
-            // Log failure if needed
-            Logger::log(
-                'schedule_failed',
-                "Failed to execute scheduled action for user {$user_id}.",
-                $user_id,
-                0,
-                $meta,
-                'failed'
+            Logger::log('schedule_failed', "Failed to execute scheduled action for user {$user_id}.", $user_id, 0, $meta, 'failed');
+        }
+    }
+
+    /**
+     * 🔥 NEW: Automatically deletes old logs based on Admin Settings.
+     */
+    public function handle_logs_cleanup()
+    {
+        global $wpdb;
+
+        // Fetch Admin Settings.
+        $settings = get_option('gamify_log_settings');
+        $days     = isset($settings['retention_days']) ? absint($settings['retention_days']) : 0;
+
+        /**
+         * If retention is set to 0 (Never), do nothing.
+         * Otherwise, delete logs older than X days.
+         */
+        if ($days > 0) {
+            $table_name = "{$wpdb->prefix}gamify_logs";
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query(
+                $wpdb->prepare(
+                    "DELETE FROM $table_name WHERE created_at < DATE_SUB(NOW(), INTERVAL %d DAY)",
+                    $days
+                )
             );
+
+            // Log this maintenance action for debugging.
+            error_log("Gamify: Automated log cleanup executed. Removed logs older than $days days.");
         }
     }
 }
