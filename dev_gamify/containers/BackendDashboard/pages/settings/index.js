@@ -36,9 +36,9 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
-                    return dispatch(saveSettings({key: 'general', data: values?.general}));
-                case "email-notice":
-                    return dispatch(saveSettings({key: 'email', data: values?.email}));
+                    return dispatch(saveSettings({key: 'logs', payloadData: values.logs}));
+                // case "email-notice":
+                //     return dispatch(saveSettings({key: 'email', data: values?.email}));
             }
         } catch (error) {
             console.warn({error})
@@ -72,11 +72,12 @@ const Settings = () => {
                                     }
                                 />
                                 
-                                <Flex alignItems="flex-start" gap="16px" className='gamify-page-content'>
-                                    <LeftBar />
-                                    {tab === "general-settings" && <GeneralSettings />}
-                                    {tab === "email-notice" && <EmailNotice />}
-                                    {tab === "help-support" && <HelpSupport />}
+                                <Flex alignItems="flex-start" justifyContent={'center'} gap="16px" className='gamify-page-content'>
+                                    <GeneralSettings />
+                                    {/* <LeftBar /> */}
+                                    {/* {tab === "general-settings" && <GeneralSettings />} */}
+                                    {/* {tab === "email-notice" && <EmailNotice />}
+                                    {tab === "help-support" && <HelpSupport />} */}
                                 </Flex>
                             </>
                         )
