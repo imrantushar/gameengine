@@ -36,7 +36,7 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
-                    return dispatch(saveSettings({key: 'general', data: values}));
+                    return dispatch(saveSettings({key: 'logs', payloadData: values.logs}));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
             }

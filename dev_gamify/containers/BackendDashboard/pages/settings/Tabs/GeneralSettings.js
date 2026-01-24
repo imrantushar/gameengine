@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Box, Checkbox, Flex, Input, Separator, Text, VStack } from '@chakra-ui/react';
+import { Box, Checkbox, Flex, Input, Separator, Switch, Text, VStack } from '@chakra-ui/react';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import LabeledInput from '@GFComponents/LabeledInput';
@@ -43,13 +43,10 @@ const retentionDays = [
 
 const GeneralSettings = () => {
     const {values, setFieldValue} = useFormikContext();
-    const { general } = values;
 
     return (
-        <SettingsInner heading={__("General Settings", "gamify")}>
+        <SettingsInner heading={__("Log Settings", "gamify")}>
             <Flex direction="column" gap='16px'>
-                <GFLabel type="title" label={__("Level Image Size", "gamify")} />
-
                 <GamifyInput 
                     label={__("Log Display", "gamify")} 
                     width="100%" 
@@ -62,7 +59,7 @@ const GeneralSettings = () => {
                         options={displaycicle}
                         value={
                             displaycicle?.find(
-                            opt => opt.value === values?.display_cycle
+                            opt => opt.value === values?.logs?.display_cycle
                             ) || null
                         }
                         onChange={option => {
@@ -84,7 +81,7 @@ const GeneralSettings = () => {
                         options={retentionDays}
                         value={
                             retentionDays?.find(
-                            opt => Number(opt.value) === Number(values?.retention_days)
+                            opt => Number(opt.value) === Number(values?.logs?.retention_days)
                             ) || null
                         }
                         onChange={option => {
@@ -102,22 +99,22 @@ const GeneralSettings = () => {
                     direction={'row'}
                     justifyContent="space-between"
                 >
-                    <Checkbox.Root
+                    <Switch.Root
                         size="sm"
                         mt="0.5"
                         aria-label="Select row"
-                        checked={values?.log_levels?.includes('success')}
+                        checked={values?.logs?.log_levels?.includes('success')}
                         onCheckedChange={(changes) => {
                             if(changes.checked) {
-                                setFieldValue('log_levels', values.log_levels.filter(item => item !== 'success'))
+                                setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'success'])
                             } else {
-                                setFieldValue('log_levels', [...values.log_levels, 'success'])
+                                setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'success'))
                             }
                         }}
                     >
-                        <Checkbox.HiddenInput />
-                        <Checkbox.Control />
-                    </Checkbox.Root>
+                        <Switch.HiddenInput />
+                        <Switch.Control />
+                    </Switch.Root>
                 </GamifyInput>
                 <GamifyInput 
                     label={__("Enable System Errors", "gamify")}
@@ -125,22 +122,22 @@ const GeneralSettings = () => {
                     direction={'row'}
                     justifyContent="space-between"
                 >
-                    <Checkbox.Root
+                    <Switch.Root
                         size="sm"
                         mt="0.5"
                         aria-label="Select row"
-                        checked={values?.log_levels?.includes('error')}
+                        checked={values?.logs?.log_levels?.includes('error')}
                         onCheckedChange={(changes) => {
                             if(changes.checked) {
-                                setFieldValue('log_levels', values.log_levels.filter(item => item !== 'error'))
+                                setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'error'])
                             } else {
-                                setFieldValue('log_levels', [...values.log_levels, 'error'])
+                                setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'error'))
                             }
                         }}
                     >
-                        <Checkbox.HiddenInput />
-                        <Checkbox.Control />
-                    </Checkbox.Root>
+                        <Switch.HiddenInput />
+                        <Switch.Control />
+                    </Switch.Root>
                 </GamifyInput>
             </Flex>
         </SettingsInner>
