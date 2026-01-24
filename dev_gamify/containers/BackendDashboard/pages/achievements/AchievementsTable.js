@@ -44,7 +44,7 @@ const AchievementsTable = () => {
         {
             name: __('Name', 'gamify'),
             cell: (row = {}) => (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: "pointer" }} onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row?.id}&path=achievements-type`)}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: "pointer" }} onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row?.id}`)}
                 >
                     {row?.badge_image && <img src={row?.badge_image} alt="" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />}
                     <span style={{ fontWeight: 500 }}>{row?.title}</span>
@@ -78,7 +78,7 @@ const AchievementsTable = () => {
                             type: 'button',
                             label: __('Edit', 'gamify'),
                             icon: <Icon as={FiEdit} />,
-                            onClick: () => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row?.id}&path=achievements-type`)
+                            onClick: () => navigate(`${route_path}admin.php?page=gamify-achievements&action=edit&id=${row?.id}`)
                         },
                         {
                             type: 'button',
@@ -101,7 +101,7 @@ const AchievementsTable = () => {
 
                 <Button
                     {...primaryBtn}
-                    onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&path=achievements-type`)}
+                    onClick={() => navigate(`${route_path}admin.php?page=gamify-achievements&action=new`)}
                 >
                     <Icon as={GoPlus} boxSize="20px" /> {__('Add new achievement', 'gamify')}
                 </Button>
