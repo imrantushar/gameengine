@@ -18,14 +18,14 @@ class Restriction_Helper
      */
     public static function can_access($type, $value)
     {
-        // 1. Bypass check for Admins.
+        // Bypass check for Admins.
         if (current_user_can('manage_options')) {
             return true;
         }
 
         $user_id = get_current_user_id();
 
-        // 2. Block guests if any restriction is active.
+        // Block guests if any restriction is active.
         if (! $user_id) {
             return false;
         }

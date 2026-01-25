@@ -193,7 +193,7 @@ class LogsController extends BaseController
 
         $points_log_id = $wpdb->insert_id;
 
-        // 2. Insert into Activity Logs.
+        // Insert into Activity Logs.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
             "{$wpdb->prefix}gamify_logs",

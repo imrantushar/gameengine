@@ -43,12 +43,12 @@ class LevelsManager
             return false;
         }
 
-        // 1. Check if user already has this level
+        // Check if user already has this level
         if ($this->has_level($safe_user_id, $safe_level_id)) {
             return false;
         }
 
-        // 2. Fetch Level Details
+        // Fetch Level Details
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $level = $wpdb->get_row($wpdb->prepare(
             "SELECT title, congratulations_message FROM {$wpdb->prefix}gamify_levels WHERE id = %d",
@@ -59,7 +59,7 @@ class LevelsManager
             return false;
         }
 
-        // 3. Insert into User Levels Table
+        // Insert into User Levels Table
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $result = $wpdb->insert(
             $wpdb->prefix . 'gamify_user_levels',
@@ -81,7 +81,7 @@ class LevelsManager
         wp_cache_delete("gamify_all_levels_{$safe_user_id}", 'gamify');
         wp_cache_delete("gamify_current_level_{$safe_user_id}", 'gamify');
 
-        // 4. Log to System
+        // Log to System
         Logger::log(
             'level_up',
             "Level Up: {$level->title}",
@@ -96,7 +96,7 @@ class LevelsManager
             'success'
         );
 
-        // 5. Fire Hook
+        // Fire Hook
         do_action('gamify_level_awarded', $safe_user_id, $safe_level_id, $user_level_id);
 
         return $user_level_id;

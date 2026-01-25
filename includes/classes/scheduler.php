@@ -69,7 +69,7 @@ class Scheduler
     }
 
     /**
-     * 🔥 NEW: Automatically deletes old logs based on Admin Settings.
+     * Automatically deletes old logs based on Admin Settings.
      */
     public function handle_logs_cleanup()
     {
@@ -84,18 +84,13 @@ class Scheduler
          * Otherwise, delete logs older than X days.
          */
         if ($days > 0) {
-            $table_name = "{$wpdb->prefix}gamify_logs";
-
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- DELETE operation, caching not applicable.
             $wpdb->query(
                 $wpdb->prepare(
-                    "DELETE FROM $table_name WHERE created_at < DATE_SUB(NOW(), INTERVAL %d DAY)",
+                    "DELETE FROM {$wpdb->prefix}gamify_logs WHERE created_at < DATE_SUB(NOW(), INTERVAL %d DAY)",
                     $days
                 )
             );
-
-            // Log this maintenance action for debugging.
-            error_log("Gamify: Automated log cleanup executed. Removed logs older than $days days.");
         }
     }
 }

@@ -110,17 +110,17 @@ class Triggers
         foreach ($rules as $rule) {
             $params = json_decode($rule->parameters, true);
 
-            // 1. Validate Time-Based restrictions (Pro Logic)
+            // Validate Time-Based restrictions (Pro Logic)
             if (!$this->check_timing_validity($params)) {
                 continue;
             }
 
-            // 2. Validate Conditional Logic (Specific Post IDs, Products, or Roles)
+            // Validate Conditional Logic (Specific Post IDs, Products, or Roles)
             if (!$this->check_conditions($trigger_key, $params, $hook_args)) {
                 continue;
             }
 
-            // 3. Process the actual Reward or Deduction
+            // Process the actual Reward or Deduction
             $this->process_single_rule($rule, $safe_user_id, $config, $hook_args);
         }
     }
@@ -194,7 +194,7 @@ class Triggers
                 $success = $this->achievements_manager->award($safe_user_id, (int) $rule->reward_id, $rule->trigger_key, ['requirement_id' => $rule->id]);
             }
         }
-        // C. Handle Level-based rewards
+        // Handle Level-based rewards
         elseif ($rule->reward_type === 'level') {
             $levels_manager = new LevelsManager();
             $success = $levels_manager->award($safe_user_id, (int) $rule->reward_id, $rule->trigger_key);

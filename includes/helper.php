@@ -90,7 +90,7 @@ class Helper
             'title'       => __('Achievements', 'gamify'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array('title' => __('All Achievements', 'gamify'), 'slug' => 'all'),
+                array('title' => __('All Achievements', 'gamify'), 'slug' => ''),
                 array('title' => __('Types', 'gamify'), 'slug' => 'achievement-types'),
             )
         );
@@ -101,7 +101,7 @@ class Helper
             'title'       => __('Levels', 'gamify'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array('title' => __('All Levels', 'gamify'), 'slug' => 'all'),
+                array('title' => __('All Levels', 'gamify'), 'slug' => ''),
                 array('title' => __('Types', 'gamify'), 'slug' => 'level-types'),
             )
         );

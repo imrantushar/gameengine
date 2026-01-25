@@ -43,11 +43,11 @@ class Content_Filter
         if (false === $has_access) {
             // Logic for "Lock Media Only"
             if ('1' === (string) $only_media) {
-                // 1. Placeholder for Locked Images (using the main UI helper)
+                // Placeholder for Locked Images (using the main UI helper)
                 $locked_img_ui = Restriction_Helper::get_locked_ui(__('Image Locked', 'gamify'));
                 $content = preg_replace('/<img[^>]+>/i', $locked_img_ui, $content);
 
-                // 2. Placeholder for Locked Links (Inline badge with icon)
+                // Placeholder for Locked Links (Inline badge with icon)
                 $locked_link_html = ' <span class="gamify-link-lock">🔒 ' . esc_html__('Link Hidden', 'gamify') . '</span> ';
                 $content = preg_replace('/<a\b[^>]*>(.*?)<\/a>/i', $locked_link_html, $content);
 

@@ -30,7 +30,6 @@ class Meta_Box
         $msg        = get_post_meta($post->ID, '_gamify_restrict_message', true);
         $lock_media = get_post_meta($post->ID, '_gamify_lock_media', true);
 
-        // ১. ডেটাবেজ থেকে অ্যাচিভমেন্ট এবং লেভেল লিস্ট নিয়ে আসা
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery
         $all_achievements = $wpdb->get_results("SELECT id, title FROM {$wpdb->prefix}gamify_achievements ORDER BY title ASC");
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -48,7 +47,6 @@ class Meta_Box
                 </select>
             </p>
 
-            <!-- ২. ডাইনামিক ভ্যালু সেকশন -->
             <div id="gf_value_container" style="margin-top:15px; padding: 10px; background: #f0f0f1; border-radius: 4px;">
 
                 <!-- Points Input -->
@@ -93,7 +91,6 @@ class Meta_Box
             </p>
         </div>
 
-        <!-- ৩. কাস্টম জাভাস্ক্রিপ্ট (ফিল্ড টগল করার জন্য) -->
         <script type="text/javascript">
             (function($) {
                 function toggleFields() {
@@ -128,7 +125,6 @@ class Meta_Box
         $type = isset($_POST['gamify_restrict_type']) ? sanitize_text_field(wp_unslash($_POST['gamify_restrict_type'])) : 'none';
         update_post_meta($post_id, '_gamify_restrict_type', $type);
 
-        // ৪. লজিক অনুযায়ী সঠিক ভ্যালু সেভ করা
         $final_value = '';
         if ('points' === $type) {
             $final_value = isset($_POST['gf_val_points']) ? absint($_POST['gf_val_points']) : '';

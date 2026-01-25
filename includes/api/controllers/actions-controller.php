@@ -108,7 +108,7 @@ class ActionsController extends BaseController
     {
         $params = $request->get_json_params();
 
-        // 1. Validation (Using the updated frontend field names).
+        //  Validation (Using the updated frontend field names).
         if (empty($params['user_id']) || ! isset($params['points_awarded'])) {
             return new \WP_Error('missing_params', 'User ID and Points are required.', array('status' => 400));
         }
@@ -125,7 +125,7 @@ class ActionsController extends BaseController
             'point_type_id' => 1,
         );
 
-        // 2. Schedule Logic (using Action Scheduler).
+        // Schedule Logic (using Action Scheduler).
         if ($date) {
             if (! function_exists('as_schedule_single_action')) {
                 return new \WP_Error('dependency_missing', 'Action Scheduler required for scheduling.', array('status' => 500));
@@ -165,7 +165,7 @@ class ActionsController extends BaseController
             }
         }
 
-        // 3. Immediate Execution Logic.
+        //  Immediate Execution Logic.
         $manager       = new PointsManager();
         $points_log_id = false;
 

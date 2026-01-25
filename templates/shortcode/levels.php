@@ -27,7 +27,7 @@ $gamify_user_lvls      = $gamify_levels_manager->get_all_user_levels($gamify_use
                             echo esc_html__('—', 'gamify');
                         }
                     } else {
-                        // যদি date না থাকে, সুন্দর fallback
+                        // if date no date fallback
                         echo esc_html__('—', 'gamify');
                     }
                     ?>
