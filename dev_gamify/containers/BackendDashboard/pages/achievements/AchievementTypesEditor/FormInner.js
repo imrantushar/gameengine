@@ -398,6 +398,7 @@ const FormInner = () => {
                         hookSettings={hookSettings}
                         actionName="award"
                         selectedFilterType={selectedFilterHookType}
+                        scope="achievement"
                     />
                 </DndContext>
             )}
