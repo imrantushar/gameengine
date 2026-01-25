@@ -100,8 +100,8 @@ class Assets
             return;
         }
 
-        // 1. Enqueue Google Fonts (Roboto)
-        wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), null);
+        //  Enqueue Google Fonts (Roboto)
+        wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), GAMIFY_VERSION);
 
         $versioned_filename = 'backend.' . GAMIFY_VERSION;
         $script_asset_path  = GAMIFY_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
@@ -146,7 +146,7 @@ class Assets
     public function enqueue_frontend_assets()
     {
 
-        wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), null);
+        wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), GAMIFY_VERSION);
 
         $versioned_filename = 'frontend.' . GAMIFY_VERSION;
         $script_asset_path  = GAMIFY_PATH . 'assets/build/' . $versioned_filename . '.asset.php';

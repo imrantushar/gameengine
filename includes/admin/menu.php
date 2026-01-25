@@ -10,7 +10,7 @@ use Gamify\Helper;
 
 /**
  * Class Menu
- * Handles Admin Menu registration for the Gamify plugin.
+ * Handles Admin Menu registration for the Gamify plugin with custom SVG icons.
  */
 class Menu
 {
@@ -31,23 +31,24 @@ class Menu
     public function admin_menu()
     {
         $main_slug = 'gamify';
+        $page_title = $this->get_toplevel_menu_title();
+        $icon_url   = $this->get_toplevel_menu_icon_url();
 
-        // Register Main Parent Menu (Dashboard).
+        // Register Main Parent Menu (Dashboard) with custom SVG icon.
         $main_hook = add_menu_page(
-            __('Gamify Dashboard', 'gamify'),
+            $page_title,
             'Gamify',
             'manage_options',
             $main_slug,
             array($this, 'render_app'),
-            'dashicons-star-filled',
+            $icon_url,
             20
         );
         $this->add_cleanup_hook($main_hook);
 
-        //  Loop through Helper menu list to register sub-menus automatically.
+        // Loop through Helper menu list to register sub-menus automatically.
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
 
-            // Register standard sub-menus (Points, Achievements, Levels etc.)
             $sub_hook = add_submenu_page(
                 $item['parent_slug'],
                 $item['title'],
@@ -58,10 +59,8 @@ class Menu
             );
             $this->add_cleanup_hook($sub_hook);
 
-
             if (! empty($item['sub_items'])) {
                 foreach ($item['sub_items'] as $sub) {
-
                     $path_slug = empty($sub['slug']) ? $menu_slug : $menu_slug . '&path=' . $sub['slug'];
 
                     $hook = add_submenu_page(
@@ -76,6 +75,35 @@ class Menu
                 }
             }
         }
+    }
+
+    /**
+     * Get the title for the top-level menu.
+     * 
+     * @return string
+     */
+    public function get_toplevel_menu_title()
+    {
+        return apply_filters('gamify/admin/toplevel_menu_title', __('Gamify Dashboard', 'gamify'));
+    }
+
+    /**
+     * Get the Base64 encoded SVG icon for the top-level menu.
+     * 
+     * @return string
+     */
+    public function get_toplevel_menu_icon_url()
+    {
+        $file_path = GAMIFY_PATH . 'assets/images/logo_black_white.svg';
+        $icon_url  = 'dashicons-star-filled'; // Fallback icon
+
+        if (file_exists($file_path)) {
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+            $svg_content = file_get_contents($file_path);
+            $icon_url    = 'data:image/svg+xml;base64,' . base64_encode($svg_content);
+        }
+
+        return apply_filters('gamify/admin/toplevel_menu_icon', $icon_url);
     }
 
     /**
