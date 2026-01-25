@@ -5,8 +5,8 @@ export const fetchSettings = createAsyncThunk('gamify/fetchSettings', async () =
     return await apiFetch({ path: '/gamify/v1/settings' });
 });
 
-export const saveSettings = createAsyncThunk('gamify/saveSettings', async ({key,payloadData}) => {
-    await apiFetch({ path: '/gamify/v1/settings', method: 'POST', data: {[`${key}`]: payloadData} });
+export const saveSettings = createAsyncThunk('gamify/saveSettings', async ({key,payloadData,apiSlug="", }) => {
+    await apiFetch({ path: '/gamify/v1/settings/'+ apiSlug, method: 'POST', data: {[`${key}`]: payloadData} });
     return {
         key,
         data: payloadData

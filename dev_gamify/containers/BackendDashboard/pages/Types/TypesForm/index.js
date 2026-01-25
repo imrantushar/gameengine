@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Input, Textarea } from '@chakra-ui/react';
 import BoxView from '@GFComponents/BoxView/BoxView';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { capitalizeFirstLetter, getTermInitalValues } from './helper';
 import { Formik } from 'formik';
@@ -11,10 +11,26 @@ import { showNotification } from '@GFRedux/Slices/notificationSlice/notification
 import { useDispatch, useSelector } from 'react-redux';
 import { createAchievementType, updateAchievementType } from '@GFRedux/Slices/achivementSlice/types';
 import { createLevelType, updateLevelType } from '@GFRedux/Slices/levelsSlice/types';
-import { generateSlug } from '@GFUtils/helper';
+import Select from "react-select";
+import { API, generateSlug, namespace } from '@GFUtils/helper';
 
 const TypesForm = ({type="", resetForm, formData}) => {
   const dispatch = useDispatch();
+  const [typesData, setTypesData] = useState([]);
+
+  const fetchTypes = async (searchKey="") => {
+    if(searchKey) searchKey = "&search=" + searchKey;
+    try {
+      const url = namespace + 'taxonomies/'+type+'_type?page=1&per_page=100'+ searchKey;
+      const response = await API.get(url);
+      const selectData = response.data.map(item => {
+          return {label: item.name, value: `${item.id}`}
+      })
+      setTypesData(selectData)
+    } catch (error) {
+      console.warn(error)
+    }
+  }
 
   const onSubmitHandler = (values, actions) => {
     actions.setSubmitting(true)
@@ -71,7 +87,6 @@ const TypesForm = ({type="", resetForm, formData}) => {
         onSubmit={onSubmitHandler}
       >
         {({values, submitForm, isSubmitting, dirty, setFieldValue}) => {
-          console.log({values, formData})
           return (
             <Flex
               direction={'column'}
@@ -101,14 +116,24 @@ const TypesForm = ({type="", resetForm, formData}) => {
                 />
               </GamifyInput>
               <GamifyInput label={__("Parent", "gamify")}>
-                <Input
-                    placeholder={__("Select Parent", "gamify")}
-                    value={values.parent}
-                    onChange={e => {
-                        const value = e.target.value
-                        setFieldValue('description', value)
+                <Select
+                    className="gamify-select"
+                    classNamePrefix="gamify-select"
+                    options={typesData}
+                    onInputChange={(inputValue) => {
+                        fetchTypes(inputValue);
+                        return inputValue;
                     }}
-                    {...commonInput}
+                    value={
+                        typesData?.find(
+                        opt => Number(opt.value) === Number(values?.parent)
+                        ) || null
+                    }
+                    onMenuOpen={fetchTypes}
+                    onChange={option => {
+                        setFieldValue('parent', option.value)
+                    }}
+                    menuPlacement="bottom"
                 />
               </GamifyInput>
               <GamifyInput label={__("Description", "gamify")}>
