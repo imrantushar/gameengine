@@ -50,7 +50,7 @@ class DashboardController extends BaseController
     {
         global $wpdb;
 
-        // 1. Sanitize input parameters.
+        // Sanitize input parameters.
         $raw_start_date = $request->get_param('start_date');
         $raw_end_date   = $request->get_param('end_date');
 

@@ -90,7 +90,19 @@ class TaxonomyController extends BaseController
         }
 
         $terms       = get_terms($args);
-        $total_terms = wp_count_terms($tax, array('search' => $search));
+
+        $count_args = array(
+            'taxonomy'   => $tax,
+            'hide_empty' => false,
+            'fields'     => 'count',
+        );
+
+        if (! empty($search)) {
+            $count_args['search'] = $search;
+        }
+
+        $total_terms = (int) get_terms($count_args);
+
 
         $response = array();
         foreach ($terms as $term) {

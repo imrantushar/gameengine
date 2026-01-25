@@ -10,7 +10,7 @@ use Gamify\Helper;
 
 /**
  * Class Menu
- *  Admin Menu registration for the Gamify plugin.
+ * Handles Admin Menu registration for the Gamify plugin.
  */
 class Menu
 {
@@ -26,13 +26,13 @@ class Menu
     }
 
     /**
-     * Register Admin Menus.
+     * Register Admin Menus dynamically based on Helper list.
      */
     public function admin_menu()
     {
         $main_slug = 'gamify';
 
-        // 1. Register Main Parent Menu (Dashboard).
+        // Register Main Parent Menu (Dashboard).
         $main_hook = add_menu_page(
             __('Gamify Dashboard', 'gamify'),
             'Gamify',
@@ -44,9 +44,10 @@ class Menu
         );
         $this->add_cleanup_hook($main_hook);
 
-        // 2. Loop through Helper menu list to register standard sub-menus.
+        //  Loop through Helper menu list to register sub-menus automatically.
         foreach (Helper::get_admin_menu_list() as $menu_slug => $item) {
-            // Skip parent slug registration if it matches main_slug to avoid duplicates.
+
+            // Register standard sub-menus (Points, Achievements, Levels etc.)
             $sub_hook = add_submenu_page(
                 $item['parent_slug'],
                 $item['title'],
@@ -57,52 +58,30 @@ class Menu
             );
             $this->add_cleanup_hook($sub_hook);
 
-            /**
-             * 🔥 3. Inject "All" and "Types" Sub-menus for Achievements.
-             */
-            if ('gamify-achievements' === $menu_slug) {
-                // Add "All Achievements" link.
-                $all_ach_label = __('All Achievements', 'gamify');
-                $all_ach_hook  = add_submenu_page(
-                    $main_slug,
-                    $all_ach_label,
-                    '— ' . $all_ach_label,
-                    'manage_options',
-                    $menu_slug,
-                    array($this, 'render_app')
-                );
-                $this->add_cleanup_hook($all_ach_hook);
 
-                // Add "Achievement Types" link.
-                $this->add_type_submenu(__('Achievement Types', 'gamify'), 'achievement-types');
-            }
+            if (! empty($item['sub_items'])) {
+                foreach ($item['sub_items'] as $sub) {
 
-            /**
-             * 🔥 4. Inject "All" and "Types" Sub-menus for Levels.
-             */
-            if ('gamify-levels' === $menu_slug) {
-                // Add "All Levels" link.
-                $all_lvl_label = __('All Levels', 'gamify');
-                $all_lvl_hook  = add_submenu_page(
-                    $main_slug,
-                    $all_lvl_label,
-                    '— ' . $all_lvl_label,
-                    'manage_options',
-                    $menu_slug,
-                    array($this, 'render_app')
-                );
-                $this->add_cleanup_hook($all_lvl_hook);
+                    $path_slug = empty($sub['slug']) ? $menu_slug : $menu_slug . '&path=' . $sub['slug'];
 
-                // Add "Level Types" link.
-                $this->add_type_submenu(__('Level Types', 'gamify'), 'level-types');
+                    $hook = add_submenu_page(
+                        $main_slug,
+                        $sub['title'],
+                        '— ' . $sub['title'],
+                        'manage_options',
+                        $path_slug,
+                        array($this, 'render_app')
+                    );
+                    $this->add_cleanup_hook($hook);
+                }
             }
         }
     }
 
     /**
-     * Admin css.
+     * Admin CSS for menu styling.
      */
-    function add_admin_menu_css()
+    public function add_admin_menu_css()
     {
         echo '<style>
 			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image { 
@@ -111,69 +90,23 @@ class Menu
 				align-items: center;
 			}
 			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image img {
-				max-width: 20px;
-				height: auto;
-				padding: 0 !important;
+				max-width: 20px; height: auto; padding: 0 !important;
 			}
 			#adminmenu li.toplevel_page_gamify ul li a, #adminmenu li.toplevel_page_gamify .wp-submenu > li > a {
 				padding: 7px 12px;
 			}
-
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li {
-				clear: both;
-			}
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-addons"],
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-addons"] {
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-addons"] {
 				color: #FDB022;
 			}
 			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gamify"]:after,
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href*="admin.php?page=gamify"]:after,
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-tools"]:after,
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href^="admin.php?page=gamify-tools"]:after {
+			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-tools"]:after {
 				border-bottom: 1px solid hsla(0,0%,100%,.2);
-				display: block;
-				float: left;
-				margin: 15px -15px 7px;
-				content: "";
-				width: calc(100% + 26px);
+				display: block; float: left; margin: 15px -15px 7px;
+				content: ""; width: calc(100% + 26px);
 			}
 		</style>';
     }
 
-    /**
-     * Helper to add a "Types" submenu under the main Gamify parent.
-     *
-     * @param string $label The translated menu label.
-     * @param string $path  The React router path.
-     */
-    private function add_type_submenu($label, $path)
-    {
-        $main_slug = 'gamify';
-
-        /**
-         * The slug format 'parent&path=slug' allows React Router to pick it up via query string.
-         * Note: $label is already translated at the call-site to pass WPCS.
-         */
-        $parent_key = ('achievement-types' === $path) ? 'achievements' : 'levels';
-        $menu_slug  = $main_slug . '-' . $parent_key . '&path=' . $path;
-
-        $hook = add_submenu_page(
-            $main_slug,
-            $label,
-            '— ' . $label, // Visual indentation with dash
-            'manage_options',
-            $menu_slug,
-            array($this, 'render_app')
-        );
-
-        $this->add_cleanup_hook($hook);
-    }
-
-    /**
-     * Registers a hook to remove WP notices and footers.
-     *
-     * @param string $hook The page hook suffix.
-     */
     private function add_cleanup_hook($hook)
     {
         if ($hook) {
@@ -181,17 +114,11 @@ class Menu
         }
     }
 
-    /**
-     * Render the React App container.
-     */
     public function render_app()
     {
         echo '<div id="gamify-admin-app" class="gamify-admin-app"></div>';
     }
 
-    /**
-     * Removes default WordPress Admin Notices and Footer for a clean UI.
-     */
     public function remove_all_notices_and_footer()
     {
         remove_all_actions('admin_notices');

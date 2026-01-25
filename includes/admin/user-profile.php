@@ -143,17 +143,17 @@ class UserProfile
      */
     public function save_profile_fields($user_id)
     {
-        // 1. Nonce Verification
+        //  Nonce Verification
         if (! isset($_POST['gamify_points_nonce']) || ! wp_verify_nonce(sanitize_key($_POST['gamify_points_nonce']), 'gamify_update_user_points')) {
             return false;
         }
 
-        // 2. Permission Check
+        //  Permission Check
         if (! current_user_can('manage_options') || ! current_user_can('edit_user', $user_id)) {
             return false;
         }
 
-        // 3. Handle Points Update
+        //  Handle Points Update
         if (isset($_POST['gamify_points'])) {
             $new_points     = intval($_POST['gamify_points']);
             $current_points = $this->get_user_points($user_id);

@@ -144,18 +144,15 @@ class Assets
      */
     public function enqueue_frontend_assets()
     {
-        // ১. গুগল ফন্ট লোড (Roboto)
+
         wp_enqueue_style('gamify-fonts', $this->get_google_fonts_url(), array(), null);
 
-        // ২. বিল্ড করা ফাইলের নাম ও ভার্সন ঠিক করা
         $versioned_filename = 'frontend.' . GAMIFY_VERSION;
         $script_asset_path  = GAMIFY_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
 
-        // ৩. যদি বিল্ড ফাইল থাকে তবে সেটি লোড করো
         if (file_exists($script_asset_path)) {
             $script_asset = require $script_asset_path;
 
-            // বিল্ড ফোল্ডার থেকে CSS লোড
             wp_enqueue_style(
                 'gamify-frontend-style',
                 GAMIFY_URL . 'assets/build/frontend.css',
@@ -163,7 +160,7 @@ class Assets
                 $script_asset['version']
             );
 
-            // বিল্ড ফোল্ডার থেকে JS লোড
+            // build js
             wp_enqueue_script(
                 'gamify-frontend-script',
                 GAMIFY_URL . 'assets/build/' . $versioned_filename . '.js',
@@ -172,7 +169,7 @@ class Assets
                 true
             );
 
-            // গ্লোবাল ডাটা (GamifyGlobal) ফ্রন্টএন্ডেও পাঠানো
+            // global data (GamifyGlobal)
             wp_localize_script('gamify-frontend-script', 'GamifyGlobal', $this->get_scripts_data());
         }
     }

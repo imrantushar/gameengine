@@ -126,9 +126,7 @@ final class Gamify
         if (class_exists('\Gamify\Classes\EmailManager')) {
             \Gamify\Classes\EmailManager::init();
         }
-        // if (class_exists('\Gamify\Classes\Shortcodes')) {
-        //     \Gamify\Classes\Shortcodes::init();
-        // }
+
         if (class_exists('\Gamify\Shortcode')) {
             \Gamify\Shortcode::init();
         }
@@ -143,11 +141,6 @@ final class Gamify
             if (class_exists('\Gamify\Admin')) {
                 \Gamify\Admin::init();
             }
-
-            /**
-             * Check if we are on a Gamify admin page.
-             * Nonce verification is not required for purely routing/page-load logic.
-             */
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 

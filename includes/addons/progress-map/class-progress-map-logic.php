@@ -25,7 +25,7 @@ class Progress_Map_Logic
 
 		$user_id = absint($user_id);
 
-		// 1. Fetch all Levels.
+		// Fetch all Levels.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$levels = $wpdb->get_results(
 			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority
@@ -34,7 +34,7 @@ class Progress_Map_Logic
 			ARRAY_A
 		);
 
-		// 2. Fetch all Achievements.
+		// Fetch all Achievements.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$achievements = $wpdb->get_results(
 			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at
@@ -43,7 +43,7 @@ class Progress_Map_Logic
 			ARRAY_A
 		);
 
-		// 3. Fetch user earned data.
+		// Fetch user earned data.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$user_levels = $wpdb->get_col(
 			$wpdb->prepare(
@@ -60,7 +60,7 @@ class Progress_Map_Logic
 			)
 		);
 
-		// 4. Merge and process status.
+		// Merge and process status.
 		$journey  = array_merge($levels ? $levels : array(), $achievements ? $achievements : array());
 		$unlocked = array();
 		$locked   = array();
@@ -99,44 +99,33 @@ class Progress_Map_Logic
 		$ach_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_achievement_id'))));
 		$lvl_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_level_id'))));
 
-		/**
-		 * Local helper: build safe IN() placeholders and values for integer IDs.
-		 * - Prevents placeholder mismatch.
-		 * - Ensures empty arrays don't cause prepare() warnings (uses IN (0)).
-		 *
-		 * @param array $ids Raw ID list.
-		 * @return array{0:string,1:array} [placeholders, values]
-		 */
-		$build_in_clause_int = static function (array $ids) {
-			$ids = array_values(array_filter(array_map('absint', $ids)));
-
-			if (empty($ids)) {
-				return array('0', array()); // IN (0) = returns nothing safely.
-			}
-
-			$placeholders = implode(',', array_fill(0, count($ids), '%d'));
-			return array($placeholders, $ids);
-		};
-
-		// 1. Fetch Achievement Titles.
+		//  Achievement Titles.
 		if (! empty($ach_ids)) {
 			$cache_key = 'gf_ach_titles_' . md5(wp_json_encode($ach_ids));
 			$results   = wp_cache_get($cache_key, 'gamify');
 
 			if (false === $results) {
-				list($in_placeholders, $in_values) = $build_in_clause_int($ach_ids);
 
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$results = $wpdb->get_results(
-					$wpdb->prepare(
-						"SELECT id, title FROM {$wpdb->prefix}gamify_achievements WHERE id IN ($in_placeholders)",
-						...$in_values
-					),
-					OBJECT_K
-				);
+				$ach_ids = array_values(wp_parse_id_list($ach_ids));
+
+				if (empty($ach_ids)) {
+					$results = array();
+				} else {
+					$placeholders = implode(',', array_fill(0, count($ach_ids), '%d'));
+
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+					$results = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT id, title FROM {$wpdb->prefix}gamify_achievements WHERE id IN ($placeholders)",
+							...$ach_ids
+						),
+						OBJECT_K
+					);
+				}
 
 				wp_cache_set($cache_key, $results, 'gamify', 300);
 			}
+
 
 			if ($results) {
 				foreach ($results as $id => $row) {
@@ -145,25 +134,33 @@ class Progress_Map_Logic
 			}
 		}
 
-		// 2. Fetch Level Titles.
+		//  Level Titles.
 		if (! empty($lvl_ids)) {
 			$cache_key = 'gf_lvl_titles_' . md5(wp_json_encode($lvl_ids));
 			$results   = wp_cache_get($cache_key, 'gamify');
 
 			if (false === $results) {
-				list($in_placeholders, $in_values) = $build_in_clause_int($lvl_ids);
 
-				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$results = $wpdb->get_results(
-					$wpdb->prepare(
-						"SELECT id, title FROM {$wpdb->prefix}gamify_levels WHERE id IN ($in_placeholders)",
-						...$in_values
-					),
-					OBJECT_K
-				);
+				$lvl_ids = array_values(wp_parse_id_list($lvl_ids));
+
+				if (empty($lvl_ids)) {
+					$results = array();
+				} else {
+					$placeholders = implode(',', array_fill(0, count($lvl_ids), '%d'));
+
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+					$results = $wpdb->get_results(
+						$wpdb->prepare(
+							"SELECT id, title FROM {$wpdb->prefix}gamify_levels WHERE id IN ($placeholders)",
+							...$lvl_ids
+						),
+						OBJECT_K
+					);
+				}
 
 				wp_cache_set($cache_key, $results, 'gamify', 300);
 			}
+
 
 			if ($results) {
 				foreach ($results as $id => $row) {
@@ -174,6 +171,7 @@ class Progress_Map_Logic
 
 		return $titles;
 	}
+
 
 	/**
 	 * Renders the Roadmap HTML.
