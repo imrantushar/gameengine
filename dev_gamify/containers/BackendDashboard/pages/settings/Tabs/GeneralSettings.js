@@ -63,7 +63,7 @@ const GeneralSettings = () => {
                             ) || null
                         }
                         onChange={option => {
-                            setFieldValue('display_cycle', option.value)
+                            setFieldValue('logs.display_cycle', option.value)
                         }}
                         menuPlacement="bottom"
                     />
@@ -85,7 +85,7 @@ const GeneralSettings = () => {
                             ) || null
                         }
                         onChange={option => {
-                            setFieldValue('retention_days', option.value)
+                            setFieldValue('logs.retention_days', option.value)
                         }}
                         menuPlacement="bottom"
                     />
