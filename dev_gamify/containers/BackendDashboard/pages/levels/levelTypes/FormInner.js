@@ -339,7 +339,7 @@ const FormInner = () => {
                             placeholder={__("Enter minimum balance", "gamify")}
                             value={values.min_points}
                             type="number"
-                            onChange={e => setFieldValue('min_oints', e.target.value)}
+                            onChange={e => setFieldValue('min_points', e.target.value)}
                             {...commonInput}
                         />
                     </GamifyInput>
@@ -347,9 +347,9 @@ const FormInner = () => {
                     <GamifyInput label={__("Maximum Balance", "gamify")} width="calc((100% / 3) - 6px)">
                         <Input
                             placeholder={__("Enter maximum balance", "gamify")}
-                            value={values.min_points}
+                            value={values.max_points}
                             type="number"
-                            onChange={e => setFieldValue('min_oints', e.target.value)}
+                            onChange={e => setFieldValue('max_points', e.target.value)}
                             {...commonInput}
                         />
                     </GamifyInput>
