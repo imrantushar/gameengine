@@ -6,96 +6,100 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
+/**
+ * Class TaxonomyManager
+ * Handles registration for Gamify taxonomies.
+ */
 class TaxonomyManager
 {
 
     /**
-     * 
+     * Initialize the taxonomies.
      */
     public static function init()
     {
         self::register_gamify_taxonomies();
     }
 
+    /**
+     * Register taxonomies without auto-syncing on every load.
+     */
     public static function register_gamify_taxonomies()
     {
         // Achievement Types
-        register_taxonomy('achievement_type', array(), array(
-            'hierarchical' => true,
-            'labels'       => array('name' => __('Achievement Types', 'gamify')),
-            'show_ui'      => true,
-            'show_in_rest' => true,
-        ));
+        register_taxonomy(
+            'achievement_type',
+            array(),
+            array(
+                'hierarchical' => true,
+                'labels'       => array('name' => __('Achievement Types', 'gamify')),
+                'show_ui'      => true,
+                'show_in_rest' => true,
+            )
+        );
 
         // Level Types
-        register_taxonomy('level_type', array(), array(
-            'hierarchical' => true,
-            'labels'       => array('name' => __('Level Types', 'gamify')),
-            'show_ui'      => true,
-            'show_in_rest' => true,
-        ));
-
-        self::sync_existing_categories();
+        register_taxonomy(
+            'level_type',
+            array(),
+            array(
+                'hierarchical' => true,
+                'labels'       => array('name' => __('Level Types', 'gamify')),
+                'show_ui'      => true,
+                'show_in_rest' => true,
+            )
+        );
     }
 
-    private static function sync_existing_categories()
+    /**
+     * This should only be called during plugin activation or migration.
+     * 
+     * It syncs existing string-based categories into official WordPress taxonomies.
+     */
+    public static function sync_existing_categories()
     {
         global $wpdb;
 
-        // Build table name safely (prefix is trusted from WP config, but still treat as identifier).
-        $ach_table = $wpdb->prefix . 'gamify_achievements';
+        $tables = array(
+            'gamify_achievements' => 'achievement_type',
+            'gamify_levels'       => 'level_type',
+        );
 
-        // Cache keys.
-        $cache_group   = 'gamify';
-        $exists_key    = 'gf_tbl_exists_' . md5($ach_table);
-        $cats_cachekey = 'gf_ach_cats_' . md5($ach_table);
+        foreach ($tables as $table_name => $taxonomy) {
 
-        // Check table exists (cached).
-        $table_exists = wp_cache_get($exists_key, $cache_group);
-        if (false === $table_exists) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $found = $wpdb->get_var(
-                $wpdb->prepare(
-                    'SHOW TABLES LIKE %s',
-                    $ach_table
-                )
-            );
+            /**
+             * Since table names cannot be prepared via %s, we must interpolate it.
+             */
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $rows = $wpdb->get_results("SELECT id, category FROM {$wpdb->prefix}{$table_name}");
 
-            $table_exists = ($found === $ach_table);
-            wp_cache_set($exists_key, $table_exists, $cache_group, 300);
-        }
+            if (! empty($rows)) {
+                foreach ($rows as $row) {
+                    // Only sync if category is a string name, not an ID.
+                    if (! is_numeric($row->category) && ! empty($row->category)) {
 
-        if (! $table_exists) {
-            return;
-        }
+                        $term_name = sanitize_text_field($row->category);
+                        $term      = term_exists($term_name, $taxonomy);
 
-        // Fetch distinct categories (cached).
-        $ach_cats = wp_cache_get($cats_cachekey, $cache_group);
-        if (false === $ach_cats) {
+                        if (! $term) {
+                            $term = wp_insert_term($term_name, $taxonomy);
+                        }
 
-            // Build a safe table identifier (cannot be prepared with %s).
-            $prefix    = esc_sql($wpdb->prefix);
-            $table     = $prefix . 'gamify_achievements';
+                        if (! is_wp_error($term) && isset($term['term_id'])) {
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $ach_cats = $wpdb->get_col(
-                "SELECT DISTINCT category
-         FROM {$table}
-         WHERE category IS NOT NULL AND category <> ''"
-            );
+                            $term_id = (int) $term['term_id'];
 
-            wp_cache_set($cats_cachekey, $ach_cats, $cache_group, 300);
-        }
-
-        foreach ((array) $ach_cats as $cat) {
-            $cat = sanitize_text_field($cat);
-
-            if ('' === $cat) {
-                continue;
-            }
-
-            if (! term_exists($cat, 'achievement_type')) {
-                wp_insert_term($cat, 'achievement_type');
+                            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                            $wpdb->update(
+                                "{$wpdb->prefix}{$table_name}",
+                                array('category' => (string) $term_id),
+                                array('id' => absint($row->id)),
+                                array('%s'),
+                                array('%d')
+                            );
+                        }
+                    }
+                }
             }
         }
     }
