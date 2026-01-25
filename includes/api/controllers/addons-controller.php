@@ -183,7 +183,7 @@ class AddonsController extends BaseController
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-        $all_addons    = array('academylms', 'woocommerce', 'storeengine', 'restrict_unlock', 'progress_map');
+        $all_addons    = array('academylms', 'woocommerce', 'storeengine', 'restrict_unlock', 'restrict_content', 'progress_map');
 
         $mapped = array();
         foreach ($all_addons as $slug) {
