@@ -84,18 +84,18 @@ const TypesTable = ({type, editHandler}) => {
         textAlign: "start",
         cell: (row = {}) => <Box>{sliceString(row?.slug, 30)}</Box>
     },
-    {
-        name: __('Description', 'gamify'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => <Box>{row?.description}</Box>
-    },
-    {
-        name: __('Count', 'gamify'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => <Box>{row?.count}</Box>
-    },
+    // {
+    //     name: __('Description', 'gamify'),
+    //     columnWidth: "180px",
+    //     textAlign: "start",
+    //     cell: (row = {}) => <Box>{row?.description}</Box>
+    // },
+    // {
+    //     name: __('Count', 'gamify'),
+    //     columnWidth: "180px",
+    //     textAlign: "start",
+    //     cell: (row = {}) => <Box>{row?.count}</Box>
+    // },
     {
         name: __('Parent', 'gamify'),
         columnWidth: "180px",
@@ -131,7 +131,7 @@ const TypesTable = ({type, editHandler}) => {
   ];
   
   return (
-    <BoxView width='65%'>
+    <BoxView width='70%'>
       <ListTable
         key={`${type}-table-`+ data?.length}
         columns={columns}
