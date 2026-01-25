@@ -1,4 +1,4 @@
-=== GameEngine - Gamification for WordPress ===
+=== GameEngine - Gamification for Website ===
 Contributors: kodezen, academylms, tusharimran
 Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
@@ -37,8 +37,9 @@ You can award points for actions like user registration, daily logins, publishin
 
 == Changelog ==
 
-= 1.0.0 - 2024-05-22 =
+= 1.0.0 - 2025-01-20 =
 * Initial release of the GameEngine plugin.
+* Fixed coding standards and security guidelines for WordPress.org submission.
 
 == Upgrade Notice ==
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       GameEngine - Gamification for WordPress
+ * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
  * Version:           1.0.0
