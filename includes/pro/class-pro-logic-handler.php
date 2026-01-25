@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Pro;
+namespace GameEngine\Pro;
 
 if (! defined('ABSPATH')) {
 	exit;
@@ -19,10 +19,10 @@ class Pro_Logic_Handler
 	public static function init()
 	{
 		//  Validation Logic (Returns true/false).
-		add_filter('gamify_validate_pro_logic', array(__CLASS__, 'validate_pro_features'), 10, 4);
+		add_filter('gameengine_validate_pro_logic', array(__CLASS__, 'validate_pro_features'), 10, 4);
 
 		// Point Calculation Logic (Modifies point amount).
-		add_filter('gamify_pro_point_amount', array(__CLASS__, 'calculate_pro_points'), 10, 4);
+		add_filter('gameengine_pro_point_amount', array(__CLASS__, 'calculate_pro_points'), 10, 4);
 	}
 
 	/**
@@ -115,11 +115,11 @@ class Pro_Logic_Handler
 		// Password Reset Cooldown.
 		if ('after_password_reset' === $trigger_key && ! empty($params['cooldown'])) {
 			$user_id    = $hook_args[0]->ID;
-			$last_reset = get_user_meta($user_id, '_gamify_last_password_reset', true);
+			$last_reset = get_user_meta($user_id, '_gameengine_last_password_reset', true);
 			if ($last_reset && (time() - $last_reset) < (intval($params['cooldown']) * DAY_IN_SECONDS)) {
 				return false;
 			}
-			update_user_meta($user_id, '_gamify_last_password_reset', time());
+			update_user_meta($user_id, '_gameengine_last_password_reset', time());
 		}
 
 		// --- Interactions Logic ---

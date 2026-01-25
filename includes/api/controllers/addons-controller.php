@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -84,48 +84,48 @@ class AddonsController extends BaseController
      */
     public function get_detailed_addons_list()
     {
-        $active_addons = get_option('gamify_active_addons', array());
+        $active_addons = get_option('gameengine_active_addons', array());
 
         $addons = array(
             array(
                 'slug'   => 'academylms',
-                'name'   => __('Academy LMS', 'gamify'),
-                'desc'   => __('Reward users for course completions and quiz attempts.', 'gamify'),
+                'name'   => __('Academy LMS', 'gameengine'),
+                'desc'   => __('Reward users for course completions and quiz attempts.', 'gameengine'),
                 'icon'   => 'dashicons-welcome-learn-more',
                 'active' => in_array('academylms', $active_addons, true),
             ),
             array(
                 'slug'   => 'woocommerce',
-                'name'   => __('WooCommerce', 'gamify'),
-                'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gamify'),
+                'name'   => __('WooCommerce', 'gameengine'),
+                'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gameengine'),
                 'icon'   => 'dashicons-cart',
                 'active' => in_array('woocommerce', $active_addons, true),
             ),
             array(
                 'slug'   => 'storeengine',
-                'name'   => __('StoreEngine', 'gamify'),
-                'desc'   => __('Advanced WooCommerce features and rewards integration.', 'gamify'),
+                'name'   => __('StoreEngine', 'gameengine'),
+                'desc'   => __('Advanced WooCommerce features and rewards integration.', 'gameengine'),
                 'icon'   => 'dashicons-store',
                 'active' => in_array('storeengine', $active_addons, true),
             ),
             array(
                 'slug'   => 'restrict_unlock',
-                'name'   => __('Restrict Unlock', 'gamify'),
-                'desc'   => __('Set dependencies between achievements and levels.', 'gamify'),
+                'name'   => __('Restrict Unlock', 'gameengine'),
+                'desc'   => __('Set dependencies between achievements and levels.', 'gameengine'),
                 'icon'   => 'dashicons-lock',
                 'active' => in_array('restrict_unlock', $active_addons, true),
             ),
             array(
                 'slug'   => 'progress_map',
-                'name'   => __('Progress Map', 'gamify'),
-                'desc'   => __('Display a visual roadmap of user progress on frontend.', 'gamify'),
+                'name'   => __('Progress Map', 'gameengine'),
+                'desc'   => __('Display a visual roadmap of user progress on frontend.', 'gameengine'),
                 'icon'   => 'dashicons-location-alt',
                 'active' => in_array('progress_map', $active_addons, true),
             ),
             array(
                 'slug'   => 'restrict_content',
-                'name'   => __('Restrict Content', 'gamify'),
-                'desc'   => __('Lock specific posts, pages, images or links based on points and badges.', 'gamify'),
+                'name'   => __('Restrict Content', 'gameengine'),
+                'desc'   => __('Lock specific posts, pages, images or links based on points and badges.', 'gameengine'),
                 'icon'   => 'dashicons-visibility',
                 'active' => in_array('restrict_content', $active_addons, true),
             ),
@@ -147,7 +147,7 @@ class AddonsController extends BaseController
             return new \WP_Error('missing_data', 'Addon name is required.', array('status' => 400));
         }
 
-        $active_addons = get_option('gamify_active_addons', array());
+        $active_addons = get_option('gameengine_active_addons', array());
 
         if ($status) {
             if (! in_array($addon_name, $active_addons, true)) {
@@ -157,15 +157,15 @@ class AddonsController extends BaseController
             $active_addons = array_diff($active_addons, array($addon_name));
         }
 
-        update_option('gamify_active_addons', array_values($active_addons));
+        update_option('gameengine_active_addons', array_values($active_addons));
 
         // Reset Triggers and Regenerate JSON
-        if (class_exists('\Gamify\Classes\TriggerRegistry')) {
-            \Gamify\Classes\TriggerRegistry::reset();
+        if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
+            \GameEngine\Classes\TriggerRegistry::reset();
         }
 
-        if (class_exists('\Gamify\Classes\JsonGenerator')) {
-            \Gamify\Classes\JsonGenerator::generate();
+        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
+            \GameEngine\Classes\JsonGenerator::generate();
         }
 
         return new \WP_REST_Response(
@@ -182,7 +182,7 @@ class AddonsController extends BaseController
      */
     private function get_addons_status_mapped()
     {
-        $active_addons = get_option('gamify_active_addons', array());
+        $active_addons = get_option('gameengine_active_addons', array());
         $all_addons    = array('academylms', 'woocommerce', 'storeengine', 'restrict_unlock', 'progress_map');
 
         $mapped = array();

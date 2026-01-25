@@ -3,36 +3,36 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-$gamify_levels_manager = new \Gamify\Classes\LevelsManager();
-$gamify_user_id        = get_current_user_id();
-$gamify_user_lvls      = $gamify_levels_manager->get_all_user_levels($gamify_user_id);
+$gameengine_levels_manager = new \GameEngine\Classes\LevelsManager();
+$gameengine_user_id        = get_current_user_id();
+$gameengine_user_lvls      = $gameengine_levels_manager->get_all_user_levels($gameengine_user_id);
 ?>
-<div class="gamify-level-list">
-    <?php if (! empty($gamify_user_lvls)) : ?>
-        <?php foreach ($gamify_user_lvls as $gamify_lvl) : ?>
-            <div class="gamify-level-item">
+<div class="gameengine-level-list">
+    <?php if (! empty($gameengine_user_lvls)) : ?>
+        <?php foreach ($gameengine_user_lvls as $gameengine_lvl) : ?>
+            <div class="gameengine-level-item">
                 <div class="lvl-info-left">
                     <span class="lvl-icon">🏆</span>
-                    <span class="lvl-name"><?php echo esc_html($gamify_lvl->title); ?></span>
+                    <span class="lvl-name"><?php echo esc_html($gameengine_lvl->title); ?></span>
                 </div>
                 <span class="lvl-date">
                     <?php
                     /**
-                     * $achieved_at -> $gamify_achieved_at
-                     * $ts -> $gamify_ts
+                     * $achieved_at -> $gameengine_achieved_at
+                     * $ts -> $gameengine_ts
                      */
-                    $gamify_achieved_at = isset($gamify_lvl->achieved_at) ? $gamify_lvl->achieved_at : '';
+                    $gameengine_achieved_at = isset($gameengine_lvl->achieved_at) ? $gameengine_lvl->achieved_at : '';
 
-                    if (! empty($gamify_achieved_at)) {
-                        $gamify_ts = strtotime($gamify_achieved_at);
-                        if (false !== $gamify_ts) {
-                            echo esc_html(date_i18n(get_option('date_format'), $gamify_ts));
+                    if (! empty($gameengine_achieved_at)) {
+                        $gameengine_ts = strtotime($gameengine_achieved_at);
+                        if (false !== $gameengine_ts) {
+                            echo esc_html(date_i18n(get_option('date_format'), $gameengine_ts));
                         } else {
-                            echo esc_html__('—', 'gamify');
+                            echo esc_html__('—', 'gameengine');
                         }
                     } else {
                         // if date no date fallback
-                        echo esc_html__('—', 'gamify');
+                        echo esc_html__('—', 'gameengine');
                     }
                     ?>
                 </span>
@@ -41,7 +41,7 @@ $gamify_user_lvls      = $gamify_levels_manager->get_all_user_levels($gamify_use
         <?php endforeach; ?>
     <?php else : ?>
         <p class="gf-empty-state">
-            <?php esc_html_e('No levels unlocked yet.', 'gamify'); ?>
+            <?php esc_html_e('No levels unlocked yet.', 'gameengine'); ?>
         </p>
     <?php endif; ?>
 </div>

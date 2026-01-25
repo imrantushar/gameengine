@@ -1,33 +1,33 @@
 :root {
-    --gamify-font: "Roboto", sans-serif;
-    --gamify-primary: #006BFF;
-    --gamify-border-color: #CBD1D7;
-    --gamify-font-color: #141A24;
-    --gamify-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
-    --gamify-secondary-color: #F6F7F8;
+    --gameengine-font: "Roboto", sans-serif;
+    --gameengine-primary: #006BFF;
+    --gameengine-border-color: #CBD1D7;
+    --gameengine-font-color: #141A24;
+    --gameengine-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
+    --gameengine-secondary-color: #F6F7F8;
 
-    --gamify-second-primary: #8F7EE7;
-    --gamify-background: #FFFFFF;
-    --gamify-secondary: #738496;
-    --gamify-warn-muted: #738496;
-    --gamify-placing: #F15B50;
-    --gamify-warning: #FDB022;
-    --gamify-placeholder: #A2ADB9;
-    --gamify-gray: #F6F7F8;
+    --gameengine-second-primary: #8F7EE7;
+    --gameengine-background: #FFFFFF;
+    --gameengine-secondary: #738496;
+    --gameengine-warn-muted: #738496;
+    --gameengine-placing: #F15B50;
+    --gameengine-warning: #FDB022;
+    --gameengine-placeholder: #A2ADB9;
+    --gameengine-gray: #F6F7F8;
 }
 
 #wpbody-content{
     padding: 0
 }
 
-.gamify-admin-content {
+.gameengine-admin-content {
     margin-left: -20px;
-    background: var(--gamify-secondary-color);
+    background: var(--gameengine-secondary-color);
     min-height: 100vh;
     padding-bottom: 100px;
 }
 
-.gamify-inner-page-content {
+.gameengine-inner-page-content {
     max-width: calc(1280px - 30px);
     width: 100%;
     margin: 0 auto;
@@ -35,11 +35,11 @@
     border-radius: 4px;
     box-sizing: border-box;
     overflow: hidden;
-    background: var(--gamify-background);
-    box-shadow: var(--gamify-shadow);
+    background: var(--gameengine-background);
+    box-shadow: var(--gameengine-shadow);
 }
 
-.gamify-page-content {
+.gameengine-page-content {
     max-width: calc(1280px - 30px);
     width: 100%;
     margin: 0 auto;
@@ -49,18 +49,18 @@
 }
 
 // Custom radio button
-.gamify-radio-option {
+.gameengine-radio-option {
     display: flex;
     align-items: center;
     gap: 8px;
     cursor: pointer;
 }
 
-.gamify-radio-input {
+.gameengine-radio-input {
     appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--gamify-border-color);
+    border: 2px solid var(--gameengine-border-color);
     border-radius: 50%;
     position: relative;
     cursor: pointer;
@@ -69,12 +69,12 @@
     flex-shrink: 0;
 }
 
-.gamify-radio-input:checked {
-    border-color: var(--gamify-primary-color);
-    background-color: var(--gamify-primary-color);
+.gameengine-radio-input:checked {
+    border-color: var(--gameengine-primary-color);
+    background-color: var(--gameengine-primary-color);
 }
 
-.gamify-radio-input:checked::before {
+.gameengine-radio-input:checked::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -86,40 +86,40 @@
     border-radius: 50%;
 }
 
-.gamify-radio-input:focus {
+.gameengine-radio-input:focus {
     outline: none;
     box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
-.gamify-radio-input:hover {
-    border-color: var(--gamify-primary-color);
+.gameengine-radio-input:hover {
+    border-color: var(--gameengine-primary-color);
 }
 
-.gamify-radio-label {
+.gameengine-radio-label {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
     user-select: none;
 }
 
-.gamify-radio-option {
-    color: var(--gamify-gray-color);
+.gameengine-radio-option {
+    color: var(--gameengine-gray-color);
 }
 
-.gamify-radio-option.active {
-    color: var(--gamify-primary-color);
+.gameengine-radio-option.active {
+    color: var(--gameengine-primary-color);
 }
 
-.gamify-radio-option.active .gamify-radio-label {
-    color: var(--gamify-primary-color);
+.gameengine-radio-option.active .gameengine-radio-label {
+    color: var(--gameengine-primary-color);
 }
 // Custom radio button
 
 @media (max-width: 768px) {
-    .gamify-ticket-table td > p{
+    .gameengine-ticket-table td > p{
         width: fit-content;
     }
-    .gamify-ticket-table table td, .gamify-ticket-table table tr {
+    .gameengine-ticket-table table td, .gameengine-ticket-table table tr {
         display: revert;
     }
 }
@@ -222,7 +222,7 @@
         right: 0px;
         bottom: 0px;
         border-radius: 50%;
-        border: solid var(--gamify-primary) 3px;
+        border: solid var(--gameengine-primary) 3px;
         animation-name: spread;
         animation-duration: var(--duration);
         animation-delay: var(--delay);

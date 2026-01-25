@@ -1,12 +1,12 @@
 <?php
 
-namespace Gamify\Shortcodes;
+namespace GameEngine\Shortcodes;
 
 class Levels
 {
     public function __construct()
     {
-        add_shortcode('gamify_level', array($this, 'render_view'));
+        add_shortcode('gameengine_level', array($this, 'render_view'));
     }
 
     public function render_view()
@@ -15,7 +15,7 @@ class Levels
             return '';
         }
         ob_start();
-        \Gamify\Helper::get_template('shortcode/levels.php');
-        return apply_filters('gamify/templates/shortcode/levels', ob_get_clean());
+        \GameEngine\Helper::get_template('shortcode/levels.php');
+        return apply_filters('gameengine/templates/shortcode/levels', ob_get_clean());
     }
 }

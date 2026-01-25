@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * Plugin Name:       GameEngine - Gamification for WordPress
+ * Plugin URI:        https://kodezen.com/products/gameengine
+ * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
+ * Version:           1.0.0
+ * Author:            kodezen
+ * Author URI:        https://kodezen.com
+ * License:           GPLv2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain:       gameengine
+ * Domain Path:       /languages
+ */
+
+// Exit if accessed directly to prevent direct script access.
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+/**
+ * The main GameEngine plugin class.
+ *
+ * @final
+ */
+final class GameEngine
+{
+    /**
+     * The single instance of the class.
+     *
+     * @var GameEngine|null
+     */
+    private static $instance = null;
+
+    /**
+     * Private constructor to prevent direct instantiation.
+     */
+    private function __construct()
+    {
+        $this->define_constants();
+        $this->load_dependencies();
+        $this->register_hooks();
+    }
+
+    /**
+     * Get the single instance of the class.
+     *
+     * @return GameEngine
+     */
+    public static function instance()
+    {
+        if (is_null(self::$instance)) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Define all essential plugin constants.
+     */
+    private function define_constants()
+    {
+        define('GAMEENGINE_VERSION', '1.0.0');
+        define('GAMEENGINE_FILE', __FILE__);
+        define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
+        define('GAMEENGINE_PATH', wp_normalize_path(plugin_dir_path(GAMEENGINE_FILE)));
+        define('GAMEENGINE_URL', plugin_dir_url(GAMEENGINE_FILE));
+        define('GAMEENGINE_INCLUDES', GAMEENGINE_PATH . 'includes/');
+        define('GAMEENGINE_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
+    }
+
+    /**
+     * Load the plugin's dependencies.
+     */
+    private function load_dependencies()
+    {
+        require_once GAMEENGINE_INCLUDES . 'autoload.php';
+        require_once GAMEENGINE_INCLUDES . 'functions.php';
+    }
+
+    /**
+     * Register the core WordPress hooks.
+     */
+    private function register_hooks()
+    {
+        // Activation Hook.
+        register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
+
+        // Deactivation Hook.
+        register_deactivation_hook(GAMEENGINE_FILE, [__CLASS__, 'deactivate']);
+
+        // Initialize Plugin Modules.
+        add_action('init', array($this, 'init_modules'), 10);
+    }
+
+    /**
+     * Initialize Plugin Hooks and Classes.
+     */
+    public function init_modules()
+    {
+
+        if (class_exists('\GameEngine\Classes\TaxonomyManager')) {
+            \GameEngine\Classes\TaxonomyManager::init();
+        }
+        // Assets & API.
+        if (class_exists('\GameEngine\Assets')) {
+            \GameEngine\Assets::init();
+        }
+        if (class_exists('\GameEngine\API\Manager')) {
+            \GameEngine\API\Manager::init();
+        }
+
+        // System Services.
+        if (class_exists('\GameEngine\Classes\Scheduler')) {
+            \GameEngine\Classes\Scheduler::init();
+        }
+        if (class_exists('\GameEngine\Classes\Logger')) {
+            \GameEngine\Classes\Logger::init();
+        }
+        if (class_exists('\GameEngine\Classes\AchievementsManager')) {
+            \GameEngine\Classes\AchievementsManager::init();
+        }
+        if (class_exists('\GameEngine\Classes\LevelsManager')) {
+            \GameEngine\Classes\LevelsManager::init();
+        }
+        if (class_exists('\GameEngine\Classes\EmailManager')) {
+            \GameEngine\Classes\EmailManager::init();
+        }
+
+        if (class_exists('\GameEngine\Shortcode')) {
+            \GameEngine\Shortcode::init();
+        }
+
+        // Triggers.
+        if (class_exists('\GameEngine\Classes\Triggers')) {
+            \GameEngine\Classes\Triggers::init();
+        }
+
+        // Admin Interface.
+        if (is_admin()) {
+            if (class_exists('\GameEngine\Admin')) {
+                \GameEngine\Admin::init();
+            }
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if ($current_page && 0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
+                if (class_exists('\GameEngine\Classes\JsonGenerator')) {
+                    \GameEngine\Classes\JsonGenerator::generate();
+                }
+            }
+        }
+
+        if (defined('WP_CLI') && WP_CLI) {
+            \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
+        }
+
+        if (file_exists(GAMEENGINE_PATH . 'includes/pro/init.php')) {
+            require_once GAMEENGINE_PATH . 'includes/pro/init.php';
+        }
+
+        if (file_exists(GAMEENGINE_PATH . 'includes/addons/restrict-unlock/init.php')) {
+            require_once GAMEENGINE_PATH . 'includes/addons/restrict-unlock/init.php';
+        }
+
+        if (file_exists(GAMEENGINE_PATH . 'includes/addons/progress-map/init.php')) {
+            require_once GAMEENGINE_PATH . 'includes/addons/progress-map/init.php';
+        }
+
+        if (file_exists(GAMEENGINE_PATH . 'includes/addons/restrict-content/init.php')) {
+            require_once GAMEENGINE_PATH . 'includes/addons/restrict-content/init.php';
+        }
+    }
+
+    /**
+     * Plugin Activation Hook.
+     */
+    public static function activate()
+    {
+        // Run Installer.
+        if (class_exists('\GameEngine\Core\Installer')) {
+            (new \GameEngine\Core\Installer())->run();
+        }
+    }
+
+    /**
+     * Plugin Dactivation Hook.
+     */
+    public static function deactivate()
+    {
+        if (class_exists('\GameEngine\Core\Installer')) {
+            (new \GameEngine\Core\Installer())->uninstall();
+        }
+    }
+}
+
+/**
+ * Global accessor function.
+ *
+ * @return GameEngine
+ */
+function gameengine()
+{
+    return GameEngine::instance();
+}
+
+// Kickstart the plugin.
+GameEngine::instance();

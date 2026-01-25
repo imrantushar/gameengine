@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class TaxonomyManager
- * Handles registration for Gamify taxonomies.
+ * Handles registration for GameEngine taxonomies.
  */
 class TaxonomyManager
 {
@@ -18,13 +18,13 @@ class TaxonomyManager
      */
     public static function init()
     {
-        self::register_gamify_taxonomies();
+        self::register_gameengine_taxonomies();
     }
 
     /**
      * Register taxonomies without auto-syncing on every load.
      */
-    public static function register_gamify_taxonomies()
+    public static function register_gameengine_taxonomies()
     {
         // Achievement Types
         register_taxonomy(
@@ -32,7 +32,7 @@ class TaxonomyManager
             array(),
             array(
                 'hierarchical' => true,
-                'labels'       => array('name' => __('Achievement Types', 'gamify')),
+                'labels'       => array('name' => __('Achievement Types', 'gameengine')),
                 'show_ui'      => true,
                 'show_in_rest' => true,
             )
@@ -44,7 +44,7 @@ class TaxonomyManager
             array(),
             array(
                 'hierarchical' => true,
-                'labels'       => array('name' => __('Level Types', 'gamify')),
+                'labels'       => array('name' => __('Level Types', 'gameengine')),
                 'show_ui'      => true,
                 'show_in_rest' => true,
             )
@@ -61,8 +61,8 @@ class TaxonomyManager
         global $wpdb;
 
         $tables = array(
-            'gamify_achievements' => 'achievement_type',
-            'gamify_levels'       => 'level_type',
+            'gameengine_achievements' => 'achievement_type',
+            'gameengine_levels'       => 'level_type',
         );
 
         foreach ($tables as $table_name => $taxonomy) {

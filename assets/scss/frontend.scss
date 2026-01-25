@@ -1,6 +1,6 @@
 /**
- * Gamify Premium UI Stylesheet
- * Optimized for: [gamify_profile], [gamify_points], [gamify_level], [gamify_progress_map]
+ * GameEngine Premium UI Stylesheet
+ * Optimized for: [gameengine_profile], [gameengine_points], [gameengine_level], [gameengine_progress_map]
  */
 
 :root {
@@ -21,7 +21,7 @@
 }
 
 /* --- 1. Main Dashboard Wrapper --- */
-.gamify-dashboard {
+.gameengine-dashboard {
     max-width: 1000px;
     margin: 30px auto;
     background: var(--gf-bg-main);
@@ -33,7 +33,7 @@
 }
 
 /* Header */
-.gamify-header {
+.gameengine-header {
     display: flex;
     justify-content: space-between;
     padding: 25px 35px;
@@ -42,27 +42,27 @@
     align-items: center;
 }
 
-.gamify-user-meta-info {
+.gameengine-user-meta-info {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.gamify-user-meta-info img {
+.gameengine-user-meta-info img {
     border-radius: 50%;
     border: 3px solid var(--gf-primary);
     padding: 2px;
     box-shadow: var(--gf-shadow-sm);
 }
 
-.gamify-user-details h3 {
+.gameengine-user-details h3 {
     margin: 0;
     font-size: 22px;
     color: var(--gf-text-header);
     font-weight: 700;
 }
 
-.gamify-points-tag {
+.gameengine-points-tag {
     font-size: 13px;
     color: var(--gf-warning);
     font-weight: 700;
@@ -76,7 +76,7 @@
 }
 
 /* Notification Bell */
-.gamify-header-actions .gamify-notification-bell {
+.gameengine-header-actions .gameengine-notification-bell {
     position: relative;
     cursor: pointer;
     font-size: 20px;
@@ -90,7 +90,7 @@
     transition: 0.3s;
 }
 
-.gamify-notification-bell:hover {
+.gameengine-notification-bell:hover {
     background: var(--gf-primary-soft);
     transform: scale(1.05);
 }
@@ -107,21 +107,21 @@
 }
 
 /* Layout Main */
-.gamify-main-layout {
+.gameengine-main-layout {
     display: flex;
     min-height: 500px;
     background: var(--gf-bg-alt);
 }
 
 /* Sidebar */
-.gamify-sidebar {
+.gameengine-sidebar {
     width: 250px;
     background: #fff;
     padding: 25px 15px;
     border-right: 1px solid var(--gf-border);
 }
 
-.gamify-tab-btn {
+.gameengine-tab-btn {
     width: 100%;
     padding: 14px 20px;
     border: none;
@@ -139,43 +139,43 @@
     margin-bottom: 5px;
 }
 
-.gamify-tab-btn:hover {
+.gameengine-tab-btn:hover {
     background: var(--gf-bg-alt);
     color: var(--gf-primary);
 }
 
-.gamify-tab-btn.active {
+.gameengine-tab-btn.active {
     background: var(--gf-primary);
     color: #fff;
     box-shadow: 0 4px 12px rgba(0, 107, 255, 0.2);
 }
 
 /* Content Area */
-.gamify-content-area {
+.gameengine-content-area {
     flex: 1;
     padding: 40px;
     background: #fff;
 }
 
-.gamify-tab-content {
+.gameengine-tab-content {
     display: none;
 }
 
-.gamify-tab-content.active {
+.gameengine-tab-content.active {
     display: block;
     animation: gfSlideUp 0.4s ease-out;
 }
 
 /* --- 2. Zig-Zag Roadmap --- */
-.gamify-roadmap {
+.gameengine-roadmap {
     padding: 10px 0;
 }
 
-.gamify-timeline {
+.gameengine-timeline {
     position: relative;
 }
 
-.gamify-timeline::before {
+.gameengine-timeline::before {
     content: '';
     position: absolute;
     left: 50%;
@@ -186,7 +186,7 @@
     transform: translateX(-50%);
 }
 
-.gamify-timeline-node {
+.gameengine-timeline-node {
     position: relative;
     width: 100%;
     margin-bottom: 50px;
@@ -194,7 +194,7 @@
     align-items: center;
 }
 
-.gamify-node-circle {
+.gameengine-node-circle {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -212,13 +212,13 @@
     color: var(--gf-locked);
 }
 
-.is-active .gamify-node-circle {
+.is-active .gameengine-node-circle {
     border-color: var(--gf-primary);
     background: var(--gf-primary);
     color: #fff;
 }
 
-.gamify-connector {
+.gameengine-connector {
     position: absolute;
     left: 50%;
     top: 36px;
@@ -232,7 +232,7 @@
     background: var(--gf-primary);
 }
 
-.gamify-node-card {
+.gameengine-node-card {
     width: 44%;
     background: #fff;
     border-radius: 14px;
@@ -243,49 +243,49 @@
     position: relative;
 }
 
-.node-left .gamify-node-card {
+.node-left .gameengine-node-card {
     margin-right: auto;
     text-align: right;
 }
 
-.node-right .gamify-node-card {
+.node-right .gameengine-node-card {
     margin-left: auto;
     text-align: left;
 }
 
-.is-active .gamify-node-card {
+.is-active .gameengine-node-card {
     border-top: 4px solid var(--gf-primary);
 }
 
-.is-locked .gamify-node-card {
+.is-locked .gameengine-node-card {
     background: var(--gf-bg-alt);
     opacity: 0.8;
 }
 
-.gamify-card-inner {
+.gameengine-card-inner {
     display: flex;
     gap: 15px;
     align-items: center;
 }
 
-.node-left .gamify-card-inner {
+.node-left .gameengine-card-inner {
     flex-direction: row-reverse;
 }
 
-.gamify-card-media img {
+.gameengine-card-media img {
     width: 50px;
     height: 50px;
     object-fit: contain;
 }
 
-.gamify-card-info h5 {
+.gameengine-card-info h5 {
     margin: 0;
     font-size: 17px;
     color: var(--gf-text-header);
     font-weight: 700;
 }
 
-.gamify-card-info p {
+.gameengine-card-info p {
     font-size: 13px;
     color: var(--gf-text-body);
     margin-top: 5px;
@@ -293,13 +293,13 @@
 }
 
 /* --- 3. Achievements Grid --- */
-.gamify-achievements-grid {
+.gameengine-achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 20px;
 }
 
-.gamify-achievement-card {
+.gameengine-achievement-card {
     background: #fff;
     border-radius: 16px;
     padding: 25px 15px;
@@ -309,7 +309,7 @@
     position: relative;
 }
 
-.gamify-achievement-card:hover {
+.gameengine-achievement-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--gf-shadow-md);
     border-color: var(--gf-primary);
@@ -357,13 +357,13 @@
 }
 
 /* --- 4. Levels List --- */
-.gamify-level-list {
+.gameengine-level-list {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.gamify-level-item {
+.gameengine-level-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -374,7 +374,7 @@
     transition: 0.2s;
 }
 
-.gamify-level-item:hover {
+.gameengine-level-item:hover {
     border-color: var(--gf-primary);
     background: #fff;
 }
@@ -402,7 +402,7 @@
 }
 
 /* --- 5. Standalone Pills (Shortcodes) --- */
-.gamify-pill-points {
+.gameengine-pill-points {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -416,7 +416,7 @@
     box-shadow: var(--gf-shadow-sm);
 }
 
-.gamify-pill-level {
+.gameengine-pill-level {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -444,22 +444,22 @@
 
 /* Responsive Fixes */
 @media (max-width: 768px) {
-    .gamify-dashboard {
+    .gameengine-dashboard {
         margin: 10px;
     }
 
-    .gamify-header {
+    .gameengine-header {
         flex-direction: column;
         text-align: center;
         gap: 15px;
         padding: 20px;
     }
 
-    .gamify-main-layout {
+    .gameengine-main-layout {
         flex-direction: column;
     }
 
-    .gamify-sidebar {
+    .gameengine-sidebar {
         width: 100%;
         display: flex;
         overflow-x: auto;
@@ -468,37 +468,37 @@
         padding: 10px;
     }
 
-    .gamify-tab-btn {
+    .gameengine-tab-btn {
         white-space: nowrap;
         border-bottom: 3px solid transparent;
         width: auto;
     }
 
-    .gamify-tab-btn.active {
+    .gameengine-tab-btn.active {
         border-right: none;
         border-bottom: 3px solid var(--gf-primary);
     }
 
-    .gamify-timeline::before {
+    .gameengine-timeline::before {
         left: 20px;
     }
 
-    .gamify-node-circle {
+    .gameengine-node-circle {
         left: 20px;
         transform: none;
     }
 
-    .gamify-connector {
+    .gameengine-connector {
         left: 34px;
         transform: none;
     }
 
-    .gamify-node-card {
+    .gameengine-node-card {
         width: calc(100% - 65px);
         margin-left: 65px !important;
     }
 
-    .node-left .gamify-card-inner {
+    .node-left .gameengine-card-inner {
         flex-direction: row;
     }
 }

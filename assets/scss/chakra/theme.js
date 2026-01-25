@@ -4,22 +4,22 @@ export const theme = createSystem(defaultConfig, {
 	theme: {
 		tokens: {
 			fonts: {
-				body: { value: 'var(--gamify-font)' },
-				heading: { value: 'var(--gamify-font)' },
+				body: { value: 'var(--gameengine-font)' },
+				heading: { value: 'var(--gameengine-font)' },
 			},
 			colors: {
 				brand: {
-					primary: { value: 'var(--gamify-primary-color)' },
-					secondary: { value: 'var(--gamify-secondary-color)' },
-					gray: { value: 'var(--gamify-gray-color)' },
-					darkGray: { value: 'var(--gamify-secondary-gray-color)' },
-					border: { value: 'var(--gamify-border-color)' },
-					disabled: { value: 'var(--gamify-text-disable)' },
-					bgGray: { value: 'var(--gamify-background-gray-color)' },
-					warning: { value: 'var(--gamify-warning-color)' },
+					primary: { value: 'var(--gameengine-primary-color)' },
+					secondary: { value: 'var(--gameengine-secondary-color)' },
+					gray: { value: 'var(--gameengine-gray-color)' },
+					darkGray: { value: 'var(--gameengine-secondary-gray-color)' },
+					border: { value: 'var(--gameengine-border-color)' },
+					disabled: { value: 'var(--gameengine-text-disable)' },
+					bgGray: { value: 'var(--gameengine-background-gray-color)' },
+					warning: { value: 'var(--gameengine-warning-color)' },
 
 					// New
-					blue: { value: 'var(--gamify-primary)' },
+					blue: { value: 'var(--gameengine-primary)' },
 				},
 			},
 		},

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\API;
+namespace GameEngine\API;
 
 if (! defined('ABSPATH')) exit;
 
@@ -10,7 +10,7 @@ abstract class BaseController
      * The namespace for our API.
      * @var string
      */
-    protected $namespace = 'gamify/v1';
+    protected $namespace = 'gameengine/v1';
 
     /**
      * The base of this controller's route.
@@ -35,7 +35,7 @@ abstract class BaseController
         if (! current_user_can('manage_options')) {
             return new \WP_Error(
                 'rest_forbidden',
-                esc_html__('You do not have permission to access this endpoint.', 'gamify'),
+                esc_html__('You do not have permission to access this endpoint.', 'gameengine'),
                 ['status' => is_user_logged_in() ? 403 : 401]
             );
         }

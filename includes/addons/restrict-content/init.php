@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Addons\RestrictContent;
+namespace GameEngine\Addons\RestrictContent;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -19,7 +19,7 @@ class Init
      */
     public static function init()
     {
-        $active_addons = get_option('gamify_active_addons', array());
+        $active_addons = get_option('gameengine_active_addons', array());
 
         /**
          * Self-check: Only load if the addon is enabled in settings.

@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class ToolsController
- * Provides detailed documentation and examples for all Gamify shortcodes.
+ * Provides detailed documentation and examples for all GameEngine shortcodes.
  */
 class ToolsController extends BaseController
 {
@@ -40,60 +40,60 @@ class ToolsController extends BaseController
         $shortcodes = array(
             // Restrict Content Shortcode (The most detailed one)
             array(
-                'code'       => '[gamify_restrict]',
-                'title'      => __('Content Restriction', 'gamify'),
-                'desc'       => __('Lock specific parts of your content (text, images, links) based on user points, badges, or levels.', 'gamify'),
+                'code'       => '[gameengine_restrict]',
+                'title'      => __('Content Restriction', 'gameengine'),
+                'desc'       => __('Lock specific parts of your content (text, images, links) based on user points, badges, or levels.', 'gameengine'),
                 'attributes' => array(
-                    'type'    => __('Accepts: points, achievement, level', 'gamify'),
-                    'value'   => __('Number (e.g. 100 for points, or ID for badge/level)', 'gamify'),
-                    'message' => __('Optional: Custom message shown to locked users', 'gamify'),
+                    'type'    => __('Accepts: points, achievement, level', 'gameengine'),
+                    'value'   => __('Number (e.g. 100 for points, or ID for badge/level)', 'gameengine'),
+                    'message' => __('Optional: Custom message shown to locked users', 'gameengine'),
                 ),
                 'examples'   => array(
                     array(
-                        'label' => __('Restrict by Points', 'gamify'),
-                        'snippet' => '[gamify_restrict type="points" value="50"] ' . __('Your hidden content here...', 'gamify') . ' [/gamify_restrict]',
+                        'label' => __('Restrict by Points', 'gameengine'),
+                        'snippet' => '[gameengine_restrict type="points" value="50"] ' . __('Your hidden content here...', 'gameengine') . ' [/gameengine_restrict]',
                     ),
                     array(
-                        'label' => __('Restrict by Achievement', 'gamify'),
-                        'snippet' => '[gamify_restrict type="achievement" value="12"] ' . __('Visible only to badge earners', 'gamify') . ' [/gamify_restrict]',
+                        'label' => __('Restrict by Achievement', 'gameengine'),
+                        'snippet' => '[gameengine_restrict type="achievement" value="12"] ' . __('Visible only to badge earners', 'gameengine') . ' [/gameengine_restrict]',
                     ),
                     array(
-                        'label' => __('Restrict by Level', 'gamify'),
-                        'snippet' => '[gamify_restrict type="level" value="2"] ' . __('Visible only to Level 2 and above', 'gamify') . ' [/gamify_restrict]',
+                        'label' => __('Restrict by Level', 'gameengine'),
+                        'snippet' => '[gameengine_restrict type="level" value="2"] ' . __('Visible only to Level 2 and above', 'gameengine') . ' [/gameengine_restrict]',
                     ),
                 ),
             ),
 
             // Profile Shortcode
             array(
-                'code'  => '[gamify_profile]',
-                'title' => __('User Dashboard', 'gamify'),
-                'desc'  => __('Displays the full modern gamification dashboard (Tabs, Progress Map, Badges).', 'gamify'),
-                'usage' => __('Paste on a page where you want users to manage their progress.', 'gamify'),
+                'code'  => '[gameengine_profile]',
+                'title' => __('User Dashboard', 'gameengine'),
+                'desc'  => __('Displays the full modern gamification dashboard (Tabs, Progress Map, Badges).', 'gameengine'),
+                'usage' => __('Paste on a page where you want users to manage their progress.', 'gameengine'),
             ),
 
             // Progress Map Shortcode
             array(
-                'code'  => '[gamify_progress_map]',
-                'title' => __('Journey Roadmap Only', 'gamify'),
-                'desc'  => __('Shows only the visual zig-zag roadmap of levels and achievements.', 'gamify'),
-                'usage' => __('Use this if you want to show the map without the full dashboard.', 'gamify'),
+                'code'  => '[gameengine_progress_map]',
+                'title' => __('Journey Roadmap Only', 'gameengine'),
+                'desc'  => __('Shows only the visual zig-zag roadmap of levels and achievements.', 'gameengine'),
+                'usage' => __('Use this if you want to show the map without the full dashboard.', 'gameengine'),
             ),
 
             //  Points Display
             array(
-                'code'  => '[gamify_points]',
-                'title' => __('Points Balance', 'gamify'),
-                'desc'  => __('Displays the current users point total with a coin icon.', 'gamify'),
-                'usage' => __('Ideal for menus, headers, or sidebar widgets.', 'gamify'),
+                'code'  => '[gameengine_points]',
+                'title' => __('Points Balance', 'gameengine'),
+                'desc'  => __('Displays the current users point total with a coin icon.', 'gameengine'),
+                'usage' => __('Ideal for menus, headers, or sidebar widgets.', 'gameengine'),
             ),
 
             // Level Display
             array(
-                'code'  => '[gamify_level]',
-                'title' => __('Highest Level', 'gamify'),
-                'desc'  => __('Shows the users current highest level title with a trophy icon.', 'gamify'),
-                'usage' => __('Great for user profile headers or bio sections.', 'gamify'),
+                'code'  => '[gameengine_level]',
+                'title' => __('Highest Level', 'gameengine'),
+                'desc'  => __('Shows the users current highest level title with a trophy icon.', 'gameengine'),
+                'usage' => __('Great for user profile headers or bio sections.', 'gameengine'),
             ),
         );
 

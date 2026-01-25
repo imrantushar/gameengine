@@ -1,9 +1,9 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
-use Gamify\Classes\TriggerRegistry;
+use GameEngine\API\BaseController;
+use GameEngine\Classes\TriggerRegistry;
 
 if (!defined('ABSPATH')) exit;
 
@@ -35,14 +35,14 @@ class TriggersController extends BaseController
     public function get_items($request)
     {
         $scope = $request->get_param('scope');
-        $file  = GAMIFY_PATH . 'assets/json/integrations.json';
+        $file  = GAMEENGINE_PATH . 'assets/json/integrations.json';
         $data  = [];
 
         if (file_exists($file)) {
             $manifest = json_decode(file_get_contents($file), true);
             $data = $manifest['integrations'] ?? [];
         } else {
-            $data = \Gamify\Classes\TriggerRegistry::get_all_integrations();
+            $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
         }
 
         if (!empty($scope)) {
@@ -76,8 +76,8 @@ class TriggersController extends BaseController
         $query_key   = isset($params['query']) ? sanitize_text_field($params['query']) : '';
 
         $map = [
-            'wordpress'   => \Gamify\Integrations\WordPress::class,
-            'woocommerce' => \Gamify\Integrations\WooCommerce::class,
+            'wordpress'   => \GameEngine\Integrations\WordPress::class,
+            'woocommerce' => \GameEngine\Integrations\WooCommerce::class,
         ];
 
         if (isset($map[$integration])) {

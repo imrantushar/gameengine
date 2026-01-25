@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Pro;
+namespace GameEngine\Pro;
 
 if (! defined('ABSPATH')) exit;
 

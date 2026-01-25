@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\Addons\ProgressMap;
+namespace GameEngine\Addons\ProgressMap;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;

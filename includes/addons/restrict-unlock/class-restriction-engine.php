@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Addons\RestrictUnlock;
+namespace GameEngine\Addons\RestrictUnlock;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -17,7 +17,7 @@ class Restriction_Engine {
 	 */
 	public static function init() {
 		// Intercept reward delivery in the core engine.
-		add_filter( 'gamify_can_user_unlock_reward', array( __CLASS__, 'check_dependencies' ), 10, 3 );
+		add_filter( 'gameengine_can_user_unlock_reward', array( __CLASS__, 'check_dependencies' ), 10, 3 );
 	}
 
 	/**
@@ -39,19 +39,19 @@ class Restriction_Engine {
 		}
 
 		//  Caching Strategy to avoid redundant DB calls.
-		$cache_key = "gamify_item_restrict_{$rule->reward_type}_{$reward_id}";
-		$item      = wp_cache_get( $cache_key, 'gamify' );
+		$cache_key = "gameengine_item_restrict_{$rule->reward_type}_{$reward_id}";
+		$item      = wp_cache_get( $cache_key, 'gameengine' );
 
 		if ( false === $item ) {
 			// Determine table literally to avoid InterpolatedNotPrepared warning.
 			if ( 'achievement' === $rule->reward_type ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$item = $wpdb->get_row( $wpdb->prepare( "SELECT required_achievement_id, required_level_id FROM {$wpdb->prefix}gamify_achievements WHERE id = %d", $reward_id ) );
+				$item = $wpdb->get_row( $wpdb->prepare( "SELECT required_achievement_id, required_level_id FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d", $reward_id ) );
 			} else {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$item = $wpdb->get_row( $wpdb->prepare( "SELECT required_achievement_id, required_level_id FROM {$wpdb->prefix}gamify_levels WHERE id = %d", $reward_id ) );
+				$item = $wpdb->get_row( $wpdb->prepare( "SELECT required_achievement_id, required_level_id FROM {$wpdb->prefix}gameengine_levels WHERE id = %d", $reward_id ) );
 			}
-			wp_cache_set( $cache_key, $item, 'gamify', 300 );
+			wp_cache_set( $cache_key, $item, 'gameengine', 300 );
 		}
 
 		if ( ! $item ) {
@@ -61,13 +61,13 @@ class Restriction_Engine {
 		// Check Achievement dependency.
 		if ( ! empty( $item->required_achievement_id ) ) {
 			$req_ach_id = absint( $item->required_achievement_id );
-			$ach_cache_key = "gamify_user_has_ach_{$user_id}_{$req_ach_id}";
+			$ach_cache_key = "gameengine_user_has_ach_{$user_id}_{$req_ach_id}";
 			
-			$has_req_ach = wp_cache_get( $ach_cache_key, 'gamify' );
+			$has_req_ach = wp_cache_get( $ach_cache_key, 'gameengine' );
 			if ( false === $has_req_ach ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$has_req_ach = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d AND achievement_id = %d", $user_id, $req_ach_id ) );
-				wp_cache_set( $ach_cache_key, $has_req_ach, 'gamify', 60 );
+				$has_req_ach = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = %d AND achievement_id = %d", $user_id, $req_ach_id ) );
+				wp_cache_set( $ach_cache_key, $has_req_ach, 'gameengine', 60 );
 			}
 			
 			if ( ! $has_req_ach ) {
@@ -78,13 +78,13 @@ class Restriction_Engine {
 		//  Check Level dependency.
 		if ( ! empty( $item->required_level_id ) ) {
 			$req_lvl_id = absint( $item->required_level_id );
-			$lvl_cache_key = "gamify_user_has_lvl_{$user_id}_{$req_lvl_id}";
+			$lvl_cache_key = "gameengine_user_has_lvl_{$user_id}_{$req_lvl_id}";
 
-			$has_req_lvl = wp_cache_get( $lvl_cache_key, 'gamify' );
+			$has_req_lvl = wp_cache_get( $lvl_cache_key, 'gameengine' );
 			if ( false === $has_req_lvl ) {
 				// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-				$has_req_lvl = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d AND level_id = %d", $user_id, $req_lvl_id ) );
-				wp_cache_set( $lvl_cache_key, $has_req_lvl, 'gamify', 60 );
+				$has_req_lvl = (bool) $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$wpdb->prefix}gameengine_user_levels WHERE user_id = %d AND level_id = %d", $user_id, $req_lvl_id ) );
+				wp_cache_set( $lvl_cache_key, $has_req_lvl, 'gameengine', 60 );
 			}
 
 			if ( ! $has_req_lvl ) {

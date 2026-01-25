@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Addons\ProgressMap;
+namespace GameEngine\Addons\ProgressMap;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -19,9 +19,9 @@ class Init
      */
     public static function init()
     {
-        $active_addons = get_option('gamify_active_addons', array());
+        $active_addons = get_option('gameengine_active_addons', array());
 
-        // Load addon only if it is active in the Gamify settings.
+        // Load addon only if it is active in the GameEngine settings.
         if (in_array('progress_map', $active_addons, true)) {
             self::load_dependencies();
             self::register_hooks();

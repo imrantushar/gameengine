@@ -1,4 +1,4 @@
-.gamify-table {
+.gameengine-table {
     background: #fff;
     padding: 24px;
     &__sub-header {
@@ -7,10 +7,10 @@
         align-items: center;
         margin-bottom: 24px;
         padding-bottom: 16px;
-        border-bottom: 1px solid var(--gamify-border-color);
+        border-bottom: 1px solid var(--gameengine-border-color);
     }
 
-    .gamify-table-flex-col {
+    .gameengine-table-flex-col {
         display: flex;
         flex-direction: column;
         gap: 4px;
@@ -45,14 +45,14 @@
 }
 
 // suffix
-.gamify-table {
+.gameengine-table {
     &--logs-table {
-        .gamify-table__sub-header-left {
+        .gameengine-table__sub-header-left {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            .gamify-table__sub-header-left-items {
+            .gameengine-table__sub-header-left-items {
                 display: flex;
                 align-items: center;
                 gap: 8px;

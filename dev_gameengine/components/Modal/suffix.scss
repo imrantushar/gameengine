@@ -1,0 +1,16 @@
+.gameengine-wp-modal--manual-trigger {
+    .components-modal__content {
+        margin-top: 72px;
+        padding: 20px;
+        overflow: hidden;
+        .components-modal__header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gameengine-border-color);
+        }
+        .gameengine-wp-modal__content {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+    }
+}

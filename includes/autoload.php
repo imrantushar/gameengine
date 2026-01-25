@@ -1,5 +1,5 @@
 <?php
-namespace Gamify;
+namespace GameEngine;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -22,7 +22,7 @@ class Autoload {
 	 * @var array
 	 */
 	private $autoload_directories = array(
-		'Gamify' => GAMIFY_ROOT_DIR_PATH . 'includes/',
+		'GameEngine' => GAMEENGINE_ROOT_DIR_PATH . 'includes/',
 	);
 
 	/**

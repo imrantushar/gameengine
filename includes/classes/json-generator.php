@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (!defined('ABSPATH')) exit;
 
@@ -12,17 +12,17 @@ class JsonGenerator
     public static function generate()
     {
 
-        \Gamify\Classes\TriggerRegistry::init();
+        \GameEngine\Classes\TriggerRegistry::init();
 
-        $integrations_data = \Gamify\Classes\TriggerRegistry::get_all_integrations();
+        $integrations_data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
 
         $manifest = [
-            'version'      => defined('GAMIFY_VERSION') ? GAMIFY_VERSION : '1.0.0',
+            'version'      => defined('GAMEENGINE_VERSION') ? GAMEENGINE_VERSION : '1.0.0',
             'generated_at' => current_time('mysql'),
             'integrations' => $integrations_data
         ];
 
-        $dir  = GAMIFY_PATH . 'assets/json';
+        $dir  = GAMEENGINE_PATH . 'assets/json';
         $file = $dir . '/integrations.json';
 
         if (!file_exists($dir)) {

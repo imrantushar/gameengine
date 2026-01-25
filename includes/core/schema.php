@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Core;
+namespace GameEngine\Core;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class Schema
- * Defines the database table structures for the Gamify plugin.
+ * Defines the database table structures for the GameEngine plugin.
  */
 final class Schema
 {
@@ -39,7 +39,7 @@ final class Schema
 
     private static function get_point_types_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_point_types (
+        return "CREATE TABLE {$prefix}gameengine_point_types (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             name VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255) NOT NULL,
@@ -52,7 +52,7 @@ final class Schema
 
     private static function get_achievements_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_achievements (
+        return "CREATE TABLE {$prefix}gameengine_achievements (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255) DEFAULT NULL,
@@ -78,7 +78,7 @@ final class Schema
 
     private static function get_levels_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_levels (
+        return "CREATE TABLE {$prefix}gameengine_levels (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255),
@@ -105,7 +105,7 @@ final class Schema
 
     private static function get_requirements_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_requirements (
+        return "CREATE TABLE {$prefix}gameengine_requirements (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             reward_type VARCHAR(50) NOT NULL,
             reward_id BIGINT(20) UNSIGNED NOT NULL,
@@ -122,7 +122,7 @@ final class Schema
 
     private static function get_requirement_progress_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_requirement_progress (
+        return "CREATE TABLE {$prefix}gameengine_requirement_progress (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
             requirement_id BIGINT(20) UNSIGNED NOT NULL,
@@ -135,7 +135,7 @@ final class Schema
 
     private static function get_points_log_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_points_log (
+        return "CREATE TABLE {$prefix}gameengine_points_log (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
             point_type_id BIGINT(20) UNSIGNED NOT NULL,
@@ -152,7 +152,7 @@ final class Schema
 
     private static function get_user_achievements_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_user_achievements (
+        return "CREATE TABLE {$prefix}gameengine_user_achievements (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
             achievement_id BIGINT(20) UNSIGNED NOT NULL,
@@ -165,7 +165,7 @@ final class Schema
 
     private static function get_user_levels_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_user_levels (
+        return "CREATE TABLE {$prefix}gameengine_user_levels (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED NOT NULL,
             level_id BIGINT(20) UNSIGNED NOT NULL,
@@ -178,7 +178,7 @@ final class Schema
 
     private static function get_logs_table_schema($prefix, $charset_collate)
     {
-        return "CREATE TABLE {$prefix}gamify_logs (
+        return "CREATE TABLE {$prefix}gameengine_logs (
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             user_id BIGINT(20) UNSIGNED DEFAULT NULL,
             trigger_key VARCHAR(255) NOT NULL,

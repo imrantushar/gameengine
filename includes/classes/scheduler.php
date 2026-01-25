@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -21,14 +21,14 @@ class Scheduler
         $self = new self();
 
         // Hook for Action Scheduler (Points Adjustment).
-        add_action('gamify_execute_scheduled_action', array($self, 'process_scheduled_action'), 10, 4);
+        add_action('gameengine_execute_scheduled_action', array($self, 'process_scheduled_action'), 10, 4);
 
         // Hook for Daily Log Cleanup Cron.
-        add_action('gamify_cleanup_logs_cron', array($self, 'handle_logs_cleanup'));
+        add_action('gameengine_cleanup_logs_cron', array($self, 'handle_logs_cleanup'));
 
         // Schedule the daily cleanup event if not already scheduled.
-        if (! wp_next_scheduled('gamify_cleanup_logs_cron')) {
-            wp_schedule_event(time(), 'daily', 'gamify_cleanup_logs_cron');
+        if (! wp_next_scheduled('gameengine_cleanup_logs_cron')) {
+            wp_schedule_event(time(), 'daily', 'gameengine_cleanup_logs_cron');
         }
     }
 
@@ -76,7 +76,7 @@ class Scheduler
         global $wpdb;
 
         // Fetch Admin Settings.
-        $settings = get_option('gamify_log_settings');
+        $settings = get_option('gameengine_log_settings');
         $days     = isset($settings['retention_days']) ? absint($settings['retention_days']) : 0;
 
         /**
@@ -87,7 +87,7 @@ class Scheduler
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- DELETE operation, caching not applicable.
             $wpdb->query(
                 $wpdb->prepare(
-                    "DELETE FROM {$wpdb->prefix}gamify_logs WHERE created_at < DATE_SUB(NOW(), INTERVAL %d DAY)",
+                    "DELETE FROM {$wpdb->prefix}gameengine_logs WHERE created_at < DATE_SUB(NOW(), INTERVAL %d DAY)",
                     $days
                 )
             );

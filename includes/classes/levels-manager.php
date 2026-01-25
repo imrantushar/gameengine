@@ -1,13 +1,13 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Classes\Logger;
-use Gamify\Classes\PointsManager;
+use GameEngine\Classes\Logger;
+use GameEngine\Classes\PointsManager;
 
 /**
  * Manages Level logic, awarding, and point-based checking.
@@ -20,8 +20,8 @@ class LevelsManager
     public static function init()
     {
         $self = new self();
-        add_action('gamify_points_added', [$self, 'check_levels_on_point_change'], 10, 5);
-        add_action('gamify_points_deducted', [$self, 'check_levels_on_point_change'], 10, 5);
+        add_action('gameengine_points_added', [$self, 'check_levels_on_point_change'], 10, 5);
+        add_action('gameengine_points_deducted', [$self, 'check_levels_on_point_change'], 10, 5);
     }
 
     /**
@@ -51,7 +51,7 @@ class LevelsManager
         // Fetch Level Details
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $level = $wpdb->get_row($wpdb->prepare(
-            "SELECT title, congratulations_message FROM {$wpdb->prefix}gamify_levels WHERE id = %d",
+            "SELECT title, congratulations_message FROM {$wpdb->prefix}gameengine_levels WHERE id = %d",
             $safe_level_id
         ));
 
@@ -62,7 +62,7 @@ class LevelsManager
         // Insert into User Levels Table
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $result = $wpdb->insert(
-            $wpdb->prefix . 'gamify_user_levels',
+            $wpdb->prefix . 'gameengine_user_levels',
             [
                 'user_id'     => $safe_user_id,
                 'level_id'    => $safe_level_id,
@@ -78,8 +78,8 @@ class LevelsManager
         $user_level_id = $wpdb->insert_id;
 
         // Clear Caches
-        wp_cache_delete("gamify_all_levels_{$safe_user_id}", 'gamify');
-        wp_cache_delete("gamify_current_level_{$safe_user_id}", 'gamify');
+        wp_cache_delete("gameengine_all_levels_{$safe_user_id}", 'gameengine');
+        wp_cache_delete("gameengine_current_level_{$safe_user_id}", 'gameengine');
 
         // Log to System
         Logger::log(
@@ -97,7 +97,7 @@ class LevelsManager
         );
 
         // Fire Hook
-        do_action('gamify_level_awarded', $safe_user_id, $safe_level_id, $user_level_id);
+        do_action('gameengine_level_awarded', $safe_user_id, $safe_level_id, $user_level_id);
 
         return $user_level_id;
     }
@@ -116,7 +116,7 @@ class LevelsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $levels = $wpdb->get_results($wpdb->prepare(
-            "SELECT id, min_points, priority FROM {$wpdb->prefix}gamify_levels 
+            "SELECT id, min_points, priority FROM {$wpdb->prefix}gameengine_levels 
              WHERE point_type_id = %d AND unlock_with_points_enabled = 1 
              ORDER BY priority ASC, min_points ASC",
             $safe_pt_id
@@ -147,7 +147,7 @@ class LevelsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $exists = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d AND level_id = %d",
+            "SELECT id FROM {$wpdb->prefix}gameengine_user_levels WHERE user_id = %d AND level_id = %d",
             $safe_user_id,
             $safe_level_id
         ));
@@ -160,8 +160,8 @@ class LevelsManager
     public function get_current_level($user_id)
     {
         $safe_user_id = absint($user_id);
-        $cache_key    = "gamify_current_level_{$safe_user_id}";
-        $level        = wp_cache_get($cache_key, 'gamify');
+        $cache_key    = "gameengine_current_level_{$safe_user_id}";
+        $level        = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $level) {
             global $wpdb;
@@ -169,15 +169,15 @@ class LevelsManager
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $level = $wpdb->get_row($wpdb->prepare(
                 "SELECT l.* 
-                 FROM {$wpdb->prefix}gamify_levels l
-                 JOIN {$wpdb->prefix}gamify_user_levels ul ON l.id = ul.level_id
+                 FROM {$wpdb->prefix}gameengine_levels l
+                 JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id
                  WHERE ul.user_id = %d
                  ORDER BY l.priority DESC, l.min_points DESC, ul.achieved_at DESC
                  LIMIT 1",
                 $safe_user_id
             ));
 
-            wp_cache_set($cache_key, $level, 'gamify');
+            wp_cache_set($cache_key, $level, 'gameengine');
         }
 
         return $level;
@@ -189,8 +189,8 @@ class LevelsManager
     public function get_all_user_levels($user_id)
     {
         $safe_user_id = absint($user_id);
-        $cache_key    = "gamify_all_levels_{$safe_user_id}";
-        $levels       = wp_cache_get($cache_key, 'gamify');
+        $cache_key    = "gameengine_all_levels_{$safe_user_id}";
+        $levels       = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $levels) {
             global $wpdb;
@@ -198,14 +198,14 @@ class LevelsManager
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $levels = $wpdb->get_results($wpdb->prepare(
                 "SELECT l.* 
-                 FROM {$wpdb->prefix}gamify_levels l
-                 JOIN {$wpdb->prefix}gamify_user_levels ul ON l.id = ul.level_id
+                 FROM {$wpdb->prefix}gameengine_levels l
+                 JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id
                  WHERE ul.user_id = %d
                  ORDER BY ul.achieved_at ASC",
                 $safe_user_id
             ));
 
-            wp_cache_set($cache_key, $levels, 'gamify');
+            wp_cache_set($cache_key, $levels, 'gameengine');
         }
 
         return is_array($levels) ? $levels : [];

@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -80,8 +80,8 @@ class AchievementsController extends BaseController
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
-        $cache_key   = 'gamify_ach_list_' . md5($per_page . $page . $search);
-        $cached_data = wp_cache_get($cache_key, 'gamify_achievements');
+        $cache_key   = 'gameengine_ach_list_' . md5($per_page . $page . $search);
+        $cached_data = wp_cache_get($cache_key, 'gameengine_achievements');
 
         if (false !== $cached_data) {
             return new \WP_REST_Response($cached_data['results'], 200, $cached_data['headers']);
@@ -90,10 +90,10 @@ class AchievementsController extends BaseController
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $total_items = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )", $search, $like_search, $like_search));
+        $total_items = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s )", $search, $like_search, $like_search));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) ORDER BY id DESC LIMIT %d OFFSET %d", $search, $like_search, $like_search, $per_page, $offset), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_achievements WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) ORDER BY id DESC LIMIT %d OFFSET %d", $search, $like_search, $like_search, $per_page, $offset), ARRAY_A);
 
         if (! empty($results)) {
             foreach ($results as &$ach) {
@@ -107,7 +107,7 @@ class AchievementsController extends BaseController
                 $ach['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1", absint($ach['id'])), ARRAY_A);
+                $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'achievement' AND reward_id = %d AND is_active = 1", absint($ach['id'])), ARRAY_A);
 
                 foreach ($reqs as &$r) {
                     $r['parameters'] = json_decode($r['parameters'], true);
@@ -122,7 +122,7 @@ class AchievementsController extends BaseController
             'X-WP-TotalPages' => $total_pages,
         );
 
-        wp_cache_set($cache_key, array('results' => $results, 'headers' => $headers), 'gamify_achievements', 60);
+        wp_cache_set($cache_key, array('results' => $results, 'headers' => $headers), 'gameengine_achievements', 60);
 
         return new \WP_REST_Response($results, 200, $headers);
     }
@@ -143,7 +143,7 @@ class AchievementsController extends BaseController
         $params = $request->get_json_params();
 
         if (empty($params['title'])) {
-            return new \WP_Error('missing_data', __('Achievement Title is required.', 'gamify'), array('status' => 400));
+            return new \WP_Error('missing_data', __('Achievement Title is required.', 'gameengine'), array('status' => 400));
         }
 
         $data = array(
@@ -165,16 +165,16 @@ class AchievementsController extends BaseController
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->update("{$wpdb->prefix}gamify_achievements", $data, array('id' => absint($id)));
+            $wpdb->update("{$wpdb->prefix}gameengine_achievements", $data, array('id' => absint($id)));
             $achievement_id = absint($id);
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert("{$wpdb->prefix}gamify_achievements", $data);
+            $wpdb->insert("{$wpdb->prefix}gameengine_achievements", $data);
             $achievement_id = $wpdb->insert_id;
         }
 
         $this->save_requirements($achievement_id, $params['requirements'] ?? array());
-        delete_transient('gamify_achievements_list');
+        delete_transient('gameengine_achievements_list');
 
         return $this->get_full_item_response($achievement_id);
     }
@@ -183,7 +183,7 @@ class AchievementsController extends BaseController
     {
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $item = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_achievements WHERE id = %d", $id), ARRAY_A);
+        $item = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d", $id), ARRAY_A);
 
         if ($item) {
             $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
@@ -196,7 +196,7 @@ class AchievementsController extends BaseController
             $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'achievement' AND reward_id = %d", $id), ARRAY_A);
+            $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'achievement' AND reward_id = %d", $id), ARRAY_A);
             foreach ($reqs as &$r) {
                 $r['parameters'] = json_decode($r['parameters'], true);
             }
@@ -209,7 +209,7 @@ class AchievementsController extends BaseController
     private function save_requirements($achievement_id, $requirements)
     {
         global $wpdb;
-        $table_req = "{$wpdb->prefix}gamify_requirements";
+        $table_req = "{$wpdb->prefix}gameengine_requirements";
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->delete($table_req, array('reward_type' => 'achievement', 'reward_id' => $achievement_id));
         if (! empty($requirements)) {
@@ -230,9 +230,9 @@ class AchievementsController extends BaseController
         global $wpdb;
         $id = absint($request->get_param('id'));
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->delete("{$wpdb->prefix}gamify_achievements", array('id' => $id));
+        $wpdb->delete("{$wpdb->prefix}gameengine_achievements", array('id' => $id));
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->delete("{$wpdb->prefix}gamify_requirements", array('reward_type' => 'achievement', 'reward_id' => $id));
+        $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'achievement', 'reward_id' => $id));
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }
 

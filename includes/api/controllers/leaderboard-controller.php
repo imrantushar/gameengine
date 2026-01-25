@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -58,8 +58,8 @@ class LeaderboardController extends BaseController
         $offset        = ($page - 1) * $per_page;
 
         //  Cache Logic.
-        $cache_key   = 'gamify_leaderboard_' . md5($point_type_id . $time_range . $per_page . $page);
-        $cached_data = wp_cache_get($cache_key, 'gamify_leaderboard');
+        $cache_key   = 'gameengine_leaderboard_' . md5($point_type_id . $time_range . $per_page . $page);
+        $cached_data = wp_cache_get($cache_key, 'gameengine_leaderboard');
 
         if (false !== $cached_data) {
             return new \WP_REST_Response(
@@ -84,14 +84,14 @@ class LeaderboardController extends BaseController
                     u.ID as user_id,
                     u.display_name as name,
                     IFNULL(SUM(p.points), 0) as total_points,
-                    (SELECT COUNT(*) FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = u.ID) as achievements_count,
+                    (SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = u.ID) as achievements_count,
                     (
-                        SELECT l.title FROM {$wpdb->prefix}gamify_user_levels ul 
-                        JOIN {$wpdb->prefix}gamify_levels l ON ul.level_id = l.id 
+                        SELECT l.title FROM {$wpdb->prefix}gameengine_user_levels ul 
+                        JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id 
                         WHERE ul.user_id = u.ID ORDER BY l.priority DESC LIMIT 1
                     ) as top_level
                 FROM {$wpdb->users} u
-                LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
+                LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
                 WHERE p.points > 0 
                 AND ( p.point_type_id = %d OR 0 = %d ) 
                 AND p.created_at >= %s
@@ -113,7 +113,7 @@ class LeaderboardController extends BaseController
             $wpdb->prepare(
                 "SELECT COUNT(DISTINCT u.ID) 
                 FROM {$wpdb->users} u
-                LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
+                LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
                 WHERE p.points > 0 
                 AND ( p.point_type_id = %d OR 0 = %d ) 
                 AND p.created_at >= %s",
@@ -140,7 +140,7 @@ class LeaderboardController extends BaseController
             'total'   => $total_items,
             'pages'   => $total_pages,
         );
-        wp_cache_set($cache_key, $cache_to_save, 'gamify_leaderboard', 300);
+        wp_cache_set($cache_key, $cache_to_save, 'gameengine_leaderboard', 300);
 
         $response = new \WP_REST_Response($results, 200);
         $response->header('X-WP-Total', $total_items);

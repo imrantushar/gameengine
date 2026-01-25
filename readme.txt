@@ -1,4 +1,4 @@
-=== Gamify - Gamification for WordPress ===
+=== GameEngine - Gamification for WordPress ===
 Contributors: kodezen, academylms, tusharimran
 Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
@@ -12,9 +12,9 @@ Award points, achievements, and ranks to boost user engagement and build a loyal
 
 == Description ==
 
-**Gamify** is a complete gamification engine designed to boost user engagement. It allows you to create a fun, interactive experience by rewarding users with points, achievements, and ranks for participating on your site.
+**GameEngine** is a complete gamification engine designed to boost user engagement. It allows you to create a fun, interactive experience by rewarding users with points, achievements, and ranks for participating on your site.
 
-Whether you run a blog, an e-learning platform, or an e-commerce store, Gamify helps you motivate your users by turning site interactions into a rewarding game.
+Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngine helps you motivate your users by turning site interactions into a rewarding game.
 
 **Key Features:**
 
@@ -25,9 +25,9 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, Gamify h
 
 == Installation ==
 
-1.  Upload the `gamify` folder to the `/wp-content/plugins/` directory.
+1.  Upload the `gameengine` folder to the `/wp-content/plugins/` directory.
 2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Go to the "Gamify" menu in your WordPress admin dashboard to start.
+3.  Go to the "GameEngine" menu in your WordPress admin dashboard to start.
 
 == Frequently Asked Questions ==
 
@@ -38,7 +38,7 @@ You can award points for actions like user registration, daily logins, publishin
 == Changelog ==
 
 = 1.0.0 - 2024-05-22 =
-* Initial release of the Gamify plugin.
+* Initial release of the GameEngine plugin.
 
 == Upgrade Notice ==
 

@@ -1,0 +1,121 @@
+$editor-font: 'sans-serif';
+
+
+    // editor modal
+.ql-html-popupContainer {
+    border-radius: 4px !important;
+    margin-top: 40px;
+    .ql-html-textContainer{
+        padding: 20px 30px;
+        .ql-html-popupTitle{
+            display: none;
+        }
+        .ql-html-textArea{ 
+            max-height: unset;
+            min-height: unset;
+            height: calc(100% - 85px) !important;
+            border-radius: 4px;
+            .ql-editor::-webkit-scrollbar {
+                display: none; /* for Chrome, Safari, and Opera */
+            }
+            .ql-code-block-container {
+                height: 100%;
+                overflow-y: scroll;
+            }
+            .ql-code-block-container::-webkit-scrollbar {
+                display: none; /* for Chrome, Safari, and Opera */
+            }
+        }
+        .ql-html-buttonGroup {
+            left: calc(94% - 96px);
+            button {
+                padding: 4px 12px;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.ql-toolbar {
+    margin: 0 !important;
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    background: #fff;
+    .ql-formats{
+        margin: 2px !important;
+        background: #F5F5F5;
+        border-radius: 4px;
+        padding: 4px 8px;
+        height: 30px;
+        margin-top: 4px;
+    }
+    .ql-formats:nth-last-child(5),
+    .ql-formats:nth-last-child(4),
+    .ql-formats:nth-last-child(3),
+    .ql-formats:nth-last-child(2),
+    .ql-formats:nth-last-child(1) {
+        background: #FFECCA;
+    }
+
+    .ql-formats:nth-last-child(1) {
+        position: relative;
+        padding-top: 6px;
+        &::before {
+            content: "HTML <>";
+        }
+        button {
+            font-size: 0;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 100%;
+            z-index: 1;
+        }
+    }
+
+    button {
+        padding: 4px 6px;
+    }
+}
+.ql-container {
+    min-height: 150px;
+    border-radius: 0 0 4px 4px;
+    overflow-y: scroll;
+    margin-top: -10px;
+    .ql-editor {
+        strong {
+            font-weight: 700;
+        }
+        li[data-list=bullet] .ql-ui {
+            width: 0;
+            height: 0;
+        }
+        
+        .gameengine-custom-video, .gameengine-custom-audio {
+            width: 100%;
+        }
+    }
+    .ql-editor::-webkit-scrollbar {
+        display: none; /* for Chrome, Safari, and Opera */
+    }
+}
+.ql-container::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
+}
+
+.ql-snow {
+    border: 1px solid var(--gameengine-border-color);
+}
+
+.ql-snow .ql-tooltip.ql-flip {
+    transform: translate(100%, 100%) !important;
+}
+@media all and (max-width: 1440px) {
+    .ql-html-popupContainer {
+        .ql-html-textContainer{
+            .ql-html-buttonGroup {
+                left: calc(90% - 96px);
+            }
+        }
+    }
+}

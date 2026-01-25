@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -81,8 +81,8 @@ class PointTypesController extends BaseController
         $offset   = ($page - 1) * $per_page;
 
         //  Cache Logic.
-        $cache_key   = 'gamify_point_types_' . md5($per_page . $page . $search);
-        $cached_data = wp_cache_get($cache_key, 'gamify_point_types');
+        $cache_key   = 'gameengine_point_types_' . md5($per_page . $page . $search);
+        $cached_data = wp_cache_get($cache_key, 'gameengine_point_types');
 
         if (false !== $cached_data) {
             return new \WP_REST_Response($cached_data['results'], 200, $cached_data['headers']);
@@ -93,7 +93,7 @@ class PointTypesController extends BaseController
         //  Count Query.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )",
+            "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )",
             $search,
             $like_search,
             $like_search
@@ -102,7 +102,7 @@ class PointTypesController extends BaseController
         //  Main Query.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $results = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}gamify_point_types 
+            "SELECT * FROM {$wpdb->prefix}gameengine_point_types 
             WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) 
             ORDER BY id DESC LIMIT %d OFFSET %d",
             $search,
@@ -117,7 +117,7 @@ class PointTypesController extends BaseController
             foreach ($results as &$pt) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
                 $reqs = $wpdb->get_results($wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
+                    "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
                     absint($pt['id'])
                 ), ARRAY_A);
 
@@ -134,7 +134,7 @@ class PointTypesController extends BaseController
             'X-WP-TotalPages' => $total_pages,
         ];
 
-        wp_cache_set($cache_key, ['results' => $results, 'headers' => $headers], 'gamify_point_types', 60);
+        wp_cache_set($cache_key, ['results' => $results, 'headers' => $headers], 'gameengine_point_types', 60);
 
         return new \WP_REST_Response($results, 200, $headers);
     }
@@ -161,14 +161,14 @@ class PointTypesController extends BaseController
 
         // Check for slug existence.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gamify_point_types WHERE slug = %s", $slug))) {
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE slug = %s", $slug))) {
             $slug    = $base_slug . '-' . $counter;
             $counter++;
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $inserted = $wpdb->insert(
-            "{$wpdb->prefix}gamify_point_types",
+            "{$wpdb->prefix}gameengine_point_types",
             array(
                 'name'        => $name,
                 'plural_name' => $plural_name,
@@ -192,7 +192,7 @@ class PointTypesController extends BaseController
 
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->insert(
-                    "{$wpdb->prefix}gamify_requirements",
+                    "{$wpdb->prefix}gameengine_requirements",
                     array(
                         'reward_type' => 'point_type',
                         'reward_id'   => $point_type_id,
@@ -207,11 +207,11 @@ class PointTypesController extends BaseController
             }
         }
 
-        delete_transient('gamify_point_types_list');
+        delete_transient('gameengine_point_types_list');
 
         return new \WP_REST_Response(
             array(
-                'message' => __('Point Type saved successfully.', 'gamify'),
+                'message' => __('Point Type saved successfully.', 'gameengine'),
                 'id'      => $point_type_id,
                 'slug'    => $slug,
             ),
@@ -227,12 +227,12 @@ class PointTypesController extends BaseController
         global $wpdb;
         $id = absint($request->get_param('id'));
 
-        $cache_key  = 'gamify_point_type_' . $id;
+        $cache_key  = 'gameengine_point_type_' . $id;
         $point_type = get_transient($cache_key);
 
         if (false === $point_type) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $point_type = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_point_types WHERE id = %d", $id), ARRAY_A);
+            $point_type = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE id = %d", $id), ARRAY_A);
 
             if (empty($point_type)) {
                 return new \WP_Error('not_found', 'Item not found', array('status' => 404));
@@ -241,7 +241,7 @@ class PointTypesController extends BaseController
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $requirements = $wpdb->get_results(
                 $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
+                    "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
                     $id
                 ),
                 ARRAY_A
@@ -274,7 +274,7 @@ class PointTypesController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->update(
-            "{$wpdb->prefix}gamify_point_types",
+            "{$wpdb->prefix}gameengine_point_types",
             array(
                 'name'        => $name,
                 'plural_name' => $plural_name,
@@ -285,7 +285,7 @@ class PointTypesController extends BaseController
         );
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->delete("{$wpdb->prefix}gamify_requirements", array('reward_type' => 'point_type', 'reward_id' => $id), array('%s', '%d'));
+        $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'point_type', 'reward_id' => $id), array('%s', '%d'));
 
         if (! empty($requirements) && is_array($requirements)) {
             foreach ($requirements as $req) {
@@ -295,7 +295,7 @@ class PointTypesController extends BaseController
 
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->insert(
-                    "{$wpdb->prefix}gamify_requirements",
+                    "{$wpdb->prefix}gameengine_requirements",
                     array(
                         'reward_type' => 'point_type',
                         'reward_id'   => $id,
@@ -310,8 +310,8 @@ class PointTypesController extends BaseController
             }
         }
 
-        delete_transient('gamify_point_types_list');
-        delete_transient('gamify_point_type_' . $id);
+        delete_transient('gameengine_point_types_list');
+        delete_transient('gameengine_point_type_' . $id);
 
         return new \WP_REST_Response(array('message' => 'Updated successfully.'), 200);
     }
@@ -325,19 +325,19 @@ class PointTypesController extends BaseController
         $id = absint($request->get_param('id'));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gamify_point_types WHERE id = %d", $id));
+        $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE id = %d", $id));
 
         if (! $exists) {
             return new \WP_Error('not_found', 'Point type not found.', array('status' => 404));
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $deleted = $wpdb->delete("{$wpdb->prefix}gamify_point_types", array('id' => $id), array('%d'));
+        $deleted = $wpdb->delete("{$wpdb->prefix}gameengine_point_types", array('id' => $id), array('%d'));
 
         if ($deleted) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
             $wpdb->delete(
-                "{$wpdb->prefix}gamify_requirements",
+                "{$wpdb->prefix}gameengine_requirements",
                 array(
                     'reward_type' => 'point_type',
                     'reward_id'   => $id,
@@ -345,8 +345,8 @@ class PointTypesController extends BaseController
                 array('%s', '%d')
             );
 
-            delete_transient('gamify_point_types_list');
-            delete_transient('gamify_point_type_' . $id);
+            delete_transient('gameengine_point_types_list');
+            delete_transient('gameengine_point_type_' . $id);
 
             return new \WP_REST_Response(array('message' => 'Deleted successfully.', 'id' => $id), 200);
         }

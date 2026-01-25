@@ -1,11 +1,11 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
-use Gamify\Classes\PointsManager;
-use Gamify\Classes\Logger;
-use Gamify\Classes\TriggerRegistry;
+use GameEngine\API\BaseController;
+use GameEngine\Classes\PointsManager;
+use GameEngine\Classes\Logger;
+use GameEngine\Classes\TriggerRegistry;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -138,9 +138,9 @@ class ActionsController extends BaseController
             if ($utc_timestamp > time()) {
                 as_schedule_single_action(
                     $utc_timestamp,
-                    'gamify_execute_scheduled_action',
+                    'gameengine_execute_scheduled_action',
                     array($user_id, $points, $type, $meta_args),
-                    'gamify-events'
+                    'gameengine-events'
                 );
 
                 Logger::log(
@@ -157,7 +157,7 @@ class ActionsController extends BaseController
 
                 return new \WP_REST_Response(
                     array(
-                        'message' => __('Action scheduled successfully.', 'gamify'),
+                        'message' => __('Action scheduled successfully.', 'gameengine'),
                         'status'  => 'scheduled',
                     ),
                     200
@@ -177,11 +177,11 @@ class ActionsController extends BaseController
 
         if ($points_log_id) {
             // Clear frontend logs cache.
-            wp_cache_delete('gamify_logs_list', 'gamify_logs');
+            wp_cache_delete('gameengine_logs_list', 'gameengine_logs');
 
             /**
              * Fetch the newly created log entry details to return in response.
-             * We search in the gamify_logs table for the record associated with this points transaction.
+             * We search in the gameengine_logs table for the record associated with this points transaction.
              */
             return $this->get_detailed_manual_log($points_log_id);
         }
@@ -204,7 +204,7 @@ class ActionsController extends BaseController
         $log_data = $wpdb->get_row(
             $wpdb->prepare(
                 "SELECT l.*, u.display_name as user_name, u.user_email 
-                FROM {$wpdb->prefix}gamify_logs l 
+                FROM {$wpdb->prefix}gameengine_logs l 
                 LEFT JOIN {$wpdb->users} u ON l.user_id = u.ID 
                 WHERE l.meta LIKE %s ORDER BY l.id DESC LIMIT 1",
                 '%' . $wpdb->esc_like((string) $points_log_id) . '%'
@@ -218,8 +218,8 @@ class ActionsController extends BaseController
 
             // Resolve Trigger Label using Registry.
             $event_label = ucwords(str_replace(array('_', '-'), ' ', $log_data['trigger_key']));
-            if (class_exists('\Gamify\Classes\TriggerRegistry')) {
-                $trigger_config = \Gamify\Classes\TriggerRegistry::get($log_data['trigger_key']);
+            if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
+                $trigger_config = \GameEngine\Classes\TriggerRegistry::get($log_data['trigger_key']);
                 if ($trigger_config && isset($trigger_config['label'])) {
                     $event_label = $trigger_config['label'];
                 }

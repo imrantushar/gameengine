@@ -1,11 +1,11 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
-use Gamify\Integrations\WordPress;
-use Gamify\Integrations\WooCommerce;
-use Gamify\Integrations\Gamify;
-use Gamify\Integrations\Interactions;
+use GameEngine\Integrations\WordPress;
+use GameEngine\Integrations\WooCommerce;
+use GameEngine\Integrations\GameEngine;
+use GameEngine\Integrations\Interactions;
 
 if (!defined('ABSPATH')) exit;
 
@@ -20,20 +20,20 @@ final class TriggerRegistry
 
         // integration register
         self::$integrations['wordpress']   = WordPress::class;
-        self::$integrations['gamify']      = Gamify::class;
+        self::$integrations['gameengine']      = GameEngine::class;
         self::$integrations['interaction'] = Interactions::class;
 
-        $active_addons = get_option('gamify_active_addons', []);
+        $active_addons = get_option('gameengine_active_addons', []);
 
         if (in_array('woocommerce', $active_addons)) {
-            if (class_exists('\Gamify\Integrations\WooCommerce')) {
+            if (class_exists('\GameEngine\Integrations\WooCommerce')) {
                 self::$integrations['woocommerce'] = WooCommerce::class;
             }
         }
         if (in_array('academylms', $active_addons)) {
             // lms rest of code
         }
-        self::$integrations = apply_filters('gamify_integrations', self::$integrations);
+        self::$integrations = apply_filters('gameengine_integrations', self::$integrations);
         self::$initialized = true;
     }
 

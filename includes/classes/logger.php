@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
@@ -18,8 +18,8 @@ class Logger
     public static function init()
     {
         $self = new self();
-        add_action('gamify_points_added', [$self, 'handle_points_added'], 10, 5);
-        add_action('gamify_points_deducted', [$self, 'handle_points_deducted'], 10, 5);
+        add_action('gameengine_points_added', [$self, 'handle_points_added'], 10, 5);
+        add_action('gameengine_points_deducted', [$self, 'handle_points_deducted'], 10, 5);
     }
 
     /**
@@ -66,14 +66,14 @@ class Logger
     public static function log($trigger_key, $message, $user_id = 0, $points_awarded = 0, $meta = [], $status = 'success')
     {
 
-        $settings = get_option('gamify_log_settings', []);
+        $settings = get_option('gameengine_log_settings', []);
         $allowed_levels = isset($settings['log_levels']) ? (array) $settings['log_levels'] : ['success', 'error'];
 
         if (!in_array($status, $allowed_levels, true)) {
             return; // Stop if admin disabled this log level
         }
         global $wpdb;
-        $table = $wpdb->prefix . 'gamify_logs';
+        $table = $wpdb->prefix . 'gameengine_logs';
 
         if (!$user_id) {
             $user_id = get_current_user_id();

@@ -1,0 +1,37 @@
+.gameengine-tooltip {
+	position: relative;
+	display: inline-block;
+	margin-left: 5px;
+	&__text {
+		visibility: hidden;
+		width: 120px;
+		background: var(--quizpress-primary);
+		font-size: 14px;
+		color: #FFF;
+		text-align: center;
+		border-radius: 4px;
+		padding: 10px;
+		position: absolute;
+		z-index: 9999;
+		bottom: 150%;
+		left: 50%;
+		transform: translateX(-50%);
+		&:after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			margin-left: -5px;
+			border-width: 5px;
+			border-style: solid;
+			border-color: var(--quizpress-primary) transparent transparent transparent;
+		}
+		span {
+			display: block;
+		}
+	}
+
+	&:hover .gameengine-tooltip__text {
+		visibility: visible;
+	}
+}

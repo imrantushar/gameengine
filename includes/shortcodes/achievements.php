@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Shortcodes;
+namespace GameEngine\Shortcodes;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -10,7 +10,7 @@ class Achievements
 {
     public function __construct()
     {
-        add_shortcode('gamify_achievements', array($this, 'render_view'));
+        add_shortcode('gameengine_achievements', array($this, 'render_view'));
     }
 
     public function render_view($atts)
@@ -20,7 +20,7 @@ class Achievements
         }
 
         ob_start();
-        \Gamify\Helper::get_template('shortcode/achievements.php');
-        return apply_filters('gamify/templates/shortcode/achievements', ob_get_clean());
+        \GameEngine\Helper::get_template('shortcode/achievements.php');
+        return apply_filters('gameengine/templates/shortcode/achievements', ob_get_clean());
     }
 }

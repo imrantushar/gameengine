@@ -1,4 +1,4 @@
-.gamify-notification {
+.gameengine-notification {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -14,7 +14,7 @@
         position: fixed;
         right: 50px;
         top: 10%;
-        .gamify-btn {
+        .gameengine-btn {
             padding: 4px;
         }
     }
@@ -37,9 +37,9 @@
         background: #FF4D4D;
         color: #fff;
     }
-    .gamify-icon {
+    .gameengine-icon {
         font-size: 24px;
-        &:not(.gamify-icon--close) {
+        &:not(.gameengine-icon--close) {
             //width: 26px;
             //height: 26px;
             display: flex;
@@ -102,12 +102,12 @@
         }
     }
 
-    .gamify-btn {
+    .gameengine-btn {
         padding: 12px 0;
         &--close-notification {
             padding: 0
         }
-        .gamify-icon--close {
+        .gameengine-icon--close {
             background: transparent;
             &::before{
                 color: #fff;

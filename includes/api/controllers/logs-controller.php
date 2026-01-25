@@ -1,9 +1,9 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
-use Gamify\Classes\TriggerRegistry;
+use GameEngine\API\BaseController;
+use GameEngine\Classes\TriggerRegistry;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -71,7 +71,7 @@ class LogsController extends BaseController
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
-        $settings = get_option('gamify_log_settings', []);
+        $settings = get_option('gameengine_log_settings', []);
         $cycle    = isset($settings['display_cycle']) ? $settings['display_cycle'] : 'immediate';
 
         $interval_days = 0; // Default (Immediate)
@@ -81,8 +81,8 @@ class LogsController extends BaseController
             $interval_days = 7;
         }
 
-        $cache_key   = 'gamify_logs_' . md5($per_page . $page . $search);
-        $cached_data = wp_cache_get($cache_key, 'gamify_logs');
+        $cache_key   = 'gameengine_logs_' . md5($per_page . $page . $search);
+        $cached_data = wp_cache_get($cache_key, 'gameengine_logs');
 
         if (false !== $cached_data) {
             return new \WP_REST_Response(
@@ -99,7 +99,7 @@ class LogsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(l.id) FROM {$wpdb->prefix}gamify_logs as l 
+            "SELECT COUNT(l.id) FROM {$wpdb->prefix}gameengine_logs as l 
             LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID 
             WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )
             AND l.created_at <= DATE_SUB(NOW(), INTERVAL %d DAY)",
@@ -116,7 +116,7 @@ class LogsController extends BaseController
             "SELECT 
                 l.id, l.user_id, l.trigger_key, l.status, l.points_awarded, l.message, l.meta, l.created_at,
                 u.display_name as user_name, u.user_email
-            FROM {$wpdb->prefix}gamify_logs as l
+            FROM {$wpdb->prefix}gameengine_logs as l
             LEFT JOIN {$wpdb->users} as u ON l.user_id = u.ID
             WHERE ( %s = '' OR u.display_name LIKE %s OR u.user_email LIKE %s OR l.trigger_key LIKE %s OR l.message LIKE %s )
             AND l.created_at <= DATE_SUB(NOW(), INTERVAL %d DAY) 
@@ -137,8 +137,8 @@ class LogsController extends BaseController
             $event_label       = ucwords(str_replace(array('_', '-'), ' ', $row['trigger_key']));
             $row['event_name'] = $event_label;
 
-            if (class_exists('\Gamify\Classes\TriggerRegistry')) {
-                $trigger_config = \Gamify\Classes\TriggerRegistry::get($row['trigger_key']);
+            if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
+                $trigger_config = \GameEngine\Classes\TriggerRegistry::get($row['trigger_key']);
                 if ($trigger_config && isset($trigger_config['label'])) {
                     $row['event_name'] = $trigger_config['label'];
                 }
@@ -151,7 +151,7 @@ class LogsController extends BaseController
             'X-WP-TotalPages' => $total_pages,
         );
 
-        wp_cache_set($cache_key, array('results' => $results, 'total' => $total_items, 'pages' => $total_pages), 'gamify_logs', 30);
+        wp_cache_set($cache_key, array('results' => $results, 'total' => $total_items, 'pages' => $total_pages), 'gameengine_logs', 30);
 
         return new \WP_REST_Response($results, 200, $headers);
     }
@@ -171,7 +171,7 @@ class LogsController extends BaseController
         $message        = isset($params['message']) ? sanitize_text_field($params['message']) : '';
 
         if (0 === $user_id || 0 === $points_awarded) {
-            return new \WP_Error('missing_params', __('User ID and Points are required.', 'gamify'), array('status' => 400));
+            return new \WP_Error('missing_params', __('User ID and Points are required.', 'gameengine'), array('status' => 400));
         }
 
         // Calculate signed points.
@@ -180,7 +180,7 @@ class LogsController extends BaseController
         // 1. Insert into Points Log first.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
-            "{$wpdb->prefix}gamify_points_log",
+            "{$wpdb->prefix}gameengine_points_log",
             array(
                 'user_id'       => $user_id,
                 'point_type_id' => 1,
@@ -196,7 +196,7 @@ class LogsController extends BaseController
         // Insert into Activity Logs.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
         $wpdb->insert(
-            "{$wpdb->prefix}gamify_logs",
+            "{$wpdb->prefix}gameengine_logs",
             array(
                 'user_id'        => $user_id,
                 'trigger_key'    => $trigger_key,
@@ -208,8 +208,8 @@ class LogsController extends BaseController
             )
         );
 
-        wp_cache_delete('gamify_logs_list', 'gamify_logs');
-        return new \WP_REST_Response(array('message' => __('Points adjusted successfully.', 'gamify')), 200);
+        wp_cache_delete('gameengine_logs_list', 'gameengine_logs');
+        return new \WP_REST_Response(array('message' => __('Points adjusted successfully.', 'gameengine')), 200);
     }
 
     /**
@@ -223,10 +223,10 @@ class LogsController extends BaseController
         $params = $request->get_json_params();
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $existing = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gamify_logs WHERE id = %d", $log_id), ARRAY_A);
+        $existing = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_logs WHERE id = %d", $log_id), ARRAY_A);
 
         if (! $existing) {
-            return new \WP_Error('not_found', __('Log entry not found.', 'gamify'), array('status' => 404));
+            return new \WP_Error('not_found', __('Log entry not found.', 'gameengine'), array('status' => 404));
         }
 
         $data = array();
@@ -249,7 +249,7 @@ class LogsController extends BaseController
             if (isset($meta['log_id'])) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->update(
-                    "{$wpdb->prefix}gamify_points_log",
+                    "{$wpdb->prefix}gameengine_points_log",
                     array('points' => $new_points, 'description' => $data['message'] ?? $existing['message']),
                     array('id' => absint($meta['log_id']))
                 );
@@ -257,14 +257,14 @@ class LogsController extends BaseController
         }
 
         if (empty($data)) {
-            return new \WP_REST_Response(array('message' => __('No changes made.', 'gamify')), 200);
+            return new \WP_REST_Response(array('message' => __('No changes made.', 'gameengine')), 200);
         }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->update("{$wpdb->prefix}gamify_logs", $data, array('id' => $log_id));
+        $wpdb->update("{$wpdb->prefix}gameengine_logs", $data, array('id' => $log_id));
 
-        wp_cache_delete('gamify_logs_list', 'gamify_logs');
-        return new \WP_REST_Response(array('message' => __('Log updated successfully.', 'gamify')), 200);
+        wp_cache_delete('gameengine_logs_list', 'gameengine_logs');
+        return new \WP_REST_Response(array('message' => __('Log updated successfully.', 'gameengine')), 200);
     }
 
     /**

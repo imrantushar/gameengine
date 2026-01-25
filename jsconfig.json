@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "baseUrl": "dev_gamify",
+      "baseUrl": "dev_gameengine",
       "paths": {
         "@GFComponents/*": ["components/*"],
         "@GFContainers/*": ["containers/*"],
@@ -11,5 +11,5 @@
         "@GFUtils/*": ["utils/*"],
       }
     },
-    "include": ["dev_gamify"]
+    "include": ["dev_gameengine"]
   }

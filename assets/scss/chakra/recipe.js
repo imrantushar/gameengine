@@ -1,24 +1,24 @@
 export const primaryBtn = {
-    bg: "var(--gamify-primary)",
+    bg: "var(--gameengine-primary)",
     color: "#fff",
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "20px",
-    border: "1px solid var(--gamify-primary)"
+    border: "1px solid var(--gameengine-primary)"
 }
 
 export const xCloseBtn = {
     size: "xs" ,
-    color: "var(--gamify-font-color)" ,
+    color: "var(--gameengine-font-color)" ,
     bg: "transparent" ,
-    border: "1px solid var(--gamify-border-color)" ,
-    _hover: {bg: "var(--gamify-secondary-color)"},
+    border: "1px solid var(--gameengine-border-color)" ,
+    _hover: {bg: "var(--gameengine-secondary-color)"},
 }
 
 export const primaryClearBtn = {
     fontSize: "14px",
     fontWeight: "500",
-    color: "var(--gamify-primary)",
+    color: "var(--gameengine-primary)",
     background: "transparent",
     padding: "0",
     height: "auto",
@@ -26,21 +26,21 @@ export const primaryClearBtn = {
 
 export const outlineBtn = {
     bg: "transparent",
-    color: "var(--gamify-font-color)",
-    borderColor: "var(--gamify-border-color)",
+    color: "var(--gameengine-font-color)",
+    borderColor: "var(--gameengine-border-color)",
     borderWidth: "1px",
 }
 
 export const removeBtn = {
-    bg: "var(--gamify-placing)",
+    bg: "var(--gameengine-placing)",
     color: "#fff",
 }
 
 export const transparentMiniBtn = {
     bg: "transparent",
     fontSize: "12px",
-    color: "var(--gamify-font-color)",
-    borderColor: "var(--gamify-border-color)",
+    color: "var(--gameengine-font-color)",
+    borderColor: "var(--gameengine-border-color)",
     borderWidth: "1px",
     padding: "2px 8px",
     lineHeight: "16px",
@@ -51,17 +51,17 @@ export const transparentMiniBtn = {
 export const clearBtn = {
     bg: "transparent",
     fontSize: "12px",
-    color: "var(--gamify-font-color)",
+    color: "var(--gameengine-font-color)",
     height: "auto",
     padding: "0"
 }
 
 export const commonInput = {
-    color: "var(--gamify-font-color) !important",
-    borderColor: "var(--gamify-border-color) !important",
-    outline: "var(--gamify-primary) !important",
-    _active: "var(--gamify-primary)",
-    _focus: "var(--gamify-primary)",
-    focusRing: "var(--gamify-primary)",
+    color: "var(--gameengine-font-color) !important",
+    borderColor: "var(--gameengine-border-color) !important",
+    outline: "var(--gameengine-primary) !important",
+    _active: "var(--gameengine-primary)",
+    _focus: "var(--gameengine-primary)",
+    focusRing: "var(--gameengine-primary)",
     boxShadow: "none !important"
 }

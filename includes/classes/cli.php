@@ -1,11 +1,11 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) exit;
 
 /**
- * Gamify WP-CLI Commands.
+ * GameEngine WP-CLI Commands.
  */
 class CLI
 {
@@ -15,15 +15,15 @@ class CLI
      * 
      * ## EXAMPLES
      * 
-     *     wp gamify build
+     *     wp gameengine build
      *
      * @when after_wp_load
      */
     public function build($args, $assoc_args)
     {
-        \WP_CLI::log('Generating Gamify integrations.json...');
+        \WP_CLI::log('Generating GameEngine integrations.json...');
 
-        $success = \Gamify\Classes\JsonGenerator::generate();
+        $success = \GameEngine\Classes\JsonGenerator::generate();
 
         if ($success) {
             \WP_CLI::success('Integrations JSON has been rebuilt successfully.');

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify;
+namespace GameEngine;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class Helper
- * Utility functions and centralized data for the Gamify plugin.
+ * Utility functions and centralized data for the GameEngine plugin.
  */
 class Helper
 {
@@ -67,69 +67,69 @@ class Helper
      */
     public static function get_admin_menu_list()
     {
-        $slug = 'gamify'; // Main plugin slug
+        $slug = 'gameengine'; // Main plugin slug
         $menu = array();
 
         //  Dashboard
         $menu[$slug] = array(
             'parent_slug' => $slug,
-            'title'       => __('Dashboard', 'gamify'),
+            'title'       => __('Dashboard', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
         // Points System
         $menu[$slug . '-points'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Points System', 'gamify'),
+            'title'       => __('Points System', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
         // Achievements with Nested Submenu
         $menu[$slug . '-achievements'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Achievements', 'gamify'),
+            'title'       => __('Achievements', 'gameengine'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array('title' => __('All Achievements', 'gamify'), 'slug' => ''),
-                array('title' => __('Types', 'gamify'), 'slug' => 'achievement-types'),
+                array('title' => __('All Achievements', 'gameengine'), 'slug' => ''),
+                array('title' => __('Types', 'gameengine'), 'slug' => 'achievement-types'),
             )
         );
 
         // Levels with Nested Submenu
         $menu[$slug . '-levels'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Levels', 'gamify'),
+            'title'       => __('Levels', 'gameengine'),
             'capability'  => 'manage_options',
             'sub_items'   => array(
-                array('title' => __('All Levels', 'gamify'), 'slug' => ''),
-                array('title' => __('Types', 'gamify'), 'slug' => 'level-types'),
+                array('title' => __('All Levels', 'gameengine'), 'slug' => ''),
+                array('title' => __('Types', 'gameengine'), 'slug' => 'level-types'),
             )
         );
 
         // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Logs', 'gamify'),
+            'title'       => __('Logs', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
         // Leaderboards
         $menu[$slug . '-leaderboards'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Leaderboards', 'gamify'),
+            'title'       => __('Leaderboards', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
         // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Addons', 'gamify'),
+            'title'       => __('Addons', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
         $menu[$slug . '-tools'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Tools', 'gamify'),
+            'title'       => __('Tools', 'gameengine'),
             'capability'  => 'manage_options',
             'slug'        => 'tools',
         );
@@ -137,11 +137,11 @@ class Helper
         //  Settings
         $menu[$slug . '-settings'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Settings', 'gamify'),
+            'title'       => __('Settings', 'gameengine'),
             'capability'  => 'manage_options',
         );
 
-        return apply_filters('gamify/admin_menu_list', $menu);
+        return apply_filters('gameengine/admin_menu_list', $menu);
     }
 
     /**
@@ -163,7 +163,7 @@ class Helper
             'args'          => $args,
         );
 
-        do_action('gamify_before_get_template', $action_args);
+        do_action('gameengine_before_get_template', $action_args);
 
         if (! empty($args) && is_array($args)) {
             extract($args, EXTR_SKIP); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
@@ -185,11 +185,11 @@ class Helper
     public static function locate_template($template_name, $template_path = '', $default_path = '')
     {
         if (! $template_path) {
-            $template_path = 'gamify/';
+            $template_path = 'gameengine/';
         }
 
         if (! $default_path) {
-            $default_path = trailingslashit(GAMIFY_PATH) . 'templates/';
+            $default_path = trailingslashit(GAMEENGINE_PATH) . 'templates/';
         }
 
         $template = locate_template(array(trailingslashit($template_path) . $template_name));
@@ -198,6 +198,6 @@ class Helper
             $template = $default_path . $template_name;
         }
 
-        return apply_filters('gamify_locate_template', $template, $template_name, $template_path, $default_path);
+        return apply_filters('gameengine_locate_template', $template, $template_name, $template_path, $default_path);
     }
 }

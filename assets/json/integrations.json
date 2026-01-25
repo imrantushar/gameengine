@@ -1546,14 +1546,14 @@
                 }
             }
         },
-        "gamify": {
-            "slug": "gamify",
-            "name": "Gamify Logic",
+        "gameengine": {
+            "slug": "gameengine",
+            "name": "GameEngine Logic",
             "icon": "dashicons-games",
             "triggers": {
                 "unlock_specific_achievement": {
                     "label": "Unlock Achievement",
-                    "hook": "gamify_achievement_unlocked",
+                    "hook": "gameengine_achievement_unlocked",
                     "description": "Unlock achivemeet successfully  into your website.",
                     "args_count": 3,
                     "supports": [
@@ -1626,7 +1626,7 @@
                             "type": "select",
                             "width": "100%",
                             "dynamic": {
-                                "integration": "gamify",
+                                "integration": "gameengine",
                                 "query": "achievements"
                             },
                             "required": true
@@ -1711,7 +1711,7 @@
             "triggers": {
                 "daily_visit_website": {
                     "label": "Daily Visit",
-                    "hook": "gamify_site_visit",
+                    "hook": "gameengine_site_visit",
                     "description": "Daily visit successfully  into your website.",
                     "args_count": 2,
                     "supports": [
@@ -1875,7 +1875,7 @@
                 },
                 "visit_specific_post": {
                     "label": "Visit Specific Post",
-                    "hook": "gamify_site_visit",
+                    "hook": "gameengine_site_visit",
                     "description": "Visit Specific post successfully  into your website.",
                     "args_count": 2,
                     "supports": [

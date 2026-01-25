@@ -1,4 +1,4 @@
-.gamify-select {
+.gameengine-select {
     &--width-full {
         width: 100%;
     }
@@ -48,15 +48,15 @@
 
     font-size: 14px;
 
-    .gamify-select {
+    .gameengine-select {
         &__control {
             border: 1px solid #CBD1D7;
             background: #FFF;
             border-radius: 4px;
             box-shadow: none;
 
-            .gamify-select__input-container {
-                .gamify-select__input {
+            .gameengine-select__input-container {
+                .gameengine-select__input {
                     box-shadow: none;
                     height: 100%;
                     min-height: unset;
@@ -74,14 +74,14 @@
     }
 
     &--transparent {
-        .gamify-select {
+        .gameengine-select {
             &__control {
                 border: none;
             }
 
             &__placeholder {
                 font-size: 14px;
-                color: var(--gamify-font-color);
+                color: var(--gameengine-font-color);
                 font-weight: 500;
             }
 
@@ -91,7 +91,7 @@
 
             &__dropdown-indicator {
                 padding: 8px 8px 8px 0;
-                color: var(--gamify-font-color);
+                color: var(--gameengine-font-color);
                 font-weight: 500;
             }
         }

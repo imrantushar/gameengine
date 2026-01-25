@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify;
+namespace GameEngine;
 
 if (! defined('ABSPATH')) {
     exit;

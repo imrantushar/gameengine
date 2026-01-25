@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify;
+namespace GameEngine;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -22,8 +22,8 @@ class Admin
         // Initialize the Menu
         Admin\Menu::init();
 
-        if (class_exists('\Gamify\Admin\UserProfile')) {
-            \Gamify\Admin\UserProfile::init();
+        if (class_exists('\GameEngine\Admin\UserProfile')) {
+            \GameEngine\Admin\UserProfile::init();
         }
     }
 }

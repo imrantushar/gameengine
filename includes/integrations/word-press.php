@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Integrations;
+namespace GameEngine\Integrations;
 
 if (!defined('ABSPATH')) exit;
 
@@ -13,7 +13,7 @@ class WordPress extends BaseIntegration
 
     public static function get_name(): string
     {
-        return __('WordPress Core', 'gamify');
+        return __('WordPress Core', 'gameengine');
     }
 
     public static function get_icon(): string
@@ -25,10 +25,10 @@ class WordPress extends BaseIntegration
     {
         return [
             'wp_login' => [
-                'label'       => __('User Login', 'gamify'),
+                'label'       => __('User Login', 'gameengine'),
                 'hook'        => 'wp_login',
                 'args_count'  => 2,
-                'description' => __('Awarded when a user successfully logs into your website.', 'gamify'),
+                'description' => __('Awarded when a user successfully logs into your website.', 'gameengine'),
                 'get_user_id' => function ($login, $user) {
                     return $user->ID;
                 },
@@ -36,9 +36,9 @@ class WordPress extends BaseIntegration
                 'schema'      => self::merge_schema([])
             ],
             'user_register' => [
-                'label'       => __('User Register', 'gamify'),
+                'label'       => __('User Register', 'gameengine'),
                 'hook'        => 'user_register',
-                'description' => __('Awarded when a user successfully register into your website.', 'gamify'),
+                'description' => __('Awarded when a user successfully register into your website.', 'gameengine'),
                 'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
@@ -47,38 +47,38 @@ class WordPress extends BaseIntegration
                 'schema'      => self::merge_schema([])
             ],
             'publish_post' => [
-                'label'       => __('Publish Post', 'gamify'),
+                'label'       => __('Publish Post', 'gameengine'),
                 'hook'        => 'publish_post',
-                'description' => __('Publish post successfully into your website.', 'gamify'),
+                'description' => __('Publish post successfully into your website.', 'gameengine'),
                 'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'post_types', 'label' => __('Post Types (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'options' => [['label' => 'Post', 'value' => 'post'], ['label' => 'Page', 'value' => 'page']]],
-                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
-                    ['key' => 'daily_limit', 'label' => __('Daily Post Limit (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                    ['key' => 'post_types', 'label' => __('Post Types (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'options' => [['label' => 'Post', 'value' => 'post'], ['label' => 'Page', 'value' => 'page']]],
+                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'daily_limit', 'label' => __('Daily Post Limit (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
 
             ],
             'publish_page' => [
-                'label'       => __('Publish Page', 'gamify'),
+                'label'       => __('Publish Page', 'gameengine'),
                 'hook'        => 'publish_page',
-                'description' => __('Publish page successfully into your website.', 'gamify'),
+                'description' => __('Publish page successfully into your website.', 'gameengine'),
                 'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                    ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ],
             'comment_post' => [
-                'label'       => __('Post Comment', 'gamify'),
+                'label'       => __('Post Comment', 'gameengine'),
                 'hook'        => 'comment_post',
-                'description' => __('Comment post successfully into your website.', 'gamify'),
+                'description' => __('Comment post successfully into your website.', 'gameengine'),
                 'args_count'  => 2,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
@@ -86,15 +86,15 @@ class WordPress extends BaseIntegration
                     return $c ? $c->user_id : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
-                    ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
-                    ['key' => 'daily_cap', 'label' => __('Daily Max Comments (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                    ['key' => 'instant_reward', 'label' => __('Instant Reward (Pro)', 'gameengine'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
+                    ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'daily_cap', 'label' => __('Daily Max Comments (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ],
             'delete_post' => [
-                'label'       => __('Delete Post', 'gamify'),
+                'label'       => __('Delete Post', 'gameengine'),
                 'hook'        => 'wp_trash_post',
-                'description' => __('Delete post successfully into your website.', 'gamify'),
+                'description' => __('Delete post successfully into your website.', 'gameengine'),
                 'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($post_id) {
@@ -102,60 +102,60 @@ class WordPress extends BaseIntegration
                     return $post ? $post->post_author : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
-                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gamify'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
+                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
+                    ['key' => 'full_reversal', 'label' => __('Full Points Reversal (Pro)', 'gameengine'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
                 ], 'deduct')
             ],
             'user_role_change' => [
-                'label'       => __('Role Change', 'gamify'),
+                'label'       => __('Role Change', 'gameengine'),
                 'hook'        => 'set_user_role',
-                'description' => __('User role change successfully into your website.', 'gamify'),
+                'description' => __('User role change successfully into your website.', 'gameengine'),
                 'args_count'  => 3,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id) {
                     return $id;
                 },
                 'schema'      => self::merge_schema([
-                    ['key' => 'role', 'label' => __('Target Roles', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
+                    ['key' => 'role', 'label' => __('Target Roles', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
                 ])
             ],
             'profile_update' => [
-                'label'       => __('Profile Update', 'gamify'),
+                'label'       => __('Profile Update', 'gameengine'),
                 'hook'        => 'profile_update',
-                'description' => __('Profile update successfully into your website.', 'gamify'),
+                'description' => __('Profile update successfully into your website.', 'gameengine'),
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'args_count'  => 2,
                 'get_user_id' => function ($id) {
                     return $id;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gamify'), 'type' => 'select', 'width'   => '100%', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
+                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
                 ])
             ],
             'post_updated' => [
-                'label'       => __('Post Updated', 'gamify'),
+                'label'       => __('Post Updated', 'gameengine'),
                 'hook'        => 'post_updated',
-                'description' => __('Post update successfully into your website.', 'gamify'),
+                'description' => __('Post update successfully into your website.', 'gameengine'),
                 'args_count'  => 3,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                    ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ],
             'after_password_reset' => [
-                'label'       => __('Password Reset', 'gamify'),
+                'label'       => __('Password Reset', 'gameengine'),
                 'hook'        => 'after_password_reset',
-                'description' => __('Reset password successfully into your website.', 'gamify'),
+                'description' => __('Reset password successfully into your website.', 'gameengine'),
                 'args_count'  => 1,
                 'supports'    => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($u) {
                     return $u->ID;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gamify'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ]
         ];

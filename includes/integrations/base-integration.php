@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Integrations;
+namespace GameEngine\Integrations;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -33,7 +33,7 @@ abstract class BaseIntegration implements IntegrationInterface
         return array(
             array(
                 'key'     => 'points',
-                'label'   => ('award' === $type) ? __('Points to Award', 'gamify') : __('Points to Deduct', 'gamify'),
+                'label'   => ('award' === $type) ? __('Points to Award', 'gameengine') : __('Points to Deduct', 'gameengine'),
                 'type'    => 'number',
                 'width'   => '50%', // Number field
                 'default' => 10,
@@ -41,23 +41,23 @@ abstract class BaseIntegration implements IntegrationInterface
             ),
             array(
                 'key'     => 'log_label',
-                'label'   => __('Log Description', 'gamify'),
+                'label'   => __('Log Description', 'gameengine'),
                 'type'    => 'text',
                 'width'   => '50%', // Text field
-                'default' => ('award' === $type) ? __('Activity Reward', 'gamify') : __('Activity Penalty', 'gamify'),
+                'default' => ('award' === $type) ? __('Activity Reward', 'gameengine') : __('Activity Penalty', 'gameengine'),
                 'scope'   => array('point_type', 'achievement', 'level'),
             ),
             array(
                 'key'     => 'limit',
-                'label'   => __('Limit', 'gamify'),
+                'label'   => __('Limit', 'gameengine'),
                 'type'    => 'select',
                 'width'   => '100%', // Select field
                 'options' => array(
-                    array('label' => __('Unlimited', 'gamify'), 'value' => 'unlimited'),
-                    array('label' => __('1 Time Only', 'gamify'), 'value' => '1_time'),
-                    array('label' => __('1 Per Day (Pro)', 'gamify'), 'value' => '1_per_day', 'is_pro' => true),
-                    array('label' => __('1 Per Week (Pro)', 'gamify'), 'value' => '1_per_week', 'is_pro' => true),
-                    array('label' => __('1 Per Month (Pro)', 'gamify'), 'value' => '1_per_month', 'is_pro' => true),
+                    array('label' => __('Unlimited', 'gameengine'), 'value' => 'unlimited'),
+                    array('label' => __('1 Time Only', 'gameengine'), 'value' => '1_time'),
+                    array('label' => __('1 Per Day (Pro)', 'gameengine'), 'value' => '1_per_day', 'is_pro' => true),
+                    array('label' => __('1 Per Week (Pro)', 'gameengine'), 'value' => '1_per_week', 'is_pro' => true),
+                    array('label' => __('1 Per Month (Pro)', 'gameengine'), 'value' => '1_per_month', 'is_pro' => true),
                 ),
                 'default' => 'unlimited',
                 'scope'   => array('point_type', 'achievement', 'level'),
@@ -73,7 +73,7 @@ abstract class BaseIntegration implements IntegrationInterface
         return array(
             array(
                 'key'         => 'start_time',
-                'label'       => __('Start Time (Pro)', 'gamify'),
+                'label'       => __('Start Time (Pro)', 'gameengine'),
                 'type'        => 'time',
                 'width'       => '50%', // Time field
                 'placeholder' => '08:00',
@@ -82,7 +82,7 @@ abstract class BaseIntegration implements IntegrationInterface
             ),
             array(
                 'key'         => 'end_time',
-                'label'       => __('End Time (Pro)', 'gamify'),
+                'label'       => __('End Time (Pro)', 'gameengine'),
                 'type'        => 'time',
                 'width'       => '50%', // Time field
                 'placeholder' => '22:00',
@@ -91,19 +91,19 @@ abstract class BaseIntegration implements IntegrationInterface
             ),
             array(
                 'key'      => 'active_days',
-                'label'    => __('Active Days (Pro)', 'gamify'),
+                'label'    => __('Active Days (Pro)', 'gameengine'),
                 'type'     => 'select',
                 'width'    => '100%', // Select field
                 'is_multi' => true,
                 'is_pro'   => true,
                 'options'  => array(
-                    array('label' => __('Monday', 'gamify'), 'value' => 'mon'),
-                    array('label' => __('Tuesday', 'gamify'), 'value' => 'tue'),
-                    array('label' => __('Wednesday', 'gamify'), 'value' => 'wed'),
-                    array('label' => __('Thursday', 'gamify'), 'value' => 'thu'),
-                    array('label' => __('Friday', 'gamify'), 'value' => 'fri'),
-                    array('label' => __('Saturday', 'gamify'), 'value' => 'sat'),
-                    array('label' => __('Sunday', 'gamify'), 'value' => 'sun'),
+                    array('label' => __('Monday', 'gameengine'), 'value' => 'mon'),
+                    array('label' => __('Tuesday', 'gameengine'), 'value' => 'tue'),
+                    array('label' => __('Wednesday', 'gameengine'), 'value' => 'wed'),
+                    array('label' => __('Thursday', 'gameengine'), 'value' => 'thu'),
+                    array('label' => __('Friday', 'gameengine'), 'value' => 'fri'),
+                    array('label' => __('Saturday', 'gameengine'), 'value' => 'sat'),
+                    array('label' => __('Sunday', 'gameengine'), 'value' => 'sun'),
                 ),
                 'scope'    => array('point_type', 'achievement', 'level'),
             ),

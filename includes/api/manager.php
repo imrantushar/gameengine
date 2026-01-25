@@ -1,24 +1,24 @@
 <?php
 
-namespace Gamify\API;
+namespace GameEngine\API;
 
 // Exit if accessed directly.
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\API\Controllers\LogsController;
-use Gamify\API\Controllers\PointTypesController;
-use Gamify\API\Controllers\TriggersController;
-use Gamify\API\Controllers\AchievementsController;
-use Gamify\API\Controllers\ActionsController;
-use Gamify\API\Controllers\LevelsController;
-use Gamify\API\Controllers\DashboardController;
-use Gamify\API\Controllers\LeaderboardController;
-use Gamify\API\Controllers\SettingsController;
-use Gamify\API\Controllers\AddonsController;
-use Gamify\API\Controllers\TaxonomyController;
-use Gamify\API\Controllers\ToolsController;
+use GameEngine\API\Controllers\LogsController;
+use GameEngine\API\Controllers\PointTypesController;
+use GameEngine\API\Controllers\TriggersController;
+use GameEngine\API\Controllers\AchievementsController;
+use GameEngine\API\Controllers\ActionsController;
+use GameEngine\API\Controllers\LevelsController;
+use GameEngine\API\Controllers\DashboardController;
+use GameEngine\API\Controllers\LeaderboardController;
+use GameEngine\API\Controllers\SettingsController;
+use GameEngine\API\Controllers\AddonsController;
+use GameEngine\API\Controllers\TaxonomyController;
+use GameEngine\API\Controllers\ToolsController;
 
 final class Manager
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Addons\RestrictContent;
+namespace GameEngine\Addons\RestrictContent;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -8,18 +8,18 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class Shortcodes
- * Handles partial content restriction via [gamify_restrict].
+ * Handles partial content restriction via [gameengine_restrict].
  */
 class Shortcodes
 {
 
     public function __construct()
     {
-        add_shortcode('gamify_restrict', array($this, 'render_restricted_content'));
+        add_shortcode('gameengine_restrict', array($this, 'render_restricted_content'));
     }
 
     /**
-     * [gamify_restrict type="points" value="100" message="Custom Lock Message"]...[/gamify_restrict]
+     * [gameengine_restrict type="points" value="100" message="Custom Lock Message"]...[/gameengine_restrict]
      */
     public function render_restricted_content($atts, $content = null)
     {

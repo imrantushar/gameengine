@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Pro;
+namespace GameEngine\Pro;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ class Time_Based_Rewards {
 	 * Initialize the filter hooks.
 	 */
 	public static function init() {
-		add_filter( 'gamify_check_timing_validity', array( __CLASS__, 'validate_timing' ), 10, 2 );
+		add_filter( 'gameengine_check_timing_validity', array( __CLASS__, 'validate_timing' ), 10, 2 );
 	}
 
 	/**

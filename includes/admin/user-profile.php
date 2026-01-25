@@ -1,15 +1,15 @@
 <?php
 
-namespace Gamify\Admin;
+namespace GameEngine\Admin;
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Classes\PointsManager;
+use GameEngine\Classes\PointsManager;
 
 /**
- * Adds Gamify section to WordPress User Profile page.
+ * Adds GameEngine section to WordPress User Profile page.
  */
 class UserProfile
 {
@@ -36,15 +36,15 @@ class UserProfile
         }
 
         $css = "
-            .gamify-profile-section { margin-top: 30px; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
-            .gamify-items-grid { display: flex; gap: 20px; flex-wrap: wrap; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; max-width: 600px; }
-            .gamify-item-box { text-align: center; width: 80px; }
-            .gamify-item-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 5px; display: block; margin: 0 auto; }
-            .gamify-item-placeholder { width: 50px; height: 50px; background: #f0f0f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 20px; }
-            .gamify-item-title { display: block; font-weight: 500; font-size: 12px; line-height: 1.4; }
-            .gamify-input-box { background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; max-width: 600px; }
-            .gamify-label-bold { font-weight: 600; display: block; margin-bottom: 5px; }
-            .gamify-readonly-points { font-size: 18px; font-weight: bold; color: #2271b1; }
+            .gameengine-profile-section { margin-top: 30px; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px; }
+            .gameengine-items-grid { display: flex; gap: 20px; flex-wrap: wrap; background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; max-width: 600px; }
+            .gameengine-item-box { text-align: center; width: 80px; }
+            .gameengine-item-img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 5px; display: block; margin: 0 auto; }
+            .gameengine-item-placeholder { width: 50px; height: 50px; background: #f0f0f1; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 5px; font-size: 20px; }
+            .gameengine-item-title { display: block; font-weight: 500; font-size: 12px; line-height: 1.4; }
+            .gameengine-input-box { background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; max-width: 600px; }
+            .gameengine-label-bold { font-weight: 600; display: block; margin-bottom: 5px; }
+            .gameengine-readonly-points { font-size: 18px; font-weight: bold; color: #2271b1; }
         ";
 
         wp_add_inline_style('admin-bar', $css);
@@ -65,29 +65,29 @@ class UserProfile
 
 
         // Add Nonce for security
-        wp_nonce_field('gamify_update_user_points', 'gamify_points_nonce');
+        wp_nonce_field('gameengine_update_user_points', 'gameengine_points_nonce');
 ?>
-        <h2 class="gamify-profile-section"><?php esc_html_e('Gamify Profile', 'gamify'); ?></h2>
+        <h2 class="gameengine-profile-section"><?php esc_html_e('GameEngine Profile', 'gameengine'); ?></h2>
 
         <table class="form-table" role="presentation">
             <!-- Level Section -->
             <tr>
-                <th><label><?php esc_html_e('Level', 'gamify'); ?></label></th>
+                <th><label><?php esc_html_e('Level', 'gameengine'); ?></label></th>
                 <td>
-                    <div class="gamify-items-grid">
+                    <div class="gameengine-items-grid">
                         <?php if (!empty($levels)) : ?>
                             <?php foreach ($levels as $level) : ?>
-                                <div class="gamify-item-box">
+                                <div class="gameengine-item-box">
                                     <?php if (!empty($level->icon)) : ?>
-                                        <img src="<?php echo esc_url($level->icon); ?>" class="gamify-item-img" alt="">
+                                        <img src="<?php echo esc_url($level->icon); ?>" class="gameengine-item-img" alt="">
                                     <?php else : ?>
-                                        <div class="gamify-item-placeholder">🏆</div>
+                                        <div class="gameengine-item-placeholder">🏆</div>
                                     <?php endif; ?>
-                                    <span class="gamify-item-title"><?php echo esc_html($level->title); ?></span>
+                                    <span class="gameengine-item-title"><?php echo esc_html($level->title); ?></span>
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <p class="description"><?php esc_html_e('No levels earned yet.', 'gamify'); ?></p>
+                            <p class="description"><?php esc_html_e('No levels earned yet.', 'gameengine'); ?></p>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -95,17 +95,17 @@ class UserProfile
 
             <!-- Points Section -->
             <tr>
-                <th><label for="gamify_points"><?php esc_html_e('Points', 'gamify'); ?></label></th>
+                <th><label for="gameengine_points"><?php esc_html_e('Points', 'gameengine'); ?></label></th>
                 <td>
-                    <div class="gamify-input-box">
-                        <label class="gamify-label-bold"><?php esc_html_e('Total Points', 'gamify'); ?></label>
+                    <div class="gameengine-input-box">
+                        <label class="gameengine-label-bold"><?php esc_html_e('Total Points', 'gameengine'); ?></label>
 
                         <?php if ($is_admin) : ?>
-                            <input type="number" name="gamify_points" id="gamify_points" value="<?php echo esc_attr($points); ?>" class="regular-text" />
-                            <p class="description"><?php esc_html_e('Update user points manually. Differences will be logged.', 'gamify'); ?></p>
+                            <input type="number" name="gameengine_points" id="gameengine_points" value="<?php echo esc_attr($points); ?>" class="regular-text" />
+                            <p class="description"><?php esc_html_e('Update user points manually. Differences will be logged.', 'gameengine'); ?></p>
                         <?php else : ?>
-                            <span class="gamify-readonly-points"><?php echo esc_html(number_format_i18n($points)); ?></span>
-                            <p class="description"><?php esc_html_e('Your current total points.', 'gamify'); ?></p>
+                            <span class="gameengine-readonly-points"><?php echo esc_html(number_format_i18n($points)); ?></span>
+                            <p class="description"><?php esc_html_e('Your current total points.', 'gameengine'); ?></p>
                         <?php endif; ?>
 
                     </div>
@@ -114,22 +114,22 @@ class UserProfile
 
             <!-- Achievements Section -->
             <tr>
-                <th><label><?php esc_html_e('Achievements', 'gamify'); ?></label></th>
+                <th><label><?php esc_html_e('Achievements', 'gameengine'); ?></label></th>
                 <td>
-                    <div class="gamify-items-grid">
+                    <div class="gameengine-items-grid">
                         <?php if (!empty($achievements)) : ?>
                             <?php foreach ($achievements as $ach) : ?>
-                                <div class="gamify-item-box">
+                                <div class="gameengine-item-box">
                                     <?php if (!empty($ach->badge_image)) : ?>
-                                        <img src="<?php echo esc_url($ach->badge_image); ?>" class="gamify-item-img" alt="">
+                                        <img src="<?php echo esc_url($ach->badge_image); ?>" class="gameengine-item-img" alt="">
                                     <?php else : ?>
-                                        <div class="gamify-item-placeholder">🎖️</div>
+                                        <div class="gameengine-item-placeholder">🎖️</div>
                                     <?php endif; ?>
-                                    <span class="gamify-item-title"><?php echo esc_html($ach->title); ?></span>
+                                    <span class="gameengine-item-title"><?php echo esc_html($ach->title); ?></span>
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
-                            <p class="description"><?php esc_html_e('No achievements earned yet.', 'gamify'); ?></p>
+                            <p class="description"><?php esc_html_e('No achievements earned yet.', 'gameengine'); ?></p>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -144,7 +144,7 @@ class UserProfile
     public function save_profile_fields($user_id)
     {
         //  Nonce Verification
-        if (! isset($_POST['gamify_points_nonce']) || ! wp_verify_nonce(sanitize_key($_POST['gamify_points_nonce']), 'gamify_update_user_points')) {
+        if (! isset($_POST['gameengine_points_nonce']) || ! wp_verify_nonce(sanitize_key($_POST['gameengine_points_nonce']), 'gameengine_update_user_points')) {
             return false;
         }
 
@@ -154,8 +154,8 @@ class UserProfile
         }
 
         //  Handle Points Update
-        if (isset($_POST['gamify_points'])) {
-            $new_points     = intval($_POST['gamify_points']);
+        if (isset($_POST['gameengine_points'])) {
+            $new_points     = intval($_POST['gameengine_points']);
             $current_points = $this->get_user_points($user_id);
             $diff           = $new_points - $current_points;
 
@@ -174,7 +174,7 @@ class UserProfile
     {
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $total = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE user_id = %d", (int) $user_id));
+        $total = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE user_id = %d", (int) $user_id));
         return intval($total);
     }
 
@@ -183,8 +183,8 @@ class UserProfile
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         return $wpdb->get_results($wpdb->prepare(
-            "SELECT a.title, a.badge_image FROM {$wpdb->prefix}gamify_user_achievements ua 
-             JOIN {$wpdb->prefix}gamify_achievements a ON ua.achievement_id = a.id 
+            "SELECT a.title, a.badge_image FROM {$wpdb->prefix}gameengine_user_achievements ua 
+             JOIN {$wpdb->prefix}gameengine_achievements a ON ua.achievement_id = a.id 
              WHERE ua.user_id = %d ORDER BY ua.achieved_at DESC",
             (int) $user_id
         ));
@@ -195,8 +195,8 @@ class UserProfile
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         return $wpdb->get_results($wpdb->prepare(
-            "SELECT l.title, l.icon FROM {$wpdb->prefix}gamify_user_levels ul 
-             JOIN {$wpdb->prefix}gamify_levels l ON ul.level_id = l.id 
+            "SELECT l.title, l.icon FROM {$wpdb->prefix}gameengine_user_levels ul 
+             JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id 
              WHERE ul.user_id = %d ORDER BY ul.achieved_at DESC",
             (int) $user_id
         ));

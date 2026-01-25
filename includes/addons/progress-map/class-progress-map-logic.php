@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Addons\ProgressMap;
+namespace GameEngine\Addons\ProgressMap;
 
 if (! defined('ABSPATH')) {
 	exit;
@@ -29,7 +29,7 @@ class Progress_Map_Logic
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$levels = $wpdb->get_results(
 			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority
-			 FROM {$wpdb->prefix}gamify_levels
+			 FROM {$wpdb->prefix}gameengine_levels
 			 ORDER BY priority ASC",
 			ARRAY_A
 		);
@@ -38,7 +38,7 @@ class Progress_Map_Logic
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$achievements = $wpdb->get_results(
 			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at
-			 FROM {$wpdb->prefix}gamify_achievements
+			 FROM {$wpdb->prefix}gameengine_achievements
 			 ORDER BY created_at ASC",
 			ARRAY_A
 		);
@@ -47,7 +47,7 @@ class Progress_Map_Logic
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$user_levels = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT level_id FROM {$wpdb->prefix}gamify_user_levels WHERE user_id = %d",
+				"SELECT level_id FROM {$wpdb->prefix}gameengine_user_levels WHERE user_id = %d",
 				$user_id
 			)
 		);
@@ -55,7 +55,7 @@ class Progress_Map_Logic
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$user_achievements = $wpdb->get_col(
 			$wpdb->prepare(
-				"SELECT achievement_id FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d",
+				"SELECT achievement_id FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = %d",
 				$user_id
 			)
 		);
@@ -102,7 +102,7 @@ class Progress_Map_Logic
 		//  Achievement Titles.
 		if (! empty($ach_ids)) {
 			$cache_key = 'gf_ach_titles_' . md5(wp_json_encode($ach_ids));
-			$results   = wp_cache_get($cache_key, 'gamify');
+			$results   = wp_cache_get($cache_key, 'gameengine');
 
 			if (false === $results) {
 
@@ -116,14 +116,14 @@ class Progress_Map_Logic
 					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 					$results = $wpdb->get_results(
 						$wpdb->prepare(
-							"SELECT id, title FROM {$wpdb->prefix}gamify_achievements WHERE id IN ($placeholders)",
+							"SELECT id, title FROM {$wpdb->prefix}gameengine_achievements WHERE id IN ($placeholders)",
 							...$ach_ids
 						),
 						OBJECT_K
 					);
 				}
 
-				wp_cache_set($cache_key, $results, 'gamify', 300);
+				wp_cache_set($cache_key, $results, 'gameengine', 300);
 			}
 
 
@@ -137,7 +137,7 @@ class Progress_Map_Logic
 		//  Level Titles.
 		if (! empty($lvl_ids)) {
 			$cache_key = 'gf_lvl_titles_' . md5(wp_json_encode($lvl_ids));
-			$results   = wp_cache_get($cache_key, 'gamify');
+			$results   = wp_cache_get($cache_key, 'gameengine');
 
 			if (false === $results) {
 
@@ -151,14 +151,14 @@ class Progress_Map_Logic
 					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
 					$results = $wpdb->get_results(
 						$wpdb->prepare(
-							"SELECT id, title FROM {$wpdb->prefix}gamify_levels WHERE id IN ($placeholders)",
+							"SELECT id, title FROM {$wpdb->prefix}gameengine_levels WHERE id IN ($placeholders)",
 							...$lvl_ids
 						),
 						OBJECT_K
 					);
 				}
 
-				wp_cache_set($cache_key, $results, 'gamify', 300);
+				wp_cache_set($cache_key, $results, 'gameengine', 300);
 			}
 
 
@@ -181,61 +181,61 @@ class Progress_Map_Logic
 	 */
 	public static function render_html($user_id)
 	{
-		$gamify_journey = self::get_combined_journey($user_id);
-		if (empty($gamify_journey)) {
+		$gameengine_journey = self::get_combined_journey($user_id);
+		if (empty($gameengine_journey)) {
 			return '';
 		}
 
-		$gamify_dependency_titles = self::get_dependency_titles($gamify_journey);
-		$gamify_total_nodes       = count($gamify_journey);
+		$gameengine_dependency_titles = self::get_dependency_titles($gameengine_journey);
+		$gameengine_total_nodes       = count($gameengine_journey);
 
 		ob_start();
 ?>
-		<div class="gamify-roadmap">
-			<div class="gamify-timeline">
-				<?php foreach ($gamify_journey as $gamify_index => $gamify_node) : ?>
+		<div class="gameengine-roadmap">
+			<div class="gameengine-timeline">
+				<?php foreach ($gameengine_journey as $gameengine_index => $gameengine_node) : ?>
 					<?php
-					$gamify_is_last        = ($gamify_index === $gamify_total_nodes - 1);
-					$gamify_is_completed   = ('completed' === $gamify_node['status']);
-					$gamify_next_completed = (! $gamify_is_last && 'completed' === $gamify_journey[$gamify_index + 1]['status']);
+					$gameengine_is_last        = ($gameengine_index === $gameengine_total_nodes - 1);
+					$gameengine_is_completed   = ('completed' === $gameengine_node['status']);
+					$gameengine_next_completed = (! $gameengine_is_last && 'completed' === $gameengine_journey[$gameengine_index + 1]['status']);
 
-					$gamify_line_class = ($gamify_is_completed && $gamify_next_completed) ? 'line-blue' : 'line-gray';
-					$gamify_side_class = (0 === $gamify_index % 2) ? 'node-left' : 'node-right';
+					$gameengine_line_class = ($gameengine_is_completed && $gameengine_next_completed) ? 'line-blue' : 'line-gray';
+					$gameengine_side_class = (0 === $gameengine_index % 2) ? 'node-left' : 'node-right';
 					?>
-					<div class="gamify-timeline-node <?php echo esc_attr($gamify_side_class); ?> <?php echo $gamify_is_completed ? 'is-active' : 'is-locked'; ?>">
-						<div class="gamify-node-circle"><?php echo esc_html((int) $gamify_index + 1); ?></div>
+					<div class="gameengine-timeline-node <?php echo esc_attr($gameengine_side_class); ?> <?php echo $gameengine_is_completed ? 'is-active' : 'is-locked'; ?>">
+						<div class="gameengine-node-circle"><?php echo esc_html((int) $gameengine_index + 1); ?></div>
 
-						<?php if (! $gamify_is_last) : ?>
-							<div class="gamify-connector <?php echo esc_attr($gamify_line_class); ?>"></div>
+						<?php if (! $gameengine_is_last) : ?>
+							<div class="gameengine-connector <?php echo esc_attr($gameengine_line_class); ?>"></div>
 						<?php endif; ?>
 
-						<div class="gamify-node-card">
-							<div class="gamify-card-inner">
-								<div class="gamify-card-media">
-									<?php if (! empty($gamify_node['icon'])) : ?>
-										<img src="<?php echo esc_url($gamify_node['icon']); ?>" alt="">
+						<div class="gameengine-node-card">
+							<div class="gameengine-card-inner">
+								<div class="gameengine-card-media">
+									<?php if (! empty($gameengine_node['icon'])) : ?>
+										<img src="<?php echo esc_url($gameengine_node['icon']); ?>" alt="">
 									<?php else : ?>
-										<span class="icon-placeholder"><?php echo ('level' === $gamify_node['type']) ? '🏆' : '🏅'; ?></span>
+										<span class="icon-placeholder"><?php echo ('level' === $gameengine_node['type']) ? '🏆' : '🏅'; ?></span>
 									<?php endif; ?>
 								</div>
 
-								<div class="gamify-card-info">
-									<div class="gamify-type-badge <?php echo esc_attr($gamify_node['type']); ?>">
-										<?php echo esc_html(strtoupper((string) $gamify_node['type'])); ?>
+								<div class="gameengine-card-info">
+									<div class="gameengine-type-badge <?php echo esc_attr($gameengine_node['type']); ?>">
+										<?php echo esc_html(strtoupper((string) $gameengine_node['type'])); ?>
 									</div>
 
-									<h5><?php echo esc_html($gamify_node['title']); ?></h5>
+									<h5><?php echo esc_html($gameengine_node['title']); ?></h5>
 
-									<?php if ($gamify_is_completed) : ?>
-										<p class="gf-congrats"><?php echo wp_kses_post($gamify_node['congrats']); ?></p>
+									<?php if ($gameengine_is_completed) : ?>
+										<p class="gf-congrats"><?php echo wp_kses_post($gameengine_node['congrats']); ?></p>
 									<?php else : ?>
 										<div class="gf-restriction-info">
-											<span class="gf-lock-label">🔒 <?php esc_html_e('Locked', 'gamify'); ?></span>
+											<span class="gf-lock-label">🔒 <?php esc_html_e('Locked', 'gameengine'); ?></span>
 											<p class="gf-lock-msg">
 												<?php
-												echo ! empty($gamify_node['restriction_message'])
-													? wp_kses_post($gamify_node['restriction_message'])
-													: esc_html__('Complete pre-requisites to unlock.', 'gamify');
+												echo ! empty($gameengine_node['restriction_message'])
+													? wp_kses_post($gameengine_node['restriction_message'])
+													: esc_html__('Complete pre-requisites to unlock.', 'gameengine');
 												?>
 											</p>
 										</div>

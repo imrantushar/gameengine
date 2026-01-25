@@ -1,12 +1,12 @@
 <?php
 
-namespace Gamify\Shortcodes;
+namespace GameEngine\Shortcodes;
 
 class Points
 {
     public function __construct()
     {
-        add_shortcode('gamify_points', array($this, 'render_view'));
+        add_shortcode('gameengine_points', array($this, 'render_view'));
     }
 
     public function render_view()
@@ -15,7 +15,7 @@ class Points
             return '0';
         }
         ob_start();
-        \Gamify\Helper::get_template('shortcode/points.php');
-        return apply_filters('gamify/templates/shortcode/points', ob_get_clean());
+        \GameEngine\Helper::get_template('shortcode/points.php');
+        return apply_filters('gameengine/templates/shortcode/points', ob_get_clean());
     }
 }

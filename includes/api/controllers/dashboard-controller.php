@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -58,8 +58,8 @@ class DashboardController extends BaseController
         $end_date   = ! empty($raw_end_date) ? sanitize_text_field($raw_end_date) : '';
 
         // Create a unique cache key based on dates.
-        $cache_key = 'gamify_stats_' . md5($start_date . $end_date);
-        $stats     = wp_cache_get($cache_key, 'gamify_dashboard');
+        $cache_key = 'gameengine_stats_' . md5($start_date . $end_date);
+        $stats     = wp_cache_get($cache_key, 'gameengine_dashboard');
 
         if (false === $stats) {
 
@@ -73,7 +73,7 @@ class DashboardController extends BaseController
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $total_points = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points > 0 AND created_at BETWEEN %s AND %s",
+                    "SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE points > 0 AND created_at BETWEEN %s AND %s",
                     $s,
                     $e
                 )
@@ -83,7 +83,7 @@ class DashboardController extends BaseController
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $total_deducted = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points < 0 AND created_at BETWEEN %s AND %s",
+                    "SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE points < 0 AND created_at BETWEEN %s AND %s",
                     $s,
                     $e
                 )
@@ -93,7 +93,7 @@ class DashboardController extends BaseController
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $total_achievements = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements WHERE achieved_at BETWEEN %s AND %s",
+                    "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_user_achievements WHERE achieved_at BETWEEN %s AND %s",
                     $s,
                     $e
                 )
@@ -103,7 +103,7 @@ class DashboardController extends BaseController
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $total_levels = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_levels WHERE achieved_at BETWEEN %s AND %s",
+                    "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_user_levels WHERE achieved_at BETWEEN %s AND %s",
                     $s,
                     $e
                 )
@@ -114,9 +114,9 @@ class DashboardController extends BaseController
             $active_users = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT COUNT(DISTINCT user_id) FROM (
-						SELECT user_id FROM {$wpdb->prefix}gamify_points_log WHERE points > 0 AND created_at BETWEEN %s AND %s
+						SELECT user_id FROM {$wpdb->prefix}gameengine_points_log WHERE points > 0 AND created_at BETWEEN %s AND %s
 						UNION
-						SELECT user_id FROM {$wpdb->prefix}gamify_user_achievements WHERE achieved_at BETWEEN %s AND %s
+						SELECT user_id FROM {$wpdb->prefix}gameengine_user_achievements WHERE achieved_at BETWEEN %s AND %s
 					) AS active",
                     $s,
                     $e,
@@ -136,14 +136,14 @@ class DashboardController extends BaseController
 						u.ID, 
 						u.display_name as name, 
 						IFNULL(SUM(p.points), 0) as total_points,
-						(SELECT COUNT(*) FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = u.ID) as achievements_count,
+						(SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = u.ID) as achievements_count,
 						(
-							SELECT l.title FROM {$wpdb->prefix}gamify_user_levels ul 
-							JOIN {$wpdb->prefix}gamify_levels l ON ul.level_id = l.id 
+							SELECT l.title FROM {$wpdb->prefix}gameengine_user_levels ul 
+							JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id 
 							WHERE ul.user_id = u.ID ORDER BY l.priority DESC LIMIT 1
 						) as top_level
 					FROM {$wpdb->users} u
-					LEFT JOIN {$wpdb->prefix}gamify_points_log p ON u.ID = p.user_id
+					LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
 					WHERE p.points > 0 AND p.created_at BETWEEN %s AND %s
 					GROUP BY u.ID
 					ORDER BY total_points DESC
@@ -166,7 +166,7 @@ class DashboardController extends BaseController
                 'top_users' => $top_users,
             );
 
-            wp_cache_set($cache_key, $stats, 'gamify_dashboard', 300);
+            wp_cache_set($cache_key, $stats, 'gameengine_dashboard', 300);
         }
 
         return new \WP_REST_Response($stats, 200);
@@ -210,15 +210,15 @@ class DashboardController extends BaseController
             $labels[]  = gmdate('d M', $timestamp);
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $p_val = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gamify_points_log WHERE points > 0 AND DATE(created_at) = %s", $db_date));
+            $p_val = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE points > 0 AND DATE(created_at) = %s", $db_date));
             $points_data[] = $p_val ? (int) $p_val : 0;
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $a_val = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements WHERE DATE(achieved_at) = %s", $db_date));
+            $a_val = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_user_achievements WHERE DATE(achieved_at) = %s", $db_date));
             $achievements_data[] = $a_val ? (int) $a_val : 0;
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $l_val = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_levels WHERE DATE(achieved_at) = %s", $db_date));
+            $l_val = $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_user_levels WHERE DATE(achieved_at) = %s", $db_date));
             $levels_data[] = $l_val ? (int) $l_val : 0;
         }
 

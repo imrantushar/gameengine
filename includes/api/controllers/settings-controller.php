@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -61,7 +61,7 @@ class SettingsController extends BaseController
 
         // Combine all settings into one response
         $all_settings = array(
-            'logs' => get_option('gamify_log_settings', $log_defaults),
+            'logs' => get_option('gameengine_log_settings', $log_defaults),
         );
 
         return new \WP_REST_Response($all_settings, 200);
@@ -85,12 +85,12 @@ class SettingsController extends BaseController
                 'retention_days' => sanitize_text_field($log_data['retention_days']),
                 'log_levels'     => array_map('sanitize_text_field', (array) $log_data['log_levels']),
             );
-            update_option('gamify_log_settings', $settings);
+            update_option('gameengine_log_settings', $settings);
         }
 
         return new \WP_REST_Response(
             array(
-                'message'  => __('Settings saved successfully.', 'gamify'),
+                'message'  => __('Settings saved successfully.', 'gameengine'),
                 'settings' => $this->get_settings()->get_data(), // Return latest data
             ),
             200

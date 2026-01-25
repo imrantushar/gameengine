@@ -1,16 +1,16 @@
 <?php
 
-namespace Gamify\Admin;
+namespace GameEngine\Admin;
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Helper;
+use GameEngine\Helper;
 
 /**
  * Class Menu
- * Handles Admin Menu registration for the Gamify plugin with custom SVG icons.
+ * Handles Admin Menu registration for the GameEngine plugin with custom SVG icons.
  */
 class Menu
 {
@@ -30,14 +30,14 @@ class Menu
      */
     public function admin_menu()
     {
-        $main_slug = 'gamify';
+        $main_slug = 'gameengine';
         $page_title = $this->get_toplevel_menu_title();
         $icon_url   = $this->get_toplevel_menu_icon_url();
 
         // Register Main Parent Menu (Dashboard) with custom SVG icon.
         $main_hook = add_menu_page(
             $page_title,
-            'Gamify',
+            'GameEngine',
             'manage_options',
             $main_slug,
             array($this, 'render_app'),
@@ -84,7 +84,7 @@ class Menu
      */
     public function get_toplevel_menu_title()
     {
-        return apply_filters('gamify/admin/toplevel_menu_title', __('Gamify Dashboard', 'gamify'));
+        return apply_filters('gameengine/admin/toplevel_menu_title', __('GameEngine Dashboard', 'gameengine'));
     }
 
     /**
@@ -94,7 +94,7 @@ class Menu
      */
     public function get_toplevel_menu_icon_url()
     {
-        $file_path = GAMIFY_PATH . 'assets/images/logo_black_white.svg';
+        $file_path = GAMEENGINE_PATH . 'assets/images/logo_black_white.svg';
         $icon_url  = 'dashicons-star-filled'; // Fallback icon
 
         if (file_exists($file_path)) {
@@ -103,7 +103,7 @@ class Menu
             $icon_url    = 'data:image/svg+xml;base64,' . base64_encode($svg_content);
         }
 
-        return apply_filters('gamify/admin/toplevel_menu_icon', $icon_url);
+        return apply_filters('gameengine/admin/toplevel_menu_icon', $icon_url);
     }
 
     /**
@@ -112,22 +112,22 @@ class Menu
     public function add_admin_menu_css()
     {
         echo '<style>
-			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image { 
+			#adminmenu li.toplevel_page_gameengine a.toplevel_page_gameengine > .wp-menu-image { 
 				display: flex;
 				justify-content: center;
 				align-items: center;
 			}
-			#adminmenu li.toplevel_page_gamify a.toplevel_page_gamify > .wp-menu-image img {
+			#adminmenu li.toplevel_page_gameengine a.toplevel_page_gameengine > .wp-menu-image img {
 				max-width: 20px; height: auto; padding: 0 !important;
 			}
-			#adminmenu li.toplevel_page_gamify ul li a, #adminmenu li.toplevel_page_gamify .wp-submenu > li > a {
+			#adminmenu li.toplevel_page_gameengine ul li a, #adminmenu li.toplevel_page_gameengine .wp-submenu > li > a {
 				padding: 7px 12px;
 			}
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-addons"] {
+			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li a[href*="admin.php?page=gameengine-addons"] {
 				color: #FDB022;
 			}
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gamify"]:after,
-			#adminmenu li.toplevel_page_gamify ul.wp-submenu li a[href*="admin.php?page=gamify-tools"]:after {
+			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gameengine"]:after,
+			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li a[href*="admin.php?page=gameengine-tools"]:after {
 				border-bottom: 1px solid hsla(0,0%,100%,.2);
 				display: block; float: left; margin: 15px -15px 7px;
 				content: ""; width: calc(100% + 26px);
@@ -144,7 +144,7 @@ class Menu
 
     public function render_app()
     {
-        echo '<div id="gamify-admin-app" class="gamify-admin-app"></div>';
+        echo '<div id="gameengine-admin-app" class="gameengine-admin-app"></div>';
     }
 
     public function remove_all_notices_and_footer()

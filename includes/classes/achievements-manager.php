@@ -1,13 +1,13 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Classes\Logger;
-use Gamify\Classes\PointsManager;
+use GameEngine\Classes\Logger;
+use GameEngine\Classes\PointsManager;
 
 /**
  * Manages all achievement-related database operations.
@@ -20,7 +20,7 @@ class AchievementsManager
     public static function init()
     {
         $self = new self();
-        add_action('gamify_points_added', [$self, 'check_achievements_on_point_change'], 10, 5);
+        add_action('gameengine_points_added', [$self, 'check_achievements_on_point_change'], 10, 5);
     }
 
     /**
@@ -40,7 +40,7 @@ class AchievementsManager
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $achievements = $wpdb->get_results($wpdb->prepare(
             "SELECT id, title, max_earnings_per_user 
-             FROM {$wpdb->prefix}gamify_achievements 
+             FROM {$wpdb->prefix}gameengine_achievements 
              WHERE unlock_with_points_enabled = 1 
              AND required_point_type_id = %d 
              AND required_points_amount <= %d",
@@ -86,7 +86,7 @@ class AchievementsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $achievement = $wpdb->get_row($wpdb->prepare(
-            "SELECT title, congratulations_message, max_earnings_per_user FROM {$wpdb->prefix}gamify_achievements WHERE id = %d",
+            "SELECT title, congratulations_message, max_earnings_per_user FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d",
             $safe_ach_id
         ));
 
@@ -105,7 +105,7 @@ class AchievementsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $result = $wpdb->insert(
-            $wpdb->prefix . 'gamify_user_achievements',
+            $wpdb->prefix . 'gameengine_user_achievements',
             [
                 'user_id'        => $safe_user_id,
                 'achievement_id' => $safe_ach_id,
@@ -121,8 +121,8 @@ class AchievementsManager
         $user_achievement_id = $wpdb->insert_id;
 
         // Clear Caches
-        wp_cache_delete("gamify_ach_count_{$safe_user_id}_{$safe_ach_id}", 'gamify');
-        wp_cache_delete("gamify_user_achs_{$safe_user_id}", 'gamify');
+        wp_cache_delete("gameengine_ach_count_{$safe_user_id}_{$safe_ach_id}", 'gameengine');
+        wp_cache_delete("gameengine_user_achs_{$safe_user_id}", 'gameengine');
 
         // Log
         $title        = $achievement->title;
@@ -142,7 +142,7 @@ class AchievementsManager
             'success'
         );
 
-        do_action('gamify_achievement_unlocked', $safe_user_id, $safe_ach_id, $user_achievement_id);
+        do_action('gameengine_achievement_unlocked', $safe_user_id, $safe_ach_id, $user_achievement_id);
 
         return $user_achievement_id;
     }
@@ -155,19 +155,19 @@ class AchievementsManager
         $safe_user_id = absint($user_id);
         $safe_ach_id  = absint($achievement_id);
 
-        $cache_key = "gamify_ach_count_{$safe_user_id}_{$safe_ach_id}";
-        $count     = wp_cache_get($cache_key, 'gamify');
+        $cache_key = "gameengine_ach_count_{$safe_user_id}_{$safe_ach_id}";
+        $count     = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $count) {
             global $wpdb;
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $count = (int) $wpdb->get_var($wpdb->prepare(
-                "SELECT COUNT(id) FROM {$wpdb->prefix}gamify_user_achievements WHERE user_id = %d AND achievement_id = %d",
+                "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = %d AND achievement_id = %d",
                 $safe_user_id,
                 $safe_ach_id
             ));
 
-            wp_cache_set($cache_key, $count, 'gamify');
+            wp_cache_set($cache_key, $count, 'gameengine');
         }
 
         return (int) $count;
@@ -192,7 +192,7 @@ class AchievementsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $deleted = $wpdb->delete(
-            $wpdb->prefix . 'gamify_user_achievements',
+            $wpdb->prefix . 'gameengine_user_achievements',
             [
                 'user_id'        => $safe_user_id,
                 'achievement_id' => $safe_ach_id
@@ -202,8 +202,8 @@ class AchievementsManager
 
         if ($deleted) {
             // Clear Caches
-            wp_cache_delete("gamify_ach_count_{$safe_user_id}_{$safe_ach_id}", 'gamify');
-            wp_cache_delete("gamify_user_achs_{$safe_user_id}", 'gamify');
+            wp_cache_delete("gameengine_ach_count_{$safe_user_id}_{$safe_ach_id}", 'gameengine');
+            wp_cache_delete("gameengine_user_achs_{$safe_user_id}", 'gameengine');
 
             Logger::log(
                 'achievement_revoked',
@@ -214,7 +214,7 @@ class AchievementsManager
                 'success'
             );
 
-            do_action('gamify_achievement_revoked', $safe_user_id, $safe_ach_id);
+            do_action('gameengine_achievement_revoked', $safe_user_id, $safe_ach_id);
             return true;
         }
 
@@ -227,22 +227,22 @@ class AchievementsManager
     public function get_user_achievements(int $user_id): array
     {
         $safe_user_id = absint($user_id);
-        $cache_key    = "gamify_user_achs_{$safe_user_id}";
-        $achievements = wp_cache_get($cache_key, 'gamify');
+        $cache_key    = "gameengine_user_achs_{$safe_user_id}";
+        $achievements = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $achievements) {
             global $wpdb;
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $achievements = $wpdb->get_results($wpdb->prepare(
                 "SELECT ua.*, a.title, a.badge_image, a.congratulations_message 
-                 FROM {$wpdb->prefix}gamify_user_achievements ua
-                 JOIN {$wpdb->prefix}gamify_achievements a ON ua.achievement_id = a.id
+                 FROM {$wpdb->prefix}gameengine_user_achievements ua
+                 JOIN {$wpdb->prefix}gameengine_achievements a ON ua.achievement_id = a.id
                  WHERE ua.user_id = %d
                  ORDER BY ua.achieved_at DESC",
                 $safe_user_id
             ), ARRAY_A);
 
-            wp_cache_set($cache_key, $achievements, 'gamify');
+            wp_cache_set($cache_key, $achievements, 'gameengine');
         }
 
         return is_array($achievements) ? $achievements : [];

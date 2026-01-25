@@ -1,7 +1,7 @@
 {
-    "name": "gamify-plugin-dev",
+    "name": "gameengine-plugin-dev",
     "version": "1.0.0",
-    "description": "Development environment for Gamify WordPress Plugin.",
+    "description": "Development environment for GameEngine WordPress Plugin.",
     "private": true,
     "scripts": {
         "build": "wp-scripts build",

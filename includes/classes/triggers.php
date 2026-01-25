@@ -1,19 +1,19 @@
 <?php
 
-namespace Gamify\Classes;
+namespace GameEngine\Classes;
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-use Gamify\Classes\PointsManager;
-use Gamify\Classes\AchievementsManager;
-use Gamify\Classes\LevelsManager;
-use Gamify\Classes\TriggerRegistry;
+use GameEngine\Classes\PointsManager;
+use GameEngine\Classes\AchievementsManager;
+use GameEngine\Classes\LevelsManager;
+use GameEngine\Classes\TriggerRegistry;
 
 /**
  * Handles the execution of triggers and reward logic.
- * Connects WordPress/Addon hooks to the Gamify engine.
+ * Connects WordPress/Addon hooks to the GameEngine engine.
  */
 class Triggers
 {
@@ -49,7 +49,7 @@ class Triggers
             if (is_user_logged_in()) {
                 global $post;
                 $post_id = $post ? $post->ID : 0;
-                do_action('gamify_site_visit', get_current_user_id(), $post_id);
+                do_action('gameengine_site_visit', get_current_user_id(), $post_id);
             }
         });
     }
@@ -99,7 +99,7 @@ class Triggers
         // Fetch all active requirements (rules) for this specific trigger
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $rules = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}gamify_requirements WHERE trigger_key = %s AND is_active = 1",
+            "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE trigger_key = %s AND is_active = 1",
             sanitize_key($trigger_key)
         ));
 
@@ -130,7 +130,7 @@ class Triggers
      */
     private function check_timing_validity($params)
     {
-        return apply_filters('gamify_check_timing_validity', true, $params);
+        return apply_filters('gameengine_check_timing_validity', true, $params);
     }
 
     /**
@@ -141,7 +141,7 @@ class Triggers
     {
         $params = json_decode($rule->parameters, true);
 
-        $can_unlock = apply_filters('gamify_can_user_unlock_reward', true, $user_id, $rule);
+        $can_unlock = apply_filters('gameengine_can_user_unlock_reward', true, $user_id, $rule);
 
         if (!$can_unlock) {
             return;
@@ -154,7 +154,7 @@ class Triggers
 
         //  Validate Pro Conditional Logic (Word Count, Min Spend, etc.)
         // This filter allows the Pro folder to stop the process if conditions aren't met.
-        if (!apply_filters('gamify_validate_pro_logic', true, $rule->trigger_key, $params, $hook_args)) {
+        if (!apply_filters('gameengine_validate_pro_logic', true, $rule->trigger_key, $params, $hook_args)) {
             return;
         }
 
@@ -172,7 +172,7 @@ class Triggers
 
             //  Apply Pro Point Multiplier or Percentage Calculation
             // If Pro is active, this will modify the points based on logic (e.g., 2x points).
-            $points = apply_filters('gamify_pro_point_amount', $points, $rule, $params, $hook_args);
+            $points = apply_filters('gameengine_pro_point_amount', $points, $rule, $params, $hook_args);
 
             $args = [
                 'description'    => $params['log_label'] ?? ($params['label'] ?? $config['label']),
@@ -225,7 +225,7 @@ class Triggers
             return ($current_post_id > 0 && $current_post_id === $target_post_id);
         }
 
-        // Gamify: Specific Achievement Unlock Event
+        // GameEngine: Specific Achievement Unlock Event
         if ($key === 'unlock_specific_achievement') {
             $unlocked_id = isset($args[1]) ? (int) $args[1] : 0;
             $target_id   = isset($params['achievement_id']) ? (int) $params['achievement_id'] : 0;
@@ -266,7 +266,7 @@ class Triggers
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $progress = $wpdb->get_row($wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}gamify_requirement_progress WHERE user_id = %d AND requirement_id = %d",
+            "SELECT * FROM {$wpdb->prefix}gameengine_requirement_progress WHERE user_id = %d AND requirement_id = %d",
             absint($user_id),
             absint($requirement_id)
         ));
@@ -297,7 +297,7 @@ class Triggers
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $exists = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM {$wpdb->prefix}gamify_requirement_progress WHERE user_id = %d AND requirement_id = %d",
+            "SELECT id FROM {$wpdb->prefix}gameengine_requirement_progress WHERE user_id = %d AND requirement_id = %d",
             $safe_uid,
             $safe_rid
         ));
@@ -305,13 +305,13 @@ class Triggers
         if ($exists) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $wpdb->query($wpdb->prepare(
-                "UPDATE {$wpdb->prefix}gamify_requirement_progress SET progress_count = progress_count + 1, last_updated = %s WHERE id = %d",
+                "UPDATE {$wpdb->prefix}gameengine_requirement_progress SET progress_count = progress_count + 1, last_updated = %s WHERE id = %d",
                 $now,
                 absint($exists)
             ));
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-            $wpdb->insert($wpdb->prefix . 'gamify_requirement_progress', [
+            $wpdb->insert($wpdb->prefix . 'gameengine_requirement_progress', [
                 'user_id'        => $safe_uid,
                 'requirement_id' => $safe_rid,
                 'progress_count' => 1,

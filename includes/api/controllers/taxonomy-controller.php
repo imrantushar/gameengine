@@ -1,8 +1,8 @@
 <?php
 
-namespace Gamify\API\Controllers;
+namespace GameEngine\API\Controllers;
 
-use Gamify\API\BaseController;
+use GameEngine\API\BaseController;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -132,13 +132,13 @@ class TaxonomyController extends BaseController
         $tax    = sanitize_text_field($request['tax']);
 
         if (! taxonomy_exists($tax)) {
-            return new \WP_Error('invalid_taxonomy', __('Invalid taxonomy.', 'gamify'), array('status' => 400));
+            return new \WP_Error('invalid_taxonomy', __('Invalid taxonomy.', 'gameengine'), array('status' => 400));
         }
 
         $term_name = isset($params['name']) ? sanitize_text_field($params['name']) : '';
 
         if (empty($term_name)) {
-            return new \WP_Error('missing_data', __('Name is required.', 'gamify'), array('status' => 400));
+            return new \WP_Error('missing_data', __('Name is required.', 'gameengine'), array('status' => 400));
         }
 
         $term = wp_insert_term(
