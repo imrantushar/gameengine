@@ -78,62 +78,49 @@ class TaxonomyController extends BaseController
             return new \WP_Error('invalid_taxonomy', 'Taxonomy not found', array('status' => 404));
         }
 
-        $args = array(
+        // Base arguments for both fetching and counting
+        $base_args = array(
             'taxonomy'   => $tax,
             'hide_empty' => false,
-            'number'     => $per_page,
-            'offset'     => $offset,
         );
 
         if (! empty($search)) {
-            $args['search'] = $search;
+            $base_args['search'] = sanitize_text_field($search);
         }
 
-        $terms       = get_terms($args);
+        // Fetch actual terms
+        $args = array_merge($base_args, array(
+            'number' => $per_page,
+            'offset' => $offset,
+        ));
+        $terms = get_terms($args);
 
-        $count_args = array(
-            'taxonomy'   => $tax,
-            'hide_empty' => false,
-            'fields'     => 'count',
-        );
-
-        if (! empty($search)) {
-            $count_args['search'] = $search;
-        }
-
-        $total_terms = (int) get_terms($count_args);
-
+        // Use get_terms with fields => count instead of deprecated wp_count_terms second param
+        $count_args = array_merge($base_args, array(
+            'fields' => 'count',
+        ));
+        $total_terms = get_terms($count_args);
 
         $response = array();
-        foreach ($terms as $term) {
-            $response[] = array(
-                'id'          => $term->term_id,
-                'name'        => $term->name,
-                'slug'        => $term->slug,
-                'description' => $term->description,
-                'parent'      => $term->parent,
-            );
+        if (! is_wp_error($terms) && is_array($terms)) {
+            foreach ($terms as $term) {
+                $response[] = array(
+                    'id'          => $term->term_id,
+                    'name'        => $term->name,
+                    'slug'        => $term->slug,
+                    'description' => $term->description,
+                    'parent'      => $term->parent,
+                );
+            }
         }
 
-        $total_pages = (int) ceil($total_terms / $per_page);
+        $total_pages = (int) ceil((int) $total_terms / $per_page);
         $res         = new \WP_REST_Response($response, 200);
 
         $res->header('X-WP-Total', (int) $total_terms);
         $res->header('X-WP-TotalPages', $total_pages);
 
         return $res;
-    }
-
-    /**
-     * Param.
-     */
-    public function get_collection_params()
-    {
-        return array(
-            'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
-            'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
-            'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
-        );
     }
 
     /**
@@ -180,13 +167,11 @@ class TaxonomyController extends BaseController
         $tax    = sanitize_text_field($request['tax']);
         $params = $request->get_json_params();
 
-        $term_name = isset($params['name']) ? sanitize_text_field($params['name']) : '';
-
         $updated = wp_update_term(
             $id,
             $tax,
             array(
-                'name'        => $term_name,
+                'name'        => isset($params['name']) ? sanitize_text_field($params['name']) : '',
                 'description' => isset($params['description']) ? sanitize_textarea_field($params['description']) : '',
                 'parent'      => isset($params['parent']) ? absint($params['parent']) : 0,
             )
@@ -214,5 +199,17 @@ class TaxonomyController extends BaseController
         }
 
         return new \WP_REST_Response(array('success' => true), 200);
+    }
+
+    /**
+     * Pagination and search params.
+     */
+    public function get_collection_params()
+    {
+        return array(
+            'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
+            'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
+            'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
+        );
     }
 }
