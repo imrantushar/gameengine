@@ -117,7 +117,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     );
 };
 
-const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen }) => {
+const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpen, setIsOpen, scope }) => {
     const fieldsConfig = hookInfo.schema || [];
     const { values } = useFormikContext();
 
@@ -131,8 +131,8 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
         >
             <Flex direction="column" gap="16px" className='gamify-active-hooks__inner'>
                 {fieldsConfig.map((config) => {
-                    if (config.scope && !config.scope.includes('point_type')) {
-                        return null;
+                    if (config.scope && !config.scope.includes(scope)) {
+                        return;
                     }
                     const currentHook = values.requirements.find(item => item.trigger_key === hookId );
 
@@ -154,7 +154,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
     );
 };
 
-const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen, setIsOpen }) => {
+const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen, setIsOpen, scope}) => {
     const { values, setFieldValue } = useFormikContext();
     
     const handleChange = (field, value, hook) => {
@@ -183,6 +183,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen
                 handleChange={handleChange}
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
+                scope={scope}
             />
         </Box>
     );

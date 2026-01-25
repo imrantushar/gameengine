@@ -25,7 +25,7 @@ export const getLevelsInitialValues = (id=null, data = []) => {
     congratulations_message: "",
     unlock_with_points_enabled: true,
     min_points: 0,
-    max_points: false,
+    max_points: 0,
     point_type_id: 0,
     icon: "",
     category_id: 0,

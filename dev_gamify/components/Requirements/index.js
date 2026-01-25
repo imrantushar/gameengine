@@ -38,7 +38,7 @@ const DroppableArea = ({ id, children }) => {
 
 const Requirements = (props) => {
     const {
-        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName
+        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope
     } = props;
     const dispatch = useDispatch();
     return (
@@ -118,6 +118,7 @@ const Requirements = (props) => {
                                                     v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id)
                                                 )
                                             }
+                                            scope={scope}
                                         />
                                     </DraggableItem>
                                 ))

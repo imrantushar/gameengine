@@ -210,6 +210,7 @@ const FormInner = ({ hooksLoading }) => {
                         selectedHookIds={selectedAwardHookIds}
                         actionName="award"
                         selectedFilterType={selectedFilterHookType}
+                        scope="point_type"
                     />
 
                     <Requirements

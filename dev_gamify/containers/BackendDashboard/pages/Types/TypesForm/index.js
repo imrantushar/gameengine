@@ -70,7 +70,7 @@ const TypesForm = ({type="", resetForm, formData}) => {
   }
 
   return (
-    <BoxView width='35%'>
+    <BoxView width='30%'>
       <GFLabel 
         type='heading' 
         label={
