@@ -36,6 +36,12 @@ const FormInner = () => {
     const { values, setFieldValue } = useFormikContext();
     const addons = useSelector(state => state.addons);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
+    const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
+
+    const wooIcon = isWoocommerceActive ? {
+        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+    } : {}
+
 
     const fetchAchievements = async (key) => {
         try {
@@ -109,7 +115,7 @@ const FormInner = () => {
 
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
-        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+        ...wooIcon,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
