@@ -73,7 +73,8 @@ class Assets
             'route_path'         => wp_parse_url(admin_url(), PHP_URL_PATH),
             'menu'               => wp_json_encode(Helper::get_admin_menu_list()),
             'is_plain_permalink' => (bool) empty(get_option('permalink_structure')),
-            'is_pro' => file_exists(GAMIFY_PATH . 'includes/pro/init.php'),
+            //'is_pro' => file_exists(GAMIFY_PATH . 'includes/pro/init.php'),
+            'is_pro' => false
         );
     }
 
