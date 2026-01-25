@@ -14,6 +14,7 @@ import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoade
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
 import { arrowForward } from '@GFUtils/icons';
+import { getAddonActiveStatus } from '@GFUtils/helper';
 
 const FormInner = ({ hooksLoading }) => {
     const { values, setFieldValue } = useFormikContext();
@@ -23,6 +24,12 @@ const FormInner = ({ hooksLoading }) => {
     const [openedDeductHooks, setOpenedDeductHooks] = useState([]);
     const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
     const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
+    const addons = useSelector(state => state.addons);
+    const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
+    
+    const wooIcon = isWoocommerceActive ? {
+        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+    } : {}
 
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
@@ -45,7 +52,7 @@ const FormInner = ({ hooksLoading }) => {
 
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
-        woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+        ...wooIcon,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
