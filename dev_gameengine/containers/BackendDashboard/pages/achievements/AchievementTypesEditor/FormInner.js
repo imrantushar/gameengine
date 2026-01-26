@@ -201,7 +201,7 @@ const FormInner = () => {
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                <GameEngineInput label={__("Point Name", "gameengine")}>
+                <GameEngineInput label={__("Achievement Name", "gameengine")}>
                     <Input
                         placeholder={__("Enter point name", "gameengine")}
                         value={values.title}
