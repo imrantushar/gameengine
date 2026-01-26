@@ -24,6 +24,12 @@ class Helper
         return filter_var(sanitize_text_field($boolean), FILTER_VALIDATE_BOOLEAN);
     }
 
+    public static function is_pro()
+    {
+        //return file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');
+        return false;
+    }
+
     /**
      * Get the client IP address.
      *
