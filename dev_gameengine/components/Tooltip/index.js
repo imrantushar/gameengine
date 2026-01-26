@@ -1,26 +1,85 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef, useEffect } from 'react';
+import "./styles.scss";
 
-import './styles.scss';
+const Tooltip = ({
+	children,
+	content,
+	position = 'top',
+	showArrow = true,
+	disabled = false,
+	variant = "black",
+	delay = 150, 
+	suffix
+}) => {
+	const [visible, setVisible] = useState(false);
+	const timeoutRef = useRef(null);
+	const shouldShow = !disabled && content;
 
-const propTypes = {
-	type: PropTypes.string,
+	const showTooltip = () => {
+		if (!shouldShow) return;
+		
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+		setVisible(true);
+	};
+
+	const hideTooltip = () => {
+		if (!shouldShow) return;
+		
+		timeoutRef.current = setTimeout(() => {
+			setVisible(false);
+			timeoutRef.current = null;
+		}, delay);
+	};
+
+	const handleTooltipMouseEnter = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+	};
+
+	const handleTooltipMouseLeave = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		setVisible(false);
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, []);
+
+	const classNames = [
+		"gameengine-tooltip",
+		suffix && `gameengine-tooltip--${suffix}`
+	].filter(Boolean).join(" ");
+
+	return (
+		<div
+			className={classNames}
+			onMouseEnter={showTooltip}
+			onMouseLeave={hideTooltip}
+		>
+			{children}
+			{(shouldShow && visible) && (
+				<div 
+					className={`gameengine-tooltip__box gameengine-tooltip__variant--${variant} gameengine-tooltip__box--${position}`}
+					onMouseEnter={handleTooltipMouseEnter}
+					onMouseLeave={handleTooltipMouseLeave}
+				>
+					{content}
+					{showArrow && <div className={`gameengine-tooltip__arrow gameengine-tooltip__arrow--${position}`} />}
+				</div>
+			)}
+		</div>
+	);
 };
 
-export default function Tooltip( { children, type = 'info' } ) {
-	return (
-		<React.Fragment>
-			<div className="quizepress-tooltip">
-				{ type === 'info' && (
-					<span className="quizepress-icon gameengine-icon--info"></span>
-				) }
-				{ type === 'pro' && (
-					<span className="quizepress-icon quizepress-icon--lock-light"></span>
-				) }
-				<span className="quizepress-tooltip__text">{ children }</span>
-			</div>
-		</React.Fragment>
-	);
-}
-
-Tooltip.propTypes = propTypes;
+export default Tooltip;
