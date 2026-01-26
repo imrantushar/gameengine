@@ -22,7 +22,7 @@ abstract class BaseIntegration implements IntegrationInterface
         $common_pro  = self::get_common_pro_schema();
 
         // Check if Pro folder exists.
-        $is_pro_active = file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');
+        $is_pro_active = \GameEngine\Helper::is_pro();
 
         // Combine all fields.
         $all_fields = array_merge($common_free, $specific_fields, $common_pro);
