@@ -1,4 +1,3 @@
-import BoxView from '@GFComponents/BoxView/BoxView';
 import React, { useEffect, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
@@ -6,27 +5,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAchievementType, fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import { deleteLevelType, fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Box, Button, Flex, Icon } from '@chakra-ui/react';
+import { Box, Icon } from '@chakra-ui/react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { clearBtn } from '../../../../../assets/scss/chakra/recipe';
 import { sliceString } from '@GFUtils/helper';
 
-const TypesTable = ({type, editHandler}) => {
+const TypesTable = ({ type, editHandler }) => {
   const dispatch = useDispatch();
-  const {types: {data: achivementTypes}} = useSelector(state => state.achievements);
-  const {types: {data: levelTypes}} = useSelector(state => state.levels);
+  const { types: { data: achivementTypes } } = useSelector(state => state.achievements);
+  const { types: { data: levelTypes } } = useSelector(state => state.levels);
   const data = type === "achievement" ? achivementTypes : levelTypes;
   const [loading, setLoading] = useState(data.length === 0);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       setLoading(true)
       try {
-        if(type === "achievement") {
+        if (type === "achievement") {
           await dispatch(fetchAchievementTypes())
-        } 
-        if(type === "level") {
+        }
+        if (type === "level") {
           await dispatch(fetchLevelTypes())
         }
       } catch (error) {
@@ -38,51 +36,28 @@ const TypesTable = ({type, editHandler}) => {
   }, [type])
 
   const deleteHandler = (row) => {
-    if(type === "achievement") {
+    if (type === "achievement") {
       dispatch(deleteAchievementType(row.id))
     }
-    if(type === "level") {
+    if (type === "level") {
       dispatch(deleteLevelType(row.id))
     }
   }
 
   const columns = [
     {
-        name: __('Name', 'gameengine'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => (
-          <Box>
-            <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
-            <Flex gap={'8px'}>
-              <GFLabel type='simple' label={__("ID:", "gameengine") + " " + row?.id} />
-              <Flex gap={'4px'}>
-                <Button
-                  {...clearBtn}
-                  minW={'16px'}
-                  height={'16px'}
-                  onClick={() => editHandler(row)}
-                  >
-                  <Icon as={FiEdit} width={'14px'} />
-                </Button>
-                <Button
-                  {...clearBtn}
-                  height={'16px'}
-                  minW={'16px'}
-                  onClick={() => deleteHandler(row)}
-                >
-                  <Icon as={FiTrash2} width={'14px'} color={'red'} />
-                </Button>
-              </Flex>
-            </Flex>
-          </Box>
-        )
+      name: __('Name', 'gameengine'),
+      textAlign: "start",
+      cell: (row = {}) => (
+        <>
+          <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+        </>
+      ),
+      textAlign: "start"
     },
     {
-        name: __('Slug', 'gameengine'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => <Box>{sliceString(row?.slug, 30)}</Box>
+      name: __('Slug', 'gameengine'),
+      cell: (row = {}) => <Box>{sliceString(row?.slug, 30)}</Box>
     },
     // {
     //     name: __('Description', 'gameengine'),
@@ -97,53 +72,50 @@ const TypesTable = ({type, editHandler}) => {
     //     cell: (row = {}) => <Box>{row?.count}</Box>
     // },
     {
-        name: __('Parent', 'gameengine'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => {
-          let parentItem = {}
-          parentItem = data.find(item => Number(item.id) === Number(row.parent) );
-          if(!parentItem) {
-            return "..."
-          }
-          
-          return (
-            <Box>{parentItem?.name}</Box>
-          )
+      name: __('Parent', 'gameengine'),
+      cell: (row = {}) => {
+        let parentItem = {}
+        parentItem = data.find(item => Number(item.id) === Number(row.parent));
+        if (!parentItem) {
+          return "..."
         }
+
+        return (
+          <>{parentItem?.name}</>
+        )
+      }
     },
     {
-        name: __('Action', 'gameengine'),
-        columnWidth: "180px",
-        textAlign: "start",
-        cell: (row = {}) => {
-          return (
-            <OptionMenu
-              options={[
-                {
-                    type: 'button',
-                    label: __('Edit', 'gameengine'),
-                    icon: <Icon as={FiEdit} />,
-                    onClick: () => editHandler(row)
-                },
-                {
-                    type: 'button',
-                    suffix: 'trash',
-                    label: __('Delete', 'gameengine'),
-                    icon: <Icon as={FiTrash2} />,
-                    onClick: () => deleteHandler(row)
-                },
-              ]}
-            />
-          )
-        }
+      name: __('Action', 'gameengine'),
+      cell: (row = {}) => {
+        return (
+          <OptionMenu
+            options={[
+              {
+                type: 'button',
+                label: __('Edit', 'gameengine'),
+                icon: <Icon as={FiEdit} />,
+                onClick: () => editHandler(row)
+              },
+              {
+                type: 'button',
+                suffix: 'trash',
+                label: __('Delete', 'gameengine'),
+                icon: <Icon as={FiTrash2} />,
+                onClick: () => deleteHandler(row)
+              },
+            ]}
+          />
+        )
+      },
+      textAlign: "end"
     },
   ];
-  
+
   return (
-    <BoxView width='70%'>
+    <Box width='70%'>
       <ListTable
-        key={`${type}-table-`+ data?.length}
+        key={`${type}-table-` + data?.length}
         columns={columns}
         data={data}
         showSubHeader={false}
@@ -154,7 +126,7 @@ const TypesTable = ({type, editHandler}) => {
         noDataText={sprintf(__("No data found for %s types", "gameengine"), type)}
         suffix={type + "-table"}
       />
-    </BoxView>
+    </Box>
   );
 };
 

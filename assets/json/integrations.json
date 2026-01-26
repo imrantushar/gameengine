@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-01-26 04:09:01",
+    "generated_at": "2026-01-26 06:23:06",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -58,17 +58,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -89,7 +92,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -102,7 +106,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -145,7 +150,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -200,17 +206,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -231,7 +240,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -244,7 +254,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -287,7 +298,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -342,17 +354,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -378,21 +393,24 @@
                                     "label": "Page",
                                     "value": "page"
                                 }
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "min_words",
                             "label": "Min Word Count (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "daily_limit",
                             "label": "Daily Post Limit (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -405,7 +423,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -418,7 +437,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -461,7 +481,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -516,17 +537,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -541,7 +565,8 @@
                             "label": "Min Media Count (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -554,7 +579,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -567,7 +593,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -610,7 +637,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -665,17 +693,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -690,21 +721,24 @@
                             "label": "Instant Reward (Pro)",
                             "type": "switch",
                             "width": "100%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "min_chars",
                             "label": "Min Character Count (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "daily_cap",
                             "label": "Daily Max Comments (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -717,7 +751,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -730,7 +765,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -773,7 +809,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -828,17 +865,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -853,14 +893,16 @@
                             "label": "Only if Post < X days old (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "full_reversal",
                             "label": "Full Points Reversal (Pro)",
                             "type": "switch",
                             "width": "100%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -873,7 +915,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -886,7 +929,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -929,7 +973,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -984,17 +1029,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1014,7 +1062,8 @@
                             "dynamic": {
                                 "integration": "wordpress",
                                 "query": "roles"
-                            }
+                            },
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1027,7 +1076,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1040,7 +1090,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1083,7 +1134,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -1138,17 +1190,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1173,7 +1228,8 @@
                                     "label": "Profile Picture",
                                     "value": "avatar"
                                 }
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1186,7 +1242,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1199,7 +1256,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1242,7 +1300,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -1297,17 +1356,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1322,7 +1384,8 @@
                             "label": "Min Content Change % (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1335,7 +1398,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1348,7 +1412,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1391,7 +1456,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -1446,17 +1512,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1471,7 +1540,8 @@
                             "label": "Cooldown in Days (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1484,7 +1554,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1497,7 +1568,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1540,7 +1612,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 }
@@ -1600,17 +1673,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1642,7 +1718,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1655,7 +1732,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1698,7 +1776,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 }
@@ -1760,17 +1839,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1785,7 +1867,8 @@
                             "label": "Enable Streak Bonus (Pro)",
                             "type": "switch",
                             "width": "100%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "multiplier",
@@ -1793,14 +1876,16 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "placeholder": "2"
+                            "placeholder": "2",
+                            "isDisabled": true
                         },
                         {
                             "key": "min_stay",
                             "label": "Min Stay Time in Mins (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1813,7 +1898,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1826,7 +1912,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -1869,7 +1956,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -1924,17 +2012,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -1964,7 +2055,8 @@
                             "dynamic": {
                                 "integration": "wordpress",
                                 "query": "categories"
-                            }
+                            },
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -1977,7 +2069,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -1990,7 +2083,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -2033,7 +2127,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 },
@@ -2088,17 +2183,20 @@
                                 {
                                     "label": "1 Per Day (Pro)",
                                     "value": "1_per_day",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Week (Pro)",
                                     "value": "1_per_week",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 },
                                 {
                                     "label": "1 Per Month (Pro)",
                                     "value": "1_per_month",
-                                    "is_pro": true
+                                    "is_pro": true,
+                                    "isDisabled": true
                                 }
                             ],
                             "default": "unlimited",
@@ -2113,7 +2211,8 @@
                             "label": "Min Reply Length (Pro)",
                             "type": "number",
                             "width": "50%",
-                            "is_pro": true
+                            "is_pro": true,
+                            "isDisabled": true
                         },
                         {
                             "key": "start_time",
@@ -2126,7 +2225,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "end_time",
@@ -2139,7 +2239,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         },
                         {
                             "key": "active_days",
@@ -2182,7 +2283,8 @@
                                 "point_type",
                                 "achievement",
                                 "level"
-                            ]
+                            ],
+                            "isDisabled": true
                         }
                     ]
                 }
