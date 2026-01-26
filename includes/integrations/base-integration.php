@@ -15,15 +15,40 @@ abstract class BaseIntegration implements IntegrationInterface
 
     /**
      * Merges trigger-specific fields into the standard schema.
-     * Order: 1. Free Common -> 2. Trigger Specific -> 3. Pro Common
      */
     protected static function merge_schema(array $specific_fields = array(), $type = 'award'): array
     {
         $common_free = self::get_common_free_schema($type);
         $common_pro  = self::get_common_pro_schema();
 
-        return array_merge($common_free, $specific_fields, $common_pro);
+        // Check if Pro folder exists.
+        $is_pro_active = file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');
+
+        // Combine all fields.
+        $all_fields = array_merge($common_free, $specific_fields, $common_pro);
+
+        /**
+         * It loops through fields and their nested options.
+         */
+        foreach ($all_fields as &$field) {
+            // If the main field is marked as Pro, disable it if Pro is missing.
+            if (! empty($field['is_pro']) && true === $field['is_pro']) {
+                $field['isDisabled'] = ! $is_pro_active;
+            }
+
+            // If the field has options (like a Select dropdown), check individual options.
+            if (! empty($field['options']) && is_array($field['options'])) {
+                foreach ($field['options'] as &$option) {
+                    if (! empty($option['is_pro']) && true === $option['is_pro']) {
+                        $option['isDisabled'] = ! $is_pro_active;
+                    }
+                }
+            }
+        }
+
+        return $all_fields;
     }
+
 
     /**
      * Standard Free Fields (Points, Limit, Log)
