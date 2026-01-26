@@ -11,14 +11,20 @@ import { deleteAchievement, fetchAchievements } from '@GFRedux/Slices/achivement
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 import { GoPlus } from 'react-icons/go';
+import { fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 
 const AchievementsTable = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { achievements } = useSelector(state => state.achievements);
+    const { achievements, types } = useSelector(state => state.achievements);
     const [loading, setLoading] = useState(achievements.length === 0);
 
     useEffect(() => {
+        if(types.data?.length === 0) {
+            dispatch(fetchAchievementTypes())
+        }
+
+
         setLoading(true)
         dispatch(fetchAchievements()).then(() => {
             setLoading(false)
@@ -28,15 +34,6 @@ const AchievementsTable = () => {
     const handleDelete = (id) => {
         if (confirm(__('Are you sure?', 'gameengine'))) {
             dispatch(deleteAchievement(id));
-        }
-    };
-
-    const getCategoryColor = (cat) => {
-        switch (cat?.toLowerCase()) {
-            case 'gold': return 'yellow';
-            case 'silver': return 'gray';
-            case 'bronze': return 'orange';
-            default: return 'blue';
         }
     };
 
@@ -55,15 +52,15 @@ const AchievementsTable = () => {
         },
         {
             name: __('Category', 'gameengine'),
-            cell: (row = {}) => (
-                row?.category ? (
-                    <Badge colorScheme={getCategoryColor(row?.category)} variant="subtle" borderRadius="4px" px={2}>
-                        {row?.category}
+            cell: (row = {}) => {
+                const category = types.data.find(item => Number(row?.category_id) === Number(item.id));
+                if(!category) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+                return (
+                    <Badge variant="subtle" borderRadius="4px" px={2}>
+                        {category?.name}
                     </Badge>
-                ) : (
-                    <span style={{ color: '#999', fontSize: '12px' }}>-</span>
                 )
-            ),
+            },
         },
         {
             name: __('Date', 'gameengine'),

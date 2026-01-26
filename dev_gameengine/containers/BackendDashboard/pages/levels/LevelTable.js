@@ -11,28 +11,25 @@ import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { route_path } from '@GFUtils/helper';
 import { fetchLevels, deleteLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 import { GoPlus } from 'react-icons/go';
+import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 
 const LevelTable = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { levels = [], status } = useSelector(state => state.levels || {});
-        const [loading, setLoading] = useState(levels.length === 0);
+    const { levels = [], types } = useSelector(state => state.levels || {});
+    const [loading, setLoading] = useState(levels.length === 0);
 
     useEffect(() => {
+        if(types.data?.length === 0) {
+            dispatch(fetchLevelTypes())
+        }
+        
+        
         setLoading(true)
         dispatch(fetchLevels()).then(() => {
             setLoading(false)
         });
     }, []);
-
-    const getCategoryColor = (cat) => {
-        switch (cat?.toLowerCase()) {
-            case 'gold': return 'yellow';
-            case 'silver': return 'gray';
-            case 'bronze': return 'orange';
-            default: return 'green';
-        }
-    };
 
     const columns = [
         {
@@ -48,15 +45,15 @@ const LevelTable = () => {
         },
         {
             name: __('Category', 'gameengine'),
-            cell: (row) => (
-                row.category ? (
-                    <Badge colorScheme={getCategoryColor(row.category)} variant="subtle" borderRadius="4px" px={2}>
-                        {row.category}
+            cell: (row = {}) => {
+                const category = types.data.find(item => Number(row?.category_id) === Number(item.id));
+                if(!category) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+                return (
+                    <Badge variant="subtle" borderRadius="4px" px={2}>
+                        {category?.name}
                     </Badge>
-                ) : (
-                    <span style={{ color: '#999', fontSize: '12px' }}>-</span>
                 )
-            ),
+            },
         },
         {
             name: __('Unlock Criteria', 'gameengine'),
