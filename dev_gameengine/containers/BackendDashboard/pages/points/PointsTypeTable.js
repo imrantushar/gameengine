@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
-import { Flex, Icon } from '@chakra-ui/react';
+import { Badge, Box, Flex, Icon } from '@chakra-ui/react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import OptionMenu from '@GFComponents/OptionMenu';
-import { fetchPointTypes, deletePointType } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
+import { fetchPointTypes, deletePointType, fetchTriggers } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
 
 const PointTypesTable = () => {
-  const { pointTypes, listStatus } = useSelector((state) => state.pointType);
+  const { pointTypes, listStatus, allHooks } = useSelector((state) => state.pointType);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -18,15 +18,22 @@ const PointTypesTable = () => {
 
   useEffect(() => {
     if (!action) {
+      dispatch(fetchTriggers());
       dispatch(fetchPointTypes());
     }
-  }, [action, dispatch]);
+  }, [action]);
 
   const handleDelete = (id) => {
     if (window.confirm(__('Are you sure?', "gameengine"))) {
       dispatch(deletePointType(id));
     }
   };
+
+  const renderAction = (row,type) => {
+    let actionsArry = row.requirements.filter(item => item.action_type === type).map(item => item.trigger_key);
+    actionsArry = allHooks.map(item => actionsArry.includes(item.id) ? item : false).filter(Boolean).map(item => item.label);
+    return actionsArry;
+  }
 
   const columns = [
     {
@@ -37,6 +44,44 @@ const PointTypesTable = () => {
         </>
       ),
       textAlign: "start",
+    },
+    {
+      name: __('Award Actions', 'gameengine'),
+      cell: (row) => {
+        const itemArray = renderAction(row, 'award');
+        if(itemArray.length === 0 ) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+        return (
+          <Flex flexWrap={'wrap'} justifyContent={'center'}>
+            {itemArray.map((item, idx) => (
+              <>
+                <Badge variant="subtle" borderRadius="4px" px={2}>
+                    {item}
+                </Badge>
+                {itemArray.length - 1 !== idx && ','}
+              </>
+            ))}
+          </Flex>
+        );
+      },
+    },
+    {
+      name: __('Deduct Actions', 'gameengine'),
+      cell: (row) => {
+        const itemArray = renderAction(row, 'deduct');
+        if(itemArray.length === 0 ) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+        return (
+          <Flex flexWrap={'wrap'} justifyContent={'center'}>
+            {itemArray.map((item, idx) => (
+              <>
+                <Badge variant="subtle" borderRadius="4px" px={2}>
+                    {item}
+                </Badge>
+                {itemArray.length - 1 !== idx && ','}
+              </>
+            ))}
+          </Flex>
+        );
+      },
     },
     {
       name: __('Date', 'gameengine'),
@@ -70,6 +115,7 @@ const PointTypesTable = () => {
   return (
     <>
       <ListTable
+        key={'points-type-'+pointTypes.length}
         columns={columns}
         data={pointTypes}
         showSubHeader={false}
