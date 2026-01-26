@@ -16,40 +16,60 @@ import { Box } from '@chakra-ui/react';
 // 	: [];
 
 const shortCodeData = [
+	// {
+	// 	title: __('Achievements', 'academy'),
+	// 	shortCode: '[gameengine_achievements]',
+	// 	description: `[gameengine_achievements]`,
+	// 	url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+	// },
 	{
-		title: __('Achievements', 'academy'),
-		shortCode: '[gameengine_achievements]',
-		description: `[gameengine_achievements]`,
-		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
-	},
-	{
-		title: __('Levels', 'academy'),
+		title: __('Highest Level', 'gameengine'),
 		shortCode: '[gameengine_level]',
-		description: `[gameengine_points]`,
+		subtitle: __('Shows the users current highest level title with a trophy icon.', 'gameengine'),
+		description: __('Great for user profile headers or bio sections.', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
 	{
-		title: __('Points', 'academy'),
+		title: __('Points Balance', 'gameengine'),
 		shortCode: '[gameengine_points]',
-		description: `[gameengine_points]`,
+		subtitle: __('Ideal for menus, headers, or sidebar widgets.', 'gameengine'),
+		description: __('Displays the current users point total with a coin icon.', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
 	{
 		title: __('Profile', 'academy'),
 		shortCode: '[gameengine_profile]',
-		description: `[gameengine_profile]`,
+		subtitle: __(
+			'Displays the full modern gamification dashboard (Tabs, Progress Map, Badges).',
+			'gameengine'
+		),
+		description: __(
+			'Paste on a page where you want users to manage their progress.',
+			'gameengine'
+		),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
 	{
 		title: __('Progress Map', 'academy'),
 		shortCode: '[gameengine_progress_map]',
-		description: `[academy_course_search]`,
+		subtitle: __(
+			'Shows only the visual zig-zag roadmap of levels and achievements.',
+			'gameengine'
+		),
+		description: __(
+			'Use this if you want to show the map without the full dashboard.',
+			'gameengine'
+		),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
 	{
 		title: __('Content Restriction', 'academy'),
-		shortCode: '[gameengine_restrict]',
-		description: `[academy_course_search]`,
+		shortCode: '[gameengine_restrict type="points" value="50"]',
+		subtitle: __(
+			'Lock specific parts of your content (text, images, links) based on user points, badges, or levels.',
+			'gameengine'
+		),
+		description: __('Accepts: points, achievement, level, Number (e.g. 100 for points, or ID for badge/level), Optional: Custom message shown to locked users', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
 	},
 ];

@@ -10,7 +10,7 @@ import { FaRegCopy } from 'react-icons/fa6';
 import { AiOutlineQuestion } from 'react-icons/ai';
 
 const ShortCodeItem = ({ shortCodeItem }) => {
-	const { title, shortCode, description, url } = shortCodeItem;
+	const { title, subtitle, shortCode, description, url } = shortCodeItem;
 	const shortCodeRef = useRef(null);
 	const dispatch = useDispatch();
 	const copyToClipboard = (e) => {
@@ -30,6 +30,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
 		<Flex className="academy-short-code-item" justify={'space-between'} align={'flex-start'} paddingBottom={'24px'}>
 			<Box className="academy-short-code-item__info" width={'100%'}>
 				<GFLabel type="title" margin={0} label={title} />
+				<GFLabel type="subtitle" margin={0} label={subtitle} />
 			</Box>
 			<Flex className="academy-short-code-item__body" direction={'column'} width={'100%'}>
 				<Flex className="academy-short-code-details" align={'center'} gap={'20px'}>
@@ -86,7 +87,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
 							color={"#707070"}
 							margin={"0"}
 						>
-							{__('You can use: ', 'academy') + description}
+							{__('You can use: ', 'academy') + shortCode} <br/> {description}
 						</Text>
 					</Flex>
 				</Flex>

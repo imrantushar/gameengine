@@ -31,6 +31,7 @@ const Types = ({type}) => {
                 className='gameengine-page-content'
                 display="flex"
                 gap={'24px'}
+                alignItems={'flex-start'}
             >
                 <TypesForm type={type} resetForm={resetForm} formData={formData} />
                 <TypesTable type={type} editHandler={editHandler}/>

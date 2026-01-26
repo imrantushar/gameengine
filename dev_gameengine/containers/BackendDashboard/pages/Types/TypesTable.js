@@ -100,7 +100,17 @@ const TypesTable = ({type, editHandler}) => {
         name: __('Parent', 'gameengine'),
         columnWidth: "180px",
         textAlign: "start",
-        cell: (row = {}) => <Box>{row.parent}</Box>
+        cell: (row = {}) => {
+          let parentItem = {}
+          parentItem = data.find(item => Number(item.id) === Number(row.parent) );
+          if(!parentItem) {
+            return "..."
+          }
+          
+          return (
+            <Box>{parentItem?.name}</Box>
+          )
+        }
     },
     {
         name: __('Action', 'gameengine'),

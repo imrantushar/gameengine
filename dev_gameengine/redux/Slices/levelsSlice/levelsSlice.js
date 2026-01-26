@@ -14,6 +14,15 @@ export const fetchLevels = createAsyncThunk('gameengine/fetchLevels', async (_,t
     }
 });
 
+export const fetchIncludedLevels = createAsyncThunk('gameengine/fetchIncludedLevels', async (IDs,thunkAPI) => {
+    try {
+        const response =  await API.get(namespace + 'levels?include='+ IDs.map(item => item));
+        return response.data;
+    } catch (error) {
+        return handleSliceError(thunkAPI, error)
+    }
+});
+
 export const fetchLevelById = createAsyncThunk('gameengine/fetchLevelById', async (id, thunkAPI) => {
     try {
         const response =  await API.get(namespace + 'levels/' + id);
@@ -123,6 +132,9 @@ const levelsSlice = createSlice({
         builder
             .addCase(fetchLevels.fulfilled, (state, action) => {
                 state.levels = action.payload;
+            })
+            .addCase(fetchIncludedLevels.fulfilled, (state, action) => {
+                state.levels = [...state.levels, action.payload];
             })
             .addCase(fetchLevelTriggers.fulfilled, (state, action) => {
                 state.integrations = action.payload;
