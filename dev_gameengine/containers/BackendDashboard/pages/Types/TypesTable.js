@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAchievementType, fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import { deleteLevelType, fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Box, Icon } from '@chakra-ui/react';
+import { Box, Button, Flex, Icon,  } from '@chakra-ui/react';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { sliceString } from '@GFUtils/helper';
+import Tooltip from '@GFComponents/Tooltip';
+import { LuInfo } from 'react-icons/lu';
 
 const TypesTable = ({ type, editHandler }) => {
   const dispatch = useDispatch();
@@ -50,14 +52,23 @@ const TypesTable = ({ type, editHandler }) => {
       textAlign: "start",
       cell: (row = {}) => (
         <>
-          <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+          {row?.description ? (
+            <Flex alignItems="center" gap={2}>
+              <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+              <Tooltip content={row?.description}><LuInfo /></Tooltip>
+            </Flex>
+          ) : (
+            <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+          )}
         </>
       ),
-      textAlign: "start"
+      textAlign: "start",
+      columnWidth: "30%"
     },
     {
       name: __('Slug', 'gameengine'),
-      cell: (row = {}) => <Box>{sliceString(row?.slug, 30)}</Box>
+      cell: (row = {}) => <>{sliceString(row?.slug, 30)}</>,
+      columnWidth: "30%"
     },
     // {
     //     name: __('Description', 'gameengine'),
@@ -83,7 +94,8 @@ const TypesTable = ({ type, editHandler }) => {
         return (
           <>{parentItem?.name}</>
         )
-      }
+      },
+      columnWidth: "30%"
     },
     {
       name: __('Action', 'gameengine'),
@@ -108,7 +120,8 @@ const TypesTable = ({ type, editHandler }) => {
           />
         )
       },
-      textAlign: "end"
+      textAlign: "end",
+      columnWidth: "10%"
     },
   ];
 

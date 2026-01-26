@@ -2700,3 +2700,151 @@ body.ReactModal__Body--open {
 .gameengine-ccb-switch input:checked + .gameengine-ccb-slider:before {
   transform: translateX(-16px);
 }
+/*!**********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Tooltip/styles.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-tooltip {
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+}
+.gameengine-tooltip__box {
+  position: absolute;
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 100;
+  transition: opacity 0.2s;
+  background: var(--tooltip-bg);
+  color: var(--tooltip-color);
+}
+.gameengine-tooltip__box--top {
+  bottom: 100%;
+  right: 50%;
+  transform: translateX(50%);
+  margin-bottom: 8px;
+}
+.gameengine-tooltip__box--bottom {
+  top: 100%;
+  right: 50%;
+  transform: translateX(50%);
+  margin-top: 8px;
+}
+.gameengine-tooltip__box--right {
+  top: 50%;
+  right: 100%;
+  transform: translateY(-50%);
+  margin-right: 8px;
+}
+.gameengine-tooltip__box--left {
+  top: 50%;
+  left: 100%;
+  transform: translateY(-50%);
+  margin-left: 8px;
+}
+.gameengine-tooltip__box--custom-1 {
+  bottom: 90%;
+  right: 95%;
+  transform: translateX(95%);
+}
+.gameengine-tooltip__box--bottom-left {
+  top: 100%;
+  right: 0;
+  transform: translateY(8px);
+  margin-top: 8px;
+}
+.gameengine-tooltip__box--top-left {
+  bottom: 100%;
+  right: 0;
+  transform: translateY(-8px);
+  margin-bottom: 8px;
+}
+.gameengine-tooltip__box--top-right {
+  bottom: 100%;
+  left: 0;
+  transform: translateY(-8px);
+  margin-bottom: 8px;
+}
+.gameengine-tooltip__box--bottom-right {
+  top: 100%;
+  left: 0;
+  transform: translateY(8px);
+  margin-top: 8px;
+}
+.gameengine-tooltip__arrow {
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-style: solid;
+}
+.gameengine-tooltip__arrow--top {
+  top: 100%;
+  right: 50%;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+  transform: translateX(50%);
+}
+.gameengine-tooltip__arrow--right {
+  top: 50%;
+  right: -5px;
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent var(--tooltip-bg);
+  transform: translateY(-50%);
+}
+.gameengine-tooltip__arrow--bottom {
+  bottom: 100%;
+  right: 50%;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+  transform: translateX(50%);
+}
+.gameengine-tooltip__arrow--left {
+  top: 50%;
+  left: -5px;
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--tooltip-bg) transparent transparent;
+  transform: translateY(-50%);
+}
+.gameengine-tooltip__arrow--bottom-left {
+  bottom: 100%;
+  right: 10px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+.gameengine-tooltip__arrow--top-left {
+  top: 100%;
+  right: 10px;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+.gameengine-tooltip__arrow--top-right {
+  top: 100%;
+  left: 10px;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+.gameengine-tooltip__arrow--bottom-right {
+  bottom: 100%;
+  left: 10px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+.gameengine-tooltip__variant--light-blue {
+  --tooltip-bg: #EBEDFF;
+  --tooltip-color: var(--gameengine-primary-color);
+}
+.gameengine-tooltip__variant--white {
+  --tooltip-bg: var(--gameengine-body-background);
+  --tooltip-color: var(--gameengine-font-color);
+}
+.gameengine-tooltip__variant--black {
+  --tooltip-bg: var(--gameengine-font-color);
+  --tooltip-color: var(--gameengine-background);
+}
+.gameengine-tooltip__variant--secondary {
+  --tooltip-bg: var(--gameengine-body-background);
+  --tooltip-color: var(--gameengine-font-color);
+}
+
+/* suffix's */
