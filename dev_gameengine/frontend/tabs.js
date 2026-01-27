@@ -10,15 +10,15 @@ export const initGameEngineTabs = () => {
             btn.addEventListener('click', function () {
                 const targetTab = this.dataset.tab;
 
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
+                // Fix: Class name changed to gameengine-active to match CSS
+                tabButtons.forEach(b => b.classList.remove('gameengine-active'));
+                tabContents.forEach(c => c.classList.remove('gameengine-active'));
 
-                // Add active class to current button and target content
-                this.classList.add('active');
+                // Add active class
+                this.classList.add('gameengine-active');
                 const contentElement = document.getElementById(targetTab);
                 if (contentElement) {
-                    contentElement.classList.add('active');
+                    contentElement.classList.add('gameengine-active');
                 }
             });
         });

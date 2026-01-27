@@ -101,7 +101,7 @@ class Progress_Map_Logic
 
 		//  Achievement Titles.
 		if (! empty($ach_ids)) {
-			$cache_key = 'gf_ach_titles_' . md5(wp_json_encode($ach_ids));
+			$cache_key = 'gameengine_ach_titles_' . md5(wp_json_encode($ach_ids));
 			$results   = wp_cache_get($cache_key, 'gameengine');
 
 			if (false === $results) {
@@ -136,7 +136,7 @@ class Progress_Map_Logic
 
 		//  Level Titles.
 		if (! empty($lvl_ids)) {
-			$cache_key = 'gf_lvl_titles_' . md5(wp_json_encode($lvl_ids));
+			$cache_key = 'gameengine_lvl_titles_' . md5(wp_json_encode($lvl_ids));
 			$results   = wp_cache_get($cache_key, 'gameengine');
 
 			if (false === $results) {
@@ -199,10 +199,11 @@ class Progress_Map_Logic
 					$gameengine_is_completed   = ('completed' === $gameengine_node['status']);
 					$gameengine_next_completed = (! $gameengine_is_last && 'completed' === $gameengine_journey[$gameengine_index + 1]['status']);
 
-					$gameengine_line_class = ($gameengine_is_completed && $gameengine_next_completed) ? 'line-blue' : 'line-gray';
-					$gameengine_side_class = (0 === $gameengine_index % 2) ? 'node-left' : 'node-right';
+					// Fix: Prefixed all alignment and line classes
+					$gameengine_line_class = ($gameengine_is_completed && $gameengine_next_completed) ? 'gameengine-line-blue' : 'gameengine-line-gray';
+					$gameengine_side_class = (0 === $gameengine_index % 2) ? 'gameengine-node-left' : 'gameengine-node-right';
 					?>
-					<div class="gameengine-timeline-node <?php echo esc_attr($gameengine_side_class); ?> <?php echo $gameengine_is_completed ? 'is-active' : 'is-locked'; ?>">
+					<div class="gameengine-timeline-node <?php echo esc_attr($gameengine_side_class); ?> <?php echo $gameengine_is_completed ? 'gameengine-is-active' : 'gameengine-is-locked'; ?>">
 						<div class="gameengine-node-circle"><?php echo esc_html((int) $gameengine_index + 1); ?></div>
 
 						<?php if (! $gameengine_is_last) : ?>
@@ -215,23 +216,23 @@ class Progress_Map_Logic
 									<?php if (! empty($gameengine_node['icon'])) : ?>
 										<img src="<?php echo esc_url($gameengine_node['icon']); ?>" alt="">
 									<?php else : ?>
-										<span class="icon-placeholder"><?php echo ('level' === $gameengine_node['type']) ? '🏆' : '🏅'; ?></span>
+										<span class="gameengine-icon-placeholder"><?php echo ('level' === $gameengine_node['type']) ? '🏆' : '🏅'; ?></span>
 									<?php endif; ?>
 								</div>
 
 								<div class="gameengine-card-info">
-									<div class="gameengine-type-badge <?php echo esc_attr($gameengine_node['type']); ?>">
+									<div class="gameengine-type-badge gameengine-type-<?php echo esc_attr($gameengine_node['type']); ?>">
 										<?php echo esc_html(strtoupper((string) $gameengine_node['type'])); ?>
 									</div>
 
 									<h5><?php echo esc_html($gameengine_node['title']); ?></h5>
 
 									<?php if ($gameengine_is_completed) : ?>
-										<p class="gf-congrats"><?php echo wp_kses_post($gameengine_node['congrats']); ?></p>
+										<p class="gameengine-congrats"><?php echo wp_kses_post($gameengine_node['congrats']); ?></p>
 									<?php else : ?>
-										<div class="gf-restriction-info">
-											<span class="gf-lock-label">🔒 <?php esc_html_e('Locked', 'gameengine'); ?></span>
-											<p class="gf-lock-msg">
+										<div class="gameengine-restriction-info">
+											<span class="gameengine-lock-label">🔒 <?php esc_html_e('Locked', 'gameengine'); ?></span>
+											<p class="gameengine-lock-msg">
 												<?php
 												echo ! empty($gameengine_node['restriction_message'])
 													? wp_kses_post($gameengine_node['restriction_message'])
