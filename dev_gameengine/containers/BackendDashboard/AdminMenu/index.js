@@ -47,12 +47,12 @@ const AdminMenu = () => {
 					<br />
 				</div>
 				<div className="wp-menu-name">
-					{ __( 'gameengine', 'gameengine' ) }
+					{ __( 'GameEngine', 'gameengine' ) }
 				</div>
 			</Link>
 			<ul className="wp-submenu wp-submenu-wrap">
 				<li className="wp-submenu-head" aria-hidden="true">
-					{ __( 'gameengine', 'gameengine' ) }
+					{ __( 'GameEngine', 'gameengine' ) }
 				</li>
 				{ Object.entries( adminmenu ).map( ( [ key, item ], index ) => {
 					if (
