@@ -311,39 +311,29 @@
 
 /* --- Roadmap Locked State (Grayed out Effect) --- */
 
-/* ১. পুরো কার্ডের ব্যাকগ্রাউন্ড ধুসুর করা */
 .gameengine-is-locked .gameengine-node-card {
     background: #f1f5f9 !important;
-    /* হালকা ধুসুর ব্যাকগ্রাউন্ড */
     border-color: #cbd5e1 !important;
     box-shadow: none !important;
     opacity: 0.7;
-    /* কার্ডটি কিছুটা স্বচ্ছ দেখাবে */
 }
 
-/* ২. আইকন বা ইমেজকে সাদা-কালো (Grayscale) করা */
 .gameengine-is-locked .gameengine-card-media img,
 .gameengine-is-locked .gameengine-icon-placeholder {
     filter: grayscale(100%) !important;
-    /* ছবিকে সাদা-কালো করবে */
     opacity: 0.5;
-    /* আইকনটি হালকা দেখাবে */
 }
 
-/* ৩. টাইটেল এবং টেক্সটের রঙ পরিবর্তন */
 .gameengine-is-locked .gameengine-card-info h5 {
     color: #94a3b8 !important;
-    /* টাইটেল ধুসুর হবে */
 }
 
-/* ৪. টাইপ ব্যাজ (Level/Achievement) ধুসুর করা */
 .gameengine-is-locked .gameengine-type-badge {
     background: #e2e8f0 !important;
     color: #64748b !important;
     border: none !important;
 }
 
-/* ৫. লক মেসেজ ডিজাইন */
 .gameengine-lock-label {
     color: var(--gameengine-danger);
     font-weight: 700;
@@ -360,12 +350,10 @@
     margin: 0;
 }
 
-/* কানেক্টর লাইন ধুসুর রাখা যদি পরেরটা লক থাকে */
 .gameengine-line-gray {
     background: #e2e8f0 !important;
 }
 
-/* নোড সার্কেল যদি লক থাকে */
 .gameengine-is-locked .gameengine-node-circle {
     background: #f8fafc;
     border-color: #e2e8f0;
