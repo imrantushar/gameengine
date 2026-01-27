@@ -39,7 +39,7 @@ const AdminMenu = () => {
 					style={ {
 						backgroundImage: `url('${
 							toplevel_menu_icon_url ??
-							plugin_root_url + 'assets/images/logo_black_white.svg'
+							plugin_root_url + 'assets/images/black_white_logo.svg'
 						}')`,
 					} }
 					aria-hidden="true"

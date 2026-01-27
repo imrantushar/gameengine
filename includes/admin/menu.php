@@ -94,7 +94,7 @@ class Menu
      */
     public function get_toplevel_menu_icon_url()
     {
-        $file_path = GAMEENGINE_PATH . 'assets/images/logo_black_white.svg';
+        $file_path = GAMEENGINE_PATH . 'assets/images/black_white_logo.svg';
         $icon_url  = 'dashicons-star-filled'; // Fallback icon
 
         if (file_exists($file_path)) {

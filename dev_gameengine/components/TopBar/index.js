@@ -1,8 +1,8 @@
 import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box, Flex, Image } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-import { gIcon } from '@GFUtils/icons';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+import { plugin_root_url } from '@GFUtils/helper';
 
 import './styles.scss';
 
@@ -34,7 +34,11 @@ const TopBar = ({
 					leftContent
 				) : (
 					<Flex align="center" gap={2}>
-						{gIcon()}
+						<Image
+							maxW={'36px'}
+							height={'auto'}
+							src={plugin_root_url + 'assets/images/logo.svg'}
+						/>
 						<Box width="4px" height="6px" bg="var(--gameengine-primary)" />
 						<GFLabel type="subtitle" fontWeight="medium" label={pathName} />
 					</Flex>
