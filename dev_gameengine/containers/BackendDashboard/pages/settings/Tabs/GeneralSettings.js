@@ -10,6 +10,8 @@ import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import Select from "react-select";
 import { useFormikContext } from 'formik';
+import SettingsInput from '../Components/SettingsInput';
+import GameEngineBox from '@GFComponents/GameEngineBox';
 
 const displaycicle = [
     {
@@ -42,105 +44,97 @@ const retentionDays = [
 ]
 
 const GeneralSettings = () => {
-    const {values, setFieldValue} = useFormikContext();
+    const { values, setFieldValue } = useFormikContext();
 
     return (
-        <SettingsInner heading={__("Log Settings", "gameengine")} fullWidth={true}>
-            <Flex direction="column" gap='16px'>
-                <GameEngineInput 
-                    label={__("Log Display", "gameengine")} 
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
-                >
-                    <Select
-                        className="gameengine-select gameengine-select--300"
-                        classNamePrefix="gameengine-select"
-                        options={displaycicle}
-                        value={
-                            displaycicle?.find(
-                            opt => opt.value === values?.logs?.display_cycle
-                            ) || null
-                        }
-                        onChange={option => {
-                            setFieldValue('logs.display_cycle', option.value)
-                        }}
-                        menuPlacement="bottom"
-                    />
-                </GameEngineInput>
+        <>
+            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Settings", "gameengine")} />
 
-                <GameEngineInput 
-                    label={__("Auto Cleanup", "gameengine")}
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
-                >
-                    <Select
-                        className="gameengine-select gameengine-select--300"
-                        classNamePrefix="gameengine-select"
-                        options={retentionDays}
-                        value={
-                            retentionDays?.find(
-                            opt => Number(opt.value) === Number(values?.logs?.retention_days)
-                            ) || null
-                        }
-                        onChange={option => {
-                            setFieldValue('logs.retention_days', option.value)
-                        }}
-                        menuPlacement="bottom"
-                    />
-                </GameEngineInput>
+                <Flex direction="column" gap='16px'>
+                    <SettingsInput label={__("Log Display", "gameengine")}>
+                        <Select
+                            className="gameengine-select gameengine-select--300"
+                            classNamePrefix="gameengine-select"
+                            options={displaycicle}
+                            value={
+                                displaycicle?.find(
+                                    opt => opt.value === values?.logs?.display_cycle
+                                ) || null
+                            }
+                            onChange={option => {
+                                setFieldValue('logs.display_cycle', option.value)
+                            }}
+                            menuPlacement="bottom"
+                        />
+                    </SettingsInput>
 
-                <GFLabel type="title" label={__("Log Levels", "gameengine")} />
-                <Separator />
-                <GameEngineInput 
-                    label={__("Enable successful rewards", "gameengine")}
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
-                >
-                    <Switch.Root
-                        size="sm"
-                        mt="0.5"
-                        aria-label="Select row"
-                        checked={values?.logs?.log_levels?.includes('success')}
-                        onCheckedChange={(changes) => {
-                            if(changes.checked) {
-                                setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'success'])
-                            } else {
-                                setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'success'))
+                    <SettingsInput label={__("Auto Cleanup", "gameengine")}>
+                        <Select
+                            className="gameengine-select gameengine-select--300"
+                            classNamePrefix="gameengine-select"
+                            options={retentionDays}
+                            value={
+                                retentionDays?.find(
+                                    opt => Number(opt.value) === Number(values?.logs?.retention_days)
+                                ) || null
                             }
-                        }}
-                    >
-                        <Switch.HiddenInput />
-                        <Switch.Control />
-                    </Switch.Root>
-                </GameEngineInput>
-                <GameEngineInput 
-                    label={__("Enable System Errors", "gameengine")}
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
-                >
-                    <Switch.Root
-                        size="sm"
-                        mt="0.5"
-                        aria-label="Select row"
-                        checked={values?.logs?.log_levels?.includes('error')}
-                        onCheckedChange={(changes) => {
-                            if(changes.checked) {
-                                setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'error'])
-                            } else {
-                                setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'error'))
-                            }
-                        }}
-                    >
-                        <Switch.HiddenInput />
-                        <Switch.Control />
-                    </Switch.Root>
-                </GameEngineInput>
-            </Flex>
-        </SettingsInner>
+                            onChange={option => {
+                                setFieldValue('logs.retention_days', option.value)
+                            }}
+                            menuPlacement="bottom"
+                        />
+                    </SettingsInput>
+                </Flex>
+            </GameEngineBox>
+
+
+            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Levels", "gameengine")} />
+
+                <Flex direction="column" gap='16px'>
+                    <SettingsInput label={__("Enable successful rewards", "gameengine")}>
+                        <Switch.Root
+                            colorPalette="blue"
+                            size="sm"
+                            mt="0.5"
+                            aria-label="Select row"
+                            checked={values?.logs?.log_levels?.includes('success')}
+                            onCheckedChange={(changes) => {
+                                if (changes.checked) {
+                                    setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'success'])
+                                } else {
+                                    setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'success'))
+                                }
+                            }}
+                        >
+                            <Switch.HiddenInput />
+                            <Switch.Control />
+                        </Switch.Root>
+                    </SettingsInput>
+
+                    <SettingsInput label={__("Enable System Errors", "gameengine")}>
+                        <Switch.Root
+                            colorPalette="blue"
+                            size="sm"
+                            mt="0.5"
+                            aria-label="Select row"
+                            checked={values?.logs?.log_levels?.includes('error')}
+                            onCheckedChange={(changes) => {
+                                if (changes.checked) {
+                                    setFieldValue('logs.log_levels', [...values?.logs?.log_levels, 'error'])
+                                } else {
+                                    setFieldValue('logs.log_levels', values?.logs?.log_levels.filter(item => item !== 'error'))
+                                }
+                            }}
+                        >
+                            <Switch.HiddenInput />
+                            <Switch.Control />
+                        </Switch.Root>
+                    </SettingsInput>
+                </Flex>
+            </GameEngineBox>
+        </>
     );
 };
 

@@ -18,6 +18,7 @@ const GFLabel = ({
 	borderColor,
 	whiteSpace,
 	lineHeight,
+	width,
 }) => {
 	const variantStyles = {
 		heading: {
@@ -88,6 +89,7 @@ const GFLabel = ({
 		textAlign,
 		borderColor,
 		whiteSpace,
+		width,
 	};
 
 	return (
