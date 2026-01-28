@@ -109,7 +109,7 @@ const initialState = {
     listStatus: false,
     saveStatus: 'idle',
     error: null,
-    status: 1,
+    status: 'all',
     page: 1,
     perPage: 15,
     search: '',

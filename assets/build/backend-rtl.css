@@ -2477,6 +2477,136 @@ h2.react-datepicker__current-month {
     right: calc(90% - 96px);
   }
 }
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Search/styles.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-search-component {
+  position: relative;
+  display: inline-block;
+}
+.gameengine-search-component input.gameengine-search-component__input {
+  height: 38px;
+  padding-right: 40px;
+  padding-left: 20px;
+  max-width: 300px;
+  width: 100%;
+  border: 1px solid var(--gameengine-border-color);
+}
+.gameengine-search-component input.gameengine-search-component__input:hover, .gameengine-search-component input.gameengine-search-component__input:focus {
+  border-color: var(--gameengine-primary);
+}
+.gameengine-search-component__search {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  bottom: 0;
+  cursor: pointer;
+  font-size: 20px;
+  color: #0A2540;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin: 0 !important;
+}
+.gameengine-search-component__control {
+  width: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  cursor: pointer;
+  font-size: 15px;
+  color: #999;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+.gameengine-search-component__control:hover, .gameengine-search-component__control:focus {
+  background: none;
+  color: #f94d4d;
+  border: 0;
+}
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/StatusOptions/styles.scss ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-dropdown-option {
+  position: relative;
+  cursor: pointer;
+  padding: 8px 12px !important;
+  border-radius: 999px;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 125px;
+}
+.gameengine-dropdown-option span.label {
+  text-transform: capitalize;
+  font-size: 14px;
+  line-height: 18px;
+}
+.gameengine-dropdown-option--completed, .gameengine-dropdown-option--publish, .gameengine-dropdown-option--approved, .gameengine-dropdown-option--pass, .gameengine-dropdown-option--future {
+  color: #00AD6B;
+  border: none;
+  background: rgba(36, 161, 72, 0.1);
+}
+.gameengine-dropdown-option--processing, .gameengine-dropdown-option--pending, .gameengine-dropdown-option--submitted {
+  color: #FDB022;
+  border: none;
+  background: rgba(236, 152, 20, 0.12);
+}
+.gameengine-dropdown-option--draft, .gameengine-dropdown-option--private {
+  color: #0F0E16;
+  border: none;
+  background: rgba(114, 114, 114, 0.12);
+}
+.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed {
+  color: #FF4D4D;
+  border: none;
+  background: rgba(244, 72, 63, 0.12);
+}
+.gameengine-dropdown-option .gameengine-icon--angle-down {
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gameengine-dropdown-option .gameengine-icon--angle-down::before {
+  font-size: 8px;
+}
+.gameengine-dropdown-option__lists .gameengine-more-status-options {
+  position: relative;
+  min-width: 175px;
+  z-index: 99999;
+  border-radius: 4px;
+  background: #fff;
+  margin: 0;
+  padding: 5px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gameengine-border-color);
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 1px;
+}
+.gameengine-dropdown-option__lists .gameengine-more-status-options__item {
+  display: flex;
+  color: var(--gameengine-font-color);
+  background: #fff;
+  font-size: 12px;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 15px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.gameengine-dropdown-option__lists .gameengine-more-status-options__item:last-child {
+  margin-bottom: 0;
+}
+.gameengine-dropdown-option__lists .gameengine-more-status-options__item:hover, .gameengine-dropdown-option__lists .gameengine-more-status-options__item.active {
+  color: #0F0E16;
+  background: #F5F5F5;
+}
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Modal/styles.scss ***!
   \********************************************************************************************************************************************************************************************************************************************************************/
@@ -2600,57 +2730,6 @@ body.ReactModal__Body--open {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Search/styles.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-search-component {
-  position: relative;
-  display: inline-block;
-}
-.gameengine-search-component input.gameengine-search-component__input {
-  height: 38px;
-  padding-right: 40px;
-  padding-left: 20px;
-  max-width: 300px;
-  width: 100%;
-  border: 1px solid var(--gameengine-border-color);
-}
-.gameengine-search-component input.gameengine-search-component__input:hover, .gameengine-search-component input.gameengine-search-component__input:focus {
-  border-color: var(--gameengine-primary);
-}
-.gameengine-search-component__search {
-  position: absolute;
-  top: 8px;
-  right: 14px;
-  bottom: 0;
-  cursor: pointer;
-  font-size: 20px;
-  color: #0A2540;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  margin: 0 !important;
-}
-.gameengine-search-component__control {
-  width: 40px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  cursor: pointer;
-  font-size: 15px;
-  color: #999;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  margin-bottom: 8px;
-  font-size: 20px;
-}
-.gameengine-search-component__control:hover, .gameengine-search-component__control:focus {
-  background: none;
-  color: #f94d4d;
-  border: 0;
 }
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Tooltip/styles.scss ***!
@@ -2800,85 +2879,6 @@ body.ReactModal__Body--open {
 }
 
 /* suffix's */
-/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/StatusOptions/styles.scss ***!
-  \****************************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-dropdown-option {
-  position: relative;
-  cursor: pointer;
-  padding: 8px 12px !important;
-  border-radius: 999px;
-  display: flex !important;
-  align-items: center;
-  justify-content: space-between;
-  min-width: 125px;
-}
-.gameengine-dropdown-option span.label {
-  text-transform: capitalize;
-  font-size: 14px;
-  line-height: 18px;
-}
-.gameengine-dropdown-option--completed, .gameengine-dropdown-option--publish, .gameengine-dropdown-option--approved, .gameengine-dropdown-option--pass, .gameengine-dropdown-option--future {
-  color: #00AD6B;
-  border: none;
-  background: rgba(36, 161, 72, 0.1);
-}
-.gameengine-dropdown-option--processing, .gameengine-dropdown-option--pending, .gameengine-dropdown-option--submitted {
-  color: #FDB022;
-  border: none;
-  background: rgba(236, 152, 20, 0.12);
-}
-.gameengine-dropdown-option--draft, .gameengine-dropdown-option--private {
-  color: #0F0E16;
-  border: none;
-  background: rgba(114, 114, 114, 0.12);
-}
-.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed {
-  color: #FF4D4D;
-  border: none;
-  background: rgba(244, 72, 63, 0.12);
-}
-.gameengine-dropdown-option .gameengine-icon--angle-down {
-  pointer-events: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.gameengine-dropdown-option .gameengine-icon--angle-down::before {
-  font-size: 8px;
-}
-.gameengine-dropdown-option__lists .gameengine-more-status-options {
-  position: relative;
-  min-width: 175px;
-  z-index: 99999;
-  border-radius: 4px;
-  background: #fff;
-  margin: 0;
-  padding: 5px;
-  border-width: 1px;
-  border-style: solid;
-  border-color: var(--gameengine-border-color);
-  box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 1px;
-}
-.gameengine-dropdown-option__lists .gameengine-more-status-options__item {
-  display: flex;
-  color: var(--gameengine-font-color);
-  background: #fff;
-  font-size: 12px;
-  font-weight: 500;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 15px;
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-.gameengine-dropdown-option__lists .gameengine-more-status-options__item:last-child {
-  margin-bottom: 0;
-}
-.gameengine-dropdown-option__lists .gameengine-more-status-options__item:hover, .gameengine-dropdown-option__lists .gameengine-more-status-options__item.active {
-  color: #0F0E16;
-  background: #F5F5F5;
-}
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/CustomSwitch/switchfield.scss ***!
   \********************************************************************************************************************************************************************************************************************************************************************************/
