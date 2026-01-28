@@ -57,6 +57,11 @@ const GFLabel = ({
 			fontWeight: "500",
 			color: "var(--gameengine-font-color)",
 		},
+		label: {
+			fontSize: "14px",
+			fontWeight: "400",
+			color: "var(--gameengine-font-color)",
+		},
 		simple: {
 			fontSize: "14px",
 			fontWeight: "400",

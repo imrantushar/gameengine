@@ -10,13 +10,14 @@ import GameEngineEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
-import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
+import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
-import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
 import { arrowForward,  } from "@GFUtils/icons";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const FormInner = () => {
     const [achievements, setAchievements] = useState(true);
@@ -267,19 +268,41 @@ const FormInner = () => {
                     suffix={'acivements-message'}
                 />
             </GameEngineInput>
-
-            <Switch.Root
-                checked={values.is_restricted}
-                onCheckedChange={e => {
-                    setFieldValue('is_restricted', e.checked)
-                }}
-                colorPalette="blue"
-                disabled={!isRestrictContentActive}
+            
+            <GameEngineInput
+                label={`${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict content Addon required)', 'gameengine') : ""}`}
+                labelType={isRestrictContentActive ? "label" : "simple"}
+                width="100%"
+                direction='row'
+                gap="10px"
             >
-                <Switch.HiddenInput />
-                <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Enable Require Unlock", "gameengine")}</Switch.Label>
-                <Switch.Control />
-            </Switch.Root>
+                <Flex alignItems={'center'} gap={'8px'}>
+                    <Switch.Root
+                        checked={values.is_restricted}
+                        onCheckedChange={e => {
+                            setFieldValue('is_restricted', e.checked)
+                        }}
+                        colorPalette="blue"
+                        disabled={!isRestrictContentActive}
+                    >
+                        <Switch.HiddenInput />
+                        <Switch.Control />
+                    </Switch.Root>
+                    {!isRestrictContentActive && (
+                        <Button
+                            as={'a'}
+                            href={admin_url+'admin.php?page=gameengine-addons'}
+                            target='_blank'
+                            type="link"
+                            {...clearBtn}
+                            minW={'0'}
+                            paddingInline={'0 4px'}
+                        >
+                            <Icon as={FaExternalLinkAlt} width={'12px'}/>
+                        </Button>
+                    )}
+                </Flex>
+            </GameEngineInput>
 
             {(values?.is_restricted && isRestrictContentActive) && (
                 <Flex direction={'column'} gap="12px">
