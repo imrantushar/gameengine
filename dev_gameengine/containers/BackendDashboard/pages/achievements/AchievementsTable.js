@@ -38,7 +38,6 @@ const AchievementsTable = () => {
             dispatch(fetchAchievementTypes())
         }
         fetchHandler({status: tableStats, page, per_page: perPage})
-
     }, []);
 
     const handleDelete = (id) => {
@@ -110,7 +109,7 @@ const AchievementsTable = () => {
                     suffix: 'trash',
                     label: __('Trash', 'gameengine'),
                     icon: <Icon as={FiTrash2} />,
-                    onClick: () => dispatch(updateAchievement({id:row.id, ...row, status: 'trash'}))
+                    onClick: () => dispatch(updateAchievement({id:row.id, data: {...row, status: 'trash'}}))
                 }] : [{
                     type: 'button',
                     suffix: 'trash',
