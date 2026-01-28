@@ -122,3 +122,38 @@ export const makeRequest = async (
 
 	return data;
 };
+
+export const statusArray = [
+	{
+		label: __('Publish', 'academy'),
+		value: 'publish',
+	},
+	{
+		label: __('Draft', 'academy'),
+		value: 'draft',
+	},
+	{
+		label: __('Pending', 'academy'),
+		value: 'pending',
+	},
+	// {
+	// 	label: __('Private', 'academy'),
+	// 	value: 'private',
+	// },
+	// {
+	// 	label: __('Schedule', 'academy'),
+	// 	value: 'future',
+	// },
+	{
+		label: __('Trash', 'academy'),
+		value: 'trash',
+	},
+];
+
+export const tableStatusArray = [
+	{
+		label: __('All', 'academy'),
+		value: 'all',
+	},
+	...statusArray
+];

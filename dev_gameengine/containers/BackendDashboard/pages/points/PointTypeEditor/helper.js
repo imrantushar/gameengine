@@ -6,6 +6,7 @@ export const getPointTypesInitialValues = (id=null, data) => {
       name: filteredData?.name,
       plural_name: filteredData?.plural_name,
       requirements : filteredData?.requirements,
+      status : filteredData?.status,
     }
   }
 
@@ -13,5 +14,6 @@ export const getPointTypesInitialValues = (id=null, data) => {
     name: "",
     plural_name: "",
     requirements : [],
+    status : 'publish',
   }
 }
