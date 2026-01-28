@@ -59,6 +59,7 @@ const PointTypesTable = () => {
         </>
       ),
       textAlign: "start",
+      columnWidth: "20%",
     },
     {
       name: __('Award Actions', 'gameengine'),
@@ -103,6 +104,7 @@ const PointTypesTable = () => {
           </Flex>
         );
       },
+      columnWidth: "20%",
     },
     {
       name: __('Deduct Actions', 'gameengine'),
@@ -146,6 +148,7 @@ const PointTypesTable = () => {
           </Flex>
         );
       },
+      columnWidth: "20%",
     },
     {
       name: __('Date', 'gameengine'),
@@ -157,6 +160,7 @@ const PointTypesTable = () => {
 					</Text>
 				</Box>
       ),
+      columnWidth: "10%",
     },
     {
       name: __('Status', 'gameengine'),
@@ -175,6 +179,7 @@ const PointTypesTable = () => {
 					/>
         )
       },
+      columnWidth: "20%",
     },
     {
       name: __('Action', 'gameengine'),
@@ -207,6 +212,7 @@ const PointTypesTable = () => {
         )
       },
       textAlign: "end",
+      columnWidth: "10%",
     },
   ];
 
