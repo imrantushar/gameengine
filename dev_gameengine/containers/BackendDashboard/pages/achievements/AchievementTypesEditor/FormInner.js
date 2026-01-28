@@ -268,13 +268,14 @@ const FormInner = () => {
                     suffix={'acivements-message'}
                 />
             </GameEngineInput>
-            
+
             <GameEngineInput
-                label={`${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict content Addon required)', 'gameengine') : ""}`}
+                label={`${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`}
                 labelType={isRestrictContentActive ? "label" : "simple"}
                 width="100%"
                 direction='row'
                 gap="10px"
+                alignItems='center'
             >
                 <Flex alignItems={'center'} gap={'8px'}>
                     <Switch.Root
@@ -298,7 +299,7 @@ const FormInner = () => {
                             minW={'0'}
                             paddingInline={'0 4px'}
                         >
-                            <Icon as={FaExternalLinkAlt} width={'12px'}/>
+                            <Icon as={FaExternalLinkAlt} width={'14px'}/>
                         </Button>
                     )}
                 </Flex>
