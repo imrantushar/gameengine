@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
+import Select from 'react-select';
 import {
     fetchLevelById, createLevel, updateLevel, fetchLevelTriggers, fetchPointTypes
 } from "@GFRedux/Slices/levelsSlice/levelsSlice.js";
@@ -13,7 +14,7 @@ import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
 import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
 import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
-import { route_path } from "@GFUtils/helper";
+import { route_path, statusArray } from "@GFUtils/helper";
 import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
 
 
@@ -86,15 +87,25 @@ const LevelType = () => {
                     initialValues={getLevelsInitialValues(editId, levels)}
                     onSubmit={onSubmiHandler}
                 >
-                    {({submitForm, isSubmitting, dirty}) => {
+                    {({ values, setFieldValue, submitForm, isSubmitting, dirty}) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Level Type", "gameengine")}
                                     rightContent={
-                                        <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
-                                            {editId ? __("Update", "gameengine") : __("Save Changes", "gameengine")}
-                                        </Button>
+                                        <Box display={'flex'} gap={'10px'}>
+                                            <Select
+                                                className="gameengine-select gameengine-select--120" 
+                                                classNamePrefix="gameengine-select"
+                                                options={statusArray}
+                                                value={statusArray.find(item => item.value === values.status)}
+                                                onChange={(option) => setFieldValue('status',option.value)}
+                                            />
+                                            
+                                            <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                                {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+                                            </Button>
+                                        </Box>
                                     }
                                 />
 
