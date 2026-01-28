@@ -34,7 +34,7 @@ const FormInner = () => {
     ]
 
     return (
-        <Flex direction={'column'} gap={'12px'}>
+        <Flex direction={'column'} gap={'24px'}>
             <Flex gap={4}>
                 <GameEngineInput label={__("User Name", "gameengine")}>
                     <Select
@@ -56,13 +56,6 @@ const FormInner = () => {
                     }}
                     isDisabled={values?.id}
                     isLoading={userOptions.isLoading}
-                    styles={{
-                        container: (base) => ({
-                            ...base,
-                            width: "100%",
-                            opacity: values?.id ? 0.6 : 1,
-                        }),
-                    }}
                 />
             </GameEngineInput>
 
@@ -108,6 +101,7 @@ const FormInner = () => {
                 minH="100px"
                 value={values?.message}
                 onChange={(e) => setFieldValue('message', e.target.value )}
+                {...commonInput}
             />
         </GameEngineInput>
         </Flex>
