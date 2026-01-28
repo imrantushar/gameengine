@@ -11,7 +11,7 @@ const Tooltip = ({
 	delay = 150,
 	suffix
 }) => {
-	const [visible, setVisible] = useState(false);
+	const [show, setShow] = useState(false);
 	const timeoutRef = useRef(null);
 	const shouldShow = !disabled && content;
 
@@ -22,14 +22,14 @@ const Tooltip = ({
 			clearTimeout(timeoutRef.current);
 			timeoutRef.current = null;
 		}
-		setVisible(true);
+		setShow(true);
 	};
 
 	const hideTooltip = () => {
 		if (!shouldShow) return;
 
 		timeoutRef.current = setTimeout(() => {
-			setVisible(false);
+			setShow(false);
 			timeoutRef.current = null;
 		}, delay);
 	};
@@ -45,7 +45,7 @@ const Tooltip = ({
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
-		setVisible(false);
+		setShow(false);
 	};
 
 	useEffect(() => {
@@ -69,7 +69,7 @@ const Tooltip = ({
 			onMouseLeave={hideTooltip}
 		>
 			{children}
-			{(shouldShow && visible) && (
+			{(shouldShow && show) && (
 				<div
 					className={`gameengine-tooltip__box gameengine-tooltip__box--${position}`}
 					onMouseEnter={handleTooltipMouseEnter}
