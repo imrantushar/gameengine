@@ -21,8 +21,8 @@ const FormInner = ({ hooksLoading }) => {
     const [pointAwards, setPointAwards] = useState(true);
     const [pointDeductions, setPointDeductions] = useState(false);
     const [openedAwardHooks, setOpenedAwardHooks] = useState([]);
-    const [openedDeductHooks, setOpenedDeductHooks] = useState([]);
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [openedDeductHooks, setOpenedDeductHooks] = useState('all');
+    const [selectedFilterHookType, setSelectedFilterHookType] = useState('all');
     const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
     const addons = useSelector(state => state.addons);
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
@@ -170,11 +170,12 @@ const FormInner = ({ hooksLoading }) => {
         );
     };
 
-    const hookTypeOptions = Array.from(
+    let hookTypeOptions = Array.from(
         new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))).map(slug => ({
             label: slug.charAt(0).toUpperCase() + slug.slice(1),
             value: slug,
         }));
+    hookTypeOptions = [{label: __('All', 'gameengine'), value: 'all'}, ...hookTypeOptions]
 
     return (
         <>
@@ -208,7 +209,9 @@ const FormInner = ({ hooksLoading }) => {
                         childLeft="gameengine-points-automatic-point-awards-available-hooks"
                         childRight="gameengine-points-automatic-point-awards-active-hooks"
                         hookTypeOptions={hookTypeOptions}
-                        filterHookType={v => setSelectedFilterHookType(v.map(o => o.value))}
+                        filterHookType={(checkedItem) => {
+                            setSelectedFilterHookType(checkedItem)
+                        }}
                         renderHookCard={renderHookCard}
                         allHooks={allHooks}
                         hookSettings={hookSettings}
@@ -232,7 +235,9 @@ const FormInner = ({ hooksLoading }) => {
                         childLeft="gameengine-points-automatic-point-deductions-available-hooks"
                         childRight="gameengine-points-automatic-point-deductions-active-hooks"
                         hookTypeOptions={hookTypeOptions}
-                        filterHookType={v => setSelectedDeductFilterType(v.map(o => o.value))}
+                        filterHookType={(checkedItem) => {
+                            setSelectedDeductFilterType(checkedItem)
+                        }}
                         renderHookCard={renderHookCard}
                         allHooks={allHooks}
                         hookSettings={hookSettings}
