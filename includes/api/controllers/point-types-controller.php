@@ -78,9 +78,18 @@ class PointTypesController extends BaseController
         $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
+        $status   = $request->get_param('status') ? sanitize_text_field($request->get_param('status')) : 'all';
         $offset   = ($page - 1) * $per_page;
 
-        $cache_key   = 'gameengine_point_types_' . md5($per_page . $page . $search);
+        // Build Status Filter
+        $status_where = "status != 'trash'";
+        if ($status === 'trash') {
+            $status_where = "status = 'trash'";
+        } elseif ($status !== 'all' && $status !== 'any') {
+            $status_where = $wpdb->prepare("status = %s", $status);
+        }
+
+        $cache_key   = 'gameengine_point_types_' . md5($per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_point_types');
 
         if (false !== $cached_data) {
@@ -90,10 +99,22 @@ class PointTypesController extends BaseController
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $total_items = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )", $search, $like_search, $like_search));
+        $total_items = (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) AND $status_where",
+            $search,
+            $like_search,
+            $like_search
+        ));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) ORDER BY id DESC LIMIT %d OFFSET %d", $search, $like_search, $like_search, $per_page, $offset), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d",
+            $search,
+            $like_search,
+            $like_search,
+            $per_page,
+            $offset
+        ), ARRAY_A);
 
         if (! empty($results)) {
             foreach ($results as &$pt) {
@@ -280,6 +301,7 @@ class PointTypesController extends BaseController
             'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
             'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
             'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
+            'status'   => array('default' => 'all', 'sanitize_callback' => 'sanitize_text_field'),
         );
     }
 }
