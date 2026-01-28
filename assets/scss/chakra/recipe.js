@@ -59,9 +59,19 @@ export const clearBtn = {
 export const commonInput = {
     color: "var(--gameengine-font-color) !important",
     borderColor: "var(--gameengine-border-color) !important",
-    outline: "var(--gameengine-primary) !important",
-    _active: "var(--gameengine-primary)",
-    _focus: "var(--gameengine-primary)",
-    focusRing: "var(--gameengine-primary)",
-    boxShadow: "none !important"
+    outline: "var(--gameengine-primary)",
+    _placeholder: {
+        color: "#738496 !important",
+        opacity: 1
+    },
+    _active: {
+        borderColor: "var(--gameengine-primary) !important"
+    },
+    _focus: {
+        borderColor: "var(--gameengine-primary) !important",
+        boxShadow: "0 0 0 1px var(--gameengine-primary) !important"
+    },
+    _hover: {
+        borderColor: "var(--gameengine-primary) !important"
+    }
 }

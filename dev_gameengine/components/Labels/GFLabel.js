@@ -46,6 +46,13 @@ const GFLabel = ({
 			color: "var(--gameengine-font-color)",
 			margin: "0",
 		},
+		input: {
+			fontSize: "14px",
+			fontWeight: "500",
+			lineHeight: "20px",
+			color: "var(--gameengine-font-color)",
+			margin: "0",
+		},
 		subtitle: {
 			fontSize: "12px",
 			fontWeight: "400",

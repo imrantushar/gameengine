@@ -235,8 +235,9 @@ const FormInner = () => {
                 <GameEngineInput 
                     label={__("Achivement Type", "gameengine")} 
                     width="100%" 
-                    direction={'row'}
+                    direction='row'
                     justifyContent="space-between"
+                    alignItems="center"
                 >
                     <Select
                         className="gameengine-select gameengine-select--width-half"

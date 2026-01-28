@@ -215,8 +215,9 @@ const FormInner = () => {
                 <GameEngineInput 
                     label={__("Level Type", "gameengine")} 
                     width="100%" 
-                    direction={'row'}
+                    direction='row'
                     justifyContent="space-between"
+                    alignItems="center"
                 >
                     <Select
                         className="gameengine-select gameengine-select--width-half"
@@ -427,6 +428,7 @@ const FormInner = () => {
                             options={availablePointTypes}
                             value={availablePointTypes?.find(opt => opt.value == values.point_type_id)}
                             onChange={sel => setFieldValue('point_type_id', sel.value)}
+                            menuPlacement="top"
                         />
                     </GameEngineInput>
                 </Flex>
