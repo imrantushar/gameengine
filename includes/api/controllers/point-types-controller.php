@@ -9,7 +9,8 @@ if (! defined('ABSPATH')) {
 }
 
 /**
- * Controller for managing Point Types via REST API.
+ * Class PointTypesController
+ * Handles API requests for managing Point Types with status support.
  */
 class PointTypesController extends BaseController
 {
@@ -22,7 +23,7 @@ class PointTypesController extends BaseController
     protected $rest_base = 'point-types';
 
     /**
-     * Register routes for Point Types.
+     * Register REST API routes.
      */
     public function register_routes()
     {
@@ -68,19 +69,17 @@ class PointTypesController extends BaseController
     }
 
     /**
-     * Retrieve a list of point types with pagination and search.
+     * Retrieve a list of point types.
      */
     public function get_items($request)
     {
         global $wpdb;
 
-        //  Sanitize Inputs.
         $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $offset   = ($page - 1) * $per_page;
 
-        //  Cache Logic.
         $cache_key   = 'gameengine_point_types_' . md5($per_page . $page . $search);
         $cached_data = wp_cache_get($cache_key, 'gameengine_point_types');
 
@@ -90,37 +89,16 @@ class PointTypesController extends BaseController
 
         $like_search = '%' . $wpdb->esc_like($search) . '%';
 
-        //  Count Query.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )",
-            $search,
-            $like_search,
-            $like_search
-        ));
+        $total_items = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(id) FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s )", $search, $like_search, $like_search));
 
-        //  Main Query.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $results = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}gameengine_point_types 
-            WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) 
-            ORDER BY id DESC LIMIT %d OFFSET %d",
-            $search,
-            $like_search,
-            $like_search,
-            $per_page,
-            $offset
-        ), ARRAY_A);
+        $results = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE ( %s = '' OR name LIKE %s OR plural_name LIKE %s ) ORDER BY id DESC LIMIT %d OFFSET %d", $search, $like_search, $like_search, $per_page, $offset), ARRAY_A);
 
-        // Attach Requirements to paginated results.
         if (! empty($results)) {
             foreach ($results as &$pt) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $reqs = $wpdb->get_results($wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
-                    absint($pt['id'])
-                ), ARRAY_A);
-
+                $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1", absint($pt['id'])), ARRAY_A);
                 foreach ($reqs as &$r) {
                     $r['parameters'] = json_decode($r['parameters'], true);
                 }
@@ -129,12 +107,12 @@ class PointTypesController extends BaseController
         }
 
         $total_pages = (int) ceil($total_items / $per_page);
-        $headers = [
+        $headers     = array(
             'X-WP-Total'      => $total_items,
             'X-WP-TotalPages' => $total_pages,
-        ];
+        );
 
-        wp_cache_set($cache_key, ['results' => $results, 'headers' => $headers], 'gameengine_point_types', 60);
+        wp_cache_set($cache_key, array('results' => $results, 'headers' => $headers), 'gameengine_point_types', 60);
 
         return new \WP_REST_Response($results, 200, $headers);
     }
@@ -146,9 +124,10 @@ class PointTypesController extends BaseController
     {
         global $wpdb;
 
-        $params       = $request->get_json_params();
-        $name         = isset($params['name']) ? sanitize_text_field($params['name']) : '';
-        $plural_name  = isset($params['plural_name']) ? sanitize_text_field($params['plural_name']) : '';
+        $params      = $request->get_json_params();
+        $name        = isset($params['name']) ? sanitize_text_field($params['name']) : '';
+        $plural_name = isset($params['plural_name']) ? sanitize_text_field($params['plural_name']) : '';
+        $status      = isset($params['status']) ? sanitize_text_field($params['status']) : 'publish';
         $requirements = isset($params['requirements']) ? $params['requirements'] : array();
 
         if (empty($name)) {
@@ -159,10 +138,9 @@ class PointTypesController extends BaseController
         $slug      = $base_slug;
         $counter   = 1;
 
-        // Check for slug existence.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE slug = %s", $slug))) {
-            $slug    = $base_slug . '-' . $counter;
+            $slug = $base_slug . '-' . $counter;
             $counter++;
         }
 
@@ -173,9 +151,10 @@ class PointTypesController extends BaseController
                 'name'        => $name,
                 'plural_name' => $plural_name,
                 'slug'        => $slug,
+                'status'      => $status,
                 'created_at'  => current_time('mysql'),
             ),
-            array('%s', '%s', '%s', '%s')
+            array('%s', '%s', '%s', '%s', '%s') // Fixed: Now contains 5 placeholders
         );
 
         if (false === $inserted) {
@@ -183,29 +162,7 @@ class PointTypesController extends BaseController
         }
 
         $point_type_id = $wpdb->insert_id;
-
-        if (! empty($requirements) && is_array($requirements)) {
-            foreach ($requirements as $req) {
-                $trigger_key = isset($req['trigger_key']) ? sanitize_text_field($req['trigger_key']) : '';
-                $action_type = isset($req['action_type']) ? sanitize_text_field($req['action_type']) : 'award';
-                $parameters  = isset($req['parameters']) ? wp_json_encode($req['parameters']) : '{}';
-
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-                $wpdb->insert(
-                    "{$wpdb->prefix}gameengine_requirements",
-                    array(
-                        'reward_type' => 'point_type',
-                        'reward_id'   => $point_type_id,
-                        'trigger_key' => $trigger_key,
-                        'action_type' => $action_type,
-                        'parameters'  => $parameters,
-                        'is_active'   => 1,
-                        'created_at'  => current_time('mysql'),
-                    ),
-                    array('%s', '%d', '%s', '%s', '%s', '%d', '%s')
-                );
-            }
-        }
+        $this->save_requirements($point_type_id, $requirements);
 
         delete_transient('gameengine_point_types_list');
 
@@ -220,47 +177,6 @@ class PointTypesController extends BaseController
     }
 
     /**
-     * Retrieve a single point type.
-     */
-    public function get_item($request)
-    {
-        global $wpdb;
-        $id = absint($request->get_param('id'));
-
-        $cache_key  = 'gameengine_point_type_' . $id;
-        $point_type = get_transient($cache_key);
-
-        if (false === $point_type) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $point_type = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE id = %d", $id), ARRAY_A);
-
-            if (empty($point_type)) {
-                return new \WP_Error('not_found', 'Item not found', array('status' => 404));
-            }
-
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $requirements = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1",
-                    $id
-                ),
-                ARRAY_A
-            );
-
-            if (! empty($requirements)) {
-                foreach ($requirements as &$req) {
-                    $req['parameters'] = json_decode($req['parameters'], true);
-                }
-            }
-
-            $point_type['requirements'] = $requirements;
-            set_transient($cache_key, $point_type, 60);
-        }
-
-        return new \WP_REST_Response($point_type, 200);
-    }
-
-    /**
      * Update an existing point type.
      */
     public function update_item($request)
@@ -270,6 +186,7 @@ class PointTypesController extends BaseController
         $params       = $request->get_json_params();
         $name         = sanitize_text_field($params['name']);
         $plural_name  = sanitize_text_field($params['plural_name']);
+        $status       = ! empty($params['status']) ? sanitize_text_field($params['status']) : 'publish';
         $requirements = isset($params['requirements']) ? $params['requirements'] : array();
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -278,30 +195,42 @@ class PointTypesController extends BaseController
             array(
                 'name'        => $name,
                 'plural_name' => $plural_name,
+                'status'      => $status, // Added: Save status during update
             ),
             array('id' => $id),
-            array('%s', '%s'),
+            array('%s', '%s', '%s'), // Added: 3 placeholders for 3 data items
             array('%d')
         );
 
+        $this->save_requirements($id, $requirements);
+
+        delete_transient('gameengine_point_types_list');
+        delete_transient('gameengine_point_type_' . $id);
+
+        return new \WP_REST_Response(array('message' => 'Updated successfully.'), 200);
+    }
+
+    /**
+     * Helper to save requirements.
+     */
+    private function save_requirements($id, $requirements)
+    {
+        global $wpdb;
+        $table_req = "{$wpdb->prefix}gameengine_requirements";
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'point_type', 'reward_id' => $id), array('%s', '%d'));
+        $wpdb->delete($table_req, array('reward_type' => 'point_type', 'reward_id' => $id), array('%s', '%d'));
 
         if (! empty($requirements) && is_array($requirements)) {
             foreach ($requirements as $req) {
-                $trigger_key = isset($req['trigger_key']) ? sanitize_text_field($req['trigger_key']) : '';
-                $action_type = isset($req['action_type']) ? sanitize_text_field($req['action_type']) : 'award';
-                $parameters  = isset($req['parameters']) ? wp_json_encode($req['parameters']) : '{}';
-
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->insert(
-                    "{$wpdb->prefix}gameengine_requirements",
+                    $table_req,
                     array(
                         'reward_type' => 'point_type',
                         'reward_id'   => $id,
-                        'trigger_key' => $trigger_key,
-                        'action_type' => $action_type,
-                        'parameters'  => $parameters,
+                        'trigger_key' => sanitize_text_field($req['trigger_key']),
+                        'action_type' => isset($req['action_type']) ? sanitize_text_field($req['action_type']) : 'award',
+                        'parameters'  => isset($req['parameters']) ? wp_json_encode($req['parameters']) : '{}',
                         'is_active'   => 1,
                         'created_at'  => current_time('mysql'),
                     ),
@@ -309,11 +238,26 @@ class PointTypesController extends BaseController
                 );
             }
         }
+    }
 
-        delete_transient('gameengine_point_types_list');
-        delete_transient('gameengine_point_type_' . $id);
-
-        return new \WP_REST_Response(array('message' => 'Updated successfully.'), 200);
+    /**
+     * Retrieve a single point type.
+     */
+    public function get_item($request)
+    {
+        global $wpdb;
+        $id = absint($request->get_param('id'));
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $point_type = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_point_types WHERE id = %d", $id), ARRAY_A);
+        if (! empty($point_type)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $reqs = $wpdb->get_results($wpdb->prepare("SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE reward_type = 'point_type' AND reward_id = %d AND is_active = 1", $id), ARRAY_A);
+            foreach ($reqs as &$r) {
+                $r['parameters'] = json_decode($r['parameters'], true);
+            }
+            $point_type['requirements'] = $reqs;
+        }
+        return new \WP_REST_Response($point_type, 200);
     }
 
     /**
@@ -323,55 +267,19 @@ class PointTypesController extends BaseController
     {
         global $wpdb;
         $id = absint($request->get_param('id'));
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $exists = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE id = %d", $id));
-
-        if (! $exists) {
-            return new \WP_Error('not_found', 'Point type not found.', array('status' => 404));
-        }
-
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-        $deleted = $wpdb->delete("{$wpdb->prefix}gameengine_point_types", array('id' => $id), array('%d'));
-
-        if ($deleted) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->delete(
-                "{$wpdb->prefix}gameengine_requirements",
-                array(
-                    'reward_type' => 'point_type',
-                    'reward_id'   => $id,
-                ),
-                array('%s', '%d')
-            );
-
-            delete_transient('gameengine_point_types_list');
-            delete_transient('gameengine_point_type_' . $id);
-
-            return new \WP_REST_Response(array('message' => 'Deleted successfully.', 'id' => $id), 200);
-        }
-
-        return new \WP_REST_Response(array('message' => 'Could not delete item.'), 500);
+        $wpdb->delete("{$wpdb->prefix}gameengine_point_types", array('id' => $id), array('%d'));
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+        $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'point_type', 'reward_id' => $id), array('%s', '%d'));
+        return new \WP_REST_Response(array('message' => 'Deleted successfully.', 'id' => $id), 200);
     }
 
-    /**
-     * Get collection parameters for pagination and search.
-     */
     public function get_collection_params()
     {
         return array(
-            'page'     => array(
-                'default'           => 1,
-                'sanitize_callback' => 'absint',
-            ),
-            'per_page' => array(
-                'default'           => 20,
-                'sanitize_callback' => 'absint',
-            ),
-            'search'   => array(
-                'default'           => '',
-                'sanitize_callback' => 'sanitize_text_field',
-            ),
+            'page'     => array('default' => 1, 'sanitize_callback' => 'absint'),
+            'per_page' => array('default' => 20, 'sanitize_callback' => 'absint'),
+            'search'   => array('default' => '', 'sanitize_callback' => 'sanitize_text_field'),
         );
     }
 }
