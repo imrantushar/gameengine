@@ -8,6 +8,8 @@ import { useFormikContext } from 'formik';
 import { is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
+import Tooltip from '@GFComponents/Tooltip';
+import { LuInfo } from 'react-icons/lu';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -101,30 +103,35 @@ const AddonCard = ({ item, index, value }) => {
 			<Separator borderColor="var(--gameengine-border-color)" />
 
 			{item.required_plugin ? (
-				<Flex direction="column" gap="4px" p="16px 24px 0 24px">
-					<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
-						{__('Required plugins', 'gameengine')}
-					</Text>
-
-					<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%">
-						{item?.required_plugin?.length > 0 && (
-							item.required_plugin.map((childItem, childItemIndex) => (
-								<Text fontSize="14px" fontWeight="400" color="#738496" m={0} key={childItemIndex}>
-									{childItem.plugin_name}
+				<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%" p="16px 24px 0 24px">
+					{item?.required_plugin?.length > 0 && (
+						item.required_plugin.map((childItem, childItemIndex) => (
+							<Flex alignItems="center" gap={2}>
+								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
+									{__('Required plugins', 'gameengine')}
 								</Text>
-							))
-						)}
+								<Tooltip
+									content={
+										<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+											{childItem.plugin_name}
+										</Text>
+									}
+								>
+									<LuInfo />
+								</Tooltip>
+							</Flex>
+						))
+					)}
 
-						{!item.is_coming_soon && (
-							<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-								<CustomSwitch
-									name={item.name}
-									value={values[item.name]} // Standard HTML attribute
-									onChange={onChangeHandler}
-								/>
-							</Box>
-						)}
-					</Flex>
+					{!item.is_coming_soon && (
+						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
+							<CustomSwitch
+								name={item.name}
+								value={values[item.name]} // Standard HTML attribute
+								onChange={onChangeHandler}
+							/>
+						</Box>
+					)}
 				</Flex>
 			) : (
 				<Flex justifyContent="space-between" alignItems="flex-end" gap="4px" width="100%" p="16px 24px 0 24px">
