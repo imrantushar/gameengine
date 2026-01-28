@@ -326,6 +326,41 @@ const FormInner = () => {
                 </Flex>
             )}
 
+            <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
+                {values?.icon ? (
+                    <Flex alignItems="center" justifyContent="space-between">
+                        <Image src={values?.icon} width="100px" objectFit="cover" />
+                        <Button
+                            bg="var(--gameengine-primary)"
+                            color="#fff"
+                            fontSize="12px"
+                            fontWeight="500"
+                            lineHeight="16px"
+                            p="6px 8px"
+                            height="auto"
+                            variant="ghost"
+                            onClick={handleImageUpload}
+                        >
+                            {__("Change Level Logo", "gameengine")}
+                        </Button>
+                    </Flex>
+                ) : (
+                    <Button
+                        bg="var(--gameengine-primary)"
+                        color="#fff"
+                        fontSize="12px"
+                        fontWeight="500"
+                        lineHeight="16px"
+                        p="6px 8px"
+                        height="auto"
+                        variant="ghost"
+                        onClick={handleImageUpload}
+                    >
+                        {__("Set Level Logo", "gameengine")}
+                    </Button>
+                )}
+            </BoxView>
+
             <Switch.Root
                 checked={values.unlock_with_points_enabled}
                 onCheckedChange={e => {
@@ -398,41 +433,6 @@ const FormInner = () => {
                     />
                 </DndContext>
             )}
-
-            <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
-                {values?.icon ? (
-                    <Flex alignItems="center" justifyContent="space-between">
-                        <Image src={values?.icon} width="100px" objectFit="cover" />
-                        <Button
-                            bg="var(--gameengine-primary)"
-                            color="#fff"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={handleImageUpload}
-                        >
-                            {__("Change Level Logo", "gameengine")}
-                        </Button>
-                    </Flex>
-                ) : (
-                    <Button
-                        bg="var(--gameengine-primary)"
-                        color="#fff"
-                        fontSize="12px"
-                        fontWeight="500"
-                        lineHeight="16px"
-                        p="6px 8px"
-                        height="auto"
-                        variant="ghost"
-                        onClick={handleImageUpload}
-                    >
-                        {__("Set Level Logo", "gameengine")}
-                    </Button>
-                )}
-            </BoxView>
         </Flex>
     );
 };
