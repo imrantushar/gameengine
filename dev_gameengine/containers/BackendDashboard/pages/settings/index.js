@@ -76,8 +76,6 @@ const Settings = () => {
                                 
                                 <Flex direction={'column'} alignItems="flex-start" justifyContent={'center'} className='gameengine-page-content'>
                                     <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
-
-                                    <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' width="100%" label={__("Shortcode", "gameengine")} />
                                     
                                     <GeneralSettings /> 
                                     {/* <LeftBar /> */}

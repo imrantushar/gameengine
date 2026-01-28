@@ -168,5 +168,11 @@
 
 /* suffix's */
 .gameengine-tooltip {
-	// 
+	&--table {
+        .gameengine-tooltip__box {
+            width: max-content;
+            white-space: wrap;
+            word-break: break-all;
+        }
+    }
 }

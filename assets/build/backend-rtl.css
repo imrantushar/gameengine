@@ -2800,6 +2800,12 @@ body.ReactModal__Body--open {
 }
 
 /* suffix's */
+.gameengine-tooltip--table .gameengine-tooltip__box {
+  width: -moz-max-content;
+  width: max-content;
+  white-space: wrap;
+  word-break: break-all;
+}
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/CustomSwitch/switchfield.scss ***!
   \********************************************************************************************************************************************************************************************************************************************************************************/
