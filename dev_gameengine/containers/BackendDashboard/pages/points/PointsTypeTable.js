@@ -7,7 +7,9 @@ import OptionMenu from '@GFComponents/OptionMenu';
 import { fetchPointTypes, deletePointType, fetchTriggers } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Tooltip from "@GFComponents/Tooltip"
 import { route_path } from '@GFUtils/helper';
+import { LuInfo } from 'react-icons/lu';
 
 const PointTypesTable = () => {
   const { pointTypes, listStatus, allHooks } = useSelector((state) => state.pointType);
@@ -50,16 +52,22 @@ const PointTypesTable = () => {
       cell: (row) => {
         const itemArray = renderAction(row, 'award');
         if(itemArray.length === 0 ) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
-        return (
-          <Flex flexWrap={'wrap'} justifyContent={'center'}>
-            {itemArray.map((item, idx) => (
+        const renderTypeNames = (sliceIndex = 2) => (
+          <>
+            {itemArray.slice(0,sliceIndex).map((item, idx) => (
               <>
                 <Badge variant="subtle" borderRadius="4px" px={2}>
                     {item}
                 </Badge>
-                {itemArray.length - 1 !== idx && ','}
+                {itemArray.slice(0,2).length - 1 !== idx && ','}
               </>
             ))}
+          </>
+        )
+        return (
+          <Flex flexWrap={'wrap'} justifyContent={'center'}>
+            {renderTypeNames()}
+            {itemArray.length > 2 && '...'}
           </Flex>
         );
       },
@@ -79,6 +87,7 @@ const PointTypesTable = () => {
                 {itemArray.length - 1 !== idx && ','}
               </>
             ))}
+            {itemArray.length > 2 && '...'}
           </Flex>
         );
       },
