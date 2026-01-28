@@ -17,6 +17,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
       required_achievement_id: filteredData?.required_achievement_id,
       restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
+      status: filteredData?.status,
     }
   }
 
@@ -33,6 +34,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
     required_level_id: 0,
     restriction_message: "",
     congratulations_message: "",
+    status: "draft",
     requirements: []
   }
 }
