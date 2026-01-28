@@ -75,12 +75,9 @@ const Settings = () => {
                                 />
                                 
                                 <Flex direction={'column'} alignItems="flex-start" justifyContent={'center'} className='gameengine-page-content'>
-                                    <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
-                                    </Flex>
-                                    <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'academy')}>
-                                        <GeneralSettings /> 
-                                    </GameEngineBox>
+                                    <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
+                                    
+                                    <GeneralSettings /> 
                                     {/* <LeftBar /> */}
                                     {/* {tab === "general-settings" && <GeneralSettings />} */}
                                     {/* {tab === "email-notice" && <EmailNotice />}

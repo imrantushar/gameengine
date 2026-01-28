@@ -18,6 +18,7 @@ const GFLabel = ({
 	borderColor,
 	whiteSpace,
 	lineHeight,
+	width,
 }) => {
 	const variantStyles = {
 		heading: {
@@ -41,6 +42,13 @@ const GFLabel = ({
 		title: {
 			fontSize: "14px",
 			fontWeight: "600",
+			lineHeight: "20px",
+			color: "var(--gameengine-font-color)",
+			margin: "0",
+		},
+		input: {
+			fontSize: "14px",
+			fontWeight: "500",
 			lineHeight: "20px",
 			color: "var(--gameengine-font-color)",
 			margin: "0",
@@ -88,6 +96,7 @@ const GFLabel = ({
 		textAlign,
 		borderColor,
 		whiteSpace,
+		width,
 	};
 
 	return (

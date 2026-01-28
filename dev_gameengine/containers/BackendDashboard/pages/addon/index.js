@@ -20,7 +20,7 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'When users complete or pass a quiz.',
+			'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
 			'gameengine'
 		),
 		required_plugin: [
@@ -31,6 +31,7 @@ const infoCardsData = [
 		],
 		icon: academyLms(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+		route: "",
 	},
 	{
 		label: __('StoreEngine', 'gameengine'),
@@ -38,7 +39,7 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: true,
 		details: __(
-			'Sell certificates, quiz access, or digital products directly with StoreEngine integration.',
+			'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
 			'gameengine'
 		),
 		required_plugin: [
@@ -48,6 +49,7 @@ const infoCardsData = [
 			},
 		],
 		icon: storeEngine(),
+		route: "",
 	},
 	{
 		label: __('WooCommerce', 'gameengine'),
@@ -55,7 +57,7 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!',
 			'gameengine'
 		),
 		required_plugin: [
@@ -66,6 +68,7 @@ const infoCardsData = [
 		],
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Restrict Unlock', 'gameengine'),
@@ -73,12 +76,13 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!',
 			'gameengine'
 		),
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "admin.php?page=gameengine-achievements&action=new",
 	},
 	{
 		label: __('Restrict Content', 'gameengine'),
@@ -86,12 +90,13 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Lock specific posts, pages, images or links based on points and badges.',
+			'Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled',
 			'gameengine'
 		),
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Progress Map', 'gameengine'),
@@ -99,12 +104,13 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!',
 			'gameengine'
 		),
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================
@@ -216,14 +222,11 @@ const Addons = () => {
 	return (
 		<>
 			<TopBar path={__("Add-ons", "gameengine")} />
+
 			<Box className='gameengine-page-content'>
-				<Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-						<GFLabel type="plainHeading" margin={0} label={__("Add-ons", "gameengine")} />
-				</Flex>
-				<GameEngineBox
-					// heading={__("Add-ons", "gameengine")}
-					dynamicClasses="addons"
-				>
+				<GFLabel type="plainHeading" margin={0} padding="24px 0" label={__("Add-ons", "gameengine")} />
+
+				<GameEngineBox dynamicClasses="addons">
 					<Flex
 						width={'100%'}
 						justifyContent={'space-between'}

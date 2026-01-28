@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Badge, Box, Button, Flex, Icon, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Icon, Text, Span } from '@chakra-ui/react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
@@ -12,6 +12,8 @@ import { route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
 import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
+import { LuInfo } from 'react-icons/lu';
+import CustomTooltip from '@GFComponents/Tooltip/CustomTooltip';
 
 const PointTypesTable = () => {
   const { pointTypes, listStatus, allHooks, page, perPage, total, search } = useSelector((state) => state.pointType);
@@ -42,7 +44,7 @@ const PointTypesTable = () => {
     }
   };
 
-  const renderAction = (row,type) => {
+  const renderAction = (row, type) => {
     let actionsArry = row.requirements.filter(item => item.action_type === type).map(item => item.trigger_key);
     actionsArry = allHooks.map(item => actionsArry.includes(item.id) ? item : false).filter(Boolean).map(item => item.label);
     return actionsArry;
@@ -53,7 +55,7 @@ const PointTypesTable = () => {
       name: __('Name', 'gameengine'),
       cell: (row) => (
         <>
-          <span style={{cursor: "pointer"}} onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
+          <span style={{ cursor: "pointer" }} onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
         </>
       ),
       textAlign: "start",
@@ -62,23 +64,42 @@ const PointTypesTable = () => {
       name: __('Award Actions', 'gameengine'),
       cell: (row) => {
         const itemArray = renderAction(row, 'award');
-        if(itemArray.length === 0 ) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+        if (itemArray.length === 0) return <span style={{ color: '#999', fontSize: '12px' }}>--</span>;
+
         const renderTypeNames = (sliceIndex = 2) => (
           <>
-            {itemArray.slice(0,sliceIndex).map((item, idx) => (
-              <>
+            {itemArray.slice(0, sliceIndex).map((item, idx) => (
+              <React.Fragment key={idx}>
                 <Badge variant="subtle" borderRadius="4px" px={2}>
-                    {item}
+                  {item}
                 </Badge>
-                {itemArray.slice(0,2).length - 1 !== idx && ','}
-              </>
+                {idx < sliceIndex - 1 && ','}
+              </React.Fragment>
             ))}
           </>
-        )
+        );
+
+        const renderTooltipContent = () => (
+          <Flex flexWrap={'wrap'} gap={1}>
+            {itemArray.slice(2).map((item, idx) => (
+              <React.Fragment key={idx}>
+                <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
+                {idx < itemArray.slice(2).length - 1 && ','}
+              </React.Fragment>
+            ))}
+          </Flex>
+        );
+
         return (
-          <Flex flexWrap={'wrap'} justifyContent={'center'}>
+          <Flex flexWrap={'wrap'} gap={1} justifyContent={'center'} alignItems={'center'}>
             {renderTypeNames()}
-            {itemArray.length > 2 && '...'}
+            {itemArray.length > 2 && (
+              <>
+                <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
+                  {renderTooltipContent()}
+                </CustomTooltip>
+              </>
+            )}
           </Flex>
         );
       },
@@ -87,18 +108,41 @@ const PointTypesTable = () => {
       name: __('Deduct Actions', 'gameengine'),
       cell: (row) => {
         const itemArray = renderAction(row, 'deduct');
-        if(itemArray.length === 0 ) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
-        return (
-          <Flex flexWrap={'wrap'} justifyContent={'center'}>
-            {itemArray.map((item, idx) => (
-              <>
+        if (itemArray.length === 0) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
+        const renderTypeNames = (sliceIndex = 2) => (
+          <>
+            {itemArray.slice(0, sliceIndex).map((item, idx) => (
+              <React.Fragment key={idx}>
                 <Badge variant="subtle" borderRadius="4px" px={2}>
-                    {item}
+                  {item}
                 </Badge>
-                {itemArray.length - 1 !== idx && ','}
-              </>
+                {idx < sliceIndex - 1 && ','}
+              </React.Fragment>
             ))}
-            {itemArray.length > 2 && '...'}
+          </>
+        );
+
+        const renderTooltipContent = () => (
+          <Flex flexWrap={'wrap'} gap={1}>
+            {itemArray.slice(2).map((item, idx) => (
+              <React.Fragment key={idx}>
+                <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
+                {idx < itemArray.slice(2).length - 1 && ','}
+              </React.Fragment>
+            ))}
+          </Flex>
+        );
+
+        return (
+          <Flex flexWrap={'wrap'} gap={1} justifyContent={'center'} alignItems={'center'}>
+            {renderTypeNames()}
+            {itemArray.length > 2 && (
+              <>
+                <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
+                  {renderTooltipContent()}
+                </CustomTooltip>
+              </>
+            )}
           </Flex>
         );
       },
@@ -227,7 +271,7 @@ const PointTypesTable = () => {
   return (
     <>
       <ListTable
-        key={'points-type-'+pointTypes.length}
+        key={'points-type-' + pointTypes.length}
         columns={columns}
         data={pointTypes}
         showColumnFilter={false}

@@ -144,9 +144,9 @@
     }
 
     &__variant {
-        &--light-blue {
-            --tooltip-bg: #EBEDFF;
-            --tooltip-color: var(--gameengine-primary-color);
+        &--blue {
+            --tooltip-bg: var(--gameengine-primary);
+            --tooltip-color: #fff;
         }
 
         &--white {
@@ -168,5 +168,11 @@
 
 /* suffix's */
 .gameengine-tooltip {
-	// 
+	&--table {
+        .gameengine-tooltip__box {
+            width: max-content;
+            white-space: wrap;
+            word-break: break-all;
+        }
+    }
 }
