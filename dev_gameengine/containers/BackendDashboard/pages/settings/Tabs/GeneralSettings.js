@@ -45,7 +45,7 @@ const GeneralSettings = () => {
     const {values, setFieldValue} = useFormikContext();
 
     return (
-        <SettingsInner heading={__("Log Settings", "gameengine")}>
+        <SettingsInner heading={__("Log Settings", "gameengine")} fullWidth={true}>
             <Flex direction="column" gap='16px'>
                 <GameEngineInput 
                     label={__("Log Display", "gameengine")} 

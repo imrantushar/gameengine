@@ -10,7 +10,9 @@ const GameEngineBox = ({dynamicClasses, heading, children}) => {
     
     return (
         <Box className={classes}>
-            <GFLabel type="heading" label={heading} />
+            {heading && (
+                <GFLabel type="heading" label={heading} />
+            )}
             {children}
         </Box>
     );

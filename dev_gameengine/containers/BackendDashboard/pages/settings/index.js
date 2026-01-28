@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import GameEngineBox from '@GFComponents/GameEngineBox';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -72,8 +74,13 @@ const Settings = () => {
                                     }
                                 />
                                 
-                                <Flex alignItems="flex-start" justifyContent={'center'} gap="16px" className='gameengine-page-content'>
-                                    <GeneralSettings />
+                                <Flex direction={'column'} alignItems="flex-start" justifyContent={'center'} className='gameengine-page-content'>
+                                    <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
+                                    </Flex>
+                                    <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'academy')}>
+                                        <GeneralSettings /> 
+                                    </GameEngineBox>
                                     {/* <LeftBar /> */}
                                     {/* {tab === "general-settings" && <GeneralSettings />} */}
                                     {/* {tab === "email-notice" && <EmailNotice />}
