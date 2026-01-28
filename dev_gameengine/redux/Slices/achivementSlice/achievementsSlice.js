@@ -78,7 +78,7 @@ export const fetchDynamicOptions = createAsyncThunk('gameengine/fetchDynamicOpti
     }
 );
 
-export const fetchPointTypes = createAsyncThunk('gameengine/fetchPointTypes', async () => {
+export const fetchPointTypes = createAsyncThunk('gameengine/achivementsfetchPointTypes', async () => {
     const response =  await API.get(namespace + 'point-types');
     return response.data;
 });
@@ -128,7 +128,7 @@ const achievementsSlice = createSlice({
                 state.allHooks = flattened;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
-                state.availablePointTypes = action.payload.map(pt => ({ label: pt.name, value: String(pt.id) }));
+                state.availablePointTypes = action?.payload?.map(pt => ({ label: pt.name, value: String(pt.id) }));
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;

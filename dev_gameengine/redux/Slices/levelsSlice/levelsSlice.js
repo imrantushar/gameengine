@@ -103,7 +103,7 @@ export const fetchDynamicOptions = createAsyncThunk('gameengine/fetchDynamicOpti
     }
 );
 
-export const fetchPointTypes = createAsyncThunk('gameengine/fetchPointTypes', async () => {
+export const fetchPointTypes = createAsyncThunk('gameengine/levelFetchPointTypes', async () => {
     return await apiFetch({ path: '/gameengine/v1/point-types' });
 });
 
