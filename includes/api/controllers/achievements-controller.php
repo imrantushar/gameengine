@@ -149,6 +149,7 @@ class AchievementsController extends BaseController
         $data = array(
             'title'                      => sanitize_text_field($params['title']),
             'plural_name'                => sanitize_text_field($params['plural_name']),
+            'status' => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
             'max_earnings_per_user'      => intval($params['max_earnings_per_user']),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'is_restricted'              => ! empty($params['is_restricted']) ? 1 : 0,
