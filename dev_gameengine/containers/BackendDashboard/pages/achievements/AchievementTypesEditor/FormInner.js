@@ -16,8 +16,8 @@ import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
-import { arrowForward,  } from "@GFUtils/icons";
-import { FaExternalLinkAlt } from "react-icons/fa";
+import { arrowForward, } from "@GFUtils/icons";
+import { TbExternalLink } from "react-icons/tb";
 
 const FormInner = () => {
     const [achievements, setAchievements] = useState(true);
@@ -33,7 +33,7 @@ const FormInner = () => {
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
-    const {availablePointTypes} = useSelector(state => state.achievements);
+    const { availablePointTypes } = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
     const { values, setFieldValue } = useFormikContext();
@@ -42,26 +42,26 @@ const FormInner = () => {
         try {
             setAchievementsLoading(true);
             let url = namespace + 'achievements';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const achievements = response.data?.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setAchievementsData(achievements);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setAchievementsLoading(false)
         }
     };
 
-    const fetchAcheivementTypes = async (searchKey="") => {
-        if(searchKey) searchKey = "&search=" + searchKey;
+    const fetchAcheivementTypes = async (searchKey = "") => {
+        if (searchKey) searchKey = "&search=" + searchKey;
         try {
-            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100'+ searchKey;
+            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100' + searchKey;
             const response = await API.get(url);
             const selectData = response.data.map(item => {
-                return {label: item.name, value: `${item.id}`}
+                return { label: item.name, value: `${item.id}` }
             })
             setAchievementTypes(selectData)
         } catch (error) {
@@ -73,25 +73,25 @@ const FormInner = () => {
         try {
             setLevelsLoading(true);
             let url = namespace + 'levels';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const levels = response.data.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setLevelsData(levels);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setLevelsLoading(false)
         }
     }
 
     useEffect(() => {
-        if(isRestrictContentActive) {
-            if(achievementsData.length === 0) {
+        if (isRestrictContentActive) {
+            if (achievementsData.length === 0) {
                 fetchAchievements();
             }
-            if(levelsData.length === 0) {
+            if (levelsData.length === 0) {
                 fetchLevels();
             }
         }
@@ -199,6 +199,9 @@ const FormInner = () => {
     };
 
     const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
+
+    const requireLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
@@ -232,9 +235,9 @@ const FormInner = () => {
             </GameEngineInput>
 
             <Box className="gameengine-add-achievement-type">
-                <GameEngineInput 
-                    label={__("Achivement Type", "gameengine")} 
-                    width="100%" 
+                <GameEngineInput
+                    label={__("Achivement Type", "gameengine")}
+                    width="100%"
                     direction='row'
                     justifyContent="space-between"
                     alignItems="center"
@@ -249,7 +252,7 @@ const FormInner = () => {
                         }}
                         value={
                             achievementTypes?.find(
-                            opt => Number(opt.value) === Number(values?.category_id)
+                                opt => Number(opt.value) === Number(values?.category_id)
                             ) || null
                         }
                         onMenuOpen={fetchAcheivementTypes}
@@ -271,14 +274,13 @@ const FormInner = () => {
             </GameEngineInput>
 
             <GameEngineInput
-                label={`${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`}
-                labelType={isRestrictContentActive ? "label" : "simple"}
+                label={requireLabel}
                 width="100%"
                 direction='row'
-                gap="10px"
+                gap={isRestrictContentActive ? "16px" : "4px"}
                 alignItems='center'
             >
-                <Flex alignItems={'center'} gap={'8px'}>
+                {isRestrictContentActive ? (
                     <Switch.Root
                         checked={values.is_restricted}
                         onCheckedChange={e => {
@@ -290,20 +292,34 @@ const FormInner = () => {
                         <Switch.HiddenInput />
                         <Switch.Control />
                     </Switch.Root>
-                    {!isRestrictContentActive && (
+                ) : (
+                    <Flex alignItems={'center'} gap={'16px'}>
                         <Button
                             as={'a'}
-                            href={admin_url+'admin.php?page=gameengine-addons'}
+                            href={admin_url + 'admin.php?page=gameengine-achievements&action=new'}
                             target='_blank'
                             type="link"
-                            {...clearBtn}
-                            minW={'0'}
-                            paddingInline={'0 4px'}
+                            minW='auto'
+                            height='auto'
+                            p='0'
+                            bg='transparent'
                         >
-                            <Icon as={FaExternalLinkAlt} width={'14px'}/>
+                            <Icon as={TbExternalLink} width={'20px'} />
                         </Button>
-                    )}
-                </Flex>
+
+                        <Switch.Root
+                            checked={values.is_restricted}
+                            onCheckedChange={e => {
+                                setFieldValue('is_restricted', e.checked)
+                            }}
+                            colorPalette="blue"
+                            disabled={!isRestrictContentActive}
+                        >
+                            <Switch.HiddenInput />
+                            <Switch.Control />
+                        </Switch.Root>
+                    </Flex>
+                )}
             </GameEngineInput>
 
             {(values?.is_restricted && isRestrictContentActive) && (
@@ -320,7 +336,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     achievementsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                        opt => Number(opt.value) === Number(values?.required_achievement_id)
                                     ) || null
                                 }
                                 isLoading={achievementsLoading}
@@ -341,7 +357,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     levelsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_level_id)
+                                        opt => Number(opt.value) === Number(values?.required_level_id)
                                     ) || null
                                 }
                                 isLoading={levelsLoading}

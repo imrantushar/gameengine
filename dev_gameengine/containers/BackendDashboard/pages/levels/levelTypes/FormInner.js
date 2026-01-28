@@ -196,6 +196,8 @@ const FormInner = () => {
         }
     };
 
+    const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`; 
+
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
@@ -253,8 +255,7 @@ const FormInner = () => {
             <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
             <GameEngineInput 
-                label={`${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`}
-                labelType={isRestrictContentActive ? "label" : "simple"}
+                label={reqLabel}
                 width="100%"
                 direction='row'
                 gap="10px"

@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Badge, Box, Button, Flex, Separator, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Icon, Separator, Text } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
-import { is_pro } from '@GFUtils/helper';
+import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import Tooltip from '@GFComponents/Tooltip';
-import { LuInfo } from 'react-icons/lu';
+import { LuInfo, LuSettings } from 'react-icons/lu';
+import { Link } from 'react-router-dom';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -77,16 +78,24 @@ const AddonCard = ({ item, index, value }) => {
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
 					{item.icon}
 				</Box>
-				<Box height="fit-content">
-					{item.is_pro && (
-						<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
-							{__('Pro', 'gameengine')}
-						</Badge>
-					)}
-					{item.is_coming_soon && (
-						<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
-					)}
-				</Box>
+				{item?.route && (!item.is_coming_soon || !item.is_pro) ? (
+					<Link
+						to={admin_url + item?.route}
+					>
+						<Icon as={LuSettings} boxSize={'20px'} />
+					</Link>
+				) : (
+					<Box height="fit-content">
+						{item.is_pro && (
+							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
+								{__('Pro', 'gameengine')}
+							</Badge>
+						)}
+						{item.is_coming_soon && (
+							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
+						)}
+					</Box>
+				)}
 			</Flex>
 
 			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 24px">

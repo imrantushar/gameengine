@@ -31,6 +31,7 @@ const infoCardsData = [
 		],
 		icon: academyLms(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+		route: "",
 	},
 	{
 		label: __('StoreEngine', 'gameengine'),
@@ -48,6 +49,7 @@ const infoCardsData = [
 			},
 		],
 		icon: storeEngine(),
+		route: "",
 	},
 	{
 		label: __('WooCommerce', 'gameengine'),
@@ -66,6 +68,7 @@ const infoCardsData = [
 		],
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Restrict Unlock', 'gameengine'),
@@ -79,6 +82,7 @@ const infoCardsData = [
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "admin.php?page=gameengine-achievements&action=new",
 	},
 	{
 		label: __('Restrict Content', 'gameengine'),
@@ -92,6 +96,7 @@ const infoCardsData = [
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Progress Map', 'gameengine'),
@@ -105,6 +110,7 @@ const infoCardsData = [
 		required_plugin: false,
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================
