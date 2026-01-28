@@ -31,7 +31,7 @@ const FormInner = () => {
     const [levelTypesData, setLevelTypesData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [selectedFilterHookType, setSelectedFilterHookType] = useState('all');
     const [types, setTypes] = useState([]);
     const { values, setFieldValue } = useFormikContext();
     const addons = useSelector(state => state.addons);
@@ -385,7 +385,7 @@ const FormInner = () => {
                         childLeft="gameengine-level-requirements-available-hooks"
                         childRight="gameengine-level-requirements-active-hooks"
                         hookTypeOptions={Object.keys(hookCategoryIconMap).map(k => ({ label: k, value: k }))}
-                        filterHookType={v => setSelectedFilter(v.map(o => o.value))}
+                        filterHookType={v => setSelectedFilterHookType(v)}
                         renderHookCard={renderHookCard}
                         selectedHookIds={activeHooks?.map(h => h?.id)}
                         openHookType={openedHooks}

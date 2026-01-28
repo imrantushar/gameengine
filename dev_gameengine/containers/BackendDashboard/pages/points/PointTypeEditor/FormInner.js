@@ -170,12 +170,11 @@ const FormInner = ({ hooksLoading }) => {
         );
     };
 
-    let hookTypeOptions = Array.from(
+    const hookTypeOptions = Array.from(
         new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))).map(slug => ({
             label: slug.charAt(0).toUpperCase() + slug.slice(1),
             value: slug,
         }));
-    hookTypeOptions = [{label: __('All', 'gameengine'), value: 'all'}, ...hookTypeOptions]
 
     return (
         <>

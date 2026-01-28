@@ -24,7 +24,7 @@ const FormInner = () => {
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [showInput, setShowInput] = useState(false);
     const [newCat, setNewCat] = useState("");
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [selectedFilterHookType, setSelectedFilterHookType] = useState("all");
     const [message, setMessage] = useState("");
     const [achievementTypes, setAchievementTypes] = useState([]);
     const [achievementsLoading, setAchievementsLoading] = useState(false);
@@ -394,7 +394,7 @@ const FormInner = () => {
                         childLeft="gameengine-achievement-requirements-available-hooks"
                         childRight="gameengine-achievement-requirements-active-hooks"
                         hookTypeOptions={hookTypeOptions}
-                        filterHookType={v => setSelectedFilterHookType(v.map(o => o.value))}
+                        filterHookType={v => setSelectedFilterHookType(v)}
                         renderHookCard={renderHookCard}
                         selectedHookIds={activeHooks?.map(h => h?.id)}
                         openHookType={openedHooks}

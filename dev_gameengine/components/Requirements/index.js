@@ -64,7 +64,7 @@ const Requirements = (props) => {
                             />
                         </Flex>
                         <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)">
-                            {hookTypeOptions.map((item, index) => {
+                            {[{label: __('All', 'gameengine'), value: 'all'}, ...hookTypeOptions].map((item, index) => {
                                 return (
                                     <Button 
                                         minW={'auto'} 
