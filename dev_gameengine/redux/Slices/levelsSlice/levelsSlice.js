@@ -5,10 +5,20 @@ import { showNotification } from '../notificationSlice/notificationSlice';
 import { __ } from '@wordpress/i18n';
 import { createLevelType, deleteLevelType, fetchLevelTypeById, fetchLevelTypes, updateLevelType } from './types';
 
-export const fetchLevels = createAsyncThunk('gameengine/fetchLevels', async (_,thunkAPI) => {
+export const fetchLevels = createAsyncThunk('gameengine/fetchLevels', async ({status = 'all', page = 1, per_page= 15, search= ""},thunkAPI) => {
+    let params = {
+        status: status === 'all' ? 'any' : status,
+        page,
+        per_page,
+    };
+    if (search) params = { ...params, search };
     try {
-        const response =  await API.get(namespace + 'levels');
-        return response.data;
+        const response =  await API.get(namespace + 'levels', {params});
+        return {
+            data: response.data,
+            ...params,
+            total: parseInt(response.headers['x-wp-total']),
+        };
     } catch (error) {
         return handleSliceError(thunkAPI, error)
     }
@@ -103,7 +113,7 @@ export const fetchDynamicOptions = createAsyncThunk('gameengine/fetchDynamicOpti
     }
 );
 
-export const fetchPointTypes = createAsyncThunk('gameengine/fetchPointTypes', async () => {
+export const fetchPointTypes = createAsyncThunk('gameengine/levelFetchPointTypes', async () => {
     return await apiFetch({ path: '/gameengine/v1/point-types' });
 });
 
@@ -117,6 +127,11 @@ const initialState = {
     hookSettings: {},
     status: 'idle',
     saveStatus: 'idle',
+    status: 'all',
+    page: 1,
+    perPage: 15,
+    search: '',
+    total: '',
 };
 
 const levelsSlice = createSlice({
@@ -131,7 +146,12 @@ const levelsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchLevels.fulfilled, (state, action) => {
-                state.levels = action.payload;
+                const {data, page, per_page, total, search} = action.payload;
+                state.levels = data;
+                state.page = page;
+                state.perPage = per_page;
+                state.total = total;
+                state.search = search;
             })
             .addCase(fetchIncludedLevels.fulfilled, (state, action) => {
                 state.levels = [...state.levels, action.payload];

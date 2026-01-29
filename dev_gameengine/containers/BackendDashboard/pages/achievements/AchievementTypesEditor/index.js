@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Button } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
+import Select from 'react-select';
 import {
     fetchAchievementById, createAchievement, updateAchievement, fetchTriggers, fetchPointTypes
 } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
@@ -14,7 +15,7 @@ import { Formik } from "formik";
 import FormInner from "./FormInner";
 import AchievementFormLoader from "@GFComponents/GameEngineLoader/AchievementFormSkeleton";
 import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
-import { route_path } from "@GFUtils/helper";
+import { route_path, statusArray } from "@GFUtils/helper";
 
 const AchievementTypesEditor = () => {
     const dispatch = useDispatch();
@@ -81,19 +82,28 @@ const AchievementTypesEditor = () => {
                     initialValues={getAchivementsInitialValues(editId, achievements)}
                     onSubmit={onSubmitHandler}
                 >
-                    {({ submitForm, isSubmitting, dirty}) => {
+                    {({ values, setFieldValue, submitForm, isSubmitting, dirty}) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Achievement Types", "gameengine")}
                                     rightContent={
-                                        <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
-                                            {editId ? __("Update", "gameengine") : __("Save Changes", "gameengine")}
-                                        </Button>
+                                        <Box display={'flex'} gap={'10px'}>
+                                            <Select
+                                                className="gameengine-select gameengine-select--120" 
+                                                classNamePrefix="gameengine-select"
+                                                options={statusArray}
+                                                value={statusArray.find(item => item.value === values.status)}
+                                                onChange={(option) => setFieldValue('status',option.value)}
+                                            />
+                                            <Button {...primaryBtn} width='140px' onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                                {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+                                            </Button>
+                                        </Box>
                                     } 
                                 />
 
-                                <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement Types`, "gameengine")}>
+                                <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
                                     <FormInner />
                                 </GameEngineBox>
                             </>

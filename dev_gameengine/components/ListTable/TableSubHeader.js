@@ -1,5 +1,6 @@
 import React from 'react';
 import SortableColumns from './SortableColumns';
+import { Box, Flex } from '@chakra-ui/react';
 
 const TableSubHeader = ({
 	subHeaderComponent,
@@ -12,13 +13,13 @@ const TableSubHeader = ({
 	suffix,
 }) => {
 	return (
-		<div className="gameengine-table__sub-header">
-			<div className="gameengine-table__sub-header-left">
+		<Flex className="gameengine-table__sub-header" justifyContent={'space-between'} width={'100%'}>
+			<Flex justifyContent={'space-between'} className="gameengine-table__sub-header-left" width={'100%'}>
 				{subHeaderComponent && subHeaderComponent}
-			</div>
+			</Flex>
 
 			{showColumnFilter ? (
-				<div className="gameengine-table__sub-header-right">
+				<Box className="gameengine-table__sub-header-right">
 					<SortableColumns
 						setTempCopyColumns={setTempCopyColumns}
 						tempCopyColumns={tempCopyColumns}
@@ -28,11 +29,11 @@ const TableSubHeader = ({
 						copyColumns={copyColumns}
 						suffix={suffix}
 					/>
-				</div>
+				</Box>
 			) : (
 				null
 			)}
-		</div>
+		</Flex>
 	);
 };
 

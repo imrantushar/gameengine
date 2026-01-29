@@ -43,6 +43,7 @@ const TableBody = ({
 								key={columnIndex}
 								position="relative"
 								textAlign={column?.textAlign ? column?.textAlign : "center"}
+								width={column?.width}
 							>
 								{column?.cell(row, rowIndex)}
 							</Table.Cell>

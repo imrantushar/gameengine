@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Badge, Box, Button, Flex, Separator, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Icon, Separator, Text, Image } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
-import { is_pro } from '@GFUtils/helper';
+import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
+import Tooltip from '@GFComponents/Tooltip';
+import { LuInfo, LuSettings } from 'react-icons/lu';
+import { Link } from 'react-router-dom';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -73,18 +76,28 @@ const AddonCard = ({ item, index, value }) => {
 		>
 			<Flex justifyContent="space-between" width="100%" height="50px" padding="0 24px">
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
-					{item.icon}
-				</Box>
-				<Box height="fit-content">
-					{item.is_pro && (
-						<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
-							{__('Pro', 'gameengine')}
-						</Badge>
-					)}
-					{item.is_coming_soon && (
-						<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
+					{item.icon ? item.icon : (
+						<Image src={item.image} />
 					)}
 				</Box>
+				{item?.route && (!item.is_coming_soon || !item.is_pro) ? (
+					<Link
+						to={admin_url + item?.route}
+					>
+						<Icon as={LuSettings} boxSize={'20px'} />
+					</Link>
+				) : (
+					<Box height="fit-content">
+						{item.is_pro && (
+							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
+								{__('Pro', 'gameengine')}
+							</Badge>
+						)}
+						{item.is_coming_soon && (
+							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
+						)}
+					</Box>
+				)}
 			</Flex>
 
 			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 24px">
@@ -101,30 +114,35 @@ const AddonCard = ({ item, index, value }) => {
 			<Separator borderColor="var(--gameengine-border-color)" />
 
 			{item.required_plugin ? (
-				<Flex direction="column" gap="4px" p="16px 24px 0 24px">
-					<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
-						{__('Required plugins', 'gameengine')}
-					</Text>
-
-					<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%">
-						{item?.required_plugin?.length > 0 && (
-							item.required_plugin.map((childItem, childItemIndex) => (
-								<Text fontSize="14px" fontWeight="400" color="#738496" m={0} key={childItemIndex}>
-									{childItem.plugin_name}
+				<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%" p="16px 24px 0 24px">
+					{item?.required_plugin?.length > 0 && (
+						item.required_plugin.map((childItem, childItemIndex) => (
+							<Flex alignItems="center" gap={2}>
+								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
+									{__('Required plugins', 'gameengine')}
 								</Text>
-							))
-						)}
+								<Tooltip
+									content={
+										<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+											{childItem.plugin_name}
+										</Text>
+									}
+								>
+									<LuInfo />
+								</Tooltip>
+							</Flex>
+						))
+					)}
 
-						{!item.is_coming_soon && (
-							<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-								<CustomSwitch
-									name={item.name}
-									value={values[item.name]} // Standard HTML attribute
-									onChange={onChangeHandler}
-								/>
-							</Box>
-						)}
-					</Flex>
+					{!item.is_coming_soon && (
+						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
+							<CustomSwitch
+								name={item.name}
+								value={values[item.name]} // Standard HTML attribute
+								onChange={onChangeHandler}
+							/>
+						</Box>
+					)}
 				</Flex>
 			) : (
 				<Flex justifyContent="space-between" alignItems="flex-end" gap="4px" width="100%" p="16px 24px 0 24px">

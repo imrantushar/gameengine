@@ -260,7 +260,7 @@ const ReactModalFormik = ({
 					{({ isSubmitting }) => (
 						<Form>
 							<div className="gameengine-modal__head">
-								{title && <Text fontSize="18px" fontWeight="600" lineHeight="20px" color="var(--gameengine-font-black)">{title}</Text>}
+								{title && <Text fontSize="18px" fontWeight="600" lineHeight="20px" color="var(--gameengine-font-black)" m={0}>{title}</Text>}
 								<div className="gameengine-modal-buttons">
 									{isEnabledResize && (
 										<OptionMenu

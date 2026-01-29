@@ -66,22 +66,21 @@ export const fetchPointTypeById = createAsyncThunk(
 // --- 6. Fetch All Point Types (List) ---
 export const fetchPointTypes = createAsyncThunk(
     'gameengine/fetchPointTypes',
-    async (_, { rejectWithValue }) => {
+    async ({status = 'all', page = 1, per_page= 15, search= ""}, { rejectWithValue }) => {
+        let params = {
+            status: status === 'all' ? 'any' : status,
+            page,
+            per_page,
+        };
+        if (search) params = { ...params, search };
         try {
-            const res = await API.get(`${namespace}point-types`);
-            const response = res?.data;
-            if (Array.isArray(response)) {
-                return response.map(item => ({
-                    id: item.id,
-                    name: item.name,
-                    plural_name: item.plural_name,
-                    requirements: item.requirements,
-                    date: new Date(item.created_at).toLocaleDateString('en-US', {
-                        year: 'numeric', month: 'short', day: 'numeric'
-                    })
-                }));
-            }
-            return [];
+            const response = await API.get(`${namespace}point-types`, {params});
+
+            return {
+                data: response.data,
+                ...params,
+                total: parseInt(response.headers['x-wp-total']),
+            };
         } catch (error) {
             return rejectWithValue(error.message);
         }
@@ -110,6 +109,11 @@ const initialState = {
     listStatus: false,
     saveStatus: 'idle',
     error: null,
+    status: 'all',
+    page: 1,
+    perPage: 15,
+    search: '',
+    total: '',
 };
 
 const pointTypeSlice = createSlice({
@@ -198,9 +202,14 @@ const pointTypeSlice = createSlice({
                 state.listStatus = true;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
+                const {data, page, per_page, total, search} = action.payload;
                 state.listStatus = false;
                 // Replace the entire list with fresh data from server
-                state.pointTypes = action.payload;
+                state.pointTypes = data;
+                state.page = page;
+                state.perPage = per_page;
+                state.total = total;
+                state.search = search;
             })
             .addCase(fetchPointTypes.rejected, (state) => {
                 state.listStatus = false;
