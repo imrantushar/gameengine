@@ -67,14 +67,14 @@ const AddonCard = ({ item, index, value }) => {
 
 	return (
 		<Flex
-			width="calc((100% / 3) - 16px)"
+			width={{base: "100%", md: "calc((100% / 2) - 16px)", xl: "calc((100% / 3) - 16px)"}}
 			background="#FFF"
 			boxShadow="var(--gameengine-shadow)"
 			padding="24px 0"
 			flexDirection="column"
 			borderRadius="4px"
 		>
-			<Flex justifyContent="space-between" width="100%" height="50px" padding="0 24px">
+			<Flex justifyContent="space-between" width="100%" minHeight="50px" padding="0 24px">
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
 					{item.icon ? item.icon : (
 						<Image src={item.image} />
