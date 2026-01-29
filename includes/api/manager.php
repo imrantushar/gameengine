@@ -19,6 +19,7 @@ use GameEngine\API\Controllers\SettingsController;
 use GameEngine\API\Controllers\AddonsController;
 use GameEngine\API\Controllers\TaxonomyController;
 use GameEngine\API\Controllers\ToolsController;
+use GameEngine\API\Controllers\SetupController;
 
 final class Manager
 {
@@ -50,6 +51,7 @@ final class Manager
             AddonsController::class,
             TaxonomyController::class,
             ToolsController::class,
+            SetupController::class,
         ];
     }
 
