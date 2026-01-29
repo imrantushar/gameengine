@@ -99,6 +99,10 @@ final class GameEngine
     public function init_modules()
     {
 
+        if (is_admin() && class_exists('\GameEngine\Admin\Setup')) {
+            \GameEngine\Admin\Setup::init();
+        }
+
         if (class_exists('\GameEngine\Classes\TaxonomyManager')) {
             \GameEngine\Classes\TaxonomyManager::init();
         }
