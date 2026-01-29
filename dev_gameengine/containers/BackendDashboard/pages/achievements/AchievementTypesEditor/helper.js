@@ -34,7 +34,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
     required_level_id: 0,
     restriction_message: "",
     congratulations_message: "",
-    status: "draft",
+    status: "publish",
     requirements: []
   }
 }

@@ -35,6 +35,6 @@ export const getLevelsInitialValues = (id=null, data = []) => {
     required_achievement_id: 0,
     restriction_message: "",
     required_level_id: 0,
-    status: 'draft',
+    status: 'publish',
   }
 }
