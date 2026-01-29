@@ -7,17 +7,18 @@ import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
-import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
+import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
 import { GoPlus } from "react-icons/go";
 import { useFormikContext } from "formik";
-import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
 import { arrowForward } from "@GFUtils/icons";
+import { FaExternalLinkAlt } from "react-icons/fa";
 
 const FormInner = () => {
     const [message, setMessage] = useState("");
@@ -31,7 +32,7 @@ const FormInner = () => {
     const [levelTypesData, setLevelTypesData] = useState([]);
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [selectedFilterHookType, setSelectedFilterHookType] = useState('all');
     const [types, setTypes] = useState([]);
     const { values, setFieldValue } = useFormikContext();
     const addons = useSelector(state => state.addons);
@@ -195,10 +196,16 @@ const FormInner = () => {
         }
     };
 
+    const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`; 
+
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                <GameEngineInput label={__("Level Name", "gameengine")} width="100%">
+                
+            </Flex>
+
+            <Flex className="gameengine-add-level-type" gap={'12px'}>
+                <GameEngineInput label={__("Level Name", "gameengine")} width="calc(50% - 6px)">
                     <Input
                         placeholder={__("Enter level name", "gameengine")}
                         value={values?.title}
@@ -208,17 +215,13 @@ const FormInner = () => {
                         {...commonInput}
                     />
                 </GameEngineInput>
-            </Flex>
-
-            <Box className="gameengine-add-level-type">
                 <GameEngineInput 
                     label={__("Level Type", "gameengine")} 
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
+                    width="calc(50% - 6px)"
+                    desc={__("Select your created types for Level.", "gameengine")}
                 >
                     <Select
-                        className="gameengine-select gameengine-select--width-half"
+                        className="gameengine-select gameengine-select--width-full"
                         classNamePrefix="gameengine-select"
                         options={types}
                         onInputChange={(inputValue) => {
@@ -237,7 +240,7 @@ const FormInner = () => {
                         menuPlacement="bottom"
                     />
                 </GameEngineInput>
-            </Box>
+            </Flex>
 
             <GameEngineInput label={__("Congratulations Message", "gameengine")} width="100%">
                 <GameEngineEditor
@@ -250,18 +253,40 @@ const FormInner = () => {
 
             <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-            <Switch.Root
-                checked={values.is_restricted}
-                onCheckedChange={e => {
-                    setFieldValue('is_restricted', e.checked)
-                }}
-                colorPalette="blue"
-                disabled={!isRestrictContentActive}
+            <GameEngineInput 
+                label={reqLabel}
+                width="100%"
+                direction='row'
+                gap="10px"
+                alignItems='center'
             >
-                <Switch.HiddenInput />
-                <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Enable Require Unlock", "gameengine")}</Switch.Label>
-                <Switch.Control />
-            </Switch.Root>
+                <Flex alignItems={'center'} gap={'8px'}>
+                    <Switch.Root
+                        checked={values.is_restricted}
+                        onCheckedChange={e => {
+                            setFieldValue('is_restricted', e.checked)
+                        }}
+                        colorPalette="blue"
+                        disabled={!isRestrictContentActive}
+                    >
+                        <Switch.HiddenInput />
+                        <Switch.Control />
+                    </Switch.Root>
+                    {!isRestrictContentActive && (
+                        <Button
+                            as={'a'}
+                            href={admin_url+'admin.php?page=gameengine-addons'}
+                            target='_blank'
+                            type="link"
+                            {...clearBtn}
+                            minW={'0'}
+                            paddingInline={'0 4px'}
+                        >
+                            <Icon as={FaExternalLinkAlt} width={'14px'}/>
+                        </Button>
+                    )}
+                </Flex>
+            </GameEngineInput>
 
             {(values?.is_restricted && isRestrictContentActive) && (
                 <Flex direction={'column'} gap="12px">
@@ -326,6 +351,41 @@ const FormInner = () => {
                 </Flex>
             )}
 
+            <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
+                {values?.icon ? (
+                    <Flex alignItems="center" justifyContent="space-between">
+                        <Image src={values?.icon} width="100px" objectFit="cover" />
+                        <Button
+                            bg="var(--gameengine-primary)"
+                            color="#fff"
+                            fontSize="12px"
+                            fontWeight="500"
+                            lineHeight="16px"
+                            p="6px 8px"
+                            height="auto"
+                            variant="ghost"
+                            onClick={handleImageUpload}
+                        >
+                            {__("Change Level Logo", "gameengine")}
+                        </Button>
+                    </Flex>
+                ) : (
+                    <Button
+                        bg="var(--gameengine-primary)"
+                        color="#fff"
+                        fontSize="12px"
+                        fontWeight="500"
+                        lineHeight="16px"
+                        p="6px 8px"
+                        height="auto"
+                        variant="ghost"
+                        onClick={handleImageUpload}
+                    >
+                        {__("Set Level Logo", "gameengine")}
+                    </Button>
+                )}
+            </BoxView>
+
             <Switch.Root
                 checked={values.unlock_with_points_enabled}
                 onCheckedChange={e => {
@@ -368,6 +428,7 @@ const FormInner = () => {
                             options={availablePointTypes}
                             value={availablePointTypes?.find(opt => opt.value == values.point_type_id)}
                             onChange={sel => setFieldValue('point_type_id', sel.value)}
+                            menuPlacement="top"
                         />
                     </GameEngineInput>
                 </Flex>
@@ -385,7 +446,7 @@ const FormInner = () => {
                         childLeft="gameengine-level-requirements-available-hooks"
                         childRight="gameengine-level-requirements-active-hooks"
                         hookTypeOptions={Object.keys(hookCategoryIconMap).map(k => ({ label: k, value: k }))}
-                        filterHookType={v => setSelectedFilter(v.map(o => o.value))}
+                        filterHookType={v => setSelectedFilterHookType(v)}
                         renderHookCard={renderHookCard}
                         selectedHookIds={activeHooks?.map(h => h?.id)}
                         openHookType={openedHooks}
@@ -398,41 +459,6 @@ const FormInner = () => {
                     />
                 </DndContext>
             )}
-
-            <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
-                {values?.icon ? (
-                    <Flex alignItems="center" justifyContent="space-between">
-                        <Image src={values?.icon} width="100px" objectFit="cover" />
-                        <Button
-                            bg="var(--gameengine-primary)"
-                            color="#fff"
-                            fontSize="12px"
-                            fontWeight="500"
-                            lineHeight="16px"
-                            p="6px 8px"
-                            height="auto"
-                            variant="ghost"
-                            onClick={handleImageUpload}
-                        >
-                            {__("Change Level Logo", "gameengine")}
-                        </Button>
-                    </Flex>
-                ) : (
-                    <Button
-                        bg="var(--gameengine-primary)"
-                        color="#fff"
-                        fontSize="12px"
-                        fontWeight="500"
-                        lineHeight="16px"
-                        p="6px 8px"
-                        height="auto"
-                        variant="ghost"
-                        onClick={handleImageUpload}
-                    >
-                        {__("Set Level Logo", "gameengine")}
-                    </Button>
-                )}
-            </BoxView>
         </Flex>
     );
 };

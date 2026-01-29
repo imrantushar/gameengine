@@ -6,9 +6,25 @@ import { __ } from '@wordpress/i18n';
 import { createAchievementType, deleteAchievementType, fetchAchievementTypeById, fetchAchievementTypes, updateAchievementType } from './types';
 
 // --- Async Thunks ---
-export const fetchAchievements = createAsyncThunk('gameengine/fetchAchievements', async () => {
-    const response =  await API.get(namespace + 'achievements');
-    return response.data;
+export const fetchAchievements = createAsyncThunk('gameengine/fetchAchievements', async ({status = 'all', page = 1, per_page= 15, search= ""}, { rejectWithValue }) => {
+    let params = {
+        status: status === 'all' ? 'any' : status,
+        page,
+        per_page,
+    };
+    if (search) params = { ...params, search };
+
+    try {
+        const response =  await API.get(namespace + 'achievements', {params});
+
+        return {
+            data: response.data,
+            ...params,
+            total: parseInt(response.headers['x-wp-total']),
+        };
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
 });
 
 export const fetchAchievementById = createAsyncThunk('gameengine/fetchAchievementById', async (id) => {
@@ -78,7 +94,7 @@ export const fetchDynamicOptions = createAsyncThunk('gameengine/fetchDynamicOpti
     }
 );
 
-export const fetchPointTypes = createAsyncThunk('gameengine/fetchPointTypes', async () => {
+export const fetchPointTypes = createAsyncThunk('gameengine/achivementsfetchPointTypes', async () => {
     const response =  await API.get(namespace + 'point-types');
     return response.data;
 });
@@ -95,6 +111,11 @@ const initialState = {
     status: 'idle',
     saveStatus: 'idle',
     error: null,
+    status: "all",
+    page: 1,
+    perPage: 15,
+    search: '',
+    total: '',
 };
 
 const achievementsSlice = createSlice({
@@ -110,7 +131,12 @@ const achievementsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
-                state.achievements = action.payload;
+                const {data, page, per_page, total, search} = action.payload;
+                state.achievements = data;
+                state.page = page;
+                state.perPage = per_page;
+                state.total = total;
+                state.search = search;
             })
             .addCase(fetchTriggers.fulfilled, (state, action) => {
                 state.integrations = action.payload;
@@ -128,7 +154,7 @@ const achievementsSlice = createSlice({
                 state.allHooks = flattened;
             })
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
-                state.availablePointTypes = action.payload.map(pt => ({ label: pt.name, value: String(pt.id) }));
+                state.availablePointTypes = action?.payload?.map(pt => ({ label: pt.name, value: String(pt.id) }));
             })
             .addCase(fetchAchievementById.fulfilled, (state, action) => {
                 const data = action.payload;

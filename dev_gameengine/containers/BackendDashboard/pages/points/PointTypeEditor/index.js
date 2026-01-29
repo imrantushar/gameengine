@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Button, Spinner, } from '@chakra-ui/react';
+import { Box, Button, Spinner, } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
+import Select from 'react-select';
 import {
     fetchTriggers,
     savePointType,
@@ -11,7 +12,7 @@ import {
     fetchPointTypeById,
 } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
-import { route_path } from '@GFUtils/helper';
+import { route_path, statusArray } from '@GFUtils/helper';
 import { Formik } from 'formik';
 import { getPointTypesInitialValues } from './helper';
 import FormInner from './FormInner';
@@ -78,22 +79,31 @@ const PointTypeEditor = () => {
                     initialValues={getPointTypesInitialValues(editId, pointTypes)}
                     onSubmit={onSubmitHandler}
                 >
-                    {({ submitForm, isSubmitting, dirty }) => {
+                    {({ values, setFieldValue, submitForm, isSubmitting, dirty }) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Points System", "gameengine")}
                                     rightContent={
-                                        <Button minW="170px" maxW="170px" {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
-                                            {isSubmitting ? (
-                                                <Spinner
-                                                    color="var(--gameengine-primary)"
-                                                    css={{ "--spinner-track-color": "var(--gameengine-secondary)" }}
-                                                />
-                                            ) : (
-                                                editId ? __('Update Point System', 'gameengine') : __('Save Point System', 'gameengine')
-                                            )}
-                                        </Button>
+                                        <Box display={'flex'} gap={'10px'}>
+                                            <Select 
+                                                className="gameengine-select gameengine-select--120" 
+                                                classNamePrefix="gameengine-select"
+                                                options={statusArray}
+                                                value={statusArray.find(item => item.value === values.status)}
+                                                onChange={(option) => setFieldValue('status',option.value)}
+                                            />
+                                            <Button minW="170px" maxW="170px" {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty || isSubmitting}>
+                                                {isSubmitting ? (
+                                                    <Spinner
+                                                        color="var(--gameengine-primary)"
+                                                        css={{ "--spinner-track-color": "var(--gameengine-secondary)" }}
+                                                    />
+                                                ) : (
+                                                    editId ? __('Update Point System', 'gameengine') : __('Create Point System', 'gameengine')
+                                                )}
+                                            </Button>
+                                        </Box>
                                     }
                                 />
 

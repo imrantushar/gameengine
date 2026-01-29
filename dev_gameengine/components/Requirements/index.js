@@ -1,6 +1,6 @@
 import React from 'react';
 import { __, sprintf } from '@wordpress/i18n';
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, RadioGroup, Switch, Text } from '@chakra-ui/react';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -38,10 +38,10 @@ const DroppableArea = ({ id, children }) => {
 
 const Requirements = (props) => {
     const {
-        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope
+        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope, 
     } = props;
     const dispatch = useDispatch();
-    return (
+    return ( 
         <CollapsibleItem
             // translators: %s: label
             label={sprintf(
@@ -63,24 +63,47 @@ const Requirements = (props) => {
                                 label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")}
                             />
                         </Flex>
-
-                        <Box p="12px" border="1px solid var(--gameengine-border-color)" borderRadius="4px">
-                            <GameEngineInput label={__("Filter Hooks Type", "gameengine")}>
-                                <Select
-                                    className="gameengine-select"
-                                    classNamePrefix="gameengine-select"
-                                    isMulti
-                                    options={hookTypeOptions}
-                                    placeholder={__("Select hook type", "gameengine")}
-                                    onChange={filterHookType}
-                                />
-                            </GameEngineInput>
+                        <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)">
+                            {[{label: __('All', 'gameengine'), value: 'all'}, ...hookTypeOptions].map((item, index) => {
+                                return (
+                                    <Button 
+                                        minW={'auto'} 
+                                        variant={'plain'} 
+                                        onClick={() => filterHookType(item.value)}
+                                        key={index}
+                                        bg={'transparent'}
+                                        height={'35px'}
+                                        fontSize={'12px'}
+                                        fontWeight={'500'}
+                                        lineHeight={'20px'}
+                                        color={'var(--gameengine-font-color)'}
+                                        _after={{
+                                            content: '""',
+                                            position: "absolute",
+                                            left: 0,
+                                            bottom: "-3px",
+                                            width: "100%",
+                                            height: "2px",
+                                            bg: "var(--gameengine-primary)",
+                                            transform:
+                                                selectedFilterType === item.value ? "scaleX(1)" : "scaleX(0)",
+                                            transformOrigin: "left",
+                                            transition: "transform 0.2s ease",
+                                        }}
+                                        _hover={{
+                                            _after: {
+                                                transform: "scaleX(1)", 
+                                            },
+                                        }}
+                                    >{item.label}</Button>
+                                )
+                            })}
                         </Box>
 
                         <DroppableArea id={`${actionName}s-available`}>
                             {allHooks
                                 .filter(item => !selectedHookIds?.includes(item?.id))
-                                .filter(item => selectedFilterType.length === 0 || selectedFilterType.includes(item.integrationSlug))
+                                .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
                                 .map(h => (
                                     <Box key={h.id}>
                                         {renderHookCard(h, actionName)}

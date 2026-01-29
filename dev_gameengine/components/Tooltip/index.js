@@ -7,29 +7,29 @@ const Tooltip = ({
 	position = 'top',
 	showArrow = true,
 	disabled = false,
-	variant = "black",
-	delay = 150, 
+	variant = "blue",
+	delay = 150,
 	suffix
 }) => {
-	const [visible, setVisible] = useState(false);
+	const [show, setShow] = useState(false);
 	const timeoutRef = useRef(null);
 	const shouldShow = !disabled && content;
 
 	const showTooltip = () => {
 		if (!shouldShow) return;
-		
+
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 			timeoutRef.current = null;
 		}
-		setVisible(true);
+		setShow(true);
 	};
 
 	const hideTooltip = () => {
 		if (!shouldShow) return;
-		
+
 		timeoutRef.current = setTimeout(() => {
-			setVisible(false);
+			setShow(false);
 			timeoutRef.current = null;
 		}, delay);
 	};
@@ -45,7 +45,7 @@ const Tooltip = ({
 		if (timeoutRef.current) {
 			clearTimeout(timeoutRef.current);
 		}
-		setVisible(false);
+		setShow(false);
 	};
 
 	useEffect(() => {
@@ -58,6 +58,7 @@ const Tooltip = ({
 
 	const classNames = [
 		"gameengine-tooltip",
+		`gameengine-tooltip__variant--${variant}`,
 		suffix && `gameengine-tooltip--${suffix}`
 	].filter(Boolean).join(" ");
 
@@ -68,9 +69,9 @@ const Tooltip = ({
 			onMouseLeave={hideTooltip}
 		>
 			{children}
-			{(shouldShow && visible) && (
-				<div 
-					className={`gameengine-tooltip__box gameengine-tooltip__variant--${variant} gameengine-tooltip__box--${position}`}
+			{(shouldShow && show) && (
+				<div
+					className={`gameengine-tooltip__box gameengine-tooltip__box--${position}`}
 					onMouseEnter={handleTooltipMouseEnter}
 					onMouseLeave={handleTooltipMouseLeave}
 				>

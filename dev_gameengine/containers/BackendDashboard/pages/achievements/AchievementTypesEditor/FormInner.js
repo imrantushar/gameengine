@@ -10,13 +10,14 @@ import GameEngineEditor from "@GFComponents/editor";
 import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
-import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
+import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
-import { API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
-import { arrowForward,  } from "@GFUtils/icons";
+import { arrowForward, } from "@GFUtils/icons";
+import { TbExternalLink } from "react-icons/tb";
 
 const FormInner = () => {
     const [achievements, setAchievements] = useState(true);
@@ -24,7 +25,7 @@ const FormInner = () => {
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
     const [showInput, setShowInput] = useState(false);
     const [newCat, setNewCat] = useState("");
-    const [selectedFilterHookType, setSelectedFilterHookType] = useState([]);
+    const [selectedFilterHookType, setSelectedFilterHookType] = useState("all");
     const [message, setMessage] = useState("");
     const [achievementTypes, setAchievementTypes] = useState([]);
     const [achievementsLoading, setAchievementsLoading] = useState(false);
@@ -32,7 +33,7 @@ const FormInner = () => {
     const [levelsLoading, setLevelsLoading] = useState(false);
     const [levelsData, setLevelsData] = useState([]);
     const addons = useSelector(state => state.addons);
-    const {availablePointTypes} = useSelector(state => state.achievements);
+    const { availablePointTypes } = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
     const { values, setFieldValue } = useFormikContext();
@@ -41,26 +42,26 @@ const FormInner = () => {
         try {
             setAchievementsLoading(true);
             let url = namespace + 'achievements';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const achievements = response.data?.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setAchievementsData(achievements);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setAchievementsLoading(false)
         }
     };
 
-    const fetchAcheivementTypes = async (searchKey="") => {
-        if(searchKey) searchKey = "&search=" + searchKey;
+    const fetchAcheivementTypes = async (searchKey = "") => {
+        if (searchKey) searchKey = "&search=" + searchKey;
         try {
-            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100'+ searchKey;
+            const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100' + searchKey;
             const response = await API.get(url);
             const selectData = response.data.map(item => {
-                return {label: item.name, value: `${item.id}`}
+                return { label: item.name, value: `${item.id}` }
             })
             setAchievementTypes(selectData)
         } catch (error) {
@@ -72,25 +73,25 @@ const FormInner = () => {
         try {
             setLevelsLoading(true);
             let url = namespace + 'levels';
-            if(key) url += "?search=" + key;
+            if (key) url += "?search=" + key;
             const response = await API.get(url);
             const levels = response.data.map(item => {
-                return {label: item.title, value: item.id}
+                return { label: item.title, value: item.id }
             })
             setLevelsData(levels);
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             setLevelsLoading(false)
         }
     }
 
     useEffect(() => {
-        if(isRestrictContentActive) {
-            if(achievementsData.length === 0) {
+        if (isRestrictContentActive) {
+            if (achievementsData.length === 0) {
                 fetchAchievements();
             }
-            if(levelsData.length === 0) {
+            if (levelsData.length === 0) {
                 fetchLevels();
             }
         }
@@ -198,6 +199,9 @@ const FormInner = () => {
     };
 
     const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({ label: slug.charAt(0).toUpperCase() + slug.slice(1), value: slug }));
+
+    const requireLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
@@ -215,30 +219,29 @@ const FormInner = () => {
                 </GameEngineInput>
             </Flex>
 
-            <GameEngineInput
-                label={__("Maximum earnings per user", "gameengine")}
-                desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")}
-            >
-                <Input
-                    placeholder={__("Maximum Earnings Per User:", "gameengine")}
-                    type="number"
-                    value={values.max_earnings_per_user}
-                    onChange={e => {
-                        setFieldValue('max_earnings_per_user', e.target.value)
-                    }}
-                    {...commonInput}
-                />
-            </GameEngineInput>
-
-            <Box className="gameengine-add-achievement-type">
-                <GameEngineInput 
-                    label={__("Achivement Type", "gameengine")} 
-                    width="100%" 
-                    direction={'row'}
-                    justifyContent="space-between"
+            <Flex className="gameengine-add-achievement-type" gap={'12px'}>
+                <GameEngineInput
+                    label={__("Maximum earnings per user", "gameengine")}
+                    desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")}
+                    width="calc(50% - 6px)"
+                >
+                    <Input
+                        placeholder={__("Maximum Earnings Per User:", "gameengine")}
+                        type="number"
+                        value={values.max_earnings_per_user}
+                        onChange={e => {
+                            setFieldValue('max_earnings_per_user', e.target.value)
+                        }}
+                        {...commonInput}
+                    />
+                </GameEngineInput>
+                <GameEngineInput
+                    label={__("Achivement Type", "gameengine")}
+                    width="calc(50% - 6px)"
+                    desc={__("Select your created types for achivement.", "gameengine")}
                 >
                     <Select
-                        className="gameengine-select gameengine-select--width-half"
+                        className="gameengine-select gameengine-select--width-full"
                         classNamePrefix="gameengine-select"
                         options={achievementTypes}
                         onInputChange={(inputValue) => {
@@ -247,7 +250,7 @@ const FormInner = () => {
                         }}
                         value={
                             achievementTypes?.find(
-                            opt => Number(opt.value) === Number(values?.category_id)
+                                opt => Number(opt.value) === Number(values?.category_id)
                             ) || null
                         }
                         onMenuOpen={fetchAcheivementTypes}
@@ -257,7 +260,7 @@ const FormInner = () => {
                         menuPlacement="bottom"
                     />
                 </GameEngineInput>
-            </Box>
+            </Flex>
 
             <GameEngineInput label={__("Congratulations Message", "gameengine")}>
                 <GameEngineEditor
@@ -268,18 +271,54 @@ const FormInner = () => {
                 />
             </GameEngineInput>
 
-            <Switch.Root
-                checked={values.is_restricted}
-                onCheckedChange={e => {
-                    setFieldValue('is_restricted', e.checked)
-                }}
-                colorPalette="blue"
-                disabled={!isRestrictContentActive}
+            <GameEngineInput
+                label={requireLabel}
+                width="100%"
+                direction='row'
+                gap={isRestrictContentActive ? "16px" : "4px"}
+                alignItems='center'
             >
-                <Switch.HiddenInput />
-                <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Enable Require Unlock", "gameengine")}</Switch.Label>
-                <Switch.Control />
-            </Switch.Root>
+                {isRestrictContentActive ? (
+                    <Switch.Root
+                        checked={values.is_restricted}
+                        onCheckedChange={e => {
+                            setFieldValue('is_restricted', e.checked)
+                        }}
+                        colorPalette="blue"
+                        disabled={!isRestrictContentActive}
+                    >
+                        <Switch.HiddenInput />
+                        <Switch.Control />
+                    </Switch.Root>
+                ) : (
+                    <Flex alignItems={'center'} gap={'16px'}>
+                        <Button
+                            as={'a'}
+                            href={admin_url + 'admin.php?page=gameengine-achievements&action=new'}
+                            target='_blank'
+                            type="link"
+                            minW='auto'
+                            height='auto'
+                            p='0'
+                            bg='transparent'
+                        >
+                            <Icon as={TbExternalLink} width={'20px'} />
+                        </Button>
+
+                        <Switch.Root
+                            checked={values.is_restricted}
+                            onCheckedChange={e => {
+                                setFieldValue('is_restricted', e.checked)
+                            }}
+                            colorPalette="blue"
+                            disabled={!isRestrictContentActive}
+                        >
+                            <Switch.HiddenInput />
+                            <Switch.Control />
+                        </Switch.Root>
+                    </Flex>
+                )}
+            </GameEngineInput>
 
             {(values?.is_restricted && isRestrictContentActive) && (
                 <Flex direction={'column'} gap="12px">
@@ -295,7 +334,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     achievementsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_achievement_id)
+                                        opt => Number(opt.value) === Number(values?.required_achievement_id)
                                     ) || null
                                 }
                                 isLoading={achievementsLoading}
@@ -316,7 +355,7 @@ const FormInner = () => {
                                 }}
                                 value={
                                     levelsData?.find(
-                                    opt => Number(opt.value) === Number(values?.required_level_id)
+                                        opt => Number(opt.value) === Number(values?.required_level_id)
                                     ) || null
                                 }
                                 isLoading={levelsLoading}
@@ -394,7 +433,7 @@ const FormInner = () => {
                         childLeft="gameengine-achievement-requirements-available-hooks"
                         childRight="gameengine-achievement-requirements-active-hooks"
                         hookTypeOptions={hookTypeOptions}
-                        filterHookType={v => setSelectedFilterHookType(v.map(o => o.value))}
+                        filterHookType={v => setSelectedFilterHookType(v)}
                         renderHookCard={renderHookCard}
                         selectedHookIds={activeHooks?.map(h => h?.id)}
                         openHookType={openedHooks}

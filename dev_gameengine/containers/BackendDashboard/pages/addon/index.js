@@ -4,22 +4,24 @@ import AddonCard from './AddonCard';
 import { Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
-import { Button, Flex, } from '@chakra-ui/react';
+import { Box, Button, Flex, } from '@chakra-ui/react';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
+import GFLabel from '@GFComponents/Labels/GFLabel';
+import { plugin_root_url } from '@GFUtils/helper';
 
 const infoCardsData = [
 	{
 		label: __('Academy LMS', 'gameengine'),
 		name: 'academylms',
 		is_pro: false,
-		is_coming_soon: false,
+		is_coming_soon: true,
 		details: __(
-			'When users complete or pass a quiz.',
+			'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
 			'gameengine'
 		),
 		required_plugin: [
@@ -30,6 +32,7 @@ const infoCardsData = [
 		],
 		icon: academyLms(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+		route: "",
 	},
 	{
 		label: __('StoreEngine', 'gameengine'),
@@ -37,7 +40,7 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: true,
 		details: __(
-			'Sell certificates, quiz access, or digital products directly with StoreEngine integration.',
+			'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
 			'gameengine'
 		),
 		required_plugin: [
@@ -47,6 +50,7 @@ const infoCardsData = [
 			},
 		],
 		icon: storeEngine(),
+		route: "",
 	},
 	{
 		label: __('WooCommerce', 'gameengine'),
@@ -54,7 +58,7 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!',
 			'gameengine'
 		),
 		required_plugin: [
@@ -65,6 +69,7 @@ const infoCardsData = [
 		],
 		icon: wooCommerce(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Restrict Unlock', 'gameengine'),
@@ -72,12 +77,14 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!',
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/restrict_unlock.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "admin.php?page=gameengine-achievements&action=new",
 	},
 	{
 		label: __('Restrict Content', 'gameengine'),
@@ -85,12 +92,14 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Lock specific posts, pages, images or links based on points and badges.',
+			'Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled',
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/restrict_content.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 	{
 		label: __('Progress Map', 'gameengine'),
@@ -98,12 +107,14 @@ const infoCardsData = [
 		is_pro: false,
 		is_coming_soon: false,
 		details: __(
-			'Monetize quizzes effortlessly by selling them as WooCommerce products and bundles.',
+			'Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!',
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================
@@ -216,111 +227,112 @@ const Addons = () => {
 		<>
 			<TopBar path={__("Add-ons", "gameengine")} />
 
-			<GameEngineBox
-				heading={__("Add-ons", "gameengine")}
-				dynamicClasses="addons"
-			>
-				<Flex
-					width={'100%'}
-					justifyContent={'space-between'}
-					alignItems={'center'}
-					borderBottom={'1px solid var(--gameengine-border-color)'}
-					pb="10px"
-					mb='20px'
-				>
-					<Flex gap={0} alignItems="center">
-						{filterOptions.map((option, index) => (
-							<Button
-								key={index}
-								bg={'transparent'}
-								minWidth={'0'}
-								height={'35px'}
-								padding={'6px 12px'}
-								fontSize={'14px'}
-								fontWeight={'500'}
-								lineHeight={'20px'}
-								color={'var(--gameengine-font-color)'}
-								_after={{
-									content: '""',
-									position: "absolute",
-									left: 0,
-									bottom: "-13px",
-									width: "100%",
-									height: "2px",
-									bg: "var(--gameengine-primary)",
-									transform:
-										filterMenu === option.slug ? "scaleX(1)" : "scaleX(0)",
-									transformOrigin: "left",
-									transition: "transform 0.2s ease",
-								}}
-								_hover={{
-									_after: {
-										transform: "scaleX(1)",
-									},
-								}}
-								className={`gameengine-addons-filter-option ${filterMenu === option.slug
-									? 'active-filter'
-									: ''
-									}`}
-								onClick={() => {
-									setFilterMenu(option.slug);
-									setLoading(true);
-								}}
-							>
-								{option.title}
-							</Button>
-						))}
+			<Box className='gameengine-page-content'>
+				<GFLabel type="plainHeading" margin={0} padding="24px 0" label={__("Add-ons", "gameengine")} />
+
+				<GameEngineBox dynamicClasses="addons">
+					<Flex
+						width={'100%'}
+						justifyContent={'space-between'}
+						alignItems={'center'}
+						borderBottom={'1px solid var(--gameengine-border-color)'}
+						pb="10px"
+						mb='20px'
+					>
+						<Flex gap={0} alignItems="center">
+							{filterOptions.map((option, index) => (
+								<Button
+									key={index}
+									bg={'transparent'}
+									minWidth={'0'}
+									height={'35px'}
+									padding={'6px 12px'}
+									fontSize={'14px'}
+									fontWeight={'500'}
+									lineHeight={'20px'}
+									color={'var(--gameengine-font-color)'}
+									_after={{
+										content: '""',
+										position: "absolute",
+										left: 0,
+										bottom: "-13px",
+										width: "100%",
+										height: "2px",
+										bg: "var(--gameengine-primary)",
+										transform:
+											filterMenu === option.slug ? "scaleX(1)" : "scaleX(0)",
+										transformOrigin: "left",
+										transition: "transform 0.2s ease",
+									}}
+									_hover={{
+										_after: {
+											transform: "scaleX(1)",
+										},
+									}}
+									className={`gameengine-addons-filter-option ${filterMenu === option.slug
+										? 'active-filter'
+										: ''
+										}`}
+									onClick={() => {
+										setFilterMenu(option.slug);
+										setLoading(true);
+									}}
+								>
+									{option.title}
+								</Button>
+							))}
+						</Flex>
+
+						<Search
+							placeholder={__('Search Add-ons', 'gameengine')}
+							onSearchHandler={(keyword) =>
+								setFilterText(keyword.trim())
+							}
+						/>
 					</Flex>
 
-					<Search
-						placeholder={__('Search Add-ons', 'gameengine')}
-						onSearchHandler={(keyword) =>
-							setFilterText(keyword.trim())
-						}
-					/>
-				</Flex>
-
-				<Formik
-					enableReinitialize
-					initialValues={{ ...addonsSavedData }}
-				>
-					{({ setFieldValue, values }) => {
-						const addonLists = getAddonLists(values);
-						return (
-							<>
-								{loading ? (
-									<AddOnsLoader />
-								) : (
-									<Flex
-										width={'100%'}
-										flexWrap={'wrap'}
-										gap={'20px'}
-										className='gameengine-dashboard-addon-cards'
-									>
-										{addonLists.length ? (
-											addonLists.map(
-												(item, index) => {
-													return (
-														<AddonCard
-															item={item}
-															key={index}
-															index={index}
-															value={values[item.name]}
-															setFieldValue={setFieldValue}
-														/>
-													);
-												}
-											)
-										) : (
-											<CustomTableMessage title={__('No Addons Found!', 'academy')} />
-										)}
-									</Flex>
-								)}
-							</>
-						)
-					}}
-				</Formik>
-			</GameEngineBox>
+					<Formik
+						enableReinitialize
+						initialValues={{ ...addonsSavedData }}
+					>
+						{({ setFieldValue, values }) => {
+							const addonLists = getAddonLists(values);
+							return (
+								<>
+									{loading ? (
+										<AddOnsLoader />
+									) : (
+										<Flex
+											width={'100%'}
+											flexWrap={'wrap'}
+											gap={'20px'}
+											className='gameengine-dashboard-addon-cards'
+										>
+											{addonLists.length ? (
+												addonLists.map(
+													(item, index) => {
+														return (
+															<AddonCard
+																item={item}
+																key={index}
+																index={index}
+																value={values[item.name]}
+																setFieldValue={setFieldValue}
+															/>
+														);
+													}
+												)
+											) : (
+												<CustomTableMessage title={__('No Addons Found!', 'academy')} />
+											)}
+										</Flex>
+									)}
+								</>
+							)
+						}}
+					</Formik>
+				</GameEngineBox>
+			</Box>
 		</>
 	);
 };

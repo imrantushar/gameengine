@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { __ } from '@wordpress/i18n';
 import { createPortal } from 'react-dom';
 import './styles.scss';
+import { Icon } from '@chakra-ui/react';
+import { FaAngleDown } from 'react-icons/fa6';
 
 const propTypes = {
 	children: PropTypes.object,
@@ -63,7 +65,7 @@ const StatusOptions = ( props ) => {
 			const buttonHeight = relativeTo.current.offsetHeight;
 			menuItemRef.current.style.position = 'absolute';
 			menuItemRef.current.style.left = `${ x - 50 }px`;
-			menuItemRef.current.style.top = `${ y + buttonHeight + 5 }px`;
+			menuItemRef.current.style.top = `${ y + buttonHeight - 25 }px`;
 			document.body.appendChild( menuItemRef.current );
 		} else if (
 			relativeTo.current &&
@@ -85,7 +87,9 @@ const StatusOptions = ( props ) => {
 				<span className="label">{ statusLabel[ value ] }</span>
 				<span
 					className={ `gameengine-icon gameengine-icon--arrow-down` }
-				/>
+				>
+					<Icon as={FaAngleDown} />
+				</span>
 			</button>
 			{ createPortal(
 				<div
