@@ -219,31 +219,29 @@ const FormInner = () => {
                 </GameEngineInput>
             </Flex>
 
-            <GameEngineInput
-                label={__("Maximum earnings per user", "gameengine")}
-                desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")}
-            >
-                <Input
-                    placeholder={__("Maximum Earnings Per User:", "gameengine")}
-                    type="number"
-                    value={values.max_earnings_per_user}
-                    onChange={e => {
-                        setFieldValue('max_earnings_per_user', e.target.value)
-                    }}
-                    {...commonInput}
-                />
-            </GameEngineInput>
-
-            <Box className="gameengine-add-achievement-type">
+            <Flex className="gameengine-add-achievement-type" gap={'12px'}>
+                <GameEngineInput
+                    label={__("Maximum earnings per user", "gameengine")}
+                    desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")}
+                    width="calc(50% - 6px)"
+                >
+                    <Input
+                        placeholder={__("Maximum Earnings Per User:", "gameengine")}
+                        type="number"
+                        value={values.max_earnings_per_user}
+                        onChange={e => {
+                            setFieldValue('max_earnings_per_user', e.target.value)
+                        }}
+                        {...commonInput}
+                    />
+                </GameEngineInput>
                 <GameEngineInput
                     label={__("Achivement Type", "gameengine")}
-                    width="100%"
-                    direction='row'
-                    justifyContent="space-between"
-                    alignItems="center"
+                    width="calc(50% - 6px)"
+                    desc={__("Select your created types for achivement.", "gameengine")}
                 >
                     <Select
-                        className="gameengine-select gameengine-select--width-half"
+                        className="gameengine-select gameengine-select--width-full"
                         classNamePrefix="gameengine-select"
                         options={achievementTypes}
                         onInputChange={(inputValue) => {
@@ -262,7 +260,7 @@ const FormInner = () => {
                         menuPlacement="bottom"
                     />
                 </GameEngineInput>
-            </Box>
+            </Flex>
 
             <GameEngineInput label={__("Congratulations Message", "gameengine")}>
                 <GameEngineEditor

@@ -201,7 +201,11 @@ const FormInner = () => {
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                <GameEngineInput label={__("Level Name", "gameengine")} width="100%">
+                
+            </Flex>
+
+            <Flex className="gameengine-add-level-type" gap={'12px'}>
+                <GameEngineInput label={__("Level Name", "gameengine")} width="calc(50% - 6px)">
                     <Input
                         placeholder={__("Enter level name", "gameengine")}
                         value={values?.title}
@@ -211,18 +215,13 @@ const FormInner = () => {
                         {...commonInput}
                     />
                 </GameEngineInput>
-            </Flex>
-
-            <Box className="gameengine-add-level-type">
                 <GameEngineInput 
                     label={__("Level Type", "gameengine")} 
-                    width="100%" 
-                    direction='row'
-                    justifyContent="space-between"
-                    alignItems="center"
+                    width="calc(50% - 6px)"
+                    desc={__("Select your created types for Level.", "gameengine")}
                 >
                     <Select
-                        className="gameengine-select gameengine-select--width-half"
+                        className="gameengine-select gameengine-select--width-full"
                         classNamePrefix="gameengine-select"
                         options={types}
                         onInputChange={(inputValue) => {
@@ -241,7 +240,7 @@ const FormInner = () => {
                         menuPlacement="bottom"
                     />
                 </GameEngineInput>
-            </Box>
+            </Flex>
 
             <GameEngineInput label={__("Congratulations Message", "gameengine")} width="100%">
                 <GameEngineEditor

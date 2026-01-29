@@ -67,40 +67,41 @@ const PointTypesTable = () => {
         const itemArray = renderAction(row, 'award');
         if (itemArray.length === 0) return <span style={{ color: '#999', fontSize: '12px' }}>--</span>;
 
-        const renderTypeNames = (sliceIndex = 2) => (
-          <>
-            {itemArray.slice(0, sliceIndex).map((item, idx) => (
-              <React.Fragment key={idx}>
-                <Badge variant="subtle" borderRadius="4px" px={2}>
-                  {item}
-                </Badge>
-                {idx < sliceIndex - 1 && ','}
-              </React.Fragment>
-            ))}
-          </>
-        );
+        // const renderTypeNames = (sliceIndex = 2) => (
+        //   <>
+        //     {itemArray.slice(0, sliceIndex).map((item, idx) => (
+        //       <React.Fragment key={idx}>
+        //         <Badge variant="subtle" borderRadius="4px" px={2}>
+        //           {item}
+        //         </Badge>
+        //         {idx < sliceIndex - 1 && ','}
+        //       </React.Fragment>
+        //     ))}
+        //   </>
+        // );
 
-        const renderTooltipContent = () => (
-          <Flex flexWrap={'wrap'} gap={1}>
-            {itemArray.slice(2).map((item, idx) => (
-              <React.Fragment key={idx}>
-                <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
-                {idx < itemArray.slice(2).length - 1 && ','}
-              </React.Fragment>
-            ))}
-          </Flex>
-        );
+        // const renderTooltipContent = (sliceIndex, moreContent='') => (
+        //   <Flex flexWrap={'wrap'} gap={1}>
+        //     {itemArray.slice(0,sliceIndex).map((item, idx) => (
+        //       <React.Fragment key={idx}>
+        //         <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
+        //         {idx < itemArray.slice(2).length - 1 && ','}
+        //       </React.Fragment>
+        //     ))}
+        //     {moreContent}
+        //   </Flex>
+        // );
 
         return (
           <Flex flexWrap={'wrap'} gap={1} justifyContent={'center'} alignItems={'center'}>
-            {renderTypeNames()}
-            {itemArray.length > 2 && (
+            {itemArray.length + " " + __('Actions.','gameengine')}
+            {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
-                  {renderTooltipContent()}
+                  {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
-            )}
+            )} */}
           </Flex>
         );
       },
@@ -111,40 +112,41 @@ const PointTypesTable = () => {
       cell: (row) => {
         const itemArray = renderAction(row, 'deduct');
         if (itemArray.length === 0) return <span style={{ color: '#999', fontSize: '12px' }}>-</span>;
-        const renderTypeNames = (sliceIndex = 2) => (
-          <>
-            {itemArray.slice(0, sliceIndex).map((item, idx) => (
-              <React.Fragment key={idx}>
-                <Badge variant="subtle" borderRadius="4px" px={2}>
-                  {item}
-                </Badge>
-                {idx < sliceIndex - 1 && ','}
-              </React.Fragment>
-            ))}
-          </>
-        );
+        // const renderTypeNames = (sliceIndex = 2) => (
+        //   <>
+        //     {itemArray.slice(0, sliceIndex).map((item, idx) => (
+        //       <React.Fragment key={idx}>
+        //         <Badge variant="subtle" borderRadius="4px" px={2}>
+        //           {item}
+        //         </Badge>
+        //         {idx < sliceIndex - 1 && ','}
+        //       </React.Fragment>
+        //     ))}
+        //   </>
+        // );
 
-        const renderTooltipContent = () => (
-          <Flex flexWrap={'wrap'} gap={1}>
-            {itemArray.slice(2).map((item, idx) => (
-              <React.Fragment key={idx}>
-                <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
-                {idx < itemArray.slice(2).length - 1 && ','}
-              </React.Fragment>
-            ))}
-          </Flex>
-        );
+        // const renderTooltipContent = (sliceIndex, moreContent='') => (
+        //   <Flex flexWrap={'wrap'} gap={1}>
+        //     {itemArray.slice(0,sliceIndex).map((item, idx) => (
+        //       <React.Fragment key={idx}>
+        //         <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
+        //         {idx < itemArray.slice(2).length - 1 && ','}
+        //       </React.Fragment>
+        //     ))}
+        //     {moreContent}
+        //   </Flex>
+        // );
 
         return (
           <Flex flexWrap={'wrap'} gap={1} justifyContent={'center'} alignItems={'center'}>
-            {renderTypeNames()}
-            {itemArray.length > 2 && (
+            {itemArray.length + " " + __('Actions.','gameengine')}
+            {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
-                  {renderTooltipContent()}
+                  {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
-            )}
+            )} */}
           </Flex>
         );
       },
