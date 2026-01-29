@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         backend: path.resolve(__dirname, 'dev_gameengine/backend.js'),
         frontend: path.resolve(__dirname, 'dev_gameengine/frontend.js'),
+        setup: path.resolve(__dirname, 'dev_gamify/setup.js')
     },
     output: {
         filename: `[name].${GAMEENGINE_VERSION}.js`,
