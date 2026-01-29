@@ -12,13 +12,14 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+import { plugin_root_url } from '@GFUtils/helper';
 
 const infoCardsData = [
 	{
 		label: __('Academy LMS', 'gameengine'),
 		name: 'academylms',
 		is_pro: false,
-		is_coming_soon: false,
+		is_coming_soon: true,
 		details: __(
 			'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
 			'gameengine'
@@ -80,7 +81,8 @@ const infoCardsData = [
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/restrict_unlock.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "admin.php?page=gameengine-achievements&action=new",
 	},
@@ -94,7 +96,8 @@ const infoCardsData = [
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/restrict_content.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "",
 	},
@@ -108,7 +111,8 @@ const infoCardsData = [
 			'gameengine'
 		),
 		required_plugin: false,
-		icon: wooCommerce(),
+		icon: false,
+		image: plugin_root_url+'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "",
 	},

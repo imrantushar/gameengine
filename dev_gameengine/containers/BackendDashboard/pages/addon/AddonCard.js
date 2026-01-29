@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Badge, Box, Button, Flex, Icon, Separator, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Icon, Separator, Text, Image } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
@@ -76,7 +76,9 @@ const AddonCard = ({ item, index, value }) => {
 		>
 			<Flex justifyContent="space-between" width="100%" height="50px" padding="0 24px">
 				<Box p={2} border={getIconBorder()} borderRadius="4px">
-					{item.icon}
+					{item.icon ? item.icon : (
+						<Image src={item.image} />
+					)}
 				</Box>
 				{item?.route && (!item.is_coming_soon || !item.is_pro) ? (
 					<Link
