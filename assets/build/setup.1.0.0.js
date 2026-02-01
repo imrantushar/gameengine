@@ -587,7 +587,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const Setup = () => {
-  console.log('called');
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_1__.Box, {
     width: '100vw',
     height: 'calc(100vh - 171px)',
@@ -113020,21 +113019,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import { Provider } from 'react-redux';
 
-// import { store } from '@GFRedux/store';
 
 document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('gameengine-setup-app');
-  console.log({
-    container
-  });
   if (container) {
     const root = (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(container);
-    root.render(
-    // <Provider store={store}>
-    // </Provider>
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.ChakraProvider, {
+    root.render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.ChakraProvider, {
       value: _assets_scss_chakra_theme__WEBPACK_IMPORTED_MODULE_3__.theme
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_5__.HashRouter, {
       basename: "/"

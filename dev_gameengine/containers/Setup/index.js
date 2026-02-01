@@ -6,7 +6,6 @@ import { Route, Routes } from 'react-router-dom';
 import TopBar from '@GFComponents/TopBar';
 
 const Setup = () => {
-  console.log('called')
   return (
     <Box
       width={'100vw'}
