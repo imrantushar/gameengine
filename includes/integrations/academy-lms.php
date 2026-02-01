@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class AcademyLMS
- * Handles core triggers for Academy LMS.
+ * Handles all 6 core triggers for Academy LMS with dynamic schema support.
  */
 class AcademyLMS extends BaseIntegration
 {
@@ -29,13 +29,13 @@ class AcademyLMS extends BaseIntegration
     }
 
     /**
-     * Main Triggers for Academy LMS
+     * Register all 6 triggers for Academy LMS.
      */
     public static function get_triggers(): array
     {
         return array(
-            //  Course Completed (Student)
-            'academy_course_completed'    => array(
+            //  Course Completed
+            'academy_course_completed'     => array(
                 'label'       => __('Course Completed', 'gameengine'),
                 'hook'        => 'academy/admin/course_complete_after',
                 'args_count'  => 2,
@@ -44,12 +44,20 @@ class AcademyLMS extends BaseIntegration
                 'get_user_id' => function ($course_id, $user_id) {
                     return absint($user_id);
                 },
-                'schema'      => self::merge_schema(array()),
+                'schema'      => self::merge_schema(array(
+                    array(
+                        'key'     => 'course_id',
+                        'label'   => __('Select Course', 'gameengine'),
+                        'type'    => 'select',
+                        'width'   => '100%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'courses'),
+                    ),
+                )),
             ),
 
-            //  Course Published (Instructor)
-            'academy_course_published'    => array(
-                'label'       => __('Course Published', 'gameengine'),
+            // Course Published
+            'academy_course_published'     => array(
+                'label'       => __('Course Published (Instructor)', 'gameengine'),
                 'hook'        => 'rest_after_insert_academy_courses',
                 'args_count'  => 1,
                 'description' => __('Awarded to instructors when they publish a new course.', 'gameengine'),
@@ -60,8 +68,8 @@ class AcademyLMS extends BaseIntegration
                 'schema'      => self::merge_schema(array()),
             ),
 
-            //  Lesson Completed (Student)
-            'academy_lesson_completed'     => array(
+            //  Lesson Completed
+            'academy_lesson_completed'      => array(
                 'label'       => __('Lesson Completed', 'gameengine'),
                 'hook'        => 'academy/frontend/after_mark_topic_complete',
                 'args_count'  => 4,
@@ -70,24 +78,39 @@ class AcademyLMS extends BaseIntegration
                 'get_user_id' => function ($topic_type, $course_id, $topic_id, $user_id) {
                     return ('lesson' === $topic_type) ? absint($user_id) : 0;
                 },
-                'schema'      => self::merge_schema(array()),
+                'schema'      => self::merge_schema(array(
+                    array(
+                        'key'     => 'topic_id',
+                        'label'   => __('Select Lesson', 'gameengine'),
+                        'type'    => 'select',
+                        'width'   => '100%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'lessons'),
+                    ),
+                )),
             ),
 
-            //  Quiz Passed (Student)
-            'academy_quiz_passed'         => array(
+            //  Quiz Passed
+            'academy_quiz_passed'          => array(
                 'label'       => __('Quiz Passed', 'gameengine'),
                 'hook'        => 'academy_quiz_attempt_status_passed',
                 'args_count'  => 1,
                 'description' => __('Awarded when a student passes a quiz.', 'gameengine'),
                 'supports'    => array('point_type', 'achievement', 'level'),
                 'get_user_id' => function ($attempt_data) {
-                    // Assuming $attempt_data is an object containing user_id
                     return isset($attempt_data->user_id) ? absint($attempt_data->user_id) : 0;
                 },
-                'schema'      => self::merge_schema(array()),
+                'schema'      => self::merge_schema(array(
+                    array(
+                        'key'     => 'quiz_id',
+                        'label'   => __('Select Quiz', 'gameengine'),
+                        'type'    => 'select',
+                        'width'   => '100%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'quizzes'),
+                    ),
+                )),
             ),
 
-            //  Assignment Evaluated (Student)
+            //  Assignment Evaluated
             'academy_assignment_evaluated' => array(
                 'label'       => __('Assignment Evaluated', 'gameengine'),
                 'hook'        => 'academy_pro/frontend/evaluate_submitted_assignment',
@@ -100,8 +123,8 @@ class AcademyLMS extends BaseIntegration
                 'schema'      => self::merge_schema(array()),
             ),
 
-            //  New Enrollment (Student)
-            'academy_new_enrollment'      => array(
+            //  New Enrollment
+            'academy_new_enrollment'       => array(
                 'label'       => __('New Enrollment', 'gameengine'),
                 'hook'        => 'academy_new_enroll',
                 'args_count'  => 3,
@@ -110,8 +133,37 @@ class AcademyLMS extends BaseIntegration
                 'get_user_id' => function ($user_id, $course_id, $enrollment_id) {
                     return absint($user_id);
                 },
-                'schema'      => self::merge_schema(array()),
+                'schema'      => self::merge_schema(array(
+                    array(
+                        'key'     => 'course_id',
+                        'label'   => __('Select Course', 'gameengine'),
+                        'type'    => 'select',
+                        'width'   => '100%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'courses'),
+                    ),
+                )),
             ),
+        );
+    }
+
+    /**
+     * Data queries for Admin dropdowns.
+     */
+    public static function get_dynamic_queries(): array
+    {
+        return array(
+            'courses' => function () {
+                $posts = get_posts(array('post_type' => 'academy_courses', 'posts_per_page' => 50));
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+            },
+            'lessons' => function () {
+                $posts = get_posts(array('post_type' => 'academy_lessons', 'posts_per_page' => 50));
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+            },
+            'quizzes' => function () {
+                $posts = get_posts(array('post_type' => 'academy_quizzes', 'posts_per_page' => 50));
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+            },
         );
     }
 }
