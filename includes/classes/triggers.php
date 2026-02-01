@@ -251,7 +251,29 @@ class Triggers
             return ($comment && (int)$comment->comment_post_ID === $target_id);
         }
 
-        return true; // Default to true for unconditional triggers (login, register, etc.)
+        //  Academy LMS: Course ID Check (Completed or Enrolled)
+        if ($key === 'academy_course_completed' || $key === 'academy_new_enrollment') {
+            $current_course_id = isset($args[0]) ? absint($args[0]) : 0;
+            $target_course_id  = isset($params['course_id']) ? absint($params['course_id']) : 0;
+            return (0 === $target_course_id || $current_course_id === $target_course_id);
+        }
+
+        //  Academy LMS: Lesson ID Check
+        if ($key === 'academy_lesson_completed') {
+            $current_lesson_id = isset($args[2]) ? absint($args[2]) : 0;
+            $target_lesson_id  = isset($params['topic_id']) ? absint($params['topic_id']) : 0;
+            return (0 === $target_lesson_id || $current_lesson_id === $target_lesson_id);
+        }
+
+        //  Academy LMS: Quiz ID Check
+        if ($key === 'academy_quiz_passed') {
+            $attempt_data    = $args[0];
+            $current_quiz_id = isset($attempt_data->quiz_id) ? absint($attempt_data->quiz_id) : 0;
+            $target_quiz_id  = isset($params['quiz_id']) ? absint($params['quiz_id']) : 0;
+            return (0 === $target_quiz_id || $current_quiz_id === $target_quiz_id);
+        }
+
+        return true;
     }
 
     /**
