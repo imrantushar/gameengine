@@ -1,9 +1,10 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
-import Welcome from './Steps/Welcome';
-import Congratulation from './Steps/Congratulation';
+import Welcome from './Pages/Welcome';
+import Congratulation from './Pages/Congratulation';
 import { Route, Routes } from 'react-router-dom';
 import TopBar from '@GFComponents/TopBar';
+import Settings from './Pages/Settings';
 
 const Setup = () => {
   return (
@@ -18,6 +19,7 @@ const Setup = () => {
       />
       <Routes>
         <Route exact path="/" element={<Welcome />} />
+        <Route exact path="/settings" element={<Settings />} />
         <Route
           path="/congratulation"
           element={<Congratulation />}

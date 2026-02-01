@@ -138,7 +138,7 @@ const Welcome = () => {
             if(selectedCard === 'manual') {
               window.location.href = admin_url+'admin.php?page=gameengine-points'
             } else {
-              navigate('/')
+              navigate('/settings')
             }
           }}
         >
