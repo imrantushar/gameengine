@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class Setup
- * Handles the Onboarding Wizard using a custom React entry point.
+ * Handles the Onboarding Wizard and fixes WordPress 6.4+ emoji deprecation.
  */
 class Setup
 {
@@ -22,50 +22,53 @@ class Setup
     {
         $self = new self();
 
-        // Check if we are currently on the setup page.
         if ($self->is_current_page()) {
             add_action('admin_init', array($self, 'handle_setup_screen_render'), 0);
         }
 
-        // Register a hidden submenu to handle the route.
         add_action('admin_menu', array($self, 'register_setup_menu'));
     }
 
     /**
-     * Register a hidden menu page for the setup wizard.
+     * Register hidden setup menu.
      */
     public function register_setup_menu()
     {
         add_submenu_page(
-            'options-writing.php', // Hidden parent
+            'options-writing.php',
             __('GameEngine Setup', 'gameengine'),
             __('GameEngine Setup', 'gameengine'),
             'manage_options',
             self::PAGE_ID,
-            '__return_null' // We render via admin_init instead
+            '__return_null'
         );
     }
 
     /**
-     * Intercept the admin request and render our blank setup canvas.
+     * Intercept admin render and clean up deprecated notices.
      */
     public function handle_setup_screen_render()
     {
-        // Enqueue necessary assets for React.
+        /**
+         * This removes the warning you are seeing.
+         */
+        remove_action('admin_print_styles', 'print_emoji_styles');
+        remove_action('wp_head', 'print_emoji_styles');
+
+        // Enqueue modern emoji styles if needed
+        add_action('wp_enqueue_scripts', 'wp_enqueue_emoji_styles');
+
+        // Enqueue the versioned assets (setup.1.0.0.js)
         $this->enqueue_setup_assets();
 
-        // Render the view file.
+        // Render the blank view
         $this->render_view();
 
-        /**
-         * Important: Stop further WP admin execution 
-         * to provide a distraction-free setup screen.
-         */
         die;
     }
 
     /**
-     * Check if the current URL matches our setup page ID.
+     * Check if current page is our setup screen.
      */
     public function is_current_page()
     {
@@ -74,11 +77,20 @@ class Setup
     }
 
     /**
-     * Enqueue specific build files for the Setup Wizard.
+     * Enqueue versioned build files.
      */
     private function enqueue_setup_assets()
     {
-        $asset_file = GAMEENGINE_PATH . 'assets/build/setup.asset.php';
+        $version    = defined('GAMEENGINE_VERSION') ? GAMEENGINE_VERSION : '1.0.0';
+        $asset_file = GAMEENGINE_PATH . 'assets/build/setup.' . $version . '.asset.php';
+
+        // Fallback for asset file
+        if (! file_exists($asset_file)) {
+            $asset_file = GAMEENGINE_PATH . 'assets/build/setup.asset.php';
+            $js_file    = 'setup.js';
+        } else {
+            $js_file = 'setup.' . $version . '.js';
+        }
 
         if (! file_exists($asset_file)) {
             return;
@@ -86,7 +98,7 @@ class Setup
 
         $asset_data = require $asset_file;
 
-        // Enqueue Setup CSS
+        // Enqueue CSS
         wp_enqueue_style(
             'gameengine-setup-style',
             GAMEENGINE_URL . 'assets/build/setup.css',
@@ -94,28 +106,28 @@ class Setup
             $asset_data['version']
         );
 
-        // Enqueue Setup JS
+        // Enqueue JS
         wp_enqueue_script(
             'gameengine-setup-script',
-            GAMEENGINE_URL . 'assets/build/setup.js',
+            GAMEENGINE_URL . 'assets/build/' . $js_file,
             $asset_data['dependencies'],
             $asset_data['version'],
             true
         );
 
-        // Localize Data for React
+        // Localize Data
         $setup_data = array(
-            'rest_url'   => rest_url('gameengine/v1'),
-            'nonce'      => wp_create_nonce('wp_rest'),
-            'admin_url'  => admin_url(),
-            'is_pro'     => \GameEngine\Helper::is_pro(),
+            'rest_url'  => rest_url('gameengine/v1'),
+            'nonce'     => wp_create_nonce('wp_rest'),
+            'admin_url' => admin_url(),
+            'is_pro'    => \GameEngine\Helper::is_pro(),
         );
 
         wp_localize_script('gameengine-setup-script', 'GameEngineSetup', $setup_data);
     }
 
     /**
-     * Load the HTML view container.
+     * Render the HTML container for React.
      */
     private function render_view()
     {

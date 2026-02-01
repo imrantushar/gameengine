@@ -9,30 +9,19 @@ if (! defined('ABSPATH')) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php wp_head(); ?>
-    <style>
-        /* Basic reset for a clean full-screen setup experience */
-        body {
-            background: #f0f2f5;
-            margin: 0;
-            padding: 0;
-        }
-
-        #gameengine-setup-app {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
+    <?php
+    /**
+     * wp_head handles all CSS and JS enqueued in Setup.php
+     */
+    wp_head();
+    ?>
 </head>
 
 <body <?php body_class(); ?>>
 
-    <!-- React App Container -->
     <div id="gameengine-setup-app">
-        <div class="gf-setup-loading">
-            <h2><?php esc_html_e('Initializing Setup Wizard...', 'gameengine'); ?></h2>
+        <div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
+            <h2><?php esc_html_e('Loading Setup Wizard...', 'gameengine'); ?></h2>
         </div>
     </div>
 
