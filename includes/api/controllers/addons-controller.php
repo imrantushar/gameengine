@@ -147,6 +147,15 @@ class AddonsController extends BaseController
             return new \WP_Error('missing_data', 'Addon name is required.', array('status' => 400));
         }
 
+        if ($status === true) {
+            if ('academylms' === $addon_name && !class_exists('Academy\LMS\LMS')) {
+                return new \WP_Error('dependency_missing', 'Academy LMS plugin is not active. Please install it first.', array('status' => 424));
+            }
+            if ('woocommerce' === $addon_name && !class_exists('WooCommerce')) {
+                return new \WP_Error('dependency_missing', 'WooCommerce plugin is not active.', array('status' => 424));
+            }
+        }
+
         $active_addons = get_option('gameengine_active_addons', array());
 
         if ($status) {
