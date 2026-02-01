@@ -121,9 +121,17 @@ class Setup
             'nonce'     => wp_create_nonce('wp_rest'),
             'admin_url' => admin_url(),
             'is_pro'    => \GameEngine\Helper::is_pro(),
+            'gameengine_nonce'       => wp_create_nonce('gameengine_nonce'),
+            'namespace'          => 'gameengine/v1/',
+            // 'addons'             => $addons_status,
+            'plugin_root_url'    => GAMEENGINE_URL,
+            'plugin_root_path'   => GAMEENGINE_PATH,
+            'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
+            'site_url'           => site_url(),
+            'admin_url'          => admin_url(),
         );
 
-        wp_localize_script('gameengine-setup-script', 'GameEngineSetup', $setup_data);
+        wp_localize_script('gameengine-setup-script', 'GameEngineGlobal', $setup_data);
     }
 
     /**
