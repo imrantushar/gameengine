@@ -11,6 +11,7 @@ const TopBar = ({
 	middleContent,
 	leftContent,
 	path,
+	topPosition="32px"
 }) => {
 	const pathName = path ? path : __("GameEngine", "gameengine");
 
@@ -24,7 +25,7 @@ const TopBar = ({
 				boxShadow={'var(--gameengine-shadow)'}
 				width="100%"
 				position="sticky"
-				top="32px"
+				top={topPosition}
 				mb="24px"
 				p="20px 24px"
 				zIndex={999}

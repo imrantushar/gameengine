@@ -15,6 +15,7 @@ const Setup = () => {
     >
       <TopBar
         path={'GameEngine'}
+        topPosition="0"
       />
       <Routes>
         <Route exact path="/" element={<Welcome />} />
