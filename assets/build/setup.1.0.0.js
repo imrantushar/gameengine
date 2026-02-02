@@ -424,7 +424,7 @@ const Congratulation = () => {
     gap: '24px'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     maxW: '680px',
-    padding: '40px',
+    padding: '80px 40px',
     width: '100%',
     boxShadow: ' 0 6px 12px 0 rgba(20, 26, 36, 0.06)',
     border: '1px solid #F6F7F8',
@@ -433,7 +433,7 @@ const Congratulation = () => {
     alignItems: 'center',
     gap: '24px'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Image, {
-    maxW: '36px',
+    maxW: '80px',
     height: 'auto',
     src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_7__.plugin_root_url + 'assets/images/blue_check.svg'
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
@@ -458,14 +458,15 @@ const Congratulation = () => {
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
     gap: '16px',
     width: '100%',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    marginTop: '8px'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.clearBtn,
     padding: '2px 16px',
     border: "1px solid #CBD1D7",
     height: '42px',
     onClick: () => {
-      window.location.href = admin_url + 'admin.php?page=gameengine';
+      window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_7__.admin_url + 'admin.php?page=gameengine';
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_8__.__)("Go To Dashboard", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Button, {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn,

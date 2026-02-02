@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Icon, Image } from '@chakra-ui/react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { plugin_root_url } from '@GFUtils/helper';
+import { admin_url, plugin_root_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
 import { clearBtn, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
@@ -19,7 +19,7 @@ const Congratulation = () => {
     >
       <Flex
         maxW={'680px'}
-        padding={'40px'}
+        padding={'80px 40px'}
         width={'100%'}
         boxShadow={' 0 6px 12px 0 rgba(20, 26, 36, 0.06)'}
         border={'1px solid #F6F7F8'}
@@ -29,7 +29,7 @@ const Congratulation = () => {
         gap={'24px'}
         >
           <Image
-            maxW={'36px'}
+            maxW={'80px'}
             height={'auto'}
             src={plugin_root_url + 'assets/images/blue_check.svg'}
           />
@@ -56,7 +56,7 @@ const Congratulation = () => {
               lineHeight={'24px'}
             />
           </Flex>
-          <Flex gap={'16px'} width={'100%'} justifyContent={'center'}>
+          <Flex gap={'16px'} width={'100%'} justifyContent={'center'} marginTop={'8px'}>
             <Button
               {...clearBtn}
               padding={'2px 16px'}
