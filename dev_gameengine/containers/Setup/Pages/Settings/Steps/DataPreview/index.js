@@ -184,7 +184,6 @@ const DataPreview = () => {
                   setFieldValue('preset', item.slug)
                 }}
               >
-                {/* <Icon as={item.icon} width={'30px'} height={'30px'} /> */}
                 <Image
                   maxW={'36px'}
                   height={'auto'}
@@ -200,7 +199,6 @@ const DataPreview = () => {
                     margin={0}
                     padding={0}
                     label={item.label}
-                    // fontSize={'16px'}
                     lineHeight={'20px'}
                   />
                   <GFLabel

@@ -773,9 +773,7 @@ const DataPreview = () => {
       type: "simpleHeading",
       margin: 0,
       padding: 0,
-      label: item.label
-      // fontSize={'16px'}
-      ,
+      label: item.label,
       lineHeight: '20px'
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__["default"], {
       type: "simple",
@@ -1216,7 +1214,8 @@ const Welcome = () => {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_12__.clearBtn,
     fontSize: '14px',
     fontWeight: '500',
-    lineHeight: '20px'
+    lineHeight: '20px',
+    onClick: () => window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.admin_url + 'admin.php?page=gameengine'
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)("Skip This Step", "gameengine")));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Welcome);
