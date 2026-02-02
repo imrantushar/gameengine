@@ -121,6 +121,8 @@ class Setup
             'nonce'     => wp_create_nonce('wp_rest'),
             'admin_url' => admin_url(),
             'is_pro'    => \GameEngine\Helper::is_pro(),
+            'is_woocommerce_active'  => class_exists('WooCommerce'),
+            'is_academylms_active'   => class_exists('Academy\LMS\LMS'),
         );
 
         wp_localize_script('gameengine-setup-script', 'GameEngineSetup', $setup_data);

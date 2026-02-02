@@ -24,6 +24,18 @@ class Helper
         return filter_var(sanitize_text_field($boolean), FILTER_VALIDATE_BOOLEAN);
     }
 
+    /**
+     * Check if a specific plugin is active.
+     *
+     * @param string $plugin_class The main class of the plugin to check.
+     * @return bool
+     */
+
+    public static function is_plugin_active($plugin_class)
+    {
+        return class_exists($plugin_class);
+    }
+
     public static function is_pro()
     {
         //return file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');
