@@ -10,255 +10,181 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class SetupController
- * Handles the Onboarding Wizard (Option A) and Smart Import Banners (Option B).
+ * Handles Template-based Onboarding (Option A) and Smart Banners (Option B).
  */
 class SetupController extends BaseController
 {
 
-    /**
-     * REST route base.
-     *
-     * @var string
-     */
     protected $rest_base = 'setup';
 
-    /**
-     * Register REST API routes.
-     */
     public function register_routes()
     {
-        // Route for the Full Wizard completion (Option A).
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base . '/complete',
+        // Option A: Complete the 3-step Wizard
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/complete', array(
             array(
-                array(
-                    'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => array($this, 'finish_wizard_setup'),
-                    'permission_callback' => array($this, 'admin_permission_check'),
-                ),
-            )
-        );
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'finish_wizard_setup'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+        ));
 
-        // Route for Individual Module Import (Option B Banners).
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base . '/import-module',
+        // Option B: Individual Module Import (From Banners)
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/import-module', array(
             array(
-                array(
-                    'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => array($this, 'import_single_module'),
-                    'permission_callback' => array($this, 'admin_permission_check'),
-                ),
-            )
-        );
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'import_single_module'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+        ));
 
-        // Route to dismiss individual page banners.
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base . '/dismiss-banner',
+        // Option B: Dismiss Banners
+        register_rest_route($this->namespace, '/' . $this->rest_base . '/dismiss-banner', array(
             array(
-                array(
-                    'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => array($this, 'dismiss_banner'),
-                    'permission_callback' => array($this, 'admin_permission_check'),
-                ),
-            )
-        );
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'dismiss_banner'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+        ));
     }
 
     /**
-     * OPTION A: Finalize the 3-step onboarding wizard.
-     *
-     * @param \WP_REST_Request $request API request object.
-     * @return \WP_REST_Response
+     * OPTION A: Finalize the Wizard using Presets.
      */
     public function finish_wizard_setup($request)
     {
         $params = $request->get_json_params();
+        $preset = sanitize_key($params['preset'] ?? 'author');
 
-        // 1. Save Active Addons.
+        //  Activate Selected Addons
         if (! empty($params['addons'])) {
             update_option('gamify_active_addons', array_map('sanitize_key', $params['addons']));
         }
 
-        // 2. Process Chosen Rewards (Points, Achievements, Levels).
-        if (! empty($params['rewards'])) {
-            $this->process_custom_onboarding_data($params['rewards']);
-        }
+        // Import Data based on Preset (Points + 4 Badges + 4 Levels)
+        $this->process_preset_import($preset);
 
-        // 3. Mark setup as completed.
+        //  Mark Setup as Completed
         update_option('gameengine_setup_completed', 'yes');
 
-        // Clear necessary transients/caches.
-        delete_transient('gameengine_point_types_list');
-        delete_transient('gamify_achievements_list');
-        delete_transient('gamify_levels_list');
-
-        return new \WP_REST_Response(array('message' => 'Wizard setup completed successfully.'), 200);
+        return new \WP_REST_Response(array('message' => 'Wizard setup completed successfully!'), 200);
     }
 
     /**
-     * OPTION B: Handles single module imports from page-specific banners.
-     *
-     * @param \WP_REST_Request $request API request object.
-     * @return \WP_REST_Response
+     * OPTION B: Individual imports from page banners.
      */
     public function import_single_module($request)
     {
         $params = $request->get_json_params();
-        $module = isset($params['module']) ? sanitize_key($params['module']) : '';
-
-        if (empty($module)) {
-            return new \WP_Error('missing_module', 'Module slug is required.', array('status' => 400));
-        }
-
-        $dummy_payload = array();
-
-        if ('points' === $module) {
-            $dummy_payload['points'] = array(
-                'enabled' => true,
-                'name'    => 'XP',
-                'trigger' => 'wp_login',
-                'amount'  => 10,
-            );
-        } elseif ('achievements' === $module) {
-            $dummy_payload['achievements'] = array(
-                'enabled' => true,
-                'title'   => 'Starter Badge',
-                'message' => 'Welcome to our community!',
-            );
-        } elseif ('levels' === $module) {
-            $dummy_payload['levels'] = array(
-                'enabled' => true,
-                'title'   => 'Beginner Level',
-                'min'     => 0,
-                'max'     => 100,
-            );
-        }
-
-        $this->process_custom_onboarding_data($dummy_payload);
-
-        return new \WP_REST_Response(array('message' => ucfirst($module) . ' default data imported successfully.'), 200);
+        $module = sanitize_key($params['module']);
+        $this->process_preset_import('author', $module); // Default to author preset for individual imports
+        return new \WP_REST_Response(array('message' => ucfirst($module) . ' data imported.'), 200);
     }
 
     /**
-     * Permanently hide specific onboarding banners.
-     *
-     * @param \WP_REST_Request $request API request object.
-     * @return \WP_REST_Response
+     * OPTION B: Dismiss specific banners.
      */
     public function dismiss_banner($request)
     {
         $params = $request->get_json_params();
-        $module = isset($params['module']) ? sanitize_key($params['module']) : '';
-
-        if (! empty($module)) {
-            update_option('gameengine_hide_banner_' . $module, 'yes');
-        }
-
+        update_option('gameengine_hide_banner_' . sanitize_key($params['module']), 'yes');
         return new \WP_REST_Response(array('success' => true), 200);
     }
 
     /**
-     * Core Logic: Inserts Wizard data into respective tables and Taxonomies.
-     *
-     * @param array $rewards Payload containing points, achievements, and levels.
+     * Core Data Import Logic using the Preset Sheet.
      */
-    private function process_custom_onboarding_data($rewards)
+    private function process_preset_import($preset_slug, $only_module = null)
     {
         global $wpdb;
 
-        //  Process Point Type & Its Initial Requirement.
-        if (! empty($rewards['points']['enabled'])) {
-            $pt_name = sanitize_text_field($rewards['points']['name'] ?? 'XP');
+        $presets = array(
+            'author' => array(
+                'point' => 'Author Points',
+                'trigger' => 'publish_post',
+                'ach'   => array('First Draft', 'Published Author', 'Consistent Writer', 'Trusted Author'),
+                'lvl'   => array('New Author', 'Regular Author', 'Senior Author', 'Master Author'),
+            ),
+            'blogger' => array(
+                'point' => 'Reader Credits',
+                'trigger' => 'comment_post',
+                'ach'   => array('First Post', 'Active Blogger', 'Growing Blog', 'Blog Authority'),
+                'lvl'   => array('Beginner Blogger', 'Active Blogger', 'Pro Blogger', 'Top Blogger'),
+            ),
+            'shop' => array(
+                'point' => 'Shop Points',
+                'trigger' => 'woocommerce_new_purchase',
+                'ach'   => array('First Purchase', 'Repeat Buyer', 'Loyal Customer', 'VIP Shopper'),
+                'lvl'   => array('Shopper', 'Regular Buyer', 'Loyal Buyer', 'VIP Member'),
+            ),
+            'performance' => array(
+                'point' => 'Performance Points',
+                'trigger' => 'publish_page',
+                'ach'   => array('Onboarded', 'Task Completed', 'Consistent Performer', 'Top Performer'),
+                'lvl'   => array('Junior', 'Associate', 'Senior', 'Lead'),
+            ),
+            'community' => array(
+                'point' => 'Community Points',
+                'trigger' => 'user_register',
+                'ach'   => array('Welcome Member', 'First Contribution', 'Active Member', 'Trusted Voice'),
+                'lvl'   => array('Newcomer', 'Member', 'Contributor', 'Community Leader'),
+            ),
+            'growth' => array(
+                'point' => 'Growth Points',
+                'trigger' => 'publish_post',
+                'ach'   => array('Campaign Launched', 'Lead Generator', 'Growth Booster', 'Growth Champion'),
+                'lvl'   => array('Marketer', 'Growth Specialist', 'Growth Manager', 'Growth Leader'),
+            ),
+        );
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert(
-                "{$wpdb->prefix}gameengine_point_types",
-                array(
-                    'name'        => $pt_name,
-                    'plural_name' => $pt_name . 's',
-                    'slug'        => sanitize_title($pt_name),
-                    'status'      => 'publish',
-                    'created_at'  => current_time('mysql'),
-                ),
-                array('%s', '%s', '%s', '%s', '%s')
-            );
+        $data = $presets[$preset_slug] ?? $presets['author'];
 
-            $point_type_id = $wpdb->insert_id;
-            $trigger_key   = sanitize_key($rewards['points']['trigger'] ?? 'wp_login');
-            $amount        = absint($rewards['points']['amount'] ?? 10);
-
-            // Insert the requirement logic for this point type.
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert(
-                "{$wpdb->prefix}gameengine_requirements",
-                array(
-                    'reward_type' => 'point_type',
-                    'reward_id'   => $point_type_id,
-                    'trigger_key' => $trigger_key,
-                    'action_type' => 'award',
-                    'parameters'  => wp_json_encode(
-                        array(
-                            'points'    => $amount,
-                            'limit'     => 'unlimited',
-                            'log_label' => 'Starter Reward',
-                        )
-                    ),
-                    'is_active'   => 1,
-                    'created_at'  => current_time('mysql'),
-                ),
-                array('%s', '%d', '%s', '%s', '%s', '%d', '%s')
-            );
+        // ---  Point Type ---
+        if (! $only_module || 'points' === $only_module) {
+            $wpdb->insert("{$wpdb->prefix}gameengine_point_types", array(
+                'name' => $data['point'],
+                'plural_name' => $data['point'] . 's',
+                'slug' => sanitize_title($data['point']),
+                'status' => 'publish'
+            ));
+            $pid = $wpdb->insert_id;
+            $wpdb->insert("{$wpdb->prefix}gameengine_requirements", array(
+                'reward_type' => 'point_type',
+                'reward_id' => $pid,
+                'trigger_key' => $data['trigger'],
+                'parameters' => wp_json_encode(array('points' => 10, 'limit' => 'unlimited')),
+                'is_active' => 1
+            ));
         }
 
-        //  Process Achievement & Connect to Taxonomy.
-        if (! empty($rewards['achievements']['enabled'])) {
-            // Ensure "General" category exists in Taxonomy.
-            $term = term_exists('General', 'achievement_type');
-            if (! $term) {
-                $term = wp_insert_term('General', 'achievement_type');
+        // ---  Achievements & Taxonomy ---
+        if (! $only_module || 'achievements' === $only_module) {
+            $term = term_exists('General', 'achievement_type') ?: wp_insert_term('General', 'achievement_type');
+            $tid = is_array($term) ? $term['term_id'] : $term;
+            foreach ($data['ach'] as $title) {
+                $wpdb->insert("{$wpdb->prefix}gameengine_achievements", array(
+                    'title' => $title,
+                    'category' => $tid,
+                    'status' => 'publish',
+                    'congratulations_message' => 'Congratulations on earning ' . $title
+                ));
             }
-            $term_id = is_array($term) ? $term['term_id'] : $term;
-
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert(
-                "{$wpdb->prefix}gameengine_achievements",
-                array(
-                    'title'                   => sanitize_text_field($rewards['achievements']['title'] ?? 'Welcome Explorer'),
-                    'plural_name'             => sanitize_text_field($rewards['achievements']['title'] ?? 'Welcome Explorer') . 's',
-                    'category'                => absint($term_id),
-                    'status'                  => 'publish',
-                    'congratulations_message' => sanitize_textarea_field($rewards['achievements']['message'] ?? 'Congrats!'),
-                    'created_at'              => current_time('mysql'),
-                )
-            );
         }
 
-        //  Process Level & Connect to Taxonomy.
-        if (! empty($rewards['levels']['enabled'])) {
-            // Ensure "Main" category exists in Taxonomy.
-            $term = term_exists('Main', 'level_type');
-            if (! $term) {
-                $term = wp_insert_term('Main', 'level_type');
+        // ---  Levels & Taxonomy ---
+        if (! $only_module || 'levels' === $only_module) {
+            $term = term_exists('Main', 'level_type') ?: wp_insert_term('Main', 'level_type');
+            $tid = is_array($term) ? $term['term_id'] : $term;
+            $ranges = array(array(0, 100), array(101, 500), array(501, 1000), array(1001, 5000));
+            foreach ($data['lvl'] as $i => $title) {
+                $wpdb->insert("{$wpdb->prefix}gameengine_levels", array(
+                    'title' => $title,
+                    'category' => $tid,
+                    'min_points' => $ranges[$i][0],
+                    'max_points' => $ranges[$i][1],
+                    'status' => 'publish',
+                    'priority' => $i + 1
+                ));
             }
-            $term_id = is_array($term) ? $term['term_id'] : $term;
-
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert(
-                "{$wpdb->prefix}gameengine_levels",
-                array(
-                    'title'       => sanitize_text_field($rewards['levels']['title'] ?? 'Level 1'),
-                    'plural_name' => sanitize_text_field($rewards['levels']['title'] ?? 'Level 1') . 's',
-                    'category'    => absint($term_id),
-                    'min_points'  => absint($rewards['levels']['min'] ?? 0),
-                    'max_points'  => absint($rewards['levels']['max'] ?? 100),
-                    'status'      => 'publish',
-                    'priority'    => 1,
-                    'created_at'  => current_time('mysql'),
-                )
-            );
         }
     }
 }

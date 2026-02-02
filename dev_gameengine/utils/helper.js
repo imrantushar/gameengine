@@ -16,7 +16,9 @@ export const {
 	gameengine_nonce,
 	user_id,
 	is_plain_permalink,
-	is_pro
+	is_pro,
+	is_woocommerce_active,
+	is_academylms_active
 } = window?.GameEngineGlobal;
 
 
@@ -29,6 +31,7 @@ export const reactDebounce = (callback, wait) => {
 		}, wait);
 	};
 };
+
 export const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
 };

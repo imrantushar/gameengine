@@ -145,9 +145,24 @@ class Setup
             'nonce'     => wp_create_nonce('wp_rest'),
             'admin_url' => admin_url(),
             'is_pro'    => \GameEngine\Helper::is_pro(),
+            'gameengine_nonce'       => wp_create_nonce('gameengine_nonce'),
+            'namespace'          => 'gameengine/v1/',
+            // 'addons'             => $addons_status,
+            'plugin_root_url'    => GAMEENGINE_URL,
+            'plugin_root_path'   => GAMEENGINE_PATH,
+            'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
+            'site_url'           => site_url(),
+            'admin_url'          => admin_url(),
+            'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
+            'is_academylms_active'  => \GameEngine\Helper::is_plugin_active('Academy'),
+            'banners'               => array(
+                'points'       => get_option('gameengine_hide_banner_points', 'no'),
+                'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),
+                'levels'       => get_option('gameengine_hide_banner_levels', 'no'),
+            ),
         );
 
-        wp_localize_script('gameengine-setup-script', 'GameEngineSetup', $setup_data);
+        wp_localize_script('gameengine-setup-script', 'GameEngineGlobal', $setup_data);
     }
 
     /**
