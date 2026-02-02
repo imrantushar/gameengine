@@ -21,37 +21,39 @@ const AddonCard = ({ item, index, value }) => {
 		setUpdating(true)
 		const status = !value;
 		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
-			if (payload?.success) {
-				setFieldValue(item.name, status);
-				dispatch(fetchAddons());
-				const statusMessage = payload?.active_addons[item.name]
-					? __('Activated', 'academy')
-					: __('Deactivate', 'academy');
-				dispatch(
-					showNotification({
-						message: sprintf(
-							// translators: %1$s: AddonName, %2$s: AddonStatus
-							__('%1$s successfully %2$s', 'academy'),
-							item.label,
-							statusMessage
-						),
-						isShow: true,
-						type: 'success',
-					})
-				);
+			if(payload) {
+				if (payload?.success) {
+					setFieldValue(item.name, status);
+					dispatch(fetchAddons());
+					const statusMessage = payload?.active_addons[item.name]
+						? __('Activated', 'academy')
+						: __('Deactivate', 'academy');
+					dispatch(
+						showNotification({
+							message: sprintf(
+								// translators: %1$s: AddonName, %2$s: AddonStatus
+								__('%1$s successfully %2$s', 'academy'),
+								item.label,
+								statusMessage
+							),
+							isShow: true,
+							type: 'success',
+						})
+					);
 
-				setUpdating(false)
-				dispatch(fetchSettings());
-			} else {
-				setFieldValue(item.name, false);
-				dispatch(
-					showNotification({
-						message: payload.data,
-						isShow: true,
-						type: 'error',
-					})
-				);
-				setUpdating(false)
+					setUpdating(false)
+					dispatch(fetchSettings());
+				} else {
+					setFieldValue(item.name, false);
+					dispatch(
+						showNotification({
+							message: payload.data,
+							isShow: true,
+							type: 'error',
+						})
+					);
+					setUpdating(false)
+				}
 			}
 		});
 	};

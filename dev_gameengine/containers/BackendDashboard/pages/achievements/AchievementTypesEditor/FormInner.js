@@ -36,6 +36,7 @@ const FormInner = () => {
     const { availablePointTypes } = useSelector(state => state.achievements);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
+    const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
     const { values, setFieldValue } = useFormikContext();
 
     const fetchAchievements = async (key) => {
@@ -105,10 +106,14 @@ const FormInner = () => {
     const wooIcon = isWoocommerceActive ? {
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
     } : {}
+    const academy = isAcademyActive ? {
+        academylms: { icon: SiWoocommerce, bg: "#96588a" },
+    } : {}
 
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         ...wooIcon,
+        ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
