@@ -129,8 +129,8 @@ class Setup
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
             'site_url'           => site_url(),
             'admin_url'          => admin_url(),
-            'is_woocommerce_active'  => class_exists('WooCommerce'),
-            'is_academylms_active'   => class_exists('Academy\LMS\LMS'),
+            'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
+            'is_academylms_active'  => \GameEngine\Helper::is_plugin_active('\Academy\Academy'),
         );
 
         wp_localize_script('gameengine-setup-script', 'GameEngineGlobal', $setup_data);
