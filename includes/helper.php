@@ -36,6 +36,22 @@ class Helper
         return class_exists($plugin_class);
     }
 
+    /**
+     * Check if a academy lms plugin is active.
+     *
+     * @param string $plugin_class The main class of the plugin to check.
+     * @return bool
+     */
+
+    public static function is_academylms_active()
+    {
+
+        if (defined('ACADEMY_VERSION') || class_exists('\Academy\Academy') || function_exists('academy_start')) {
+            return true;
+        }
+        return false;
+    }
+
     public static function is_pro()
     {
         //return file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');

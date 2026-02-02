@@ -147,13 +147,28 @@ class AddonsController extends BaseController
             return new \WP_Error('missing_data', 'Addon name is required.', array('status' => 400));
         }
 
+
         if (true === $status) {
-            if ('academylms' === $addon_name && ! \GameEngine\Helper::is_plugin_active('Academy\Academy')) {
-                return new \WP_Error('dependency_missing', 'Academy LMS is required.', array('status' => 424));
+            // Academy LMS Check
+            if ('academylms' === $addon_name) {
+                if (! \GameEngine\Helper::is_academylms_active()) {
+                    return new \WP_Error(
+                        'dependency_missing',
+                        __('Academy LMS is required.', 'gameengine'),
+                        array('status' => 424)
+                    );
+                }
             }
 
-            if ('woocommerce' === $addon_name && ! \GameEngine\Helper::is_plugin_active('WooCommerce')) {
-                return new \WP_Error('dependency_missing', 'WooCommerce is required.', array('status' => 424));
+            // WooCommerce Check
+            if ('woocommerce' === $addon_name) {
+                if (! class_exists('WooCommerce')) {
+                    return new \WP_Error(
+                        'dependency_missing',
+                        __('WooCommerce is required.', 'gameengine'),
+                        array('status' => 424)
+                    );
+                }
             }
         }
 
