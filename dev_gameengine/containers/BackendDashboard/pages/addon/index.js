@@ -26,8 +26,8 @@ const infoCardsData = [
 		),
 		required_plugin: [
 			{
-				plugin_dir_path: 'ablocks/ablocks.php',
-				plugin_name: 'aBlocks',
+				plugin_dir_path: 'academy/academy.php',
+				plugin_name: 'Academy LMS',
 			},
 		],
 		icon: academyLms(),

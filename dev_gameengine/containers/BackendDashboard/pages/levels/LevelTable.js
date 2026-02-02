@@ -8,13 +8,14 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
-import { route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
+import { API, banners, namespace, route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
 import { fetchLevels, deleteLevel, updateLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 import { GoPlus } from 'react-icons/go';
 import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
+import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 
 const LevelTable = () => {
     const navigate = useNavigate();
@@ -209,8 +210,36 @@ const LevelTable = () => {
             );
         }, [tableStats, search]);
 
+
+    const importHandler = async () => {
+        await API.post(namespace + 'setup/import-module', {
+            module: "levels"
+        });
+        await dispatch(fetchLevels({}));
+    }
+    const [banners, setBanners] = useState(
+        window.GameEngineGlobal.banners
+    );
+    const closeHandler = async () => {
+        await API.post(namespace + 'setup/dismiss-banner', {
+            module: "levels"
+        });
+        setBanners(prev => ({
+            ...prev,
+            levels: 'yes',
+        }));
+    }
+
     return (
         <div className='gameengine-page-content'>
+            {(levels.length === 0 && banners?.levels !== 'yes' && tableStats === 'all') && (
+                <ImportDemoBanner
+                    title={__("No levels found.", 'gameengine')}
+                    subtitle={__("Want to quickly get started by importing a default levels currency and login rewards?", 'gameengine')}
+                    handleImport={importHandler}
+                    handleClose={closeHandler}
+                />
+            )}
             <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
                 <GFLabel type="plainHeading" margin={0} label={__("Levels", "gameengine")} />
 
@@ -229,6 +258,7 @@ const LevelTable = () => {
                 dataFetchingStatus={loading}
                 isRowSelectable={false}
                 showPagination={false}
+                showColumnFilter={false}
                 showSubHeader={true}
                 subHeaderComponent={subHeaderComponentMemo}
                 totalItems={total}

@@ -151,6 +151,7 @@ const Welcome = () => {
           fontSize={'14px'}
           fontWeight={'500'}
           lineHeight={'20px'}
+          onClick={() => window.location.href = admin_url+'admin.php?page=gameengine'}
         >
           {__("Skip This Step", "gameengine")}
         </Button>

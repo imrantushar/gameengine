@@ -138,19 +138,7 @@ const Notification = () => {
 							<div className="gameengine-notification__message">
 								<Icon as={iconType(notification?.type)} size="md" />
 
-								{notification.isHtml ? (
-									<div
-										dangerouslySetInnerHTML={{
-											__html: __(
-												notification.message,
-												'gameengine'),
-										}}
-									/>
-								) : (
-									__(
-										notification.message,
-										'gameengine')
-								)}
+								{notification.message}
 							</div>
 						)}
 						<Button

@@ -4,45 +4,46 @@ import { __ } from '@wordpress/i18n';
 import { TiPointOfInterestOutline } from "react-icons/ti";
 import { GrAchievement } from "react-icons/gr";
 import { SiLevelsdotfyi } from "react-icons/si";
-import { Box, Flex, Icon } from '@chakra-ui/react';
+import { Box, Flex, Icon, Image } from '@chakra-ui/react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
+import { plugin_root_url } from '@GFUtils/helper';
 
 const previewCards = [
   {
     label: __('Author', 'gameengine'),
     description: __('For authors active', 'gameengine'),
-    icon: TiPointOfInterestOutline,
+    icon: '/assets/images/setup/author.svg',
     slug: 'author'
   },
   {
     label: __('Blogger', 'gameengine'),
     description: __('For blog activity', 'gameengine'),
-    icon: GrAchievement,
+    icon: '/assets/images/setup/blogger.svg',
     slug: 'blogger'
   },
   {
     label: __('eCommerce', 'gameengine'),
     description: __('For shop customers', 'gameengine'),
-    icon: SiLevelsdotfyi,
+    icon: '/assets/images/setup/eCommerce.svg',
     slug: 'shop'
   },
   {
     label: __('Performance', 'gameengine'),
     description: __('For task results', 'gameengine'),
-    icon: SiLevelsdotfyi,
+    icon: '/assets/images/setup/performance.svg',
     slug: 'performance'
   },
   {
     label: __('Community', 'gameengine'),
     description: __('For community help', 'gameengine'),
-    icon: SiLevelsdotfyi,
+    icon: '/assets/images/setup/community.svg',
     slug: 'community'
   },
   {
     label: __('Growth', 'gameengine'),
     description: __('For growth actions', 'gameengine'),
-    icon: SiLevelsdotfyi,
+    icon: '/assets/images/setup/growth.svg',
     slug: 'growth'
   },
 ]
@@ -183,7 +184,11 @@ const DataPreview = () => {
                   setFieldValue('preset', item.slug)
                 }}
               >
-                <Icon as={item.icon} width={'30px'} height={'30px'} />
+                <Image
+                  maxW={'36px'}
+                  height={'auto'}
+                  src={plugin_root_url + item.icon}
+                />
                 <Flex
                   direction={'column'}
                   gap={'4px'}
@@ -194,7 +199,6 @@ const DataPreview = () => {
                     margin={0}
                     padding={0}
                     label={item.label}
-                    // fontSize={'16px'}
                     lineHeight={'20px'}
                   />
                   <GFLabel

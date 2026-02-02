@@ -38,9 +38,14 @@ const FormInner = () => {
     const addons = useSelector(state => state.addons);
     const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
+    const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
 
     const wooIcon = isWoocommerceActive ? {
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+    } : {}
+
+    const academy = isAcademyActive ? {
+        academylms: { icon: SiWoocommerce, bg: "#7b68ee" },
     } : {}
 
 
@@ -117,6 +122,7 @@ const FormInner = () => {
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         ...wooIcon,
+        ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };

@@ -26,9 +26,14 @@ const FormInner = ({ hooksLoading }) => {
     const [selectedDeductFilterType, setSelectedDeductFilterType] = useState([]);
     const addons = useSelector(state => state.addons);
     const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
+    const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
     
     const wooIcon = isWoocommerceActive ? {
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
+    } : {}
+
+    const academy = isAcademyActive ? {
+        academylms: { icon: SiWoocommerce, bg: "#7b68ee" },
     } : {}
 
     const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
@@ -53,6 +58,7 @@ const FormInner = ({ hooksLoading }) => {
     const hookCategoryIconMap = {
         wordpress: { icon: FaWordpressSimple, bg: "#21759b" },
         ...wooIcon,
+        ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
         interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };

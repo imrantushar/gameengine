@@ -18,7 +18,8 @@ export const {
 	is_plain_permalink,
 	is_pro,
 	is_woocommerce_active,
-	is_academylms_active
+	is_academylms_active,
+	banners
 } = window?.GameEngineGlobal;
 
 
