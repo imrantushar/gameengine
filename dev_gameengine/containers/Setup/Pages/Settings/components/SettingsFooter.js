@@ -24,7 +24,7 @@ const SettingsFooter = () => {
         {...primaryBtn}
       >
         {__("Continue", "gameengine")}
-        <Icon as={FaAngleRight}/>
+        <Icon as={FaAngleRight} width={'10px'}/>
       </Button>
     </Flex>
   );
