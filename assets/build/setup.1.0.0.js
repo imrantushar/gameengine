@@ -650,6 +650,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/icon/icon.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+
 
 
 
@@ -660,31 +662,91 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const previewCards = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Point type', 'gameengine'),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('point_type', 'gameengine'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Author', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For authors active', 'gameengine'),
   icon: react_icons_ti__WEBPACK_IMPORTED_MODULE_3__.TiPointOfInterestOutline,
-  value: 'point_type'
+  slug: 'author'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Achavement', 'gameengine'),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('achavement', 'gameengine'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Blogger', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For blog activity', 'gameengine'),
   icon: react_icons_gr__WEBPACK_IMPORTED_MODULE_4__.GrAchievement,
-  value: 'achavement'
+  slug: 'blogger'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Level', 'gameengine'),
-  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('level', 'gameengine'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('eCommerce', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For shop customers', 'gameengine'),
   icon: react_icons_si__WEBPACK_IMPORTED_MODULE_5__.SiLevelsdotfyi,
-  value: 'level'
+  slug: 'shop'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Performance', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For task results', 'gameengine'),
+  icon: react_icons_si__WEBPACK_IMPORTED_MODULE_5__.SiLevelsdotfyi,
+  slug: 'performance'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Community', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For community help', 'gameengine'),
+  icon: react_icons_si__WEBPACK_IMPORTED_MODULE_5__.SiLevelsdotfyi,
+  slug: 'community'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Growth', 'gameengine'),
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('For growth actions', 'gameengine'),
+  icon: react_icons_si__WEBPACK_IMPORTED_MODULE_5__.SiLevelsdotfyi,
+  slug: 'growth'
 }];
+const pointsData = {
+  author: {
+    use_case: 'Multi-author blogs, magazines, news sites',
+    achievements: ['First Draft', 'Published Author', 'Consistent Writer', 'Trusted Author'],
+    levels: ['New Author', 'Regular Author', 'Senior Author', 'Master Author']
+  },
+  blogger: {
+    use_case: 'Personal blogs, content creators',
+    achievements: ['First Post', 'Active Blogger', 'Growing Blog', 'Blog Authority'],
+    levels: ['Beginner Blogger', 'Active Blogger', 'Pro Blogger', 'Top Blogger']
+  },
+  shop: {
+    use_case: 'WooCommerce, loyalty programs',
+    achievements: ['First Purchase', 'Repeat Buyer', 'Loyal Customer', 'VIP Shopper'],
+    levels: ['Shopper', 'Regular Buyer', 'Loyal Buyer', 'VIP Member']
+  },
+  performance: {
+    use_case: 'Teams, companies, internal dashboards',
+    achievements: ['Onboarded', 'Task Completed', 'Consistent Performer', 'Top Performer'],
+    levels: ['Junior', 'Associate', 'Senior', 'Lead']
+  },
+  community: {
+    use_case: 'Forums, membership communities',
+    achievements: ['Welcome Member', 'First Contribution', 'Active Member', 'Trusted Voice'],
+    levels: ['Newcomer', 'Member', 'Contributor', 'Community Leader']
+  },
+  growth: {
+    use_case: 'Marketing teams, agencies, SaaS growth',
+    achievements: ['Campaign Launched', 'Lead Generator', 'Growth Booster', 'Growth Champion'],
+    levels: ['Marketer', 'Growth Specialist', 'Growth Manager', 'Growth Leader']
+  }
+};
 const DataPreview = () => {
+  const {
+    values,
+    setFieldValue
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_10__.useFormikContext)();
+  const selectedCard = previewCards.find(item => item.slug === values.preset);
+  const previewData = [{
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Achievement", "gamneengine"),
+    slug: 'achievements'
+  }, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Levels", "gamneengine"),
+    slug: 'levels'
+  }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Setup Your GameEngine', 'gemboards'),
     subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose your preferred gamification setup', 'gemboards')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Box, {
     width: '100%'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
-    gap: '16px'
+    gap: '16px',
+    flexWrap: 'wrap'
   }, previewCards.map((item, idx) => {
-    const isSelected = false;
+    const isSelected = item.slug === values.preset;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
       key: idx,
       gap: '12px',
@@ -694,8 +756,12 @@ const DataPreview = () => {
       background: isSelected && '#F3F5FF',
       borderRadius: '4px',
       textAlign: 'center',
-      width: 'calc(100% / 3)',
-      alignItems: 'center'
+      width: 'calc((100% / 3) - 11px)',
+      alignItems: 'center',
+      cursor: 'pointer',
+      onClick: () => {
+        setFieldValue('preset', item.slug);
+      }
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_8__.Icon, {
       as: item.icon,
       width: '30px',
@@ -720,7 +786,56 @@ const DataPreview = () => {
       fontSize: '12px',
       lineHeight: '16px'
     })));
-  }))));
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    padding: '16px',
+    gap: '16px',
+    background: '#F3F5FF',
+    borderRadius: '6px',
+    width: '100%',
+    mt: '24px',
+    direction: 'column'
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    type: "simple",
+    margin: 0,
+    padding: 0,
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Levels & Achievements Preview', 'gameengine')
+    // fontSize={'16px'}
+    // lineHeight={'24px'}
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+    gap: '16px'
+  }, previewData.map((item, idx) => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+      direction: 'column',
+      gap: '12px',
+      background: '#fff',
+      borderRadius: '4px',
+      width: 'calc(100% / 2)',
+      padding: '16px 24px'
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_7__.Flex, {
+      gap: '2px',
+      wordWrap: 'break-word',
+      alignItems: 'center'
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      type: "simpleHeading",
+      margin: 0,
+      padding: 0,
+      label: item.title,
+      fontSize: '16px',
+      lineHeight: '24px'
+    }), selectedCard && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      type: "simple",
+      margin: '2px 0 0 0',
+      padding: 0,
+      label: ' ( ' + selectedCard.label + ' Points )',
+      fontSize: '12px',
+      lineHeight: '24px'
+    })), values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      type: "simple",
+      margin: 0,
+      padding: 0,
+      label: dataItem
+    })));
+  })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataPreview);
 
@@ -917,6 +1032,7 @@ const Settings = () => {
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_3__.Formik, {
     enableReinitialize: true,
     initialValues: {
+      preset: "author",
       addons: [],
       setup_completed: true
     },

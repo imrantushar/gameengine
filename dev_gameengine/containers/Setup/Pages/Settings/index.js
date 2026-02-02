@@ -35,6 +35,7 @@ const Settings = () => {
       <Formik
         enableReinitialize={true}
         initialValues={{
+          preset: "author",
           addons: [],
           setup_completed: true
         }}
