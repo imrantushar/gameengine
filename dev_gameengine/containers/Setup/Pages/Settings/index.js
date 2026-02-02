@@ -4,6 +4,7 @@ import React from 'react';
 import SettingsHeader from './components/SettingsHeader';
 import SettingsFooter from './components/SettingsFooter';
 import DataPreview from './Steps/DataPreview';
+import Addons from './Steps/Addons';
 
 const Settings = () => {
   const onSubmitHandler = (values, actions) => {
@@ -34,7 +35,8 @@ const Settings = () => {
               border={'1px solid #F6F7F8'}
               borderRadius={'12px'}
             >
-              <DataPreview />
+              {/* <DataPreview /> */}
+              <Addons />
               <SettingsFooter />
             </Box>
           )
