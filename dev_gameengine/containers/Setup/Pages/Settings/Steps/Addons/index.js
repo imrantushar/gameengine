@@ -3,24 +3,28 @@ import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
 import { Box, Checkbox, Flex, Icon, Image } from '@chakra-ui/react';
 import { academyLms, wooCommerce } from '@GFUtils/icons';
-import { plugin_root_url } from '@GFUtils/helper';
+import { is_academylms_active, is_woocommerce_active, plugin_root_url } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+import { useFormikContext } from 'formik';
 
 const AddonsCard = [
   {
-    label: __('Progress Map', 'gameengine'), 
+    label: __('Progress Map', 'gameengine'),
+    name: 'progress_map',
     description: __('Keep users loyal to your brand', 'gameengine'), 
 		icon: false,
 		image: plugin_root_url+'assets/images/progress_map.svg',
   },
   {
     label: __('Restrict Content', 'gameengine'), 
+    name: 'restrict_content',
     description: __('Boost interactions with content', 'gameengine'), 
 		icon: false,
 		image: plugin_root_url+'assets/images/restrict_content.svg',
   },
   {
     label: __('Restrict Unlock', 'gameengine'), 
+		name: 'restrict_unlock',
     description: __('Boost interactions with content', 'gameengine'), 
     icon: false,
     image: plugin_root_url+'assets/images/restrict_unlock.svg',
@@ -28,12 +32,14 @@ const AddonsCard = [
   },
   {
     label: __('WooCommerce Integration', 'gameengine'), 
+		name: 'woocommerce',
     description: __('Boost interactions with content', 'gameengine'), 
     icon: wooCommerce,
     plugin_required: true
   },
   {
     label: __('Academy LMS Integration', 'gameengine'), 
+		name: 'academylms',
     description: __('Boost interactions with content', 'gameengine'), 
     icon: academyLms,
     plugin_required: true
@@ -47,6 +53,7 @@ const AddonsCard = [
 ]
 
 const Addons = () => {
+  const {values, setFieldValue} = useFormikContext();
   return (
     <>
       <SettingsHeader
@@ -60,15 +67,26 @@ const Addons = () => {
       />
       <Flex gap={'16px'} flexWrap={'wrap'}>
         {AddonsCard.map((item, idx) => {
-          const isSelected = false;
+          const isChecked =
+            (item.name === 'academylms' &&
+              values.addons.includes('academylms') &&
+              is_academylms_active) ||
+            (item.name === 'woocommerce' &&
+              values.addons.includes('woocommerce') &&
+              is_woocommerce_active) ||
+            values.addons.includes(item.name);
+
+          const isDisabled =
+            (item.name === 'academylms' && !is_academylms_active) ||
+            (item.name === 'woocommerce' && !is_woocommerce_active)
+
           return (
             <Flex
               key={idx}
               gap={'12px'}
               padding={'16px'}
               maxWidth={'280px'}
-              border={`1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`}
-              background={isSelected && '#F3F5FF'}
+              border={`1px solid #CBD1D7`}
               borderRadius={'4px'}
               textAlign={'center'}
               width={'calc(100% / 2)'}
@@ -108,10 +126,21 @@ const Addons = () => {
                 size="sm"
                 mt="0.5"
                 ml='auto'
-                checked={isSelected}
-                onCheckedChange={(changes) =>
-                  console.log({changes})
-                }
+                disabled={isDisabled}
+                checked={isChecked}
+                onCheckedChange={(changes) => {
+                  if (changes.checked) {
+                    if (!values.addons.includes(item.name)) {
+                      setFieldValue('addons', [...values.addons, item.name]);
+                    }
+                  } else {
+                    setFieldValue(
+                      'addons',
+                      values.addons.filter(addon => addon !== item.name)
+                    );
+                  }
+                }}
+
               >
                 <Checkbox.HiddenInput />
                 <Checkbox.Control />

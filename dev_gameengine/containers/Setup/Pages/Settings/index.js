@@ -1,14 +1,31 @@
 import { Box, Flex } from '@chakra-ui/react';
 import { Formik } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 import SettingsHeader from './components/SettingsHeader';
 import SettingsFooter from './components/SettingsFooter';
 import DataPreview from './Steps/DataPreview';
 import Addons from './Steps/Addons';
+import { API, namespace } from '@GFUtils/helper';
+import { useNavigate } from 'react-router-dom';
 
 const Settings = () => {
-  const onSubmitHandler = (values, actions) => {
-    console.log({values})
+  const [step, setStep] = useState('datapreview');
+  const navigate = useNavigate();
+  const onSubmitHandler = async (values, actions) => {
+    actions.setSubmitting(true)
+    try {
+      const response = await API.post('/setup/complete', {
+        ...values
+      })
+      if(response.status === 200) {
+        navigate('/congratulation')
+      }
+      
+    } catch (error) {
+      console.error(error)
+    } finally {
+      actions.setSubmitting(false)
+    }
   }
   return (
     <Flex
@@ -17,7 +34,10 @@ const Settings = () => {
     >
       <Formik
         enableReinitialize={true}
-        initialValues={{}}
+        initialValues={{
+          addons: [],
+          setup_completed: true
+        }}
         onSubmit={onSubmitHandler}
       >
         {() => {
@@ -35,9 +55,16 @@ const Settings = () => {
               border={'1px solid #F6F7F8'}
               borderRadius={'12px'}
             >
-              {/* <DataPreview /> */}
-              <Addons />
-              <SettingsFooter />
+              {step === 'datapreview' && (
+                <DataPreview />
+              )}
+              {step === 'addons' && (
+                <Addons />
+              )}
+              <SettingsFooter 
+                step={step}
+                setStep={setStep}
+              />
             </Box>
           )
         }}

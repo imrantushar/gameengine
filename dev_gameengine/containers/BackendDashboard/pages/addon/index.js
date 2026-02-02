@@ -19,7 +19,7 @@ const infoCardsData = [
 		label: __('Academy LMS', 'gameengine'),
 		name: 'academylms',
 		is_pro: false,
-		is_coming_soon: true,
+		is_coming_soon: false,
 		details: __(
 			'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
 			'gameengine'

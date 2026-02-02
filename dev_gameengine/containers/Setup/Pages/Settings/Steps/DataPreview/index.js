@@ -31,7 +31,7 @@ const DataPreview = () => {
   return (
     <>
       <SettingsHeader
-        title={__('Setup Your EameEngine', 'gemboards')}
+        title={__('Setup Your GameEngine', 'gemboards')}
         subTitle={__('Choose your preferred gamification setup', 'gemboards')}
       />
       <Box width={'100%'}>
