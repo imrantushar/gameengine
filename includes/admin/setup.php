@@ -130,7 +130,12 @@ class Setup
             'site_url'           => site_url(),
             'admin_url'          => admin_url(),
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
-            'is_academylms_active'  => \GameEngine\Helper::is_plugin_active('\Academy\Academy'),
+            'is_academylms_active'  => \GameEngine\Helper::is_plugin_active('Academy'),
+            'banners'               => array(
+                'points'       => get_option('gameengine_hide_banner_points', 'no'),
+                'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),
+                'levels'       => get_option('gameengine_hide_banner_levels', 'no'),
+            ),
         );
 
         wp_localize_script('gameengine-setup-script', 'GameEngineGlobal', $setup_data);
