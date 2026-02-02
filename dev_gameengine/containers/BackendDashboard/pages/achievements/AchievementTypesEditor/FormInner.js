@@ -107,7 +107,7 @@ const FormInner = () => {
         woocommerce: { icon: SiWoocommerce, bg: "#96588a" },
     } : {}
     const academy = isAcademyActive ? {
-        academylms: { icon: SiWoocommerce, bg: "#96588a" },
+        academylms: { icon: SiWoocommerce, bg: "#7b68ee" },
     } : {}
 
     const hookCategoryIconMap = {
