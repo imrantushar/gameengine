@@ -1326,6 +1326,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   addons: () => (/* binding */ addons),
 /* harmony export */   admin_url: () => (/* binding */ admin_url),
 /* harmony export */   ajaxurl: () => (/* binding */ ajaxurl),
+/* harmony export */   banners: () => (/* binding */ banners),
 /* harmony export */   gameengine_nonce: () => (/* binding */ gameengine_nonce),
 /* harmony export */   generateSlug: () => (/* binding */ generateSlug),
 /* harmony export */   getAddonActiveStatus: () => (/* binding */ getAddonActiveStatus),
@@ -1373,7 +1374,8 @@ const {
   is_plain_permalink,
   is_pro,
   is_woocommerce_active,
-  is_academylms_active
+  is_academylms_active,
+  banners
 } = window?.GameEngineGlobal;
 const reactDebounce = (callback, wait) => {
   let timeout;

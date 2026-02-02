@@ -9,12 +9,13 @@ import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteAchievement, fetchAchievements, updateAchievement } from '@GFRedux/Slices/achivementSlice/achievementsSlice';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
-import { route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
+import { API, namespace, route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
 import { GoPlus } from 'react-icons/go';
 import { fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import moment from 'moment';
 import Search from '@GFComponents/Search';
 import StatusOptions from '@GFComponents/StatusOptions';
+import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 
 const AchievementsTable = () => {
     const dispatch = useDispatch();
@@ -193,8 +194,37 @@ const AchievementsTable = () => {
         );
     }, [tableStats, search]);
 
+    const importHandler = async () => {
+        await API.post(namespace + 'setup/import-module', {
+            module: "achievements"
+        });
+        await dispatch(fetchAchievements({}));
+    }
+    
+    const [banners, setBanners] = useState(
+        window.GameEngineGlobal.banners
+    );
+    const closeHandler = async () => {
+        await API.post(namespace + 'setup/dismiss-banner', {
+            module: "achievements"
+        });
+        setBanners(prev => ({
+            ...prev,
+            achievements: 'yes',
+        }));
+    }
+
+
     return (
         <div className='gameengine-page-content'>
+            {(achievements.length === 0 && banners?.achievements !== 'yes' && tableStats === 'all') && (
+                <ImportDemoBanner
+                    title={__("No achievements found.", 'gameengine')}
+                    subtitle={__("Want to quickly get started by importing a default achievements currency and login rewards?", 'gameengine')}
+                    handleImport={importHandler}
+                    handleClose={closeHandler}
+                />
+            )}
             <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
                 <GFLabel type="plainHeading" margin={0} label={__("Achievements", "gameengine")} />
 
