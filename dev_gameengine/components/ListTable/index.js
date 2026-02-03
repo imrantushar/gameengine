@@ -9,6 +9,7 @@ import { Flex, Table } from '@chakra-ui/react';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import Preloader from '@GFComponents/Loader/Preloader';
 import TableSkeleton from '../GameEngineLoader/TableSkeleton';
+import TrashModal from '@GFComponents/Modal/TrashModal';
 
 const ListTable = (props) => {
 	const {
@@ -63,6 +64,8 @@ const ListTable = (props) => {
 	const [showSlider, setShowSlider] = useState(false);
 
 	const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
+	const [isTrashModalOpen, setIsTrashModalOpen] = useState(false);
+    const [trashStep, setTrashStep] = useState(1); 
 
 	const selectRowChange = ({ row, select }) => {
 		const updatedDataArr = copyDataArr.map((dataItem) => {
@@ -233,6 +236,17 @@ const ListTable = (props) => {
 
 	const isLoading = dataFetchingStatus;
 
+	useEffect(() => {
+		const selectedCount = copyDataArr?.filter(row => row.select)?.length || 0;
+		if (selectedCount > 0) {
+			setIsTrashModalOpen(true);
+			setTrashStep(1); 
+		} else {
+			setIsTrashModalOpen(false);
+		}
+	}, [copyDataArr]);
+
+
 	return (
 		<div className={classes}>
 			{showSubHeader && (
@@ -325,6 +339,26 @@ const ListTable = (props) => {
 					currentPageNumber={currentPageNumber}
 				/>
 			)}
+
+			<TrashModal
+				isOpen={isTrashModalOpen}
+				onClose={() => {
+					setIsTrashModalOpen(false);
+					setCopyDataArr(copyDataArr.map(row => ({ ...row, select: false })));
+				}}
+				onConfirm={() => {
+					const selectedRows = copyDataArr.filter(row => row.select);
+					const updatedData = copyDataArr.map(row =>
+					row.select ? { ...row, status: 'trash', select: false } : row
+					);
+					setCopyDataArr(updatedData);
+					props.onBulkTrash?.(selectedRows);
+					setIsTrashModalOpen(false);
+				}}
+				totalSelected={copyDataArr.filter(row => row.select).length}
+			/>
+
+
 		</div>
 	);
 };

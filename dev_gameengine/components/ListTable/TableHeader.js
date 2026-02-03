@@ -16,7 +16,7 @@ const TableHeader = ({
 	return (
 		<Table.Header bg="var(--gameengine-secondary-color)">
 			<Table.Row>
-				{isCheckboxColumnVisible && (
+				{/* {isCheckboxColumnVisible && ( */}
 					<Table.ColumnHeader width="40px">
 						<Checkbox.Root
 							size="sm"
@@ -29,7 +29,7 @@ const TableHeader = ({
 							<Checkbox.Control />
 						</Checkbox.Root>
 					</Table.ColumnHeader>
-				)}
+				{/* )} */}
 
 				{visibleColumn?.map((column, index) => (
 					<Table.ColumnHeader 

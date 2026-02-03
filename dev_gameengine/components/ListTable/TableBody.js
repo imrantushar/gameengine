@@ -17,7 +17,7 @@ const TableBody = ({
 					role="group"
 					borderBottomWidth="1px" borderColor="var(--gameengine-border-color)"
 				>
-					{isCheckboxColumnVisible && (
+					{/* {isCheckboxColumnVisible && ( */}
 						<Table.Cell width="40px">
 							<Checkbox.Root
 								size="sm"
@@ -35,7 +35,7 @@ const TableBody = ({
 								<Checkbox.Control />
 							</Checkbox.Root>
 						</Table.Cell>
-					)}
+					{/* )} */}
 
 					{visibleColumn.map(
 						(column, columnIndex) => (

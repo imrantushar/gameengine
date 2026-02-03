@@ -294,6 +294,10 @@ const PointTypesTable = () => {
         // resetSelected={resetSelectedItems}
         rowsPerPage={perPage}
         currentPageNumber={[page]}
+        onBulkTrash={(selectedRows) => {
+    console.log("Trashing these points:", selectedRows);
+   
+  }}
 
       />
     </>
