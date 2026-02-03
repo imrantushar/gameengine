@@ -294,10 +294,19 @@ const PointTypesTable = () => {
         // resetSelected={resetSelectedItems}
         rowsPerPage={perPage}
         currentPageNumber={[page]}
-        onBulkTrash={(selectedRows) => {
-    console.log("Trashing these points:", selectedRows);
-   
-  }}
+        onBulkTrash={async (selectedRows) => {
+          if (selectedRows.length === 0) return;
+          try {
+           await Promise.all(
+              selectedRows.map((row) => 
+                dispatch(updatePointType({ id: row.id, data: { status: 'trash' } }))
+              )
+            );
+            // fetchHandler({ status: tableStats, page, per_page: perPage });
+          } catch (err) {
+            console.error('Error trashing points:', err);
+          }
+        }}
 
       />
     </>
