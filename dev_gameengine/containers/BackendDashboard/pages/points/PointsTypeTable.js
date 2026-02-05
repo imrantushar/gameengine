@@ -29,7 +29,7 @@ const PointTypesTable = () => {
     message: '',
   });
   const [selectedRows, setSelectedRows] = useState([]);
-
+  const [originalStages, setOriginalStages] = useState({});
   
   const fetchHandler = async ({status = 'all', page = 1, per_page = 15, searchKey = ""}) => {
     try {
@@ -297,8 +297,13 @@ const PointTypesTable = () => {
     let message = '';
     if (action.value === 'trash') {
       message = __('Move selected items to trash?', 'gameengine');
+      const newStages = {};
       rows.forEach(row => {
-        row.prevStatus = row.status; 
+        newStages[row.id] = row.status;
+      });
+      setOriginalStages(prev => ({ ...prev, ...newStages }));
+      rows.forEach(row => {
+        dispatch(updatePointType({ id: row.id, data: { status: 'trash' } }));
       });
     } else if (action.value === 'restore') {
       message = __('Restore selected items?', 'gameengine');
@@ -319,7 +324,15 @@ const PointTypesTable = () => {
           await dispatch(updatePointType({ id: row.id, data: {prevStatus: row.status, status: 'trash' } }));
         }
         if (actionSelected.type === 'restore') {
-          await dispatch(updatePointType({ id: row.id, data: { status: row.prevStatus } }));
+          for (const row of selectedRows) {
+            const prevStage = originalStages[row.id]; 
+            await dispatch(updatePointType({ id: row.id, data: { status: prevStage } }));            
+            setOriginalStages(prev => {
+              const copy = { ...prev };
+              delete copy[row.id];
+              return copy;
+            });
+          }
         }
         if (actionSelected.type === 'delete') {
           await dispatch(deletePointType(row.id));
