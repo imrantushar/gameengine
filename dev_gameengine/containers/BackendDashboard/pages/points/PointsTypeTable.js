@@ -297,6 +297,9 @@ const PointTypesTable = () => {
     let message = '';
     if (action.value === 'trash') {
       message = __('Move selected items to trash?', 'gameengine');
+      rows.forEach(row => {
+        row.prevStatus = row.status; 
+      });
     } else if (action.value === 'restore') {
       message = __('Restore selected items?', 'gameengine');
     } else if (action.value === 'delete') {
