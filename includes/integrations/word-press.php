@@ -13,7 +13,7 @@ class WordPress extends BaseIntegration
 
     public static function get_name(): string
     {
-        return __('WordPress Core', 'gameengine');
+        return __('Core', 'gameengine');
     }
 
     public static function get_icon(): string
@@ -156,6 +156,51 @@ class WordPress extends BaseIntegration
                 },
                 'schema' => self::merge_schema([
                     ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                ])
+            ],
+            'daily_visit_website' => [
+                'label' => __('Daily Visit', 'gameengine'),
+                'hook' => 'gameengine_site_visit',
+                'description' => __('Daily visit successfully  into your website.', 'gameengine'),
+                'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
+                'get_user_id' => function ($id) {
+                    return $id;
+                },
+                'schema' => self::merge_schema([
+                    ['key' => 'streak_bonus', 'label' => __('Enable Streak Bonus (Pro)', 'gameengine'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
+                    ['key' => 'multiplier', 'label' => __('Points Multiplier (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true, 'placeholder' => '2'],
+                    ['key' => 'min_stay', 'label' => __('Min Stay Time in Mins (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
+                ])
+            ],
+            'visit_specific_post' => [
+                'label' => __('Visit Specific Post', 'gameengine'),
+                'hook' => 'gameengine_site_visit',
+                'description' => __('Visit Specific post successfully  into your website.', 'gameengine'),
+                'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
+                'get_user_id' => function ($id) {
+                    return $id;
+                },
+                'schema' => self::merge_schema([
+                    ['key' => 'post_id', 'label' => __('Select Post', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']],
+                    ['key' => 'categories', 'label' => __('Select Categories (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'categories']]
+                ])
+            ],
+            'author_comment_reply' => [
+                'label' => __('Author Reply', 'gameengine'),
+                'hook' => 'comment_post',
+                'description' => __('Author comment successfully  into your website.', 'gameengine'),
+                'args_count' => 2,
+                'supports'    => ['point_type', 'achievement', 'level'],
+                'get_user_id' => function ($id) {
+                    $c = get_comment($id);
+                    if (!$c || $c->comment_parent == 0) return 0;
+                    $p = get_post($c->comment_post_ID);
+                    return ($p && (int)$p->post_author === (int)$c->user_id) ? $c->user_id : 0;
+                },
+                'schema' => self::merge_schema([
+                    ['key' => 'min_reply_len', 'label' => __('Min Reply Length (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true]
                 ])
             ]
         ];

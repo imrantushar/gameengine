@@ -18,7 +18,7 @@ const DraggableItem = ({ id, children }) => {
         cursor: "grab",
         zIndex: isDragging ? 999 : 1
     };
-    
+
     return (
         <Box ref={setNodeRef} {...listeners} {...attributes} style={style} marginBottom="24px">
             {children}
@@ -38,10 +38,10 @@ const DroppableArea = ({ id, children }) => {
 
 const Requirements = (props) => {
     const {
-        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope, 
+        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope,
     } = props;
     const dispatch = useDispatch();
-    return ( 
+    return (
         <CollapsibleItem
             // translators: %s: label
             label={sprintf(
@@ -64,11 +64,11 @@ const Requirements = (props) => {
                             />
                         </Flex>
                         <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)">
-                            {[{label: __('All', 'gameengine'), value: 'all'}, ...hookTypeOptions].map((item, index) => {
+                            {[{ label: __('All', 'gameengine'), value: 'all' }, ...hookTypeOptions].map((item, index) => {
                                 return (
-                                    <Button 
-                                        minW={'auto'} 
-                                        variant={'plain'} 
+                                    <Button
+                                        minW={'auto'}
+                                        variant={'plain'}
                                         onClick={() => filterHookType(item.value)}
                                         key={index}
                                         bg={'transparent'}
@@ -92,7 +92,7 @@ const Requirements = (props) => {
                                         }}
                                         _hover={{
                                             _after: {
-                                                transform: "scaleX(1)", 
+                                                transform: "scaleX(1)",
                                             },
                                         }}
                                     >{item.label}</Button>
