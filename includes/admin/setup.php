@@ -82,10 +82,17 @@ class Setup
             return array();
         });
 
+        /**
+         * Fix: Instead of calling apply_filters('emoji_svg_url'), 
+         * we search and remove the emoji CDN URL directly to avoid prefix warnings.
+         */
         add_filter('wp_resource_hints', function ($urls, $relation_type) {
-            if ('dns-prefetch' === $relation_type) {
-                $emoji_svg_url = apply_filters('emoji_svg_url', 'https://s.w.org/images/core/emoji/14.0.0/svg/');
-                $urls = array_diff($urls, array($emoji_svg_url));
+            if ('dns-prefetch' === $relation_type && is_array($urls)) {
+                foreach ($urls as $key => $url) {
+                    if (strpos($url, 's.w.org/images/core/emoji') !== false) {
+                        unset($urls[$key]);
+                    }
+                }
             }
             return $urls;
         }, 10, 2);
@@ -147,12 +154,10 @@ class Setup
             'is_pro'    => \GameEngine\Helper::is_pro(),
             'gameengine_nonce'       => wp_create_nonce('gameengine_nonce'),
             'namespace'          => 'gameengine/v1/',
-            // 'addons'             => $addons_status,
             'plugin_root_url'    => GAMEENGINE_URL,
             'plugin_root_path'   => GAMEENGINE_PATH,
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
             'site_url'           => site_url(),
-            'admin_url'          => admin_url(),
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'banners'               => array(

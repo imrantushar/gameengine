@@ -1,10 +1,10 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-02-03 07:38:45",
+    "generated_at": "2026-02-05 09:21:12",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
-            "name": "WordPress Core",
+            "name": "Core",
             "icon": "dashicons-wordpress",
             "triggers": {
                 "wp_login": {
@@ -1616,178 +1616,7 @@
                             "isDisabled": true
                         }
                     ]
-                }
-            }
-        },
-        "gameengine": {
-            "slug": "gameengine",
-            "name": "GameEngine Logic",
-            "icon": "dashicons-games",
-            "triggers": {
-                "unlock_specific_achievement": {
-                    "label": "Unlock Achievement",
-                    "hook": "gameengine_achievement_unlocked",
-                    "description": "Unlock achivemeet successfully  into your website.",
-                    "args_count": 3,
-                    "supports": [
-                        "point_type"
-                    ],
-                    "get_user_id": {},
-                    "schema": [
-                        {
-                            "key": "points",
-                            "label": "Points to Award",
-                            "type": "number",
-                            "width": "50%",
-                            "default": 10,
-                            "scope": [
-                                "point_type"
-                            ]
-                        },
-                        {
-                            "key": "log_label",
-                            "label": "Log Description",
-                            "type": "text",
-                            "width": "50%",
-                            "default": "Activity Reward",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
-                        },
-                        {
-                            "key": "limit",
-                            "label": "Limit",
-                            "type": "select",
-                            "width": "100%",
-                            "options": [
-                                {
-                                    "label": "Unlimited",
-                                    "value": "unlimited"
-                                },
-                                {
-                                    "label": "1 Time Only",
-                                    "value": "1_time"
-                                },
-                                {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": true
-                                },
-                                {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": true
-                                },
-                                {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": true
-                                }
-                            ],
-                            "default": "unlimited",
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ]
-                        },
-                        {
-                            "key": "achievement_id",
-                            "label": "Select Achievement",
-                            "type": "select",
-                            "width": "100%",
-                            "dynamic": {
-                                "integration": "gameengine",
-                                "query": "achievements"
-                            },
-                            "required": true
-                        },
-                        {
-                            "key": "start_time",
-                            "label": "Start Time (Pro)",
-                            "type": "time",
-                            "width": "50%",
-                            "placeholder": "08:00",
-                            "is_pro": true,
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ],
-                            "isDisabled": true
-                        },
-                        {
-                            "key": "end_time",
-                            "label": "End Time (Pro)",
-                            "type": "time",
-                            "width": "50%",
-                            "placeholder": "22:00",
-                            "is_pro": true,
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ],
-                            "isDisabled": true
-                        },
-                        {
-                            "key": "active_days",
-                            "label": "Active Days (Pro)",
-                            "type": "select",
-                            "width": "100%",
-                            "is_multi": true,
-                            "is_pro": true,
-                            "options": [
-                                {
-                                    "label": "Monday",
-                                    "value": "mon"
-                                },
-                                {
-                                    "label": "Tuesday",
-                                    "value": "tue"
-                                },
-                                {
-                                    "label": "Wednesday",
-                                    "value": "wed"
-                                },
-                                {
-                                    "label": "Thursday",
-                                    "value": "thu"
-                                },
-                                {
-                                    "label": "Friday",
-                                    "value": "fri"
-                                },
-                                {
-                                    "label": "Saturday",
-                                    "value": "sat"
-                                },
-                                {
-                                    "label": "Sunday",
-                                    "value": "sun"
-                                }
-                            ],
-                            "scope": [
-                                "point_type",
-                                "achievement",
-                                "level"
-                            ],
-                            "isDisabled": true
-                        }
-                    ]
-                }
-            }
-        },
-        "interaction": {
-            "slug": "interaction",
-            "name": "Interactions",
-            "icon": "dashicons-groups",
-            "triggers": {
+                },
                 "daily_visit_website": {
                     "label": "Daily Visit",
                     "hook": "gameengine_site_visit",
@@ -2213,6 +2042,170 @@
                             "width": "50%",
                             "is_pro": true,
                             "isDisabled": true
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time (Pro)",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": true
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time (Pro)",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": true
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days (Pro)",
+                            "type": "select",
+                            "width": "100%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": true
+                        }
+                    ]
+                }
+            }
+        },
+        "gameengine": {
+            "slug": "gameengine",
+            "name": "GameEngine Logic",
+            "icon": "dashicons-games",
+            "triggers": {
+                "unlock_specific_achievement": {
+                    "label": "Unlock Achievement",
+                    "hook": "gameengine_achievement_unlocked",
+                    "description": "Unlock achivemeet successfully  into your website.",
+                    "args_count": 3,
+                    "supports": [
+                        "point_type"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Limit",
+                            "type": "select",
+                            "width": "100%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "1 Per Day (Pro)",
+                                    "value": "1_per_day",
+                                    "is_pro": true,
+                                    "isDisabled": true
+                                },
+                                {
+                                    "label": "1 Per Week (Pro)",
+                                    "value": "1_per_week",
+                                    "is_pro": true,
+                                    "isDisabled": true
+                                },
+                                {
+                                    "label": "1 Per Month (Pro)",
+                                    "value": "1_per_month",
+                                    "is_pro": true,
+                                    "isDisabled": true
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "achievement_id",
+                            "label": "Select Achievement",
+                            "type": "select",
+                            "width": "100%",
+                            "dynamic": {
+                                "integration": "gameengine",
+                                "query": "achievements"
+                            },
+                            "required": true
                         },
                         {
                             "key": "start_time",
