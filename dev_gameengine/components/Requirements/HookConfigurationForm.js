@@ -145,7 +145,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                             integrationSlug={hookInfo.integrationSlug}
                             type={type}
                             parameters={currentHook?.parameters}
-                            onChange={(val) => handleChange(config.key, val, hookInfo.hook)}
+                            onChange={(val) => handleChange(config.key, val, hookInfo.id)}
                         />
                     );
                 })}

@@ -1,1 +1,402 @@
-:root{--gameengine-primary:#006bff;--gameengine-primary-soft:#edf5ff;--gameengine-success:#10b981;--gameengine-warning:#f59e0b;--gameengine-danger:#ef4444;--gameengine-locked:#94a3b8;--gameengine-bg-main:#fff;--gameengine-bg-alt:#f8fafc;--gameengine-text-header:#0f172a;--gameengine-text-body:#475569;--gameengine-border:#e2e8f0;--gameengine-shadow-sm:0 1px 3px rgba(0,0,0,.1);--gameengine-shadow-md:0 10px 25px -5px rgba(0,0,0,.05);--gameengine-radius:12px}.gameengine-dashboard{background:var(--gameengine-bg-main);border:1px solid var(--gameengine-border);border-radius:var(--gameengine-radius);box-shadow:var(--gameengine-shadow-md);font-family:Roboto,sans-serif;margin:30px auto;max-width:1000px;overflow:hidden}.gameengine-header{align-items:center;background:#fff;border-bottom:1px solid var(--gameengine-border);display:flex;justify-content:space-between;padding:25px 35px}.gameengine-user-meta-info{align-items:center;display:flex;gap:20px}.gameengine-user-meta-info img.avatar{border:3px solid var(--gameengine-primary)!important;border-radius:50%!important;box-shadow:var(--gameengine-shadow-sm)!important;height:60px!important;padding:2px!important;width:60px!important}.gameengine-user-details h3{color:var(--gameengine-text-header);font-size:22px;font-weight:700;margin:0}.gameengine-points-tag{align-items:center;background:#fff9db;border:1px solid #fff3bf;border-radius:50px;color:var(--gameengine-warning);display:inline-flex;font-size:13px;font-weight:700;margin-top:6px;padding:4px 14px}.gameengine-header-actions .gameengine-notification-bell{align-items:center;background:var(--gameengine-bg-alt);border-radius:10px;cursor:pointer;display:flex;font-size:20px;height:45px;justify-content:center;position:relative;transition:.3s;width:45px}.gameengine-noti-dot{background:var(--gameengine-danger);border:2px solid #fff;border-radius:50%;height:8px!important;position:absolute;left:12px;top:12px;width:8px!important}.gameengine-main-layout{background:var(--gameengine-bg-alt);display:flex;min-height:500px}.gameengine-sidebar{background:#fff;border-left:1px solid var(--gameengine-border);padding:25px 15px;width:250px}.gameengine-tab-btn{align-items:center!important;background:transparent!important;border:none!important;border-radius:8px!important;color:var(--gameengine-text-body)!important;cursor:pointer!important;display:flex!important;font-size:15px!important;font-weight:600!important;gap:12px!important;margin-bottom:5px!important;padding:14px 20px!important;text-align:right!important;width:100%!important}.gameengine-tab-btn.gameengine-active{background:var(--gameengine-primary)!important;color:#fff!important}.gameengine-content-area{background:#fff;flex:1;padding:40px}.gameengine-tab-content{display:none}.gameengine-tab-content.gameengine-active{animation:gameengineSlideUp .4s ease-out;display:block}.gameengine-roadmap{padding:10px 0}.gameengine-timeline{position:relative}.gameengine-timeline:before{background:var(--gameengine-border);bottom:0;content:"";right:50%;position:absolute;top:0;transform:translateX(50%);width:4px}.gameengine-timeline-node{align-items:center;display:flex;margin-bottom:50px;position:relative;width:100%}.gameengine-node-circle{align-items:center;background:#fff;border:4px solid var(--gameengine-border);border-radius:50%!important;color:var(--gameengine-locked);display:flex;font-weight:800;height:36px!important;justify-content:center;right:50%;position:absolute;transform:translateX(50%);width:36px!important;z-index:10}.gameengine-is-active .gameengine-node-circle{background:var(--gameengine-primary);border-color:var(--gameengine-primary);color:#fff}.gameengine-node-card{background:#fff;border:1px solid var(--gameengine-border);border-radius:14px;box-shadow:var(--gameengine-shadow-sm);padding:18px;position:relative;width:44%}.gameengine-node-left .gameengine-node-card{margin-left:auto;text-align:left}.gameengine-node-right .gameengine-node-card{margin-right:auto;text-align:right}.gameengine-card-inner{align-items:center;display:flex;gap:15px}.gameengine-node-left .gameengine-card-inner{flex-direction:row-reverse}.gameengine-card-media img{height:50px!important;-o-object-fit:contain!important;object-fit:contain!important;width:50px!important}.gameengine-achievements-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}.gameengine-achievement-card{background:#fff;border:1px solid var(--gameengine-border);border-radius:16px;padding:25px 15px;text-align:center;transition:.3s}.gameengine-achievement-icon-box{margin-bottom:15px;position:relative}.gameengine-achievement-icon-box img{height:65px!important;-o-object-fit:contain!important;object-fit:contain!important;width:65px!important}.gameengine-lock-overlay{align-items:center;background:hsla(0,0%,100%,.7);border-radius:50%!important;display:flex;inset:0;justify-content:center;position:absolute}.gameengine-is-locked .gameengine-achievement-icon-box{filter:grayscale(1)}.gameengine-level-list{display:flex;flex-direction:column;gap:12px}.gameengine-level-item{align-items:center;background:var(--gameengine-bg-alt);border:1px solid var(--gameengine-border);border-radius:12px;display:flex;justify-content:space-between;padding:18px 25px}.gameengine-lvl-info-left{align-items:center;display:flex;gap:15px}.gameengine-lvl-name{color:var(--gameengine-text-header);font-weight:700}.gameengine-is-locked .gameengine-node-card{background:#f1f5f9!important;border-color:#cbd5e1!important;box-shadow:none!important;opacity:.7}.gameengine-is-locked .gameengine-card-media img,.gameengine-is-locked .gameengine-icon-placeholder{filter:grayscale(100%)!important;opacity:.5}.gameengine-is-locked .gameengine-card-info h5{color:#94a3b8!important}.gameengine-is-locked .gameengine-type-badge{background:#e2e8f0!important;border:none!important;color:#64748b!important}.gameengine-lock-label{color:var(--gameengine-danger);display:block;font-size:11px;font-weight:700;margin-bottom:2px;text-transform:uppercase}.gameengine-lock-msg{color:#94a3b8!important;font-size:12.5px;line-height:1.4;margin:0}.gameengine-line-gray{background:#e2e8f0!important}.gameengine-is-locked .gameengine-node-circle{background:#f8fafc;border-color:#e2e8f0;color:#cbd5e1}@keyframes gameengineSlideUp{0%{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}@media(max-width:768px){.gameengine-sidebar{border-left:none;display:flex;overflow-x:auto;width:100%}.gameengine-main-layout{flex-direction:column}.gameengine-timeline:before{right:20px}.gameengine-node-circle{right:20px;transform:none}.gameengine-node-card{margin-right:65px!important;width:calc(100% - 65px)}.gameengine-node-left .gameengine-card-inner{flex-direction:row}}
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/frontend.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/**
+ * GameEngine Premium UI Stylesheet
+ */
+:root {
+  --gameengine-primary: #006BFF;
+  --gameengine-primary-soft: #edf5ff;
+  --gameengine-success: #10b981;
+  --gameengine-warning: #f59e0b;
+  --gameengine-danger: #ef4444;
+  --gameengine-locked: #94a3b8;
+  --gameengine-bg-main: #ffffff;
+  --gameengine-bg-alt: #f8fafc;
+  --gameengine-text-header: #0f172a;
+  --gameengine-text-body: #475569;
+  --gameengine-border: #e2e8f0;
+  --gameengine-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --gameengine-shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+  --gameengine-radius: 12px;
+}
+
+/* Dashboard Wrapper */
+.gameengine-dashboard {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: var(--gameengine-bg-main);
+  border-radius: var(--gameengine-radius);
+  box-shadow: var(--gameengine-shadow-md);
+  border: 1px solid var(--gameengine-border);
+  font-family: "Roboto", sans-serif;
+  overflow: hidden;
+}
+
+/* Header Section */
+.gameengine-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px 35px;
+  background: #fff;
+  border-bottom: 1px solid var(--gameengine-border);
+  align-items: center;
+}
+
+.gameengine-user-meta-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.gameengine-user-meta-info img.avatar {
+  border-radius: 50% !important;
+  border: 3px solid var(--gameengine-primary) !important;
+  padding: 2px !important;
+  box-shadow: var(--gameengine-shadow-sm) !important;
+  width: 60px !important;
+  height: 60px !important;
+}
+
+.gameengine-user-details h3 {
+  margin: 0;
+  font-size: 22px;
+  color: var(--gameengine-text-header);
+  font-weight: 700;
+}
+
+.gameengine-points-tag {
+  font-size: 13px;
+  color: var(--gameengine-warning);
+  font-weight: 700;
+  background: #fff9db;
+  padding: 4px 14px;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 6px;
+  border: 1px solid #fff3bf;
+}
+
+.gameengine-header-actions .gameengine-notification-bell {
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  background: var(--gameengine-bg-alt);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.gameengine-noti-dot {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 8px !important;
+  height: 8px !important;
+  background: var(--gameengine-danger);
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+/* Sidebar & Content Area */
+.gameengine-main-layout {
+  display: flex;
+  min-height: 500px;
+  background: var(--gameengine-bg-alt);
+}
+
+.gameengine-sidebar {
+  width: 250px;
+  background: #fff;
+  padding: 25px 15px;
+  border-left: 1px solid var(--gameengine-border);
+}
+
+.gameengine-tab-btn {
+  width: 100% !important;
+  padding: 14px 20px !important;
+  border: none !important;
+  background: transparent !important;
+  text-align: right !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--gameengine-text-body) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  border-radius: 8px !important;
+  margin-bottom: 5px !important;
+}
+
+.gameengine-tab-btn.gameengine-active {
+  background: var(--gameengine-primary) !important;
+  color: #fff !important;
+}
+
+.gameengine-content-area {
+  flex: 1;
+  padding: 40px;
+  background: #fff;
+}
+
+.gameengine-tab-content {
+  display: none;
+}
+
+.gameengine-tab-content.gameengine-active {
+  display: block;
+  animation: gameengineSlideUp 0.4s ease-out;
+}
+
+/* --- Zig-Zag Roadmap Design --- */
+.gameengine-roadmap {
+  padding: 10px 0;
+}
+
+.gameengine-timeline {
+  position: relative;
+}
+
+.gameengine-timeline::before {
+  content: "";
+  position: absolute;
+  right: 50%;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--gameengine-border);
+  transform: translateX(50%);
+}
+
+.gameengine-timeline-node {
+  position: relative;
+  width: 100%;
+  margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+}
+
+.gameengine-node-circle {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  width: 36px !important;
+  height: 36px !important;
+  background: #fff;
+  border: 4px solid var(--gameengine-border);
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  font-weight: 800;
+  color: var(--gameengine-locked);
+}
+
+.gameengine-is-active .gameengine-node-circle {
+  border-color: var(--gameengine-primary);
+  background: var(--gameengine-primary);
+  color: #fff;
+}
+
+.gameengine-node-card {
+  width: 44%;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px;
+  border: 1px solid var(--gameengine-border);
+  box-shadow: var(--gameengine-shadow-sm);
+  position: relative;
+}
+
+/* Zig-Zag Alignment Logic */
+.gameengine-node-left .gameengine-node-card {
+  margin-left: auto;
+  text-align: left;
+}
+
+.gameengine-node-right .gameengine-node-card {
+  margin-right: auto;
+  text-align: right;
+}
+
+.gameengine-card-inner {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.gameengine-node-left .gameengine-card-inner {
+  flex-direction: row-reverse;
+}
+
+.gameengine-card-media img {
+  width: 50px !important;
+  height: 50px !important;
+  -o-object-fit: contain !important;
+     object-fit: contain !important;
+}
+
+/* --- Achievements Grid --- */
+.gameengine-achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 20px;
+}
+
+.gameengine-achievement-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 25px 15px;
+  text-align: center;
+  border: 1px solid var(--gameengine-border);
+  transition: 0.3s;
+}
+
+.gameengine-achievement-icon-box {
+  position: relative;
+  margin-bottom: 15px;
+}
+
+.gameengine-achievement-icon-box img {
+  width: 65px !important;
+  height: 65px !important;
+  -o-object-fit: contain !important;
+     object-fit: contain !important;
+}
+
+.gameengine-lock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gameengine-is-locked .gameengine-achievement-icon-box {
+  filter: grayscale(1);
+}
+
+/* --- Levels List --- */
+.gameengine-level-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gameengine-level-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 25px;
+  background: var(--gameengine-bg-alt);
+  border-radius: 12px;
+  border: 1px solid var(--gameengine-border);
+}
+
+.gameengine-lvl-info-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.gameengine-lvl-name {
+  font-weight: 700;
+  color: var(--gameengine-text-header);
+}
+
+/* --- Roadmap Locked State (Grayed out Effect) --- */
+.gameengine-is-locked .gameengine-node-card {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+  opacity: 0.7;
+}
+
+.gameengine-is-locked .gameengine-card-media img,
+.gameengine-is-locked .gameengine-icon-placeholder {
+  filter: grayscale(100%) !important;
+  opacity: 0.5;
+}
+
+.gameengine-is-locked .gameengine-card-info h5 {
+  color: #94a3b8 !important;
+}
+
+.gameengine-is-locked .gameengine-type-badge {
+  background: #e2e8f0 !important;
+  color: #64748b !important;
+  border: none !important;
+}
+
+.gameengine-lock-label {
+  color: var(--gameengine-danger);
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.gameengine-lock-msg {
+  color: #94a3b8 !important;
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.gameengine-line-gray {
+  background: #e2e8f0 !important;
+}
+
+.gameengine-is-locked .gameengine-node-circle {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #cbd5e1;
+}
+
+/* Animation */
+@keyframes gameengineSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Responsive */
+@media (max-width: 768px) {
+  .gameengine-sidebar {
+    width: 100%;
+    display: flex;
+    overflow-x: auto;
+    border-left: none;
+  }
+  .gameengine-main-layout {
+    flex-direction: column;
+  }
+  .gameengine-timeline::before {
+    right: 20px;
+  }
+  .gameengine-node-circle {
+    right: 20px;
+    transform: none;
+  }
+  .gameengine-node-card {
+    width: calc(100% - 65px);
+    margin-right: 65px !important;
+  }
+  .gameengine-node-left .gameengine-card-inner {
+    flex-direction: row;
+  }
+}
