@@ -37,7 +37,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     }
 
     const labelElement = (
-        <Flex align="center" gap={2} mb="8px">
+        <Flex align="center" gap={2} mb="8px" width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`}>
             <Text className='gameengine-title' fontSize="sm" fontWeight="500" m="0">
                 {displayLabel} {config.required && <span style={{ color: 'red' }}>*</span>}
             </Text>
@@ -51,7 +51,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
             : dynamicOptions;
 
         return (
-            <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
+            <Box width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`} opacity={isDisabled ? 0.7 : 1}>
                 {labelElement}
 
                 <Select
@@ -63,7 +63,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                             ? __('Upgrade to Pro', 'gameengine')
                             : __('Select...', 'gameengine')
                     }
-                    className="gameengine-select"
+                    className={`gameengine-select ${config?.width === '100%' && 'gameengine-select--width-full'} ${config?.width === '50%' && 'gameengine-select--width-half'}`}
                     classNamePrefix="gameengine-select"
                     options={optionsSource}
                     value={
@@ -87,7 +87,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
 
     if (config.type === 'switch') {
         return (
-            <Flex align="center" justify="space-between" width="100%" p={2} border="1px dashed" borderColor="gray.200" borderRadius="md" opacity={isDisabled ? 0.6 : 1}>
+            <Flex width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`} align="center" justify="space-between" p={2} border="1px dashed" borderColor="gray.200" borderRadius="md" opacity={isDisabled ? 0.6 : 1}>
                 <Box>
                     <Text fontSize="sm" fontWeight="600">{displayLabel}</Text>
                     {config.description && <Text fontSize="xs" color="gray.500">{config.description}</Text>}
@@ -100,7 +100,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     }
 
     return (
-        <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
+        <Box width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`} opacity={isDisabled ? 0.7 : 1}>
             <GameEngineInput label={displayLabel}>
                 <Input
                     {...commonInput}
@@ -129,7 +129,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
             onClick={() => setIsOpen(!isOpen)}
             singleIcon={true}
         >
-            <Flex direction="column" gap="16px" className='gameengine-active-hooks__inner'>
+            <Flex flexWrap={'wrap'} gap="16px" className='gameengine-active-hooks__inner' width={'100%'}>
                 {fieldsConfig.map((config) => {
                     if (config.scope && !config.scope.includes(scope)) {
                         return;
