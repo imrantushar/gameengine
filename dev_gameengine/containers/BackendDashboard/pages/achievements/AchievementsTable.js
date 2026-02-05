@@ -246,7 +246,6 @@ const AchievementsTable = () => {
             message,
         });
     };
-
         
    const confirmBulkHandler = async () => {
         try {

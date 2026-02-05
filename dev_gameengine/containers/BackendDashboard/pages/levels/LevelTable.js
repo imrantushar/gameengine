@@ -16,6 +16,7 @@ import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
+import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
 
 const LevelTable = () => {
     const navigate = useNavigate();
@@ -23,6 +24,12 @@ const LevelTable = () => {
     const { levels = [], types, page, perPage, total, search } = useSelector(state => state.levels || {});
     const [loading, setLoading] = useState(levels.length === 0);
     const [tableStats, setTableStatus] = useState('all');
+    const [actionSelected, setActionSelected] = useState({
+            value: false,
+            type: '',
+            message: '',
+          });
+    const [selectedRows, setSelectedRows] = useState([]);
 
     const fetchHandler = async ({status = 'all', page = 1, per_page = 15, searchKey = ""}) => {
         try {
@@ -230,6 +237,69 @@ const LevelTable = () => {
         }));
     }
 
+    const bulkOptions =
+            tableStats === 'trash'
+              ? [
+                  { value: 'restore', label: __('Restore', 'gameengine') },
+                  { value: 'delete', label: __('Delete Permanently', 'gameengine') },
+                ]
+              : [{ value: 'trash', label: __('Move to Trash', 'gameengine') }];
+        
+    const applyBulkActionHandler = (rows, action) => {
+        if (!rows.length) return;
+        let message = '';
+        if (action.value === 'trash') {
+            message = __('Move selected items to trash?', 'gameengine');
+            rows.forEach(row => row.prevStatus = row.status);
+        } else if (action.value === 'restore') {
+            message = __('Restore selected items?', 'gameengine');
+        } else if (action.value === 'delete') {
+            message = __('Delete permanently? This cannot be undone.', 'gameengine');
+        }
+        setActionSelected({
+            value: true,
+            type: action.value,
+            message,
+        });
+    };
+            
+    const confirmBulkHandler = async () => {
+        try {
+            if (!selectedRows.length) return;
+            for (const row of selectedRows) {
+                if (actionSelected.type === 'trash') {
+                    await dispatch(updateLevel({id:row.id, payload: {...row, prevStatus: row.status, status: 'trash'}}))
+                }
+                if (actionSelected.type === 'restore') {
+                    await dispatch(updateLevel({
+                        id: row.id,
+                        payload: {...row, status: row.prevStatus, title: row.title}    
+                    }));
+                }
+                if (actionSelected.type === 'delete') {
+                    await dispatch(deleteLevel(row.id));
+                }
+            }
+            setSelectedRows([]);
+            setActionSelected({ value: false });
+            fetchHandler({ status: tableStats, page, per_page: perPage });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+    
+    const snackbarActionButtons = bulkOptions.map((opt) => {
+        let btnClass = '';
+        if (opt.value === 'restore') btnClass = 'gameengine-btn--restore';
+        if (opt.value === 'delete') btnClass = 'gameengine-btn--delete';
+        if (opt.value === 'trash') btnClass = 'gameengine-btn--trash';
+        return {
+            label: opt.label,
+            onClick: () => applyBulkActionHandler(selectedRows, opt),
+            className: btnClass,
+        };
+    });
+
     return (
         <div className='gameengine-page-content'>
             {(levels.length === 0 && banners?.levels !== 'yes' && tableStats === 'all') && (
@@ -256,7 +326,7 @@ const LevelTable = () => {
                 data={levels}
                 noDataText={__("No data found for levels", "gameengine")}
                 dataFetchingStatus={loading}
-                isRowSelectable={false}
+                isRowSelectable={true}
                 showPagination={false}
                 showColumnFilter={false}
                 showSubHeader={true}
@@ -266,6 +336,18 @@ const LevelTable = () => {
                 // resetSelected={resetSelectedItems}
                 rowsPerPage={perPage}
                 currentPageNumber={[page]}
+                getSelectRowValue={setSelectedRows}
+            />
+
+            <SnackbarAction
+                itemsLength={selectedRows.length}
+                actionButtons={snackbarActionButtons}
+                isActionSelected={actionSelected}
+                confirmHandler={confirmBulkHandler}
+                resetHandler={() => {
+                    setSelectedRows([]);
+                    setActionSelected({ value: false });
+                }}
             />
         </div>
     );

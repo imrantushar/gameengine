@@ -2484,6 +2484,96 @@ h2.react-datepicker__current-month {
   color: #f94d4d;
   border: 0;
 }
+/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/BulkAction/styles.scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-snackbar-action {
+  position: absolute;
+  bottom: 20px;
+  left: 45%;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0px 12px 72px -8px rgba(16, 24, 40, 0.25);
+  background: rgb(255, 255, 255);
+  padding: 12px;
+}
+.gameengine-snackbar-action .gameengine-btn {
+  padding: 8px 16px;
+}
+.gameengine-snackbar-action .gameengine-btn--restore {
+  background: rgba(114, 114, 114, 0.12);
+  color: #727272;
+}
+.gameengine-snackbar-action .gameengine-btn--restore:hover {
+  background: rgba(114, 114, 114, 0.12);
+}
+.gameengine-snackbar-action .gameengine-btn--delete, .gameengine-snackbar-action .gameengine-btn--trash-delete {
+  background: rgb(255, 77, 77);
+  color: #FFF;
+}
+.gameengine-snackbar-action .gameengine-btn--delete:hover, .gameengine-snackbar-action .gameengine-btn--trash-delete:hover {
+  background: rgb(255, 77, 77);
+}
+.gameengine-snackbar-action .gameengine-btn--close {
+  padding: 8px;
+}
+.gameengine-snackbar-action .gameengine-btn--draft {
+  padding: 8px;
+  border: 1px solid var(--gameengine-border-color);
+  background: transparent;
+  color: var(--gameengine-text-color);
+}
+.gameengine-snackbar-action .gameengine-btn--publish {
+  padding: 8px;
+  color: #FFF;
+  background: #00AD6B;
+}
+.gameengine-snackbar-action .gameengine-btn--publish:hover, .gameengine-snackbar-action .gameengine-btn--publish:focus {
+  background: #00AD6B;
+}
+.gameengine-snackbar-action__before, .gameengine-snackbar-action__after {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+.gameengine-snackbar-action__before .gameengine-snackbar-action__right .gameengine-btn--trash {
+  background: #FF4D4D;
+}
+.gameengine-snackbar-action__left, .gameengine-snackbar-action__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length span {
+  width: 58px;
+  height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--gameengine-border-color);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length p {
+  margin: 0;
+}
+.gameengine-snackbar-action__left .gameengine-btn--confirm {
+  background: #FF4D4D;
+}
+.gameengine-snackbar-action__left .gameengine-btn--confirm:hover {
+  background: rgb(255, 77, 77);
+}
 /*!********************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./node_modules/quill/dist/quill.snow.css ***!
   \********************************************************************************************************************************************************************************************/
@@ -2611,96 +2701,6 @@ h2.react-datepicker__current-month {
   .ql-html-popupContainer .ql-html-textContainer .ql-html-buttonGroup {
     left: calc(90% - 96px);
   }
-}
-/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/BulkAction/styles.scss ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-snackbar-action {
-  position: absolute;
-  bottom: 20px;
-  left: 45%;
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  box-shadow: 0px 12px 72px -8px rgba(16, 24, 40, 0.25);
-  background: rgb(255, 255, 255);
-  padding: 12px;
-}
-.gameengine-snackbar-action .gameengine-btn {
-  padding: 8px 16px;
-}
-.gameengine-snackbar-action .gameengine-btn--restore {
-  background: rgba(114, 114, 114, 0.12);
-  color: #727272;
-}
-.gameengine-snackbar-action .gameengine-btn--restore:hover {
-  background: rgba(114, 114, 114, 0.12);
-}
-.gameengine-snackbar-action .gameengine-btn--delete, .gameengine-snackbar-action .gameengine-btn--trash-delete {
-  background: rgb(255, 77, 77);
-  color: #FFF;
-}
-.gameengine-snackbar-action .gameengine-btn--delete:hover, .gameengine-snackbar-action .gameengine-btn--trash-delete:hover {
-  background: rgb(255, 77, 77);
-}
-.gameengine-snackbar-action .gameengine-btn--close {
-  padding: 8px;
-}
-.gameengine-snackbar-action .gameengine-btn--draft {
-  padding: 8px;
-  border: 1px solid var(--gameengine-border-color);
-  background: transparent;
-  color: var(--gameengine-text-color);
-}
-.gameengine-snackbar-action .gameengine-btn--publish {
-  padding: 8px;
-  color: #FFF;
-  background: #00AD6B;
-}
-.gameengine-snackbar-action .gameengine-btn--publish:hover, .gameengine-snackbar-action .gameengine-btn--publish:focus {
-  background: #00AD6B;
-}
-.gameengine-snackbar-action__before, .gameengine-snackbar-action__after {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 20px;
-}
-.gameengine-snackbar-action__before .gameengine-snackbar-action__right .gameengine-btn--trash {
-  background: #FF4D4D;
-}
-.gameengine-snackbar-action__left, .gameengine-snackbar-action__right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 21px;
-}
-.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length span {
-  width: 58px;
-  height: 30px;
-  padding: 4px 8px;
-  border: 1px solid var(--gameengine-border-color);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.gameengine-snackbar-action__left .gameengine-snackbar-action__items-length p {
-  margin: 0;
-}
-.gameengine-snackbar-action__left .gameengine-btn--confirm {
-  background: #FF4D4D;
-}
-.gameengine-snackbar-action__left .gameengine-btn--confirm:hover {
-  background: rgb(255, 77, 77);
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Modal/styles.scss ***!
