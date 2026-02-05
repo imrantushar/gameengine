@@ -16,6 +16,7 @@ import moment from 'moment';
 import Search from '@GFComponents/Search';
 import StatusOptions from '@GFComponents/StatusOptions';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
+import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
 
 const AchievementsTable = () => {
     const dispatch = useDispatch();
@@ -23,6 +24,12 @@ const AchievementsTable = () => {
     const { achievements, types, page, perPage, total, search  } = useSelector(state => state.achievements);
     const [loading, setLoading] = useState(achievements.length === 0);
     const [tableStats, setTableStatus] = useState('all');
+    const [actionSelected, setActionSelected] = useState({
+        value: false,
+        type: '',
+        message: '',
+      });
+    const [selectedRows, setSelectedRows] = useState([]);
     const fetchHandler = async ({status = 'all', page = 1, per_page = 15, searchKey = ""}) => {
         try {
             setLoading(true)
@@ -214,6 +221,72 @@ const AchievementsTable = () => {
         }));
     }
 
+    const bulkOptions =
+        tableStats === 'trash'
+          ? [
+              { value: 'restore', label: __('Restore', 'gameengine') },
+              { value: 'delete', label: __('Delete Permanently', 'gameengine') },
+            ]
+          : [{ value: 'trash', label: __('Move to Trash', 'gameengine') }];
+    
+    const applyBulkActionHandler = (rows, action) => {
+        if (!rows.length) return;
+        let message = '';
+        if (action.value === 'trash') {
+            message = __('Move selected items to trash?', 'gameengine');
+            rows.forEach(row => row.prevStatus = row.status);
+        } else if (action.value === 'restore') {
+            message = __('Restore selected items?', 'gameengine');
+        } else if (action.value === 'delete') {
+            message = __('Delete permanently? This cannot be undone.', 'gameengine');
+        }
+        setActionSelected({
+            value: true,
+            type: action.value,
+            message,
+        });
+    };
+
+        
+   const confirmBulkHandler = async () => {
+        try {
+            if (!selectedRows.length) return;
+            for (const row of selectedRows) {
+                if (actionSelected.type === 'trash') {
+                    await dispatch(updateAchievement({
+                        id: row.id,
+                        data: { ...row, prevStatus: row.status, status: 'trash' }  
+                    }));
+                }
+                if (actionSelected.type === 'restore') {
+                    await dispatch(updateAchievement({
+                        id: row.id,
+                        data: { ...row, status: row.prevStatus  }  
+                    }));
+                }
+                if (actionSelected.type === 'delete') {
+                    await dispatch(deleteAchievement(row.id));
+                }
+            }
+            setSelectedRows([]);
+            setActionSelected({ value: false });
+            fetchHandler({ status: tableStats, page, per_page: perPage });
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const snackbarActionButtons = bulkOptions.map((opt) => {
+        let btnClass = '';
+        if (opt.value === 'restore') btnClass = 'gameengine-btn--restore';
+        if (opt.value === 'delete') btnClass = 'gameengine-btn--delete';
+        if (opt.value === 'trash') btnClass = 'gameengine-btn--trash';
+        return {
+          label: opt.label,
+          onClick: () => applyBulkActionHandler(selectedRows, opt),
+          className: btnClass,
+        };
+    });
 
     return (
         <div className='gameengine-page-content'>
@@ -242,7 +315,7 @@ const AchievementsTable = () => {
                 data={achievements}
                 showSubHeader={true}
                 showColumnFilter={false}
-                isRowSelectable={false}
+                isRowSelectable={true}
                 showPagination={false}
                 noDataText={__("No data found for Achievements", "gameengine")}
                 suffix="achievements-table"
@@ -253,7 +326,19 @@ const AchievementsTable = () => {
                 // resetSelected={resetSelectedItems}
                 rowsPerPage={perPage}
                 currentPageNumber={[page]}
+                getSelectRowValue={setSelectedRows}
 
+            />
+
+            <SnackbarAction
+                itemsLength={selectedRows.length}
+                actionButtons={snackbarActionButtons}
+                isActionSelected={actionSelected}
+                confirmHandler={confirmBulkHandler}
+                resetHandler={() => {
+                    setSelectedRows([]);
+                    setActionSelected({ value: false });
+                }}
             />
         </div>
     );

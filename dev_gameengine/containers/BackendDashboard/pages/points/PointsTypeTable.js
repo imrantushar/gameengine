@@ -313,10 +313,10 @@ const PointTypesTable = () => {
     try {
       for (const row of selectedRows) {
         if (actionSelected.type === 'trash') {
-          await dispatch(updatePointType({ id: row.id, data: { status: 'trash' } }));
+          await dispatch(updatePointType({ id: row.id, data: {prevStatus: row.status, status: 'trash' } }));
         }
         if (actionSelected.type === 'restore') {
-          await dispatch(updatePointType({ id: row.id, data: { status: 'publish' } }));
+          await dispatch(updatePointType({ id: row.id, data: { status: row.prevStatus } }));
         }
         if (actionSelected.type === 'delete') {
           await dispatch(deletePointType(row.id));
