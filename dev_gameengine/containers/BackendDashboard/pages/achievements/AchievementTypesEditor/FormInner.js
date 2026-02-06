@@ -115,7 +115,6 @@ const FormInner = () => {
         ...wooIcon,
         ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
-        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
     };
 
     const renderHookCard = (item, type) => {
