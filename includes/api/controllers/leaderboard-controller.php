@@ -107,6 +107,8 @@ class LeaderboardController extends BaseController
             ARRAY_A
         );
 
+        $results = apply_filters('gameengine_leaderboard_results', $results, $request);
+
         // Total Count Query for Pagination.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $total_items = (int) $wpdb->get_var(
