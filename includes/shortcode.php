@@ -29,5 +29,6 @@ class Shortcode
         new Shortcodes\Achievements();
         new Shortcodes\Levels();
         new Shortcodes\ProgressMap();
+        new Shortcodes\Leaderboard();
     }
 }
