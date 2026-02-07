@@ -28,8 +28,12 @@ const SnackbarAction = ({
 
   if (!itemsLength) return null;
 
+  const handleSnackbarClick = (e) => {
+    e.stopPropagation();
+  };
+
   return createPortal(
-    <div className="gameengine-snackbar-action" ref={snackbarRef}>
+    <div className="gameengine-snackbar-action" ref={snackbarRef} onClick={handleSnackbarClick}>
      
       <Button
         size="sm"
