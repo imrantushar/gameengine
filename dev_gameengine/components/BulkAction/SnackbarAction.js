@@ -33,11 +33,11 @@ const SnackbarAction = ({
      
       <Button
         size="sm"
-        variant="ghost"
+        variant="plain"
         onClick={resetHandler}
-        style={{ position: 'absolute', right: '10px', top: '10px' }}
+        className="gameengine-btn gameengine-snackbar-close"
       >
-        ×
+        X
       </Button>
 
       {isActionSelected?.value ? (

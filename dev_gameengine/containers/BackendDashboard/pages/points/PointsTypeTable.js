@@ -319,6 +319,7 @@ const PointTypesTable = () => {
     
   const confirmBulkHandler = async () => {
     try {
+      if (!selectedRows.length) return;
       for (const row of selectedRows) {
         if (actionSelected.type === 'trash') {
           await dispatch(updatePointType({ id: row.id, data: {prevStatus: row.status, status: 'trash' } }));

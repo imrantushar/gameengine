@@ -30,6 +30,7 @@ const AchievementsTable = () => {
         message: '',
       });
     const [selectedRows, setSelectedRows] = useState([]);
+    const [originalStages, setOriginalStages] = useState({});
     const fetchHandler = async ({status = 'all', page = 1, per_page = 15, searchKey = ""}) => {
         try {
             setLoading(true)
@@ -234,7 +235,15 @@ const AchievementsTable = () => {
         let message = '';
         if (action.value === 'trash') {
             message = __('Move selected items to trash?', 'gameengine');
-            rows.forEach(row => row.prevStatus = row.status);
+            setOriginalStages((prev) => {
+                const updates = {};
+                rows.forEach((row) => {
+                    if (!(row.id in prev)) {
+                        updates[row.id] = row.status;
+                    }
+                });
+                return { ...prev, ...updates };
+            });
         } else if (action.value === 'restore') {
             message = __('Restore selected items?', 'gameengine');
         } else if (action.value === 'delete') {
@@ -248,30 +257,46 @@ const AchievementsTable = () => {
     };
         
    const confirmBulkHandler = async () => {
+        if (!selectedRows.length) return;
         try {
-            if (!selectedRows.length) return;
             for (const row of selectedRows) {
                 if (actionSelected.type === 'trash') {
-                    await dispatch(updateAchievement({
-                        id: row.id,
-                        data: { ...row, prevStatus: row.status, status: 'trash' }  
-                    }));
-                }
-                if (actionSelected.type === 'restore') {
-                    await dispatch(updateAchievement({
-                        id: row.id,
-                        data: { ...row, status: row.prevStatus  }  
-                    }));
-                }
-                if (actionSelected.type === 'delete') {
+                    await dispatch(
+                        updateAchievement({
+                            id: row.id,
+                            data: { ...row, status: 'trash' },
+                        })
+                    );
+                } 
+                else if (actionSelected.type === 'restore') {
+                    const previousStatus = originalStages[row.id] || 'publish'; 
+
+                    await dispatch(
+                        updateAchievement({
+                            id: row.id,
+                            data: { ...row, status: previousStatus },
+                        })
+                    );
+                    setOriginalStages((prev) => {
+                        const copy = { ...prev };
+                        delete copy[row.id];
+                        return copy;
+                    });
+                } 
+                else if (actionSelected.type === 'delete') {
                     await dispatch(deleteAchievement(row.id));
+                    setOriginalStages((prev) => {
+                        const copy = { ...prev };
+                        delete copy[row.id];
+                        return copy;
+                    });
                 }
             }
             setSelectedRows([]);
-            setActionSelected({ value: false });
+            setActionSelected({ value: false, type: '', message: '' });
             fetchHandler({ status: tableStats, page, per_page: perPage });
         } catch (err) {
-            console.error(err);
+            console.error('Bulk action failed:', err);
         }
     };
 
