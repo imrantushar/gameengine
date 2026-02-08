@@ -293,28 +293,29 @@ const PointTypesTable = () => {
       : [{ value: 'trash', label: __('Move to Trash', 'gameengine') }];
 
   const applyBulkActionHandler = (rows, action) => {
-    if (!rows.length) return;
-    let message = '';
-    if (action.value === 'trash') {
-      message = __('Move selected items to trash?', 'gameengine');
-      const newStages = {};
-      rows.forEach(row => {
-        newStages[row.id] = row.status;
+      if (!rows.length) return;
+      let message = '';
+      if (action.value === 'trash') {
+          message = __('Move selected items to trash?', 'gameengine');
+          setOriginalStages((prev) => {
+          const updates = {};
+          rows.forEach((row) => {
+              if (row.status !== 'trash' && !(row.id in prev)) {
+                  updates[row.id] = row.status || 'publish'; 
+              }
+          });
+          return { ...prev, ...updates };
       });
-      setOriginalStages(prev => ({ ...prev, ...newStages }));
-      rows.forEach(row => {
-        dispatch(updatePointType({ id: row.id, data: { status: 'trash' } }));
+      } else if (action.value === 'restore') {
+          message = __('Restore selected items?', 'gameengine');
+      } else if (action.value === 'delete') {
+          message = __('Delete permanently? This cannot be undone.', 'gameengine');
+      }
+      setActionSelected({
+          value: true,
+          type: action.value,
+          message,
       });
-    } else if (action.value === 'restore') {
-      message = __('Restore selected items?', 'gameengine');
-    } else if (action.value === 'delete') {
-      message = __('Delete permanently? This cannot be undone.', 'gameengine');
-    }
-    setActionSelected({
-      value: true,
-      type: action.value,
-      message,
-    });
   };
     
   const confirmBulkHandler = async () => {
@@ -326,7 +327,7 @@ const PointTypesTable = () => {
         }
         if (actionSelected.type === 'restore') {
           for (const row of selectedRows) {
-            const prevStage = originalStages[row.id]; 
+            const prevStage = originalStages[row.id] || 'pending'; 
             await dispatch(updatePointType({ id: row.id, data: { status: prevStage } }));            
             setOriginalStages(prev => {
               const copy = { ...prev };

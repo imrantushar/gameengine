@@ -71,7 +71,10 @@ const SnackbarAction = ({
               <Button
                 key={index}
                 {...actionButton}
-                onClick={() => actionButton.onClick()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  actionButton.onClick();
+                }}
               >
                 {actionButton.label}
               </Button>

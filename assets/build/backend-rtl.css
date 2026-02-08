@@ -2490,7 +2490,7 @@ h2.react-datepicker__current-month {
 .gameengine-snackbar-action {
   position: absolute;
   bottom: 20px;
-  right: 45%;
+  right: 35%;
   display: flex;
   align-items: center;
   gap: 15px;

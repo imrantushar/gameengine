@@ -254,7 +254,7 @@ const LevelTable = () => {
             const updates = {};
             rows.forEach((row) => {
                 if (row.status !== 'trash' && !(row.id in prev)) {
-                    updates[row.id] = row.status || 'publish'; 
+                    updates[row.id] = row.status || 'pending'; 
                 }
             });
             return { ...prev, ...updates };

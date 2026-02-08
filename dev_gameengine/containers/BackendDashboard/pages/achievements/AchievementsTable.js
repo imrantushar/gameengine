@@ -269,8 +269,7 @@ const AchievementsTable = () => {
                     );
                 } 
                 else if (actionSelected.type === 'restore') {
-                    const previousStatus = originalStages[row.id] || 'publish'; 
-
+                    const previousStatus = originalStages[row.id] || 'pending'; 
                     await dispatch(
                         updateAchievement({
                             id: row.id,
