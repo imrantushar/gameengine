@@ -81,6 +81,10 @@ class SetupController extends BaseController
         //  Perform full preset import.
         $this->process_preset_import($preset);
 
+        update_option('gameengine_hide_banner_points', 'yes');
+        update_option('gameengine_hide_banner_achievements', 'yes');
+        update_option('gameengine_hide_banner_levels', 'yes');
+
         //  Mark setup as completed.
         update_option('gameengine_setup_completed', 'yes');
 
@@ -101,6 +105,8 @@ class SetupController extends BaseController
 
         // Default to 'author' preset for individual banner imports.
         $this->process_preset_import('author', $module);
+
+        update_option('gameengine_hide_banner_' . $module, 'yes');
 
         return new \WP_REST_Response(array('message' => ucfirst($module) . ' default data imported.'), 200);
     }

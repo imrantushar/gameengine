@@ -78,6 +78,8 @@ class TriggersController extends BaseController
         $map = [
             'wordpress'   => \GameEngine\Integrations\WordPress::class,
             'woocommerce' => \GameEngine\Integrations\WooCommerce::class,
+            'academylms'  => \GameEngine\Integrations\AcademyLMS::class,
+            'gameengine'  => \GameEngine\Integrations\GameEngine::class,
         ];
 
         if (isset($map[$integration])) {

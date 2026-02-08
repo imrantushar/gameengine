@@ -210,3 +210,16 @@ function gameengine()
 
 // Kickstart the plugin.
 GameEngine::instance();
+
+add_action('init', function () {
+    if (isset($_GET['reset_gameengine_setup'])) {
+        delete_option('gameengine_setup_completed');
+        delete_option('gameengine_hide_banner_points');
+        delete_option('gameengine_hide_banner_achievements');
+        delete_option('gameengine_hide_banner_levels');
+
+        delete_option('gamify_active_addons');
+
+        wp_die('GameEngine Setup and Banners have been reset! Go back to dashboard.');
+    }
+});
