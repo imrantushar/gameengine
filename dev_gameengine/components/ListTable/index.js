@@ -325,6 +325,7 @@ const ListTable = (props) => {
 					currentPageNumber={currentPageNumber}
 				/>
 			)}
+
 		</div>
 	);
 };
