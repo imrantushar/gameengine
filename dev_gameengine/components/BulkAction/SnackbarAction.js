@@ -15,16 +15,36 @@ const propTypes = {
 
 const SnackbarAction = ({
   actionButtons = [],
-  itemsLength = 0,
+  itemsLength,
   isActionSelected = {},
   confirmHandler,
   resetHandler,
 }) => {
   const snackbarRef = useRef(null);
+  const targetElement = document.querySelector('#gameengine-admin-app');
 
   useEffect(() => {
-    return () => {};
-  }, [itemsLength]);
+		if (itemsLength && targetElement) {
+			snackbarRef.current.style.position = 'fixed';
+			snackbarRef.current.style.left = `40%`; // Adjust left position as needed
+			snackbarRef.current.style.bottom = `50px`; // Place it at the bottom
+			document.body.appendChild(snackbarRef.current);
+		} else if (
+			snackbarRef.current &&
+			snackbarRef.current.parentNode === document.body
+		) {
+			document.body.removeChild(snackbarRef.current);
+		}
+
+		return () => {
+			if (
+				snackbarRef.current &&
+				snackbarRef.current.parentNode === document.body
+			) {
+				document.body.removeChild(snackbarRef.current);
+			}
+		};
+	}, [itemsLength]);
 
   if (!itemsLength) return null;
 
@@ -34,7 +54,6 @@ const SnackbarAction = ({
 
   return createPortal(
     <div className="gameengine-snackbar-action" ref={snackbarRef} onClick={handleSnackbarClick}>
-     
       <Button
         size="sm"
         variant="plain"
