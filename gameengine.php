@@ -185,6 +185,8 @@ final class GameEngine
         if (class_exists('\GameEngine\Core\Installer')) {
             (new \GameEngine\Core\Installer())->run();
         }
+
+        set_transient('gameengine_activation_redirect', true, 30);
     }
 
     /**
