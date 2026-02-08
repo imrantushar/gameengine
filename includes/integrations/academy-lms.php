@@ -8,7 +8,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class AcademyLMS
- * Handles all 6 core triggers for Academy LMS with dynamic schema support.
+ * Handles all core triggers for Academy LMS with dynamic schema support.
  */
 class AcademyLMS extends BaseIntegration
 {
@@ -29,12 +29,12 @@ class AcademyLMS extends BaseIntegration
     }
 
     /**
-     * Register all 6 triggers for Academy LMS.
+     * Register all triggers for Academy LMS.
      */
     public static function get_triggers(): array
     {
         return array(
-            //  Course Completed
+            // Course Completed
             'academy_course_completed'     => array(
                 'label'       => __('Course Completed', 'gameengine'),
                 'hook'        => 'academy/admin/course_complete_after',
@@ -68,7 +68,7 @@ class AcademyLMS extends BaseIntegration
                 'schema'      => self::merge_schema(array()),
             ),
 
-            //  Lesson Completed
+            // Lesson Completed
             'academy_lesson_completed'      => array(
                 'label'       => __('Lesson Completed', 'gameengine'),
                 'hook'        => 'academy/frontend/after_mark_topic_complete',
@@ -89,7 +89,7 @@ class AcademyLMS extends BaseIntegration
                 )),
             ),
 
-            //  Quiz Passed
+            // Quiz Passed
             'academy_quiz_passed'          => array(
                 'label'       => __('Quiz Passed', 'gameengine'),
                 'hook'        => 'academy_quiz_attempt_status_passed',
@@ -110,7 +110,7 @@ class AcademyLMS extends BaseIntegration
                 )),
             ),
 
-            //  Assignment Evaluated
+            // Assignment Evaluated
             'academy_assignment_evaluated' => array(
                 'label'       => __('Assignment Evaluated', 'gameengine'),
                 'hook'        => 'academy_pro/frontend/evaluate_submitted_assignment',
@@ -123,7 +123,7 @@ class AcademyLMS extends BaseIntegration
                 'schema'      => self::merge_schema(array()),
             ),
 
-            //  New Enrollment
+            // New Enrollment
             'academy_new_enrollment'       => array(
                 'label'       => __('New Enrollment', 'gameengine'),
                 'hook'        => 'academy_new_enroll',
@@ -148,21 +148,70 @@ class AcademyLMS extends BaseIntegration
 
     /**
      * Data queries for Admin dropdowns.
+     * Fixed: Wrapped returns in array_values to force JSON array format.
      */
     public static function get_dynamic_queries(): array
     {
         return array(
             'courses' => function () {
-                $posts = get_posts(array('post_type' => 'academy_courses', 'posts_per_page' => 50));
-                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+                $posts = get_posts(array(
+                    'post_type'      => array('academy_courses', 'courses'),
+                    'posts_per_page' => 100,
+                    'post_status'    => 'any'
+                ));
+                if (empty($posts)) return array();
+
+                $data = array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+                return array_values($data);
             },
             'lessons' => function () {
-                $posts = get_posts(array('post_type' => 'academy_lessons', 'posts_per_page' => 50));
-                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+                global $wpdb;
+                $table = $wpdb->prefix . 'academy_lessons';
+
+                // Using SELECT * to ensure we get all possible columns.
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                $rows = $wpdb->get_results("SELECT * FROM $table LIMIT 200");
+
+                $data = array();
+                if (! empty($rows) && is_array($rows)) {
+                    foreach ($rows as $row) {
+                        /**
+                         * ID Mapping: Most tables use 'id' or 'ID'.
+                         */
+                        $val = isset($row->id) ? $row->id : (isset($row->ID) ? $row->ID : 0);
+
+                        /**
+                         * Label Mapping: 
+                         * Academy LMS specifically uses 'lesson_title' for the title.
+                         */
+                        $label = 'No Title';
+                        if (isset($row->lesson_title)) {
+                            $label = $row->lesson_title;
+                        } elseif (isset($row->lesson_name)) {
+                            $label = $row->lesson_name;
+                        }
+
+                        if ($val) {
+                            $data[] = array(
+                                'label' => (string) $label,
+                                'value' => (int) $val
+                            );
+                        }
+                    }
+                }
+                // Force sequential array for React stability.
+                return array_values($data);
             },
             'quizzes' => function () {
-                $posts = get_posts(array('post_type' => 'academy_quizzes', 'posts_per_page' => 50));
-                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+                $posts = get_posts(array(
+                    'post_type'      => array('academy_quiz', 'academy_quizzes', 'quizzes'),
+                    'posts_per_page' => 100,
+                    'post_status'    => 'any'
+                ));
+                if (empty($posts)) return array();
+
+                $data = array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+                return array_values($data);
             },
         );
     }
