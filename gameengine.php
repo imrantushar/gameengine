@@ -10,7 +10,7 @@
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
- * Domain Path:       /languages
+ * Domain Path:       /languages/
  */
 
 // Exit if accessed directly to prevent direct script access.
@@ -98,7 +98,7 @@ final class GameEngine
      */
     public function init_modules()
     {
-
+        // Setup Wizard (Must be initialized early in admin)
         if (is_admin() && class_exists('\GameEngine\Admin\Setup')) {
             \GameEngine\Admin\Setup::init();
         }
@@ -106,6 +106,7 @@ final class GameEngine
         if (class_exists('\GameEngine\Classes\TaxonomyManager')) {
             \GameEngine\Classes\TaxonomyManager::init();
         }
+
         // Assets & API.
         if (class_exists('\GameEngine\Assets')) {
             \GameEngine\Assets::init();
@@ -145,6 +146,7 @@ final class GameEngine
             if (class_exists('\GameEngine\Admin')) {
                 \GameEngine\Admin::init();
             }
+            
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -159,20 +161,26 @@ final class GameEngine
             \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
         }
 
-        if (file_exists(GAMEENGINE_PATH . 'includes/pro/init.php')) {
-            require_once GAMEENGINE_PATH . 'includes/pro/init.php';
-        }
+        // Loading Pro and Addons
+        $this->load_optional_modules();
+    }
 
-        if (file_exists(GAMEENGINE_PATH . 'includes/addons/restrict-unlock/init.php')) {
-            require_once GAMEENGINE_PATH . 'includes/addons/restrict-unlock/init.php';
-        }
+    /**
+     * Load optional modules and addons safely.
+     */
+    private function load_optional_modules() {
+        $paths = [
+            'pro/init.php',
+            'addons/restrict-unlock/init.php',
+            'addons/progress-map/init.php',
+            'addons/restrict-content/init.php'
+        ];
 
-        if (file_exists(GAMEENGINE_PATH . 'includes/addons/progress-map/init.php')) {
-            require_once GAMEENGINE_PATH . 'includes/addons/progress-map/init.php';
-        }
-
-        if (file_exists(GAMEENGINE_PATH . 'includes/addons/restrict-content/init.php')) {
-            require_once GAMEENGINE_PATH . 'includes/addons/restrict-content/init.php';
+        foreach ($paths as $path) {
+            $full_path = GAMEENGINE_INCLUDES . $path;
+            if (file_exists($full_path)) {
+                require_once $full_path;
+            }
         }
     }
 
@@ -181,7 +189,6 @@ final class GameEngine
      */
     public static function activate()
     {
-        // Run Installer.
         if (class_exists('\GameEngine\Core\Installer')) {
             (new \GameEngine\Core\Installer())->run();
         }
@@ -190,7 +197,7 @@ final class GameEngine
     }
 
     /**
-     * Plugin Dactivation Hook.
+     * Plugin Deactivation Hook.
      */
     public static function deactivate()
     {
@@ -202,26 +209,11 @@ final class GameEngine
 
 /**
  * Global accessor function.
- *
- * @return GameEngine
  */
 function gameengine()
 {
     return GameEngine::instance();
 }
 
-// Kickstart the plugin.
+// Kickstart.
 GameEngine::instance();
-
-add_action('init', function () {
-    if (isset($_GET['reset_gameengine_setup'])) {
-        delete_option('gameengine_setup_completed');
-        delete_option('gameengine_hide_banner_points');
-        delete_option('gameengine_hide_banner_achievements');
-        delete_option('gameengine_hide_banner_levels');
-
-        delete_option('gamify_active_addons');
-
-        wp_die('GameEngine Setup and Banners have been reset! Go back to dashboard.');
-    }
-});
