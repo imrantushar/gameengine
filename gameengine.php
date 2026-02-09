@@ -170,7 +170,7 @@ final class GameEngine
      */
     private function load_optional_modules() {
         $paths = [
-            'pro/init.php',
+            //'pro/init.php',
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
             'addons/restrict-content/init.php'

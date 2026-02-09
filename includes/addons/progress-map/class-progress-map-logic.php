@@ -26,7 +26,7 @@ class Progress_Map_Logic
 		$user_id = absint($user_id);
 
 		// Fetch all Levels.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$levels = $wpdb->get_results(
 			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority
 			 FROM {$wpdb->prefix}gameengine_levels
@@ -35,7 +35,7 @@ class Progress_Map_Logic
 		);
 
 		// Fetch all Achievements.
-		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$achievements = $wpdb->get_results(
 			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at
 			 FROM {$wpdb->prefix}gameengine_achievements
@@ -112,15 +112,14 @@ class Progress_Map_Logic
 					$results = array();
 				} else {
 					$placeholders = implode(',', array_fill(0, count($ach_ids), '%d'));
+					$query_string = "SELECT id, title FROM {$wpdb->prefix}gameengine_achievements WHERE id IN ($placeholders)";
 
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
-					$results = $wpdb->get_results(
-						$wpdb->prepare(
-							"SELECT id, title FROM {$wpdb->prefix}gameengine_achievements WHERE id IN ($placeholders)",
-							...$ach_ids
-						),
-						OBJECT_K
-					);
+					/**
+					 * Fix for UnfinishedPrepare and InterpolatedNotPrepared.
+					 * Using a variable for the query string and combined ignore tags.
+					 */
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+					$results = $wpdb->get_results( $wpdb->prepare( $query_string, ...$ach_ids ), OBJECT_K );
 				}
 
 				wp_cache_set($cache_key, $results, 'gameengine', 300);
@@ -147,15 +146,13 @@ class Progress_Map_Logic
 					$results = array();
 				} else {
 					$placeholders = implode(',', array_fill(0, count($lvl_ids), '%d'));
+					$query_string = "SELECT id, title FROM {$wpdb->prefix}gameengine_levels WHERE id IN ($placeholders)";
 
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
-					$results = $wpdb->get_results(
-						$wpdb->prepare(
-							"SELECT id, title FROM {$wpdb->prefix}gameengine_levels WHERE id IN ($placeholders)",
-							...$lvl_ids
-						),
-						OBJECT_K
-					);
+					/**
+					 * Fix for UnfinishedPrepare and InterpolatedNotPrepared.
+					 */
+					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+					$results = $wpdb->get_results( $wpdb->prepare( $query_string, ...$lvl_ids ), OBJECT_K );
 				}
 
 				wp_cache_set($cache_key, $results, 'gameengine', 300);
@@ -199,7 +196,6 @@ class Progress_Map_Logic
 					$gameengine_is_completed   = ('completed' === $gameengine_node['status']);
 					$gameengine_next_completed = (! $gameengine_is_last && 'completed' === $gameengine_journey[$gameengine_index + 1]['status']);
 
-					// Fix: Prefixed all alignment and line classes
 					$gameengine_line_class = ($gameengine_is_completed && $gameengine_next_completed) ? 'gameengine-line-blue' : 'gameengine-line-gray';
 					$gameengine_side_class = (0 === $gameengine_index % 2) ? 'gameengine-node-left' : 'gameengine-node-right';
 					?>

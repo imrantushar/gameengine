@@ -35,9 +35,17 @@ class Setup
             delete_transient('gameengine_activation_redirect');
 
             if (! is_network_admin() && current_user_can('manage_options')) {
-                if (isset($_GET['page']) && self::PAGE_ID === $_GET['page']) {
+                
+                /**
+                 * Page routing via $_GET doesn't require a nonce.
+                 */
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                $current_page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : '';
+
+                if (self::PAGE_ID === $current_page) {
                     return;
                 }
+
                 wp_safe_redirect(admin_url('admin.php?page=' . self::PAGE_ID));
                 exit;
             }
@@ -67,10 +75,10 @@ class Setup
      */
     public function handle_setup_screen_render()
     {
-        //  Prepare assets and original data.
+        // Prepare assets and original data.
         $this->enqueue_setup_assets();
 
-        //  Clean any previous output buffer.
+        // Clean any previous output buffer.
         if (ob_get_length()) {
             ob_clean();
         }
