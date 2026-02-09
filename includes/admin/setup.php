@@ -22,12 +22,38 @@ class Setup
     {
         $self = new self();
 
+        add_action('admin_init', array($self, 'redirect_after_activation'));
+
+
         if ($self->is_current_page()) {
             add_action('admin_init', array($self, 'handle_setup_screen_render'), 0);
         }
 
         add_action('admin_menu', array($self, 'register_setup_menu'));
     }
+
+    /**
+     * Redirect to setup wizard if the activation transient is set.
+     */
+    public function redirect_after_activation()
+    {
+        // Check if our activation transient exists.
+        if (get_transient('gameengine_activation_redirect')) {
+            delete_transient('gameengine_activation_redirect');
+
+            // Only redirect if it's not an AJAX request and user has permission.
+            if (! is_network_admin() && current_user_can('manage_options')) {
+                // If we are already on the setup page, don't redirect again.
+                if (isset($_GET['page']) && self::PAGE_ID === $_GET['page']) {
+                    return;
+                }
+
+                wp_safe_redirect(admin_url('admin.php?page=' . self::PAGE_ID));
+                exit;
+            }
+        }
+    }
+
 
     /**
      * Register hidden setup menu.

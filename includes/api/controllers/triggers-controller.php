@@ -32,6 +32,9 @@ class TriggersController extends BaseController
         ]);
     }
 
+    /**
+     * Retrieve integration triggers and dynamically adjust field widths.
+     */
     public function get_items($request)
     {
         $scope = $request->get_param('scope');
@@ -39,27 +42,60 @@ class TriggersController extends BaseController
         $data  = [];
 
         if (file_exists($file)) {
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
             $manifest = json_decode(file_get_contents($file), true);
             $data = $manifest['integrations'] ?? [];
         } else {
             $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
         }
 
-        if (!empty($scope)) {
+        if (! empty($scope)) {
             $filtered_data = [];
             foreach ($data as $slug => $integration) {
                 if (isset($integration['triggers']) && is_array($integration['triggers'])) {
 
-
+                    // Filter triggers while preserving their original keys.
                     $filtered_triggers = array_filter($integration['triggers'], function ($trigger) use ($scope) {
                         $supports = isset($trigger['supports']) ? (array) $trigger['supports'] : ['point_type'];
                         return in_array($scope, $supports);
                     });
 
+                    if (! empty($filtered_triggers)) {
 
-                    if (!empty($filtered_triggers)) {
+                        /**
+                         * Iterate through filtered triggers to adjust field widths.
+                         * We use '&' to modify the original array item.
+                         */
+                        foreach ($filtered_triggers as $t_key => &$trigger_item) {
+                            if (isset($trigger_item['schema']) && is_array($trigger_item['schema'])) {
+
+                                $is_points_visible = false;
+
+                                // 1. Determine if the 'points' field is visible in the current scope.
+                                foreach ($trigger_item['schema'] as $field) {
+                                    if ($field['key'] === 'points') {
+                                        $f_scope = isset($field['scope']) ? (array) $field['scope'] : [];
+                                        if (in_array($scope, $f_scope)) {
+                                            $is_points_visible = true;
+                                        }
+                                        break;
+                                    }
+                                }
+
+                                // 2. If 'points' is hidden, find 'log_label' and set its width to 100%.
+                                if (! $is_points_visible) {
+                                    foreach ($trigger_item['schema'] as &$field_obj) {
+                                        if ($field_obj['key'] === 'log_label') {
+                                            $field_obj['width'] = '100%';
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        // Assign back without using array_values to keep original trigger keys.
                         $integration['triggers'] = $filtered_triggers;
-                        $filtered_data[$slug] = $integration;
+                        $filtered_data[$slug]    = $integration;
                     }
                 }
             }
