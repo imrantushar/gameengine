@@ -35,7 +35,7 @@ const TableBody = ({
 								<Checkbox.Control />
 							</Checkbox.Root>
 						</Table.Cell>
-					)}
+					)} 
 
 					{visibleColumn.map(
 						(column, columnIndex) => (

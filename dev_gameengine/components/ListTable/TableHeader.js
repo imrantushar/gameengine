@@ -29,7 +29,7 @@ const TableHeader = ({
 							<Checkbox.Control />
 						</Checkbox.Root>
 					</Table.ColumnHeader>
-				)}
+				)} 
 
 				{visibleColumn?.map((column, index) => (
 					<Table.ColumnHeader 

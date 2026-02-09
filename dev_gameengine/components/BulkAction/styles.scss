@@ -1,0 +1,98 @@
+.gameengine-snackbar-action {
+    position: absolute;
+    bottom: 20px;
+    left: 35%;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0px 12px 72px -8px rgba(16, 24, 40, 0.25);
+    background: rgba(255, 255, 255, 1);
+    padding: 12px;
+    .gameengine-btn {
+        padding: 8px 16px;
+        &--restore {
+            background: rgba(114, 114, 114, 0.12);
+            color: #727272;
+            &:hover {
+                background: rgba(114, 114, 114, 0.12);
+            }
+        }
+        &--delete, &--trash-delete {
+            background: rgba(255, 77, 77, 1);
+            color: #FFF;
+            &:hover {
+                background: rgba(255, 77, 77, 1);
+            }
+        }
+        &--close {
+            padding: 8px;
+        }
+        &--draft {
+            padding: 8px;
+            border: 1px solid var(--gameengine-border-color);
+            background: transparent;
+            color: var(--gameengine-text-color);
+        }
+        &--publish {
+            padding: 8px;
+            color: #FFF;
+            background: #00AD6B;
+            &:hover, &:focus {
+                background: #00AD6B;
+            }
+        }
+    }
+    
+    &__before, &__after {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        gap: 20px;
+    }
+    &__before {
+        .gameengine-snackbar-action__right {
+            .gameengine-btn {
+                &--trash {
+                    background: #FF4D4D;
+                }
+            }
+        }
+    }
+    &__left, &__right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    &__left {
+        .gameengine-snackbar-action__items-length {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 21px;
+            span { 
+                width: 58px;
+                height: 30px;
+                padding: 4px 8px;
+                border: 1px solid var(--gameengine-border-color);
+                border-radius: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            p {
+                margin: 0;
+            }
+        }
+        .gameengine-btn {
+            &--confirm {
+                background: #FF4D4D;
+                &:hover {
+                    background: rgba(255, 77, 77, 1);
+                }
+            }
+        }
+    }
+}
