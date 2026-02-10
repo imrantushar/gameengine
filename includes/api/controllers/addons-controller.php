@@ -85,7 +85,7 @@ class AddonsController extends BaseController
     public function get_detailed_addons_list()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-
+        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
         $addons = array(
             array(
                 'slug'   => 'academylms',
@@ -93,6 +93,8 @@ class AddonsController extends BaseController
                 'desc'   => __('Reward users for course completions and quiz attempts.', 'gameengine'),
                 'icon'   => 'dashicons-welcome-learn-more',
                 'active' => in_array('academylms', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
             ),
             array(
                 'slug'   => 'woocommerce',
@@ -100,6 +102,8 @@ class AddonsController extends BaseController
                 'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gameengine'),
                 'icon'   => 'dashicons-cart',
                 'active' => in_array('woocommerce', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
             ),
             array(
                 'slug'   => 'storeengine',
@@ -107,6 +111,8 @@ class AddonsController extends BaseController
                 'desc'   => __('Advanced WooCommerce features and rewards integration.', 'gameengine'),
                 'icon'   => 'dashicons-store',
                 'active' => in_array('storeengine', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
             ),
             array(
                 'slug'   => 'restrict_unlock',
@@ -114,6 +120,8 @@ class AddonsController extends BaseController
                 'desc'   => __('Set dependencies between achievements and levels.', 'gameengine'),
                 'icon'   => 'dashicons-lock',
                 'active' => in_array('restrict_unlock', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
             ),
             array(
                 'slug'   => 'progress_map',
@@ -121,6 +129,8 @@ class AddonsController extends BaseController
                 'desc'   => __('Display a visual roadmap of user progress on frontend.', 'gameengine'),
                 'icon'   => 'dashicons-location-alt',
                 'active' => in_array('progress_map', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
             ),
             array(
                 'slug'   => 'restrict_content',
@@ -128,10 +138,51 @@ class AddonsController extends BaseController
                 'desc'   => __('Lock specific posts, pages, images or links based on points and badges.', 'gameengine'),
                 'icon'   => 'dashicons-visibility',
                 'active' => in_array('restrict_content', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
+            ),
+
+            array(
+                'slug'   => 'wc_spending_gateway',
+                'name'   => __('WC Spending Gateway', 'gameengine'),
+                'desc'   => __('Allow users to pay with points and get partial discounts at checkout.', 'gameengine'),
+                'icon'   => 'dashicons-cart',
+                'active' => $is_pro_installed && in_array('wc_spending_gateway', $active_addons, true),
+                'is_pro' => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
+            array(
+                'slug'   => 'rewards_marketplace',
+                'name'   => __('Rewards Marketplace', 'gameengine'),
+                'desc'   => __('A virtual shop where users can buy WooCommerce coupons with points.', 'gameengine'),
+                'icon'   => 'dashicons-store',
+                'active' => $is_pro_installed && in_array('rewards_marketplace', $active_addons, true),
+                'is_pro' => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
+
+            array(
+                'slug'   => 'points_payouts',
+                'name'   => __('Points Payouts', 'gameengine'),
+                'desc'   => __('Enable point-to-cash withdrawal requests for users.', 'gameengine'),
+                'icon'   => 'dashicons-money-alt',
+                'active' => $is_pro_installed && in_array('points_payouts', $active_addons, true),
+                'is_pro' => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
+
+            array(
+                'slug'   => 'redemption_codes',
+                'name'   => __('Redemption Codes', 'gameengine'),
+                'desc'   => __('Admin generated vouchers that users can redeem for points.', 'gameengine'),
+                'icon'   => 'dashicons-tickets-alt',
+                'active' => $is_pro_installed && in_array('redemption_codes', $active_addons, true),
+                'is_pro' => true,
+                'is_locked' => ! $is_pro_installed,
             ),
         );
 
-        return new \WP_REST_Response($addons, 200);
+            return new \WP_REST_Response($addons, 200);
     }
 
     /**
@@ -208,8 +259,9 @@ class AddonsController extends BaseController
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-        $all_addons    = array('academylms', 'woocommerce', 'storeengine', 'restrict_unlock', 'restrict_content', 'progress_map');
-
+        $all_addons    = array('storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content',
+            'wc_spending_gateway', 'rewards_marketplace', 'points_payouts', 'redemption_codes');
+            
         $mapped = array();
         foreach ($all_addons as $slug) {
             $mapped[$slug] = in_array($slug, $active_addons, true);

@@ -52,10 +52,8 @@ class Helper
         return false;
     }
 
-    public static function is_pro()
-    {
-        //return file_exists(GAMEENGINE_PATH . 'includes/pro/init.php');
-        return false;
+    public static function is_pro() {
+        return defined('GAMEENGINE_PRO_VERSION'); 
     }
 
     /**

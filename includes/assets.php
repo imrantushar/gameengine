@@ -52,7 +52,10 @@ class Assets
         $active_addons = get_option('gameengine_active_addons', []);
 
         // Define all possible addons and map their status
-        $all_addons = ['storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content'];
+        $all_addons = [
+            'storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content',
+            'wc_spending_gateway', 'rewards_marketplace', 'points_payouts', 'redemption_codes'
+        ];
         $addons_status = [];
 
         foreach ($all_addons as $slug) {

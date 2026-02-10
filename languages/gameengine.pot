@@ -1,0 +1,946 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GameEngine - Gamification for Website\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-10 08:09+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.2.27\n"
+"X-Domain: gameengine"
+
+#: includes/addons/restrict-content/class-meta-box.php:62
+#: includes/addons/restrict-content/class-meta-box.php:73
+msgid "-- Select --"
+msgstr ""
+
+#: includes/integrations/base-integration.php:83
+msgid "1 Per Day (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:85
+msgid "1 Per Month (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:84
+msgid "1 Per Week (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:82
+msgid "1 Time Only"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:157
+msgid "A virtual shop where users can buy WooCommerce coupons with points."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:29
+#: includes/api/controllers/addons-controller.php:92
+msgid "Academy LMS"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:208
+msgid "Academy LMS is required."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:47
+msgid "Accepts: points, achievement, level"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:45
+msgid "Achievement Required"
+msgstr ""
+
+#: includes/api/controllers/achievements-controller.php:179
+msgid "Achievement Title is required."
+msgstr ""
+
+#: includes/classes/taxonomy-manager.php:35
+msgid "Achievement Types"
+msgstr ""
+
+#: includes/helper.php:122 includes/admin/user-profile.php:117
+#: templates/shortcode/profile.php:31
+msgid "Achievements"
+msgstr ""
+
+#: includes/api/controllers/actions-controller.php:160
+msgid "Action scheduled successfully."
+msgstr ""
+
+#: includes/integrations/base-integration.php:119
+msgid "Active Days (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:72
+msgid "Activity Penalty"
+msgstr ""
+
+#: includes/integrations/base-integration.php:72
+msgid "Activity Reward"
+msgstr ""
+
+#: includes/helper.php:158
+msgid "Addons"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:177
+msgid "Admin generated vouchers that users can redeem for points."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:111
+msgid "Advanced WooCommerce features and rewards integration."
+msgstr ""
+
+#: includes/helper.php:125
+msgid "All Achievements"
+msgstr ""
+
+#: includes/helper.php:136
+msgid "All Levels"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:148
+msgid "Allow users to pay with points and get partial discounts at checkout."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:124
+msgid "Assignment Evaluated"
+msgstr ""
+
+#: includes/integrations/word-press.php:193
+msgid "Author comment successfully  into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:191
+msgid "Author Reply"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Award points, achievements, and ranks to boost user engagement and build a "
+"loyal community."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:72
+msgid "Awarded to instructors when they publish a new course."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:85
+msgid "Awarded when a student completes a specific lesson."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:140
+msgid "Awarded when a student joins a new course."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:106
+msgid "Awarded when a student passes a quiz."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:51
+msgid "Awarded when a student successfully finishes a course."
+msgstr ""
+
+#: includes/integrations/word-press.php:31
+msgid "Awarded when a user successfully logs into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:41
+msgid "Awarded when a user successfully register into your website."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:127
+msgid "Awarded when an instructor evaluates a student assignment."
+msgstr ""
+
+#: templates/shortcode/profile.php:47
+msgid "Badges & Achievements"
+msgstr ""
+
+#: includes/integrations/word-press.php:81
+msgid "Comment post successfully into your website."
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:235
+msgid "Complete pre-requisites to unlock."
+msgstr ""
+
+#. %s: Level title
+#: includes/classes/email-manager.php:64
+#, php-format
+msgid "Congratulations! You reached %s"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:44
+msgid "Content Restriction"
+msgstr ""
+
+#: includes/integrations/word-press.php:158
+msgid "Cooldown in Days (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:16
+msgid "Core"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:48
+msgid "Course Completed"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:69
+msgid "Course Published (Instructor)"
+msgstr ""
+
+#: includes/integrations/word-press.php:91
+msgid "Daily Max Comments (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:61
+msgid "Daily Post Limit (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:162
+msgid "Daily Visit"
+msgstr ""
+
+#: includes/integrations/word-press.php:164
+msgid "Daily visit successfully  into your website."
+msgstr ""
+
+#: includes/helper.php:108
+msgid "Dashboard"
+msgstr ""
+
+#: includes/integrations/word-press.php:95
+msgid "Delete Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:97
+msgid "Delete post successfully into your website."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:129
+msgid "Display a visual roadmap of user progress on frontend."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:87
+msgid "Displays the current users point total with a coin icon."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:71
+msgid ""
+"Displays the full modern gamification dashboard (Tabs, Progress Map, Badges)."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:167
+msgid "Enable point-to-cash withdrawal requests for users."
+msgstr ""
+
+#: includes/integrations/word-press.php:171
+msgid "Enable Streak Bonus (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:110
+msgid "End Time (Pro)"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:54
+msgid "Enter Points Amount:"
+msgstr ""
+
+#: includes/integrations/word-press.php:132
+msgid "Field-specific Rewards (Pro)"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:40
+msgid "First Purchase Only Bonus (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:129
+msgid "Friday"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:97
+#: includes/integrations/word-press.php:106
+msgid "Full Points Reversal (Pro)"
+msgstr ""
+
+#. Name of the plugin
+msgid "GameEngine - Gamification for Website"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:20
+msgid "GameEngine Content Restriction"
+msgstr ""
+
+#: includes/admin/menu.php:87
+msgid "GameEngine Dashboard"
+msgstr ""
+
+#: includes/integrations/game-engine.php:16
+msgid "GameEngine Logic"
+msgstr ""
+
+#: includes/admin/user-profile.php:70
+msgid "GameEngine Profile"
+msgstr ""
+
+#: includes/admin/setup.php:62 includes/admin/setup.php:63
+msgid "GameEngine Setup"
+msgstr ""
+
+#: includes/admin/setup.php:95
+msgid "GameEngine Setup Wizard"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:96
+msgid "Great for user profile headers or bio sections."
+msgstr ""
+
+#. 1: User display name, 2: Achievement title
+#: includes/classes/email-manager.php:114
+#, php-format
+msgid ""
+"Hi %1$s,\n"
+"\n"
+"You have unlocked a new achievement: %2$s.\n"
+"\n"
+"Check your profile!"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:94
+msgid "Highest Level"
+msgstr ""
+
+#: templates/shortcode/achievements.php:49
+msgid "How to unlock"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://kodezen.com"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://kodezen.com/products/gameengine"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:88
+msgid "Ideal for menus, headers, or sidebar widgets."
+msgstr ""
+
+#: includes/addons/restrict-content/class-content-filter.php:47
+msgid "Image Locked"
+msgstr ""
+
+#: includes/integrations/word-press.php:89
+msgid "Instant Reward (Pro)"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:102
+msgid "Integrate gamification with your e-commerce store activities."
+msgstr ""
+
+#: includes/api/controllers/taxonomy-controller.php:135
+msgid "Invalid taxonomy."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:78
+msgid "Journey Roadmap Only"
+msgstr ""
+
+#. Author of the plugin
+msgid "kodezen"
+msgstr ""
+
+#: includes/helper.php:151
+msgid "Leaderboards"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:82
+msgid "Lesson Completed"
+msgstr ""
+
+#: includes/admin/user-profile.php:75 templates/shortcode/leaderboard.php:29
+msgid "Level"
+msgstr ""
+
+#: includes/api/controllers/levels-controller.php:164
+msgid "Level Name is required."
+msgstr ""
+
+#: includes/classes/taxonomy-manager.php:47
+msgid "Level Types"
+msgstr ""
+
+#: includes/helper.php:133 templates/shortcode/profile.php:34
+msgid "Levels"
+msgstr ""
+
+#: includes/integrations/base-integration.php:77
+msgid "Limit"
+msgstr ""
+
+#: includes/addons/restrict-content/class-content-filter.php:51
+msgid "Link Hidden"
+msgstr ""
+
+#: includes/admin/setup.php:105
+msgid "Loading Setup Wizard..."
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:84
+msgid "Lock Images & Links Only?"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:89
+msgid "Lock Message:"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:45
+msgid ""
+"Lock specific parts of your content (text, images, links) based on user "
+"points, badges, or levels."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:138
+msgid "Lock specific posts, pages, images or links based on points and badges."
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:230
+msgid "Locked"
+msgstr ""
+
+#: includes/integrations/base-integration.php:69
+msgid "Log Description"
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:229
+msgid "Log entry not found."
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:267
+msgid "Log updated successfully."
+msgstr ""
+
+#: includes/helper.php:144
+msgid "Logs"
+msgstr ""
+
+#: includes/integrations/word-press.php:90
+msgid "Min Character Count (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:145
+msgid "Min Content Change % (Pro)"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:46
+msgid "Min Level Required"
+msgstr ""
+
+#: includes/integrations/word-press.php:75
+msgid "Min Media Count (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:203
+msgid "Min Reply Length (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:173
+msgid "Min Stay Time in Mins (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:60
+msgid "Min Word Count (Pro)"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:39
+msgid "Minimum Spend (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:125
+msgid "Monday"
+msgstr ""
+
+#: includes/api/controllers/taxonomy-controller.php:141
+msgid "Name is required."
+msgstr ""
+
+#. %s: Achievement title
+#: includes/classes/email-manager.php:110
+#, php-format
+msgid "New Achievement Unlocked: %s"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:137
+msgid "New Enrollment"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:28
+msgid "New Purchase"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:31
+msgid "New purchase successfully into your website."
+msgstr ""
+
+#: templates/shortcode/achievements.php:25
+msgid "No achievements created yet."
+msgstr ""
+
+#: includes/admin/user-profile.php:132
+msgid "No achievements earned yet."
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:260
+msgid "No changes made."
+msgstr ""
+
+#: templates/shortcode/leaderboard.php:83
+msgid "No data found."
+msgstr ""
+
+#: includes/admin/user-profile.php:90
+msgid "No levels earned yet."
+msgstr ""
+
+#: templates/shortcode/levels.php:30
+msgid "No levels unlocked yet."
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:43
+msgid "None"
+msgstr ""
+
+#: templates/shortcode/profile.php:18
+msgid "Notifications"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:48
+msgid "Number (e.g. 100 for points, or ID for badge/level)"
+msgstr ""
+
+#: includes/integrations/word-press.php:105
+msgid "Only if Post < X days old (Pro)"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:49
+msgid "Optional: Custom message shown to locked users"
+msgstr ""
+
+#: includes/integrations/word-press.php:149
+msgid "Password Reset"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:72
+msgid "Paste on a page where you want users to manage their progress."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:83
+msgid "Photo/Video Review Bonus (Pro)"
+msgstr ""
+
+#: includes/shortcodes/profile.php:19
+msgid "Please log in to view your progress."
+msgstr ""
+
+#: includes/admin/user-profile.php:98 templates/shortcode/leaderboard.php:31
+#: templates/shortcode/points.php:10 templates/shortcode/profile.php:14
+msgid "Points"
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:212
+msgid "Points adjusted successfully."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:86
+msgid "Points Balance"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:69
+msgid "Points based on Product Price (Pro)"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:38
+msgid "Points Calculation"
+msgstr ""
+
+#: includes/integrations/word-press.php:172
+msgid "Points Multiplier (Pro)"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:166
+msgid "Points Payouts"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:44
+msgid "Points Required"
+msgstr ""
+
+#: includes/helper.php:115
+msgid "Points System"
+msgstr ""
+
+#: includes/integrations/base-integration.php:61
+msgid "Points to Award"
+msgstr ""
+
+#: includes/integrations/base-integration.php:61
+msgid "Points to Deduct"
+msgstr ""
+
+#: includes/integrations/word-press.php:79
+msgid "Post Comment"
+msgstr ""
+
+#: includes/integrations/word-press.php:59
+msgid "Post Types (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:138
+msgid "Post update successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:136
+msgid "Post Updated"
+msgstr ""
+
+#: includes/integrations/word-press.php:123
+msgid "Profile Update"
+msgstr ""
+
+#: includes/integrations/word-press.php:125
+msgid "Profile update successfully into your website."
+msgstr ""
+
+#: templates/shortcode/profile.php:28
+#: includes/api/controllers/addons-controller.php:128
+msgid "Progress Map"
+msgstr ""
+
+#: includes/shortcodes/progress-map.php:20
+#: templates/shortcode/progress-map.php:10
+msgid "Progress Map addon is not active."
+msgstr ""
+
+#: includes/integrations/word-press.php:66
+msgid "Publish Page"
+msgstr ""
+
+#: includes/integrations/word-press.php:68
+msgid "Publish page successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:50
+msgid "Publish Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:52
+msgid "Publish post successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:60
+msgid "Publish Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:62
+msgid "Publish product successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:46
+msgid "Purchase product successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:44
+msgid "Purchase Specific Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:56
+msgid "Quantity Based Multiplier (Pro)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:103
+msgid "Quiz Passed"
+msgstr ""
+
+#: templates/shortcode/leaderboard.php:27
+msgid "Rank"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:176
+msgid "Redemption Codes"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:87
+msgid "Refund Order"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:89
+msgid "Refund purchase successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:151
+msgid "Reset password successfully into your website."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:57
+msgid "Restrict by Achievement"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:61
+msgid "Restrict by Level"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:53
+msgid "Restrict by Points"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:137
+msgid "Restrict Content"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:119
+msgid "Restrict Unlock"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:41
+msgid "Restriction Type:"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:73
+msgid "Review Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:75
+msgid "Review product successfully into your website."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:93
+msgid "Reward users for course completions and quiz attempts."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:156
+msgid "Rewards Marketplace"
+msgstr ""
+
+#: includes/integrations/word-press.php:110
+msgid "Role Change"
+msgstr ""
+
+#: includes/integrations/base-integration.php:130
+msgid "Saturday"
+msgstr ""
+
+#: includes/integrations/game-engine.php:36
+msgid "Select Achievement"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:60
+msgid "Select Achievement:"
+msgstr ""
+
+#: includes/integrations/word-press.php:187
+msgid "Select Categories (Pro)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:59
+#: includes/integrations/academy-lms.php:148
+msgid "Select Course"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:55
+msgid "Select Entire Category (Pro)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:93
+msgid "Select Lesson"
+msgstr ""
+
+#: includes/addons/restrict-content/class-meta-box.php:71
+msgid "Select Minimum Level:"
+msgstr ""
+
+#: includes/integrations/word-press.php:186
+msgid "Select Post"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:54
+msgid "Select Product"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:114
+msgid "Select Quiz"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:120
+msgid "Set dependencies between achievements and levels."
+msgstr ""
+
+#: includes/helper.php:172
+msgid "Settings"
+msgstr ""
+
+#: includes/api/controllers/settings-controller.php:93
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:79
+msgid "Shows only the visual zig-zag roadmap of levels and achievements."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:95
+msgid "Shows the users current highest level title with a trophy icon."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:98
+msgid "Specific Refund Reason (Pro)"
+msgstr ""
+
+#: includes/integrations/base-integration.php:101
+msgid "Start Time (Pro)"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:110
+msgid "StoreEngine"
+msgstr ""
+
+#: includes/integrations/base-integration.php:131
+msgid "Sunday"
+msgstr ""
+
+#: includes/integrations/word-press.php:119
+msgid "Target Roles"
+msgstr ""
+
+#: includes/addons/restrict-content/class-restriction-helper.php:84
+msgid "This content is restricted. Complete requirements to unlock."
+msgstr ""
+
+#: includes/integrations/base-integration.php:128
+msgid "Thursday"
+msgstr ""
+
+#: includes/helper.php:164
+msgid "Tools"
+msgstr ""
+
+#: templates/shortcode/leaderboard.php:21
+msgid "Top Performers"
+msgstr ""
+
+#: includes/admin/user-profile.php:101
+msgid "Total Points"
+msgstr ""
+
+#: includes/integrations/base-integration.php:126
+msgid "Tuesday"
+msgstr ""
+
+#: includes/helper.php:126 includes/helper.php:137
+msgid "Types"
+msgstr ""
+
+#: includes/integrations/base-integration.php:81
+msgid "Unlimited"
+msgstr ""
+
+#: includes/integrations/game-engine.php:27
+msgid "Unlock Achievement"
+msgstr ""
+
+#: includes/integrations/game-engine.php:29
+msgid "Unlock achivemeet successfully  into your website."
+msgstr ""
+
+#: includes/admin/user-profile.php:105
+msgid "Update user points manually. Differences will be logged."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:80
+msgid "Use this if you want to show the map without the full dashboard."
+msgstr ""
+
+#: templates/shortcode/leaderboard.php:28
+msgid "User"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:70
+msgid "User Dashboard"
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:174
+msgid "User ID and Points are required."
+msgstr ""
+
+#: includes/integrations/word-press.php:28
+msgid "User Login"
+msgstr ""
+
+#: includes/integrations/word-press.php:39
+msgid "User Register"
+msgstr ""
+
+#: includes/integrations/word-press.php:112
+msgid "User role change successfully into your website."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:58
+msgid "Visible only to badge earners"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:62
+msgid "Visible only to Level 2 and above"
+msgstr ""
+
+#: includes/integrations/word-press.php:177
+msgid "Visit Specific Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:179
+msgid "Visit Specific post successfully  into your website."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:147
+msgid "WC Spending Gateway"
+msgstr ""
+
+#: includes/integrations/base-integration.php:127
+msgid "Wednesday"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:16
+#: includes/api/controllers/addons-controller.php:101
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:219
+msgid "WooCommerce is required."
+msgstr ""
+
+#: includes/api/base-controller.php:38
+msgid "You do not have permission to access this endpoint."
+msgstr ""
+
+#: includes/admin/user-profile.php:108
+msgid "Your current total points."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:54
+msgid "Your hidden content here..."
+msgstr ""
+
+#: templates/shortcode/profile.php:51
+msgid "Your Progression"
+msgstr ""
+
+#: templates/shortcode/levels.php:20 templates/shortcode/levels.php:22
+msgid "—"
+msgstr ""
