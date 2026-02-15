@@ -46,7 +46,9 @@ const LevelTable = () => {
         if(types.data?.length === 0) {
             dispatch(fetchLevelTypes())
         }
-        fetchHandler({status: tableStats, page, per_page: perPage})
+        if(!levels || (levels && levels.length <= 1)) {
+            fetchHandler({status: tableStats, page, per_page: perPage})
+        }
     }, []);
 
     const columns = [

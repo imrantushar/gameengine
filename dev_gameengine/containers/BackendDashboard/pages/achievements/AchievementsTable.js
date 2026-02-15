@@ -46,7 +46,9 @@ const AchievementsTable = () => {
         if(types.data?.length === 0) {
             dispatch(fetchAchievementTypes())
         }
-        fetchHandler({status: tableStats, page, per_page: perPage})
+        if(!achievements || (achievements && achievements.length <= 1)) {
+            fetchHandler({status: tableStats, page, per_page: perPage})
+        }
     }, []);
 
     const handleDelete = (id) => {

@@ -42,7 +42,9 @@ const PointTypesTable = () => {
   useEffect(() => {
     if (!action) {
       dispatch(fetchTriggers());
-      fetchHandler({status: tableStats, page, per_page: perPage})
+      if(!pointTypes || (pointTypes && pointTypes.length <= 1)) {
+        fetchHandler({status: tableStats, page, per_page: perPage})
+      }
     }
   }, [action]);
 
