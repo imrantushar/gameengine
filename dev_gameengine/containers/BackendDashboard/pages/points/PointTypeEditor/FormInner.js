@@ -251,6 +251,7 @@ const FormInner = ({ hooksLoading }) => {
                         selectedHookIds={selectedDeductHookIds}
                         actionName="deduct"
                         selectedFilterType={selectedDeductFilterType}
+                        scope="point_type"
                     />
                 </DndContext>
             )}
