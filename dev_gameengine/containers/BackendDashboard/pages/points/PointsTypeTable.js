@@ -42,7 +42,9 @@ const PointTypesTable = () => {
   useEffect(() => {
     if (!action) {
       dispatch(fetchTriggers());
-      fetchHandler({status: tableStats, page, per_page: perPage})
+      if(!pointTypes || (pointTypes && pointTypes.length <= 1)) {
+        fetchHandler({status: tableStats, page, per_page: perPage})
+      }
     }
   }, [action]);
 
@@ -165,9 +167,9 @@ const PointTypesTable = () => {
       cell: (row) => (
         <Box>
 					<Text margin={0}>{moment(row?.created_at).format('MMMM DD, YYYY')}</Text>
-					<Text margin={0} className="academy-table-time">
+					{/* <Text margin={0} className="academy-table-time">
 						{moment(row?.created_at).format('h:mm A')}
-					</Text>
+					</Text> */}
 				</Box>
       ),
       columnWidth: "10%",

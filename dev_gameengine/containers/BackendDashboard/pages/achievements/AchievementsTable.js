@@ -46,7 +46,9 @@ const AchievementsTable = () => {
         if(types.data?.length === 0) {
             dispatch(fetchAchievementTypes())
         }
-        fetchHandler({status: tableStats, page, per_page: perPage})
+        if(!achievements || (achievements && achievements.length <= 1)) {
+            fetchHandler({status: tableStats, page, per_page: perPage})
+        }
     }, []);
 
     const handleDelete = (id) => {
@@ -85,9 +87,9 @@ const AchievementsTable = () => {
             cell: (row) => (
                 <Box>
                     <Text margin={0}>{moment(row?.created_at).format('MMMM DD, YYYY')}</Text>
-                    <Text margin={0} className="academy-table-time">
+                    {/* <Text margin={0} className="academy-table-time">
                         {moment(row?.created_at).format('h:mm A')}
-                    </Text>
+                    </Text> */}
                 </Box>
             ),
         },
