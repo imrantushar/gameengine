@@ -91,6 +91,17 @@ const Addons = () => {
               textAlign={'center'}
               width={'calc(100% / 2)'}
               alignItems={'center'}
+              cursor={'pointer'}
+              onClick={() => {
+                if (!values.addons.includes(item.name)) {
+                    setFieldValue('addons', [...values.addons, item.name]);
+                  } else {
+                  setFieldValue(
+                    'addons',
+                    values.addons.filter(addon => addon !== item.name)
+                  );
+                }
+              }}
             >
               {item.icon ? (
                 <Icon as={item.icon} width={'30px'} height={'30px'} />
@@ -128,18 +139,18 @@ const Addons = () => {
                 ml='auto'
                 disabled={isDisabled}
                 checked={isChecked}
-                onCheckedChange={(changes) => {
-                  if (changes.checked) {
-                    if (!values.addons.includes(item.name)) {
-                      setFieldValue('addons', [...values.addons, item.name]);
-                    }
-                  } else {
-                    setFieldValue(
-                      'addons',
-                      values.addons.filter(addon => addon !== item.name)
-                    );
-                  }
-                }}
+                // onCheckedChange={(changes) => {
+                //   if (changes.checked) {
+                //     if (!values.addons.includes(item.name)) {
+                //       setFieldValue('addons', [...values.addons, item.name]);
+                //     }
+                //   } else {
+                //     setFieldValue(
+                //       'addons',
+                //       values.addons.filter(addon => addon !== item.name)
+                //     );
+                //   }
+                // }}
 
               >
                 <Checkbox.HiddenInput />
