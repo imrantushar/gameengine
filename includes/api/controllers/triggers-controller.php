@@ -31,9 +31,8 @@ class TriggersController extends BaseController
             ],
         ]);
     }
-
     /**
-     * Retrieve integration triggers and dynamically adjust field widths.
+     * Retrieve and filter integration triggers based on scope and dynamic UI logic.
      */
     public function get_items($request)
     {
@@ -54,7 +53,7 @@ class TriggersController extends BaseController
             foreach ($data as $slug => $integration) {
                 if (isset($integration['triggers']) && is_array($integration['triggers'])) {
 
-                    // Filter triggers while preserving their original keys.
+                    // Filter triggers that support the current scope.
                     $filtered_triggers = array_filter($integration['triggers'], function ($trigger) use ($scope) {
                         $supports = isset($trigger['supports']) ? (array) $trigger['supports'] : ['point_type'];
                         return in_array($scope, $supports);
@@ -62,38 +61,38 @@ class TriggersController extends BaseController
 
                     if (! empty($filtered_triggers)) {
 
-                        /**
-                         * Iterate through filtered triggers to adjust field widths.
-                         * We use '&' to modify the original array item.
-                         */
                         foreach ($filtered_triggers as $t_key => &$trigger_item) {
                             if (isset($trigger_item['schema']) && is_array($trigger_item['schema'])) {
 
-                                $is_points_visible = false;
+                                $final_schema     = [];
+                                $is_points_active = false;
 
-                                // 1. Determine if the 'points' field is visible in the current scope.
+                                // 1. Filter fields based on current scope.
                                 foreach ($trigger_item['schema'] as $field) {
-                                    if ($field['key'] === 'points') {
-                                        $f_scope = isset($field['scope']) ? (array) $field['scope'] : [];
-                                        if (in_array($scope, $f_scope)) {
-                                            $is_points_visible = true;
+                                    $field_scopes = isset($field['scope']) ? (array) $field['scope'] : ['point_type'];
+
+                                    if (in_array($scope, $field_scopes)) {
+                                        if ($field['key'] === 'points') {
+                                            $is_points_active = true;
                                         }
-                                        break;
+                                        $final_schema[] = $field;
                                     }
                                 }
 
-                                // 2. If 'points' is hidden, find 'log_label' and set its width to 100%.
-                                if (! $is_points_visible) {
-                                    foreach ($trigger_item['schema'] as &$field_obj) {
-                                        if ($field_obj['key'] === 'log_label') {
-                                            $field_obj['width'] = '100%';
+                                // 2. Design Adjustment: If points field is hidden, make log_label 100% width.
+                                if (! $is_points_active) {
+                                    foreach ($final_schema as &$f_obj) {
+                                        if ($f_obj['key'] === 'log_label') {
+                                            $f_obj['width'] = '100%';
                                         }
                                     }
                                 }
+
+                                // Update the schema with scope-specific fields.
+                                $trigger_item['schema'] = $final_schema;
                             }
                         }
 
-                        // Assign back without using array_values to keep original trigger keys.
                         $integration['triggers'] = $filtered_triggers;
                         $filtered_data[$slug]    = $integration;
                     }
