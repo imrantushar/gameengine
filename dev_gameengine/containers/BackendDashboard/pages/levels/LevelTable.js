@@ -86,9 +86,9 @@ const LevelTable = () => {
             cell: (row) => (
                 <Box>
                     <Text margin={0}>{moment(row?.created_at).format('MMMM DD, YYYY')}</Text>
-                    <Text margin={0} className="academy-table-time">
+                    {/* <Text margin={0} className="academy-table-time">
                         {moment(row?.created_at).format('h:mm A')}
-                    </Text>
+                    </Text> */}
                 </Box>
             )
         },
