@@ -115,30 +115,21 @@ final class GameEngine
             \GameEngine\API\Manager::init();
         }
 
-        // System Services.
-        if (class_exists('\GameEngine\Classes\Scheduler')) {
-            \GameEngine\Classes\Scheduler::init();
-        }
-        if (class_exists('\GameEngine\Classes\Logger')) {
-            \GameEngine\Classes\Logger::init();
-        }
-        if (class_exists('\GameEngine\Classes\AchievementsManager')) {
-            \GameEngine\Classes\AchievementsManager::init();
-        }
-        if (class_exists('\GameEngine\Classes\LevelsManager')) {
-            \GameEngine\Classes\LevelsManager::init();
-        }
-        if (class_exists('\GameEngine\Classes\EmailManager')) {
-            \GameEngine\Classes\EmailManager::init();
-        }
+        // System Services
+        $services = [
+            '\GameEngine\Classes\Scheduler',
+            '\GameEngine\Classes\Logger',
+            '\GameEngine\Classes\AchievementsManager',
+            '\GameEngine\Classes\LevelsManager',
+            '\GameEngine\Classes\EmailManager',
+            '\GameEngine\Shortcode',
+            '\GameEngine\Classes\Triggers'
+        ];
 
-        if (class_exists('\GameEngine\Shortcode')) {
-            \GameEngine\Shortcode::init();
-        }
-
-        // Triggers.
-        if (class_exists('\GameEngine\Classes\Triggers')) {
-            \GameEngine\Classes\Triggers::init();
+        foreach ($services as $service) {
+            if (class_exists($service)) {
+                $service::init();
+            }
         }
 
         // Admin Interface.
@@ -146,7 +137,7 @@ final class GameEngine
             if (class_exists('\GameEngine\Admin')) {
                 \GameEngine\Admin::init();
             }
-            
+
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
@@ -168,7 +159,8 @@ final class GameEngine
     /**
      * Load optional modules and addons safely.
      */
-    private function load_optional_modules() {
+    private function load_optional_modules()
+    {
         $paths = [
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
@@ -216,3 +208,28 @@ function gameengine()
 
 // Kickstart.
 GameEngine::instance();
+
+
+
+/**
+ * Developer Utility: Reset Setup & Banners.
+ * Use this link to reset: yoursite.com/?reset_gameengine_setup=1
+ */
+add_action('init', function () {
+
+    if (isset($_GET['reset_gameengine_setup']) && current_user_can('manage_options')) {
+
+
+        delete_option('gameengine_hide_banner_points');
+        delete_option('gameengine_hide_banner_achievements');
+        delete_option('gameengine_hide_banner_levels');
+
+
+        delete_option('gameengine_setup_completed');
+
+
+        delete_option('gameengine_active_addons');
+
+        wp_die(esc_html__('GameEngine settings and banners have been reset! Please refresh your dashboard.', 'gameengine'));
+    }
+});

@@ -75,7 +75,7 @@ class SetupController extends BaseController
 
         //  Save Active Addons.
         if (! empty($params['addons'])) {
-            update_option('gamify_active_addons', array_map('sanitize_key', $params['addons']));
+            update_option('gameengine_active_addons', array_map('sanitize_key', $params['addons']));
         }
 
         //  Perform full preset import.
@@ -284,7 +284,7 @@ class SetupController extends BaseController
 
         // Clear Transients to refresh UI.
         delete_transient('gameengine_point_types_list');
-        delete_transient('gamify_achievements_list');
-        delete_transient('gamify_levels_list');
+        delete_transient('gameengine_achievements_list');
+        delete_transient('gameengine_levels_list');
     }
 }
