@@ -579,7 +579,15 @@ const Addons = () => {
       borderRadius: '4px',
       textAlign: 'center',
       width: 'calc(100% / 2)',
-      alignItems: 'center'
+      alignItems: 'center',
+      cursor: 'pointer',
+      onClick: () => {
+        if (!values.addons.includes(item.name)) {
+          setFieldValue('addons', [...values.addons, item.name]);
+        } else {
+          setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
+        }
+      }
     }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_6__.Icon, {
       as: item.icon,
       width: '30px',
@@ -610,16 +618,19 @@ const Addons = () => {
       mt: "0.5",
       ml: "auto",
       disabled: isDisabled,
-      checked: isChecked,
-      onCheckedChange: changes => {
-        if (changes.checked) {
-          if (!values.addons.includes(item.name)) {
-            setFieldValue('addons', [...values.addons, item.name]);
-          }
-        } else {
-          setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
-        }
-      }
+      checked: isChecked
+      // onCheckedChange={(changes) => {
+      //   if (changes.checked) {
+      //     if (!values.addons.includes(item.name)) {
+      //       setFieldValue('addons', [...values.addons, item.name]);
+      //     }
+      //   } else {
+      //     setFieldValue(
+      //       'addons',
+      //       values.addons.filter(addon => addon !== item.name)
+      //     );
+      //   }
+      // }}
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.CheckboxHiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_4__.CheckboxControl, null)));
   })));
 };

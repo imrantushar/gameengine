@@ -191,15 +191,21 @@ const filterOptions = [
 const Addons = () => {
 	const addonsSavedData = useSelector((state) => state.addons);
 	const [filterText, setFilterText] = useState('');
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(!addonsSavedData);
 	const [filterMenu, setFilterMenu] = useState('all');
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		setLoading(true)
-		dispatch(fetchAddons()).then(() => {
-			setLoading(false)
-		});
+		(async() => {
+			setLoading(true)
+			try {
+				dispatch(fetchAddons())
+			} catch (error) {
+				console.warn(error)
+			} finally {
+				setLoading(false)
+			}
+		})()
 	}, []);
 
 	const getAddonLists = (values) => {
