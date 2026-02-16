@@ -26,4 +26,25 @@ module.exports = {
             '@GFUtils': path.resolve(__dirname, 'dev_gameengine/utils/'),
         },
     },
+    module: {
+		...defaultConfig.module,
+		rules: [
+			// 1. Clone existing rules from WP Scripts, but exclude react-datepicker
+			...defaultConfig.module.rules.map(rule => {
+				if (rule.test && rule.test.toString().includes('css')) {
+					return {
+						...rule,
+						exclude: /node_modules\/react-datepicker/,
+					};
+				}
+				return rule;
+			}),
+
+			// 2. Add a dedicated loader for react-datepicker.css
+			{
+				test: /react-datepicker\.css$/,
+				use: ['style-loader', 'css-loader'],
+			}
+		]
+	},
 };
