@@ -50,13 +50,13 @@ const Points = () => {
                     />
                 )}
                 <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                    <GFLabel type="plainHeading" margin={0} label={__("Point Types", "gameengine")} />
+                    <GFLabel type="plainHeading" margin={0} label={__("Point System", "gameengine")} />
 
                     <Button
                         {...primaryBtn}
                         onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&path=points-types`)}
                     >
-                        <Icon as={GoPlus} boxSize="20px" /> {__('Add new point types', 'gameengine')}
+                        <Icon as={GoPlus} boxSize="20px" /> {__('Add new point System', 'gameengine')}
                     </Button>
                 </Flex>
 
