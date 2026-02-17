@@ -11,6 +11,9 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
  * Domain Path:       /languages/
+ * Tested up to:      6.8
+ * Requires at least: 5.8
+ * Requires PHP:      7.4
  */
 
 // Exit if accessed directly to prevent direct script access.
@@ -74,8 +77,12 @@ final class GameEngine
      */
     private function load_dependencies()
     {
-        require_once GAMEENGINE_INCLUDES . 'autoload.php';
-        require_once GAMEENGINE_INCLUDES . 'functions.php';
+        if (file_exists(GAMEENGINE_INCLUDES . 'autoload.php')) {
+            require_once GAMEENGINE_INCLUDES . 'autoload.php';
+        }
+        if (file_exists(GAMEENGINE_INCLUDES . 'functions.php')) {
+            require_once GAMEENGINE_INCLUDES . 'functions.php';
+        }
     }
 
     /**
@@ -83,13 +90,9 @@ final class GameEngine
      */
     private function register_hooks()
     {
-        // Activation Hook.
         register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
+        register_deactivation_hook(GAMEENGINE_FILE, array(__CLASS__, 'deactivate'));
 
-        // Deactivation Hook.
-        register_deactivation_hook(GAMEENGINE_FILE, [__CLASS__, 'deactivate']);
-
-        // Initialize Plugin Modules.
         add_action('init', array($this, 'init_modules'), 10);
     }
 
@@ -98,7 +101,6 @@ final class GameEngine
      */
     public function init_modules()
     {
-        // Setup Wizard (Must be initialized early in admin)
         if (is_admin() && class_exists('\GameEngine\Admin\Setup')) {
             \GameEngine\Admin\Setup::init();
         }
@@ -107,7 +109,6 @@ final class GameEngine
             \GameEngine\Classes\TaxonomyManager::init();
         }
 
-        // Assets & API.
         if (class_exists('\GameEngine\Assets')) {
             \GameEngine\Assets::init();
         }
@@ -115,8 +116,7 @@ final class GameEngine
             \GameEngine\API\Manager::init();
         }
 
-        // System Services
-        $services = [
+        $services = array(
             '\GameEngine\Classes\Scheduler',
             '\GameEngine\Classes\Logger',
             '\GameEngine\Classes\AchievementsManager',
@@ -124,7 +124,7 @@ final class GameEngine
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
             '\GameEngine\Classes\Triggers'
-        ];
+        );
 
         foreach ($services as $service) {
             if (class_exists($service)) {
@@ -132,16 +132,15 @@ final class GameEngine
             }
         }
 
-        // Admin Interface.
         if (is_admin()) {
             if (class_exists('\GameEngine\Admin')) {
                 \GameEngine\Admin::init();
             }
 
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            $current_page = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
 
-            if ($current_page && 0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
+            if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
                 if (class_exists('\GameEngine\Classes\JsonGenerator')) {
                     \GameEngine\Classes\JsonGenerator::generate();
                 }
@@ -152,20 +151,18 @@ final class GameEngine
             \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
         }
 
-        // Loading Pro and Addons
         $this->load_optional_modules();
+
+        do_action('gameengine_init');
     }
 
-    /**
-     * Load optional modules and addons safely.
-     */
     private function load_optional_modules()
     {
-        $paths = [
+        $paths = array(
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
             'addons/restrict-content/init.php'
-        ];
+        );
 
         foreach ($paths as $path) {
             $full_path = GAMEENGINE_INCLUDES . $path;
@@ -175,21 +172,14 @@ final class GameEngine
         }
     }
 
-    /**
-     * Plugin Activation Hook.
-     */
     public static function activate()
     {
         if (class_exists('\GameEngine\Core\Installer')) {
             (new \GameEngine\Core\Installer())->run();
         }
-
         set_transient('gameengine_activation_redirect', true, 30);
     }
 
-    /**
-     * Plugin Deactivation Hook.
-     */
     public static function deactivate()
     {
         if (class_exists('\GameEngine\Core\Installer')) {
@@ -199,35 +189,39 @@ final class GameEngine
 }
 
 /**
- * Global accessor function.
+ * Global accessor.
  */
 function gameengine()
 {
     return GameEngine::instance();
 }
 
-// Kickstart.
 GameEngine::instance();
 
-
-
 /**
- * Developer Utility: Reset Setup & Banners.
- * Use this link to reset: yoursite.com/?reset_gameengine_setup=1
+ * Developer Utility: Reset Setup & Banners with Nonce Verification.
  */
 add_action('init', function () {
-
+    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
     if (isset($_GET['reset_gameengine_setup']) && current_user_can('manage_options')) {
 
+        //  Verify Nonce for Security.
+        if (! isset($_GET['_wpnonce']) || ! wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'gameengine_reset_action')) {
+            $reset_url = wp_nonce_url(add_query_arg('reset_gameengine_setup', '1'), 'gameengine_reset_action');
+            wp_die(
+                sprintf(
+                    /* translators: %s: Reset URL with Nonce */
+                    esc_html__('Are you sure you want to reset? This will delete all GameEngine settings. %s', 'gameengine'),
+                    '<a href="' . esc_url($reset_url) . '">' . esc_html__('Click here to confirm reset.', 'gameengine') . '</a>'
+                )
+            );
+        }
 
+        // 2. Proceed with reset if nonce is valid.
         delete_option('gameengine_hide_banner_points');
         delete_option('gameengine_hide_banner_achievements');
         delete_option('gameengine_hide_banner_levels');
-
-
         delete_option('gameengine_setup_completed');
-
-
         delete_option('gameengine_active_addons');
 
         wp_die(esc_html__('GameEngine settings and banners have been reset! Please refresh your dashboard.', 'gameengine'));
