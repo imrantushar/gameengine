@@ -9,7 +9,11 @@
         "lint:js": "wp-scripts lint-js"
     },
     "devDependencies": {
-        "@wordpress/scripts": "^27.9.0"
+        "@wordpress/scripts": "^27.9.0",
+        "autoprefixer": "^10.4.22",
+        "postcss": "^8.5.6",
+        "style-loader": "^4.0.0",
+        "tailwindcss": "^3.4.18"
     },
     "dependencies": {
         "@chakra-ui/react": "^3.29.0",
@@ -24,6 +28,7 @@
         "moment": "^2.30.1",
         "quill": "^2.0.3",
         "react": "^18.3.1",
+        "react-advance-datepicker": "^0.0.54",
         "react-chartjs-2": "^5.3.1",
         "react-datepicker": "^9.1.0",
         "react-dom": "^18.3.1",

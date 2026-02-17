@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root wrapper */
+.gemboards-date-picker {
+    width: 296px !important;
+    overflow: visible !important;
+}
+
+/* Hide the original input & arrow */
+.gemboards-date-picker input,
+.gemboards-date-picker .absolute.bg-white.w-4.h-4 {
+    display: none !important;
+}
+
+/* Force popup to always be visible (your current behavior) */
+.gemboards-date-picker>div.absolute {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    z-index: 1 !important;
+    box-shadow: none !important;
+    border: none !important;
+    width: 296px !important;
+    min-width: 296px !important;
+}
+
+/* Tailwind width override */
+.gemboards-date-picker .md\:w-\[296px\],
+.gemboards-date-picker .md\:min-w-\[296px\] {
+    width: 296px !important;
+    min-width: 296px !important;
+}
+
+/* Make calendar grid fit nicely */
+.gemboards-date-picker .grid {
+    width: 100% !important;
+}
+
+/* Month + Year header */
+.gemboards-date-picker .flex.items-center.space-x-1\.5.border {
+    width: 280px !important;
+    min-width: 280px !important;
+    padding: 4px 12px !important;
+    margin: -8px 0 8px 8px !important;
+}
+
+.gemboards-date-picker :not(.calendar-body):not(.calendar-body *) {
+    padding: 4px 0 !important;
+    margin: 0 !important;
+    min-height: -webkit-fill-available !important;
+    border: none !important;
+}

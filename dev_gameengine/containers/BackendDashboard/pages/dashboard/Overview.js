@@ -2,23 +2,15 @@ import React, { useEffect } from 'react';
 import { Box, Flex, Icon, Text } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar, FiMinusCircle } from "react-icons/fi";
-import GFLabel from '@GFComponents/Labels/GFLabel';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import BoxView from '@GFComponents/BoxView/BoxView';
-import { achievement, calendar, star, trophy, user } from '@GFUtils/icons';
+import { achievement, star, trophy, user } from '@GFUtils/icons';
+import DateTimePicker from '@GFComponents/DateTimePicker';
 
 function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setEndDate }) {
-    const dateOnly = (d) => {
-        if (!d) return null;
-        const offset = d.getTimezoneOffset();
-        const adjustedDate = new Date(d.getTime() - (offset * 60 * 1000));
-        return adjustedDate.toISOString().split('T')[0];
-    };
 
     useEffect(() => {
         if (startDate && endDate) {
-            onFilterChange(dateOnly(startDate), dateOnly(endDate));
+            onFilterChange(startDate, endDate);
         }
     }, [startDate, endDate]);
 
@@ -37,31 +29,16 @@ function Overview({ data, onFilterChange, startDate, setStartDate, endDate, setE
                 title={__('Overview', 'gameengine')}
                 rightContent={
                     <Flex align="center" gap={2} border="1px solid var(--gameengine-border-color)" borderRadius="4px" p="10px 12px" cursor="pointer">
-                        <Icon as={calendar} />
-                        <Flex>
-                            <DatePicker
-                                selected={startDate}
-                                onChange={(date) => setStartDate(date)}
-                                placeholderText={__('Start date', 'gameengine')}
-                                dateFormat="MMM dd, yyyy"
-                                customInput={
-                                    <Text fontSize="14px" fontWeight="400" lineHeight="20px" m="0">
-                                        {startDate ? startDate.toLocaleDateString() : __('Start date', 'gameengine')}
-                                    </Text>
-                                }
-                            />
-                            <Text fontSize="sm" fontWeight="500" margin='0 4px' color="gray.500">-</Text>
-                            <DatePicker
-                                selected={endDate}
-                                onChange={(date) => setEndDate(date)}
-                                placeholderText={__('End date', 'gameengine')}
-                                dateFormat="MMM dd, yyyy"
-                                minDate={startDate}
-                                customInput={
-                                    <Text fontSize="14px" fontWeight="400" lineHeight="20px" m="0">
-                                        {endDate ? endDate.toLocaleDateString() : __('End date', 'gameengine')}
-                                    </Text>
-                                }
+                        <Flex w={'100%'} className='custom-datepicker'>
+                            <DateTimePicker
+                                startDate={startDate}
+                                endDate={endDate}
+                                onChange={(nd) => {
+                                    setStartDate(nd.startDate)
+                                    setEndDate(nd.endDate)
+                                }}
+                                primaryColor="blue"
+                                variant='auto-show'
                             />
                         </Flex>
                     </Flex>
