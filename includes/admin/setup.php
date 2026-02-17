@@ -35,7 +35,7 @@ class Setup
             delete_transient('gameengine_activation_redirect');
 
             if (! is_network_admin() && current_user_can('manage_options')) {
-                
+
                 /**
                  * Page routing via $_GET doesn't require a nonce.
                  */
@@ -75,6 +75,8 @@ class Setup
      */
     public function handle_setup_screen_render()
     {
+
+        $this->nuke_emojis();
         // Prepare assets and original data.
         $this->enqueue_setup_assets();
 
@@ -86,35 +88,75 @@ class Setup
         /**
          * Start building the page manually to avoid StoreEngine Fatal Errors.
          */
-        ?>
+?>
         <!DOCTYPE html>
         <html <?php language_attributes(); ?>>
+
         <head>
             <meta charset="<?php bloginfo('charset'); ?>">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title><?php esc_html_e('GameEngine Setup Wizard', 'gameengine'); ?></title>
-            <?php 
-                // Print enqueued styles and scripts for GameEngine only.
-                wp_print_styles(); 
-                wp_print_head_scripts(); 
+            <?php
+            // Print enqueued styles and scripts for GameEngine only.
+            wp_print_styles();
+            wp_print_head_scripts();
             ?>
         </head>
+
         <body class="gameengine-setup-page">
             <div id="gameengine-setup-app">
                 <div style="display:flex; justify-content:center; align-items:center; height:100vh; font-family:sans-serif;">
                     <h2><?php esc_html_e('Loading Setup Wizard...', 'gameengine'); ?></h2>
                 </div>
             </div>
-            <?php 
-                /**
-                 * Skips wp_footer action to prevent plugin conflicts.
-                 */
-                wp_print_footer_scripts(); 
+            <?php
+            /**
+             * Skips wp_footer action to prevent plugin conflicts.
+             */
+            wp_print_footer_scripts();
             ?>
         </body>
+
         </html>
-        <?php
+<?php
         exit;
+    }
+
+    /**
+     * Fully removes emoji scripts and styles to prevent WP 6.4+ deprecation notices.
+     */
+    private function nuke_emojis()
+    {
+        // Remove from Header and Admin
+        remove_action('admin_print_styles', 'print_emoji_styles');
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+        remove_action('admin_print_scripts', 'print_emoji_detection_script');
+        remove_action('wp_print_styles', 'print_emoji_styles');
+        remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+        remove_filter('the_content_feed', 'wp_staticize_emoji');
+        remove_filter('comment_text_rss', 'wp_staticize_emoji');
+
+        // Disable the specific filter that causes the warning
+        add_filter('tiny_mce_plugins', function ($plugins) {
+            if (is_array($plugins)) {
+                return array_diff($plugins, array('wpemoji'));
+            }
+            return array();
+        });
+        /**
+         *  Instead of calling apply_filters('emoji_svg_url'), 
+         * we search and remove the emoji CDN URL directly to avoid prefix warnings.
+         */
+        add_filter('wp_resource_hints', function ($urls, $relation_type) {
+            if ('dns-prefetch' === $relation_type && is_array($urls)) {
+                foreach ($urls as $key => $url) {
+                    if (strpos($url, 's.w.org/images/core/emoji') !== false) {
+                        unset($urls[$key]);
+                    }
+                }
+            }
+            return $urls;
+        }, 10, 2);
     }
 
     /**

@@ -10,74 +10,67 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class SettingsController
- * Unified endpoint for all plugin settings.
+ * Handles both Free settings and Pro placeholders for the UI.
  */
 class SettingsController extends BaseController
 {
-
-    /**
-     * REST route base changed to 'settings'
-     *
-     * @var string
-     */
     protected $rest_base = 'settings';
 
-    /**
-     * Register REST API routes.
-     */
     public function register_routes()
     {
-        register_rest_route(
-            $this->namespace,
-            '/' . $this->rest_base,
+        register_rest_route($this->namespace, '/' . $this->rest_base, array(
             array(
-                array(
-                    'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => array($this, 'get_settings'),
-                    'permission_callback' => array($this, 'admin_permission_check'),
-                ),
-                array(
-                    'methods'             => \WP_REST_Server::CREATABLE,
-                    'callback'            => array($this, 'update_settings'),
-                    'permission_callback' => array($this, 'admin_permission_check'),
-                ),
-            )
-        );
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array($this, 'get_settings'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+            array(
+                'methods'             => \WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'update_settings'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+        ));
     }
 
     /**
-     * Returns all plugin settings in a grouped format.
-     *
-     * @return \WP_REST_Response
+     * Returns grouped settings for the UI.
      */
     public function get_settings()
     {
-        // Log Settings Defaults
+        // 1. Logs Settings (Free)
         $log_defaults = array(
             'display_cycle'  => 'immediate',
             'retention_days' => '0',
             'log_levels'     => array('success', 'error'),
         );
 
-        // Combine all settings into one response
+        // 2. Economy Settings (Pro Placeholder)
+        $economy_defaults = array(
+            'enable_gateway'         => false,
+            'enable_partial_payment' => false,
+            'conversion_rate'        => 100,
+            'allowed_roles'          => array('administrator'),
+        );
+
         $all_settings = array(
-            'logs' => get_option('gameengine_log_settings', $log_defaults),
+            'logs'    => get_option('gameengine_log_settings', $log_defaults),
+            'economy' => get_option('gameengine_pro_economy_settings', $economy_defaults),
+            'config'  => array(
+                'is_pro' => class_exists('\GameEngine\Pro\Pro_Init'), // Check if Pro is active
+            )
         );
 
         return new \WP_REST_Response($all_settings, 200);
     }
 
     /**
-     * Updates plugin settings.
-     *
-     * @param \WP_REST_Request $request
-     * @return \WP_REST_Response
+     * Updates settings. Free fields are saved directly, Pro fields via hook.
      */
     public function update_settings($request)
     {
         $params = $request->get_json_params();
 
-        // 1. Update Log Settings if provided
+        // Save Free Settings: Logs
         if (isset($params['logs'])) {
             $log_data = $params['logs'];
             $settings = array(
@@ -88,10 +81,16 @@ class SettingsController extends BaseController
             update_option('gameengine_log_settings', $settings);
         }
 
+        /**
+         * ACTION HOOK: gameengine_save_pro_settings
+         * This allows the Pro version to intercept the request and save its own settings.
+         */
+        do_action('gameengine_save_pro_settings', $params);
+
         return new \WP_REST_Response(
             array(
                 'message'  => __('Settings saved successfully.', 'gameengine'),
-                'settings' => $this->get_settings()->get_data(), // Return latest data
+                'settings' => $this->get_settings()->get_data(),
             ),
             200
         );

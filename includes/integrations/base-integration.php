@@ -15,28 +15,32 @@ abstract class BaseIntegration implements IntegrationInterface
 
     /**
      * Merges trigger-specific fields into the standard schema.
+     * 
+     * @param array  $specific_fields Fields unique to a trigger.
+     * @param string $type            Action type: 'award' or 'deduct'.
+     * @return array Combined schema.
      */
     protected static function merge_schema(array $specific_fields = array(), $type = 'award'): array
     {
         $common_free = self::get_common_free_schema($type);
         $common_pro  = self::get_common_pro_schema();
 
-        // Check if Pro folder exists.
+        // Check if Pro version is active via helper.
         $is_pro_active = \GameEngine\Helper::is_pro();
 
-        // Combine all fields.
+        // Combine all fields: Free Common + Specific + Pro Common.
         $all_fields = array_merge($common_free, $specific_fields, $common_pro);
 
         /**
-         * It loops through fields and their nested options.
+         * Process Pro field restrictions and formatting.
          */
         foreach ($all_fields as &$field) {
-            // If the main field is marked as Pro, disable it if Pro is missing.
+            // Disable field if it's marked as Pro but Pro version is missing.
             if (! empty($field['is_pro']) && true === $field['is_pro']) {
                 $field['isDisabled'] = ! $is_pro_active;
             }
 
-            // If the field has options (like a Select dropdown), check individual options.
+            // Check nested options for Pro restrictions.
             if (! empty($field['options']) && is_array($field['options'])) {
                 foreach ($field['options'] as &$option) {
                     if (! empty($option['is_pro']) && true === $option['is_pro']) {
@@ -46,12 +50,11 @@ abstract class BaseIntegration implements IntegrationInterface
             }
         }
 
-        return $all_fields;
+        return array_values($all_fields);
     }
 
-
     /**
-     * Standard Free Fields (Points, Limit, Log)
+     * Standard Free Fields (Points, Log, Limit).
      */
     private static function get_common_free_schema($type): array
     {
@@ -60,7 +63,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'points',
                 'label'   => ('award' === $type) ? __('Points to Award', 'gameengine') : __('Points to Deduct', 'gameengine'),
                 'type'    => 'number',
-                'width'   => '50%', // Number field
+                'width'   => '50%',
                 'default' => 10,
                 'scope'   => array('point_type'),
             ),
@@ -68,7 +71,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'log_label',
                 'label'   => __('Log Description', 'gameengine'),
                 'type'    => 'text',
-                'width'   => '50%', // Text field
+                'width'   => '50%',
                 'default' => ('award' === $type) ? __('Activity Reward', 'gameengine') : __('Activity Penalty', 'gameengine'),
                 'scope'   => array('point_type', 'achievement', 'level'),
             ),
@@ -76,7 +79,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'     => 'limit',
                 'label'   => __('Limit', 'gameengine'),
                 'type'    => 'select',
-                'width'   => '100%', // Select field
+                'width'   => '100%',
                 'options' => array(
                     array('label' => __('Unlimited', 'gameengine'), 'value' => 'unlimited'),
                     array('label' => __('1 Time Only', 'gameengine'), 'value' => '1_time'),
@@ -91,7 +94,7 @@ abstract class BaseIntegration implements IntegrationInterface
     }
 
     /**
-     * Common Pro Fields (Time-Based & Days)
+     * Common Pro Fields (Start Time, End Time, Active Days).
      */
     private static function get_common_pro_schema(): array
     {
@@ -100,7 +103,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'         => 'start_time',
                 'label'       => __('Start Time (Pro)', 'gameengine'),
                 'type'        => 'time',
-                'width'       => '50%', // Time field
+                'width'       => '50%',
                 'placeholder' => '08:00',
                 'is_pro'      => true,
                 'scope'       => array('point_type', 'achievement', 'level'),
@@ -109,7 +112,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'         => 'end_time',
                 'label'       => __('End Time (Pro)', 'gameengine'),
                 'type'        => 'time',
-                'width'       => '50%', // Time field
+                'width'       => '50%',
                 'placeholder' => '22:00',
                 'is_pro'      => true,
                 'scope'       => array('point_type', 'achievement', 'level'),
@@ -118,7 +121,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'key'      => 'active_days',
                 'label'    => __('Active Days (Pro)', 'gameengine'),
                 'type'     => 'select',
-                'width'    => '100%', // Select field
+                'width'    => '100%',
                 'is_multi' => true,
                 'is_pro'   => true,
                 'options'  => array(
@@ -136,7 +139,7 @@ abstract class BaseIntegration implements IntegrationInterface
     }
 
     /**
-     * Returns the combined standard schema for backward compatibility.
+     * Backward compatibility helper.
      */
     protected static function get_standard_schema($type = 'award'): array
     {

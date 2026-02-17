@@ -132,6 +132,24 @@ class Menu
 				display: block; float: left; margin: 15px -15px 7px;
 				content: ""; width: calc(100% + 26px);
 			}
+
+            .gameengine-notice-bar {
+                background: #fff;
+                border: 1px solid #ccd0d4;
+                border-left: 4px solid #ffb900;
+                padding: 15px;
+                margin: 20px 0;
+                border-radius: 4px;
+                box-shadow: 0 1px 1px rgba(0,0,0,.04);
+            }
+            .gameengine-notice-bar p {
+                margin: 0;
+                font-size: 14px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #3c434a;
+            }
 		</style>';
     }
 
@@ -144,6 +162,19 @@ class Menu
 
     public function render_app()
     {
+        if (empty(get_option('permalink_structure'))) {
+?>
+            <div class="gameengine-notice-bar">
+                <p>
+                    <strong><?php esc_html_e('GameEngine Warning:', 'gameengine'); ?></strong>
+                    <?php esc_html_e('Pretty Permalinks are required for the REST API to function correctly.', 'gameengine'); ?>
+                    <a href="<?php echo esc_url(admin_url('options-permalink.php')); ?>" class="button button-primary">
+                        <?php esc_html_e('Update Permalinks', 'gameengine'); ?>
+                    </a>
+                </p>
+            </div>
+<?php
+        }
         echo '<div id="gameengine-admin-app" class="gameengine-admin-app"></div>';
     }
 
