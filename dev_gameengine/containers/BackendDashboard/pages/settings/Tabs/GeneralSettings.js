@@ -49,7 +49,7 @@ const GeneralSettings = () => {
     return (
         <>
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Settings", "gameengine")} />
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Economy", "gameengine")} />
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Log Display", "gameengine")}>
@@ -70,6 +70,7 @@ const GeneralSettings = () => {
                     </SettingsInput>
 
                     <SettingsInput label={__("Auto Cleanup", "gameengine")}>
+
                         <Select
                             className="gameengine-select gameengine-select--300"
                             classNamePrefix="gameengine-select"
@@ -84,13 +85,14 @@ const GeneralSettings = () => {
                             }}
                             menuPlacement="bottom"
                         />
+                        
                     </SettingsInput>
                 </Flex>
-            </GameEngineBox>
+            </GameEngineBox> 
 
 
-            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Levels", "gameengine")} />
+             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log economy", "gameengine")} />
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Enable successful rewards", "gameengine")}>

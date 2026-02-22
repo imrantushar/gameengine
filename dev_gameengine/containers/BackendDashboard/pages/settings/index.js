@@ -3,7 +3,7 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex,Box } from '@chakra-ui/react';
 import GeneralSettings from './Tabs/GeneralSettings';
 import EmailNotice from './Tabs/EmailNotice';
 import HelpSupport from './Tabs/HelpSupport';
@@ -15,6 +15,9 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
+import Logos from './Tabs/Logos';
+import  Economy  from './Tabs/Economy';
+
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -25,7 +28,7 @@ const Settings = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!settingsData) {
+        if (!settingsData) {
             setSettingsLoading(true)
             dispatch(fetchSettings()).then(() => {
                 setSettingsLoading(false)
@@ -38,12 +41,12 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
-                    return dispatch(saveSettings({key: 'logs', payloadData: values.logs}));
+                    return dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
             }
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             actions.setSubmitting(false);
         }
@@ -59,7 +62,8 @@ const Settings = () => {
                     initialValues={settingsData}
                     onSubmit={onSubmitHandle}
                 >
-                    {({submitForm, isSubmitting, dirty}) => {
+                    {({ submitForm, isSubmitting, dirty }) => {
+
                         return (
                             <>
                                 <TopBar
@@ -73,15 +77,21 @@ const Settings = () => {
                                         </>
                                     }
                                 />
-                                
-                                <Flex direction={'column'} alignItems="flex-start" justifyContent={'center'} className='gameengine-page-content'>
-                                    <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
+
+                                <Flex direction={'column'}  className='gameengine-page-content'>
                                     
-                                    <GeneralSettings /> 
-                                    {/* <LeftBar /> */}
-                                    {/* {tab === "general-settings" && <GeneralSettings />} */}
+                                        <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
+
+                                    
+                                  <Flex gap='6'>
+                                      {/* <GeneralSettings /> */}
+                                    <LeftBar />
+                                    {tab === "general-settings" && <GeneralSettings />}
+                                    {tab === "logos" && <Logos />}
+                                    {tab === "economy" && <Economy/>}
                                     {/* {tab === "email-notice" && <EmailNotice />}
                                     {tab === "help-support" && <HelpSupport />} */}
+                                  </Flex>
                                 </Flex>
                             </>
                         )

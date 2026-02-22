@@ -13,23 +13,20 @@ const LeftBar = () => {
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
     const menuList = [
+
         {
-            label: __("General", "gameengine"),
-            key: "general-settings",
-            desc: __("Basic plugin settings", "gameengine"),
+            label: __("Logo", "gameengine"),
+            key: "logos",
+            // desc: __("Logs settings", "gameengine"),
             icon: general(),
         },
         {
-            label: __("Email Notice", "gameengine"),
-            key: "email-notice",
-            desc: __("User email alerts", "gameengine"),
-            icon: mail(),
+            label: __("Economy", "gameengine"),
+            key: "economy",
+            // desc: __("Economy settings", "gameengine"),
+            icon: general(),
         },
-        // {
-        //     label: __("Help/Support", "gameengine"),
-        //     key: "help-support",
-        //     desc: __("Basic Service Details", "gameengine"),
-        // },
+
     ];
 
     return (
