@@ -15,7 +15,7 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
-import Log from './Tabs/log';
+import Log from './Tabs/Log';
 import Economy from './Tabs/Economy';
 
 const Settings = () => {
