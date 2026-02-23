@@ -43,7 +43,7 @@ class Progress_Map_Logic
 			ARRAY_A
 		);
 
-		// Fetch user earned data.
+		// Fetch user earned levels.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$user_levels = $wpdb->get_col(
 			$wpdb->prepare(
@@ -52,6 +52,7 @@ class Progress_Map_Logic
 			)
 		);
 
+		// Fetch user earned achievements.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 		$user_achievements = $wpdb->get_col(
 			$wpdb->prepare(
@@ -85,92 +86,6 @@ class Progress_Map_Logic
 	}
 
 	/**
-	 * Pre-fetches titles for all required dependencies using secure placeholders and caching.
-	 *
-	 * @param array $journey The combined journey array.
-	 * @return array Map of ID to Title.
-	 */
-	private static function get_dependency_titles($journey)
-	{
-		global $wpdb;
-
-		$titles = array();
-
-		$ach_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_achievement_id'))));
-		$lvl_ids = array_unique(array_filter(array_map('absint', wp_list_pluck($journey, 'required_level_id'))));
-
-		//  Achievement Titles.
-		if (! empty($ach_ids)) {
-			$cache_key = 'gameengine_ach_titles_' . md5(wp_json_encode($ach_ids));
-			$results   = wp_cache_get($cache_key, 'gameengine');
-
-			if (false === $results) {
-
-				$ach_ids = array_values(wp_parse_id_list($ach_ids));
-
-				if (empty($ach_ids)) {
-					$results = array();
-				} else {
-					$placeholders = implode(',', array_fill(0, count($ach_ids), '%d'));
-					$query_string = "SELECT id, title FROM {$wpdb->prefix}gameengine_achievements WHERE id IN ($placeholders)";
-
-					/**
-					 * Fix for UnfinishedPrepare and InterpolatedNotPrepared.
-					 * Using a variable for the query string and combined ignore tags.
-					 */
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
-					$results = $wpdb->get_results( $wpdb->prepare( $query_string, ...$ach_ids ), OBJECT_K );
-				}
-
-				wp_cache_set($cache_key, $results, 'gameengine', 300);
-			}
-
-
-			if ($results) {
-				foreach ($results as $id => $row) {
-					$titles['ach_' . $id] = $row->title;
-				}
-			}
-		}
-
-		//  Level Titles.
-		if (! empty($lvl_ids)) {
-			$cache_key = 'gameengine_lvl_titles_' . md5(wp_json_encode($lvl_ids));
-			$results   = wp_cache_get($cache_key, 'gameengine');
-
-			if (false === $results) {
-
-				$lvl_ids = array_values(wp_parse_id_list($lvl_ids));
-
-				if (empty($lvl_ids)) {
-					$results = array();
-				} else {
-					$placeholders = implode(',', array_fill(0, count($lvl_ids), '%d'));
-					$query_string = "SELECT id, title FROM {$wpdb->prefix}gameengine_levels WHERE id IN ($placeholders)";
-
-					/**
-					 * Fix for UnfinishedPrepare and InterpolatedNotPrepared.
-					 */
-					// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
-					$results = $wpdb->get_results( $wpdb->prepare( $query_string, ...$lvl_ids ), OBJECT_K );
-				}
-
-				wp_cache_set($cache_key, $results, 'gameengine', 300);
-			}
-
-
-			if ($results) {
-				foreach ($results as $id => $row) {
-					$titles['lvl_' . $id] = $row->title;
-				}
-			}
-		}
-
-		return $titles;
-	}
-
-
-	/**
 	 * Renders the Roadmap HTML.
 	 *
 	 * @param int $user_id The User ID.
@@ -183,28 +98,18 @@ class Progress_Map_Logic
 			return '';
 		}
 
-		$gameengine_dependency_titles = self::get_dependency_titles($gameengine_journey);
-		$gameengine_total_nodes       = count($gameengine_journey);
-
 		ob_start();
 ?>
 		<div class="gameengine-roadmap">
 			<div class="gameengine-timeline">
 				<?php foreach ($gameengine_journey as $gameengine_index => $gameengine_node) : ?>
 					<?php
-					$gameengine_is_last        = ($gameengine_index === $gameengine_total_nodes - 1);
-					$gameengine_is_completed   = ('completed' === $gameengine_node['status']);
-					$gameengine_next_completed = (! $gameengine_is_last && 'completed' === $gameengine_journey[$gameengine_index + 1]['status']);
-
-					$gameengine_line_class = ($gameengine_is_completed && $gameengine_next_completed) ? 'gameengine-line-blue' : 'gameengine-line-gray';
-					$gameengine_side_class = (0 === $gameengine_index % 2) ? 'gameengine-node-left' : 'gameengine-node-right';
+					$gameengine_is_completed = ('completed' === $gameengine_node['status']);
+					$gameengine_side_class   = (0 === $gameengine_index % 2) ? 'gameengine-node-left' : 'gameengine-node-right';
 					?>
 					<div class="gameengine-timeline-node <?php echo esc_attr($gameengine_side_class); ?> <?php echo $gameengine_is_completed ? 'gameengine-is-active' : 'gameengine-is-locked'; ?>">
-						<div class="gameengine-node-circle"><?php echo esc_html((int) $gameengine_index + 1); ?></div>
 
-						<?php if (! $gameengine_is_last) : ?>
-							<div class="gameengine-connector <?php echo esc_attr($gameengine_line_class); ?>"></div>
-						<?php endif; ?>
+						<div class="gameengine-node-circle"><?php echo esc_html((int) $gameengine_index + 1); ?></div>
 
 						<div class="gameengine-node-card">
 							<div class="gameengine-card-inner">
@@ -224,30 +129,26 @@ class Progress_Map_Logic
 									<h5><?php echo esc_html($gameengine_node['title']); ?></h5>
 
 									<?php if ($gameengine_is_completed) : ?>
-										<p class="gameengine-congrats"><?php echo wp_kses_post($gameengine_node['congrats']); ?></p>
+										<p class="gameengine-congrats"><?php echo wp_kses_post((string)($gameengine_node['congrats'] ?? '')); ?></p>
 									<?php else : ?>
 										<div class="gameengine-restriction-info">
 											<span class="gameengine-lock-label">🔒 <?php esc_html_e('Locked', 'gameengine'); ?></span>
 											<p class="gameengine-lock-msg">
 												<?php
-												echo ! empty($gameengine_node['restriction_message'])
-													? wp_kses_post($gameengine_node['restriction_message'])
-													: esc_html__('Complete pre-requisites to unlock.', 'gameengine');
+												$res_msg = ! empty($gameengine_node['restriction_message']) ? $gameengine_node['restriction_message'] : __('Complete pre-requisites to unlock.', 'gameengine');
+												echo wp_kses_post((string)$res_msg);
 												?>
 											</p>
 										</div>
 									<?php endif; ?>
 								</div>
-
 							</div>
 						</div>
-
 					</div>
 				<?php endforeach; ?>
 			</div>
 		</div>
 <?php
-
 		return ob_get_clean();
 	}
 }
