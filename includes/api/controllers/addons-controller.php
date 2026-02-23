@@ -180,9 +180,19 @@ class AddonsController extends BaseController
                 'is_pro' => true,
                 'is_locked' => ! $is_pro_installed,
             ),
+
+            array(
+                'slug'      => 'wallet',
+                'name'      => __('Wallet & Payouts', 'gameengine'),
+                'desc'      => __('Manage withdrawal requests and user wallet balance from a dedicated menu.', 'gameengine'),
+                'icon'      => 'dashicons-wallet',
+                'active'    => $is_pro_installed && in_array('wallet', (array) $active_addons, true),
+                'is_pro'    => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
         );
 
-            return new \WP_REST_Response($addons, 200);
+        return new \WP_REST_Response($addons, 200);
     }
 
     /**
@@ -259,9 +269,19 @@ class AddonsController extends BaseController
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-        $all_addons    = array('storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content',
-            'wc_spending_gateway', 'rewards_marketplace', 'points_payouts', 'redemption_codes');
-            
+        $all_addons    = array(
+            'storeengine',
+            'woocommerce',
+            'academylms',
+            'restrict_unlock',
+            'progress_map',
+            'restrict_content',
+            'wc_spending_gateway',
+            'rewards_marketplace',
+            'points_payouts',
+            'redemption_codes'
+        );
+
         $mapped = array();
         foreach ($all_addons as $slug) {
             $mapped[$slug] = in_array($slug, $active_addons, true);
