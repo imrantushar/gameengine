@@ -40,9 +40,14 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
+                case "log":
                     return dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
+                case "economy":
+                    return dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
+                default:
+                    return null;
             }
         } catch (error) {
             console.warn({ error })
