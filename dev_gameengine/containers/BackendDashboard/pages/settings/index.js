@@ -5,8 +5,6 @@ import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
 import { Button, Flex, Box } from '@chakra-ui/react';
 import GeneralSettings from './Tabs/GeneralSettings';
-import EmailNotice from './Tabs/EmailNotice';
-import HelpSupport from './Tabs/HelpSupport';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,6 +14,7 @@ import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import Economy from './Tabs/Economy';
+import MarketPlace from './Tabs/MarketPlace';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -43,6 +42,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
                 case "economy":
                     return dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
+                case "marketplace":
+                    return dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
                 default:
@@ -90,6 +91,7 @@ const Settings = () => {
                                         <LeftBar />
                                         {tab === "log" && <GeneralSettings /> }
                                         {tab === "economy" && <Economy />}
+                                        {tab === "marketplace" && <MarketPlace />}
 
                                     </Flex>
                                 </Box>

@@ -9,7 +9,10 @@ const GameEngineBox = ({dynamicClasses, heading, children, ...props}) => {
     ].filter(Boolean).join(" ");
     
     return (
-        <Box className={classes} {...props}>
+        <Box 
+            className={classes} 
+            {...props}
+        >
             {heading && (
                 <GFLabel type="heading" label={heading} />
             )}
