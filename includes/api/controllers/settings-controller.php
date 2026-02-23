@@ -10,7 +10,7 @@ if (! defined('ABSPATH')) {
 
 /**
  * Class SettingsController
- * Handles both Free settings and Pro placeholders for the UI.
+ * Unified endpoint for plugin settings.
  */
 class SettingsController extends BaseController
 {
@@ -33,57 +33,45 @@ class SettingsController extends BaseController
     }
 
     /**
-     * Returns grouped settings for the UI.
+     * Returns all settings. Pro data is injected via filter if active.
      */
     public function get_settings()
     {
-        // 1. Logs Settings (Free)
-        $log_defaults = array(
-            'display_cycle'  => 'immediate',
-            'retention_days' => '0',
-            'log_levels'     => array('success', 'error'),
-        );
-
-        // 2. Economy Settings (Pro Placeholder)
-        $economy_defaults = array(
-            'enable_gateway'         => false,
-            'enable_partial_payment' => false,
-            'conversion_rate'        => 100,
-            'allowed_roles'          => array('administrator'),
-        );
-
+        // Default Free Settings: Logs
         $all_settings = array(
-            'logs'    => get_option('gameengine_log_settings', $log_defaults),
-            'economy' => get_option('gameengine_pro_economy_settings', $economy_defaults),
-            'config'  => array(
-                'is_pro' => class_exists('\GameEngine\Pro\Pro_Init'), // Check if Pro is active
+            'logs' => get_option('gameengine_log_settings', array(
+                'display_cycle'  => 'immediate',
+                'retention_days' => '0',
+                'log_levels'     => array('success', 'error'),
+            )),
+            'config' => array(
+                'is_pro' => false, // Default is false
             )
         );
+
+        /**
+         * Filter: gameengine_settings_data
+         * Allows Pro version to inject economy, marketplace, and payout data.
+         */
+        $all_settings = apply_filters('gameengine_settings_data', $all_settings);
 
         return new \WP_REST_Response($all_settings, 200);
     }
 
     /**
-     * Updates settings. Free fields are saved directly, Pro fields via hook.
+     * Updates settings.
      */
     public function update_settings($request)
     {
         $params = $request->get_json_params();
 
-        // Save Free Settings: Logs
         if (isset($params['logs'])) {
-            $log_data = $params['logs'];
-            $settings = array(
-                'display_cycle'  => sanitize_text_field($log_data['display_cycle']),
-                'retention_days' => sanitize_text_field($log_data['retention_days']),
-                'log_levels'     => array_map('sanitize_text_field', (array) $log_data['log_levels']),
-            );
-            update_option('gameengine_log_settings', $settings);
+            update_option('gameengine_log_settings', array_map('sanitize_text_field', (array) $params['logs']));
         }
 
         /**
-         * ACTION HOOK: gameengine_save_pro_settings
-         * This allows the Pro version to intercept the request and save its own settings.
+         * Action: gameengine_save_pro_settings
+         * Triggers the Pro version to save its respective settings.
          */
         do_action('gameengine_save_pro_settings', $params);
 
