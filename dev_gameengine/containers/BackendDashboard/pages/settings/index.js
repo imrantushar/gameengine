@@ -15,7 +15,7 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
-import Log from './Tabs/log';
+import Log from './Tabs/Log';
 import Economy from './Tabs/Economy';
 
 const Settings = () => {
@@ -82,10 +82,12 @@ const Settings = () => {
                                     }
                                 />
 
-                                <Box>
-                                    <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
+                                <Box className='gameengine-page-content'>
+                                    <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
+                                    </Flex>
 
-                                    <Flex direction='row' gapX={6}    className='gameengine-page-content'>
+                                    <Flex direction='row' alignItems="flex-start" gapX={6}>
 
                                         {/* <GeneralSettings /> */}
 
@@ -100,7 +102,6 @@ const Settings = () => {
                                     {tab === "help-support" && <HelpSupport />} */}
 
                                     </Flex>
-
                                 </Box>
 
                             </>

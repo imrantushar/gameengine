@@ -31,7 +31,7 @@ const LeftBar = () => {
 
     return (
         <Box
-            // minW="300px"
+            minW="220px"
             bg="#fff"
             boxShadow="var(--gameengine-shadow)"
             pos="sticky"
