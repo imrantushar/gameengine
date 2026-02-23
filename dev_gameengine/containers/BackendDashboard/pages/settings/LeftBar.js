@@ -17,13 +17,13 @@ const LeftBar = () => {
         {
             label: __("Log", "gameengine"),
             key: "log",
-            // desc: __("Log settings", "gameengine"),
+            desc: __("Log settings", "gameengine"),
             icon: general(),
         },
         {
             label: __("Economy", "gameengine"),
             key: "economy",
-            // desc: __("Economy settings", "gameengine"),
+            desc: __("Economy settings", "gameengine"),
             icon: general(),
         },
 

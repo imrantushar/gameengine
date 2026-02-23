@@ -15,13 +15,12 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
-import Log from './Tabs/Log';
 import Economy from './Tabs/Economy';
 
 const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-    const tab = tabMatch ? tabMatch[1] : 'general-settings';
+    const tab = tabMatch ? tabMatch[1] : 'log';
     const { data: settingsData } = useSelector(state => state.settings);
     const [settingsLoading, setSettingsLoading] = useState(!settingsData);
     const dispatch = useDispatch();
@@ -66,8 +65,7 @@ const Settings = () => {
                     initialValues={settingsData}
                     onSubmit={onSubmitHandle}
                 >
-                    {({ submitForm, isSubmitting, dirty }) => {
-
+                    {({values, submitForm, isSubmitting, dirty }) => {
                         return (
                             <>
                                 <TopBar
@@ -87,19 +85,11 @@ const Settings = () => {
                                         <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
                                     </Flex>
 
-                                    <Flex direction='row' alignItems="flex-start" gapX={6}>
-
-                                        {/* <GeneralSettings /> */}
+                                    <Flex gapX={4} alignItems={'flex-start'} width={'100%'}>
 
                                         <LeftBar />
-                                        {tab === "log" && <Log /> }
+                                        {tab === "log" && <GeneralSettings /> }
                                         {tab === "economy" && <Economy />}
-
-                                        {/* {tab === "general-settings" && <GeneralSettings />} */}
-
-
-                                        {/* {tab === "email-notice" && <EmailNotice />}
-                                    {tab === "help-support" && <HelpSupport />} */}
 
                                     </Flex>
                                 </Box>

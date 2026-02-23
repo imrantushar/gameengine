@@ -25,11 +25,8 @@ export const Economy = () => {
         ? values?.economy?.allowed_roles[0] || ''
         : values?.economy?.allowed_roles || '';
 
-    const selectedRoleOption = roleOptions.find(option => option.value === selectedRole) || (
-        selectedRole
-            ? { label: selectedRole, value: selectedRole }
-            : null
-    );
+    const selectedRoleOption = roleOptions.filter(option => (values?.economy?.allowed_roles || []).includes(option.value));
+
 
     return (
         <SettingsInner heading={__('Economy', 'gameengine')}>
@@ -40,8 +37,13 @@ export const Economy = () => {
                         classNamePrefix="gameengine-select"
                         options={roleOptions}
                         value={selectedRoleOption}
-                        onChange={(option) => {
-                            setFieldValue('economy.allowed_roles', option ? option.value : '');
+                        isMulti={true}
+                        onChange={(options) => {
+                            const cleanValues = (options || [])
+                                .map(item => item?.value)
+                                .filter(Boolean);
+
+                            setFieldValue('economy.allowed_roles', cleanValues);
                         }}
                         menuPlacement="bottom"
                     />
