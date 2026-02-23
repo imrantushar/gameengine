@@ -3,7 +3,7 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
-import { Button, Flex,Box } from '@chakra-ui/react';
+import { Button, Flex, Box } from '@chakra-ui/react';
 import GeneralSettings from './Tabs/GeneralSettings';
 import EmailNotice from './Tabs/EmailNotice';
 import HelpSupport from './Tabs/HelpSupport';
@@ -15,9 +15,8 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
-import Logos from './Tabs/Logos';
-import  Economy  from './Tabs/Economy';
-
+import Log from './Tabs/log';
+import Economy from './Tabs/Economy';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -78,21 +77,27 @@ const Settings = () => {
                                     }
                                 />
 
-                                <Flex direction={'column'}  className='gameengine-page-content'>
-                                    
-                                        <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
+                                <Box>
+                                    <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
 
-                                    
-                                  <Flex gap='6'>
-                                      {/* <GeneralSettings /> */}
-                                    <LeftBar />
-                                    {tab === "general-settings" && <GeneralSettings />}
-                                    {tab === "logos" && <Logos />}
-                                    {tab === "economy" && <Economy/>}
-                                    {/* {tab === "email-notice" && <EmailNotice />}
+                                    <Flex direction='row' gapX={6}    className='gameengine-page-content'>
+
+                                        {/* <GeneralSettings /> */}
+
+                                        <LeftBar />
+                                        {tab === "log" && <Log /> }
+                                        {tab === "economy" && <Economy />}
+
+                                        {/* {tab === "general-settings" && <GeneralSettings />} */}
+
+
+                                        {/* {tab === "email-notice" && <EmailNotice />}
                                     {tab === "help-support" && <HelpSupport />} */}
-                                  </Flex>
-                                </Flex>
+
+                                    </Flex>
+
+                                </Box>
+
                             </>
                         )
                     }}

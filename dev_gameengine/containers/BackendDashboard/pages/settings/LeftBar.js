@@ -15,9 +15,9 @@ const LeftBar = () => {
     const menuList = [
 
         {
-            label: __("Logo", "gameengine"),
-            key: "logos",
-            // desc: __("Logs settings", "gameengine"),
+            label: __("Log", "gameengine"),
+            key: "log",
+            // desc: __("Log settings", "gameengine"),
             icon: general(),
         },
         {
@@ -31,7 +31,7 @@ const LeftBar = () => {
 
     return (
         <Box
-            minW="300px"
+            // minW="300px"
             bg="#fff"
             boxShadow="var(--gameengine-shadow)"
             pos="sticky"
