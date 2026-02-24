@@ -53,8 +53,13 @@ class Assets
 
         // Define all possible addons and map their status
         $all_addons = [
-            'storeengine', 'woocommerce', 'academylms', 'restrict_unlock', 'progress_map', 'restrict_content',
-            'wc_spending_gateway', 'rewards_marketplace', 'points_payouts', 'redemption_codes'
+            'storeengine',
+            'woocommerce',
+            'academylms',
+            'restrict_unlock',
+            'progress_map',
+            'restrict_content',
+            'wallet'
         ];
         $addons_status = [];
 
