@@ -48,7 +48,7 @@ const Payout = () => {
           options={payoutMethods}
           isMulti
           isDisabled={!is_pro}
-          value={payoutMethods.filter(option => (values?.payout.methods || []).includes(option.value))}
+          value={payoutMethods.filter(option => (values?.payout?.methods || []).includes(option.value))}
           onChange={options => {
             const cleanValues = (options || [])
               .map(item => item?.value)
@@ -62,10 +62,11 @@ const Payout = () => {
         <Input
           type="number"
           min="0"
+          placeholder={__("0", "gameengine")}
           step="1"
           width="300px"
           disabled={!is_pro}
-          value={values.payout.max_points}
+          value={values.payout?.max_points}
           onChange={(event) => {
               const rawValue = event.target.value;
               setFieldValue(
@@ -82,7 +83,8 @@ const Payout = () => {
           step="1"
           disabled={!is_pro}
           width="300px"
-          value={values.payout.min_points}
+          placeholder={__("0", "gameengine")}
+          value={values.payout?.min_points}
           onChange={(event) => {
               const rawValue = event.target.value;
               setFieldValue(

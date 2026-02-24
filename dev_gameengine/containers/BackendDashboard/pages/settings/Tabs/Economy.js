@@ -58,6 +58,7 @@ export const Economy = () => {
                         step="1"
                         disabled={!is_pro}
                         width="300px"
+                        placeholder={__("0", "gameengine")}
                         value={values?.economy?.conversion_rate ?? ''}
                         onChange={(event) => {
                             const rawValue = event.target.value;

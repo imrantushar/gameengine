@@ -52,6 +52,7 @@ const MarketplaceFields = () => {
                           min="0"
                           step="1"
                           width="100%"
+                          placeholder={__("Add label", "gameengine")}
                           value={item.label}
                           onChange={(event) => {
                               const rawValue = event.target.value;
