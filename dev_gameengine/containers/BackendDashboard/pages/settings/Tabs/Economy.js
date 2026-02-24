@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import SettingsInner from '../Components/SettingsInner';
 import SettingsInput from '../Components/SettingsInput';
+import { is_pro } from '@GFUtils/helper';
 
 const baseRoleOptions = [
     'administrator',
@@ -31,12 +32,13 @@ export const Economy = () => {
     return (
         <SettingsInner heading={__('Economy', 'gameengine')}>
             <Flex direction="column" gap="16px">
-                <SettingsInput label={__('Allowed Roles', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Allowed Roles', 'gameengine')}>
                     <Select
                         className="gameengine-select gameengine-select--300"
                         classNamePrefix="gameengine-select"
                         options={roleOptions}
                         value={selectedRoleOption}
+                        isDisabled={!is_pro}
                         isMulti={true}
                         onChange={(options) => {
                             const cleanValues = (options || [])
@@ -49,11 +51,12 @@ export const Economy = () => {
                     />
                 </SettingsInput>
 
-                <SettingsInput label={__('Conversion Rate', 'gameengine')}>
+                <SettingsInput isPro={!is_pro}  label={__('Conversion Rate', 'gameengine')}>
                     <Input
                         type="number"
                         min="0"
                         step="1"
+                        disabled={!is_pro}
                         width="300px"
                         value={values?.economy?.conversion_rate ?? ''}
                         onChange={(event) => {
@@ -67,11 +70,12 @@ export const Economy = () => {
                     />
                 </SettingsInput>
 
-                <SettingsInput label={__('Enable Gateway', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Enable Gateway', 'gameengine')}>
                     <Switch.Root
                         colorPalette="blue"
                         size="sm"
                         mt="0.5"
+                        disabled={!is_pro}
                         checked={Boolean(values?.economy?.enable_gateway)}
                         onCheckedChange={(changes) => {
                             setFieldValue('economy.enable_gateway', changes.checked);
@@ -82,11 +86,12 @@ export const Economy = () => {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput label={__('Enable Partial Payment', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Enable Partial Payment', 'gameengine')}>
                     <Switch.Root
                         colorPalette="blue"
                         size="sm"
                         mt="0.5"
+                        disabled={!is_pro}
                         checked={Boolean(values?.economy?.enable_partial_payment)}
                         onCheckedChange={(changes) => {
                             setFieldValue('economy.enable_partial_payment', changes.checked);
