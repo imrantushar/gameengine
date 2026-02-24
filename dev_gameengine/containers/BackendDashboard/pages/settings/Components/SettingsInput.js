@@ -10,6 +10,7 @@ const SettingsInput = ({ label, desc, children, width = "100%", isPro = false, .
                 {isPro && (
                     <Text
                         background="#FFA943"
+                        margin={0}
                         marginLeft={'8px'}
                         color="#fff"
                         borderRadius="2px"
@@ -19,7 +20,6 @@ const SettingsInput = ({ label, desc, children, width = "100%", isPro = false, .
                         textTransform="uppercase"
                         display="inline-flex"
                         alignItems="center"
-                        transform="translateY(-10px)"
                     >{__("PRO", 'gameengine')}</Text>
                 )}
             </Flex>

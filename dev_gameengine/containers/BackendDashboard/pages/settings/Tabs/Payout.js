@@ -12,11 +12,11 @@ import { is_pro } from '@GFUtils/helper';
 const payoutMethods = [
   {
     label: __('bKash', 'gameengine'),
-    value: 'bKash'
+    value: "bKash"
   },
   {
     label: __('Paypal', 'gameengine'),
-    value: 'Paypal'
+    value: 'PayPal'
   },
 ]
 
@@ -24,7 +24,7 @@ const Payout = () => {
   const { values, setFieldValue } = useFormikContext();
   return (
     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" width="100%">
-      <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log ", "gameengine")} />
+      <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Payout", "gameengine")} />
       <SettingsInput isPro={!is_pro} label={__("Enable Payout", "gameengine")}  margin='0 0 24px 0'>
         <Switch.Root
             colorPalette="blue"
