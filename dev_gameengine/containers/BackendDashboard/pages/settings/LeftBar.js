@@ -32,6 +32,12 @@ const LeftBar = () => {
             desc: __("Economy settings", "gameengine"),
             icon: general(),
         },
+        {
+            label: __("Payout", "gameengine"),
+            key: "payout",
+            desc: __("Economy settings", "gameengine"),
+            icon: general(),
+        },
 
     ];
 

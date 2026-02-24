@@ -15,6 +15,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
+import Payout from './Tabs/Payout';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -44,6 +45,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
                 case "marketplace":
                     return dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
+                case "payout":
+                    return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
                 default:
@@ -92,6 +95,7 @@ const Settings = () => {
                                         {tab === "log" && <GeneralSettings /> }
                                         {tab === "economy" && <Economy />}
                                         {tab === "marketplace" && <MarketPlace />}
+                                        {tab === "payout" && <Payout />}
 
                                     </Flex>
                                 </Box>

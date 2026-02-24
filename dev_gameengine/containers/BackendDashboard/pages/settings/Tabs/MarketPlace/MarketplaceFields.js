@@ -73,7 +73,7 @@ const MarketplaceFields = () => {
                             }}
                             menuPlacement="bottom"
                         />
-                        </SettingsInput>
+                      </SettingsInput>
                   </Flex>
                   <Flex gap='16px' width="100%">
                       <SettingsInput flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Point Cost", "gameengine")}>
