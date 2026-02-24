@@ -3,10 +3,8 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
-import { Button, Flex } from '@chakra-ui/react';
+import { Button, Flex, Box } from '@chakra-ui/react';
 import GeneralSettings from './Tabs/GeneralSettings';
-import EmailNotice from './Tabs/EmailNotice';
-import HelpSupport from './Tabs/HelpSupport';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,17 +13,20 @@ import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import GameEngineBox from '@GFComponents/GameEngineBox';
+import Economy from './Tabs/Economy';
+import MarketPlace from './Tabs/MarketPlace';
+import Payout from './Tabs/Payout';
 
 const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-    const tab = tabMatch ? tabMatch[1] : 'general-settings';
+    const tab = tabMatch ? tabMatch[1] : 'log';
     const { data: settingsData } = useSelector(state => state.settings);
     const [settingsLoading, setSettingsLoading] = useState(!settingsData);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!settingsData) {
+        if (!settingsData) {
             setSettingsLoading(true)
             dispatch(fetchSettings()).then(() => {
                 setSettingsLoading(false)
@@ -38,12 +39,21 @@ const Settings = () => {
         try {
             switch (tab) {
                 case "general-settings":
-                    return dispatch(saveSettings({key: 'logs', payloadData: values.logs}));
+                case "log":
+                    return dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
+                case "economy":
+                    return dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
+                case "marketplace":
+                    return dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
+                case "payout":
+                    return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
                 // case "email-notice":
                 //     return dispatch(saveSettings({key: 'email', data: values?.email}));
+                default:
+                    return null;
             }
         } catch (error) {
-            console.warn({error})
+            console.warn({ error })
         } finally {
             actions.setSubmitting(false);
         }
@@ -59,7 +69,7 @@ const Settings = () => {
                     initialValues={settingsData}
                     onSubmit={onSubmitHandle}
                 >
-                    {({submitForm, isSubmitting, dirty}) => {
+                    {({values, submitForm, isSubmitting, dirty }) => {
                         return (
                             <>
                                 <TopBar
@@ -73,16 +83,23 @@ const Settings = () => {
                                         </>
                                     }
                                 />
-                                
-                                <Flex direction={'column'} alignItems="flex-start" justifyContent={'center'} className='gameengine-page-content'>
-                                    <GFLabel type="plainHeading" margin={0} padding='24px 0' label={__("Settings", "gameengine")} />
-                                    
-                                    <GeneralSettings /> 
-                                    {/* <LeftBar /> */}
-                                    {/* {tab === "general-settings" && <GeneralSettings />} */}
-                                    {/* {tab === "email-notice" && <EmailNotice />}
-                                    {tab === "help-support" && <HelpSupport />} */}
-                                </Flex>
+
+                                <Box className='gameengine-page-content'>
+                                    <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
+                                    </Flex>
+
+                                    <Flex gapX={4} alignItems={'flex-start'} width={'100%'}>
+
+                                        <LeftBar />
+                                        {tab === "log" && <GeneralSettings /> }
+                                        {tab === "economy" && <Economy />}
+                                        {tab === "marketplace" && <MarketPlace />}
+                                        {tab === "payout" && <Payout />}
+
+                                    </Flex>
+                                </Box>
+
                             </>
                         )
                     }}

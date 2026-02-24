@@ -8,6 +8,7 @@ import SettingsInner from '../Components/SettingsInner';
 import { useDispatch } from 'react-redux';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import GameEngineInput from '@GFComponents/GameEngineInput';
+
 import Select from "react-select";
 import { useFormikContext } from 'formik';
 import SettingsInput from '../Components/SettingsInput';
@@ -44,12 +45,13 @@ const retentionDays = [
 ]
 
 const GeneralSettings = () => {
+
     const { values, setFieldValue } = useFormikContext();
 
     return (
-        <>
-            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Settings", "gameengine")} />
+        <Box width={'100%'}>
+            <GameEngineBox  dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log ", "gameengine")} />
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Log Display", "gameengine")}>
@@ -90,7 +92,7 @@ const GeneralSettings = () => {
 
 
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log Levels", "gameengine")} />
+                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__(" Economy", "gameengine")} />
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Enable successful rewards", "gameengine")}>
@@ -128,13 +130,15 @@ const GeneralSettings = () => {
                                 }
                             }}
                         >
+
                             <Switch.HiddenInput />
                             <Switch.Control />
                         </Switch.Root>
                     </SettingsInput>
                 </Flex>
             </GameEngineBox>
-        </>
+
+        </Box>
     );
 };
 

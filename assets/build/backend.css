@@ -1531,6 +1531,9 @@ input.gameengine-checkbox:checked::before {
 .flex {
   display: flex;
 }
+.inline-flex {
+  display: inline-flex;
+}
 .table {
   display: table;
 }

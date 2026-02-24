@@ -13,28 +13,37 @@ const LeftBar = () => {
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
     const menuList = [
+
         {
-            label: __("General", "gameengine"),
-            key: "general-settings",
-            desc: __("Basic plugin settings", "gameengine"),
+            label: __("Log", "gameengine"),
+            key: "log",
+            desc: __("Log settings", "gameengine"),
             icon: general(),
         },
         {
-            label: __("Email Notice", "gameengine"),
-            key: "email-notice",
-            desc: __("User email alerts", "gameengine"),
-            icon: mail(),
+            label: __("Economy", "gameengine"),
+            key: "economy",
+            desc: __("Economy settings", "gameengine"),
+            icon: general(),
         },
-        // {
-        //     label: __("Help/Support", "gameengine"),
-        //     key: "help-support",
-        //     desc: __("Basic Service Details", "gameengine"),
-        // },
+        {
+            label: __("Marketplace", "gameengine"),
+            key: "marketplace",
+            desc: __("Economy settings", "gameengine"),
+            icon: general(),
+        },
+        {
+            label: __("Payout", "gameengine"),
+            key: "payout",
+            desc: __("Economy settings", "gameengine"),
+            icon: general(),
+        },
+
     ];
 
     return (
         <Box
-            minW="300px"
+            minW="220px"
             bg="#fff"
             boxShadow="var(--gameengine-shadow)"
             pos="sticky"
