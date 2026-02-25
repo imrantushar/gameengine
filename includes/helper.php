@@ -115,6 +115,13 @@ class Helper
             'title'       => __('Points System', 'gameengine'),
             'capability'  => 'manage_options',
         );
+        
+        // Wallet System
+        $menu[$slug . '-wallet'] = array(
+            'parent_slug' => $slug,
+            'title'       => __('Wallet Lists', 'gameengine'),
+            'capability'  => 'manage_options',
+        );
 
         // Achievements with Nested Submenu
         $menu[$slug . '-achievements'] = array(

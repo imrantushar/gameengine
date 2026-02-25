@@ -11,6 +11,7 @@ import { GoPlus } from 'react-icons/go';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import { fetchPointTypes } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import WalletTypesTable from '../walletLists/WalletTypeTable';
 
 const Points = () => {
     const [banners, setBanners] = useState(
@@ -60,7 +61,8 @@ const Points = () => {
                     </Button>
                 </Flex>
 
-                <PointTypesTable />
+                {/* <PointTypesTable /> */}
+                <WalletTypesTable/>
             </div>
         </>
     );

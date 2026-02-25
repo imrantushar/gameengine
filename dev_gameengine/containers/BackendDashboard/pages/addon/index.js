@@ -12,7 +12,7 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { plugin_root_url } from '@GFUtils/helper';
+import { API, namespace, plugin_root_url } from '@GFUtils/helper';
 
 const infoCardsData = [
 	{
@@ -108,6 +108,22 @@ const infoCardsData = [
 		is_coming_soon: false,
 		details: __(
 			'Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: false,
+		image: plugin_root_url+'assets/images/progress_map.svg',
+		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "",
+	},
+	{
+		label: __('Wallet List', 'gameengine'),
+		name: 'gameengine_wallet',
+		is_pro: true,
+		// is_active: true,
+		is_coming_soon: false,
+		details: __(
+			'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!',
 			'gameengine'
 		),
 		required_plugin: false,
@@ -228,6 +244,19 @@ const Addons = () => {
 			return false;
 		});
 	};
+
+	// useEffect(() => {
+	// 	const fetchAddonsAPI = async () => {
+	// 	try {
+	// 		const response = await API.get(`${namespace}addons/list`);
+	// 		console.log('API Response:', response.data); 
+	// 	} catch (error) {
+	// 		console.error('API Error:', error);
+	// 	}
+	// 	};
+
+	// 	fetchAddonsAPI(); 
+	// }, []);
 
 	return (
 		<>
