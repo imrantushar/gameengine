@@ -61,8 +61,8 @@ const Points = () => {
                     </Button>
                 </Flex>
 
-                {/* <PointTypesTable /> */}
-                <WalletTypesTable/>
+                <PointTypesTable />
+                {/* <WalletTypesTable/> */}
             </div>
         </>
     );

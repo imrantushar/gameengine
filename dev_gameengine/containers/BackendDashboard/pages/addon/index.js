@@ -118,7 +118,7 @@ const infoCardsData = [
 	},
 	{
 		label: __('Wallet List', 'gameengine'),
-		name: 'gameengine_wallet',
+		name: 'wallet',
 		is_pro: true,
 		// is_active: true,
 		is_coming_soon: false,
