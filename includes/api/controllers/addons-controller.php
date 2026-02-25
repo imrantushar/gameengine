@@ -237,10 +237,7 @@ class AddonsController extends BaseController
             'restrict_unlock',
             'progress_map',
             'restrict_content',
-            'wc_spending_gateway',
-            'rewards_marketplace',
-            'points_payouts',
-            'redemption_codes'
+            'wallet'
         );
 
         $mapped = array();
