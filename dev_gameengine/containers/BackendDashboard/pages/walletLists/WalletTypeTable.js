@@ -9,197 +9,305 @@ import {
 } from '@chakra-ui/react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
-import { FiTrash2, FiEye } from "react-icons/fi";
+import { FiEye, FiCheckCircle, FiXCircle, FiTrash2 } from "react-icons/fi";
 import OptionMenu from '@GFComponents/OptionMenu';
 import Search from '@GFComponents/Search';
 import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
 import moment from 'moment';
-import { API, namespace,  } from '@GFUtils/helper';
-
-
+import { API, namespace } from '@GFUtils/helper';
+import Tooltip from "@GFComponents/Tooltip";
 
 const WalletTypesTable = () => {
   const [payouts, setPayouts] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [filteredPayouts, setFilteredPayouts] = useState([]);
+  const [tableStatus, setTableStatus] = useState('all'); 
+  const [searchValue, setSearchValue] = useState('');
   const [selectedRows, setSelectedRows] = useState([]);
   const [actionSelected, setActionSelected] = useState({
     value: false,
     type: '',
-    message: ''
+    message: '',
   });
 
-const fetchHandler = async () => {
-  try {
-    setLoading(true);
-    const response = await API.get(
-      `${namespace}pro/payout/list`
-    );
-    console.log(response);
-    setPayouts(Array.isArray(response?.data) ? response.data : []);
-  } catch (error) {
-    console.error(error);
-  } finally {
-    setLoading(false);
-  }
-};
-
-
-
-useEffect(() => {
-    fetchHandler();
-}, []);
-
-  const deleteHandler = async (id) => {
-    if (!window.confirm("Are you sure?")) return;
+  const fetchPayouts = async () => {
     try {
-      await fetch(
-        `${namespace}pro/payout/delete/${id}`,
-        { method: "DELETE" }
-      );
-      fetchHandler();
-    } catch (err) {
-      console.error(err);
+      const response = await API.get(`${namespace}pro/payout/list`);
+      const data = Array.isArray(response?.data) ? response.data : [];
+      setPayouts(data);
+      applyFilters(data, tableStatus, searchValue);
+    } catch (error) {
+      console.error('Failed to load payouts:', error);
+      setPayouts([]);
+      setFilteredPayouts([]);
     }
   };
 
-  const statusColor = {
-    pending: 'orange',
-    completed: 'green',
-    rejected: 'red'
+  const applyFilters = (data, statusFilter, search) => {
+    let result = [...data];
+
+    if (statusFilter !== 'all') {
+      result = result.filter(row => row.status === statusFilter);
+    }
+
+    if (search.trim()) {
+      const lower = search.toLowerCase();
+      result = result.filter(row =>
+        (row.user_name || '').toLowerCase().includes(lower) ||
+        (row.user_email || '').toLowerCase().includes(lower) ||
+        (row.method || '').toLowerCase().includes(lower) ||
+        String(row.points || '').includes(lower) ||
+        String(row.amount || '').includes(lower)
+      );
+    }
+
+    setFilteredPayouts(result);
   };
 
-  const columns = [
-    { 
+  useEffect(() => {
+    fetchPayouts();
+  }, []);
+
+  useEffect(() => {
+    applyFilters(payouts, tableStatus, searchValue);
+  }, [tableStatus, searchValue, payouts]);
+
+  const handleSearch = (value) => {
+    setSearchValue(value);
+  };
+
+  const updatePayoutStatus = async (id, newStatus) => {
+    if (!window.confirm(`Mark this payout as "${newStatus}"?`)) return;
+
+    try {
+      await API.post(`${namespace}pro/payout/update`, {
+        id,
+        status: newStatus,
+      });
+      fetchPayouts();
+    } catch (err) {
+      console.error('Update failed:', err);
+      alert('Could not update status');
+    }
+  };
+
+  const deletePayout = async (id) => {
+    if (!window.confirm(__('Delete this payout permanently?', 'gameengine'))) return;
+
+    try {
+      await API.delete(`${namespace}pro/payout/delete/${id}`);
+      fetchPayouts();
+    } catch (err) {
+      console.error('Delete failed:', err);
+    }
+  };
+
+  const statusColors = {
+    pending: 'orange',
+    completed: 'green',
+    rejected: 'red',
+  };
+
+  const columns = useMemo(() => [
+    {
       name: __('User', 'gameengine'),
       cell: row => (
         <Box>
-          <Text fontWeight="500">
-            {row.user_name}
-          </Text>
-          <Text fontSize="12px" color="gray.500">
-            {row.user_email}
-          </Text>
+          <Text fontWeight="500">{row.user_name || '—'}</Text>
+          <Text fontSize="12px" color="gray.500">{row.user_email || '—'}</Text>
         </Box>
       ),
-      columnWidth: "18%"
+      columnWidth: "22%",
     },
-    { 
+    {
       name: __('Points', 'gameengine'),
-      cell: row => row.points,
-      columnWidth: "10%"
+      cell: row => row.points || '—',
+      columnWidth: "10%",
     },
     {
       name: __('Amount', 'gameengine'),
-      cell: row => row.amount,
-      columnWidth: "12%"
+      cell: row => row.amount || '—',
+      columnWidth: "12%",
     },
     {
       name: __('Method', 'gameengine'),
-      cell: row => row.method,
-      columnWidth: "12%"
+      cell: row => row.method || '—',
+      columnWidth: "12%",
     },
     {
       name: __('Account Details', 'gameengine'),
-      cell: row => row.account_details,
-      columnWidth: "20%"
+      cell: row => (
+        <Tooltip label={row.account_details || '—'}>
+          <Text isTruncated maxW="180px">
+            {row.account_details || '—'}
+          </Text>
+        </Tooltip>
+      ),
+      columnWidth: "20%",
     },
     {
       name: __('Status', 'gameengine'),
       cell: row => (
-        <Badge colorScheme={statusColor[row.status]}>
-          {row.status}
+        <Badge colorScheme={statusColors[row.status] || 'gray'}>
+          {row.status ? row.status.charAt(0).toUpperCase() + row.status.slice(1) : '—'}
         </Badge>
       ),
-      columnWidth: "10%"
+      columnWidth: "10%",
     },
     {
       name: __('Date', 'gameengine'),
-      cell: row => (
-        moment(row.created_at).format('MMM DD, YYYY')
-      ),
-      columnWidth: "10%"
+      cell: row => row.created_at ? moment(row.created_at).format('MMM DD, YYYY') : '—',
+      columnWidth: "10%",
     },
     {
       name: __('Action', 'gameengine'),
-      cell: row => (
-        <OptionMenu
-          options={[
+      cell: row => {
+        const options = [
+          {
+            type: 'button',
+            label: __('View', 'gameengine'),
+            icon: <Icon as={FiEye} />,
+            onClick: () => console.log('View payout:', row),
+          },
+        ];
+
+        if (row.status === 'pending') {
+          options.push(
             {
               type: 'button',
-              label: "View",
-              icon: <Icon as={FiEye} />,
-              onClick: () => console.log(row)
+              label: __('Approve', 'gameengine'),
+              icon: <Icon as={FiCheckCircle} color="green.500" />,
+              onClick: () => updatePayoutStatus(row.id, 'completed'),
             },
             {
               type: 'button',
-              label: "Delete",
-              icon: <Icon as={FiTrash2} />,
-              onClick: () => deleteHandler(row.id)
+              label: __('Reject', 'gameengine'),
+              icon: <Icon as={FiXCircle} color="red.500" />,
+              onClick: () => updatePayoutStatus(row.id, 'rejected'),
             }
-          ]}
-        />
-      ),
-      columnWidth: "8%"
-    }
+          );
+        }
+
+        options.push({
+          type: 'button',
+          label: __('Delete', 'gameengine'),
+          icon: <Icon as={FiTrash2} color="red.400" />,
+          onClick: () => deletePayout(row.id),
+        });
+
+        return <OptionMenu options={options} />;
+      },
+      columnWidth: "14%",
+      textAlign: "end",
+    },
+  ], []);
+
+  const filterTabs = [
+    { value: 'all', label: __('All', 'gameengine') },
+    { value: 'pending', label: __('Pending', 'gameengine') },
+    { value: 'completed', label: __('Completed', 'gameengine') },
+    { value: 'rejected', label: __('Rejected', 'gameengine') },
   ];
 
-  const subHeaderComponentMemo = useMemo(() => {
-    const searchHandler = (value) => {
-      fetchHandler(value);
-    };
-    return (
-      <Flex justifyContent="flex-end">
-        <Search
-          placeholder="Search user"
-          onSearchHandler={searchHandler}
-        />
+  const subHeaderComponentMemo = useMemo(() => (
+    <Flex justifyContent="space-between" width="100%">
+      <Flex gap={1}>
+        {filterTabs.map((tab) => (
+          <Button
+            key={tab.value}
+            variant="plain"
+            bg="transparent"
+            minW="auto"
+            height="auto"
+            fontSize="12px"
+            fontWeight="500"
+            color={tableStatus === tab.value ? 'var(--gameengine-primary)' : 'var(--gameengine-font-color)'}
+            _after={{
+              content: '""',
+              position: 'absolute',
+              left: 0,
+              bottom: '-18px',
+              width: '100%',
+              height: '2px',
+              bg: 'var(--gameengine-primary)',
+              transform: tableStatus === tab.value ? 'scaleX(1)' : 'scaleX(0)',
+              transformOrigin: 'left',
+              transition: 'transform 0.2s ease',
+            }}
+            _hover={{ _after: { transform: 'scaleX(1)' } }}
+            onClick={() => setTableStatus(tab.value)}
+          >
+            {tab.label}
+          </Button>
+        ))}
       </Flex>
-    );
-  }, []);
 
-  const applyBulkActionHandler = (rows) => {
+      <Box>
+        <Search
+          placeholder={__('Search question', 'gameengine')}
+          onSearchHandler={handleSearch}
+          defaultValue={searchValue}
+        />
+      </Box>
+    </Flex>
+  ), [tableStatus, searchValue]);
+
+  const applyBulkAction = (rows, actionType) => {
     if (!rows.length) return;
+
+    let message = actionType === 'delete'
+      ? __('Delete selected payouts permanently?', 'gameengine')
+      : '';
+
     setActionSelected({
       value: true,
-      type: 'delete',
-      message: "Delete selected payouts?"
+      type: actionType,
+      message,
     });
   };
 
   const confirmBulkHandler = async () => {
-    for (const row of selectedRows) {
-      await fetch(
-        `/wp-json/gameengine/v1/pro/payout/delete/${row.id}`,
-        { method: "DELETE" }
-      );
+    if (actionSelected.type === 'delete') {
+      try {
+        for (const row of selectedRows) {
+          await API.delete(`${namespace}pro/payout/delete/${row.id}`);
+        }
+        setSelectedRows([]);
+        setActionSelected({ value: false });
+        fetchPayouts();
+      } catch (err) {
+        console.error('Bulk delete error:', err);
+      }
     }
-    setSelectedRows([]);
-    setActionSelected({ value: false });
-    fetchHandler();
   };
 
   const snackbarActionButtons = [
     {
-      label: "Delete",
-      onClick: () => applyBulkActionHandler(selectedRows),
-      className: 'gameengine-btn--delete'
-    }
+      label: __('Delete', 'gameengine'),
+      onClick: () => applyBulkAction(selectedRows, 'delete'),
+      className: 'gameengine-btn--delete',
+    },
   ];
 
   return (
     <>
       <ListTable
+        key={'wallet-payouts-' + filteredPayouts.length}
         columns={columns}
-        data={payouts}
-        showSubHeader
+        showColumnFilter={false}
+        data={filteredPayouts}
+        showSubHeader={true}
         subHeaderComponent={subHeaderComponentMemo}
-        isRowSelectable={false}
-        noDataText="No payout found"
-        dataFetchingStatus={loading ? 'pending' : 'success'}
+        isRowSelectable={true}
+        showPagination={false}
+        noDataText={__('No data found for Wallet', 'gameengine')}
+        totalItems={filteredPayouts.length}
+        totalRows={filteredPayouts.length}
+        rowsPerPage={filteredPayouts.length || 10}
+        currentPageNumber={[1]}
         getSelectRowValue={setSelectedRows}
       />
 
-      {/* <SnackbarAction
+      <SnackbarAction
         itemsLength={selectedRows.length}
         actionButtons={snackbarActionButtons}
         isActionSelected={actionSelected}
@@ -208,7 +316,7 @@ useEffect(() => {
           setSelectedRows([]);
           setActionSelected({ value: false });
         }}
-      /> */}
+      />
     </>
   );
 };
