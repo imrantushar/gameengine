@@ -9,7 +9,7 @@ import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import Tooltip from '@GFComponents/Tooltip';
-import { LuInfo, LuSettings } from 'react-icons/lu';
+import { LuInfo, LuLock, LuSettings } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 
 const AddonCard = ({ item, index, value }) => {
@@ -58,8 +58,8 @@ const AddonCard = ({ item, index, value }) => {
 		});
 	};
 
-	// const isShowProTag = !is_pro && item.is_pro;
-
+	const isShowProTag = !is_pro && item.is_pro;
+    const showSwitch    = !item.is_coming_soon && !isShowProTag;
 	const getIconBorder = () => {
 		if (item.name === 'certificates') return '1px solid #7b68ee';
 		if (item.name === 'storeengine') return '1px solid #008dff';
@@ -90,7 +90,7 @@ const AddonCard = ({ item, index, value }) => {
 					</Link>
 				) : (
 					<Box height="fit-content">
-						{item.is_pro && (
+						{isShowProTag && (
 							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
 								{__('Pro', 'gameengine')}
 							</Badge>
@@ -138,11 +138,15 @@ const AddonCard = ({ item, index, value }) => {
 
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
+							{showSwitch ? (
 							<CustomSwitch
 								name={item.name}
-								value={values[item.name]} // Standard HTML attribute
+								value={values[item.name]}
 								onChange={onChangeHandler}
 							/>
+							) : isShowProTag ? (
+							<Icon as={LuLock} boxSize="20px" color="gray.600" />
+							) : null}
 						</Box>
 					)}
 				</Flex>
@@ -154,13 +158,17 @@ const AddonCard = ({ item, index, value }) => {
 
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
+							{showSwitch ? (
 							<CustomSwitch
 								name={item.name}
-								value={values[item.name]} // Standard HTML attribute
+								value={values[item.name]}
 								onChange={onChangeHandler}
 							/>
+							) : isShowProTag ? (
+							<Icon as={LuLock} boxSize="20px" color="gray.600" />
+							) : null}
 						</Box>
-					)}
+					)}	
 				</Flex>
 			)}
 		</Flex>

@@ -41,14 +41,14 @@ const Wallet = () => {
             <TopBar path={__("Wallet Lists", "gameengine")} />
 
             <div className='gameengine-page-content'>
-                {(pointTypes.length === 0 && banners?.points !== 'yes') && (
+                {/* {(pointTypes.length === 0 && banners?.points !== 'yes') && (
                     <ImportDemoBanner 
                         title={__("No point system found.", 'gameengine')}
                         subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')}
                         handleImport={importHandler}
                         handleClose={closeHandler}
                     />
-                )}
+                )} */}
                 <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
                     <GFLabel type="plainHeading" margin={0} label={__("Wallet Lists", "gameengine")} />
 

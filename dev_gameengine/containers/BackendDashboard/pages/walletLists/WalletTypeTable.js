@@ -28,7 +28,7 @@ const WalletTypesTable = () => {
     message: ''
   });
 
-const fetchHandler = async (searchKey = "") => {
+const fetchHandler = async () => {
   try {
     setLoading(true);
     const response = await API.get(
