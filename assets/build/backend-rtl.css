@@ -3520,7 +3520,7 @@ input.gameengine-checkbox:checked::before {
   border: none;
   background: rgba(114, 114, 114, 0.12);
 }
-.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed {
+.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed, .gameengine-dropdown-option--rejected {
   color: #FF4D4D;
   border: none;
   background: rgba(244, 72, 63, 0.12);

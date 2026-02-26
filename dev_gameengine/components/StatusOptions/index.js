@@ -34,6 +34,7 @@ const StatusOptions = ( props ) => {
 		cancel: __( 'Cancel', 'gameengine' ),
 		private: __( 'Private', 'gameengine' ),
 		future: __( 'Scheduled', 'gameengine' ),
+		rejected: __( 'Rejected', 'gameengine' ),
 	};
 
 	const menuItemRef = useRef( null );

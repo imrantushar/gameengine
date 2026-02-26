@@ -16,6 +16,7 @@ import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
 import moment from 'moment';
 import { API, namespace } from '@GFUtils/helper';
 import Tooltip from "@GFComponents/Tooltip";
+import StatusOptions from '@GFComponents/StatusOptions';
 
 const WalletTypesTable = () => {
   const [payouts, setPayouts] = useState([]);
@@ -76,8 +77,6 @@ const WalletTypesTable = () => {
   };
 
   const updatePayoutStatus = async (id, newStatus) => {
-    if (!window.confirm(`Mark this payout as "${newStatus}"?`)) return;
-
     try {
       await API.post(`${namespace}pro/payout/update`, {
         id,
@@ -90,22 +89,16 @@ const WalletTypesTable = () => {
     }
   };
 
-  const deletePayout = async (id) => {
-    if (!window.confirm(__('Delete this payout permanently?', 'gameengine'))) return;
+  // const deletePayout = async (id) => {
+  //   if (!window.confirm(__('Delete this payout permanently?', 'gameengine'))) return;
 
-    try {
-      await API.delete(`${namespace}pro/payout/delete/${id}`);
-      fetchPayouts();
-    } catch (err) {
-      console.error('Delete failed:', err);
-    }
-  };
-
-  const statusColors = {
-    pending: 'orange',
-    completed: 'green',
-    rejected: 'red',
-  };
+  //   try {
+  //     await API.delete(`${namespace}pro/payout/delete/${id}`);
+  //     fetchPayouts();
+  //   } catch (err) {
+  //     console.error('Delete failed:', err);
+  //   }
+  // };
 
   const columns = useMemo(() => [
     {
@@ -146,12 +139,29 @@ const WalletTypesTable = () => {
     },
     {
       name: __('Status', 'gameengine'),
-      cell: row => (
-        <Badge colorScheme={statusColors[row.status] || 'gray'}>
-          {row.status ? row.status.charAt(0).toUpperCase() + row.status.slice(1) : '—'}
-        </Badge>
-      ),
-      columnWidth: "10%",
+      cell: (row) => {
+        const walletStatusOptions = [
+          { value: 'pending', label: __('Pending', 'gameengine') },
+          { value: 'approved', label: __('Approved', 'gameengine') },
+          { value: 'rejected', label: __('Rejected', 'gameengine') },
+          { value: 'completed', label: __('Completed', 'gameengine') },
+        ];
+
+        const statusUpdateHandler = (newStatus) => {
+          updatePayoutStatus(row.id, newStatus);
+        };
+
+        return (
+          <StatusOptions
+            value={row?.status || 'pending'}           
+            options={{
+              items: walletStatusOptions,              
+            }}
+            onChangeHandler={statusUpdateHandler}
+          />
+        );
+      },
+      columnWidth: "14%",
     },
     // {
     //   name: __('Date', 'gameengine'),
