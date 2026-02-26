@@ -43,7 +43,7 @@ const AddonCard = ({ item, index, value }) => {
 
 					setUpdating(false)
 					dispatch(fetchSettings());
-					window.location.reload();
+					// window.location.reload();
 				} else {
 					setFieldValue(item.name, false);
 					dispatch(
