@@ -105,8 +105,8 @@ const WalletTypesTable = () => {
       name: __('User', 'gameengine'),
       cell: row => (
         <Box>
-          <Text fontWeight="500">{row.user_name || '—'}</Text>
-          <Text fontSize="12px" color="gray.500">{row.user_email || '—'}</Text>
+          <Text fontWeight="500">{row.display_name || '—'}</Text>
+          {/* <Text fontSize="12px" color="gray.500">{row.user_email || '—'}</Text> */}
         </Box>
       ),
       columnWidth: "22%",
