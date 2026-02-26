@@ -43,7 +43,7 @@ const AddonCard = ({ item, index, value }) => {
 
 					setUpdating(false)
 					dispatch(fetchSettings());
-					// window.location.reload();
+					window.location.reload();
 				} else {
 					setFieldValue(item.name, false);
 					dispatch(
@@ -85,22 +85,23 @@ const AddonCard = ({ item, index, value }) => {
 					)}
 				</Box>
 				{showSettings ? (
-					<Link
-						to={admin_url + item?.route}
-					>
-						<Icon as={LuSettings} boxSize={'20px'} />
-					</Link>
+				<Link to={admin_url + item?.route}>
+					<Icon as={LuSettings} boxSize="20px" />
+				</Link>
 				) : (
-					<Box height="fit-content">
-						{isShowProTag && (
-							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
-								{__('Pro', 'gameengine')}
-							</Badge>
-						)}
-						{item.is_coming_soon && (
-							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
-						)}
-					</Box>
+				<Box height="fit-content">
+					{isShowProTag && (
+					<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
+						{__('Pro', 'gameengine')}
+					</Badge>
+					)}
+
+					{item.is_coming_soon && (
+					<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">
+						{__('Coming Soon', 'gameengine')}
+					</Badge>
+					)}
+				</Box>
 				)}
 			</Flex>
 

@@ -91,10 +91,10 @@ class Helper
         return time() + (get_option('gmt_offset') * HOUR_IN_SECONDS);
     }
 
-    // public static function is_addon_active( $addon_name ) {
-    //     $active_addons = get_option( 'gameengine_active_addons', [] );
-    //     return in_array( $addon_name, (array) $active_addons, true );
-    // }
+    public static function is_addon_active( $addon_name ) {
+        $active_addons = get_option( 'gameengine_active_addons', [] );
+        return in_array( $addon_name, (array) $active_addons, true );
+    }
 
     /**
      * List of admin menu items.
@@ -121,15 +121,6 @@ class Helper
             'capability'  => 'manage_options',
         );
         
-        // Wallet System
-        // if ( self::is_addon_active( 'wallet' ) ) {  
-        //     $menu[$slug . '-wallet'] = array(
-        //         'parent_slug' => $slug,
-        //         'title'       => __('Wallet Lists', 'gameengine'),
-        //         'capability'  => 'manage_options',
-        //     );
-        // }
-
         // Achievements with Nested Submenu
         $menu[$slug . '-achievements'] = array(
             'parent_slug' => $slug,
@@ -165,6 +156,15 @@ class Helper
             'title'       => __('Leaderboards', 'gameengine'),
             'capability'  => 'manage_options',
         );
+
+        // Wallet System
+        if ( self::is_addon_active( 'wallet' ) ) {  
+            $menu[$slug . '-wallet'] = array(
+                'parent_slug' => $slug,
+                'title'       => __('Wallet Lists', 'gameengine'),
+                'capability'  => 'manage_options',
+            );
+        }
 
         // Addons
         $menu[$slug . '-addons'] = array(
