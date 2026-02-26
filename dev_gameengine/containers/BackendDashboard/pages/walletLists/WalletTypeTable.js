@@ -153,47 +153,32 @@ const WalletTypesTable = () => {
       ),
       columnWidth: "10%",
     },
-    {
-      name: __('Date', 'gameengine'),
-      cell: row => row.created_at ? moment(row.created_at).format('MMM DD, YYYY') : '—',
-      columnWidth: "10%",
-    },
+    // {
+    //   name: __('Date', 'gameengine'),
+    //   cell: row => row.created_at ? moment(row.created_at).format('MMM DD, YYYY') : '—',
+    //   columnWidth: "10%",
+    // },
     {
       name: __('Action', 'gameengine'),
       cell: row => {
+        if (row.status !== 'pending') {
+          return null; 
+        }
+
         const options = [
           {
             type: 'button',
-            label: __('View', 'gameengine'),
-            icon: <Icon as={FiEye} />,
-            onClick: () => console.log('View payout:', row),
+            label: __('Completed', 'gameengine'),
+            icon: <Icon as={FiCheckCircle} />,
+            onClick: () => updatePayoutStatus(row.id, 'completed')
           },
+          {
+            type: 'button',
+            label: __('Rejected', 'gameengine'),
+            icon: <Icon as={FiTrash2} />,
+            onClick: () => updatePayoutStatus(row.id, 'rejected')
+          }
         ];
-
-        if (row.status === 'pending') {
-          options.push(
-            {
-              type: 'button',
-              label: __('Approve', 'gameengine'),
-              icon: <Icon as={FiCheckCircle} color="green.500" />,
-              onClick: () => updatePayoutStatus(row.id, 'completed'),
-            },
-            {
-              type: 'button',
-              label: __('Reject', 'gameengine'),
-              icon: <Icon as={FiXCircle} color="red.500" />,
-              onClick: () => updatePayoutStatus(row.id, 'rejected'),
-            }
-          );
-        }
-
-        options.push({
-          type: 'button',
-          label: __('Delete', 'gameengine'),
-          icon: <Icon as={FiTrash2} color="red.400" />,
-          onClick: () => deletePayout(row.id),
-        });
-
         return <OptionMenu options={options} />;
       },
       columnWidth: "14%",
@@ -251,42 +236,42 @@ const WalletTypesTable = () => {
     </Flex>
   ), [tableStatus, searchValue]);
 
-  const applyBulkAction = (rows, actionType) => {
-    if (!rows.length) return;
+  // const applyBulkAction = (rows, actionType) => {
+  //   if (!rows.length) return;
 
-    let message = actionType === 'delete'
-      ? __('Delete selected payouts permanently?', 'gameengine')
-      : '';
+  //   let message = actionType === 'delete'
+  //     ? __('Delete selected payouts permanently?', 'gameengine')
+  //     : '';
 
-    setActionSelected({
-      value: true,
-      type: actionType,
-      message,
-    });
-  };
+  //   setActionSelected({
+  //     value: true,
+  //     type: actionType,
+  //     message,
+  //   });
+  // };
 
-  const confirmBulkHandler = async () => {
-    if (actionSelected.type === 'delete') {
-      try {
-        for (const row of selectedRows) {
-          await API.delete(`${namespace}pro/payout/delete/${row.id}`);
-        }
-        setSelectedRows([]);
-        setActionSelected({ value: false });
-        fetchPayouts();
-      } catch (err) {
-        console.error('Bulk delete error:', err);
-      }
-    }
-  };
+  // const confirmBulkHandler = async () => {
+  //   if (actionSelected.type === 'delete') {
+  //     try {
+  //       for (const row of selectedRows) {
+  //         await API.delete(`${namespace}pro/payout/delete/${row.id}`);
+  //       }
+  //       setSelectedRows([]);
+  //       setActionSelected({ value: false });
+  //       fetchPayouts();
+  //     } catch (err) {
+  //       console.error('Bulk delete error:', err);
+  //     }
+  //   }
+  // };
 
-  const snackbarActionButtons = [
-    {
-      label: __('Delete', 'gameengine'),
-      onClick: () => applyBulkAction(selectedRows, 'delete'),
-      className: 'gameengine-btn--delete',
-    },
-  ];
+  // const snackbarActionButtons = [
+  //   {
+  //     label: __('Delete', 'gameengine'),
+  //     onClick: () => applyBulkAction(selectedRows, 'delete'),
+  //     className: 'gameengine-btn--delete',
+  //   },
+  // ];
 
   return (
     <>
@@ -297,7 +282,7 @@ const WalletTypesTable = () => {
         data={filteredPayouts}
         showSubHeader={true}
         subHeaderComponent={subHeaderComponentMemo}
-        isRowSelectable={true}
+        isRowSelectable={false}
         showPagination={false}
         noDataText={__('No data found for Wallet', 'gameengine')}
         totalItems={filteredPayouts.length}
@@ -307,7 +292,7 @@ const WalletTypesTable = () => {
         getSelectRowValue={setSelectedRows}
       />
 
-      <SnackbarAction
+      {/* <SnackbarAction
         itemsLength={selectedRows.length}
         actionButtons={snackbarActionButtons}
         isActionSelected={actionSelected}
@@ -316,7 +301,7 @@ const WalletTypesTable = () => {
           setSelectedRows([]);
           setActionSelected({ value: false });
         }}
-      />
+      /> */}
     </>
   );
 };
