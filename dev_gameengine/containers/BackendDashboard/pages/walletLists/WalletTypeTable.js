@@ -128,13 +128,44 @@ const WalletTypesTable = () => {
     },
     {
       name: __('Account Details', 'gameengine'),
-      cell: row => (
-        <Tooltip label={row.account_details || '—'}>
-          <Text isTruncated maxW="180px">
-            {row.account_details || '—'}
-          </Text>
-        </Tooltip>
-      ),
+      cell: row => {
+        const [showFull, setShowFull] = useState(false);
+        const notes = row.notes || '—';
+        
+        const maxVisible = 60; 
+        const isLong = notes.length > maxVisible;
+        const visibleText = showFull || !isLong 
+          ? notes 
+          : notes.substring(0, maxVisible).trim() + '...';
+
+        return (
+          <Flex direction="column" gap={1}>
+            <Text 
+              fontSize="sm" 
+              whiteSpace="pre-wrap"           
+              wordBreak="break-word"
+              maxW="220px"
+              color={notes === '—' ? 'gray.500' : 'inherit'}
+            >
+              {visibleText}
+            </Text>
+
+            {isLong && (
+              <Button
+                variant="link"
+                color="blue"
+                size="xs"
+                p={0}
+                height="auto"
+                onClick={() => setShowFull(!showFull)}
+                alignSelf="center"
+              >
+                {showFull ? 'Show less' : 'Show more'}
+              </Button>
+            )}
+          </Flex>
+        );
+      },
       columnWidth: "20%",
     },
     {
