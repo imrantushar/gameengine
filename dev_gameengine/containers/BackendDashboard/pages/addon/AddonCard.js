@@ -60,6 +60,7 @@ const AddonCard = ({ item, index, value }) => {
 
 	const isShowProTag = !is_pro && item.is_pro;
     const showSwitch    = !item.is_coming_soon && !isShowProTag;
+	const showSettings = item?.route && !item.is_coming_soon && values[item.name] === true;
 	const getIconBorder = () => {
 		if (item.name === 'certificates') return '1px solid #7b68ee';
 		if (item.name === 'storeengine') return '1px solid #008dff';
@@ -82,7 +83,7 @@ const AddonCard = ({ item, index, value }) => {
 						<Image src={item.image} />
 					)}
 				</Box>
-				{item?.route && (!item.is_coming_soon || !item.is_pro) ? (
+				{showSettings ? (
 					<Link
 						to={admin_url + item?.route}
 					>

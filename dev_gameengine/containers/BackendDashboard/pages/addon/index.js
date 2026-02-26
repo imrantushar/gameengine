@@ -130,7 +130,7 @@ const infoCardsData = [
 		icon: false,
 		image: plugin_root_url+'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
-		route: "",
+		route: "admin.php?page=gameengine-wallet",
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================
