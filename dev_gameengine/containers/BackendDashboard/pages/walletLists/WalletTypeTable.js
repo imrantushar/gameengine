@@ -236,30 +236,38 @@ const WalletTypesTable = () => {
 
   const subHeaderComponentMemo = useMemo(() => (
     <Flex justifyContent="space-between" width="100%">
-      <Flex gap={1}>
-        {filterTabs.map((tab) => (
+      <Flex className='gameengine-table-subheader-left' justifyContent={'space-between'}>
+        {filterTabs.map((tab, index) => (
           <Button
-            key={tab.value}
-            variant="plain"
-            bg="transparent"
+            key={index}
+            variant={'plain'} 
             minW="auto"
-            height="auto"
-            fontSize="12px"
-            fontWeight="500"
-            color={tableStatus === tab.value ? 'var(--gameengine-primary)' : 'var(--gameengine-font-color)'}
+            bg={'transparent'}
+            height={'auto'}
+            fontSize={'12px'}
+            fontWeight={'500'}
+            lineHeight={'20px'}
+            color={'var(--gameengine-font-color)'}
+            paddingInline={'0'}
+            padding={'16px 16px 0 16px'}
             _after={{
-              content: '""',
-              position: 'absolute',
-              left: 0,
-              bottom: '-18px',
-              width: '100%',
-              height: '2px',
-              bg: 'var(--gameengine-primary)',
-              transform: tableStatus === tab.value ? 'scaleX(1)' : 'scaleX(0)',
-              transformOrigin: 'left',
-              transition: 'transform 0.2s ease',
+                content: '""',
+                position: "absolute",
+                left: 0,
+                bottom: "-18px",
+                width: "100%",
+                height: "2px",
+                bg: "var(--gameengine-primary)",
+                transform:
+                    tableStatus === tab.value ? "scaleX(1)" : "scaleX(0)",
+                transformOrigin: "left",
+                transition: "transform 0.2s ease",
             }}
-            _hover={{ _after: { transform: 'scaleX(1)' } }}
+            _hover={{
+                _after: {
+                    transform: "scaleX(1)", 
+                },
+            }}
             onClick={() => setTableStatus(tab.value)}
           >
             {tab.label}
