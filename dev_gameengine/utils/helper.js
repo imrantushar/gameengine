@@ -161,3 +161,9 @@ export const tableStatusArray = [
 	},
 	...statusArray
 ];
+
+export function decodeHtmlEntity(entity) {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = entity;
+  return txt.value;
+}
