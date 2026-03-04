@@ -9,23 +9,10 @@ import SettingsInput from '../Components/SettingsInput';
 import { decodeHtmlEntity, is_pro } from '@GFUtils/helper';
 import currencySymbols from '@GFUtils/currency-symbols';
 
-const baseRoleOptions = [
-    'administrator',
-    'subscriber',
-    'customer',
-];
-
 export const Economy = () => {
     const { values, setFieldValue } = useFormikContext();
 
-    const roleOptions = baseRoleOptions.map(role => ({
-        label: role.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase()),
-        value: role,
-    }));
-
-    const selectedRole = Array.isArray(values?.economy?.allowed_roles)
-        ? values?.economy?.allowed_roles[0] || ''
-        : values?.economy?.allowed_roles || '';
+    const roleOptions = values?.available_roles || [];
 
     const selectedRoleOption = roleOptions.filter(option => (values?.economy?.allowed_roles || []).includes(option.value));
 

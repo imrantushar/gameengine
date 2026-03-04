@@ -1,7 +1,7 @@
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import React from 'react';
 import { __ } from "@wordpress/i18n";
-import { Flex, Input, Switch } from '@chakra-ui/react';
+import { Input, Switch } from '@chakra-ui/react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
 import { useFormikContext } from 'formik';
@@ -9,19 +9,10 @@ import Select from 'react-select';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 
-const payoutMethods = [
-  {
-    label: __('bKash', 'gameengine'),
-    value: "bKash"
-  },
-  {
-    label: __('Paypal', 'gameengine'),
-    value: 'PayPal'
-  },
-]
-
 const Payout = () => {
   const { values, setFieldValue } = useFormikContext();
+  const payoutMethods = values?.available_methods || [];
+
   return (
     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" width="100%">
       <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Payout", "gameengine")} />
