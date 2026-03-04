@@ -60,7 +60,7 @@ const WalletTypesTable = () => {
     {
       name: __('User', 'gameengine'),
       cell: row => (
-          <Text fontWeight="500">{row.display_name || '—'}</Text>
+        <Text fontWeight="500">{row.display_name || '—'}</Text>
       ),
       columnWidth: "22%",
     },
@@ -183,56 +183,61 @@ const WalletTypesTable = () => {
     { value: 'rejected', label: __('Rejected', 'gameengine') },
   ];
 
-  const subHeaderComponentMemo = useMemo(() => (
-    <Flex justifyContent="space-between" width="100%">
-      <Flex className='gameengine-table-subheader-left' justifyContent={'space-between'}>
-        {filterTabs.map((tab, index) => (
-          <Button
-            key={index}
-            variant={'plain'}
-            minW="auto"
-            bg={'transparent'}
-            height={'auto'}
-            fontSize={'12px'}
-            fontWeight={'500'}
-            lineHeight={'20px'}
-            color={'var(--gameengine-font-color)'}
-            paddingInline={'0'}
-            padding={'16px 16px 0 16px'}
-            _after={{
-              content: '""',
-              position: "absolute",
-              left: 0,
-              bottom: "-18px",
-              width: "100%",
-              height: "2px",
-              bg: "var(--gameengine-primary)",
-              transform:
-                tableStatus === tab.value ? "scaleX(1)" : "scaleX(0)",
-              transformOrigin: "left",
-              transition: "transform 0.2s ease",
-            }}
-            _hover={{
-              _after: {
-                transform: "scaleX(1)",
-              },
-            }}
-            onClick={() => setTableStatus(tab.value)}
-          >
-            {tab.label}
-          </Button>
-        ))}
-      </Flex>
+  const subHeaderComponentMemo = useMemo(() => {
+    return (
+      <Flex justifyContent="space-between" width="100%">
+        <Flex className='gameengine-table-subheader-left' justifyContent={'space-between'}>
+          {filterTabs.map((tab, index) => (
+            <Button
+              key={index}
+              variant={'plain'}
+              minW="auto"
+              bg={'transparent'}
+              height={'auto'}
+              fontSize={'12px'}
+              fontWeight={'500'}
+              lineHeight={'20px'}
+              color={'var(--gameengine-font-color)'}
+              paddingInline={'0'}
+              padding={'16px 16px 0 16px'}
+              _after={{
+                content: '""',
+                position: "absolute",
+                left: 0,
+                bottom: "-18px",
+                width: "100%",
+                height: "2px",
+                bg: "var(--gameengine-primary)",
+                transform:
+                  tableStatus === tab.value ? "scaleX(1)" : "scaleX(0)",
+                transformOrigin: "left",
+                transition: "transform 0.2s ease",
+              }}
+              _hover={{
+                _after: {
+                  transform: "scaleX(1)",
+                },
+              }}
+              onClick={() => {
+                fetchPayouts({status: tab.value});
+                setTableStatus(tab.value);
+              }}
+            >
+              {tab.label}
+            </Button>
+          ))}
+        </Flex>
 
-      <Box>
-        <Search
-          placeholder={__('Search question', 'gameengine')}
-          onSearchHandler={handleSearch}
-          defaultValue={searchValue}
-        />
-      </Box>
-    </Flex>
-  ), [tableStatus, searchValue]);
+        <Box>
+          <Search
+            placeholder={__('Search question', 'gameengine')}
+            onSearchHandler={handleSearch}
+            defaultValue={searchValue}
+          />
+        </Box>
+      </Flex>
+    )
+  }, [tableStatus, searchValue]);
 
   return (
     <>
