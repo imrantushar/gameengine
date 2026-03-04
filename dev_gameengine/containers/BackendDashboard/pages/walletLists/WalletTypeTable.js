@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
-  Badge,
   Box,
   Button,
   Flex,
@@ -9,105 +8,59 @@ import {
 } from '@chakra-ui/react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
-import { FiEye, FiCheckCircle, FiXCircle, FiTrash2 } from "react-icons/fi";
+import { FiCheckCircle, FiTrash2 } from "react-icons/fi";
 import OptionMenu from '@GFComponents/OptionMenu';
 import Search from '@GFComponents/Search';
-import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
-import moment from 'moment';
-import { API, namespace } from '@GFUtils/helper';
-import Tooltip from "@GFComponents/Tooltip";
 import StatusOptions from '@GFComponents/StatusOptions';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPayoutList, payoutSearch, updatePayoutStatus } from '@GFRedux/Slices/payoutSlice/payoutSlice';
 
 const WalletTypesTable = () => {
-  const [payouts, setPayouts] = useState([]);
-  const [filteredPayouts, setFilteredPayouts] = useState([]);
-  const [tableStatus, setTableStatus] = useState('all'); 
-  const [searchValue, setSearchValue] = useState('');
-  const [selectedRows, setSelectedRows] = useState([]);
-  const [actionSelected, setActionSelected] = useState({
-    value: false,
-    type: '',
-    message: '',
-  });
+  const { data: payouts, search: searchValue, total, perPage } = useSelector(state => state.payouts);
 
-  const fetchPayouts = async () => {
+  const [tableStatus, setTableStatus] = useState('all');
+  const [selectedRows, setSelectedRows] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const fetchPayouts = async ({
+    status = 'all',
+    page = 1,
+    per_page = 15,
+    search = ""
+  }) => {
     try {
-      const response = await API.get(`${namespace}pro/payout/list`);
-      const data = Array.isArray(response?.data) ? response.data : [];
-      setPayouts(data);
-      applyFilters(data, tableStatus, searchValue);
+      if (!payouts?.length || payouts?.length < 2) {
+        await dispatch(fetchPayoutList({ status, page, per_page, search })).unwrap()
+      }
     } catch (error) {
       console.error('Failed to load payouts:', error);
-      setPayouts([]);
-      setFilteredPayouts([]);
     }
-  };
-
-  const applyFilters = (data, statusFilter, search) => {
-    let result = [...data];
-
-    if (statusFilter !== 'all') {
-      result = result.filter(row => row.status === statusFilter);
-    }
-
-    if (search.trim()) {
-      const lower = search.toLowerCase();
-      result = result.filter(row =>
-        (row.user_name || '').toLowerCase().includes(lower) ||
-        (row.user_email || '').toLowerCase().includes(lower) ||
-        (row.method || '').toLowerCase().includes(lower) ||
-        String(row.points || '').includes(lower) ||
-        String(row.amount || '').includes(lower)
-      );
-    }
-
-    setFilteredPayouts(result);
   };
 
   useEffect(() => {
-    fetchPayouts();
+    fetchPayouts({});
   }, []);
 
-  useEffect(() => {
-    applyFilters(payouts, tableStatus, searchValue);
-  }, [tableStatus, searchValue, payouts]);
-
   const handleSearch = (value) => {
-    setSearchValue(value);
+    dispatch(payoutSearch(value));
   };
 
-  const updatePayoutStatus = async (id, newStatus) => {
+  const handleUpdateStatus = async (id, newStatus) => {
     try {
-      await API.post(`${namespace}pro/payout/update`, {
-        id,
-        status: newStatus,
-      });
-      fetchPayouts();
+      await dispatch(updatePayoutStatus({ id, status: newStatus })).unwrap();
     } catch (err) {
       console.error('Update failed:', err);
-      alert('Could not update status');
     }
   };
 
-  // const deletePayout = async (id) => {
-  //   if (!window.confirm(__('Delete this payout permanently?', 'gameengine'))) return;
+  const hasPendingRow = payouts.some(row => row.status === 'pending');
 
-  //   try {
-  //     await API.delete(`${namespace}pro/payout/delete/${id}`);
-  //     fetchPayouts();
-  //   } catch (err) {
-  //     console.error('Delete failed:', err);
-  //   }
-  // };
-
-  const columns = useMemo(() => [
+  const columns = [
     {
       name: __('User', 'gameengine'),
       cell: row => (
-        <Box>
           <Text fontWeight="500">{row.display_name || '—'}</Text>
-          {/* <Text fontSize="12px" color="gray.500">{row.user_email || '—'}</Text> */}
-        </Box>
       ),
       columnWidth: "22%",
     },
@@ -131,18 +84,18 @@ const WalletTypesTable = () => {
       cell: row => {
         const [showFull, setShowFull] = useState(false);
         const notes = row.notes || '—';
-        
-        const maxVisible = 60; 
+
+        const maxVisible = 60;
         const isLong = notes.length > maxVisible;
-        const visibleText = showFull || !isLong 
-          ? notes 
+        const visibleText = showFull || !isLong
+          ? notes
           : notes.substring(0, maxVisible).trim() + '...';
 
         return (
           <Flex direction="column" gap={1}>
-            <Text 
-              fontSize="sm" 
-              whiteSpace="pre-wrap"           
+            <Text
+              fontSize="sm"
+              whiteSpace="pre-wrap"
               wordBreak="break-word"
               maxW="220px"
               color={notes === '—' ? 'gray.500' : 'inherit'}
@@ -179,14 +132,14 @@ const WalletTypesTable = () => {
         ];
 
         const statusUpdateHandler = (newStatus) => {
-          updatePayoutStatus(row.id, newStatus);
+          handleUpdateStatus(row.id, newStatus);
         };
 
         return (
           <StatusOptions
-            value={row?.status || 'pending'}           
+            value={row?.status || 'pending'}
             options={{
-              items: walletStatusOptions,              
+              items: walletStatusOptions,
             }}
             onChangeHandler={statusUpdateHandler}
           />
@@ -194,38 +147,34 @@ const WalletTypesTable = () => {
       },
       columnWidth: "14%",
     },
-    // {
-    //   name: __('Date', 'gameengine'),
-    //   cell: row => row.created_at ? moment(row.created_at).format('MMM DD, YYYY') : '—',
-    //   columnWidth: "10%",
-    // },
-    {
-      name: __('Action', 'gameengine'),
-      cell: row => {
-        if (row.status !== 'pending') {
-          return null; 
-        }
+    ...(hasPendingRow
+      ? [{
+        name: __('Action', 'gameengine'),
+        cell: row => {
+          if (row.status !== 'pending') return null;
 
-        const options = [
-          {
-            type: 'button',
-            label: __('Completed', 'gameengine'),
-            icon: <Icon as={FiCheckCircle} />,
-            onClick: () => updatePayoutStatus(row.id, 'completed')
-          },
-          {
-            type: 'button',
-            label: __('Rejected', 'gameengine'),
-            icon: <Icon as={FiTrash2} />,
-            onClick: () => updatePayoutStatus(row.id, 'rejected')
-          }
-        ];
-        return <OptionMenu options={options} />;
-      },
-      columnWidth: "14%",
-      textAlign: "end",
-    },
-  ], []);
+          const options = [
+            {
+              type: 'button',
+              label: __('Completed', 'gameengine'),
+              icon: <Icon as={FiCheckCircle} />,
+              onClick: () => handleUpdateStatus(row.id, 'completed')
+            },
+            {
+              type: 'button',
+              label: __('Rejected', 'gameengine'),
+              icon: <Icon as={FiTrash2} />,
+              onClick: () => handleUpdateStatus(row.id, 'rejected')
+            }
+          ];
+
+          return <OptionMenu options={options} />;
+        },
+        columnWidth: "14%",
+        textAlign: "end",
+      }]
+      : []),
+  ].filter(Boolean);
 
   const filterTabs = [
     { value: 'all', label: __('All', 'gameengine') },
@@ -240,7 +189,7 @@ const WalletTypesTable = () => {
         {filterTabs.map((tab, index) => (
           <Button
             key={index}
-            variant={'plain'} 
+            variant={'plain'}
             minW="auto"
             bg={'transparent'}
             height={'auto'}
@@ -251,22 +200,22 @@ const WalletTypesTable = () => {
             paddingInline={'0'}
             padding={'16px 16px 0 16px'}
             _after={{
-                content: '""',
-                position: "absolute",
-                left: 0,
-                bottom: "-18px",
-                width: "100%",
-                height: "2px",
-                bg: "var(--gameengine-primary)",
-                transform:
-                    tableStatus === tab.value ? "scaleX(1)" : "scaleX(0)",
-                transformOrigin: "left",
-                transition: "transform 0.2s ease",
+              content: '""',
+              position: "absolute",
+              left: 0,
+              bottom: "-18px",
+              width: "100%",
+              height: "2px",
+              bg: "var(--gameengine-primary)",
+              transform:
+                tableStatus === tab.value ? "scaleX(1)" : "scaleX(0)",
+              transformOrigin: "left",
+              transition: "transform 0.2s ease",
             }}
             _hover={{
-                _after: {
-                    transform: "scaleX(1)", 
-                },
+              _after: {
+                transform: "scaleX(1)",
+              },
             }}
             onClick={() => setTableStatus(tab.value)}
           >
@@ -285,72 +234,24 @@ const WalletTypesTable = () => {
     </Flex>
   ), [tableStatus, searchValue]);
 
-  // const applyBulkAction = (rows, actionType) => {
-  //   if (!rows.length) return;
-
-  //   let message = actionType === 'delete'
-  //     ? __('Delete selected payouts permanently?', 'gameengine')
-  //     : '';
-
-  //   setActionSelected({
-  //     value: true,
-  //     type: actionType,
-  //     message,
-  //   });
-  // };
-
-  // const confirmBulkHandler = async () => {
-  //   if (actionSelected.type === 'delete') {
-  //     try {
-  //       for (const row of selectedRows) {
-  //         await API.delete(`${namespace}pro/payout/delete/${row.id}`);
-  //       }
-  //       setSelectedRows([]);
-  //       setActionSelected({ value: false });
-  //       fetchPayouts();
-  //     } catch (err) {
-  //       console.error('Bulk delete error:', err);
-  //     }
-  //   }
-  // };
-
-  // const snackbarActionButtons = [
-  //   {
-  //     label: __('Delete', 'gameengine'),
-  //     onClick: () => applyBulkAction(selectedRows, 'delete'),
-  //     className: 'gameengine-btn--delete',
-  //   },
-  // ];
-
   return (
     <>
       <ListTable
-        key={'wallet-payouts-' + filteredPayouts.length}
+        key={'wallet-payouts-' + payouts.length}
         columns={columns}
         showColumnFilter={false}
-        data={filteredPayouts}
+        data={payouts}
         showSubHeader={true}
         subHeaderComponent={subHeaderComponentMemo}
         isRowSelectable={false}
         showPagination={false}
         noDataText={__('No data found for Wallet', 'gameengine')}
-        totalItems={filteredPayouts.length}
-        totalRows={filteredPayouts.length}
-        rowsPerPage={filteredPayouts.length || 10}
+        totalItems={total}
+        totalRows={total}
+        rowsPerPage={perPage || 10}
         currentPageNumber={[1]}
         getSelectRowValue={setSelectedRows}
       />
-
-      {/* <SnackbarAction
-        itemsLength={selectedRows.length}
-        actionButtons={snackbarActionButtons}
-        isActionSelected={actionSelected}
-        confirmHandler={confirmBulkHandler}
-        resetHandler={() => {
-          setSelectedRows([]);
-          setActionSelected({ value: false });
-        }}
-      /> */}
     </>
   );
 };
