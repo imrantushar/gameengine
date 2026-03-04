@@ -3,6 +3,7 @@ import ShortCodeItem from './ShortCodeItem';
 import { __ } from '@wordpress/i18n';
 // import { is_pro } from '@GFUtils/helper';
 import { Box } from '@chakra-ui/react';
+import { isPro } from '@GFUtils/helper';
 
 // const proShortCode = is_pro
 // 	? [
@@ -28,6 +29,7 @@ const shortCodeData = [
 		subtitle: __('Shows the users current highest level title with a trophy icon.', 'gameengine'),
 		description: __('Great for user profile headers or bio sections.', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: false,
 	},
 	{
 		title: __('Points Balance', 'gameengine'),
@@ -35,6 +37,7 @@ const shortCodeData = [
 		subtitle: __('Ideal for menus, headers, or sidebar widgets.', 'gameengine'),
 		description: __('Displays the current users point total with a coin icon.', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: false,
 	},
 	{
 		title: __('Profile', 'academy'),
@@ -48,6 +51,7 @@ const shortCodeData = [
 			'gameengine'
 		),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: false,
 	},
 	{
 		title: __('Progress Map', 'academy'),
@@ -61,6 +65,7 @@ const shortCodeData = [
 			'gameengine'
 		),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: false,
 	},
 	{
 		title: __('Content Restriction', 'academy'),
@@ -71,6 +76,18 @@ const shortCodeData = [
 		),
 		description: __('Accepts: points, achievement, level, Number (e.g. 100 for points, or ID for badge/level), Optional: Custom message shown to locked users', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: false,
+	},
+	{
+		title: __('Marketplace', 'academy'),
+		shortCode: '[gameengine_marketplace]',
+		subtitle: __(
+			'Lock specific parts of your content (text, images, links) based on user points, badges, or levels.',
+			'gameengine'
+		),
+		description: __('Accepts: points, achievement, level, Number (e.g. 100 for points, or ID for badge/level), Optional: Custom message shown to locked users', 'gameengine'),
+		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
+		isPro: !isPro,
 	},
 ];
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Text } from '@chakra-ui/react';
+import { Span, Text } from '@chakra-ui/react';
 
 const GFLabel = ({
 	type = "title",
@@ -19,6 +19,7 @@ const GFLabel = ({
 	whiteSpace,
 	lineHeight,
 	width,
+	marketingTag = null,
 }) => {
 	const variantStyles = {
 		heading: {
@@ -98,6 +99,20 @@ const GFLabel = ({
 		whiteSpace,
 		width,
 	};
+
+	if (marketingTag) {
+		return (
+			<Text
+				display="flex"
+				alignItems="center"
+				gap={2}
+				{...textProps}
+			>
+				<Span>{label}</Span>
+				{marketingTag}
+			</Text>
+		)
+	}
 
 	return (
 		<Text {...textProps}>

@@ -185,7 +185,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/span/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
 
 
 
@@ -206,7 +207,8 @@ const GFLabel = ({
   borderColor,
   whiteSpace,
   lineHeight,
-  width
+  width,
+  marketingTag = null
 }) => {
   const variantStyles = {
     heading: {
@@ -284,7 +286,15 @@ const GFLabel = ({
     whiteSpace,
     width
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+  if (marketingTag) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+      display: "flex",
+      alignItems: "center",
+      gap: 2,
+      ...textProps
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Span, null, label), marketingTag);
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
     ...textProps
   }, label);
 };
@@ -1346,6 +1356,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getAddonActiveStatus: () => (/* binding */ getAddonActiveStatus),
 /* harmony export */   handleSliceError: () => (/* binding */ handleSliceError),
 /* harmony export */   handleSliceSuccess: () => (/* binding */ handleSliceSuccess),
+/* harmony export */   isPro: () => (/* binding */ isPro),
 /* harmony export */   is_academylms_active: () => (/* binding */ is_academylms_active),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
 /* harmony export */   is_pro: () => (/* binding */ is_pro),
@@ -1391,6 +1402,7 @@ const {
   is_academylms_active,
   banners
 } = window?.GameEngineGlobal;
+const isPro = Boolean(Number(is_pro));
 const reactDebounce = (callback, wait) => {
   let timeout;
   return (...args) => {
