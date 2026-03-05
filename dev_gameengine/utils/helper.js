@@ -22,7 +22,6 @@ export const {
 	banners
 } = window?.GameEngineGlobal;
 
-
 export const reactDebounce = (callback, wait) => {
 	let timeout;
 	return (...args) => {
@@ -161,3 +160,9 @@ export const tableStatusArray = [
 	},
 	...statusArray
 ];
+
+export function decodeHtmlEntity(entity) {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = entity;
+  return txt.value;
+}

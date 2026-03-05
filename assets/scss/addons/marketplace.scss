@@ -1,0 +1,96 @@
+.gameengine-marketplace {
+    font-family: var(--gameengine-font);
+    color: var(--gameengine-font-color);
+    width: 100%;
+
+    &__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 24px;
+    }
+
+    &__card {
+        background: var(--gameengine-background);
+        border-radius: 12px;
+        box-shadow: var(--gameengine-shadow);
+        padding: 24px 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+            box-shadow:
+                0 0 1px 0 rgba(20, 26, 36, 0.20),
+                0 6px 20px 0 rgba(20, 26, 36, 0.12);
+            transform: translateY(-2px);
+        }
+    }
+
+    &__card-cost {
+        color: var(--gameengine-primary);
+    }
+
+    &__card-cost-amount {
+        font-weight: 600;
+    }
+
+    &__card-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 26px;
+        font-family: var(--gameengine-font);
+        font-size: 13px;
+        font-weight: 600;
+        color: #ffffff;
+        background: var(--gameengine-primary);
+        border: none;
+        border-radius: 999px;
+        cursor: pointer;
+        line-height: 1.5;
+        transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+
+        &:hover {
+            background: darken(#006BFF, 8%);
+            box-shadow: 0 4px 12px rgba(0, 107, 255, 0.35);
+        }
+
+        &:active {
+            transform: scale(0.97);
+            box-shadow: none;
+        }
+
+        &:disabled {
+            background: var(--gameengine-border-color);
+            color: var(--gameengine-secondary);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+    }
+
+    &__message {
+        margin-top: 20px;
+        font-size: 0.875rem;
+        min-height: 0;
+
+        &.is-success {
+            color: #1a7f4b;
+            background: #edfaf3;
+            border: 1px solid #a3e6c4;
+            border-radius: 6px;
+            padding: 10px 14px;
+        }
+
+        &.is-error {
+            color: #c0392b;
+            background: #fdf3f2;
+            border: 1px solid #f5c6c2;
+            border-radius: 6px;
+            padding: 10px 14px;
+        }
+    }
+}
