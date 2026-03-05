@@ -23,6 +23,7 @@ module.exports = {
             '@GFCustomizer': path.resolve(__dirname, 'dev_gameengine/customizer/'),
             '@GFGlobal': path.resolve(__dirname, 'dev_gameengine/global/'),
             '@GFRedux': path.resolve(__dirname, 'dev_gameengine/redux/'),
+            '@GFHooks': path.resolve(__dirname, 'dev_gameengine/hooks/'),
             '@GFUtils': path.resolve(__dirname, 'dev_gameengine/utils/'),
         },
     },

@@ -8,6 +8,7 @@
         // "@GFPages/*": ["containers/pages/*"],
         "@GFGlobal/*": ["global/*"],
         "@GFRedux/*": ["redux/*"],
+        "@GFHooks/*": ["hooks/*"],
         "@GFUtils/*": ["utils/*"],
       }
     },

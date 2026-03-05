@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useQuery } from '@GFUtils/helper';
+import React from 'react';
 import Dashboard from './pages/dashboard';
 import Levels from './pages/levels';
 import LevelType from './pages/levels/levelTypes';
@@ -15,6 +14,7 @@ import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import Types from './pages/Types';
 import Wallet from './pages/walletLists';
+import { useLocationQuery } from '@GFHooks/';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -61,11 +61,11 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-tools':
 			return <Tools />;
 
-			case 'gameengine-addons':
-			return <Addons/>;
-			
-			case 'gameengine-wallet':
-			return <Wallet/>;
+		case 'gameengine-addons':
+			return <Addons />;
+
+		case 'gameengine-wallet':
+			return <Wallet />;
 
 		default:
 			return <Dashboard />;
@@ -73,17 +73,25 @@ const renderSwitch = (page, id, action, path) => {
 };
 
 export default function BackendDashboard() {
-	const query = useQuery();
+	const query = useLocationQuery();
+
+	const page = query.getValue('page', null, null, 'string');
+	const path = query.getValue('path', null, null, 'string');
+	const id = query.getValue('id', null, null, 'id');
+	const action = query.getValue('action', null, null, 'string');
+
+	let transitionKey = `${page}-${path}-${id}-${action}`;
+
+	if (page === 'gameengine-settings') {
+		transitionKey = page;
+	}
 
 	return (
 		<div className="gameengine-admin-content">
 			<Notification />
-			{renderSwitch(
-				query.get('page'),
-				parseInt(query.get('id')),
-				query.get('action'),
-				query.get('path')
-			)}
+			<div className="gameengine-page-transition" key={transitionKey}>
+				{ renderSwitch( page, id, action, path ) }
+			</div>
 		</div>
 	);
 }
