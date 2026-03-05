@@ -11,6 +11,7 @@ import levelsReducer from './Slices/levelsSlice/levelsSlice';
 import leaderboardReducer from './Slices/leaderboardSlice/leaderboardSlice';
 import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
+import payoutReducer from './Slices/payoutSlice/payoutSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 
 import logger from 'redux-logger'
@@ -31,6 +32,7 @@ export const store = configureStore({
         achievements: achievementsReducer,
         levels: levelsReducer,
         dashboard: dashboardReducer,
+        payouts: payoutReducer,
         leaderboard: leaderboardReducer,
         settings: settingsReducer,
         addons: addonsReducer,

@@ -30,7 +30,7 @@
         border: none;
         background: rgba(114, 114, 114, .12);   
     }
-    &--cancel,&--trash, &--failed {
+    &--cancel,&--trash, &--failed, &--rejected {
         color: #FF4D4D;
         border: none;
         background: rgba(244, 72, 63, 0.12);
