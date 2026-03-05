@@ -62,8 +62,8 @@ const LeftBar = () => {
                             p="8px 16px"
                             cursor="pointer"
                             bg={isActive ? "var(--gameengine-secondary-color)" : "transparent"}
-                            transition="0.25s ease"
-                            _hover={{ bg: "#F9FAFB" }}
+                            transition="all 0.3s ease-in-out"
+                            _hover={{ bg: "#F9FAFB", transition: "all 0.3s ease-in-out" }}
                             onClick={() => navigate(
                                 `${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`
                             )}

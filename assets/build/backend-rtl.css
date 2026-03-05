@@ -2377,6 +2377,9 @@ input.gameengine-checkbox:checked::before {
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
 /* Root wrapper */
 .gemboards-date-picker {
   width: 296px !important;
@@ -3903,6 +3906,13 @@ body.ReactModal__Body--open {
   justify-content: center;
   align-items: center;
   z-index: 9999;
+  transition: opacity 300ms ease-in-out;
+}
+.gameengine-modal-overlay--after-open {
+  opacity: 1;
+}
+.gameengine-modal-overlay--before-close {
+  opacity: 0;
 }
 .gameengine-modal-overlay--top {
   align-items: flex-start;
@@ -3920,7 +3930,8 @@ body.ReactModal__Body--open {
   position: relative;
   background: #fff;
   border-radius: 8px;
-  transition: all ease 0.8s;
+  outline: none;
+  animation: gameengine-modal-fade-in 0.3s ease-in-out forwards;
   margin: 0 auto;
   height: -moz-fit-content;
   height: fit-content;
@@ -3986,6 +3997,27 @@ body.ReactModal__Body--open {
 }
 .gameengine-modal__content::-webkit-scrollbar {
   display: none; /* for Chrome, Safari, and Opera */
+}
+
+@keyframes gameengine-modal-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+@keyframes gameengine-modal-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Modal/suffix.scss ***!
