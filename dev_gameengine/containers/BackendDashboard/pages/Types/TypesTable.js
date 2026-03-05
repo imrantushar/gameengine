@@ -55,7 +55,7 @@ const TypesTable = ({ type, editHandler }) => {
           {row?.description ? (
             <Flex alignItems="center" gap={2}>
               <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
-              <Tooltip openerContent={<LuInfo />} contentWidth='fit-content'>{row?.description}</Tooltip>
+              <Tooltip content={row?.description}><LuInfo/></Tooltip>
             </Flex>
           ) : (
             <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />

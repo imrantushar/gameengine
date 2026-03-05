@@ -1,78 +1,86 @@
-import { useState } from "react";
-import { Box, Button, Popover, Portal, Text } from "@chakra-ui/react";
+import React, { useState, useRef, useEffect } from 'react';
 import "./styles.scss";
 
 const Tooltip = ({
-    children,
-    openerType = "text", // button/ icon
-    openerContent,
-    variant = "blue",
-    placement = "top-center", // top-start, top-end, top-center, bottom-start, bottom-end, bottom-center, left-start, left-end, right-start, right-end,
-    arrow = "center", // center, right, bottom, left, bottom-left, top-left, top-right, bottom-right
-    contentWidth = "240px",
-    suffix,
+	children,
+	content,
+	position = 'top',
+	showArrow = true,
+	disabled = false,
+	variant = "blue",
+	delay = 150,
+	suffix
 }) => {
-    const [visible, setVisible] = useState(false);
+	const [show, setShow] = useState(false);
+	const timeoutRef = useRef(null);
+	const shouldShow = !disabled && content;
 
-    return (
-        <Popover.Root open={visible} positioning={{ placement: placement }}>
-            <Popover.Trigger asChild>
-                {openerType === "text" ? (
-                    <Text
-                        fontSize="14px"
-                        fontWeight="400"
-                        lineHeight="20px"
-                        color="var(--gameengine-font-color)"
-                        wordBreak="break-word"
-                        onMouseEnter={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                    >
-                        {openerContent}
-                    </Text>
-                ) : (
-                    <Button
-                        variant="plain"
-                        p="0"
-                        minWidth="auto"
-                        height="auto"
-                        size="sm"
-                        focusRing="none"
-                        wordBreak="break-word"
-                        onMouseEnter={() => setVisible(true)}
-                        onMouseLeave={() => setVisible(false)}
-                    >
-                        {openerContent}
-                    </Button>
-                )}
-            </Popover.Trigger>
+	const showTooltip = () => {
+		if (!shouldShow) return;
 
-            <Portal>
-                <Popover.Positioner
-                    onMouseEnter={() => setVisible(true)}
-                    onMouseLeave={() => setVisible(false)}
-                >
-                    {visible && (
-                        <Box
-                            position="relative"
-                            className={`kodezen-tooltip kodezen-tooltip__variant kodezen-tooltip__variant--${variant} kodezen-tooltip__${suffix}`}
-                        >
-                            <Popover.Content
-                                className="kodezen-tooltip__content"
-                                maxW={contentWidth}
-                                wordBreak="break-all"
-                            >
-                                {children}
-                            </Popover.Content>
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+		setShow(true);
+	};
 
-                            <Box
-                                className={`kodezen-tooltip__arrow kodezen-tooltip__arrow--${arrow}`}
-                            />
-                        </Box>
-                    )}
-                </Popover.Positioner>
-            </Portal>
-        </Popover.Root>
-    );
+	const hideTooltip = () => {
+		if (!shouldShow) return;
+
+		timeoutRef.current = setTimeout(() => {
+			setShow(false);
+			timeoutRef.current = null;
+		}, delay);
+	};
+
+	const handleTooltipMouseEnter = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+			timeoutRef.current = null;
+		}
+	};
+
+	const handleTooltipMouseLeave = () => {
+		if (timeoutRef.current) {
+			clearTimeout(timeoutRef.current);
+		}
+		setShow(false);
+	};
+
+	useEffect(() => {
+		return () => {
+			if (timeoutRef.current) {
+				clearTimeout(timeoutRef.current);
+			}
+		};
+	}, []);
+
+	const classNames = [
+		"gameengine-tooltip",
+		`gameengine-tooltip__variant--${variant}`,
+		suffix && `gameengine-tooltip--${suffix}`
+	].filter(Boolean).join(" ");
+
+	return (
+		<div
+			className={classNames}
+			onMouseEnter={showTooltip}
+			onMouseLeave={hideTooltip}
+		>
+			{children}
+			{(shouldShow && show) && (
+				<div
+					className={`gameengine-tooltip__box gameengine-tooltip__box--${position}`}
+					onMouseEnter={handleTooltipMouseEnter}
+					onMouseLeave={handleTooltipMouseLeave}
+				>
+					{content}
+					{showArrow && <div className={`gameengine-tooltip__arrow gameengine-tooltip__arrow--${position}`} />}
+				</div>
+			)}
+		</div>
+	);
 };
 
 export default Tooltip;

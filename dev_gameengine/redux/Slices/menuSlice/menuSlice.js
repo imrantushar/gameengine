@@ -1,14 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { menu, API } from '@GFUtils/helper';
+import { menu, API, namespace } from '@GFUtils/helper';
 import { showNotification } from '../notificationSlice/notificationSlice';
 
 export const fetchAdminMenuItems = createAsyncThunk(
 	'gameengine/fetchAdminMenuItems',
-	async (thunkAPI) => {
+	async (_, thunkAPI) => {
 		try {
-			return await API.get(`${namespace}menu`)
+			return await API.get(`${namespace}menus`)
 				.then((res) => {
-					return JSON.parse(res?.data);
+					console.log({res});
+					return res?.data;
 				});
 		} catch (error) {
 			thunkAPI.dispatch(

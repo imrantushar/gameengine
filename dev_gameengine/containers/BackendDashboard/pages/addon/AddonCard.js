@@ -8,10 +8,10 @@ import { useFormikContext } from 'formik';
 import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
-import Tooltip from '@GFComponents/Tooltip';
 import { LuInfo, LuLock, LuSettings } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
+import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -127,7 +127,7 @@ const AddonCard = ({ item, index, value }) => {
 								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
 									{__('Required plugins', 'gameengine')}
 								</Text>
-								<Tooltip
+								<KodezenTooltip
 									openerContent={
 										<LuInfo />
 									}
@@ -136,7 +136,7 @@ const AddonCard = ({ item, index, value }) => {
 									<Text fontSize="14px" fontWeight="400" m={0}>
 										{childItem.plugin_name}
 									</Text>
-								</Tooltip>
+								</KodezenTooltip>
 							</Flex>
 						))
 					)}
@@ -150,7 +150,7 @@ const AddonCard = ({ item, index, value }) => {
 									onChange={onChangeHandler}
 								/>
 							) : isShowProTag ? (
-								<Tooltip
+								<KodezenTooltip
 									openerContent={
 										<Icon as={LuLock} boxSize="20px" color="gray.600" />
 									}
@@ -159,7 +159,7 @@ const AddonCard = ({ item, index, value }) => {
 									<Text fontSize="14px" fontWeight="400" m={0}>
 										{__('Available in pro', 'gameengine')}
 									</Text>
-								</Tooltip>
+								</KodezenTooltip>
 							) : null}
 						</Box>
 					)}
@@ -179,7 +179,7 @@ const AddonCard = ({ item, index, value }) => {
 									onChange={onChangeHandler}
 								/>
 							) : isShowProTag ? (
-								<Tooltip
+								<KodezenTooltip
 									openerContent={
 										<Icon as={LuLock} boxSize="20px" color="gray.600" />
 									}
@@ -188,7 +188,7 @@ const AddonCard = ({ item, index, value }) => {
 									<Text fontSize="14px" fontWeight="400" m={0}>
 										{__('Available in pro', 'gameengine')}
 									</Text>
-								</Tooltip>
+								</KodezenTooltip>
 							) : null}
 						</Box>
 					)}
