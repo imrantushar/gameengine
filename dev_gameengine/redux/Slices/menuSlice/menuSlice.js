@@ -6,7 +6,7 @@ export const fetchAdminMenuItems = createAsyncThunk(
 	'gameengine/fetchAdminMenuItems',
 	(thunkAPI ) => {
 		try {
-			return makeRequest( 'get_admin_menu_items' ).then( ( res ) => {
+			return makeRequest( 'get_admin_menus' ).then( ( res ) => {
 				return JSON.parse( res?.data?.data );
 			} );
 		} catch ( error ) {

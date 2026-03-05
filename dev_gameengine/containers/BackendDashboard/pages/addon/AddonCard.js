@@ -11,6 +11,7 @@ import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import Tooltip from '@GFComponents/Tooltip';
 import { LuInfo, LuLock, LuSettings } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -43,7 +44,7 @@ const AddonCard = ({ item, index, value }) => {
 
 					setUpdating(false)
 					dispatch(fetchSettings());
-					// window.location.reload();
+					dispatch(fetchAdminMenuItems());
 				} else {
 					setFieldValue(item.name, false);
 					dispatch(

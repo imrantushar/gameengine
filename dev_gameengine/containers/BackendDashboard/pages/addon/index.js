@@ -215,7 +215,7 @@ const Addons = () => {
 		(async() => {
 			setLoading(true)
 			try {
-				dispatch(fetchAddons())
+				dispatch(fetchAddons());
 			} catch (error) {
 				console.warn(error)
 			} finally {
