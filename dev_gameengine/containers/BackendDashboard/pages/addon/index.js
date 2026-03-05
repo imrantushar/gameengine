@@ -245,19 +245,6 @@ const Addons = () => {
 		});
 	};
 
-	// useEffect(() => {
-	// 	const fetchAddonsAPI = async () => {
-	// 	try {
-	// 		const response = await API.get(`${namespace}addons/list`);
-	// 		console.log('API Response:', response.data); 
-	// 	} catch (error) {
-	// 		console.error('API Error:', error);
-	// 	}
-	// 	};
-
-	// 	fetchAddonsAPI(); 
-	// }, []);
-
 	return (
 		<>
 			<TopBar path={__("Add-ons", "gameengine")} />

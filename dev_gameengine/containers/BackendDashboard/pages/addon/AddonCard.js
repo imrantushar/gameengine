@@ -21,7 +21,7 @@ const AddonCard = ({ item, index, value }) => {
 		setUpdating(true)
 		const status = !value;
 		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
-			if(payload) {
+			if (payload) {
 				if (payload?.success) {
 					setFieldValue(item.name, status);
 					dispatch(fetchAddons());
@@ -60,7 +60,7 @@ const AddonCard = ({ item, index, value }) => {
 	};
 
 	const isShowProTag = !is_pro && item.is_pro;
-    const showSwitch    = !item.is_coming_soon && !isShowProTag;
+	const showSwitch = !item.is_coming_soon && !isShowProTag;
 	const showSettings = item?.route && !item.is_coming_soon && values[item.name] === true;
 	const getIconBorder = () => {
 		if (item.name === 'certificates') return '1px solid #7b68ee';
@@ -85,23 +85,23 @@ const AddonCard = ({ item, index, value }) => {
 					)}
 				</Box>
 				{showSettings ? (
-				<Link to={admin_url + item?.route}>
-					<Icon as={LuSettings} boxSize="20px" />
-				</Link>
+					<Link to={admin_url + item?.route}>
+						<Icon as={LuSettings} boxSize="20px" />
+					</Link>
 				) : (
-				<Box height="fit-content">
-					{isShowProTag && (
-					<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
-						{__('Pro', 'gameengine')}
-					</Badge>
-					)}
+					<Box height="fit-content">
+						{isShowProTag && (
+							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
+								{__('Pro', 'gameengine')}
+							</Badge>
+						)}
 
-					{item.is_coming_soon && (
-					<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">
-						{__('Coming Soon', 'gameengine')}
-					</Badge>
-					)}
-				</Box>
+						{item.is_coming_soon && (
+							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">
+								{__('Coming Soon', 'gameengine')}
+							</Badge>
+						)}
+					</Box>
 				)}
 			</Flex>
 
@@ -127,13 +127,14 @@ const AddonCard = ({ item, index, value }) => {
 									{__('Required plugins', 'gameengine')}
 								</Text>
 								<Tooltip
-									content={
-										<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
-											{childItem.plugin_name}
-										</Text>
+									openerContent={
+										<LuInfo />
 									}
+									contentWidth='fit-content'
 								>
-									<LuInfo />
+									<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+										{childItem.plugin_name}
+									</Text>
 								</Tooltip>
 							</Flex>
 						))
@@ -142,13 +143,22 @@ const AddonCard = ({ item, index, value }) => {
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
 							{showSwitch ? (
-							<CustomSwitch
-								name={item.name}
-								value={values[item.name]}
-								onChange={onChangeHandler}
-							/>
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]}
+									onChange={onChangeHandler}
+								/>
 							) : isShowProTag ? (
-							<Icon as={LuLock} boxSize="20px" color="gray.600" />
+								<Tooltip
+									openerContent={
+										<Icon as={LuLock} boxSize="20px" color="gray.600" />
+									}
+									contentWidth='fit-content'
+								>
+									<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+										{__('Available in pro', 'gameengine')}
+									</Text>
+								</Tooltip>
 							) : null}
 						</Box>
 					)}
@@ -162,16 +172,16 @@ const AddonCard = ({ item, index, value }) => {
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
 							{showSwitch ? (
-							<CustomSwitch
-								name={item.name}
-								value={values[item.name]}
-								onChange={onChangeHandler}
-							/>
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]}
+									onChange={onChangeHandler}
+								/>
 							) : isShowProTag ? (
-							<Icon as={LuLock} boxSize="20px" color="gray.600" />
+								<Icon as={LuLock} boxSize="20px" color="gray.600" />
 							) : null}
 						</Box>
-					)}	
+					)}
 				</Flex>
 			)}
 		</Flex>

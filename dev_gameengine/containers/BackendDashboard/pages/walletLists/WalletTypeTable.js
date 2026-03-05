@@ -14,12 +14,14 @@ import Search from '@GFComponents/Search';
 import StatusOptions from '@GFComponents/StatusOptions';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchPayoutList, payoutSearch, updatePayoutStatus } from '@GFRedux/Slices/payoutSlice/payoutSlice';
+import { reactDebounce } from '@GFUtils/helper';
 
 const WalletTypesTable = () => {
   const { data: payouts, search: searchValue, total, perPage } = useSelector(state => state.payouts);
 
   const [tableStatus, setTableStatus] = useState('all');
   const [selectedRows, setSelectedRows] = useState([]);
+  const [dataFetchingStatus, setDataFetchingStatus] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -29,22 +31,28 @@ const WalletTypesTable = () => {
     per_page = 15,
     search = ""
   }) => {
+    setDataFetchingStatus(true);
     try {
       if (!payouts?.length || payouts?.length < 2) {
         await dispatch(fetchPayoutList({ status, page, per_page, search })).unwrap()
+        setDataFetchingStatus(false);
       }
     } catch (error) {
       console.error('Failed to load payouts:', error);
+      setDataFetchingStatus(false);
     }
   };
 
   useEffect(() => {
-    fetchPayouts({});
+    (async () => {
+      await fetchPayouts({});
+    })()
   }, []);
 
-  const handleSearch = (value) => {
+  const handleSearch = reactDebounce(async(value) => {
     dispatch(payoutSearch(value));
-  };
+    await fetchPayouts({ search: value });
+  }, 500);
 
   const handleUpdateStatus = async (id, newStatus) => {
     try {
@@ -113,7 +121,7 @@ const WalletTypesTable = () => {
                 onClick={() => setShowFull(!showFull)}
                 alignSelf="center"
               >
-                {showFull ? 'Show less' : 'Show more'}
+                {showFull ? __('Show less', 'gameengine') : __('Show more', 'gameengine')}
               </Button>
             )}
           </Flex>
@@ -255,6 +263,7 @@ const WalletTypesTable = () => {
         totalRows={total}
         rowsPerPage={perPage || 10}
         currentPageNumber={[1]}
+        dataFetchingStatus={dataFetchingStatus}
         getSelectRowValue={setSelectedRows}
       />
     </>

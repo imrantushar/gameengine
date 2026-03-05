@@ -62,7 +62,6 @@ const Points = () => {
                 </Flex>
 
                 <PointTypesTable />
-                {/* <WalletTypesTable/> */}
             </div>
         </>
     );

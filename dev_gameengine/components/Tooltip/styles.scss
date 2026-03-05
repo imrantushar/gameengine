@@ -1,88 +1,21 @@
-.gameengine-tooltip {
-    display: inline-block;
+.kodezen-tooltip {
     position: relative;
-    z-index: 1;
-
-    &__box {
-        position: absolute;
-        padding: 8px 10px;
-        border-radius: 4px;
-        font-size: 14px;
-        white-space: nowrap;
-        z-index: 100;
-        transition: opacity 0.2s;
-
+    z-index: 9999;
+    &__content {
         background: var(--tooltip-bg);
         color: var(--tooltip-color);
-
-        &--top {
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 8px;
-        }
-
-        &--bottom {
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 8px;
-        }
-
-        &--right {
-            top: 50%;
-            left: 100%;
-            transform: translateY(-50%);
-            margin-left: 8px;
-        }
-
-        &--left {
-            top: 50%;
-            right: 100%;
-            transform: translateY(-50%);
-            margin-right: 8px;
-        }
-
-        &--custom-1 {
-            bottom: 90%;
-            left: 95%;
-            transform: translateX(-95%);
-        }
-
-        &--bottom-left {
-            top: 100%;
-            left: 0;
-            transform: translateY(8px); 
-            margin-top: 8px;        }
-
-        &--top-left {
-            bottom: 100%;
-            left: 0;
-            transform: translateY(-8px);
-            margin-bottom: 8px;
-        }
-
-        &--top-right {
-            bottom: 100%;
-            right: 0;
-            transform: translateY(-8px);
-            margin-bottom: 8px;
-        }
-
-        &--bottom-right {
-            top: 100%;
-            right: 0;
-            transform: translateY(8px);
-            margin-top: 8px;
-        }
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
     }
 
     &__arrow {
+        position: absolute;
         width: 0;
         height: 0;
-        position: absolute;
         border-style: solid;
-        &--top {
+
+        &--center {
             top: 100%;
             left: 50%;
             border-width: 5px 5px 0 5px;
@@ -115,17 +48,24 @@
         }
 
         &--bottom-left {
+            top: 100%;
+            left: 10px;
+            border-width: 5px 5px 0 5px;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+        }
+        
+        &--top-left {
             bottom: 100%;
             left: 10px;
             border-width: 0 5px 5px 5px;
             border-color: transparent transparent var(--tooltip-bg) transparent;
         }
 
-        &--top-left {
-            top: 100%;
-            left: 10px;
-            border-width: 5px 5px 0 5px;
-            border-color: var(--tooltip-bg) transparent transparent transparent;
+        &--top-center {
+            bottom: 100%;
+            left: 50%;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent var(--tooltip-bg) transparent;
         }
 
         &--top-right {
@@ -141,6 +81,10 @@
             border-width: 0 5px 5px 5px;
             border-color: transparent transparent var(--tooltip-bg) transparent;
         }
+
+        &--none {
+            display: none;
+        }
     }
 
     &__variant {
@@ -150,29 +94,37 @@
         }
 
         &--white {
-            --tooltip-bg: var(--gameengine-body-background);
-            --tooltip-color: var(--gameengine-font-color);
+            --tooltip-bg: #fff;
+            --tooltip-color: #000;
         }
 
         &--black {
-            --tooltip-bg: var(--gameengine-font-color);
-            --tooltip-color: var(--gameengine-background);
-        }
-
-        &--secondary {
-            --tooltip-bg: var(--gameengine-body-background);
-            --tooltip-color: var(--gameengine-font-color);
+            --tooltip-bg: #000;
+            --tooltip-color: #fff;
         }
     }
 }
 
-/* suffix's */
-.gameengine-tooltip {
-	&--table {
-        .gameengine-tooltip__box {
-            width: max-content;
-            white-space: wrap;
-            word-break: break-all;
+// suffix
+.kodezen-tooltip {
+    &__board-title {
+        .kodezen-tooltip__content {
+            margin-left: 8px;
+        }
+        .kodezen-tooltip__arrow {
+            left: 24px;
+        }
+    }
+    &__drawer-date {
+        .kodezen-tooltip__content {
+            background: #fff;
+        }
+    }
+    &__status-overview-more {
+        .kodezen-tooltip__content {
+            background: #fff;
+            color: var(--gameengine-font-black);
+            box-shadow: var(--gameengine-box-shadow);
         }
     }
 }
