@@ -38,6 +38,26 @@ class DashboardController extends BaseController
                 ),
             )
         );
+
+        register_rest_route($this->namespace, '/menus', array(
+            array(
+                'methods'             => \WP_REST_Server::READABLE,
+                'callback'            => array($this, 'get_admin_menus'),
+                'permission_callback' => array($this, 'admin_permission_check'),
+            ),
+        ));
+    }
+
+
+    /**
+     * Returns the updated menu list for the sidebar.
+     * Response matches the format of GameEngineGlobal.menu
+     */
+    public function get_admin_menus()
+    {
+        $menus = \GameEngine\Helper::get_admin_menu_list();
+
+        return new \WP_REST_Response($menus, 200);
     }
 
     /**
