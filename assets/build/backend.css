@@ -795,23 +795,23 @@ input.gameengine-checkbox:checked::before {
   color: #f94d4d;
 }
 .gameengine-btn--bg-purple, .gameengine-btn--preset-purple {
-  background: var(--gameengine-primary);
+  background: var(--gameengine-primary-color);
   color: #fff;
 }
 .gameengine-btn--bg-purple:hover, .gameengine-btn--bg-purple:focus, .gameengine-btn--preset-purple:hover, .gameengine-btn--preset-purple:focus {
-  background: var(--gameengine-primary);
+  background: var(--gameengine-primary-color);
   color: #fff;
 }
 .gameengine-btn--bg-light-purple, .gameengine-btn--preset-light-purple {
   background: var(--gameengine-secondary-color);
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-light-purple .gameengine-icon:before, .gameengine-btn--preset-light-purple .gameengine-icon:before {
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-light-purple:hover, .gameengine-btn--bg-light-purple:focus, .gameengine-btn--preset-light-purple:hover, .gameengine-btn--preset-light-purple:focus {
   background: var(--gameengine-secondary-color);
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-white-border, .gameengine-btn--preset-white-border {
   border: 2px solid var(--gameengine-border-color);
@@ -847,12 +847,12 @@ input.gameengine-checkbox:checked::before {
 }
 .gameengine-btn--preset-border-purple, .gameengine-btn--border-purple {
   background: transparent;
-  border: 1px solid var(--gameengine-primary);
-  color: var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--preset-border-purple:hover, .gameengine-btn--preset-border-purple:focus, .gameengine-btn--border-purple:hover, .gameengine-btn--border-purple:focus {
   background: #F5F5F5;
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--border-gray {
   border: 1px solid var(--gameengine-border-color);
@@ -867,10 +867,10 @@ input.gameengine-checkbox:checked::before {
   border: 1px solid #f94d4d;
 }
 .gameengine-btn--border-black {
-  border: 1px solid var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
 }
 .gameengine-btn--border-black:hover, .gameengine-btn--border-black:focus {
-  border: 1px solid var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
 }
 .gameengine-btn--mini {
   padding: 4px 6px;
@@ -3520,7 +3520,7 @@ input.gameengine-checkbox:checked::before {
   border: none;
   background: rgba(114, 114, 114, 0.12);
 }
-.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed {
+.gameengine-dropdown-option--cancel, .gameengine-dropdown-option--trash, .gameengine-dropdown-option--failed, .gameengine-dropdown-option--rejected {
   color: #FF4D4D;
   border: none;
   background: rgba(244, 72, 63, 0.12);
@@ -4111,6 +4111,112 @@ body.ReactModal__Body--open {
   width: max-content;
   white-space: wrap;
   word-break: break-all;
+}
+
+.kodezen-tooltip {
+  position: relative;
+  z-index: 9999;
+}
+.kodezen-tooltip__content {
+  background: var(--tooltip-bg);
+  color: var(--tooltip-color);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+.kodezen-tooltip__arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+.kodezen-tooltip__arrow--center {
+  top: 100%;
+  left: 50%;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+  transform: translateX(-50%);
+}
+.kodezen-tooltip__arrow--right {
+  top: 50%;
+  left: -5px;
+  border-width: 5px 5px 5px 0;
+  border-color: transparent var(--tooltip-bg) transparent transparent;
+  transform: translateY(-50%);
+}
+.kodezen-tooltip__arrow--bottom {
+  bottom: 100%;
+  left: 50%;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+  transform: translateX(-50%);
+}
+.kodezen-tooltip__arrow--left {
+  top: 50%;
+  right: -5px;
+  border-width: 5px 0 5px 5px;
+  border-color: transparent transparent transparent var(--tooltip-bg);
+  transform: translateY(-50%);
+}
+.kodezen-tooltip__arrow--bottom-left {
+  top: 100%;
+  left: 10px;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+.kodezen-tooltip__arrow--top-left {
+  bottom: 100%;
+  left: 10px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+.kodezen-tooltip__arrow--top-center {
+  bottom: 100%;
+  left: 50%;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+.kodezen-tooltip__arrow--top-right {
+  top: 100%;
+  right: 10px;
+  border-width: 5px 5px 0 5px;
+  border-color: var(--tooltip-bg) transparent transparent transparent;
+}
+.kodezen-tooltip__arrow--bottom-right {
+  bottom: 100%;
+  right: 10px;
+  border-width: 0 5px 5px 5px;
+  border-color: transparent transparent var(--tooltip-bg) transparent;
+}
+.kodezen-tooltip__arrow--none {
+  display: none;
+}
+.kodezen-tooltip__variant--blue {
+  --tooltip-bg: var(--gameengine-primary);
+  --tooltip-color: #fff;
+}
+.kodezen-tooltip__variant--white {
+  --tooltip-bg: #fff;
+  --tooltip-color: #000;
+}
+.kodezen-tooltip__variant--black {
+  --tooltip-bg: #000;
+  --tooltip-color: #fff;
+}
+
+.kodezen-tooltip__board-title .kodezen-tooltip__content {
+  margin-left: 8px;
+}
+.kodezen-tooltip__board-title .kodezen-tooltip__arrow {
+  left: 24px;
+}
+.kodezen-tooltip__drawer-date .kodezen-tooltip__content {
+  background: #fff;
+}
+.kodezen-tooltip__status-overview-more .kodezen-tooltip__content {
+  background: #fff;
+  color: var(--gameengine-font-color);
+  box-shadow: var(--gameengine-box-shadow);
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/CustomSwitch/switchfield.scss ***!

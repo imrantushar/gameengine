@@ -186,7 +186,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 
 
 
@@ -207,8 +206,7 @@ const GFLabel = ({
   borderColor,
   whiteSpace,
   lineHeight,
-  width,
-  isPro = false
+  width
 }) => {
   const variantStyles = {
     heading: {
@@ -286,26 +284,6 @@ const GFLabel = ({
     whiteSpace,
     width
   };
-  if (isPro) {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
-      alignItems: "center",
-      ...textProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-      ...textProps
-    }, label), isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
-      background: "#FFA943",
-      margin: 0,
-      marginLeft: '8px',
-      color: "#fff",
-      borderRadius: "2px",
-      padding: "3px 6px",
-      fontSize: "10px",
-      lineHeight: "1",
-      textTransform: "uppercase",
-      display: "inline-flex",
-      alignItems: "center"
-    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')));
-  }
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
     ...textProps
   }, label);
@@ -1362,7 +1340,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   admin_url: () => (/* binding */ admin_url),
 /* harmony export */   ajaxurl: () => (/* binding */ ajaxurl),
 /* harmony export */   banners: () => (/* binding */ banners),
-/* harmony export */   decodeHtmlEntity: () => (/* binding */ decodeHtmlEntity),
 /* harmony export */   gameengine_nonce: () => (/* binding */ gameengine_nonce),
 /* harmony export */   generateSlug: () => (/* binding */ generateSlug),
 /* harmony export */   getAddonActiveStatus: () => (/* binding */ getAddonActiveStatus),
@@ -1520,11 +1497,6 @@ const tableStatusArray = [{
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('All', 'academy'),
   value: 'all'
 }, ...statusArray];
-function decodeHtmlEntity(entity) {
-  const txt = document.createElement('textarea');
-  txt.innerHTML = entity;
-  return txt.value;
-}
 
 /***/ }),
 

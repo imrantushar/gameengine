@@ -13,7 +13,6 @@ import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import { LuInfo } from 'react-icons/lu';
-import CustomTooltip from '@GFComponents/Tooltip/CustomTooltip';
 import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
 
 const PointTypesTable = () => {

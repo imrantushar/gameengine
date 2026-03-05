@@ -129,14 +129,14 @@ class Progress_Map_Logic
 									<h5><?php echo esc_html($gameengine_node['title']); ?></h5>
 
 									<?php if ($gameengine_is_completed) : ?>
-										<p class="gameengine-congrats"><?php echo wp_kses_post((string)($gameengine_node['congrats'] ?? '')); ?></p>
+										<p class="gameengine-congrats"><?php echo wp_kses_post((string) ($gameengine_node['congrats'] ?? '')); ?></p>
 									<?php else : ?>
 										<div class="gameengine-restriction-info">
 											<span class="gameengine-lock-label">🔒 <?php esc_html_e('Locked', 'gameengine'); ?></span>
 											<p class="gameengine-lock-msg">
 												<?php
 												$res_msg = ! empty($gameengine_node['restriction_message']) ? $gameengine_node['restriction_message'] : __('Complete pre-requisites to unlock.', 'gameengine');
-												echo wp_kses_post((string)$res_msg);
+												echo wp_kses_post((string) $res_msg);
 												?>
 											</p>
 										</div>

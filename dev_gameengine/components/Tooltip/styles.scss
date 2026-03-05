@@ -176,3 +176,135 @@
         }
     }
 }
+
+// For kodezen ToolTip
+.kodezen-tooltip {
+    position: relative;
+    z-index: 9999;
+    &__content {
+        background: var(--tooltip-bg);
+        color: var(--tooltip-color);
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 12px;
+    }
+
+    &__arrow {
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+
+        &--center {
+            top: 100%;
+            left: 50%;
+            border-width: 5px 5px 0 5px;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+            transform: translateX(-50%);
+        }
+
+        &--right {
+            top: 50%;
+            left: -5px;
+            border-width: 5px 5px 5px 0;
+            border-color: transparent var(--tooltip-bg) transparent transparent;
+            transform: translateY(-50%);
+        }
+
+        &--bottom {
+            bottom: 100%;
+            left: 50%;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent var(--tooltip-bg) transparent;
+            transform: translateX(-50%);
+        }
+
+        &--left {
+            top: 50%;
+            right: -5px;
+            border-width: 5px 0 5px 5px;
+            border-color: transparent transparent transparent var(--tooltip-bg);
+            transform: translateY(-50%);
+        }
+
+        &--bottom-left {
+            top: 100%;
+            left: 10px;
+            border-width: 5px 5px 0 5px;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+        }
+        
+        &--top-left {
+            bottom: 100%;
+            left: 10px;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent var(--tooltip-bg) transparent;
+        }
+
+        &--top-center {
+            bottom: 100%;
+            left: 50%;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent var(--tooltip-bg) transparent;
+        }
+
+        &--top-right {
+            top: 100%;
+            right: 10px;
+            border-width: 5px 5px 0 5px;
+            border-color: var(--tooltip-bg) transparent transparent transparent;
+        }
+
+        &--bottom-right {
+            bottom: 100%;
+            right: 10px;
+            border-width: 0 5px 5px 5px;
+            border-color: transparent transparent var(--tooltip-bg) transparent;
+        }
+
+        &--none {
+            display: none;
+        }
+    }
+
+    &__variant {
+        &--blue {
+            --tooltip-bg: var(--gameengine-primary);
+            --tooltip-color: #fff;
+        }
+
+        &--white {
+            --tooltip-bg: #fff;
+            --tooltip-color: #000;
+        }
+
+        &--black {
+            --tooltip-bg: #000;
+            --tooltip-color: #fff;
+        }
+    }
+}
+
+// suffix
+.kodezen-tooltip {
+    &__board-title {
+        .kodezen-tooltip__content {
+            margin-left: 8px;
+        }
+        .kodezen-tooltip__arrow {
+            left: 24px;
+        }
+    }
+    &__drawer-date {
+        .kodezen-tooltip__content {
+            background: #fff;
+        }
+    }
+    &__status-overview-more {
+        .kodezen-tooltip__content {
+            background: #fff;
+            color: var(--gameengine-font-color);
+            box-shadow: var(--gameengine-box-shadow);
+        }
+    }
+}

@@ -746,23 +746,23 @@ input.gameengine-checkbox:checked::before {
   color: #f94d4d;
 }
 .gameengine-btn--bg-purple, .gameengine-btn--preset-purple {
-  background: var(--gameengine-primary);
+  background: var(--gameengine-primary-color);
   color: #fff;
 }
 .gameengine-btn--bg-purple:hover, .gameengine-btn--bg-purple:focus, .gameengine-btn--preset-purple:hover, .gameengine-btn--preset-purple:focus {
-  background: var(--gameengine-primary);
+  background: var(--gameengine-primary-color);
   color: #fff;
 }
 .gameengine-btn--bg-light-purple, .gameengine-btn--preset-light-purple {
   background: var(--gameengine-secondary-color);
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-light-purple .gameengine-icon:before, .gameengine-btn--preset-light-purple .gameengine-icon:before {
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-light-purple:hover, .gameengine-btn--bg-light-purple:focus, .gameengine-btn--preset-light-purple:hover, .gameengine-btn--preset-light-purple:focus {
   background: var(--gameengine-secondary-color);
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--bg-white-border, .gameengine-btn--preset-white-border {
   border: 2px solid var(--gameengine-border-color);
@@ -798,12 +798,12 @@ input.gameengine-checkbox:checked::before {
 }
 .gameengine-btn--preset-border-purple, .gameengine-btn--border-purple {
   background: transparent;
-  border: 1px solid var(--gameengine-primary);
-  color: var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--preset-border-purple:hover, .gameengine-btn--preset-border-purple:focus, .gameengine-btn--border-purple:hover, .gameengine-btn--border-purple:focus {
   background: #F5F5F5;
-  color: var(--gameengine-primary);
+  color: var(--gameengine-primary-color);
 }
 .gameengine-btn--border-gray {
   border: 1px solid var(--gameengine-border-color);
@@ -818,10 +818,10 @@ input.gameengine-checkbox:checked::before {
   border: 1px solid #f94d4d;
 }
 .gameengine-btn--border-black {
-  border: 1px solid var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
 }
 .gameengine-btn--border-black:hover, .gameengine-btn--border-black:focus {
-  border: 1px solid var(--gameengine-primary);
+  border: 1px solid var(--gameengine-primary-color);
 }
 .gameengine-btn--mini {
   padding: 4px 6px;

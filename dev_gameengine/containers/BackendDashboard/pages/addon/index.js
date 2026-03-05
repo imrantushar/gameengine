@@ -12,7 +12,7 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { plugin_root_url } from '@GFUtils/helper';
+import { API, namespace, plugin_root_url } from '@GFUtils/helper';
 
 const infoCardsData = [
 	{
@@ -116,6 +116,22 @@ const infoCardsData = [
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "",
 	},
+	{
+		label: __('Wallet List', 'gameengine'),
+		name: 'wallet',
+		is_pro: true,
+		// is_active: true,
+		is_coming_soon: false,
+		details: __(
+			'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: false,
+		image: plugin_root_url+'assets/images/progress_map.svg',
+		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+		route: "admin.php?page=gameengine-wallet",
+	},
 
 	// ================= PRO + ACTIVE (NEW) =================
 	// {
@@ -199,7 +215,7 @@ const Addons = () => {
 		(async() => {
 			setLoading(true)
 			try {
-				dispatch(fetchAddons())
+				dispatch(fetchAddons());
 			} catch (error) {
 				console.warn(error)
 			} finally {

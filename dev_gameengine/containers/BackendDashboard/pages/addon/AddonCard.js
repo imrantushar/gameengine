@@ -8,9 +8,10 @@ import { useFormikContext } from 'formik';
 import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
-import Tooltip from '@GFComponents/Tooltip';
-import { LuInfo, LuSettings } from 'react-icons/lu';
+import { LuInfo, LuLock, LuSettings } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
+import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
 
 const AddonCard = ({ item, index, value }) => {
 	const { values, setFieldValue } = useFormikContext()
@@ -21,7 +22,7 @@ const AddonCard = ({ item, index, value }) => {
 		setUpdating(true)
 		const status = !value;
 		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
-			if(payload) {
+			if (payload) {
 				if (payload?.success) {
 					setFieldValue(item.name, status);
 					dispatch(fetchAddons());
@@ -43,6 +44,7 @@ const AddonCard = ({ item, index, value }) => {
 
 					setUpdating(false)
 					dispatch(fetchSettings());
+					dispatch(fetchAdminMenuItems());
 				} else {
 					setFieldValue(item.name, false);
 					dispatch(
@@ -58,8 +60,9 @@ const AddonCard = ({ item, index, value }) => {
 		});
 	};
 
-	// const isShowProTag = !is_pro && item.is_pro;
-
+	const isShowProTag = !is_pro && item.is_pro;
+	const showSwitch = !item.is_coming_soon && !isShowProTag;
+	const showSettings = item?.route && !item.is_coming_soon && values[item.name] === true;
 	const getIconBorder = () => {
 		if (item.name === 'certificates') return '1px solid #7b68ee';
 		if (item.name === 'storeengine') return '1px solid #008dff';
@@ -82,21 +85,22 @@ const AddonCard = ({ item, index, value }) => {
 						<Image src={item.image} />
 					)}
 				</Box>
-				{item?.route && (!item.is_coming_soon || !item.is_pro) ? (
-					<Link
-						to={admin_url + item?.route}
-					>
-						<Icon as={LuSettings} boxSize={'20px'} />
+				{showSettings ? (
+					<Link to={admin_url + item?.route}>
+						<Icon as={LuSettings} boxSize="20px" />
 					</Link>
 				) : (
 					<Box height="fit-content">
-						{item.is_pro && (
+						{isShowProTag && (
 							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
 								{__('Pro', 'gameengine')}
 							</Badge>
 						)}
+
 						{item.is_coming_soon && (
-							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">{__('Coming Soon', 'gameengine')}</Badge>
+							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">
+								{__('Coming Soon', 'gameengine')}
+							</Badge>
 						)}
 					</Box>
 				)}
@@ -119,30 +123,44 @@ const AddonCard = ({ item, index, value }) => {
 				<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%" p="16px 24px 0 24px">
 					{item?.required_plugin?.length > 0 && (
 						item.required_plugin.map((childItem, childItemIndex) => (
-							<Flex alignItems="center" gap={2}>
+							<Flex alignItems="center" gap={2} key={childItemIndex}>
 								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
 									{__('Required plugins', 'gameengine')}
 								</Text>
-								<Tooltip
-									content={
-										<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
-											{childItem.plugin_name}
-										</Text>
+								<KodezenTooltip
+									openerContent={
+										<LuInfo />
 									}
+									contentWidth='fit-content'
 								>
-									<LuInfo />
-								</Tooltip>
+									<Text fontSize="14px" fontWeight="400" m={0}>
+										{childItem.plugin_name}
+									</Text>
+								</KodezenTooltip>
 							</Flex>
 						))
 					)}
 
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-							<CustomSwitch
-								name={item.name}
-								value={values[item.name]} // Standard HTML attribute
-								onChange={onChangeHandler}
-							/>
+							{showSwitch ? (
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]}
+									onChange={onChangeHandler}
+								/>
+							) : isShowProTag ? (
+								<KodezenTooltip
+									openerContent={
+										<Icon as={LuLock} boxSize="20px" color="gray.600" />
+									}
+									contentWidth='fit-content'
+								>
+									<Text fontSize="14px" fontWeight="400" m={0}>
+										{__('Available in pro', 'gameengine')}
+									</Text>
+								</KodezenTooltip>
+							) : null}
 						</Box>
 					)}
 				</Flex>
@@ -154,11 +172,24 @@ const AddonCard = ({ item, index, value }) => {
 
 					{!item.is_coming_soon && (
 						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-							<CustomSwitch
-								name={item.name}
-								value={values[item.name]} // Standard HTML attribute
-								onChange={onChangeHandler}
-							/>
+							{showSwitch ? (
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]}
+									onChange={onChangeHandler}
+								/>
+							) : isShowProTag ? (
+								<KodezenTooltip
+									openerContent={
+										<Icon as={LuLock} boxSize="20px" color="gray.600" />
+									}
+									contentWidth='fit-content'
+								>
+									<Text fontSize="14px" fontWeight="400" m={0}>
+										{__('Available in pro', 'gameengine')}
+									</Text>
+								</KodezenTooltip>
+							) : null}
 						</Box>
 					)}
 				</Flex>
