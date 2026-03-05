@@ -52,8 +52,9 @@ class Helper
         return false;
     }
 
-    public static function is_pro() {
-        return defined('GAMEENGINE_PRO_VERSION'); 
+    public static function is_pro()
+    {
+        return defined('GAMEENGINE_PRO_VERSION');
     }
 
     /**
