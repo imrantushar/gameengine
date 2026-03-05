@@ -185,8 +185,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/span/index.js");
-/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/text/index.js");
+/* harmony import */ var _chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @chakra-ui/react */ "./node_modules/@chakra-ui/react/dist/esm/components/flex/flex.js");
 
 
 
@@ -208,7 +208,7 @@ const GFLabel = ({
   whiteSpace,
   lineHeight,
   width,
-  marketingTag = null
+  isPro = false
 }) => {
   const variantStyles = {
     heading: {
@@ -286,15 +286,27 @@ const GFLabel = ({
     whiteSpace,
     width
   };
-  if (marketingTag) {
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
-      display: "flex",
+  if (isPro) {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Flex, {
       alignItems: "center",
-      gap: 2,
       ...textProps
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Span, null, label), marketingTag);
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+      ...textProps
+    }, label), isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
+      background: "#FFA943",
+      margin: 0,
+      marginLeft: '8px',
+      color: "#fff",
+      borderRadius: "2px",
+      padding: "3px 6px",
+      fontSize: "10px",
+      lineHeight: "1",
+      textTransform: "uppercase",
+      display: "inline-flex",
+      alignItems: "center"
+    }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')));
   }
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_3__.Text, {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_2__.Text, {
     ...textProps
   }, label);
 };
@@ -1356,7 +1368,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   getAddonActiveStatus: () => (/* binding */ getAddonActiveStatus),
 /* harmony export */   handleSliceError: () => (/* binding */ handleSliceError),
 /* harmony export */   handleSliceSuccess: () => (/* binding */ handleSliceSuccess),
-/* harmony export */   isPro: () => (/* binding */ isPro),
 /* harmony export */   is_academylms_active: () => (/* binding */ is_academylms_active),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
 /* harmony export */   is_pro: () => (/* binding */ is_pro),
@@ -1402,7 +1413,6 @@ const {
   is_academylms_active,
   banners
 } = window?.GameEngineGlobal;
-const isPro = Boolean(Number(is_pro));
 const reactDebounce = (callback, wait) => {
   let timeout;
   return (...args) => {

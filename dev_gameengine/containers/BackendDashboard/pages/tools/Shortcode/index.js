@@ -1,9 +1,8 @@
 import React from 'react';
 import ShortCodeItem from './ShortCodeItem';
 import { __ } from '@wordpress/i18n';
-// import { is_pro } from '@GFUtils/helper';
 import { Box } from '@chakra-ui/react';
-import { isPro } from '@GFUtils/helper';
+import { is_pro } from '@GFUtils/helper';
 
 // const proShortCode = is_pro
 // 	? [
@@ -87,7 +86,7 @@ const shortCodeData = [
 		),
 		description: __('Accepts: points, achievement, level, Number (e.g. 100 for points, or ID for badge/level), Optional: Custom message shown to locked users', 'gameengine'),
 		url: 'https://academylms.net/docs/how-to-use-academy-lms-search-shortcode/',
-		isPro: !isPro,
+		isPro: is_pro === "1" ? false : true,
 	},
 ];
 

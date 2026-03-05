@@ -46,7 +46,7 @@ const Payout = () => {
               .filter(Boolean);
               setFieldValue('payout.methods', cleanValues)
           }}
-          menuPlacement="bottom"
+          menuPlacement="auto"
         />
       </SettingsInput>
       <SettingsInput isPro={!is_pro} width='100%' label={__("Max Points", "gameengine")}  margin='0 0 24px 0'>

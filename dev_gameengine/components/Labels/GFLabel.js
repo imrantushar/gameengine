@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Span, Text } from '@chakra-ui/react';
+import { Flex, Text } from '@chakra-ui/react';
 
 const GFLabel = ({
 	type = "title",
@@ -19,7 +19,7 @@ const GFLabel = ({
 	whiteSpace,
 	lineHeight,
 	width,
-	marketingTag = null,
+	isPro = false,
 }) => {
 	const variantStyles = {
 		heading: {
@@ -100,17 +100,29 @@ const GFLabel = ({
 		width,
 	};
 
-	if (marketingTag) {
+	if (isPro) {
 		return (
-			<Text
-				display="flex"
+			<Flex
 				alignItems="center"
-				gap={2}
 				{...textProps}
 			>
-				<Span>{label}</Span>
-				{marketingTag}
-			</Text>
+				<Text {...textProps}>{label}</Text>
+				{isPro && (
+					<Text
+						background="#FFA943"
+						margin={0}
+						marginLeft={'8px'}
+						color="#fff"
+						borderRadius="2px"
+						padding="3px 6px"
+						fontSize="10px"
+						lineHeight="1"
+						textTransform="uppercase"
+						display="inline-flex"
+						alignItems="center"
+					>{__("PRO", 'gameengine')}</Text>
+				)}
+			</Flex>
 		)
 	}
 

@@ -22,9 +22,6 @@ export const {
 	banners
 } = window?.GameEngineGlobal;
 
-export const isPro = Boolean(Number(is_pro));
-
-
 export const reactDebounce = (callback, wait) => {
 	let timeout;
 	return (...args) => {
