@@ -6,28 +6,21 @@ import Select from 'react-select';
 import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import SettingsInner from '../Components/SettingsInner';
 import SettingsInput from '../Components/SettingsInput';
-import { is_pro } from '@GFUtils/helper';
-
-const baseRoleOptions = [
-    'administrator',
-    'subscriber',
-    'customer',
-];
+import { decodeHtmlEntity, is_pro } from '@GFUtils/helper';
+import currencySymbols from '@GFUtils/currency-symbols';
 
 export const Economy = () => {
     const { values, setFieldValue } = useFormikContext();
 
-    const roleOptions = baseRoleOptions.map(role => ({
-        label: role.replace('_', ' ').replace(/\b\w/g, c => c.toUpperCase()),
-        value: role,
-    }));
-
-    const selectedRole = Array.isArray(values?.economy?.allowed_roles)
-        ? values?.economy?.allowed_roles[0] || ''
-        : values?.economy?.allowed_roles || '';
+    const roleOptions = values?.available_roles || [];
 
     const selectedRoleOption = roleOptions.filter(option => (values?.economy?.allowed_roles || []).includes(option.value));
 
+    const currencyOptions = Object.keys(currencySymbols).map(code => ({
+        value: code,
+        label: `${code} (${decodeHtmlEntity(currencySymbols[code])})`,
+        symbol: decodeHtmlEntity(currencySymbols[code]),
+    }));
 
     return (
         <SettingsInner heading={__('Economy', 'gameengine')}>
@@ -50,8 +43,21 @@ export const Economy = () => {
                         menuPlacement="bottom"
                     />
                 </SettingsInput>
+                <SettingsInput isPro={!is_pro} label={__('Currency', 'gameengine')}>
+                    <Select
+                        className="gameengine-select gameengine-select--300"
+                        classNamePrefix="gameengine-select"
+                        options={currencyOptions}
+                        value={currencyOptions.find(option => option.value === values?.economy?.currency_symbol)}
+                        isDisabled={!is_pro}
+                        onChange={(option) => {
+                            setFieldValue('economy.currency_symbol', option?.value);
+                        }}
+                        menuPlacement="bottom"
+                    />
+                </SettingsInput>
 
-                <SettingsInput isPro={!is_pro}  label={__('Conversion Rate', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}>
                     <Input
                         type="number"
                         min="0"

@@ -1,0 +1,101 @@
+.gameengine-payout {
+    font-family: var(--gameengine-font);
+    background: var(--gameengine-background);
+    border-radius: 8px;
+    box-shadow: var(--gameengine-shadow);
+    padding: 24px;
+    max-width: 480px;
+    width: 100%;
+    color: var(--gameengine-font-color);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    &__header {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__balance {
+        font-size: 1rem;
+        color: var(--gameengine-secondary);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    &__balance-amount {
+        color: var(--gameengine-primary);
+        font-weight: 600;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    &__input--select {
+        width: 100%;
+        padding: 9px 12px;
+        font-family: var(--gameengine-font);
+        font-size: 13px;
+        color: var(--gameengine-font-color);
+        background: var(--gameengine-background);
+        border: 1px solid var(--gameengine-border-color);
+        border-radius: 6px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+        &::placeholder {
+            color: var(--gameengine-placeholder);
+        }
+
+        &:focus {
+            border-color: var(--gameengine-primary);
+            box-shadow: 0 0 0 3px rgba(0, 107, 255, 0.10);
+        }
+
+        appearance: none;
+        -webkit-appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23738496' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        padding-right: 36px;
+        cursor: pointer;
+    }
+
+    &__calc {
+        font-style: italic;
+        margin: 0;
+    }
+
+    &__response {
+        margin-top: 16px;
+        font-size: 13px;
+        min-height: 0;
+
+        &.is-success {
+            color: #1a7f4b;
+            background: #edfaf3;
+            border: 1px solid #a3e6c4;
+            border-radius: 6px;
+            padding: 10px 14px;
+        }
+
+        &.is-error {
+            color: #c0392b;
+            background: #fdf3f2;
+            border: 1px solid #f5c6c2;
+            border-radius: 6px;
+            padding: 10px 14px;
+        }
+    }
+}

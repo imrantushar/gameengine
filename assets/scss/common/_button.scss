@@ -91,23 +91,23 @@
     }
     &--bg-purple,
     &--preset-purple {
-        background: var(--gameengine-primary-color);
+        background: var(--gameengine-primary);
         color: #fff;
         &:hover, &:focus {
-            background: var(--gameengine-primary-color);
+            background: var(--gameengine-primary);
             color: #fff;
         }
     }
     &--bg-light-purple,
     &--preset-light-purple {
         background: var(--gameengine-secondary-color);
-        color: var(--gameengine-primary-color);
+        color: var(--gameengine-primary);
         .gameengine-icon:before {
-            color: var(--gameengine-primary-color);
+            color: var(--gameengine-primary);
         }
         &:hover, &:focus {
             background: var(--gameengine-secondary-color);
-            color: var(--gameengine-primary-color);
+            color: var(--gameengine-primary);
         }
     }
     &--bg-white-border,    
@@ -147,11 +147,11 @@
     &--preset-border-purple,
     &--border-purple {
         background: transparent;
-        border: 1px solid var(--gameengine-primary-color);
-        color: var(--gameengine-primary-color);
+        border: 1px solid var(--gameengine-primary);
+        color: var(--gameengine-primary);
         &:hover, &:focus {
             background: #F5F5F5;
-            color: var(--gameengine-primary-color);
+            color: var(--gameengine-primary);
         }
     }
     &--border-gray {
@@ -167,9 +167,9 @@
         }
     }
     &--border-black {
-        border: 1px solid var(--gameengine-primary-color);
+        border: 1px solid var(--gameengine-primary);
         &:hover, &:focus {
-            border: 1px solid var(--gameengine-primary-color);
+            border: 1px solid var(--gameengine-primary);
         }
     }
     &--mini {

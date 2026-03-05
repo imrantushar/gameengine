@@ -143,45 +143,6 @@ class AddonsController extends BaseController
             ),
 
             array(
-                'slug'   => 'wc_spending_gateway',
-                'name'   => __('WC Spending Gateway', 'gameengine'),
-                'desc'   => __('Allow users to pay with points and get partial discounts at checkout.', 'gameengine'),
-                'icon'   => 'dashicons-cart',
-                'active' => $is_pro_installed && in_array('wc_spending_gateway', $active_addons, true),
-                'is_pro' => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-            array(
-                'slug'   => 'rewards_marketplace',
-                'name'   => __('Rewards Marketplace', 'gameengine'),
-                'desc'   => __('A virtual shop where users can buy WooCommerce coupons with points.', 'gameengine'),
-                'icon'   => 'dashicons-store',
-                'active' => $is_pro_installed && in_array('rewards_marketplace', $active_addons, true),
-                'is_pro' => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-
-            array(
-                'slug'   => 'points_payouts',
-                'name'   => __('Points Payouts', 'gameengine'),
-                'desc'   => __('Enable point-to-cash withdrawal requests for users.', 'gameengine'),
-                'icon'   => 'dashicons-money-alt',
-                'active' => $is_pro_installed && in_array('points_payouts', $active_addons, true),
-                'is_pro' => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-
-            array(
-                'slug'   => 'redemption_codes',
-                'name'   => __('Redemption Codes', 'gameengine'),
-                'desc'   => __('Admin generated vouchers that users can redeem for points.', 'gameengine'),
-                'icon'   => 'dashicons-tickets-alt',
-                'active' => $is_pro_installed && in_array('redemption_codes', $active_addons, true),
-                'is_pro' => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-
-            array(
                 'slug'      => 'wallet',
                 'name'      => __('Wallet & Payouts', 'gameengine'),
                 'desc'      => __('Manage withdrawal requests and user wallet balance from a dedicated menu.', 'gameengine'),
@@ -276,10 +237,7 @@ class AddonsController extends BaseController
             'restrict_unlock',
             'progress_map',
             'restrict_content',
-            'wc_spending_gateway',
-            'rewards_marketplace',
-            'points_payouts',
-            'redemption_codes'
+            'wallet'
         );
 
         $mapped = array();

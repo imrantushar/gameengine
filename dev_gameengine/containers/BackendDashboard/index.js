@@ -14,6 +14,7 @@ import Addons from './pages/addon';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import Types from './pages/Types';
+import Wallet from './pages/walletLists';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -62,6 +63,9 @@ const renderSwitch = (page, id, action, path) => {
 
 			case 'gameengine-addons':
 			return <Addons/>;
+			
+			case 'gameengine-wallet':
+			return <Wallet/>;
 
 		default:
 			return <Dashboard />;
