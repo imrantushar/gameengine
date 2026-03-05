@@ -122,7 +122,7 @@ const AddonCard = ({ item, index, value }) => {
 				<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%" p="16px 24px 0 24px">
 					{item?.required_plugin?.length > 0 && (
 						item.required_plugin.map((childItem, childItemIndex) => (
-							<Flex alignItems="center" gap={2}>
+							<Flex alignItems="center" gap={2} key={childItemIndex}>
 								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
 									{__('Required plugins', 'gameengine')}
 								</Text>
@@ -132,7 +132,7 @@ const AddonCard = ({ item, index, value }) => {
 									}
 									contentWidth='fit-content'
 								>
-									<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+									<Text fontSize="14px" fontWeight="400" m={0}>
 										{childItem.plugin_name}
 									</Text>
 								</Tooltip>
@@ -155,7 +155,7 @@ const AddonCard = ({ item, index, value }) => {
 									}
 									contentWidth='fit-content'
 								>
-									<Text fontSize="14px" fontWeight="400" m={0} key={childItemIndex}>
+									<Text fontSize="14px" fontWeight="400" m={0}>
 										{__('Available in pro', 'gameengine')}
 									</Text>
 								</Tooltip>
@@ -178,7 +178,16 @@ const AddonCard = ({ item, index, value }) => {
 									onChange={onChangeHandler}
 								/>
 							) : isShowProTag ? (
-								<Icon as={LuLock} boxSize="20px" color="gray.600" />
+								<Tooltip
+									openerContent={
+										<Icon as={LuLock} boxSize="20px" color="gray.600" />
+									}
+									contentWidth='fit-content'
+								>
+									<Text fontSize="14px" fontWeight="400" m={0}>
+										{__('Available in pro', 'gameengine')}
+									</Text>
+								</Tooltip>
 							) : null}
 						</Box>
 					)}
