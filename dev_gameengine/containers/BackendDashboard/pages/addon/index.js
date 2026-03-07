@@ -82,7 +82,7 @@ const infoCardsData = [
 		),
 		required_plugin: false,
 		icon: false,
-		image: plugin_root_url+'assets/images/restrict_unlock.svg',
+		image: plugin_root_url + 'assets/images/restrict_unlock.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "admin.php?page=gameengine-achievements&action=new",
 	},
@@ -97,7 +97,7 @@ const infoCardsData = [
 		),
 		required_plugin: false,
 		icon: false,
-		image: plugin_root_url+'assets/images/restrict_content.svg',
+		image: plugin_root_url + 'assets/images/restrict_content.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "",
 	},
@@ -112,12 +112,12 @@ const infoCardsData = [
 		),
 		required_plugin: false,
 		icon: false,
-		image: plugin_root_url+'assets/images/progress_map.svg',
+		image: plugin_root_url + 'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "",
 	},
 	{
-		label: __('Wallet List', 'gameengine'),
+		label: __('Wallet', 'gameengine'),
 		name: 'wallet',
 		is_pro: true,
 		// is_active: true,
@@ -128,7 +128,7 @@ const infoCardsData = [
 		),
 		required_plugin: false,
 		icon: false,
-		image: plugin_root_url+'assets/images/progress_map.svg',
+		image: plugin_root_url + 'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "admin.php?page=gameengine-wallet",
 	},
@@ -212,7 +212,7 @@ const Addons = () => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		(async() => {
+		(async () => {
 			setLoading(true)
 			try {
 				dispatch(fetchAddons());
