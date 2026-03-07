@@ -23,39 +23,9 @@ export const Economy = () => {
     }));
 
     return (
-        <SettingsInner heading={__('Economy', 'gameengine')}>
+        <SettingsInner heading={__('Ecommrce', 'gameengine')}>
             <Flex direction="column" gap="16px">
-                <SettingsInput isPro={!is_pro} label={__('Allowed Roles', 'gameengine')}>
-                    <Select
-                        className="gameengine-select gameengine-select--300"
-                        classNamePrefix="gameengine-select"
-                        options={roleOptions}
-                        value={selectedRoleOption}
-                        isDisabled={!is_pro}
-                        isMulti={true}
-                        onChange={(options) => {
-                            const cleanValues = (options || [])
-                                .map(item => item?.value)
-                                .filter(Boolean);
 
-                            setFieldValue('economy.allowed_roles', cleanValues);
-                        }}
-                        menuPlacement="bottom"
-                    />
-                </SettingsInput>
-                <SettingsInput isPro={!is_pro} label={__('Currency', 'gameengine')}>
-                    <Select
-                        className="gameengine-select gameengine-select--300"
-                        classNamePrefix="gameengine-select"
-                        options={currencyOptions}
-                        value={currencyOptions.find(option => option.value === values?.economy?.currency_symbol)}
-                        isDisabled={!is_pro}
-                        onChange={(option) => {
-                            setFieldValue('economy.currency_symbol', option?.value);
-                        }}
-                        menuPlacement="bottom"
-                    />
-                </SettingsInput>
 
                 <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}>
                     <Input

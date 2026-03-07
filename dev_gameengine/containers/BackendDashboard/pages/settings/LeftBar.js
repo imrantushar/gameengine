@@ -21,21 +21,21 @@ const LeftBar = () => {
             icon: general(),
         },
         {
-            label: __("Economy", "gameengine"),
+            label: __("Ecommrce", "gameengine"),
             key: "economy",
-            desc: __("Economy settings", "gameengine"),
+            desc: __("Ecommrce settings", "gameengine"),
             icon: general(),
         },
         {
-            label: __("Marketplace", "gameengine"),
+            label: __("Coupon Generate", "gameengine"),
             key: "marketplace",
-            desc: __("Economy settings", "gameengine"),
+            desc: __("Coupon Generate", "gameengine"),
             icon: general(),
         },
         {
             label: __("Payout", "gameengine"),
             key: "payout",
-            desc: __("Economy settings", "gameengine"),
+            desc: __("Payout settings", "gameengine"),
             icon: general(),
         },
 
