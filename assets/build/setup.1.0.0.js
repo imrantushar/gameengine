@@ -61344,6 +61344,7 @@ var isPromise = function isPromise(value) {
 var isInputEvent = function isInputEvent(value) {
   return value && isObject(value) && isObject(value.target);
 };
+<<<<<<< HEAD
 /**
  * Same as document.activeElement but wraps in a try-catch block. In IE it is
  * not safe to call document.activeElement if there is nothing focused.
@@ -61354,6 +61355,18 @@ var isInputEvent = function isInputEvent(value) {
  * @param {?Document} doc Defaults to current document.
  * @return {Element | null}
  * @see https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/dom/getActiveElement.js
+=======
+/**
+ * Same as document.activeElement but wraps in a try-catch block. In IE it is
+ * not safe to call document.activeElement if there is nothing focused.
+ *
+ * The activeElement will be null only if the document or document body is not
+ * yet defined.
+ *
+ * @param {?Document} doc Defaults to current document.
+ * @return {Element | null}
+ * @see https://github.com/facebook/fbjs/blob/master/packages/fbjs/src/core/dom/getActiveElement.js
+>>>>>>> origin/next-release
  */
 
 function getActiveElement(doc) {
@@ -61369,8 +61382,13 @@ function getActiveElement(doc) {
     return doc.body;
   }
 }
+<<<<<<< HEAD
 /**
  * Deeply get a value from an object via its path.
+=======
+/**
+ * Deeply get a value from an object via its path.
+>>>>>>> origin/next-release
  */
 
 function getIn(obj, key, def, p) {
@@ -61391,6 +61409,7 @@ function getIn(obj, key, def, p) {
 
   return obj === undefined ? def : obj;
 }
+<<<<<<< HEAD
 /**
  * Deeply set a value from in object via it's path. If the value at `path`
  * has changed, return a shallow copy of obj with `value` set at `path`.
@@ -61414,6 +61433,31 @@ function getIn(obj, key, def, p) {
  *
  * @see https://github.com/developit/linkstate
  * @see https://github.com/jaredpalmer/formik/pull/123
+=======
+/**
+ * Deeply set a value from in object via it's path. If the value at `path`
+ * has changed, return a shallow copy of obj with `value` set at `path`.
+ * If `value` has not changed, return the original `obj`.
+ *
+ * Existing objects / arrays along `path` are also shallow copied. Sibling
+ * objects along path retain the same internal js reference. Since new
+ * objects / arrays are only created along `path`, we can test if anything
+ * changed in a nested structure by comparing the object's reference in
+ * the old and new object, similar to how russian doll cache invalidation
+ * works.
+ *
+ * In earlier versions of this function, which used cloneDeep, there were
+ * issues whereby settings a nested value would mutate the parent
+ * instead of creating a new object. `clone` avoids that bug making a
+ * shallow copy of the objects along the update path
+ * so no object is mutated in place.
+ *
+ * Before changing this function, please read through the following
+ * discussions.
+ *
+ * @see https://github.com/developit/linkstate
+ * @see https://github.com/jaredpalmer/formik/pull/123
+>>>>>>> origin/next-release
  */
 
 function setIn(obj, path, value) {
@@ -61454,12 +61498,21 @@ function setIn(obj, path, value) {
 
   return res;
 }
+<<<<<<< HEAD
 /**
  * Recursively a set the same value for all keys and arrays nested object, cloning
  * @param object
  * @param value
  * @param visited
  * @param response
+=======
+/**
+ * Recursively a set the same value for all keys and arrays nested object, cloning
+ * @param object
+ * @param value
+ * @param visited
+ * @param response
+>>>>>>> origin/next-release
  */
 
 function setNestedObjectValues(object, value, visited, response) {
@@ -61658,8 +61711,13 @@ function useFormik(_ref) {
       }
     });
   }, [props.validate]);
+<<<<<<< HEAD
   /**
    * Run validation against a Yup schema and optionally run a function if successful
+=======
+  /**
+   * Run validation against a Yup schema and optionally run a function if successful
+>>>>>>> origin/next-release
    */
 
   var runValidationSchema = (0,react__WEBPACK_IMPORTED_MODULE_3__.useCallback)(function (values, field) {
@@ -62331,8 +62389,13 @@ function warnAboutMissingIdentifier(_ref4) {
       handlerName = _ref4.handlerName;
   console.warn("Warning: Formik called `" + handlerName + "`, but you forgot to pass an `id` or `name` attribute to your input:\n    " + htmlContent + "\n    Formik cannot determine which value to update. For more info see https://formik.org/docs/api/formik#" + documentationAnchorLink + "\n  ");
 }
+<<<<<<< HEAD
 /**
  * Transform Yup ValidationError to a more usable object
+=======
+/**
+ * Transform Yup ValidationError to a more usable object
+>>>>>>> origin/next-release
  */
 
 
@@ -62366,8 +62429,13 @@ function yupToFormErrors(yupError) {
 
   return errors;
 }
+<<<<<<< HEAD
 /**
  * Validate a yup schema.
+=======
+/**
+ * Validate a yup schema.
+>>>>>>> origin/next-release
  */
 
 function validateYupSchema(values, schema, sync, context) {
@@ -62381,8 +62449,13 @@ function validateYupSchema(values, schema, sync, context) {
     context: context || normalizedValues
   });
 }
+<<<<<<< HEAD
 /**
  * Recursively prepare values.
+=======
+/**
+ * Recursively prepare values.
+>>>>>>> origin/next-release
  */
 
 function prepareDataForValidation(values) {
@@ -62410,9 +62483,15 @@ function prepareDataForValidation(values) {
 
   return data;
 }
+<<<<<<< HEAD
 /**
  * deepmerge array merging algorithm
  * https://github.com/KyleAMathews/deepmerge#combine-array
+=======
+/**
+ * deepmerge array merging algorithm
+ * https://github.com/KyleAMathews/deepmerge#combine-array
+>>>>>>> origin/next-release
  */
 
 function arrayMerge(target, source, options) {
@@ -62656,8 +62735,13 @@ var Form = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_3__.forwardRef)(functi
 });
 Form.displayName = 'Form';
 
+<<<<<<< HEAD
 /**
  * A public higher-order component to access the imperative API
+=======
+/**
+ * A public higher-order component to access the imperative API
+>>>>>>> origin/next-release
  */
 
 function withFormik(_ref) {
@@ -62678,9 +62762,15 @@ function withFormik(_ref) {
 
   return function createFormik(Component$1) {
     var componentDisplayName = Component$1.displayName || Component$1.name || Component$1.constructor && Component$1.constructor.name || 'Component';
+<<<<<<< HEAD
     /**
      * We need to use closures here for to provide the wrapped component's props to
      * the respective withFormik config methods.
+=======
+    /**
+     * We need to use closures here for to provide the wrapped component's props to
+     * the respective withFormik config methods.
+>>>>>>> origin/next-release
      */
 
     var C = /*#__PURE__*/function (_React$Component) {
@@ -62743,9 +62833,15 @@ function withFormik(_ref) {
   };
 }
 
+<<<<<<< HEAD
 /**
  * Connect any component to Formik context, and inject as a prop called `formik`;
  * @param Comp React Component
+=======
+/**
+ * Connect any component to Formik context, and inject as a prop called `formik`;
+ * @param Comp React Component
+>>>>>>> origin/next-release
  */
 
 function connect(Comp) {
@@ -62767,8 +62863,13 @@ function connect(Comp) {
   );
 }
 
+<<<<<<< HEAD
 /**
  * Some array helpers!
+=======
+/**
+ * Some array helpers!
+>>>>>>> origin/next-release
  */
 
 var move = function move(array, from, to) {
@@ -63096,9 +63197,15 @@ var ErrorMessageImpl = /*#__PURE__*/function (_React$Component) {
 
 var ErrorMessage = /*#__PURE__*/connect(ErrorMessageImpl);
 
+<<<<<<< HEAD
 /**
  * Custom Field component for quickly hooking into Formik
  * context and wiring up forms.
+=======
+/**
+ * Custom Field component for quickly hooking into Formik
+ * context and wiring up forms.
+>>>>>>> origin/next-release
  */
 
 var FastFieldInner = /*#__PURE__*/function (_React$Component) {
