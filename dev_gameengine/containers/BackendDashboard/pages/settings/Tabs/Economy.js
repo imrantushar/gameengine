@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Input, Switch } from '@chakra-ui/react';
+import { Flex, Input, Switch, Text } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import { useFormikContext } from 'formik';
 import Select from 'react-select';
@@ -25,7 +25,6 @@ export const Economy = () => {
     return (
         <SettingsInner heading={__('Ecommrce', 'gameengine')}>
             <Flex direction="column" gap="16px">
-
 
                 <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}>
                     <Input
