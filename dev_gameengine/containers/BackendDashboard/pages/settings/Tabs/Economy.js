@@ -8,6 +8,7 @@ import SettingsInner from '../Components/SettingsInner';
 import SettingsInput from '../Components/SettingsInput';
 import { decodeHtmlEntity, is_pro } from '@GFUtils/helper';
 import currencySymbols from '@GFUtils/currency-symbols';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 export const Economy = () => {
     const { values, setFieldValue } = useFormikContext();
@@ -26,7 +27,9 @@ export const Economy = () => {
         <SettingsInner heading={__('Ecommrce', 'gameengine')}>
             <Flex direction="column" gap="16px">
 
-                <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1.', 'gameengine')} />}
+                >
                     <Input
                         type="number"
                         min="0"
@@ -46,7 +49,9 @@ export const Economy = () => {
                     />
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Enable Gateway', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Enable Gateway', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Allow customers to pay for their entire order using their points balance as a payment method during checkout.', 'gameengine')} />}
+                >
                     <Switch.Root
                         colorPalette="blue"
                         size="sm"
@@ -62,7 +67,9 @@ export const Economy = () => {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Enable Partial Payment', 'gameengine')}>
+                <SettingsInput isPro={!is_pro} label={__('Enable Partial Payment', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Allow customers to apply a portion of their points for a discount on the cart or checkout page.', 'gameengine')} />}
+                >
                     <Switch.Root
                         colorPalette="blue"
                         size="sm"
