@@ -1,14 +1,7 @@
-import React, { useEffect } from 'react';
-import { Box, Checkbox, Flex, Input, Separator, Switch, Text, VStack } from '@chakra-ui/react';
+import React from 'react';
+import { Box, Flex, Switch} from '@chakra-ui/react';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import LabeledInput from '@GFComponents/LabeledInput';
-import { fetchSettings, setGeneralField, resetSaveStatus } from '../../../../../redux/Slices/settingsSlice/settingsSlice';
-import SettingsInner from '../Components/SettingsInner';
-import { useDispatch } from 'react-redux';
-import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
-import GameEngineInput from '@GFComponents/GameEngineInput';
-
 import Select from "react-select";
 import { useFormikContext } from 'formik';
 import SettingsInput from '../Components/SettingsInput';
@@ -49,8 +42,8 @@ const GeneralSettings = () => {
     const { values, setFieldValue } = useFormikContext();
 
     return (
-        <Box width={'100%'}>
-            <GameEngineBox  dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
+        <Box width={'100%'} overflow="visible">
+            <GameEngineBox  dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
                 <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log ", "gameengine")} />
 
                 <Flex direction="column" gap='16px'>
@@ -67,7 +60,7 @@ const GeneralSettings = () => {
                             onChange={option => {
                                 setFieldValue('logs.display_cycle', option.value)
                             }}
-                            menuPlacement="bottom"
+                            menuPlacement="auto"
                         />
                     </SettingsInput>
 
@@ -84,7 +77,7 @@ const GeneralSettings = () => {
                             onChange={option => {
                                 setFieldValue('logs.retention_days', option.value)
                             }}
-                            menuPlacement="bottom"
+                            menuPlacement="auto"
                         />
                     </SettingsInput>
                 </Flex>
