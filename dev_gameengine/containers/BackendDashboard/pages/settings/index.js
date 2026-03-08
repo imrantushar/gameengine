@@ -16,11 +16,12 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';
+import Dashboard from './Tabs/Dashboard';
 
 const Settings = () => {
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-    const tab = tabMatch ? tabMatch[1] : 'log';
+    const tab = tabMatch ? tabMatch[1] : 'dashboard';
     const { data: settingsData } = useSelector(state => state.settings);
     const [settingsLoading, setSettingsLoading] = useState(!settingsData);
     const dispatch = useDispatch();
@@ -47,8 +48,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
                 case "payout":
                     return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
-                // case "email-notice":
-                //     return dispatch(saveSettings({key: 'email', data: values?.email}));
+                case "dashboard":
+                    return dispatch(saveSettings({key: 'dashboard', payloadData: values.dashboard}));
                 default:
                     return null;
             }
@@ -69,14 +70,14 @@ const Settings = () => {
                     initialValues={settingsData}
                     onSubmit={onSubmitHandle}
                 >
-                    {({values, submitForm, isSubmitting, dirty }) => {
+                    {({ handleSubmit, isSubmitting, dirty }) => {
                         return (
                             <>
                                 <TopBar
                                     path={__("Settings", "gameengine")}
                                     rightContent={
                                         <>
-                                            <Button {...primaryBtn} onClick={submitForm} loading={isSubmitting} disabled={!dirty}>
+                                            <Button {...primaryBtn} onClick={handleSubmit} loading={isSubmitting} disabled={!dirty}>
                                                 {__('Save Changes', 'gameengine')}
                                             </Button>
                                             <GetHelp filterText={['setting']} />
@@ -92,10 +93,11 @@ const Settings = () => {
                                     <Flex gapX={4} alignItems={'flex-start'} width={'100%'}>
 
                                         <LeftBar />
-                                        {tab === "log" && <GeneralSettings /> }
+                                        {tab === "log" && <GeneralSettings />}
                                         {tab === "economy" && <Economy />}
                                         {tab === "marketplace" && <MarketPlace />}
                                         {tab === "payout" && <Payout />}
+                                        {tab === "dashboard" && <Dashboard />}
 
                                     </Flex>
                                 </Box>
