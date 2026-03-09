@@ -29,6 +29,7 @@ const WPModal = ({
 					isFullScreen={isFullScreen}
 					shouldCloseOnClickOutside={shouldCloseOnClickOutside}
 					className={classes}
+					closeTimeoutMS={300}
 				>
 					<div className="gameengine-wp-modal__content">
 						{children}

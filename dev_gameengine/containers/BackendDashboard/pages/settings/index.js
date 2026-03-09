@@ -93,11 +93,12 @@ const Settings = () => {
                                     <Flex gapX={4} alignItems={'flex-start'} width={'100%'}>
 
                                         <LeftBar />
-                                        {tab === "log" && <GeneralSettings />}
-                                        {tab === "economy" && <Economy />}
-                                        {tab === "marketplace" && <MarketPlace />}
-                                        {tab === "payout" && <Payout />}
-                                        {tab === "dashboard" && <Dashboard />}
+                                        <Box width={'100%'} key={tab} className="gameengine-fade-in">
+                                            {tab === "log" && <GeneralSettings /> }
+                                            {tab === "economy" && <Economy />}
+                                            {tab === "marketplace" && <MarketPlace />}
+                                            {tab === "payout" && <Payout />}
+                                        </Box>
 
                                     </Flex>
                                 </Box>

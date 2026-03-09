@@ -24,7 +24,7 @@ export const Economy = () => {
     }));
 
     return (
-        <SettingsInner heading={__('Ecommrce', 'gameengine')}>
+        <SettingsInner fullWidth={true} heading={__('Economy', 'gameengine')}>
             <Flex direction="column" gap="16px">
 
                 <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')}

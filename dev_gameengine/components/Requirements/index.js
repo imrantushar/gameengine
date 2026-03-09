@@ -78,7 +78,7 @@ const Requirements = (props) => {
             dynamicClasses={parent}
         >
             {open && (
-                <Flex gap="24px" mt={6} width="100%" className={child}>
+                <Flex gap="24px" mt={6} width="100%" className={`${child} gameengine-fade-in-up`}>
                     <Flex className={childLeft} width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gameengine-shadow)" direction="column" gap="24px">
                         <Flex direction="column" gap="4px">
                             <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
@@ -225,15 +225,17 @@ const Requirements = (props) => {
                         </Box>
 
                         <DroppableArea id={`${actionName}s-available`}>
-                            {allHooks
-                                .filter(item => !selectedHookIds?.includes(item?.id))
-                                .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
-                                .map(h => (
-                                    <Box key={h.id}>
-                                        {renderHookCard(h, actionName)}
-                                        <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
-                                    </Box>
-                                ))}
+                            <Box key={selectedFilterType} className="gameengine-fade-in">
+                                {allHooks
+                                    .filter(item => !selectedHookIds?.includes(item?.id))
+                                    .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
+                                    .map(h => (
+                                        <Box key={h.id}>
+                                            {renderHookCard(h, actionName)}
+                                            <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
+                                        </Box>
+                                    ))}
+                            </Box>
                         </DroppableArea>
                     </Flex>
 
