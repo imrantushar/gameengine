@@ -225,7 +225,7 @@ const Requirements = (props) => {
                         </Box>
 
                         <DroppableArea id={`${actionName}s-available`}>
-                            <div key={selectedFilterType} className="gameengine-fade-in">
+                            <Box key={selectedFilterType} className="gameengine-fade-in">
                                 {allHooks
                                     .filter(item => !selectedHookIds?.includes(item?.id))
                                     .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
@@ -235,7 +235,7 @@ const Requirements = (props) => {
                                             <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
                                         </Box>
                                     ))}
-                            </div>
+                            </Box>
                         </DroppableArea>
                     </Flex>
 
