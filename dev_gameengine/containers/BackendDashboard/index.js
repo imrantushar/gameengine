@@ -82,7 +82,7 @@ export default function BackendDashboard() {
 
 	let transitionKey = `${page}-${path}-${id}-${action}`;
 
-	if (page === 'gameengine-settings') {
+	if (page === 'gameengine-settings' || page=== 'gameengine-tools') {
 		transitionKey = page;
 	}
 

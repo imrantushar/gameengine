@@ -14,6 +14,34 @@
     flex-direction: column;
 }
 
+.gameengine-fade-in {
+    animation: gameengineFadeIn 0.2s ease-in-out;
+}
+
+@keyframes gameengineFadeIn {
+    from {
+        opacity: 0.5;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.gameengine-fade-in-up {
+    animation: gameengineFadeInUp 0.3s ease-in-out;
+}
+
+@keyframes gameengineFadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .gameengine-expandable-section {
     display: grid;
     grid-template-rows: 0fr;

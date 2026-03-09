@@ -23,7 +23,7 @@ export const Economy = () => {
     }));
 
     return (
-        <SettingsInner heading={__('Economy', 'gameengine')}>
+        <SettingsInner fullWidth={true} heading={__('Economy', 'gameengine')}>
             <Flex direction="column" gap="16px">
                 <SettingsInput isPro={!is_pro} label={__('Allowed Roles', 'gameengine')}>
                     <Select
