@@ -16,23 +16,27 @@ const Payout = () => {
   return (
     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" width="100%">
       <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Payout", "gameengine")} />
-      <SettingsInput isPro={!is_pro} label={__("Enable Payout", "gameengine")}  margin='0 0 24px 0'>
+      <SettingsInput isPro={!is_pro} label={__("Enable Payout", "gameengine")} margin='0 0 24px 0'
+        subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Enable users to request real money withdrawals in exchange for their earned points.', 'gameengine')} />}
+      >
         <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
-            disabled={!is_pro}
-            aria-label="Select row"
-            checked={values?.payout?.enable_payout}
-            onCheckedChange={(changes) => {
-              setFieldValue('payout.enable_payout', changes.checked)
-            }}
+          colorPalette="blue"
+          size="sm"
+          mt="0.5"
+          disabled={!is_pro}
+          aria-label="Select row"
+          checked={values?.payout?.enable_payout}
+          onCheckedChange={(changes) => {
+            setFieldValue('payout.enable_payout', changes.checked)
+          }}
         >
-            <Switch.HiddenInput />
-            <Switch.Control />
+          <Switch.HiddenInput />
+          <Switch.Control />
         </Switch.Root>
       </SettingsInput>
-      <SettingsInput isPro={!is_pro} label={__("Payout methods", "gameengine")}  margin='0 0 24px 0'>
+      <SettingsInput isPro={!is_pro} label={__("Payout methods", "gameengine")} margin='0 0 24px 0'
+        subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Select which payment methods are available for users to receive their money (e.g. PayPal, bKash, Bank).', 'gameengine')} />}
+      >
         <Select
           className="gameengine-select gameengine-select--300"
           classNamePrefix="gameengine-select"
@@ -44,12 +48,14 @@ const Payout = () => {
             const cleanValues = (options || [])
               .map(item => item?.value)
               .filter(Boolean);
-              setFieldValue('payout.methods', cleanValues)
+            setFieldValue('payout.methods', cleanValues)
           }}
           menuPlacement="auto"
         />
       </SettingsInput>
-      <SettingsInput isPro={!is_pro} width='100%' label={__("Max Points", "gameengine")}  margin='0 0 24px 0'>
+      <SettingsInput isPro={!is_pro} width='100%' label={__("Max Points", "gameengine")} margin='0 0 24px 0'
+        subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('The maximum number of points a user can request for a withdrawal.', 'gameengine')} />}
+      >
         <Input
           type="number"
           min="0"
@@ -59,15 +65,17 @@ const Payout = () => {
           disabled={!is_pro}
           value={values.payout?.max_points}
           onChange={(event) => {
-              const rawValue = event.target.value;
-              setFieldValue(
-                  `payout.max_points`, Number(rawValue)
-              );
+            const rawValue = event.target.value;
+            setFieldValue(
+              `payout.max_points`, Number(rawValue)
+            );
           }}
           {...commonInput}
         />
       </SettingsInput>
-      <SettingsInput isPro={!is_pro} width='100%' label={__("Min Points", "gameengine")} margin='0 0 24px 0'>
+      <SettingsInput isPro={!is_pro} width='100%' label={__("Min Points", "gameengine")} margin='0 0 24px 0'
+        subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('The minimum number of points a user must have to request a withdrawal.', 'gameengine')} />}
+      >
         <Input
           type="number"
           min="0"
@@ -77,10 +85,10 @@ const Payout = () => {
           placeholder={__("0", "gameengine")}
           value={values.payout?.min_points}
           onChange={(event) => {
-              const rawValue = event.target.value;
-              setFieldValue(
-                  `payout.min_points`, Number(rawValue)
-              );
+            const rawValue = event.target.value;
+            setFieldValue(
+              `payout.min_points`, Number(rawValue)
+            );
           }}
           {...commonInput}
         />

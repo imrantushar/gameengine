@@ -443,6 +443,37 @@
     font-style: italic;
 }
 
+.academy-frontend-dashboard__content .gameengine-is-locked .gameengine-card-info h5 {
+    margin: 10px 0 !important;
+    font-size: 10px !important;
+}
+
+.academy-frontend-dashboard__content .gameengine-is-locked .gameengine-type-badge {
+    font-size: 14px !important;
+}
+
+.academy-frontend-dashboard__content .gameengine-lock-msg {
+    font-size: 8px !important;
+}
+
+.woocommerce-MyAccount-content .gameengine-is-locked .gameengine-card-info h5 {
+    margin: 10px 0 !important;
+    font-size: 10px !important;
+}
+
+.woocommerce-MyAccount-content .gameengine-is-locked .gameengine-type-badge {
+    font-size: 14px !important;
+}
+
+.woocommerce-MyAccount-content .gameengine-lock-msg {
+    font-size: 8px !important;
+}
+
+.gameengine-card-info h5 {
+    margin: 0px 0;
+    font-size: 10px;
+}
+
 /* ================================
    GameEngine Leaderboard Styles
 ================================ */
