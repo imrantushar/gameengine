@@ -11,7 +11,7 @@ export default function Dashboard() {
     const { setFieldValue, values } = useFormikContext();
 
     return (
-        <SettingsInner heading={__('Dashboard', 'gameengine')}>
+        <SettingsInner fullWidth={true} heading={__('Dashboard', 'gameengine')}>
             <Flex direction="column" gap="16px">
 
                 <SettingsInput isPro={!is_pro} label={__('Enable On WooCommerce', 'gameengine')}
