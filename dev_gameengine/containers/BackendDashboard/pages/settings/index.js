@@ -94,6 +94,7 @@ const Settings = () => {
 
                                         <LeftBar />
                                         <Box width={'100%'} key={tab} className="gameengine-fade-in">
+                                            {tab === "dashboard" && <Dashboard /> }
                                             {tab === "log" && <GeneralSettings /> }
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
