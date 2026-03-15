@@ -251,11 +251,11 @@ export default function Wallet() {
 
     return (
         <>
-            <TopBar path={__("Wallet Lists", "gameengine")} />
+            <TopBar path={__("Withdraw Lists", "gameengine")} />
 
             <div className='gameengine-page-content'>
                 <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                    <GFLabel type="plainHeading" margin={0} label={__("Wallet Lists", "gameengine")} />
+                    <GFLabel type="plainHeading" margin={0} label={__("Withdraw Lists", "gameengine")} />
                 </Flex>
                 <ListTable
                     key={'wallet-payouts-' + payouts.length}
