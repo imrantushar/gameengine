@@ -7,21 +7,23 @@ import SettingsInner from '../Components/SettingsInner';
 import { useFormikContext } from 'formik';
 import { is_pro } from '@GFUtils/helper';
 import Select from 'react-select';
+import { useSelector } from 'react-redux';
 
 export default function Dashboard() {
     const { setFieldValue, values } = useFormikContext();
+    const addons = useSelector(state => state.addons)
 
     const platformIntegrationOptions = [
-        { value: 'woo_commerce', label: __('WooCommerce', 'gameengine') },
-        { value: 'academy_lms', label: __('Academy LMS', 'gameengine') },
+        { value: 'woocommerce', label: __('WooCommerce', 'gameengine'), isDisabled: !addons?.woocommerce },
+        { value: 'academylms', label: __('Academy LMS', 'gameengine'), isDisabled: !addons?.academylms },
     ];
 
     return (
-        <SettingsInner fullWidth={true} heading={__('Dashboard', 'gameengine')}>
+        <SettingsInner fullWidth={true} heading={__('Frontend Dashboard', 'gameengine')}>
             <Flex direction="column" gap="16px">
 
-                <SettingsInput isPro={!is_pro} label={__('Platform Integration', 'gameengine')}
-                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Show GameEngine menus & stats in the selected platform dashboard.', 'gameengine')} />}
+                <SettingsInput isPro={!is_pro} label={__('Dashboard Integration', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Select where you want to display game stats and navigation.', 'gameengine')} />}
                 >
                     <Select
                         name='platform_integration'
@@ -42,8 +44,8 @@ export default function Dashboard() {
                     />
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Show Stats Widget', 'gameengine')}
-                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Show a quick summary of Points and Rank at the top of user dashboards.', 'gameengine')} />}
+                <SettingsInput isPro={!is_pro} label={__('Show User Stats', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Display a quick view of current Points and Rank to users.', 'gameengine')} />}
                 >
                     <Switch.Root
                         colorPalette="blue"
@@ -60,8 +62,8 @@ export default function Dashboard() {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Enable Menus', 'gameengine')}
-                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Add "Withdraw Points" and "Rewards Store" links directly to the dashboard sidebar.', 'gameengine')} />}
+                <SettingsInput isPro={!is_pro} label={__('Show Navigation Links', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Add "Withdraw Points" and "Rewards Store" to the sidebar.', 'gameengine')} />}
                 >
                     <Switch.Root
                         colorPalette="blue"
@@ -78,8 +80,8 @@ export default function Dashboard() {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Enable Coupon Generate', 'gameengine')}
-                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Activate the rewards store where users can exchange points for unique WooCommerce discount coupons via shortcode.', 'gameengine')} />}
+                <SettingsInput isPro={!is_pro} label={__('Enable Coupon Exchange', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Let users trade their points for WooCommerce discount coupons.', 'gameengine')} />}
                 >
                     <Switch.Root
                         colorPalette="blue"
