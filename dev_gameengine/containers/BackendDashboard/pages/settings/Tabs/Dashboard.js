@@ -44,7 +44,7 @@ export default function Dashboard() {
                     />
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Show User Stats', 'gameengine')}
+                <SettingsInput isPro={!is_pro} label={__('Add User Stats Menu', 'gameengine')}
                     subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Display a quick view of current Points and Rank to users.', 'gameengine')} />}
                 >
                     <Switch.Root
@@ -62,8 +62,8 @@ export default function Dashboard() {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Show Navigation Links', 'gameengine')}
-                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Add "Withdraw Points" and "Rewards Store" to the sidebar.', 'gameengine')} />}
+                <SettingsInput isPro={!is_pro} label={__('Add Navigation Links', 'gameengine')}
+                    subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Allow users to redeem their points for WooCommerce discount coupons.', 'gameengine')} />}
                 >
                     <Switch.Root
                         colorPalette="blue"
@@ -80,7 +80,7 @@ export default function Dashboard() {
                     </Switch.Root>
                 </SettingsInput>
 
-                <SettingsInput isPro={!is_pro} label={__('Enable Coupon Exchange', 'gameengine')}
+                <SettingsInput isPro={!is_pro} label={__('Add Coupon Exchange Menu', 'gameengine')}
                     subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Let users trade their points for WooCommerce discount coupons.', 'gameengine')} />}
                 >
                     <Switch.Root
