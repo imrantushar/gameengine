@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Badge, Box, Button, Flex, Icon, Separator, Text, Image } from '@chakra-ui/react';
+import { Badge, Box, Flex, Icon, Text, Image } from '@chakra-ui/react';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
 import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
-import { LuInfo, LuLock, LuSettings } from 'react-icons/lu';
+import { LuLock, LuSettings } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
 import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
+import { TbExternalLink } from 'react-icons/tb';
 
 const AddonCard = ({ item, index, value }) => {
-	const { values, setFieldValue } = useFormikContext()
+	const { values, setFieldValue } = useFormikContext();
 	const [updating, setUpdating] = useState(false);
 	const dispatch = useDispatch();
 
 	const onChangeHandler = () => {
-		setUpdating(true)
+		setUpdating(true);
 		const status = !value;
 		dispatch(saveAddon({ addon: item.name, status })).then(({ payload }) => {
 			if (payload) {
@@ -41,8 +42,7 @@ const AddonCard = ({ item, index, value }) => {
 							type: 'success',
 						})
 					);
-
-					setUpdating(false)
+					setUpdating(false);
 					dispatch(fetchSettings());
 					dispatch(fetchAdminMenuItems());
 				} else {
@@ -54,7 +54,7 @@ const AddonCard = ({ item, index, value }) => {
 							type: 'error',
 						})
 					);
-					setUpdating(false)
+					setUpdating(false);
 				}
 			}
 		});
@@ -63,137 +63,118 @@ const AddonCard = ({ item, index, value }) => {
 	const isShowProTag = !is_pro && item.is_pro;
 	const showSwitch = !item.is_coming_soon && !isShowProTag;
 	const showSettings = item?.route && !item.is_coming_soon && values[item.name] === true;
-	const getIconBorder = () => {
-		if (item.name === 'certificates') return '1px solid #7b68ee';
-		if (item.name === 'storeengine') return '1px solid #008dff';
-		if (item.name === 'woocommerce') return '1px solid #873eff';
-		return '1px solid #e2e8f0';
+
+	const getIconBorderColor = () => {
+		if (item.name === 'certificates') return '#7b68ee';
+		if (item.name === 'storeengine') return '#008dff';
+		if (item.name === 'woocommerce') return '#873eff';
+		return '#e2e8f0';
 	};
 
 	return (
 		<Flex
-			width="calc((100% / 3) - 16px)"
+			width="calc((100% / 4) - 12px)"
 			background="#FFF"
 			boxShadow="var(--gameengine-shadow)"
-			padding="24px 0"
+			padding="16px"
 			flexDirection="column"
-			borderRadius="4px"
+			gap="12px"
+			borderRadius="6px"
+			border="1px solid var(--gameengine-border-color)"
 		>
-			<Flex justifyContent="space-between" width="100%" height="50px" padding="0 24px">
-				<Box p={2} border={getIconBorder()} borderRadius="4px">
-					{item.icon ? item.icon : (
-						<Image src={item.image} />
+			<Flex justifyContent="space-between" alignItems="flex-start">
+				<Box
+					p="8px"
+					border={`1px solid ${getIconBorderColor()}`}
+					borderRadius="6px"
+					display="flex"
+					alignItems="center"
+					justifyContent="center"
+					width="40px"
+					height="40px"
+				>
+					{item.icon ? (
+						item.icon
+					) : (
+						<Image src={item.image} width="24px" height="24px" objectFit="contain" />
 					)}
 				</Box>
-				{showSettings ? (
-					<Link to={admin_url + item?.route}>
-						<Icon as={LuSettings} boxSize="20px" />
-					</Link>
-				) : (
-					<Box height="fit-content">
-						{isShowProTag && (
-							<Badge colorScheme="green" padding="4px 12px" borderRadius="10px">
-								{__('Pro', 'gameengine')}
-							</Badge>
-						)}
 
-						{item.is_coming_soon && (
-							<Badge colorPalette="orange" padding="4px 12px" borderRadius="10px">
-								{__('Coming Soon', 'gameengine')}
-							</Badge>
-						)}
-					</Box>
+				<Flex alignItems="center" gap="8px">
+					{showSettings && (
+						<Link to={admin_url + item?.route}>
+							<Icon as={LuSettings} boxSize="18px" color="var(--gameengine-font-color)" />
+						</Link>
+					)}
+
+					{item.is_coming_soon ? (
+						<Badge colorPalette="orange" padding="3px 10px" borderRadius="10px" fontSize="11px">
+							{__('Coming Soon', 'gameengine')}
+						</Badge>
+					) : isShowProTag ? (
+						<KodezenTooltip
+							openerContent={
+								<Icon as={LuLock} boxSize="18px" color="gray.400" />
+							}
+							contentWidth="fit-content"
+						>
+							<Text fontSize="13px" fontWeight="400" m={0}>
+								{__('Available in pro', 'gameengine')}
+							</Text>
+						</KodezenTooltip>
+					) : (
+						<Box
+							pointerEvents={updating ? 'none' : 'auto'}
+							opacity={updating ? 0.6 : 1}
+						>
+							{showSwitch && (
+								<CustomSwitch
+									name={item.name}
+									value={values[item.name]}
+									onChange={onChangeHandler}
+								/>
+							)}
+						</Box>
+					)}
+				</Flex>
+			</Flex>
+
+			<Flex alignItems="center" gap="6px">
+				<Text
+					fontSize="14px"
+					fontWeight="600"
+					color="var(--gameengine-font-color)"
+					m={0}
+					lineHeight="1.4"
+				>
+					{item.label}
+				</Text>
+				{item.docsUrl && (
+					<a
+						href={item.docsUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						style={{
+							display: 'inline-flex',
+							alignItems: 'center',
+							color: '#718096',
+							lineHeight: 1,
+						}}
+					>
+						<TbExternalLink size={15} color='var(--gameengine-primary)' />
+					</a>
 				)}
 			</Flex>
 
-			<Flex direction="column" justifyContent="space-between" gap={2} minH="124px" p="16px 24px">
-				<Flex flexDirection="column" gap={1}>
-					<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>{item.label}</Text>
-					<Text fontSize="12px" fontWeight="400" color="#738496" m={0}>{item.details}</Text>
-				</Flex>
-
-				<Button variant="link" color="var(--gameengine-primary)" fontSize="14px" fontWeight="500" padding="0" height="auto" justifyContent="start" onClick={() => window.open(item.docsUrl, '_blank')}>
-					{__('Learn More', 'gameengine')}
-				</Button>
-			</Flex>
-
-			<Separator borderColor="var(--gameengine-border-color)" />
-
-			{item.required_plugin ? (
-				<Flex justifyContent="space-between" alignItems="center" gap="4px" width="100%" p="16px 24px 0 24px">
-					{item?.required_plugin?.length > 0 && (
-						item.required_plugin.map((childItem, childItemIndex) => (
-							<Flex alignItems="center" gap={2} key={childItemIndex}>
-								<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
-									{__('Required plugins', 'gameengine')}
-								</Text>
-								<KodezenTooltip
-									openerContent={
-										<LuInfo />
-									}
-									contentWidth='fit-content'
-								>
-									<Text fontSize="14px" fontWeight="400" m={0}>
-										{childItem.plugin_name}
-									</Text>
-								</KodezenTooltip>
-							</Flex>
-						))
-					)}
-
-					{!item.is_coming_soon && (
-						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-							{showSwitch ? (
-								<CustomSwitch
-									name={item.name}
-									value={values[item.name]}
-									onChange={onChangeHandler}
-								/>
-							) : isShowProTag ? (
-								<KodezenTooltip
-									openerContent={
-										<Icon as={LuLock} boxSize="20px" color="gray.600" />
-									}
-									contentWidth='fit-content'
-								>
-									<Text fontSize="14px" fontWeight="400" m={0}>
-										{__('Available in pro', 'gameengine')}
-									</Text>
-								</KodezenTooltip>
-							) : null}
-						</Box>
-					)}
-				</Flex>
-			) : (
-				<Flex justifyContent="space-between" alignItems="flex-end" gap="4px" width="100%" p="16px 24px 0 24px">
-					<Text fontSize="14px" fontWeight="500" color="var(--gameengine-font-color)" m={0}>
-						{__('No extra plugin required', 'gameengine')}
-					</Text>
-
-					{!item.is_coming_soon && (
-						<Box pointerEvents={updating ? 'none' : 'auto'} opacity={updating ? 0.6 : 1}>
-							{showSwitch ? (
-								<CustomSwitch
-									name={item.name}
-									value={values[item.name]}
-									onChange={onChangeHandler}
-								/>
-							) : isShowProTag ? (
-								<KodezenTooltip
-									openerContent={
-										<Icon as={LuLock} boxSize="20px" color="gray.600" />
-									}
-									contentWidth='fit-content'
-								>
-									<Text fontSize="14px" fontWeight="400" m={0}>
-										{__('Available in pro', 'gameengine')}
-									</Text>
-								</KodezenTooltip>
-							) : null}
-						</Box>
-					)}
-				</Flex>
-			)}
+			<Text
+				fontSize="12px"
+				fontWeight="400"
+				color="#738496"
+				m={0}
+				lineHeight="1.6"
+			>
+				{item.details}
+			</Text>
 		</Flex>
 	);
 };

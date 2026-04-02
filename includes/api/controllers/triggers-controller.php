@@ -115,6 +115,7 @@ class TriggersController extends BaseController
             'woocommerce' => \GameEngine\Integrations\WooCommerce::class,
             'academylms'  => \GameEngine\Integrations\AcademyLMS::class,
             'gameengine'  => \GameEngine\Integrations\GameEngine::class,
+            'storeengine' => \GameEngine\Integrations\StoreEngine::class,
         ];
 
         if (isset($map[$integration])) {

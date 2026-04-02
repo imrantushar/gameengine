@@ -19,7 +19,7 @@ class Restriction_Helper
     public static function can_access($type, $value)
     {
         // Bypass check for Admins.
-        if (current_user_can('manage_options')) {
+        if (apply_filters('gameengine_restrict_content_bypass_admin', current_user_can('manage_options'))) {
             return true;
         }
 

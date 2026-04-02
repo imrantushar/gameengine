@@ -12,7 +12,6 @@ import { Formik } from 'formik';
 import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import GameEngineBox from '@GFComponents/GameEngineBox';
 import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';

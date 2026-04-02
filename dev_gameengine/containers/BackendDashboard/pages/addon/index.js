@@ -4,7 +4,7 @@ import AddonCard from './AddonCard';
 import { Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
-import { Box, Button, Flex, } from '@chakra-ui/react';
+import { Box, Button, Flex } from '@chakra-ui/react';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
@@ -12,7 +12,8 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { API, namespace, plugin_root_url } from '@GFUtils/helper';
+import { plugin_root_url } from '@GFUtils/helper';
+import Select from 'react-select';
 
 const infoCardsData = [
 	{
@@ -38,7 +39,7 @@ const infoCardsData = [
 		label: __('StoreEngine', 'gameengine'),
 		name: 'storeengine',
 		is_pro: false,
-		is_coming_soon: true,
+		is_coming_soon: false,
 		details: __(
 			'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
 			'gameengine'
@@ -120,7 +121,6 @@ const infoCardsData = [
 		label: __('Wallet', 'gameengine'),
 		name: 'wallet',
 		is_pro: true,
-		// is_active: true,
 		is_coming_soon: false,
 		details: __(
 			'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!',
@@ -196,10 +196,10 @@ const infoCardsData = [
 	// },
 ];
 
-const filterOptions = [
-	{ slug: 'all', title: __('All', 'academy') },
-	{ slug: 'active', title: __('Active', 'academy') },
-	{ slug: 'inactive', title: __('Inactive', 'academy') },
+const statusOptions = [
+	{ value: 'all', label: __('All Status', 'gameengine') },
+	{ value: 'active', label: __('Active', 'gameengine') },
+	{ value: 'inactive', label: __('Inactive', 'gameengine') },
 	// { slug: 'free', title: __('Free', 'academy') },
 	// { slug: 'pro', title: __('Pro', 'academy') },
 ];
@@ -213,16 +213,21 @@ const Addons = () => {
 
 	useEffect(() => {
 		(async () => {
-			setLoading(true)
+			setLoading(true);
 			try {
 				dispatch(fetchAddons());
 			} catch (error) {
-				console.warn(error)
+				console.warn(error);
 			} finally {
-				setLoading(false)
+				setLoading(false);
 			}
-		})()
+		})();
 	}, []);
+
+	const handleClearAll = () => {
+		setFilterText('');
+		setFilterMenu('all');
+	};
 
 	const getAddonLists = (values) => {
 		return infoCardsData.filter((item) => {
@@ -245,74 +250,60 @@ const Addons = () => {
 		});
 	};
 
+	const selectedStatus = statusOptions.find((o) => o.value === filterMenu) || statusOptions[0];
+
 	return (
 		<>
-			<TopBar path={__("Add-ons", "gameengine")} />
+			<TopBar path={__('Add-ons', 'gameengine')} />
 
-			<Box className='gameengine-page-content'>
-				<GFLabel type="plainHeading" margin={0} padding="24px 0" label={__("Add-ons", "gameengine")} />
+			<Box className="gameengine-page-content">
+				<Flex
+					justifyContent="space-between"
+					alignItems="center"
+					padding="16px 0"
+					mb="4px"
+				>
+					<GFLabel
+						type="plainHeading"
+						margin={0}
+						padding={0}
+						label={__('Add-ons', 'gameengine')}
+					/>
 
-				<GameEngineBox dynamicClasses="addons">
-					<Flex
-						width={'100%'}
-						justifyContent={'space-between'}
-						alignItems={'center'}
-						borderBottom={'1px solid var(--gameengine-border-color)'}
-						pb="10px"
-						mb='20px'
-					>
-						<Flex gap={0} alignItems="center">
-							{filterOptions.map((option, index) => (
-								<Button
-									key={index}
-									bg={'transparent'}
-									minWidth={'0'}
-									height={'35px'}
-									padding={'6px 12px'}
-									fontSize={'14px'}
-									fontWeight={'500'}
-									lineHeight={'20px'}
-									color={'var(--gameengine-font-color)'}
-									_after={{
-										content: '""',
-										position: "absolute",
-										left: 0,
-										bottom: "-13px",
-										width: "100%",
-										height: "2px",
-										bg: "var(--gameengine-primary)",
-										transform:
-											filterMenu === option.slug ? "scaleX(1)" : "scaleX(0)",
-										transformOrigin: "left",
-										transition: "transform 0.2s ease",
-									}}
-									_hover={{
-										_after: {
-											transform: "scaleX(1)",
-										},
-									}}
-									className={`gameengine-addons-filter-option ${filterMenu === option.slug
-										? 'active-filter'
-										: ''
-										}`}
-									onClick={() => {
-										setFilterMenu(option.slug);
-										setLoading(true);
-									}}
-								>
-									{option.title}
-								</Button>
-							))}
-						</Flex>
+					<Flex alignItems="center" gap="12px">
+						<Button
+							variant="ghost"
+							height="36px"
+							padding="0 10px"
+							fontSize="13px"
+							fontWeight="500"
+							color="#718096"
+							_hover={{ color: 'var(--gameengine-primary)', background: 'transparent' }}
+							onClick={handleClearAll}
+						>
+							{__('Clear All', 'gameengine')}
+						</Button>
+
+						<Select
+							options={statusOptions}
+							value={selectedStatus}
+							onChange={(selected) => {
+								setFilterMenu(selected.value);
+								setLoading(true);
+							}}
+							className="gameengine-select"
+							classNamePrefix="gameengine-select"
+							isSearchable={false}
+						/>
 
 						<Search
-							placeholder={__('Search Add-ons', 'gameengine')}
-							onSearchHandler={(keyword) =>
-								setFilterText(keyword.trim())
-							}
+							placeholder={__('Search...', 'gameengine')}
+							onSearchHandler={(keyword) => setFilterText(keyword.trim())}
 						/>
 					</Flex>
+				</Flex>
 
+				<GameEngineBox dynamicClasses="addons">
 					<Formik
 						enableReinitialize
 						initialValues={{ ...addonsSavedData }}
@@ -325,32 +316,30 @@ const Addons = () => {
 										<AddOnsLoader />
 									) : (
 										<Flex
-											width={'100%'}
-											flexWrap={'wrap'}
-											gap={'20px'}
-											className='gameengine-dashboard-addon-cards'
+											width="100%"
+											flexWrap="wrap"
+											gap="16px"
+											className="gameengine-dashboard-addon-cards"
 										>
 											{addonLists.length ? (
-												addonLists.map(
-													(item, index) => {
-														return (
-															<AddonCard
-																item={item}
-																key={index}
-																index={index}
-																value={values[item.name]}
-																setFieldValue={setFieldValue}
-															/>
-														);
-													}
-												)
+												addonLists.map((item, index) => (
+													<AddonCard
+														item={item}
+														key={index}
+														index={index}
+														value={values[item.name]}
+														setFieldValue={setFieldValue}
+													/>
+												))
 											) : (
-												<CustomTableMessage title={__('No Addons Found!', 'academy')} />
+												<CustomTableMessage
+													title={__('No Addons Found!', 'academy')}
+												/>
 											)}
 										</Flex>
 									)}
 								</>
-							)
+							);
 						}}
 					</Formik>
 				</GameEngineBox>

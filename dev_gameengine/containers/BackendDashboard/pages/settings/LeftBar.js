@@ -15,9 +15,9 @@ const LeftBar = () => {
     const menuList = [
 
         {
-            label: __("Dashboard", "gameengine"),
+            label: __("Frontend Dashboard", "gameengine"),
             key: "dashboard",
-            desc: __("Dashboard settings", "gameengine"),
+            desc: __("Frontend Dashboard settings", "gameengine"),
             icon: general(),
         },
         {

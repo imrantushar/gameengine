@@ -20,9 +20,9 @@ final class TriggerRegistry
         if (self::$initialized) return;
 
         // integration register
-        self::$integrations['wordpress']   = WordPress::class;
+        self::$integrations['wordpress']       = WordPress::class;
         self::$integrations['gameengine']      = GameEngine::class;
-        self::$integrations['interaction'] = Interactions::class;
+        //self::$integrations['interaction']     = Interactions::class;
 
         $active_addons = get_option('gameengine_active_addons', []);
 
@@ -31,6 +31,13 @@ final class TriggerRegistry
                 self::$integrations['woocommerce'] = WooCommerce::class;
             }
         }
+
+        if (in_array('storeengine', $active_addons, true)) {
+            if (class_exists('\GameEngine\Integrations\StoreEngine')) {
+                self::$integrations['storeengine'] = \GameEngine\Integrations\StoreEngine::class;
+            }
+        }
+
         if (in_array('academylms', $active_addons)) {
             if (class_exists('\GameEngine\Integrations\AcademyLMS')) {
                 self::$integrations['academylms'] = AcademyLMS::class;

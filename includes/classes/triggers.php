@@ -273,6 +273,46 @@ class Triggers
             return (0 === $target_quiz_id || $current_quiz_id === $target_quiz_id);
         }
 
+        // ── StoreEngine ───────────────────────────────────────────────────────
+
+        // StoreEngine: Purchase Specific Product
+        // Hook args: ($order, $payload) — $args[0] is the SE Order object.
+        // SE Order::get_items() returns objects with a public $product_id property.
+        // Leaving product_id blank (0) makes the trigger fire for any product.
+        if ($key === 'storeengine_purchase_specific_product') {
+            $order     = isset($args[0]) ? $args[0] : null;
+            $target_id = isset($params['product_id']) ? absint($params['product_id']) : 0;
+
+            if (! $order || ! method_exists($order, 'get_items')) {
+                return false;
+            }
+
+            // No product restriction configured — always pass.
+            if ($target_id <= 0) {
+                return true;
+            }
+
+            foreach ($order->get_items() as $item) {
+                if (absint($item->product_id) === $target_id) {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // StoreEngine: Product Review on Specific Product
+        // Hook args: ($comment_id, $comment_post_ID, $rating) — $args[1] is the product post ID.
+        // Leaving product_id blank (0) makes the trigger fire for reviews on any SE product.
+        if ($key === 'storeengine_product_review') {
+            $target_id           = isset($params['product_id']) ? absint($params['product_id']) : 0;
+            $reviewed_product_id = isset($args[1]) ? absint($args[1]) : 0;
+
+            return (0 === $target_id || $reviewed_product_id === $target_id);
+        }
+
+
+
         return true;
     }
 
