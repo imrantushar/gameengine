@@ -183,7 +183,7 @@ class WordPress extends BaseIntegration
                     return $id;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'post_id', 'label' => __('Select Post', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'interaction', 'query' => 'posts']],
+                    ['key' => 'post_id', 'label' => __('Select Post', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'wordpress', 'query' => 'posts']],
                     ['key' => 'categories', 'label' => __('Select Categories (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'categories']]
                 ])
             ],

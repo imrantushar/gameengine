@@ -69,8 +69,8 @@ class Progress_Map_Logic
 		if (! empty($journey)) {
 			foreach ($journey as $item) {
 				$is_completed   = ('level' === $item['type'])
-					? in_array((string) $item['id'], $user_levels, true)
-					: in_array((string) $item['id'], $user_achievements, true);
+					? in_array($item['id'], (array)$user_levels)
+					: in_array($item['id'], (array)$user_achievements);
 
 				$item['status'] = $is_completed ? 'completed' : 'locked';
 

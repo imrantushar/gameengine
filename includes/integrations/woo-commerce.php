@@ -108,6 +108,10 @@ class WooCommerce extends BaseIntegration
                 if (!function_exists('wc_get_products')) return [];
                 $products = wc_get_products(['limit' => 20]);
                 return array_map(fn($p) => ['label' => $p->get_name(), 'value' => $p->get_id()], $products);
+            },
+            'product_cats' => function () {
+                $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true]);
+                return array_map(fn($t) => ['label' => $t->name, 'value' => $t->term_id], $terms);
             }
         ];
     }

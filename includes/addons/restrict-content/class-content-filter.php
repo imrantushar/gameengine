@@ -15,7 +15,7 @@ class Content_Filter
 
     public static function init()
     {
-        add_filter('the_content', array(__CLASS__, 'apply_restriction'), 1);
+        add_filter('the_content', array(__CLASS__, 'apply_restriction'), 20);
     }
 
     public static function apply_restriction($content)
@@ -23,6 +23,7 @@ class Content_Filter
         if (! is_singular(array('post', 'page'))) {
             return $content;
         }
+
 
         $post_id = get_the_ID();
         if (! $post_id) {

@@ -39,7 +39,7 @@ const infoCardsData = [
 		label: __('StoreEngine', 'gameengine'),
 		name: 'storeengine',
 		is_pro: false,
-		is_coming_soon: true,
+		is_coming_soon: false,
 		details: __(
 			'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
 			'gameengine'

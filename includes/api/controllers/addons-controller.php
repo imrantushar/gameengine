@@ -182,6 +182,11 @@ class AddonsController extends BaseController
                 }
             }
 
+            // StoreEngine Check 
+            if ('storeengine' === $addon_name && ! defined('STOREENGINE_VERSION')) {
+                return new \WP_Error('dependency_missing', __('StoreEngine plugin is required.', 'gameengine'), array('status' => 424));
+            }
+
             // WooCommerce Check
             if ('woocommerce' === $addon_name) {
                 if (! class_exists('WooCommerce')) {
