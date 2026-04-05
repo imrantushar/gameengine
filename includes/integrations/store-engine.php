@@ -41,7 +41,12 @@ class StoreEngine extends BaseIntegration
                 'get_user_id' => function ($order, $payload) {
                     return method_exists($order, 'get_user_id') ? $order->get_user_id() : 0;
                 },
-                'schema' => self::merge_schema(array()),
+                'schema' => self::merge_schema(array(
+                    array('key' => 'include_products', 'label' => __('Include Specific Products (Pro)', 'gameengine'), 'type' => 'select', 'width' => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'products')),
+                    array('key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'product_cats')),
+                    array('key' => 'exclude_products', 'label' => __('Exclude Specific Products (Pro)', 'gameengine'), 'type' => 'select', 'width' => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'products')),
+                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'product_cats'))
+                )),
             ),
 
             // First purchase only.
@@ -262,6 +267,16 @@ class StoreEngine extends BaseIntegration
                 return array_map(
                     fn($p) => array('label' => $p->post_title, 'value' => $p->ID),
                     $posts
+                );
+            },
+            'product_cats' => function () {
+                $terms = get_terms(array('taxonomy' => 'storeengine_product_category', 'hide_empty' => false));
+                if (is_wp_error($terms)) {
+                    return array();
+                }
+                return array_map(
+                    fn($t) => array('label' => $t->name, 'value' => $t->term_id),
+                    $terms
                 );
             },
         );

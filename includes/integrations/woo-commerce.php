@@ -37,7 +37,11 @@ class WooCommerce extends BaseIntegration
                 'schema' => self::merge_schema([
                     ['key' => 'calc_type', 'label' => __('Points Calculation', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Order Total (Pro)', 'value' => 'percent', 'is_pro' => true]]],
                     ['key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gameengine'), 'type' => 'number', 'width'   => '50%', 'is_pro' => true],
-                    ['key' => 'first_purchase', 'label' => __('First Purchase Only Bonus (Pro)', 'gameengine'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true]
+                    ['key' => 'first_purchase', 'label' => __('First Purchase Only Bonus (Pro)', 'gameengine'), 'type' => 'switch', 'width'   => '100%', 'is_pro' => true],
+                    ['key' => 'include_products', 'label' => __('Include Specific Products (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
+                    ['key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']],
+                    ['key' => 'exclude_products', 'label' => __('Exclude Specific Products (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
+                    ['key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']]
                 ])
             ],
             'woocommerce_purchase_specific_product' => [
