@@ -59,7 +59,7 @@ class Notices
                 <a href="%5$s" class="notice-dismiss" style="text-decoration:none;"></a>
             </div>',
             esc_attr($class),
-            $message, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+            wp_kses_post($message),
             esc_url($url),
             esc_html($button),
             esc_url($dismiss_url)

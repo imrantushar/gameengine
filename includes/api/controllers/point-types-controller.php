@@ -75,7 +75,7 @@ class PointTypesController extends BaseController
     {
         global $wpdb;
 
-        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
+        $per_page = min(100, max(1, $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20));
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $search   = $request->get_param('search') ? sanitize_text_field($request->get_param('search')) : '';
         $status   = $request->get_param('status') ? sanitize_text_field($request->get_param('status')) : 'all';

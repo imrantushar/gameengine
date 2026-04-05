@@ -70,7 +70,7 @@ class TaxonomyController extends BaseController
     {
         $tax      = sanitize_text_field($request['tax']);
         $search   = $request->get_param('search');
-        $per_page = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20;
+        $per_page = min(100, max(1, $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20));
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $offset   = ($page - 1) * $per_page;
 

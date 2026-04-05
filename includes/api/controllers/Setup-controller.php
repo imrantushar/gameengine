@@ -256,8 +256,8 @@ class SetupController extends BaseController
 
             // If point_type_id is 0 (banner import), try to find the first existing point type.
             if (0 === $point_type_id) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-                $point_type_id = $wpdb->get_var("SELECT id FROM {$wpdb->prefix}gameengine_point_types LIMIT 1");
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+                $point_type_id = (int) $wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types LIMIT 1", []));
             }
 
             $ranges = array(array(0, 100), array(101, 500), array(501, 1000), array(1001, 5000));
