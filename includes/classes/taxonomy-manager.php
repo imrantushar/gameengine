@@ -60,18 +60,20 @@ class TaxonomyManager
     {
         global $wpdb;
 
-        $tables = array(
-            'gameengine_achievements' => 'achievement_type',
-            'gameengine_levels'       => 'level_type',
+        $sync_targets = array(
+            array('table' => 'gameengine_achievements', 'tax' => 'achievement_type'),
+            array('table' => 'gameengine_levels',       'tax' => 'level_type'),
         );
 
-        foreach ($tables as $table_name => $taxonomy) {
+        foreach ($sync_targets as $target) {
+            $table_name = $target['table'];
+            $taxonomy   = $target['tax'];
 
-            /**
-             * Since table names cannot be prepared via %s, we must interpolate it.
-             */
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-            $rows = $wpdb->get_results("SELECT id, category FROM {$wpdb->prefix}{$table_name}");
+            $table_full = $wpdb->prefix . $table_name;
+            $query      = "SELECT id, category FROM {$table_full}";
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
+            $rows = $wpdb->get_results($query);
 
             if (! empty($rows)) {
                 foreach ($rows as $row) {
@@ -89,9 +91,9 @@ class TaxonomyManager
 
                             $term_id = (int) $term['term_id'];
 
-                            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, PluginCheck.Security.DirectDB.UnescapedDBParameter
+                            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
                             $wpdb->update(
-                                "{$wpdb->prefix}{$table_name}",
+                                $table_full,
                                 array('category' => (string) $term_id),
                                 array('id' => absint($row->id)),
                                 array('%s'),

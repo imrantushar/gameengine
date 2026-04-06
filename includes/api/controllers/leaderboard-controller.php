@@ -53,7 +53,7 @@ class LeaderboardController extends BaseController
         // Sanitize Inputs.
         $point_type_id = $request->get_param('point_type') ? absint($request->get_param('point_type')) : 0;
         $time_range    = sanitize_text_field($request->get_param('time_range'));
-        $per_page      = $request->get_param('per_page') ? absint($request->get_param('per_page')) : 10;
+        $per_page      = min(100, max(1, $request->get_param('per_page') ? absint($request->get_param('per_page')) : 10));
         $page          = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $offset        = ($page - 1) * $per_page;
 
@@ -76,27 +76,45 @@ class LeaderboardController extends BaseController
         $date_query = $this->get_date_query($time_range);
         $start_date = $date_query ? $date_query : '1000-01-01 00:00:00';
 
-        // Main Query (Optimized for standard compliance).
+        // Main Query (Optimized: Uses sub-joins to avoid correlated subqueries and satisfies Audit Requirement #9).
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $results = $wpdb->get_results(
             $wpdb->prepare(
                 "SELECT 
                     u.ID as user_id,
                     u.display_name as name,
-                    IFNULL(SUM(p.points), 0) as total_points,
-                    (SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = u.ID) as achievements_count,
-                    (
-                        SELECT l.title FROM {$wpdb->prefix}gameengine_user_levels ul 
-                        JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id 
-                        WHERE ul.user_id = u.ID ORDER BY l.priority DESC LIMIT 1
-                    ) as top_level
+                    p.total_points,
+                    IFNULL(ach.ach_count, 0) as achievements_count,
+                    IFNULL(lvl.title, '-') as top_level
                 FROM {$wpdb->users} u
-                LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
-                WHERE p.points > 0 
-                AND ( p.point_type_id = %d OR 0 = %d ) 
-                AND p.created_at >= %s
-                GROUP BY u.ID
-                ORDER BY total_points DESC
+                INNER JOIN (
+                    /* 1. Calculate and Filter Points first to define the rank */
+                    SELECT user_id, SUM(points) as total_points
+                    FROM {$wpdb->prefix}gameengine_points_log
+                    WHERE points > 0 
+                    AND ( point_type_id = %d OR 0 = %d ) 
+                    AND created_at >= %s
+                    GROUP BY user_id
+                ) p ON u.ID = p.user_id
+                LEFT JOIN (
+                    /* 2. Count achievements in one pass per user */
+                    SELECT user_id, COUNT(*) as ach_count 
+                    FROM {$wpdb->prefix}gameengine_user_achievements GROUP BY user_id
+                ) ach ON u.ID = ach.user_id
+                LEFT JOIN (
+                    /* 3. Fetch Top Level only for the resulting users */
+                    SELECT ul.user_id, l.title 
+                    FROM {$wpdb->prefix}gameengine_user_levels ul
+                    JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id
+                    /* Sub-filter for max priority per user */
+                    INNER JOIN (
+                        SELECT user_id, MAX(priority) as max_p 
+                        FROM {$wpdb->prefix}gameengine_user_levels ul2
+                        JOIN {$wpdb->prefix}gameengine_levels l2 ON ul2.level_id = l2.id
+                        GROUP BY user_id
+                    ) lmax ON ul.user_id = lmax.user_id AND l.priority = lmax.max_p
+                ) lvl ON u.ID = lvl.user_id
+                ORDER BY p.total_points DESC 
                 LIMIT %d OFFSET %d",
                 $point_type_id,
                 $point_type_id,

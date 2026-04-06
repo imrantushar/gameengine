@@ -104,6 +104,7 @@ class PointsManager
 
         // Clear Cache so get_total returns fresh value
         wp_cache_delete("gameengine_user_points_{$safe_user_id}_{$point_type_id}", 'gameengine');
+        wp_cache_delete("gameengine_user_grand_total_{$safe_user_id}", 'gameengine');
 
         if ($points_value > 0) {
             do_action('gameengine_points_added', $safe_user_id, $points_value, $context, $log_id, $point_type_id);
@@ -127,11 +128,18 @@ class PointsManager
 
         global $wpdb;
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $total = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE user_id = %d",
-            $safe_user_id
-        ));
+        $cache_key = "gameengine_user_grand_total_{$safe_user_id}";
+        $total     = wp_cache_get($cache_key, 'gameengine');
+
+        if (false === $total) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $total = (int) $wpdb->get_var($wpdb->prepare(
+                "SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE user_id = %d",
+                $safe_user_id
+            ));
+            
+            wp_cache_set($cache_key, $total, 'gameengine');
+        }
 
         return (int) $total;
     }
