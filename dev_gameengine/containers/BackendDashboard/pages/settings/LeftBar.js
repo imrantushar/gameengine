@@ -4,16 +4,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
 import { FiHelpCircle } from "react-icons/fi";
-import { route_path } from "@GFUtils/helper";
-import { general, mail } from "@GFUtils/icons";
+import { is_pro, route_path } from "@GFUtils/helper";
+import { general, license, mail } from "@GFUtils/icons";
 
 const LeftBar = () => {
     const navigate = useNavigate();
     const locationQuery = useLocation();
     const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
     const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
-    const menuList = [
 
+    const menuList = [
         {
             label: __("Frontend Dashboard", "gameengine"),
             key: "dashboard",
@@ -44,12 +44,19 @@ const LeftBar = () => {
             desc: __("Payout settings", "gameengine"),
             icon: general(),
         },
-
+        ...(is_pro
+        ? [{
+            label: __("License", "gameengine"),
+            key: "license",
+            desc: __("Manage your license key", "gameengine"),
+            icon: license(),
+        }]
+        : [])
     ];
 
     return (
         <Box
-            minW="220px"
+            minW="300px"
             bg="#fff"
             boxShadow="var(--gameengine-shadow)"
             pos="sticky"

@@ -16,6 +16,7 @@ import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
+import License from './Tabs/License';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -98,11 +99,10 @@ const Settings = () => {
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
                                             {tab === "payout" && <Payout />}
+                                            {tab === "license" && <License />}
                                         </Box>
-
                                     </Flex>
                                 </Box>
-
                             </>
                         )
                     }}
