@@ -4374,3 +4374,101 @@ body.ReactModal__Body--open {
 .gameengine-ccb-switch input:checked + .gameengine-ccb-slider:before {
   transform: translateX(-16px);
 }
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Notice/styles.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-admin-notice {
+  font-family: var(--gameengine-font) sans-serif;
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-top: 1px solid var(--gameengine-border-color);
+}
+.gameengine-admin-notice * {
+  font-family: var(--gameengine-font) sans-serif;
+}
+.gameengine-admin-notice:first-child {
+  border-top: 0;
+}
+.gameengine-admin-notice__wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin: 0;
+  padding: 16px 24px;
+}
+.gameengine-admin-notice.notice-large {
+  padding: 0;
+}
+.gameengine-admin-notice.notice-large .gameengine-admin-notice__wrapper {
+  padding: 20px;
+}
+.gameengine-admin-notice__icon {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--gameengine-primary-color);
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.gameengine-admin-notice__icon .gameengine-icon {
+  font-size: 20px;
+}
+.gameengine-admin-notice__icon .gameengine-icon::before {
+  color: #ffffff;
+}
+.gameengine-admin-notice__icon span {
+  display: inline;
+  font-size: 50px;
+  color: var(--gameengine-primary-color);
+}
+.gameengine-admin-notice__content {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gameengine-font-color);
+}
+.gameengine-admin-notice__content p {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--gameengine-font-color);
+  margin: 0;
+  padding: 0;
+}
+.gameengine-admin-notice__content p:not(:first-child) {
+  margin-top: 0.5em;
+}
+.gameengine-admin-notice__control .gameengine-btn {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 17px;
+  padding: 12px 35px;
+  text-transform: none;
+}
+.gameengine-admin-notice.notice-info .gameengine-admin-notice__icon {
+  background: var(--gameengine-primary-color);
+}
+.gameengine-admin-notice.notice-success .gameengine-admin-notice__icon {
+  background: #10b981;
+}
+.gameengine-admin-notice.notice-warning .gameengine-admin-notice__icon {
+  background: var(--gameengine-warning);
+}
+.gameengine-admin-notice.notice-error {
+  border-right-color: var(--gameengine-placing);
+}
+.gameengine-admin-notice.notice-error .gameengine-admin-notice__icon {
+  background: var(--gameengine-placing);
+}
+.gameengine-admin-notice-close.notice-dismiss::before {
+  display: none;
+}
+.gameengine-admin-notice-close.notice-dismiss .gameengine-icon {
+  display: flex;
+  font-size: 20px;
+}

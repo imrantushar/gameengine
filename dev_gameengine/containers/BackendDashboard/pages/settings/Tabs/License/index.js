@@ -28,7 +28,7 @@ const licenseGet = (endpoint, params) =>
 	API.get(SeSdk?.rest_url + endpoint, { params });
 
 const buildPurchaseUrl = () => {
-	const base = 'https://gemcrm.net/';
+	const base = 'https://gameengine.pro/';
 	if (!SeSdk) return base;
 	try {
 		const url = new URL(base);
@@ -82,6 +82,7 @@ const License = () => {
 			const { data: { license } } = await licenseRequest('license/activate', { license: licenseKey.trim() });
 			setLicenseData(license);
 			setLicenseKey('');
+			window.dispatchEvent( new CustomEvent( 'gameengine:license:changed', { detail: { status: license?.status } } ) );
 			dispatch(showNotification({ message: __('License activated successfully.', 'gameengine'), isShow: true, type: 'success' }));
 		} catch (error) {
 			const message = error?.response?.data?.message || __('Failed to activate license.', 'gameengine');
@@ -96,6 +97,7 @@ const License = () => {
 		try {
 			const { data: { license } } = await licenseRequest('license/deactivate', {});
 			setLicenseData(license);
+			window.dispatchEvent( new CustomEvent( 'gameengine:license:changed', { detail: { status: license?.status } } ) );
 			dispatch(showNotification({ message: __('License deactivated successfully.', 'gameengine'), isShow: true, type: 'success' }));
 		} catch (error) {
 			const message = error?.response?.data?.message || __('Failed to deactivate license.', 'gameengine');
