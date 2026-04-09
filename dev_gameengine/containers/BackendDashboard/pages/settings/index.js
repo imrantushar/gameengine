@@ -16,6 +16,7 @@ import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
+import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
 
 const Settings = () => {
@@ -107,6 +108,7 @@ const Settings = () => {
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
                                             {tab === "payout" && <Payout />}
+                                            {tab === "license" && <License />}
                                             {tab === "email_templates" && (
                                                 <EmailTemplates 
                                                     handleSubmit={handleSubmit} 

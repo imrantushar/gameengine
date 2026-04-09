@@ -15,6 +15,7 @@ import Tools from './pages/tools';
 import Types from './pages/Types';
 import Wallet from './pages/walletLists';
 import { useLocationQuery } from '@GFHooks/';
+import LicenseNotice from '@GFComponents/LicenseNotice';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -88,6 +89,7 @@ export default function BackendDashboard() {
 
 	return (
 		<div className="gameengine-admin-content">
+			<LicenseNotice />
 			<Notification />
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }

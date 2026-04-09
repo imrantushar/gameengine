@@ -224,3 +224,13 @@ export const arrowBackward = () => {
         </svg>
     )
 }
+
+export const license = () => {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M16.4912 12.4416C14.7746 14.1499 12.3162 14.6749 10.1579 13.9999L6.23289 17.9166C5.94955 18.2083 5.39122 18.3833 4.99122 18.3249L3.17455 18.0749C2.57455 17.9916 2.01622 17.4249 1.92455 16.8249L1.67455 15.0083C1.61622 14.6083 1.80789 14.0499 2.08289 13.7666L5.99955 9.84993C5.33289 7.68327 5.84955 5.22493 7.56622 3.5166C10.0246 1.05827 14.0162 1.05827 16.4829 3.5166C18.9496 5.97493 18.9496 9.98327 16.4912 12.4416Z" stroke="#0F0E16" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M5.74219 14.575L7.65885 16.4916" stroke="#0F0E16" stroke-width="1.25" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.082 9.16675C12.7724 9.16675 13.332 8.6071 13.332 7.91675C13.332 7.22639 12.7724 6.66675 12.082 6.66675C11.3917 6.66675 10.832 7.22639 10.832 7.91675C10.832 8.6071 11.3917 9.16675 12.082 9.16675Z" stroke="#0F0E16" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    )
+}
