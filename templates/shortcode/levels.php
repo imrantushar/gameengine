@@ -292,7 +292,7 @@ $gameengine_all_lvls = $gameengine_levels_manager->get_all_levels_with_status($g
                         printf(
                             /* translators: 1: points needed, 2: level name */
                             esc_html__('Collect %1$s more points to unlock %2$s', 'gameengine'),
-                            '<strong>' . number_format_i18n($gameengine_next_lvl_data['points_needed']) . '</strong>',
+                            '<strong>' . esc_html( number_format_i18n( $gameengine_next_lvl_data['points_needed'] ) ) . '</strong>',
                             '<strong>' . esc_html($gameengine_next_lvl_data['level']->title) . '</strong>'
                         );
                         ?>
@@ -343,7 +343,7 @@ $gameengine_all_lvls = $gameengine_levels_manager->get_all_levels_with_status($g
                                             </span>
                                     <?php else: ?>
                                             <span class="gameengine-lvl-points-target">
-                                                🎯 <?php echo number_format_i18n((int) $gameengine_lvl->min_points); ?> Points
+                                                🎯 <?php echo esc_html( number_format_i18n( (int) $gameengine_lvl->min_points ) ); ?> Points
                                             </span>
                                     <?php endif; ?>
                                 </div>

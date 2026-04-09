@@ -217,10 +217,6 @@ class EmailManager
             $headers[] = "From: {$sender_name} <{$sender_email}>";
         }
 
-        // Debug Log for Local Testing
-        if (defined('WP_DEBUG') && WP_DEBUG) {
-            error_log("GameEngine Email Triggered: To: $to, Subject: $subject");
-        }
 
         add_filter('wp_mail_content_type', [$this, 'set_html_content_type']);
         wp_mail($to, $subject, $body, $headers);

@@ -2,7 +2,7 @@
 
 namespace GameEngine\Classes;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -36,7 +36,7 @@ class LevelsManager
     {
         global $wpdb;
 
-        $safe_user_id  = absint($user_id);
+        $safe_user_id = absint($user_id);
         $safe_level_id = absint($level_id);
 
         if ($safe_user_id <= 0 || $safe_level_id <= 0) {
@@ -64,8 +64,8 @@ class LevelsManager
         $result = $wpdb->insert(
             $wpdb->prefix . 'gameengine_user_levels',
             [
-                'user_id'     => $safe_user_id,
-                'level_id'    => $safe_level_id,
+                'user_id' => $safe_user_id,
+                'level_id' => $safe_level_id,
                 'achieved_at' => current_time('mysql'),
             ],
             ['%d', '%d', '%s']
@@ -88,9 +88,9 @@ class LevelsManager
             $safe_user_id,
             0,
             [
-                'level_id'                => $safe_level_id,
-                'user_level_id'           => $user_level_id,
-                'context'                 => sanitize_key($context),
+                'level_id' => $safe_level_id,
+                'user_level_id' => $user_level_id,
+                'context' => sanitize_key($context),
                 'congratulations_message' => $level->congratulations_message
             ],
             'success'
@@ -108,9 +108,9 @@ class LevelsManager
     public function check_levels_on_point_change($user_id, $points, $context, $log_id, $point_type_id)
     {
         $points_manager = new PointsManager();
-        $safe_user_id   = absint($user_id);
-        $safe_pt_id     = absint($point_type_id);
-        $total_points   = $points_manager->get_total($safe_user_id, $safe_pt_id);
+        $safe_user_id = absint($user_id);
+        $safe_pt_id = absint($point_type_id);
+        $total_points = $points_manager->get_total($safe_user_id, $safe_pt_id);
 
         global $wpdb;
 
@@ -142,7 +142,7 @@ class LevelsManager
     public function has_level($user_id, $level_id)
     {
         global $wpdb;
-        $safe_user_id  = absint($user_id);
+        $safe_user_id = absint($user_id);
         $safe_level_id = absint($level_id);
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
@@ -151,7 +151,7 @@ class LevelsManager
             $safe_user_id,
             $safe_level_id
         ));
-        return ! empty($exists);
+        return !empty($exists);
     }
 
     /**
@@ -160,8 +160,8 @@ class LevelsManager
     public function get_current_level($user_id)
     {
         $safe_user_id = absint($user_id);
-        $cache_key    = "gameengine_current_level_{$safe_user_id}";
-        $level        = wp_cache_get($cache_key, 'gameengine');
+        $cache_key = "gameengine_current_level_{$safe_user_id}";
+        $level = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $level) {
             global $wpdb;
@@ -189,8 +189,8 @@ class LevelsManager
     public function get_all_user_levels($user_id)
     {
         $safe_user_id = absint($user_id);
-        $cache_key    = "gameengine_all_levels_{$safe_user_id}";
-        $levels       = wp_cache_get($cache_key, 'gameengine');
+        $cache_key = "gameengine_all_levels_{$safe_user_id}";
+        $levels = wp_cache_get($cache_key, 'gameengine');
 
         if (false === $levels) {
             global $wpdb;
@@ -218,9 +218,9 @@ class LevelsManager
     {
         global $wpdb;
         $points_manager = new PointsManager();
-        $safe_user_id   = absint($user_id);
-        $safe_pt_id     = absint($point_type_id);
-        
+        $safe_user_id = absint($user_id);
+        $safe_pt_id = absint($point_type_id);
+
         $total_points = $points_manager->get_total($safe_user_id, $safe_pt_id);
 
         // Find levels the user hasn't achieved yet for this point type
@@ -240,21 +240,21 @@ class LevelsManager
             return null;
         }
 
-        $points_needed = max(0, (int)$next_level->min_points - $total_points);
-        
+        $points_needed = max(0, (int) $next_level->min_points - $total_points);
+
         // Find current level (or start from 0) to calculate progress %
         $current_level = $this->get_current_level($safe_user_id);
-        $start_points = $current_level ? (int)$current_level->min_points : 0;
-        
-        $range = (int)$next_level->min_points - $start_points;
+        $start_points = $current_level ? (int) $current_level->min_points : 0;
+
+        $range = (int) $next_level->min_points - $start_points;
         $progress_points = $total_points - $start_points;
         $progress_pc = ($range > 0) ? min(100, max(0, round(($progress_points / $range) * 100))) : 0;
 
         return [
-            'level'         => $next_level,
+            'level' => $next_level,
             'points_needed' => $points_needed,
-            'progress_pc'   => $progress_pc,
-            'total_points'  => $total_points
+            'progress_pc' => $progress_pc,
+            'total_points' => $total_points
         ];
     }
 
@@ -265,21 +265,28 @@ class LevelsManager
     {
         global $wpdb;
         $safe_user_id = absint($user_id);
-        
-        $where = "";
-        if ($point_type_id) {
-            $where = $wpdb->prepare("WHERE l.point_type_id = %d", absint($point_type_id));
-        }
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $levels = $wpdb->get_results($wpdb->prepare(
-            "SELECT l.*, ul.achieved_at as achieved_at, (CASE WHEN ul.id IS NOT NULL THEN 1 ELSE 0 END) as unlocked
-             FROM {$wpdb->prefix}gameengine_levels l
-             LEFT JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id AND ul.user_id = %d
-             $where
-             ORDER BY l.priority ASC, l.min_points ASC",
-            $safe_user_id
-        ));
+        if ($point_type_id) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $levels = $wpdb->get_results($wpdb->prepare(
+                "SELECT l.*, ul.achieved_at as achieved_at, (CASE WHEN ul.id IS NOT NULL THEN 1 ELSE 0 END) as unlocked
+                 FROM {$wpdb->prefix}gameengine_levels l
+                 LEFT JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id AND ul.user_id = %d
+                 WHERE l.point_type_id = %d
+                 ORDER BY l.priority ASC, l.min_points ASC",
+                $safe_user_id,
+                absint($point_type_id)
+            ));
+        } else {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $levels = $wpdb->get_results($wpdb->prepare(
+                "SELECT l.*, ul.achieved_at as achieved_at, (CASE WHEN ul.id IS NOT NULL THEN 1 ELSE 0 END) as unlocked
+                 FROM {$wpdb->prefix}gameengine_levels l
+                 LEFT JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id AND ul.user_id = %d
+                 ORDER BY l.priority ASC, l.min_points ASC",
+                $safe_user_id
+            ));
+        }
 
         return $levels;
     }

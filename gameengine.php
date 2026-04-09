@@ -11,13 +11,13 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
  * Domain Path:       /languages/
- * Tested up to:      6.8
+ * Tested up to:      6.9
  * Requires at least: 5.8
  * Requires PHP:      7.4
  */
 
 // Exit if accessed directly to prevent direct script access.
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -206,7 +206,7 @@ add_action('init', function () {
     if (isset($_GET['reset_gameengine_setup']) && current_user_can('manage_options')) {
 
         //  Verify Nonce for Security.
-        if (! isset($_GET['_wpnonce']) || ! wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'gameengine_reset_action')) {
+        if (!isset($_GET['_wpnonce']) || !wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'gameengine_reset_action')) {
             $reset_url = wp_nonce_url(add_query_arg('reset_gameengine_setup', '1'), 'gameengine_reset_action');
             wp_die(
                 sprintf(
