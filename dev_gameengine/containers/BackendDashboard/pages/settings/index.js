@@ -16,6 +16,7 @@ import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
+import EmailTemplates from './Tabs/EmailTemplates';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -49,6 +50,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
                 case "dashboard":
                     return dispatch(saveSettings({key: 'dashboard', payloadData: values.dashboard}));
+                case "email_templates":
+                    return dispatch(saveSettings({key: 'email_templates', payloadData: values.email_templates}));
                 default:
                     return null;
             }
@@ -98,6 +101,7 @@ const Settings = () => {
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
                                             {tab === "payout" && <Payout />}
+                                            {tab === "email_templates" && <EmailTemplates />}
                                         </Box>
 
                                     </Flex>

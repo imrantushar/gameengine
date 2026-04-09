@@ -24,6 +24,43 @@ class EmailManager
 
         add_action('gameengine_level_awarded', [$self, 'send_level_up_email'], 10, 3);
         add_action('gameengine_achievement_unlocked', [$self, 'send_achievement_email'], 10, 3);
+        add_action('gameengine_user_inactivity_detected', [$self, 'send_inactivity_nudge_email'], 10, 2);
+        add_action('gameengine_points_added', [$self, 'check_points_milestone'], 10, 5);
+    }
+
+    /**
+     * Parse HTML templates and replace placeholders.
+     */
+    private function parse_email_html($template_body, $user_id, $extra_vars = [])
+    {
+        $user = get_userdata($user_id);
+        if (!$user) return '';
+
+        // Default vars
+        $vars = [
+            '{user_name}' => $user->display_name,
+            '{site_name}' => get_bloginfo('name'),
+            '{points_balance}' => '0',
+            '{level_name}' => '',
+            '{achievement_name}' => '',
+            '{next_level}' => '',
+            '{points_to_next}' => '0'
+        ];
+
+        if (class_exists('\GameEngine\Classes\PointsManager')) {
+            $pm = new \GameEngine\Classes\PointsManager();
+            $vars['{points_balance}'] = $pm->get_total($user_id);
+        }
+
+        $vars = array_merge($vars, $extra_vars);
+
+        // Simple HTML Wrapper
+        $html = '<html><body style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">';
+        $html .= '<div style="max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">';
+        $html .= str_replace(array_keys($vars), array_values($vars), nl2br($template_body));
+        $html .= '</div></body></html>';
+
+        return $html;
     }
 
     /**
@@ -60,21 +97,15 @@ class EmailManager
             }
         }
 
-        /* translators: %s: Level title */
-        $subject = sprintf(__('Congratulations! You reached %s', 'gameengine'), $level_title);
+        $email_settings = get_option('gameengine_email_templates', []);
+        
+        $subject = !empty($email_settings['level_subject']) ? $email_settings['level_subject'] : __('Congratulations! You reached {level_name}', 'gameengine');
+        $body_template = !empty($email_settings['level_body']) ? $email_settings['level_body'] : "Hi {user_name},<br><br>Congratulations! You have reached level: {level_name}.<br><br>Keep up the good work!";
 
-        $content = get_option('gameengine_email_content', '');
-        if (empty($content)) {
-            $content = "Hi {user_name},\n\nCongratulations! You have reached level: {level_name}.\n\nKeep up the good work!";
-        }
+        $subject = str_replace('{level_name}', $level_title, $subject);
+        $body = $this->parse_email_html($body_template, $user_id, ['{level_name}' => $level_title]);
 
-        $body = str_replace(
-            ['{user_name}', '{level_name}', '{site_name}'],
-            [$user->display_name, $level_title, get_bloginfo('name')],
-            $content
-        );
-
-        wp_mail($user->user_email, $subject, $body);
+        $this->dispatch_notifications($email_settings, 'level', $user, $subject, $body);
     }
 
     /**
@@ -106,17 +137,116 @@ class EmailManager
             }
         }
 
-        /* translators: %s: Achievement title */
-        $subject = sprintf(__('New Achievement Unlocked: %s', 'gameengine'), $ach_title);
+        $email_settings = get_option('gameengine_email_templates', []);
 
-        /* translators: 1: User display name, 2: Achievement title */
-        $body = sprintf(
-            __("Hi %1\$s,\n\nYou have unlocked a new achievement: %2\$s.\n\nCheck your profile!", 'gameengine'),
-            $user->display_name,
-            $ach_title
-        );
+        $subject = !empty($email_settings['achievement_subject']) ? $email_settings['achievement_subject'] : __('New Achievement Unlocked: {achievement_name}', 'gameengine');
+        $body_template = !empty($email_settings['achievement_body']) ? $email_settings['achievement_body'] : "Hi {user_name},<br><br>You have unlocked a new achievement: {achievement_name}.<br><br>Check your profile!";
 
-        wp_mail($user->user_email, $subject, $body);
+        $subject = str_replace('{achievement_name}', $ach_title, $subject);
+        $body = $this->parse_email_html($body_template, $user_id, ['{achievement_name}' => $ach_title]);
+
+        $this->dispatch_notifications($email_settings, 'achievement', $user, $subject, $body);
+    }
+
+    /**
+     * Send email to inactive users.
+     */
+    public function send_inactivity_nudge_email($user_id, $points_balance)
+    {
+        $user = get_userdata($user_id);
+        if (!$user) return;
+
+        $email_settings = get_option('gameengine_email_templates', []);
+
+        $subject = !empty($email_settings['inactivity_subject']) ? $email_settings['inactivity_subject'] : __('We miss you! You have {points_balance} points waiting.', 'gameengine');
+        $body_template = !empty($email_settings['inactivity_body']) ? $email_settings['inactivity_body'] : "Hi {user_name},<br><br>We noticed you haven't been active lately. You possess {points_balance} points which you could use today!";
+
+        $subject = str_replace('{points_balance}', $points_balance, $subject);
+        $body = $this->parse_email_html($body_template, $user_id, ['{points_balance}' => $points_balance]);
+
+        $this->dispatch_notifications($email_settings, 'inactivity', $user, $subject, $body);
+    }
+
+    /**
+     * Track points for milestone emails.
+     */
+    public function check_points_milestone($user_id, $points, $context, $log_id, $point_type_id)
+    {
+        if (!class_exists('\GameEngine\Classes\PointsManager')) return;
+        $pm = new \GameEngine\Classes\PointsManager();
+        $total_points = $pm->get_total($user_id);
+        
+        $old_total = $total_points - $points;
+        $milestone = 500; // e.g. Trigger every 500 points
+
+        // Check if crossed a multiple of 500
+        if (floor($old_total / $milestone) < floor($total_points / $milestone)) {
+            $user = get_userdata($user_id);
+            if (!$user) return;
+
+            $email_settings = get_option('gameengine_email_templates', []);
+            
+            $subject = !empty($email_settings['milestone_subject']) ? $email_settings['milestone_subject'] : __('You reached a milestone! {points_balance} Points!', 'gameengine');
+            $body_template = !empty($email_settings['milestone_body']) ? $email_settings['milestone_body'] : "Hi {user_name},<br><br>Awesome! You now have {points_balance} points.<br>";
+
+            $subject = str_replace('{points_balance}', $total_points, $subject);
+            
+            // Note: {next_level} logic would need LevelManager to calculate
+            $extra_vars = [];
+            
+            $body = $this->parse_email_html($body_template, $user_id, $extra_vars);
+
+            $this->dispatch_notifications($email_settings, 'milestone', $user, $subject, $body);
+        }
+    }
+
+    public function set_html_content_type() {
+        return 'text/html';
+    }
+
+    /**
+     * Send email with custom headers
+     */
+    private function send_wp_mail($to, $subject, $body, $email_settings) {
+        $headers = [];
+        
+        $sender_name = !empty($email_settings['sender_name']) ? $email_settings['sender_name'] : get_bloginfo('name');
+        $sender_email = !empty($email_settings['sender_email']) ? $email_settings['sender_email'] : get_option('admin_email');
+        
+        if (is_email($sender_email)) {
+            $headers[] = "From: {$sender_name} <{$sender_email}>";
+        }
+
+        // Debug Log for Local Testing
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log("GameEngine Email Triggered: To: $to, Subject: $subject");
+        }
+
+        add_filter('wp_mail_content_type', [$this, 'set_html_content_type']);
+        wp_mail($to, $subject, $body, $headers);
+        remove_filter('wp_mail_content_type', [$this, 'set_html_content_type']);
+    }
+
+    /**
+     * Dispatch notifications based on user/admin settings.
+     */
+    private function dispatch_notifications($email_settings, $prefix, $user, $subject, $body)
+    {
+        $user_enabled_raw = isset($email_settings[$prefix . '_user_enabled']) ? $email_settings[$prefix . '_user_enabled'] : (isset($email_settings[$prefix . '_enabled']) ? $email_settings[$prefix . '_enabled'] : true);
+        $user_enabled = filter_var($user_enabled_raw, FILTER_VALIDATE_BOOLEAN);
+
+        $admin_enabled_raw = isset($email_settings[$prefix . '_admin_enabled']) ? $email_settings[$prefix . '_admin_enabled'] : false;
+        $admin_enabled = filter_var($admin_enabled_raw, FILTER_VALIDATE_BOOLEAN);
+
+        if ($user_enabled) {
+            $this->send_wp_mail($user->user_email, $subject, $body, $email_settings);
+        }
+
+        if ($admin_enabled) {
+            $admin_email = get_option('admin_email');
+            $admin_subject = "[GameEngine Notification] " . $subject;
+            $this->send_wp_mail($admin_email, $admin_subject, $body, $email_settings);
+        }
     }
 
     /**
@@ -142,7 +272,7 @@ class EmailManager
      */
     public function set_content_type($content_type)
     {
-        $format = get_option('gameengine_email_format', 'plain');
+        $format = get_option('gameengine_email_format', 'html'); // Default to html
         return ($format === 'html') ? 'text/html' : 'text/plain';
     }
 }

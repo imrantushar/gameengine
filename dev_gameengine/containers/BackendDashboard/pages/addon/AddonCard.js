@@ -8,7 +8,8 @@ import { useFormikContext } from 'formik';
 import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
-import { LuLock, LuSettings } from 'react-icons/lu';
+import { LuSettings } from 'react-icons/lu';
+import { FaLock } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
 import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
@@ -114,7 +115,7 @@ const AddonCard = ({ item, index, value }) => {
 					) : isShowProTag ? (
 						<KodezenTooltip
 							openerContent={
-								<Icon as={LuLock} boxSize="18px" color="gray.400" />
+								<Icon as={FaLock} boxSize="15px" color="orange.400" />
 							}
 							contentWidth="fit-content"
 						>

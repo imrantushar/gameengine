@@ -39,6 +39,25 @@ class Installer
         foreach ($schemas as $schema_sql) {
             dbDelta($schema_sql);
         }
+
+        $this->ensure_columns_exist();
+    }
+
+    /**
+     * Specifically ensure certain columns exist that might be missed by dbDelta in some envs.
+     */
+    private function ensure_columns_exist()
+    {
+        global $wpdb;
+        $table_name = "{$wpdb->prefix}gameengine_levels";
+        
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $column = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM $table_name LIKE %s", 'description'));
+        
+        if (empty($column)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $wpdb->query("ALTER TABLE $table_name ADD COLUMN description TEXT AFTER status");
+        }
     }
 
     /**

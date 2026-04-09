@@ -58,7 +58,8 @@ class LeaderboardController extends BaseController
         $offset        = ($page - 1) * $per_page;
 
         //  Cache Logic.
-        $cache_key   = 'gameengine_leaderboard_' . md5($point_type_id . $time_range . $per_page . $page);
+        $version     = \GameEngine\Helper::get_cache_version('leaderboard');
+        $cache_key   = 'gameengine_leaderboard_v' . $version . '_' . md5($point_type_id . $time_range . $per_page . $page);
         $cached_data = wp_cache_get($cache_key, 'gameengine_leaderboard');
 
         if (false !== $cached_data) {
@@ -91,8 +92,7 @@ class LeaderboardController extends BaseController
                     /* 1. Calculate and Filter Points first to define the rank */
                     SELECT user_id, SUM(points) as total_points
                     FROM {$wpdb->prefix}gameengine_points_log
-                    WHERE points > 0 
-                    AND ( point_type_id = %d OR 0 = %d ) 
+                    WHERE ( point_type_id = %d OR 0 = %d ) 
                     AND created_at >= %s
                     GROUP BY user_id
                 ) p ON u.ID = p.user_id
@@ -134,8 +134,7 @@ class LeaderboardController extends BaseController
                 "SELECT COUNT(DISTINCT u.ID) 
                 FROM {$wpdb->users} u
                 LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
-                WHERE p.points > 0 
-                AND ( p.point_type_id = %d OR 0 = %d ) 
+                WHERE ( p.point_type_id = %d OR 0 = %d ) 
                 AND p.created_at >= %s",
                 $point_type_id,
                 $point_type_id,

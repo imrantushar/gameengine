@@ -26,9 +26,17 @@ class Scheduler
         // Hook for Daily Log Cleanup Cron.
         add_action('gameengine_cleanup_logs_cron', array($self, 'handle_logs_cleanup'));
 
+        // Hook for Daily Inactivity Checker Cron.
+        add_action('gameengine_daily_inactivity_cron', array($self, 'check_user_inactivity'));
+
         // Schedule the daily cleanup event if not already scheduled.
         if (! wp_next_scheduled('gameengine_cleanup_logs_cron')) {
             wp_schedule_event(time(), 'daily', 'gameengine_cleanup_logs_cron');
+        }
+
+        // Schedule the daily inactivity checker if not already scheduled.
+        if (! wp_next_scheduled('gameengine_daily_inactivity_cron')) {
+            wp_schedule_event(time(), 'daily', 'gameengine_daily_inactivity_cron');
         }
     }
 
@@ -91,6 +99,43 @@ class Scheduler
                     $days
                 )
             );
+        }
+    }
+
+    /**
+     * Checks for user inactivity and triggers nudge emails.
+     */
+    public function check_user_inactivity()
+    {
+        global $wpdb;
+
+        $email_settings = get_option('gameengine_email_templates', []);
+        $inactivity_days = isset($email_settings['inactivity_days']) ? absint($email_settings['inactivity_days']) : 7;
+        
+        if ($inactivity_days === 0) {
+            return;
+        }
+
+        // Find users whose last log entry was exactly X days ago
+        $table_logs = $wpdb->prefix . 'gameengine_logs';
+        $query = $wpdb->prepare("
+            SELECT user_id 
+            FROM {$table_logs} 
+            GROUP BY user_id 
+            HAVING MAX(created_at) >= DATE_SUB(NOW(), INTERVAL %d DAY) 
+               AND MAX(created_at) < DATE_SUB(NOW(), INTERVAL %d DAY)
+        ", $inactivity_days, $inactivity_days - 1);
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $inactive_users = $wpdb->get_col($query);
+
+        if (!empty($inactive_users)) {
+            $points_manager = new PointsManager();
+            foreach ($inactive_users as $user_id) {
+                $points_balance = $points_manager->get_points($user_id);
+                // Trigger the email hook for EmailManager to pick up
+                do_action('gameengine_user_inactivity_detected', $user_id, $points_balance);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-04-05 04:44:37",
+    "generated_at": "2026-04-09 05:28:15",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -43,9 +43,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -56,22 +56,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -83,7 +77,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -97,7 +91,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -111,9 +105,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -146,6 +140,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -191,9 +199,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -204,22 +212,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -231,7 +233,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -245,7 +247,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -259,9 +261,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -294,6 +296,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -339,9 +355,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -352,22 +368,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -381,7 +391,7 @@
                             "key": "post_types",
                             "label": "Post Types (Pro)",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -414,7 +424,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -428,7 +438,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -442,9 +452,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -477,6 +487,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -522,9 +546,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -535,22 +559,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -570,7 +588,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -584,7 +602,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -598,9 +616,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -633,6 +651,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -678,9 +710,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -691,22 +723,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -715,14 +741,6 @@
                                 "achievement",
                                 "level"
                             ]
-                        },
-                        {
-                            "key": "instant_reward",
-                            "label": "Instant Reward (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
                         },
                         {
                             "key": "min_chars",
@@ -742,7 +760,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -756,7 +774,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -770,9 +788,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -805,6 +823,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -850,9 +882,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -863,22 +895,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -897,16 +923,8 @@
                             "isDisabled": false
                         },
                         {
-                            "key": "full_reversal",
-                            "label": "Full Points Reversal (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -920,7 +938,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -934,9 +952,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -969,6 +987,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1014,9 +1046,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1027,22 +1059,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1067,7 +1093,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1081,7 +1107,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1095,9 +1121,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1130,6 +1156,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1175,9 +1215,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1188,22 +1228,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1217,7 +1251,7 @@
                             "key": "field_specific",
                             "label": "Field-specific Rewards (Pro)",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_pro": true,
                             "options": [
                                 {
@@ -1233,7 +1267,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1247,7 +1281,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1261,9 +1295,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1296,6 +1330,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1341,9 +1389,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1354,22 +1402,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1389,7 +1431,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1403,7 +1445,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1417,9 +1459,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1452,6 +1494,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1497,9 +1553,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1510,22 +1566,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1545,7 +1595,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1559,7 +1609,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1573,9 +1623,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1608,6 +1658,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1653,9 +1717,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1666,22 +1730,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1690,14 +1748,6 @@
                                 "achievement",
                                 "level"
                             ]
-                        },
-                        {
-                            "key": "streak_bonus",
-                            "label": "Enable Streak Bonus (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
                         },
                         {
                             "key": "multiplier",
@@ -1718,7 +1768,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1732,7 +1782,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1746,9 +1796,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1781,6 +1831,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1826,9 +1890,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -1839,22 +1903,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -1868,7 +1926,7 @@
                             "key": "post_id",
                             "label": "Select Post",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "dynamic": {
                                 "integration": "wordpress",
                                 "query": "posts"
@@ -1878,7 +1936,7 @@
                             "key": "categories",
                             "label": "Select Categories (Pro)",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "dynamic": {
@@ -1889,7 +1947,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -1903,7 +1961,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -1917,9 +1975,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -1952,6 +2010,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -1997,9 +2069,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2010,22 +2082,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2045,7 +2111,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2059,7 +2125,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2073,9 +2139,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2108,6 +2174,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2158,9 +2238,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2171,22 +2251,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2200,7 +2274,7 @@
                             "key": "achievement_id",
                             "label": "Select Achievement",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "dynamic": {
                                 "integration": "gameengine",
                                 "query": "achievements"
@@ -2209,7 +2283,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2223,7 +2297,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2237,9 +2311,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2272,6 +2346,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2324,9 +2412,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2337,22 +2425,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2366,7 +2448,7 @@
                             "key": "calc_type",
                             "label": "Points Calculation",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Fixed",
@@ -2382,23 +2464,67 @@
                         },
                         {
                             "key": "min_spend",
-                            "label": "Minimum Spend (Pro)",
+                            "label": "Minimum Spend",
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
                             "isDisabled": false
                         },
                         {
-                            "key": "first_purchase",
-                            "label": "First Purchase Only Bonus (Pro)",
-                            "type": "switch",
-                            "width": "100%",
+                            "key": "include_products",
+                            "label": "Include Specific Products",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
                             "is_pro": true,
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "products"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "include_categories",
+                            "label": "Include Specific Categories",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "product_cats"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_products",
+                            "label": "Exclude Specific Products",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "products"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_categories",
+                            "label": "Exclude Specific Categories",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "woocommerce",
+                                "query": "product_cats"
+                            },
                             "isDisabled": false
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2412,7 +2538,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2426,9 +2552,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2461,6 +2587,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2506,9 +2646,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2519,22 +2659,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2548,7 +2682,7 @@
                             "key": "product_id",
                             "label": "Select Product",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "dynamic": {
                                 "integration": "woocommerce",
                                 "query": "products"
@@ -2558,7 +2692,7 @@
                             "key": "categories",
                             "label": "Select Entire Category (Pro)",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "dynamic": {
@@ -2568,16 +2702,8 @@
                             "isDisabled": false
                         },
                         {
-                            "key": "qty_multiplier",
-                            "label": "Quantity Based Multiplier (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2591,7 +2717,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2605,9 +2731,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2640,6 +2766,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2685,9 +2825,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2698,22 +2838,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2724,16 +2858,8 @@
                             ]
                         },
                         {
-                            "key": "price_based",
-                            "label": "Points based on Product Price (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2747,7 +2873,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2761,9 +2887,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2796,6 +2922,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2841,9 +2981,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -2854,22 +2994,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -2880,16 +3014,8 @@
                             ]
                         },
                         {
-                            "key": "media_bonus",
-                            "label": "Photo/Video Review Bonus (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -2903,7 +3029,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -2917,9 +3043,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -2952,6 +3078,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -2997,9 +3137,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3010,22 +3150,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3036,24 +3170,8 @@
                             ]
                         },
                         {
-                            "key": "full_reversal",
-                            "label": "Full Points Reversal (Pro)",
-                            "type": "switch",
-                            "width": "100%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
-                            "key": "refund_reason",
-                            "label": "Specific Refund Reason (Pro)",
-                            "type": "text",
-                            "width": "50%",
-                            "is_pro": true,
-                            "isDisabled": false
-                        },
-                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3067,7 +3185,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3081,9 +3199,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3116,6 +3234,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3168,9 +3300,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3181,22 +3313,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3207,8 +3333,68 @@
                             ]
                         },
                         {
+                            "key": "min_spend",
+                            "label": "Minimum Spend (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true,
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "include_products",
+                            "label": "Include Specific Products",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "storeengine",
+                                "query": "products"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "include_categories",
+                            "label": "Include Specific Categories",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "storeengine",
+                                "query": "product_cats"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_products",
+                            "label": "Exclude Specific Products",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "storeengine",
+                                "query": "products"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_categories",
+                            "label": "Exclude Specific Categories",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "storeengine",
+                                "query": "product_cats"
+                            },
+                            "isDisabled": false
+                        },
+                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3222,7 +3408,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3236,9 +3422,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3271,6 +3457,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3316,9 +3516,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3329,22 +3529,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3356,7 +3550,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3370,7 +3564,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3384,9 +3578,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3419,6 +3613,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3464,9 +3672,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3477,22 +3685,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3506,15 +3708,36 @@
                             "key": "product_id",
                             "label": "Select Product",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "dynamic": {
                                 "integration": "storeengine",
                                 "query": "products"
                             }
                         },
                         {
+                            "key": "categories",
+                            "label": "Select Entire Category ",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "storeengine",
+                                "query": "product_cats"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "min_spend",
+                            "label": "Minimum Spend (Pro)",
+                            "type": "number",
+                            "width": "50%",
+                            "is_pro": true,
+                            "isDisabled": false
+                        },
+                        {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3528,7 +3751,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3542,9 +3765,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3577,6 +3800,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3622,9 +3859,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3635,22 +3872,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3662,7 +3893,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3676,7 +3907,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3690,9 +3921,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3725,6 +3956,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3770,9 +4015,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3783,22 +4028,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3810,7 +4049,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3824,7 +4063,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3838,9 +4077,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -3873,6 +4112,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -3918,9 +4171,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -3931,22 +4184,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -3958,7 +4205,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -3972,7 +4219,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -3986,9 +4233,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4021,6 +4268,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -4066,9 +4327,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -4079,22 +4340,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -4106,7 +4361,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -4120,7 +4375,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -4134,9 +4389,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4169,6 +4424,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -4214,9 +4483,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -4227,22 +4496,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -4254,7 +4517,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -4268,7 +4531,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -4282,9 +4545,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4317,6 +4580,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -4362,9 +4639,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -4375,22 +4652,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -4404,7 +4675,7 @@
                             "key": "product_id",
                             "label": "Specific Product (optional)",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "dynamic": {
                                 "integration": "storeengine",
                                 "query": "products"
@@ -4412,7 +4683,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -4426,7 +4697,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -4440,9 +4711,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4475,6 +4746,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -4520,9 +4805,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -4533,22 +4818,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -4560,7 +4839,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -4574,7 +4853,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -4588,9 +4867,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4623,6 +4902,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",
@@ -4668,9 +4961,9 @@
                         },
                         {
                             "key": "limit",
-                            "label": "Limit",
+                            "label": "Repeatable Limit",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "options": [
                                 {
                                     "label": "Unlimited",
@@ -4681,22 +4974,16 @@
                                     "value": "1_time"
                                 },
                                 {
-                                    "label": "1 Per Day (Pro)",
-                                    "value": "1_per_day",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
                                 },
                                 {
-                                    "label": "1 Per Week (Pro)",
-                                    "value": "1_per_week",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
                                 },
                                 {
-                                    "label": "1 Per Month (Pro)",
-                                    "value": "1_per_month",
-                                    "is_pro": true,
-                                    "isDisabled": false
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
                                 }
                             ],
                             "default": "unlimited",
@@ -4708,7 +4995,7 @@
                         },
                         {
                             "key": "start_time",
-                            "label": "Start Time (Pro)",
+                            "label": "Start Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "08:00",
@@ -4722,7 +5009,7 @@
                         },
                         {
                             "key": "end_time",
-                            "label": "End Time (Pro)",
+                            "label": "End Time",
                             "type": "time",
                             "width": "50%",
                             "placeholder": "22:00",
@@ -4736,9 +5023,9 @@
                         },
                         {
                             "key": "active_days",
-                            "label": "Active Days (Pro)",
+                            "label": "Active Days",
                             "type": "select",
-                            "width": "100%",
+                            "width": "50%",
                             "is_multi": true,
                             "is_pro": true,
                             "options": [
@@ -4771,6 +5058,20 @@
                                     "value": "sun"
                                 }
                             ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
                             "scope": [
                                 "point_type",
                                 "achievement",

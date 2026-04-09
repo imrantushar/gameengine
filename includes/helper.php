@@ -248,4 +248,28 @@ class Helper
 
         return apply_filters('gameengine_locate_template', $template, $template_name, $template_path, $default_path);
     }
+    /**
+     * Get the current cache version for a group.
+     *
+     * @param string $group Cache group name.
+     * @return int
+     */
+    public static function get_cache_version($group)
+    {
+        $version = wp_cache_get('gameengine_v_' . $group, 'gameengine');
+        return $version ? (int) $version : 1;
+    }
+
+    /**
+     * Increment cache version to effectively flush a group.
+     *
+     * @param string $group Cache group name.
+     */
+    public static function clear_cache_group($group)
+    {
+        $version = self::get_cache_version($group);
+        wp_cache_set('gameengine_v_' . $group, $version + 1, 'gameengine');
+        
+        do_action('gameengine_cache_flushed', $group);
+    }
 }

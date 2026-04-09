@@ -4,7 +4,7 @@ namespace GameEngine\API\Controllers;
 
 use GameEngine\API\BaseController;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -32,8 +32,8 @@ class DashboardController extends BaseController
             '/' . $this->rest_base,
             array(
                 array(
-                    'methods'             => \WP_REST_Server::READABLE,
-                    'callback'            => array($this, 'get_stats'),
+                    'methods' => \WP_REST_Server::READABLE,
+                    'callback' => array($this, 'get_stats'),
                     'permission_callback' => array($this, 'admin_permission_check'),
                 ),
             )
@@ -41,8 +41,8 @@ class DashboardController extends BaseController
 
         register_rest_route($this->namespace, '/menus', array(
             array(
-                'methods'             => \WP_REST_Server::READABLE,
-                'callback'            => array($this, 'get_admin_menus'),
+                'methods' => \WP_REST_Server::READABLE,
+                'callback' => array($this, 'get_admin_menus'),
                 'permission_callback' => array($this, 'admin_permission_check'),
             ),
         ));
@@ -72,20 +72,21 @@ class DashboardController extends BaseController
 
         // Sanitize input parameters.
         $raw_start_date = $request->get_param('start_date');
-        $raw_end_date   = $request->get_param('end_date');
+        $raw_end_date = $request->get_param('end_date');
 
-        $start_date = ! empty($raw_start_date) ? sanitize_text_field($raw_start_date) : '';
-        $end_date   = ! empty($raw_end_date) ? sanitize_text_field($raw_end_date) : '';
+        $start_date = !empty($raw_start_date) ? sanitize_text_field($raw_start_date) : '';
+        $end_date = !empty($raw_end_date) ? sanitize_text_field($raw_end_date) : '';
 
-        // Create a unique cache key based on dates.
-        $cache_key = 'gameengine_stats_' . md5($start_date . $end_date);
-        $stats     = wp_cache_get($cache_key, 'gameengine_dashboard');
+        // Create a unique cache key based on dates and version.
+        $version = \GameEngine\Helper::get_cache_version('dashboard');
+        $cache_key = 'gameengine_stats_v' . $version . '_' . md5($start_date . $end_date);
+        $stats = wp_cache_get($cache_key, 'gameengine_dashboard');
 
         if (false === $stats) {
 
             // Set default broad date range if not provided.
-            $s = ! empty($start_date) ? $start_date . ' 00:00:00' : '1000-01-01 00:00:00';
-            $e = ! empty($end_date) ? $end_date . ' 23:59:59' : '9999-12-31 23:59:59';
+            $s = !empty($start_date) ? $start_date . ' 00:00:00' : '1000-01-01 00:00:00';
+            $e = !empty($end_date) ? $end_date . ' 23:59:59' : '9999-12-31 23:59:59';
 
             // ---  Overview Counts ---
 
@@ -134,7 +135,7 @@ class DashboardController extends BaseController
             $active_users = $wpdb->get_var(
                 $wpdb->prepare(
                     "SELECT COUNT(DISTINCT user_id) FROM (
-						SELECT user_id FROM {$wpdb->prefix}gameengine_points_log WHERE points > 0 AND created_at BETWEEN %s AND %s
+						SELECT user_id FROM {$wpdb->prefix}gameengine_points_log WHERE created_at BETWEEN %s AND %s
 						UNION
 						SELECT user_id FROM {$wpdb->prefix}gameengine_user_achievements WHERE achieved_at BETWEEN %s AND %s
 					) AS active",
@@ -164,7 +165,7 @@ class DashboardController extends BaseController
 						) as top_level
 					FROM {$wpdb->users} u
 					LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
-					WHERE p.points > 0 AND p.created_at BETWEEN %s AND %s
+					WHERE p.created_at BETWEEN %s AND %s
 					GROUP BY u.ID
 					ORDER BY total_points DESC
 					LIMIT 5",
@@ -176,13 +177,13 @@ class DashboardController extends BaseController
 
             $stats = array(
                 'overview' => array(
-                    'points'          => esc_html(number_format_i18n((int) $total_points)),
+                    'points' => esc_html(number_format_i18n((int) $total_points)),
                     'points_deducted' => esc_html(number_format_i18n(abs((int) $total_deducted))),
-                    'achievements'    => esc_html(number_format_i18n((int) $total_achievements)),
-                    'levels'          => esc_html(number_format_i18n((int) $total_levels)),
-                    'active_users'    => esc_html(number_format_i18n((int) $active_users)),
+                    'achievements' => esc_html(number_format_i18n((int) $total_achievements)),
+                    'levels' => esc_html(number_format_i18n((int) $total_levels)),
+                    'active_users' => esc_html(number_format_i18n((int) $active_users)),
                 ),
-                'chart'     => $chart_data,
+                'chart' => $chart_data,
                 'top_users' => $top_users,
             );
 
@@ -202,32 +203,32 @@ class DashboardController extends BaseController
     private function get_chart_data($start = '', $end = '')
     {
         global $wpdb;
-        $labels            = array();
-        $points_data       = array();
+        $labels = array();
+        $points_data = array();
         $achievements_data = array();
-        $levels_data       = array();
+        $levels_data = array();
 
-        if (! empty($start) && ! empty($end)) {
+        if (!empty($start) && !empty($end)) {
             try {
-                $date1          = new \DateTime($start);
-                $date2          = new \DateTime($end);
-                $interval       = $date1->diff($date2);
-                $days_to_query  = (int) $interval->days;
-                $days_to_query  = ($days_to_query > 30) ? 30 : $days_to_query;
+                $date1 = new \DateTime($start);
+                $date2 = new \DateTime($end);
+                $interval = $date1->diff($date2);
+                $days_to_query = (int) $interval->days;
+                $days_to_query = ($days_to_query > 30) ? 30 : $days_to_query;
                 $base_timestamp = strtotime($end);
             } catch (\Exception $ex) {
-                $days_to_query  = 6;
+                $days_to_query = 6;
                 $base_timestamp = current_time('timestamp');
             }
         } else {
-            $days_to_query  = 6;
+            $days_to_query = 6;
             $base_timestamp = current_time('timestamp');
         }
 
         for ($i = $days_to_query; $i >= 0; $i--) {
             $timestamp = $base_timestamp - ($i * DAY_IN_SECONDS);
-            $db_date   = gmdate('Y-m-d', $timestamp);
-            $labels[]  = gmdate('d M', $timestamp);
+            $db_date = gmdate('Y-m-d', $timestamp);
+            $labels[] = gmdate('d M', $timestamp);
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $p_val = $wpdb->get_var($wpdb->prepare("SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log WHERE points > 0 AND DATE(created_at) = %s", $db_date));
@@ -243,10 +244,10 @@ class DashboardController extends BaseController
         }
 
         return array(
-            'labels'       => $labels,
-            'points'       => $points_data,
+            'labels' => $labels,
+            'points' => $points_data,
             'achievements' => $achievements_data,
-            'levels'       => $levels_data,
+            'levels' => $levels_data,
         );
     }
 }

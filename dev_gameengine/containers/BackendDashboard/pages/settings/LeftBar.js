@@ -44,6 +44,12 @@ const LeftBar = () => {
             desc: __("Payout settings", "gameengine"),
             icon: general(),
         },
+        {
+            label: __("Email Templates", "gameengine"),
+            key: "email_templates",
+            desc: __("Customize Email Templates & Cron", "gameengine"),
+            icon: mail(),
+        },
 
     ];
 

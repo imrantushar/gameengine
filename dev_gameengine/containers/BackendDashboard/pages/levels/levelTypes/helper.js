@@ -18,12 +18,14 @@ export const getLevelsInitialValues = (id=null, data = []) => {
       restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
       status: filteredData?.status,
+      description: filteredData?.description || "",
     }
   }
 
   return {
     title: "",
     congratulations_message: "",
+    description: "",
     unlock_with_points_enabled: true,
     min_points: 0,
     max_points: 0,

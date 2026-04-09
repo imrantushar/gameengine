@@ -1,5 +1,5 @@
-import React from 'react';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Icon } from '@chakra-ui/react';
+import { FaLock } from 'react-icons/fa6';
 import { __ } from '@wordpress/i18n';
 
 /**
@@ -34,24 +34,27 @@ const SettingsInput = ({
     ...props
 }) => {
     const ProBadge = isPro && (
-        <Text
-            background="#FFA943"
-            margin="0 0 0 8px"
-            color="#fff"
-            borderRadius="2px"
-            padding="3px 6px"
-            fontSize="10px"
-            lineHeight="1"
-            textTransform="uppercase"
-            display="inline-flex"
-            alignItems="center"
-        >
-            {__("PRO", 'gameengine')}
-        </Text>
+        <Flex align="center" gap={1.5} ml={2}>
+            <Text
+                background="#FFA943"
+                margin={0}
+                color="#fff"
+                borderRadius="2px"
+                padding="3px 6px"
+                fontSize="10px"
+                lineHeight="1"
+                textTransform="uppercase"
+                display="inline-flex"
+                alignItems="center"
+            >
+                {__("PRO", 'gameengine')}
+            </Text>
+            <Icon as={FaLock} color="orange.400" boxSize={3} />
+        </Flex>
     );
 
     const Label = (
-        <Flex>
+        <Flex align="center">
             <Text
                 fontSize="0.875rem"
                 fontWeight="500"

@@ -101,46 +101,66 @@
     border: 2px solid #fff;
 }
 
-/* Sidebar & Content Area */
-.gameengine-main-layout {
-    display: flex;
-    min-height: 500px;
-    background: var(--gameengine-bg-alt);
+/* Header & Tabs Integration */
+.gameengine-header {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    padding: 20px 30px !important;
+    background: #fff !important;
+    border-bottom: 1px solid var(--gameengine-border) !important;
+    align-items: center !important;
+    gap: 20px !important;
 }
 
-.gameengine-sidebar {
-    width: 250px;
-    background: #fff;
-    padding: 25px 15px;
-    border-right: 1px solid var(--gameengine-border);
+.gameengine-header-tabs {
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 15px !important;
+    align-items: center !important;
+    flex-wrap: nowrap !important; /* Prevent wrapping into columns */
 }
 
 .gameengine-tab-btn {
-    width: 100% !important;
-    padding: 14px 20px !important;
+    width: auto !important;
+    padding: 8px 16px !important;
     border: none !important;
     background: transparent !important;
-    text-align: left !important;
-    font-size: 15px !important;
+    text-align: center !important;
+    font-size: 14px !important;
     font-weight: 600 !important;
     color: var(--gameengine-text-body) !important;
     cursor: pointer !important;
     display: flex !important;
     align-items: center !important;
-    gap: 12px !important;
-    border-radius: 8px !important;
-    margin-bottom: 5px !important;
+    gap: 8px !important;
+    border-radius: 6px !important;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.gameengine-tab-btn:hover {
+    background: var(--gameengine-bg-alt) !important;
+    color: var(--gameengine-primary) !important;
 }
 
 .gameengine-tab-btn.gameengine-active {
-    background: var(--gameengine-primary) !important;
-    color: #fff !important;
+    background: var(--gameengine-primary-soft) !important;
+    color: var(--gameengine-primary) !important;
+}
+
+/* Main Layout & Content Area */
+.gameengine-main-layout {
+    display: block;
+    min-height: 500px;
+    background: var(--gameengine-bg-alt);
 }
 
 .gameengine-content-area {
-    flex: 1;
+    width: 100%;
     padding: 40px;
     background: #fff;
+    box-sizing: border-box;
 }
 
 .gameengine-tab-content {
@@ -625,15 +645,8 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .gameengine-sidebar {
-        width: 100%;
-        display: flex;
-        overflow-x: auto;
-        border-right: none;
-    }
-
     .gameengine-main-layout {
-        flex-direction: column;
+        /* Default is already block/column */
     }
 
     .gameengine-timeline::before {
