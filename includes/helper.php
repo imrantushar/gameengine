@@ -2,7 +2,7 @@
 
 namespace GameEngine;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -112,23 +112,23 @@ class Helper
         //  Dashboard
         $menu[$slug] = array(
             'parent_slug' => $slug,
-            'title'       => __('Dashboard', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Dashboard', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         // Points System
         $menu[$slug . '-points'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Points System', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Points System', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         // Achievements with Nested Submenu
         $menu[$slug . '-achievements'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Achievements', 'gameengine'),
-            'capability'  => 'manage_options',
-            'sub_items'   => array(
+            'title' => __('Achievements', 'gameengine'),
+            'capability' => 'manage_options',
+            'sub_items' => array(
                 array('title' => __('All Achievements', 'gameengine'), 'slug' => ''),
                 array('title' => __('Types', 'gameengine'), 'slug' => 'achievement-types'),
             )
@@ -137,9 +137,9 @@ class Helper
         // Levels with Nested Submenu
         $menu[$slug . '-levels'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Levels', 'gameengine'),
-            'capability'  => 'manage_options',
-            'sub_items'   => array(
+            'title' => __('Levels', 'gameengine'),
+            'capability' => 'manage_options',
+            'sub_items' => array(
                 array('title' => __('All Levels', 'gameengine'), 'slug' => ''),
                 array('title' => __('Types', 'gameengine'), 'slug' => 'level-types'),
             )
@@ -148,45 +148,45 @@ class Helper
         // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Logs', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Logs', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         // Leaderboards
         $menu[$slug . '-leaderboards'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Leaderboards', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Leaderboards', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         // Wallet System
         if (self::is_addon_active('wallet')) {
             $menu[$slug . '-wallet'] = array(
                 'parent_slug' => $slug,
-                'title'       => __('Wallet', 'gameengine'),
-                'capability'  => 'manage_options',
+                'title' => __('Wallet', 'gameengine'),
+                'capability' => 'manage_options',
             );
         }
 
         // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Addons', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Addons', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         $menu[$slug . '-tools'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Tools', 'gameengine'),
-            'capability'  => 'manage_options',
-            'slug'        => 'tools',
+            'title' => __('Tools', 'gameengine'),
+            'capability' => 'manage_options',
+            'slug' => 'tools',
         );
 
         //  Settings
         $menu[$slug . '-settings'] = array(
             'parent_slug' => $slug,
-            'title'       => __('Settings', 'gameengine'),
-            'capability'  => 'manage_options',
+            'title' => __('Settings', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         return apply_filters('gameengine/admin_menu_list', $menu);
@@ -207,13 +207,13 @@ class Helper
         $action_args = array(
             'template_name' => $template_name,
             'template_path' => $template_path,
-            'located'       => $template,
-            'args'          => $args,
+            'located' => $template,
+            'args' => $args,
         );
 
         do_action('gameengine_before_get_template', $action_args);
 
-        if (! empty($args) && is_array($args)) {
+        if (!empty($args) && is_array($args)) {
             extract($args, EXTR_SKIP); // phpcs:ignore WordPress.PHP.DontExtract.extract_extract
         }
 
@@ -232,20 +232,44 @@ class Helper
      */
     public static function locate_template($template_name, $template_path = '', $default_path = '')
     {
-        if (! $template_path) {
+        if (!$template_path) {
             $template_path = 'gameengine/';
         }
 
-        if (! $default_path) {
+        if (!$default_path) {
             $default_path = trailingslashit(GAMEENGINE_PATH) . 'templates/';
         }
 
         $template = locate_template(array(trailingslashit($template_path) . $template_name));
 
-        if (! $template) {
+        if (!$template) {
             $template = $default_path . $template_name;
         }
 
         return apply_filters('gameengine_locate_template', $template, $template_name, $template_path, $default_path);
+    }
+    /**
+     * Get the current cache version for a group.
+     *
+     * @param string $group Cache group name.
+     * @return int
+     */
+    public static function get_cache_version($group)
+    {
+        $version = wp_cache_get('gameengine_v_' . $group, 'gameengine');
+        return $version ? (int) $version : 1;
+    }
+
+    /**
+     * Increment cache version to effectively flush a group.
+     *
+     * @param string $group Cache group name.
+     */
+    public static function clear_cache_group($group)
+    {
+        $version = self::get_cache_version($group);
+        wp_cache_set('gameengine_v_' . $group, $version + 1, 'gameengine');
+
+        do_action('gameengine_cache_flushed', $group);
     }
 }

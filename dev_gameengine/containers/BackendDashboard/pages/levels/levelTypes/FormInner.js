@@ -247,6 +247,15 @@ const FormInner = () => {
                     />
                 </GameEngineInput>
             </Flex>
+            
+            <GameEngineInput label={__("Benefits Description", "gameengine")} width="100%">
+                <GameEngineEditor
+                    name={'description'}
+                    defaultValue={values.description}
+                    saveValueHandler={setFieldValue}
+                    suffix={'levels-benefits'}
+                />
+            </GameEngineInput>
 
             <GameEngineInput label={__("Congratulations Message", "gameengine")} width="100%">
                 <GameEngineEditor

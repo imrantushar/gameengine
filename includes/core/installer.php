@@ -2,7 +2,7 @@
 
 namespace GameEngine\Core;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -28,7 +28,7 @@ class Installer
      */
     private function create_tables()
     {
-        if (! function_exists('dbDelta')) {
+        if (!function_exists('dbDelta')) {
             require_once ABSPATH . 'wp-admin/includes/upgrade.php';
         }
 
@@ -38,6 +38,25 @@ class Installer
         // Create or update each table safely
         foreach ($schemas as $schema_sql) {
             dbDelta($schema_sql);
+        }
+
+        $this->ensure_columns_exist();
+    }
+
+    /**
+     * Specifically ensure certain columns exist that might be missed by dbDelta in some envs.
+     */
+    private function ensure_columns_exist()
+    {
+        global $wpdb;
+        $table_name = "{$wpdb->prefix}gameengine_levels";
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $column = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$table_name} LIKE %s", 'description'));
+
+        if (empty($column)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$table_name} ADD COLUMN description TEXT AFTER status");
         }
     }
 

@@ -14,7 +14,18 @@ const MarketPlace = () => {
   const { values, setFieldValue } = useFormikContext();
   return (
     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
-      <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Coupon Generate", "gameengine")} />
+      <Text
+          fontSize="20px"
+          fontWeight="500"
+          color="var(--gameengine-font-color)"
+          lineHeight="30px"
+          margin='0 0 24px 0' 
+          padding='0 0 16px 0'
+          borderBottom="1px solid var(--gameengine-border-color)"
+      >
+          {__("Coupon Generate", "gameengine")}
+      </Text>
+      
       <Flex direction="column" gap='16px'>
         <SettingsInput isPro={!is_pro} label={__("Enable Coupon Generate", "gameengine")}
           subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Activate the rewards store where users can exchange points for unique WooCommerce discount coupons via shortcode.', 'gameengine')} />}

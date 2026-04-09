@@ -16,6 +16,8 @@ import Economy from './Tabs/Economy';
 import MarketPlace from './Tabs/MarketPlace';
 import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
+import License from './Tabs/License';
+import EmailTemplates from './Tabs/EmailTemplates';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -24,6 +26,7 @@ const Settings = () => {
     const { data: settingsData } = useSelector(state => state.settings);
     const [settingsLoading, setSettingsLoading] = useState(!settingsData);
     const dispatch = useDispatch();
+    const isEmailTab = tab === 'email_templates';
 
     useEffect(() => {
         if (!settingsData) {
@@ -49,6 +52,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
                 case "dashboard":
                     return dispatch(saveSettings({key: 'dashboard', payloadData: values.dashboard}));
+                case "email_templates":
+                    return dispatch(saveSettings({key: 'email_templates', payloadData: values.email_templates}));
                 default:
                     return null;
             }
@@ -76,9 +81,14 @@ const Settings = () => {
                                     path={__("Settings", "gameengine")}
                                     rightContent={
                                         <>
-                                            <Button {...primaryBtn} onClick={handleSubmit} loading={isSubmitting} disabled={!dirty}>
-                                                {__('Save Changes', 'gameengine')}
-                                            </Button>
+                                            {isEmailTab ? (
+                                                null
+                                            ) : (
+                                                <Button {...primaryBtn} onClick={handleSubmit} loading={isSubmitting} disabled={!dirty}>
+                                                    {__('Save Changes', 'gameengine')}
+                                                </Button>
+                                            )}
+
                                             <GetHelp filterText={['setting']} />
                                         </>
                                     }
@@ -98,11 +108,17 @@ const Settings = () => {
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
                                             {tab === "payout" && <Payout />}
+                                            {tab === "license" && <License />}
+                                            {tab === "email_templates" && (
+                                                <EmailTemplates 
+                                                    handleSubmit={handleSubmit} 
+                                                    isSubmitting={isSubmitting} 
+                                                    dirty={dirty} 
+                                                />
+                                            )}
                                         </Box>
-
                                     </Flex>
                                 </Box>
-
                             </>
                         )
                     }}

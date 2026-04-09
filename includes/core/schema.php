@@ -115,6 +115,7 @@ final class Schema
             trigger_key VARCHAR(255) NOT NULL,
             action_type ENUM('award', 'deduct') NOT NULL DEFAULT 'award',
             parameters JSON,
+            priority INT(11) NOT NULL DEFAULT 0,
             is_active TINYINT(1) NOT NULL DEFAULT 1,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),

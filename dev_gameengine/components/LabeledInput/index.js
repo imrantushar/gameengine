@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Text, Input, Textarea } from '@chakra-ui/react';
+import { Flex, Input, Textarea } from '@chakra-ui/react';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 const LabeledInput = ({
   label,
@@ -11,14 +12,13 @@ const LabeledInput = ({
   inputStyle,
   textAreaSize,
   onBlur,
+  isPro = false,
 }) => {
   const InputComponent = type === 'textarea' ? Textarea : Input;
 
   return (
-    <Flex as="label" direction="column"  gap={2} style={{ ...style }}>
-      <Text fontWeight="600" fontSize="0.875rem" margin={0}>
-        {label}
-      </Text>
+    <Flex as="label" direction="column" gap={2} style={{ ...style }}>
+      <GFLabel label={label} fontWeight="600" fontSize="0.875rem" margin={0} isPro={isPro} />
 
       <InputComponent
         className="gameengine-input"

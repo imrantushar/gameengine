@@ -10,6 +10,7 @@ import Select from 'react-select';
 import { commonInput } from '../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 import GameEngineInput from '@GFComponents/GameEngineInput';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type, parameters }) => {
     const dispatch = useDispatch();
@@ -37,12 +38,15 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     }
 
     const labelElement = (
-        <Flex align="center" gap={2} mb="8px" width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`}>
-            <Text className='gameengine-title' fontSize="sm" fontWeight="500" m="0">
-                {displayLabel} {config.required && <span style={{ color: 'red' }}>*</span>}
-            </Text>
-            {config.is_pro && <Icon as={FaLock} color="orange.400" boxSize={3} />}
-        </Flex>
+        <Box mb="8px">
+            <GFLabel
+                label={`${displayLabel}${config.required ? ' *' : ''}`}
+                isPro={config.is_pro}
+                fontSize="sm"
+                fontWeight="500"
+                margin="0"
+            />
+        </Box>
     );
 
     if (config.type === 'select' || config.type === 'dynamic_select') {
@@ -63,7 +67,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
                             ? __('Upgrade to Pro', 'gameengine')
                             : __('Select...', 'gameengine')
                     }
-                    className={`gameengine-select ${config?.width === '100%' && 'gameengine-select--width-full'} ${config?.width === '50%' && 'gameengine-select--width-half'}`}
+                    className="gameengine-select gameengine-select--width-full"
                     classNamePrefix="gameengine-select"
                     options={optionsSource}
                     value={
@@ -89,8 +93,8 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
         return (
             <Flex width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`} align="center" justify="space-between" p={2} border="1px dashed" borderColor="gray.200" borderRadius="md" opacity={isDisabled ? 0.6 : 1}>
                 <Box>
-                    <Text fontSize="sm" fontWeight="600">{displayLabel}</Text>
-                    {config.description && <Text fontSize="xs" color="gray.500">{config.description}</Text>}
+                    <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
+                    {config.description && <Text fontSize="xs" color="gray.500" mt="2px">{config.description}</Text>}
                 </Box>
                 <Button size="xs" isDisabled={isDisabled} onClick={() => onChange(!value)} colorScheme={value ? "blue" : "gray"}>
                     {value ? __('Enabled', 'gameengine') : __('Disabled', 'gameengine')}
@@ -101,7 +105,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
 
     return (
         <Box width={config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`} opacity={isDisabled ? 0.7 : 1}>
-            <GameEngineInput label={displayLabel}>
+            <GameEngineInput label={displayLabel} isPro={config.is_pro}>
                 <Input
                     {...commonInput}
                     label={displayLabel}
@@ -134,7 +138,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                     if (config.scope && !config.scope.includes(scope)) {
                         return;
                     }
-                    const currentHook = values.requirements.find(item => item.trigger_key === hookId );
+                    const currentHook = values.requirements.find(item => item.trigger_key === hookId);
 
                     return (
                         <DynamicField
@@ -154,13 +158,13 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
     );
 };
 
-const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen, setIsOpen, scope}) => {
+const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen, setIsOpen, scope }) => {
     const { values, setFieldValue } = useFormikContext();
-    
+
     const handleChange = (field, value, hook) => {
         const updatedFieldValue = values.requirements.map(item => {
-            if(item.trigger_key === hook) {
-                return { 
+            if (item.trigger_key === hook) {
+                return {
                     ...item,
                     parameters: {
                         ...item.parameters,

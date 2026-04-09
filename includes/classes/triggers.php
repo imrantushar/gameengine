@@ -99,7 +99,7 @@ class Triggers
         // Fetch all active requirements (rules) for this specific trigger
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $rules = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE trigger_key = %s AND is_active = 1",
+            "SELECT * FROM {$wpdb->prefix}gameengine_requirements WHERE trigger_key = %s AND is_active = 1 ORDER BY priority ASC, id ASC",
             sanitize_key($trigger_key)
         ));
 
@@ -120,8 +120,24 @@ class Triggers
                 continue;
             }
 
+            // Calculate potential points if it's a point type reward
+            $potential_points = 0;
+            if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
+                $base_points = isset($params['points']) ? intval($params['points']) : 0;
+                $potential_points = apply_filters('gameengine_pro_point_amount', $base_points, $rule, $params, $hook_args);
+            }
+
             // Process the actual Reward or Deduction
-            $this->process_single_rule($rule, $safe_user_id, $config, $hook_args);
+            // We pass the potentially capped points to the processor via a temporary filter or modified params
+            if ($potential_points > 0 || $rule->reward_type !== 'point_type' || $rule->action_type === 'deduct') {
+                $rule_success = $this->process_single_rule($rule, $safe_user_id, $config, $hook_args, $potential_points);
+                if ($rule_success) {
+                    $first_rule_processed = true;
+                    if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
+                        $total_points_awarded += $potential_points;
+                    }
+                }
+            }
         }
     }
 
@@ -136,31 +152,28 @@ class Triggers
     /**
      * Handles the rewarding or revoking logic for a single rule.
      * Updated to support Pro features via filters.
+     * 
+     * @return bool Success status
      */
-    private function process_single_rule($rule, $user_id, $config, $hook_args)
+    private function process_single_rule($rule, $user_id, $config, $hook_args, $points_override = null)
     {
         $params = json_decode($rule->parameters, true);
 
         $can_unlock = apply_filters('gameengine_can_user_unlock_reward', true, $user_id, $rule);
 
         if (!$can_unlock) {
-            return;
-        }
-
-        //  Validate Time-Based restrictions (Pro Logic Hook)
-        if (!$this->check_timing_validity($params)) {
-            return;
+            return false;
         }
 
         //  Validate Pro Conditional Logic (Word Count, Min Spend, etc.)
         // This filter allows the Pro folder to stop the process if conditions aren't met.
         if (!apply_filters('gameengine_validate_pro_logic', true, $rule->trigger_key, $params, $hook_args)) {
-            return;
+            return false;
         }
 
         //  Check frequency limits (Daily, Weekly, Monthly, etc.)
         if (!$this->check_limit_validity((int) $user_id, (int) $rule->id, $params)) {
-            return;
+            return false;
         }
 
         $success = false;
@@ -168,11 +181,12 @@ class Triggers
 
         // A. Handle Point-based rewards/penalties
         if ($rule->reward_type === 'point_type') {
-            $points = isset($params['points']) ? intval($params['points']) : 0;
+            $points = ($points_override !== null) ? $points_override : (isset($params['points']) ? intval($params['points']) : 0);
 
-            //  Apply Pro Point Multiplier or Percentage Calculation
-            // If Pro is active, this will modify the points based on logic (e.g., 2x points).
-            $points = apply_filters('gameengine_pro_point_amount', $points, $rule, $params, $hook_args);
+            // Only apply filters if no override was provided (override already includes filtered/capped points)
+            if ($points_override === null) {
+                $points = apply_filters('gameengine_pro_point_amount', $points, $rule, $params, $hook_args);
+            }
 
             $args = [
                 'description'    => $params['log_label'] ?? ($params['label'] ?? $config['label']),
@@ -204,6 +218,8 @@ class Triggers
         if ($success) {
             $this->update_requirement_progress($safe_user_id, (int) $rule->id);
         }
+
+        return (bool) $success;
     }
 
     /**
@@ -222,7 +238,24 @@ class Triggers
         if ($key === 'visit_specific_post') {
             $current_post_id = isset($args[1]) ? (int) $args[1] : 0;
             $target_post_id  = isset($params['post_id']) ? (int) $params['post_id'] : 0;
-            return ($current_post_id > 0 && $current_post_id === $target_post_id);
+            $target_categories = isset($params['categories']) ? (array) $params['categories'] : [];
+
+            // 1. Check for specific post match
+            if ($target_post_id > 0 && $current_post_id === $target_post_id) {
+                return true;
+            }
+
+            // 2. Check for category match if no specific post match was found
+            if (!empty($target_categories)) {
+                $post_categories = wp_get_post_categories($current_post_id);
+                foreach ($target_categories as $cat_id) {
+                    if (in_array((int)$cat_id, $post_categories)) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         // GameEngine: Specific Achievement Unlock Event
@@ -343,6 +376,7 @@ class Triggers
         if ($limit_type === '1_per_day') return gmdate('Y-m-d', $last_update_time) !== gmdate('Y-m-d', $current_time);
         if ($limit_type === '1_per_week') return gmdate('W-Y', $last_update_time) !== gmdate('W-Y', $current_time);
         if ($limit_type === '1_per_month') return gmdate('m-Y', $last_update_time) !== gmdate('m-Y', $current_time);
+
 
         return true;
     }
