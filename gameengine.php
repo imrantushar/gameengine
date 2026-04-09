@@ -227,3 +227,4 @@ add_action('init', function () {
         wp_die(esc_html__('GameEngine settings and banners have been reset! Please refresh your dashboard.', 'gameengine'));
     }
 });
+
