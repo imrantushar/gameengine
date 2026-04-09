@@ -205,7 +205,17 @@ const EmailTemplates = () => {
         <Box width='100%' overflow="visible">
             {/* General Settings */}
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible" mb="30px">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("General", "gameengine")} />
+                <Text
+                    fontSize="20px"
+                    fontWeight="500"
+                    color="var(--gameengine-font-color)"
+                    lineHeight="30px"
+                    margin='0 0 24px 0' 
+                    padding='0 0 16px 0'
+                    borderBottom="1px solid var(--gameengine-border-color)"
+                >
+                    {__("General", "gameengine")}
+                </Text>
                 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Name", "gameengine")} subtitle={<Text fontSize="12px" color="#738496" m={0}>{__("The common name for all outgoing emails.", "gameengine")}</Text>}>
@@ -229,7 +239,17 @@ const EmailTemplates = () => {
 
             {/* Templates List */}
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Email Template", "gameengine")} />
+                <Text
+                    fontSize="20px"
+                    fontWeight="500"
+                    color="var(--gameengine-font-color)"
+                    lineHeight="30px"
+                    margin='0 0 24px 0' 
+                    padding='0 0 16px 0'
+                    borderBottom="1px solid var(--gameengine-border-color)"
+                >
+                    {__("Email Template", "gameengine")}
+                </Text>
                 
                 <Flex direction="column" gap="16px">
                     {Object.entries(emailConfigs).map(([key, config]) => {
@@ -245,10 +265,10 @@ const EmailTemplates = () => {
                                 bg="#fff"
                             >
                                 <Box>
-                                    <Text fontSize="15px" fontWeight="600" color="var(--gameengine-font-color)" mb="4px">
+                                    <Text fontSize="16px" fontWeight="600" color="var(--gameengine-font-color)" m="0px">
                                         {config.title}
                                     </Text>
-                                    <Text fontSize="13px" color="#738496">
+                                    <Text fontSize="14px" color="#738496" m={0}>
                                         {config.desc}
                                     </Text>
                                 </Box>

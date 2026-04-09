@@ -1,7 +1,7 @@
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import React from 'react';
 import { __ } from "@wordpress/i18n";
-import { Input, Switch } from '@chakra-ui/react';
+import { Input, Switch, Text } from '@chakra-ui/react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
 import { useFormikContext } from 'formik';
@@ -15,7 +15,18 @@ const Payout = () => {
 
   return (
     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" width="100%">
-      <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Payout", "gameengine")} />
+      <Text
+          fontSize="20px"
+          fontWeight="500"
+          color="var(--gameengine-font-color)"
+          lineHeight="30px"
+          margin='0 0 24px 0' 
+          padding='0 0 16px 0'
+          borderBottom="1px solid var(--gameengine-border-color)"
+      >
+          {__("Payout", "gameengine")}
+      </Text>
+
       <SettingsInput isPro={!is_pro} label={__("Enable Payout", "gameengine")} margin='0 0 24px 0'
         subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Enable users to request real money withdrawals in exchange for their earned points.', 'gameengine')} />}
       >

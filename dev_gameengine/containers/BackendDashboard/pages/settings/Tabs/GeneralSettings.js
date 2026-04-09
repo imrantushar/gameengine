@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Switch } from '@chakra-ui/react';
+import { Box, Flex, Switch, Text } from '@chakra-ui/react';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import Select from "react-select";
@@ -38,13 +38,22 @@ const retentionDays = [
 ]
 
 const GeneralSettings = () => {
-
     const { values, setFieldValue } = useFormikContext();
 
     return (
         <Box width={'100%'} overflow="visible">
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__("Log ", "gameengine")} />
+                <Text
+                    fontSize="20px"
+                    fontWeight="500"
+                    color="var(--gameengine-font-color)"
+                    lineHeight="30px"
+                    margin='0 0 24px 0' 
+                    padding='0 0 16px 0'
+                    borderBottom="1px solid var(--gameengine-border-color)"
+                >
+                    {__("Log", "gameengine")}
+                </Text>
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Log Display", "gameengine")}
@@ -68,7 +77,7 @@ const GeneralSettings = () => {
 
                     <SettingsInput label={__("Auto Cleanup", "gameengine")}
                         subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Automatically remove old activity logs from the database after a specific period to keep your database optimized and improve performance.', 'gameengine')} />}
-                        >
+                    >
                         <Select
                             className="gameengine-select gameengine-select--300"
                             classNamePrefix="gameengine-select"
@@ -87,14 +96,23 @@ const GeneralSettings = () => {
                 </Flex>
             </GameEngineBox>
 
-
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
-                <GFLabel type="heading" margin='0 0 24px 0' padding='0 0 16px 0' label={__(" Economy", "gameengine")} />
+                <Text
+                    fontSize="20px"
+                    fontWeight="500"
+                    color="var(--gameengine-font-color)"
+                    lineHeight="30px"
+                    margin='0 0 24px 0' 
+                    padding='0 0 16px 0'
+                    borderBottom="1px solid var(--gameengine-border-color)"
+                >
+                    {__("Economy", "gameengine")}
+                </Text>
 
                 <Flex direction="column" gap='16px'>
                     <SettingsInput label={__("Enable successful rewards", "gameengine")}
                         subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Enable this to record a log entry every time a user successfully earns points, achievements, or levels.', 'gameengine')} />}
-                        >
+                    >
                         <Switch.Root
                             colorPalette="blue"
                             size="sm"
@@ -115,7 +133,7 @@ const GeneralSettings = () => {
                     </SettingsInput>
 
                     <SettingsInput label={__("Enable System Errors", "gameengine")}
-                            subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues.', 'gameengine')} />}
+                        subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues.', 'gameengine')} />}
                     >
                         <Switch.Root
                             colorPalette="blue"
