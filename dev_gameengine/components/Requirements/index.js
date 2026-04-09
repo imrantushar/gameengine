@@ -67,7 +67,16 @@ const Requirements = (props) => {
     //     document.addEventListener('mousedown', handleClick);
     //     return () => document.removeEventListener('mousedown', handleClick);
     // }, []);
-    
+
+    const tabContainerRef = useRef(null);
+    const scrollLeft = () => {
+        tabContainerRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        tabContainerRef.current?.scrollBy({ left: 150, behavior: 'smooth' });
+    };
+
     return (
         <CollapsibleItem
             // translators: %s: label
@@ -80,9 +89,7 @@ const Requirements = (props) => {
             dynamicClasses={parent}
         >
             {open && (
-                <Flex gap="24px" mt={6} width="100%" 
-                // className={`${child} gameengine-fade-in-up`}
-                >
+                <Flex gap="24px" mt={6} width="100%" className={`${child} gameengine-fade-in-up`}>
                     <Flex className={childLeft} width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gameengine-shadow)" direction="column" gap="24px">
                         <Flex direction="column" gap="4px">
                             <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
@@ -93,33 +100,80 @@ const Requirements = (props) => {
                             />
                         </Flex>
 
-                        <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)" >
-                            {tabArray.map((item, index) => {
-                                return (
-                                    <Button
-                                        minW={'auto'}
-                                        variant={'plain'}
-                                        onClick={() => {
-                                            filterHookType(item.value)
-                                            // setDropdownTab(null)
-                                        }}
-                                        key={index}
-                                        bg={'transparent'}
-                                        height={'auto'}
-                                        fontSize={'12px'}
-                                        fontWeight={'500'}
-                                        lineHeight={'16px'}
-                                        padding={'8px 12px'}
-                                        color={'var(--gameengine-font-color)'}
-                                    >{item.label}</Button>
-                                )
-                            })}
-                        </Box>
+                        <Flex align="center" position="relative">
+                            {tabArray.length > 4 && (
+                                <Button
+                                    onClick={scrollLeft}
+                                    position="absolute"
+                                    left="0"
+                                    zIndex="2"
+                                    size="xs"
+                                    bg="#fff"
+                                    p={0}
+                                    borderRadius="50%"
+                                    color="var(--gameengine-font-color)"
+                                    border="1px solid var(--gameengine-border-color)"
+                                >
+                                    <Icon as={RiArrowRightSLine} transform="rotate(180deg)" />
+                                </Button>
+                            )}
+
+                            <Box
+                                ref={tabContainerRef}
+                                display="flex"
+                                overflowX="auto"
+                                overflowY="hidden"
+                                borderBottom="2px solid var(--gameengine-border-color)"
+                                mx={tabArray.length > 4 ? "32px" : "0"}
+                                css={{
+                                    "&::-webkit-scrollbar": { display: "none" },
+                                    scrollbarWidth: "none",
+                                }}
+                            >
+                                {tabArray.map((item, index) => {
+                                    const isActive = selectedFilterType === item.value || (selectedFilterType === '' && item.value === 'all');
+
+                                    return (
+                                        <Button
+                                            key={index}
+                                            minW="auto"
+                                            variant="plain"
+                                            onClick={() => filterHookType(item.value)}
+                                            fontSize="12px"
+                                            fontWeight="500"
+                                            padding="8px 12px"
+                                            borderBottom={isActive ? "2px solid var(--gameengine-primary)" : "2px solid transparent"}
+                                            color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
+                                            _hover={{
+                                                color: "var(--gameengine-primary)"
+                                            }}
+                                        >
+                                            {item.label}
+                                        </Button>
+                                    );
+                                })}
+                            </Box>
+
+                            {tabArray.length > 4 && (
+                                <Button
+                                    onClick={scrollRight}
+                                    position="absolute"
+                                    right="0"
+                                    zIndex="2"
+                                    size="xs"
+                                    bg="#fff"
+                                    p={0}
+                                    borderRadius="50%"                                    
+                                    color="var(--gameengine-font-color)"
+                                    border="1px solid var(--gameengine-border-color)"
+                                >
+                                    <Icon as={RiArrowRightSLine} />
+                                </Button>
+                            )}
+                        </Flex>
 
                         <DroppableArea id={`${actionName}s-available`}>
-                            <Box key={selectedFilterType} 
-                            // className="gameengine-fade-in"
-                            >
+                            <Box key={selectedFilterType} className="gameengine-fade-in">
                                 {allHooks
                                     .filter(item => !selectedHookIds?.includes(item?.id))
                                     .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')

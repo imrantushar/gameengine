@@ -131,9 +131,6 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
 
                 <Flex direction="column" gap="16px">
                     {Object.entries(emailConfigs).map(([key, config]) => {
-                        const isEnabled = values?.email_templates?.[key + '_enabled'] ?? true;
-                        const emailConfig = emailConfigs[editingKey];
-
                         return (
                             <Flex
                                 key={key}
@@ -310,14 +307,20 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                             <Text fontSize="13px" color="#555">{__("User:", "gameengine")}</Text>
                                             <CustomSwitch
                                                 isChecked={values?.email_templates?.[key + '_user_enabled'] ?? true}
-                                                onChange={(val) => setFieldValue(config.userEnabledField, val)}
+                                                onChange={(val) => {
+                                                    setFieldValue(config.userEnabledField, val);
+                                                    handleSubmit()
+                                                }}
                                             />
                                         </Flex>
                                         <Flex align="center" gap="8px">
                                             <Text fontSize="13px" color="#555">{__("Admin:", "gameengine")}</Text>
                                             <CustomSwitch
                                                 isChecked={values?.email_templates?.[key + '_admin_enabled'] ?? false}
-                                                onChange={(val) => setFieldValue(config.adminEnabledField, val)}
+                                                onChange={(val) => {
+                                                    setFieldValue(config.adminEnabledField, val);
+                                                    handleSubmit()
+                                                }}
                                             />
                                         </Flex>
                                     </Flex>
