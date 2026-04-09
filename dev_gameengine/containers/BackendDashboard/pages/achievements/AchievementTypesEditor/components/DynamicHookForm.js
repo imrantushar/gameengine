@@ -7,8 +7,9 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
-import LabeledInput from '@GFComponents/LabeledInput';
 import Select from 'react-select';
+import { is_pro as isProActive } from '@GFUtils/helper';
+import GFLabel from '@GFComponents/Labels/GFLabel';
 
 
 const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type }) => {
@@ -16,7 +17,6 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const isProActive = false;
     const isDisabled = config.is_pro && !isProActive;
 
     useEffect(() => {
@@ -39,12 +39,15 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
     }
 
     const labelElement = (
-        <Flex align="center" gap={2} mb="8px">
-            <Text className='gameengine-title' fontSize="sm" fontWeight="500" m="0">
-                {displayLabel} {config.required && <span style={{ color: 'red' }}>*</span>}
-            </Text>
-            {config.is_pro && <Icon as={FaLock} color="orange.400" boxSize={3} />}
-        </Flex>
+        <Box mb="2">
+            <GFLabel 
+                label={`${displayLabel}${config.required ? ' *' : ''}`}
+                isPro={config.is_pro}
+                fontSize="sm"
+                fontWeight="500"
+                margin="0"
+            />
+        </Box>
     );
 
     if (config.type === 'select' || config.type === 'dynamic_select') {
@@ -73,8 +76,8 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
         return (
             <Flex align="center" justify="space-between" width="100%" p={2} border="1px dashed" borderColor="gray.200" borderRadius="md" opacity={isDisabled ? 0.6 : 1}>
                 <Box>
-                    <Text fontSize="sm" fontWeight="600">{displayLabel}</Text>
-                    {config.description && <Text fontSize="xs" color="gray.500">{config.description}</Text>}
+                    <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
+                    {config.description && <Text fontSize="xs" color="gray.500" mt="2px">{config.description}</Text>}
                 </Box>
                 <Button size="xs" isDisabled={isDisabled} onClick={() => onChange(!value)} colorScheme={value ? "blue" : "gray"}>
                     {value ? __('Enabled', 'gameengine') : __('Disabled', 'gameengine')}
@@ -87,6 +90,7 @@ const DynamicField = ({ fieldKey, config, value, onChange, integrationSlug, type
         <Box width="100%" opacity={isDisabled ? 0.7 : 1}>
             <LabeledInput
                 label={displayLabel}
+                isPro={config.is_pro}
                 placeholder={isDisabled ? __('Locked Feature', 'gameengine') : (config.placeholder || '')}
                 type={config.type === 'number' ? 'number' : 'text'}
                 value={value}

@@ -6,13 +6,15 @@ import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { FaLock } from 'react-icons/fa6';
 import LabeledInput from '@GFComponents/LabeledInput';
-import Select from 'react-select';
+import { is_pro as isProActive } from '@GFUtils/helper';
+import GFLabel from '@GFComponents/Labels/GFLabel';
+
 
 const DynamicLevelField = ({ fieldKey, config, value, onChange, integrationSlug }) => {
     const dispatch = useDispatch();
     const [dynamicOptions, setDynamicOptions] = useState([]);
     const [loading, setLoading] = useState(false);
-    const isDisabled = config.is_pro && false;
+    const isDisabled = config.is_pro && !isProActive;
 
     useEffect(() => {
         if (config.dynamic && !isDisabled) {
@@ -23,10 +25,15 @@ const DynamicLevelField = ({ fieldKey, config, value, onChange, integrationSlug 
     }, [config.dynamic, isDisabled, dispatch, integrationSlug]);
 
     const labelElement = (
-        <Flex align="center" gap={2} mb="8px">
-            <Text fontSize="sm" fontWeight="500" m="0">{config.label} {config.required && <span style={{ color: "red" }}>*</span>}</Text>
-            {config.is_pro && <Icon as={FaLock} color="orange.400" boxSize={3} />}
-        </Flex>
+        <Box mb="2">
+            <GFLabel 
+                label={`${config.label}${config.required ? ' *' : ''}`}
+                isPro={config.is_pro}
+                fontSize="sm"
+                fontWeight="500"
+                margin="0"
+            />
+        </Box>
     );
 
     if (config.type === 'select' || config.type === 'dynamic_select') {
@@ -38,7 +45,16 @@ const DynamicLevelField = ({ fieldKey, config, value, onChange, integrationSlug 
             </Box>
         );
     }
-    return <LabeledInput label={config.label} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={(e) => onChange(e.target.value)} disabled={isDisabled} />;
+    return (
+        <LabeledInput 
+            label={config.label} 
+            isPro={config.is_pro}
+            type={config.type === 'number' ? 'number' : 'text'} 
+            value={value} 
+            onChange={(e) => onChange(e.target.value)} 
+            disabled={isDisabled} 
+        />
+    );
 };
 
 const DynamicHookForm = ({ hookId, hookInfo, settings, onChange }) => {

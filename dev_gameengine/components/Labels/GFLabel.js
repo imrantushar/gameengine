@@ -1,6 +1,8 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Text, Icon } from '@chakra-ui/react';
+import { FaLock } from 'react-icons/fa6';
+import { is_pro } from '@GFUtils/helper';
 
 const GFLabel = ({
 	type = "title",
@@ -27,9 +29,7 @@ const GFLabel = ({
 			fontWeight: "500",
 			color: "var(--gameengine-font-color)",
 			lineHeight: "30px",
-			margin: "0 0 24px 0",
-			padding: "0 0 24px 0",
-			borderBottom: "1px solid var(--gameengine-border-color)",
+
 		},
 		plainHeading: {
 			fontSize: "20px",
@@ -82,6 +82,14 @@ const GFLabel = ({
 
 	const styles = variantStyles[type] || variantStyles.title;
 
+	const autoPro = typeof label === 'string' && (label.includes('(Pro)') || label.includes('(PRO)'));
+	const showPro = (isPro || autoPro) && !is_pro;
+
+	let displayLabel = label;
+	if (typeof label === 'string' && is_pro) {
+		displayLabel = label.replace(/\s*\(Pro\)/gi, '').trim();
+	}
+
 	const textProps = {
 		fontFamily: "var(--gameengine-font)",
 		fontSize: fontSize ?? styles.fontSize,
@@ -100,18 +108,16 @@ const GFLabel = ({
 		width,
 	};
 
-	if (isPro) {
-		return (
-			<Flex
-				alignItems="center"
-				{...textProps}
-			>
-				<Text {...textProps}>{label}</Text>
-				{isPro && (
+	return (
+		<Flex alignItems="center" gap={2} {...textProps}>
+			<Text {...textProps}>
+				{displayLabel}
+			</Text>
+			{showPro && (
+				<Flex align="center" gap={1.5}>
 					<Text
 						background="#FFA943"
 						margin={0}
-						marginLeft={'8px'}
 						color="#fff"
 						borderRadius="2px"
 						padding="3px 6px"
@@ -121,15 +127,10 @@ const GFLabel = ({
 						display="inline-flex"
 						alignItems="center"
 					>{__("PRO", 'gameengine')}</Text>
-				)}
-			</Flex>
-		)
-	}
-
-	return (
-		<Text {...textProps}>
-			{label}
-		</Text>
+					<Icon as={FaLock} color="orange.400" boxSize={3} />
+				</Flex>
+			)}
+		</Flex>
 	);
 };
 

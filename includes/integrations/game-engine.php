@@ -2,7 +2,8 @@
 
 namespace GameEngine\Integrations;
 
-if (!defined('ABSPATH')) exit;
+if (!defined('ABSPATH'))
+    exit;
 
 class GameEngine extends BaseIntegration
 {
@@ -24,16 +25,16 @@ class GameEngine extends BaseIntegration
     {
         return [
             'unlock_specific_achievement' => [
-                'label'       => __('Unlock Achievement', 'gameengine'),
-                'hook'        => 'gameengine_achievement_unlocked',
+                'label' => __('Unlock Achievement', 'gameengine'),
+                'hook' => 'gameengine_achievement_unlocked',
                 'description' => __('Unlock achivemeet successfully  into your website.', 'gameengine'),
-                'args_count'  => 3,
-                'supports'    => ['point_type'],
+                'args_count' => 3,
+                'supports' => ['point_type'],
                 'get_user_id' => function ($user_id) {
                     return $user_id;
                 },
-                'schema'      => self::merge_schema([
-                    ['key' => 'achievement_id', 'label' => __('Select Achievement', 'gameengine'), 'type' => 'select', 'width'   => '100%', 'dynamic' => ['integration' => 'gameengine', 'query' => 'achievements'], 'required' => true]
+                'schema' => self::merge_schema([
+                    ['key' => 'achievement_id', 'label' => __('Select Achievement', 'gameengine'), 'type' => 'select', 'width' => '50%', 'dynamic' => ['integration' => 'gameengine', 'query' => 'achievements'], 'required' => true]
                 ])
             ]
         ];
@@ -44,7 +45,7 @@ class GameEngine extends BaseIntegration
         return [
             'achievements' => function () {
                 $cache_key = 'gameengine_dynamic_achievements_list';
-                $results   = wp_cache_get($cache_key, 'gameengine');
+                $results = wp_cache_get($cache_key, 'gameengine');
 
                 if (false === $results) {
                     global $wpdb;
@@ -59,7 +60,7 @@ class GameEngine extends BaseIntegration
                     wp_cache_set($cache_key, $results, 'gameengine', 3600);
                 }
 
-                if (empty($results) || ! is_array($results)) {
+                if (empty($results) || !is_array($results)) {
                     return [];
                 }
 

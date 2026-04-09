@@ -51,7 +51,14 @@ const LeftBar = () => {
             desc: __("Manage your license key", "gameengine"),
             icon: license(),
         }]
-        : [])
+        : []),
+        {
+            label: __("Email Templates", "gameengine"),
+            key: "email_templates",
+            desc: __("Customize Email Templates & Cron", "gameengine"),
+            icon: mail(),
+        },
+
     ];
 
     return (

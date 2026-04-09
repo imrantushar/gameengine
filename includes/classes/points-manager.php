@@ -102,9 +102,13 @@ class PointsManager
 
         $log_id = $wpdb->insert_id;
 
-        // Clear Cache so get_total returns fresh value
+        // Clear User Level Cache (if applicable)
         wp_cache_delete("gameengine_user_points_{$safe_user_id}_{$point_type_id}", 'gameengine');
         wp_cache_delete("gameengine_user_grand_total_{$safe_user_id}", 'gameengine');
+
+        // Increment Global Frontend Cache Versions
+        \GameEngine\Helper::clear_cache_group('leaderboard');
+        \GameEngine\Helper::clear_cache_group('dashboard');
 
         if ($points_value > 0) {
             do_action('gameengine_points_added', $safe_user_id, $points_value, $context, $log_id, $point_type_id);

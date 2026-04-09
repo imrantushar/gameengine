@@ -9,6 +9,7 @@ import HookConfigurationForm from './HookConfigurationForm';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { useDispatch } from 'react-redux';
 import { FaAngleDown } from 'react-icons/fa6';
+import { RiArrowRightSLine } from 'react-icons/ri';
 
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
@@ -46,26 +47,36 @@ const Requirements = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const menuItemRef = useRef(null);
     const relativeTo = useRef(null);
-    
-    const handleClick = (e) => {
-		if (
-			menuItemRef?.current &&
-			!menuItemRef?.current?.contains(e.target) &&
-			!relativeTo.current.contains(e.target)
-		) {
-			setShowDropdown(false);
-		}
-	};
+
+    // const handleClick = (e) => {
+    //     if (
+    //         menuItemRef?.current &&
+    //         !menuItemRef?.current?.contains(e.target) &&
+    //         !relativeTo.current.contains(e.target)
+    //     ) {
+    //         setShowDropdown(false);
+    //     }
+    // };
 
     const tabArray = [
         { label: __('All', 'gameengine'), value: 'all' },
         ...hookTypeOptions,
     ]
-    
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClick);
-        return () => document.removeEventListener('mousedown', handleClick);
-    }, []);
+
+    // useEffect(() => {
+    //     document.addEventListener('mousedown', handleClick);
+    //     return () => document.removeEventListener('mousedown', handleClick);
+    // }, []);
+
+    const tabContainerRef = useRef(null);
+    const scrollLeft = () => {
+        tabContainerRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
+    };
+
+    const scrollRight = () => {
+        tabContainerRef.current?.scrollBy({ left: 150, behavior: 'smooth' });
+    };
+
     return (
         <CollapsibleItem
             // translators: %s: label
@@ -88,141 +99,78 @@ const Requirements = (props) => {
                                 label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")}
                             />
                         </Flex>
-                        <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)">
-                            {tabArray.slice(0, 4).map((item, index) => {
-                                return (
-                                    <Button
-                                        minW={'auto'}
-                                        variant={'plain'}
-                                        onClick={() => {
-                                            filterHookType(item.value)
-                                            setDropdownTab(null)
-                                        }}
-                                        key={index}
-                                        bg={'transparent'}
-                                        height={'35px'}
-                                        fontSize={'12px'}
-                                        fontWeight={'500'}
-                                        lineHeight={'20px'}
-                                        padding={'0 12px'}
-                                        color={'var(--gameengine-font-color)'}
-                                        _after={{
-                                            content: '""',
-                                            position: "absolute",
-                                            left: 0,
-                                            bottom: "-3px",
-                                            width: "100%",
-                                            height: "2px",
-                                            bg: "var(--gameengine-primary)",
-                                            transform:
-                                                selectedFilterType === item.value ? "scaleX(1)" : "scaleX(0)",
-                                            transformOrigin: "left",
-                                            transition: "transform 0.2s ease",
-                                        }}
-                                        _hover={{
-                                            _after: {
-                                                transform: "scaleX(1)",
-                                            },
-                                        }}
-                                    >{item.label}</Button>
-                                )
-                            })}
+
+                        <Flex align="center" position="relative">
                             {tabArray.length > 4 && (
-                                <Box position={'relative'}>
-                                    <Button
-                                        minW={'auto'}
-                                        variant={'plain'}
-                                        onClick={() => setShowDropdown(!showDropdown)}
-                                        bg={'transparent'}
-                                        height={'35px'}
-                                        fontSize={'12px'}
-                                        fontWeight={'500'}
-                                        lineHeight={'20px'}
-                                        padding={'0 12px'}
-                                        minWidth={'100px'}
-                                        display={'flex'}
-                                        alignItems={'center'}
-                                        justifyContent={'space-between'}
-                                        color={'var(--gameengine-font-color)'}
-                                        ref={relativeTo}
-                                        _after={{
-                                            content: '""',
-                                            position: "absolute",
-                                            left: 0,
-                                            bottom: "-3px",
-                                            width: "100%",
-                                            height: "2px",
-                                            bg: "var(--gameengine-primary)",
-                                            transform:
-                                                selectedFilterType === dropdownTab?.value ? "scaleX(1)" : "scaleX(0)",
-                                            transformOrigin: "left",
-                                            transition: "transform 0.2s ease",
-                                        }}
-                                        _hover={{
-                                            _after: {
-                                                transform: "scaleX(1)",
-                                            },
-                                        }}
-                                    >
-                                        {dropdownTab?.label ? dropdownTab?.label : __('More', 'gameengine')}
-                                        <Icon as={FaAngleDown} width={'12px'}/>
-                                    </Button>
-                                    {showDropdown && (
-                                        <Flex 
-                                            flexDirection={'column'} 
-                                            position={'absolute'} 
-                                            top={'35px'} 
-                                            left={'6px'}
-                                            background={'#FFFFFF'}
-                                            boxShadow={'var(--gameengine-shadow)'}
-                                            borderRadius={'0 0 4px 4px'}
-                                            maxHeight={'200px'}
-                                            overflowY={'scroll'}
-                                        >
-                                            {tabArray.slice(4, tabArray.length).map((item, index) => {
-                                                return (
-                                                    <Button
-                                                        minW={'auto'}
-                                                        variant={'plain'}
-                                                        ref={menuItemRef}
-                                                        onClick={() => {
-                                                            filterHookType(item.value)
-                                                            setDropdownTab(item)
-                                                        }}
-                                                        key={index}
-                                                        bg={'transparent'}
-                                                        height={'35px'}
-                                                        fontSize={'12px'}
-                                                        fontWeight={'500'}
-                                                        lineHeight={'20px'}
-                                                        padding={'0 12px'}
-                                                        color={'var(--gameengine-font-color)'}
-                                                        _after={{
-                                                            content: '""',
-                                                            position: "absolute",
-                                                            left: 0,
-                                                            bottom: "-3px",
-                                                            width: "100%",
-                                                            height: "2px",
-                                                            bg: "var(--gameengine-primary)",
-                                                            transform:
-                                                                selectedFilterType === item.value ? "scaleX(1)" : "scaleX(0)",
-                                                            transformOrigin: "left",
-                                                            transition: "transform 0.2s ease",
-                                                        }}
-                                                        _hover={{
-                                                            _after: {
-                                                                transform: "scaleX(1)",
-                                                            },
-                                                        }}
-                                                    >{item.label}</Button>
-                                                )
-                                            })}
-                                        </Flex>
-                                    )}
-                                </Box>
+                                <Button
+                                    onClick={scrollLeft}
+                                    position="absolute"
+                                    left="0"
+                                    zIndex="2"
+                                    size="xs"
+                                    bg="#fff"
+                                    p={0}
+                                    borderRadius="50%"
+                                    color="var(--gameengine-font-color)"
+                                    border="1px solid var(--gameengine-border-color)"
+                                >
+                                    <Icon as={RiArrowRightSLine} transform="rotate(180deg)" />
+                                </Button>
                             )}
-                        </Box>
+
+                            <Box
+                                ref={tabContainerRef}
+                                display="flex"
+                                overflowX="auto"
+                                overflowY="hidden"
+                                borderBottom="2px solid var(--gameengine-border-color)"
+                                mx={tabArray.length > 4 ? "32px" : "0"}
+                                css={{
+                                    "&::-webkit-scrollbar": { display: "none" },
+                                    scrollbarWidth: "none",
+                                }}
+                            >
+                                {tabArray.map((item, index) => {
+                                    const isActive = selectedFilterType === item.value || (selectedFilterType === '' && item.value === 'all');
+
+                                    return (
+                                        <Button
+                                            key={index}
+                                            minW="auto"
+                                            variant="plain"
+                                            onClick={() => filterHookType(item.value)}
+                                            fontSize="12px"
+                                            fontWeight="500"
+                                            padding="8px 12px"
+                                            borderBottom={isActive ? "2px solid var(--gameengine-primary)" : "2px solid transparent"}
+                                            color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
+                                            _hover={{
+                                                color: "var(--gameengine-primary)"
+                                            }}
+                                        >
+                                            {item.label}
+                                        </Button>
+                                    );
+                                })}
+                            </Box>
+
+                            {tabArray.length > 4 && (
+                                <Button
+                                    onClick={scrollRight}
+                                    position="absolute"
+                                    right="0"
+                                    zIndex="2"
+                                    size="xs"
+                                    bg="#fff"
+                                    p={0}
+                                    borderRadius="50%"                                    
+                                    color="var(--gameengine-font-color)"
+                                    border="1px solid var(--gameengine-border-color)"
+                                >
+                                    <Icon as={RiArrowRightSLine} />
+                                </Button>
+                            )}
+                        </Flex>
 
                         <DroppableArea id={`${actionName}s-available`}>
                             <Box key={selectedFilterType} className="gameengine-fade-in">

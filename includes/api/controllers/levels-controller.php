@@ -167,6 +167,7 @@ class LevelsController extends BaseController
         $data = array(
             'title'                      => sanitize_text_field($params['title']),
             'plural_name'                => sanitize_text_field($params['plural_name']),
+            'description'                => wp_kses_post($params['description'] ?? ''),
             'status'                     => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
             'icon'                       => sanitize_text_field($params['icon']),
             'category'                   => absint($params['category_id'] ?? 0),

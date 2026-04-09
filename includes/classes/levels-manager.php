@@ -210,4 +210,77 @@ class LevelsManager
 
         return is_array($levels) ? $levels : [];
     }
+
+    /**
+     * Get the next available level for a user.
+     */
+    public function get_next_level($user_id, $point_type_id)
+    {
+        global $wpdb;
+        $points_manager = new PointsManager();
+        $safe_user_id   = absint($user_id);
+        $safe_pt_id     = absint($point_type_id);
+        
+        $total_points = $points_manager->get_total($safe_user_id, $safe_pt_id);
+
+        // Find levels the user hasn't achieved yet for this point type
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $next_level = $wpdb->get_row($wpdb->prepare(
+            "SELECT l.* 
+             FROM {$wpdb->prefix}gameengine_levels l
+             LEFT JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id AND ul.user_id = %d
+             WHERE l.point_type_id = %d AND l.unlock_with_points_enabled = 1 AND ul.id IS NULL
+             ORDER BY l.priority ASC, l.min_points ASC
+             LIMIT 1",
+            $safe_user_id,
+            $safe_pt_id
+        ));
+
+        if (!$next_level) {
+            return null;
+        }
+
+        $points_needed = max(0, (int)$next_level->min_points - $total_points);
+        
+        // Find current level (or start from 0) to calculate progress %
+        $current_level = $this->get_current_level($safe_user_id);
+        $start_points = $current_level ? (int)$current_level->min_points : 0;
+        
+        $range = (int)$next_level->min_points - $start_points;
+        $progress_points = $total_points - $start_points;
+        $progress_pc = ($range > 0) ? min(100, max(0, round(($progress_points / $range) * 100))) : 0;
+
+        return [
+            'level'         => $next_level,
+            'points_needed' => $points_needed,
+            'progress_pc'   => $progress_pc,
+            'total_points'  => $total_points
+        ];
+    }
+
+    /**
+     * Get all levels with unlocked status.
+     */
+    public function get_all_levels_with_status($user_id, $point_type_id = null)
+    {
+        global $wpdb;
+        $safe_user_id = absint($user_id);
+        
+        $where = "";
+        if ($point_type_id) {
+            $where = $wpdb->prepare("WHERE l.point_type_id = %d", absint($point_type_id));
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $levels = $wpdb->get_results($wpdb->prepare(
+            "SELECT l.*, ul.achieved_at as achieved_at, (CASE WHEN ul.id IS NOT NULL THEN 1 ELSE 0 END) as unlocked
+             FROM {$wpdb->prefix}gameengine_levels l
+             LEFT JOIN {$wpdb->prefix}gameengine_user_levels ul ON l.id = ul.level_id AND ul.user_id = %d
+             $where
+             ORDER BY l.priority ASC, l.min_points ASC",
+            $safe_user_id
+        ));
+
+        return $levels;
+    }
 }
