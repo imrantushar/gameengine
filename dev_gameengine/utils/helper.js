@@ -19,7 +19,8 @@ export const {
 	is_pro,
 	is_woocommerce_active,
 	is_academylms_active,
-	banners
+	banners, 
+	site_url
 } = window?.GameEngineGlobal;
 
 export const reactDebounce = (callback, wait) => {
