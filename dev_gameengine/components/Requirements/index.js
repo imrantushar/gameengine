@@ -9,6 +9,7 @@ import HookConfigurationForm from './HookConfigurationForm';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { useDispatch } from 'react-redux';
 import { FaAngleDown } from 'react-icons/fa6';
+import { RiArrowRightSLine } from 'react-icons/ri';
 
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
@@ -46,26 +47,27 @@ const Requirements = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const menuItemRef = useRef(null);
     const relativeTo = useRef(null);
-    
-    const handleClick = (e) => {
-		if (
-			menuItemRef?.current &&
-			!menuItemRef?.current?.contains(e.target) &&
-			!relativeTo.current.contains(e.target)
-		) {
-			setShowDropdown(false);
-		}
-	};
+
+    // const handleClick = (e) => {
+    //     if (
+    //         menuItemRef?.current &&
+    //         !menuItemRef?.current?.contains(e.target) &&
+    //         !relativeTo.current.contains(e.target)
+    //     ) {
+    //         setShowDropdown(false);
+    //     }
+    // };
 
     const tabArray = [
         { label: __('All', 'gameengine'), value: 'all' },
         ...hookTypeOptions,
     ]
+
+    // useEffect(() => {
+    //     document.addEventListener('mousedown', handleClick);
+    //     return () => document.removeEventListener('mousedown', handleClick);
+    // }, []);
     
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClick);
-        return () => document.removeEventListener('mousedown', handleClick);
-    }, []);
     return (
         <CollapsibleItem
             // translators: %s: label
@@ -78,7 +80,9 @@ const Requirements = (props) => {
             dynamicClasses={parent}
         >
             {open && (
-                <Flex gap="24px" mt={6} width="100%" className={`${child} gameengine-fade-in-up`}>
+                <Flex gap="24px" mt={6} width="100%" 
+                // className={`${child} gameengine-fade-in-up`}
+                >
                     <Flex className={childLeft} width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gameengine-shadow)" direction="column" gap="24px">
                         <Flex direction="column" gap="4px">
                             <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
@@ -88,144 +92,34 @@ const Requirements = (props) => {
                                 label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")}
                             />
                         </Flex>
-                        <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)">
-                            {tabArray.slice(0, 4).map((item, index) => {
+
+                        <Box display={'flex'} borderBottom="2px solid var(--gameengine-border-color)" >
+                            {tabArray.map((item, index) => {
                                 return (
                                     <Button
                                         minW={'auto'}
                                         variant={'plain'}
                                         onClick={() => {
                                             filterHookType(item.value)
-                                            setDropdownTab(null)
+                                            // setDropdownTab(null)
                                         }}
                                         key={index}
                                         bg={'transparent'}
-                                        height={'35px'}
+                                        height={'auto'}
                                         fontSize={'12px'}
                                         fontWeight={'500'}
-                                        lineHeight={'20px'}
-                                        padding={'0 12px'}
+                                        lineHeight={'16px'}
+                                        padding={'8px 12px'}
                                         color={'var(--gameengine-font-color)'}
-                                        _after={{
-                                            content: '""',
-                                            position: "absolute",
-                                            left: 0,
-                                            bottom: "-3px",
-                                            width: "100%",
-                                            height: "2px",
-                                            bg: "var(--gameengine-primary)",
-                                            transform:
-                                                selectedFilterType === item.value ? "scaleX(1)" : "scaleX(0)",
-                                            transformOrigin: "left",
-                                            transition: "transform 0.2s ease",
-                                        }}
-                                        _hover={{
-                                            _after: {
-                                                transform: "scaleX(1)",
-                                            },
-                                        }}
                                     >{item.label}</Button>
                                 )
                             })}
-                            {tabArray.length > 4 && (
-                                <Box position={'relative'}>
-                                    <Button
-                                        minW={'auto'}
-                                        variant={'plain'}
-                                        onClick={() => setShowDropdown(!showDropdown)}
-                                        bg={'transparent'}
-                                        height={'35px'}
-                                        fontSize={'12px'}
-                                        fontWeight={'500'}
-                                        lineHeight={'20px'}
-                                        padding={'0 12px'}
-                                        minWidth={'100px'}
-                                        display={'flex'}
-                                        alignItems={'center'}
-                                        justifyContent={'space-between'}
-                                        color={'var(--gameengine-font-color)'}
-                                        ref={relativeTo}
-                                        _after={{
-                                            content: '""',
-                                            position: "absolute",
-                                            left: 0,
-                                            bottom: "-3px",
-                                            width: "100%",
-                                            height: "2px",
-                                            bg: "var(--gameengine-primary)",
-                                            transform:
-                                                selectedFilterType === dropdownTab?.value ? "scaleX(1)" : "scaleX(0)",
-                                            transformOrigin: "left",
-                                            transition: "transform 0.2s ease",
-                                        }}
-                                        _hover={{
-                                            _after: {
-                                                transform: "scaleX(1)",
-                                            },
-                                        }}
-                                    >
-                                        {dropdownTab?.label ? dropdownTab?.label : __('More', 'gameengine')}
-                                        <Icon as={FaAngleDown} width={'12px'}/>
-                                    </Button>
-                                    {showDropdown && (
-                                        <Flex 
-                                            flexDirection={'column'} 
-                                            position={'absolute'} 
-                                            top={'35px'} 
-                                            left={'6px'}
-                                            background={'#FFFFFF'}
-                                            boxShadow={'var(--gameengine-shadow)'}
-                                            borderRadius={'0 0 4px 4px'}
-                                            maxHeight={'200px'}
-                                            overflowY={'scroll'}
-                                        >
-                                            {tabArray.slice(4, tabArray.length).map((item, index) => {
-                                                return (
-                                                    <Button
-                                                        minW={'auto'}
-                                                        variant={'plain'}
-                                                        ref={menuItemRef}
-                                                        onClick={() => {
-                                                            filterHookType(item.value)
-                                                            setDropdownTab(item)
-                                                        }}
-                                                        key={index}
-                                                        bg={'transparent'}
-                                                        height={'35px'}
-                                                        fontSize={'12px'}
-                                                        fontWeight={'500'}
-                                                        lineHeight={'20px'}
-                                                        padding={'0 12px'}
-                                                        color={'var(--gameengine-font-color)'}
-                                                        _after={{
-                                                            content: '""',
-                                                            position: "absolute",
-                                                            left: 0,
-                                                            bottom: "-3px",
-                                                            width: "100%",
-                                                            height: "2px",
-                                                            bg: "var(--gameengine-primary)",
-                                                            transform:
-                                                                selectedFilterType === item.value ? "scaleX(1)" : "scaleX(0)",
-                                                            transformOrigin: "left",
-                                                            transition: "transform 0.2s ease",
-                                                        }}
-                                                        _hover={{
-                                                            _after: {
-                                                                transform: "scaleX(1)",
-                                                            },
-                                                        }}
-                                                    >{item.label}</Button>
-                                                )
-                                            })}
-                                        </Flex>
-                                    )}
-                                </Box>
-                            )}
                         </Box>
 
                         <DroppableArea id={`${actionName}s-available`}>
-                            <Box key={selectedFilterType} className="gameengine-fade-in">
+                            <Box key={selectedFilterType} 
+                            // className="gameengine-fade-in"
+                            >
                                 {allHooks
                                     .filter(item => !selectedHookIds?.includes(item?.id))
                                     .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
