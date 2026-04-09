@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-04-09 05:28:15",
+    "generated_at": "2026-04-09 06:58:19",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -4992,6 +4992,1041 @@
                                 "achievement",
                                 "level"
                             ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                }
+            }
+        },
+        "academylms": {
+            "slug": "academylms",
+            "name": "Academy LMS",
+            "icon": "dashicons-welcome-learn-more",
+            "triggers": {
+                "academy_course_completed": {
+                    "label": "Course Completed",
+                    "hook": "academy/admin/course_complete_after",
+                    "args_count": 2,
+                    "description": "Awarded when a student successfully finishes a course.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "course_id",
+                            "label": "Select Course",
+                            "type": "select",
+                            "width": "50%",
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "courses"
+                            }
+                        },
+                        {
+                            "key": "include_categories",
+                            "label": "Include Specific Categories (Pro)",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "course_categories"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_categories",
+                            "label": "Exclude Specific Categories (Pro)",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "course_categories"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "academy_course_published": {
+                    "label": "Course Published (Instructor)",
+                    "hook": "rest_after_insert_academy_courses",
+                    "args_count": 1,
+                    "description": "Awarded to instructors when they publish a new course.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "academy_lesson_completed": {
+                    "label": "Lesson Completed",
+                    "hook": "academy/frontend/after_mark_topic_complete",
+                    "args_count": 4,
+                    "description": "Awarded when a student completes a specific lesson.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "topic_id",
+                            "label": "Select Lesson",
+                            "type": "select",
+                            "width": "50%",
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "lessons"
+                            }
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "academy_quiz_passed": {
+                    "label": "Quiz Passed",
+                    "hook": "academy_quiz_attempt_status_passed",
+                    "args_count": 1,
+                    "description": "Awarded when a student passes a quiz.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "quiz_id",
+                            "label": "Select Quiz",
+                            "type": "select",
+                            "width": "50%",
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "quizzes"
+                            }
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "academy_assignment_evaluated": {
+                    "label": "Assignment Evaluated",
+                    "hook": "academy_pro/frontend/evaluate_submitted_assignment",
+                    "args_count": 1,
+                    "description": "Awarded when an instructor evaluates a student assignment.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "academy_new_enrollment": {
+                    "label": "New Enrollment",
+                    "hook": "academy_new_enroll",
+                    "args_count": 3,
+                    "description": "Awarded when a student joins a new course.",
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "course_id",
+                            "label": "Select Course",
+                            "type": "select",
+                            "width": "50%",
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "courses"
+                            }
+                        },
+                        {
+                            "key": "include_categories",
+                            "label": "Include Specific Categories (Pro)",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "course_categories"
+                            },
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "exclude_categories",
+                            "label": "Exclude Specific Categories (Pro)",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "dynamic": {
+                                "integration": "academylms",
+                                "query": "course_categories"
+                            },
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
