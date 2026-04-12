@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "generated_at": "2026-04-12 07:24:47",
+    "generated_at": "2026-04-12 08:24:51",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -2370,7 +2370,6 @@
                     ]
                 }
             }
-<<<<<<< HEAD
         },
         "woocommerce": {
             "slug": "woocommerce",
@@ -4294,8 +4293,6 @@
                     ]
                 }
             }
-=======
->>>>>>> 31f434d5ec7f108f06a8e564bf905f0cfd05b53a
         }
     }
 }

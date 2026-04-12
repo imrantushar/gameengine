@@ -9,4 +9,4 @@ assets/js/*.txt
 .idea
 **/*.map
 prepros.config
-.DS_Store
+bin

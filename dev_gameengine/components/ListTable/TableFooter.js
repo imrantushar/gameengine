@@ -50,8 +50,8 @@ const TableFooter = ({
 			<p className="gameengine-table__footer-label">
 				{ /* eslint-disable-next-line */}
 				{sprintf(
-					// translators: %s: totalItems
-					__('Showing result %s out of %s', 'gameengine'),
+					// translators: %1$s: Item showing, %2$s: totalItems
+					__('Showing result %1$s out of %2$s', 'gameengine'),
 					data?.length,
 					totalItems
 				)}
