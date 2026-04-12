@@ -19,7 +19,7 @@ import HireUs from './HireUs';
 
 import "./styles.scss";
 
-const SeSdk = window.GameEngineGlobal?.SeSdk;
+const SeSdk = window.SE_SDK_GAMEENGINE_PRO || {};
 
 const licenseRequest = (endpoint, payload) =>
 	API.post(SeSdk?.rest_url + endpoint, payload);
@@ -29,14 +29,13 @@ const licenseGet = (endpoint, params) =>
 
 const buildPurchaseUrl = () => {
 	const base = 'https://gameengine.pro/';
-	if (!SeSdk) return base;
 	try {
 		const url = new URL(base);
 		url.searchParams.set('utm_source', 'license-activation');
 		url.searchParams.set('utm_medium', 'license-form');
 		url.searchParams.set('utm_campaign', 'license-activation-upsell');
 		url.searchParams.set('utm_content', 'purchase-link');
-		url.searchParams.set('utm_term', 'gemcrm-pro');
+		url.searchParams.set('utm_term', 'gameengine-pro');
 		url.searchParams.set('locale', SeSdk.locale);
 		url.searchParams.set('wordpress', SeSdk.WordPress);
 		url.searchParams.set('sdk_version', SeSdk.version);
@@ -245,16 +244,22 @@ const License = () => {
 							/>
 							<MetaItem
 								label={__('Expires:', 'gameengine')}
-								value={moment.utc(licenseData?.expires).local().format('YYYY-MM-DD HH:mm')}
+								value={licenseData?.expires ? moment.utc(licenseData.expires).local().format('YYYY-MM-DD HH:mm') : __('N/A', 'gameengine')}
 							/>
 							<MetaItem
-								label={__('Activation Remaining:', 'gameengine')}
-								value={sprintf(
-									/* translators: 1: remaining activations, 2: total limit */
-									__('%1$d out of %2$s', 'gameengine'),
-									licenseData?.remaining,
-									licenseData?.limit
-								)}
+								label={__( 'Activation Remaining:', 'gameengine' )}
+								value={
+									licenseData?.unlimited
+										?
+										__( 'Unlimited', 'gameengine' )
+										:
+										sprintf(
+											/* translators: 1: remaining activations, 2: total limit */
+											__( '%1$d out of %2$s', 'gameengine' ),
+											licenseData?.remaining,
+											licenseData?.limit,
+										)
+								}
 							/>
 							<MetaItem
 								label={__('Automatic Update:', 'gameengine')}

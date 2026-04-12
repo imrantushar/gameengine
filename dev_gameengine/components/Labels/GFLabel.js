@@ -110,9 +110,13 @@ const GFLabel = ({
 
 	return (
 		<Flex alignItems="center" gap={2} {...textProps}>
-			<Text {...textProps}>
-				{displayLabel}
-			</Text>
+			{
+				typeof label === 'string'
+					?
+					<Text {...textProps}>{displayLabel}</Text>
+					:
+					<Flex {...textProps}>{displayLabel}</Flex>
+			}
 			{showPro && (
 				<Flex align="center" gap={1.5}>
 					<Text
