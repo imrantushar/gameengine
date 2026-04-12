@@ -6,8 +6,7 @@ import { admin_url, is_pro } from '@GFUtils/helper';
 
 const LicenseNotice = () => {
 	const SeSdk = window.SE_SDK_GAMEENGINE_PRO || {};
-  const [licenseInactive, setLicenseInactive] = useState( true );
-	// is_pro && SeSdk?.license?.status === 'inactive'
+  const [licenseInactive, setLicenseInactive] = useState( is_pro && SeSdk?.license?.status === 'inactive' );
 
   useEffect( () => {
     const handleLicenseChange = ( e ) => {
