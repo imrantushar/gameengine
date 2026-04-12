@@ -13,6 +13,7 @@ composer.lock
 prepros.config
 *.xml
 *.map
+*.log
 .prettierignore
 .prettierrc.json
 .prettierrc.js
