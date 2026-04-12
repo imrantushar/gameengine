@@ -1,399 +1,113 @@
-#, fuzzy
+# Copyright (C) 2026 kodezen
+# This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GameEngine - Gamification for Website\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 08:09+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Project-Id-Version: GameEngine - Gamification for Website 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gameengine\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.2.27\n"
-"X-Domain: gameengine"
+"POT-Creation-Date: 2026-04-12T07:45:37+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: gameengine\n"
 
-#: includes/addons/restrict-content/class-meta-box.php:62
-#: includes/addons/restrict-content/class-meta-box.php:73
-msgid "-- Select --"
+#. Plugin Name of the plugin
+#: gameengine.php
+msgid "GameEngine - Gamification for Website"
 msgstr ""
 
-#: includes/integrations/base-integration.php:83
-msgid "1 Per Day (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:85
-msgid "1 Per Month (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:84
-msgid "1 Per Week (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:82
-msgid "1 Time Only"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:157
-msgid "A virtual shop where users can buy WooCommerce coupons with points."
-msgstr ""
-
-#: includes/integrations/academy-lms.php:29
-#: includes/api/controllers/addons-controller.php:92
-msgid "Academy LMS"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:208
-msgid "Academy LMS is required."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:47
-msgid "Accepts: points, achievement, level"
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:45
-msgid "Achievement Required"
-msgstr ""
-
-#: includes/api/controllers/achievements-controller.php:179
-msgid "Achievement Title is required."
-msgstr ""
-
-#: includes/classes/taxonomy-manager.php:35
-msgid "Achievement Types"
-msgstr ""
-
-#: includes/helper.php:122 includes/admin/user-profile.php:117
-#: templates/shortcode/profile.php:31
-msgid "Achievements"
-msgstr ""
-
-#: includes/api/controllers/actions-controller.php:160
-msgid "Action scheduled successfully."
-msgstr ""
-
-#: includes/integrations/base-integration.php:119
-msgid "Active Days (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:72
-msgid "Activity Penalty"
-msgstr ""
-
-#: includes/integrations/base-integration.php:72
-msgid "Activity Reward"
-msgstr ""
-
-#: includes/helper.php:158
-msgid "Addons"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:177
-msgid "Admin generated vouchers that users can redeem for points."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:111
-msgid "Advanced WooCommerce features and rewards integration."
-msgstr ""
-
-#: includes/helper.php:125
-msgid "All Achievements"
-msgstr ""
-
-#: includes/helper.php:136
-msgid "All Levels"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:148
-msgid "Allow users to pay with points and get partial discounts at checkout."
-msgstr ""
-
-#: includes/integrations/academy-lms.php:124
-msgid "Assignment Evaluated"
-msgstr ""
-
-#: includes/integrations/word-press.php:193
-msgid "Author comment successfully  into your website."
-msgstr ""
-
-#: includes/integrations/word-press.php:191
-msgid "Author Reply"
+#. Plugin URI of the plugin
+#: gameengine.php
+msgid "https://kodezen.com/products/gameengine"
 msgstr ""
 
 #. Description of the plugin
-msgid ""
-"Award points, achievements, and ranks to boost user engagement and build a "
-"loyal community."
+#: gameengine.php
+msgid "Award points, achievements, and ranks to boost user engagement and build a loyal community."
 msgstr ""
 
-#: includes/integrations/academy-lms.php:72
-msgid "Awarded to instructors when they publish a new course."
+#. Author of the plugin
+#: gameengine.php
+msgid "kodezen"
 msgstr ""
 
-#: includes/integrations/academy-lms.php:85
-msgid "Awarded when a student completes a specific lesson."
+#. Author URI of the plugin
+#: gameengine.php
+msgid "https://kodezen.com"
 msgstr ""
 
-#: includes/integrations/academy-lms.php:140
-msgid "Awarded when a student joins a new course."
+#. translators: %s: Reset URL with Nonce
+#: gameengine.php:214
+msgid "Are you sure you want to reset? This will delete all GameEngine settings. %s"
 msgstr ""
 
-#: includes/integrations/academy-lms.php:106
-msgid "Awarded when a student passes a quiz."
+#: gameengine.php:215
+msgid "Click here to confirm reset."
 msgstr ""
 
-#: includes/integrations/academy-lms.php:51
-msgid "Awarded when a student successfully finishes a course."
+#: gameengine.php:227
+msgid "GameEngine settings and banners have been reset! Please refresh your dashboard."
 msgstr ""
 
-#: includes/integrations/word-press.php:31
-msgid "Awarded when a user successfully logs into your website."
+#: includes/addons/progress-map/class-progress-map-logic.php:135
+#: templates/shortcode/levels.php:328
+msgid "Locked"
 msgstr ""
 
-#: includes/integrations/word-press.php:41
-msgid "Awarded when a user successfully register into your website."
-msgstr ""
-
-#: includes/integrations/academy-lms.php:127
-msgid "Awarded when an instructor evaluates a student assignment."
-msgstr ""
-
-#: templates/shortcode/profile.php:47
-msgid "Badges & Achievements"
-msgstr ""
-
-#: includes/integrations/word-press.php:81
-msgid "Comment post successfully into your website."
-msgstr ""
-
-#: includes/addons/progress-map/class-progress-map-logic.php:235
+#: includes/addons/progress-map/class-progress-map-logic.php:138
 msgid "Complete pre-requisites to unlock."
 msgstr ""
 
-#. %s: Level title
-#: includes/classes/email-manager.php:64
-#, php-format
-msgid "Congratulations! You reached %s"
+#: includes/addons/restrict-content/class-content-filter.php:48
+msgid "Image Locked"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:44
-msgid "Content Restriction"
-msgstr ""
-
-#: includes/integrations/word-press.php:158
-msgid "Cooldown in Days (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:16
-msgid "Core"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:48
-msgid "Course Completed"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:69
-msgid "Course Published (Instructor)"
-msgstr ""
-
-#: includes/integrations/word-press.php:91
-msgid "Daily Max Comments (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:61
-msgid "Daily Post Limit (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:162
-msgid "Daily Visit"
-msgstr ""
-
-#: includes/integrations/word-press.php:164
-msgid "Daily visit successfully  into your website."
-msgstr ""
-
-#: includes/helper.php:108
-msgid "Dashboard"
-msgstr ""
-
-#: includes/integrations/word-press.php:95
-msgid "Delete Post"
-msgstr ""
-
-#: includes/integrations/word-press.php:97
-msgid "Delete post successfully into your website."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:129
-msgid "Display a visual roadmap of user progress on frontend."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:87
-msgid "Displays the current users point total with a coin icon."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:71
-msgid ""
-"Displays the full modern gamification dashboard (Tabs, Progress Map, Badges)."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:167
-msgid "Enable point-to-cash withdrawal requests for users."
-msgstr ""
-
-#: includes/integrations/word-press.php:171
-msgid "Enable Streak Bonus (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:110
-msgid "End Time (Pro)"
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:54
-msgid "Enter Points Amount:"
-msgstr ""
-
-#: includes/integrations/word-press.php:132
-msgid "Field-specific Rewards (Pro)"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:40
-msgid "First Purchase Only Bonus (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:129
-msgid "Friday"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:97
-#: includes/integrations/word-press.php:106
-msgid "Full Points Reversal (Pro)"
-msgstr ""
-
-#. Name of the plugin
-msgid "GameEngine - Gamification for Website"
+#: includes/addons/restrict-content/class-content-filter.php:52
+msgid "Link Hidden"
 msgstr ""
 
 #: includes/addons/restrict-content/class-meta-box.php:20
 msgid "GameEngine Content Restriction"
 msgstr ""
 
-#: includes/admin/menu.php:87
-msgid "GameEngine Dashboard"
+#: includes/addons/restrict-content/class-meta-box.php:41
+msgid "Restriction Type:"
 msgstr ""
 
-#: includes/integrations/game-engine.php:16
-msgid "GameEngine Logic"
+#: includes/addons/restrict-content/class-meta-box.php:43
+msgid "None"
 msgstr ""
 
-#: includes/admin/user-profile.php:70
-msgid "GameEngine Profile"
+#: includes/addons/restrict-content/class-meta-box.php:44
+msgid "Points Required"
 msgstr ""
 
-#: includes/admin/setup.php:62 includes/admin/setup.php:63
-msgid "GameEngine Setup"
+#: includes/addons/restrict-content/class-meta-box.php:45
+msgid "Achievement Required"
 msgstr ""
 
-#: includes/admin/setup.php:95
-msgid "GameEngine Setup Wizard"
+#: includes/addons/restrict-content/class-meta-box.php:46
+msgid "Min Level Required"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:96
-msgid "Great for user profile headers or bio sections."
+#: includes/addons/restrict-content/class-meta-box.php:54
+msgid "Enter Points Amount:"
 msgstr ""
 
-#. 1: User display name, 2: Achievement title
-#: includes/classes/email-manager.php:114
-#, php-format
-msgid ""
-"Hi %1$s,\n"
-"\n"
-"You have unlocked a new achievement: %2$s.\n"
-"\n"
-"Check your profile!"
+#: includes/addons/restrict-content/class-meta-box.php:60
+msgid "Select Achievement:"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:94
-msgid "Highest Level"
+#: includes/addons/restrict-content/class-meta-box.php:62
+#: includes/addons/restrict-content/class-meta-box.php:73
+msgid "-- Select --"
 msgstr ""
 
-#: templates/shortcode/achievements.php:49
-msgid "How to unlock"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://kodezen.com"
-msgstr ""
-
-#. URI of the plugin
-msgid "https://kodezen.com/products/gameengine"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:88
-msgid "Ideal for menus, headers, or sidebar widgets."
-msgstr ""
-
-#: includes/addons/restrict-content/class-content-filter.php:47
-msgid "Image Locked"
-msgstr ""
-
-#: includes/integrations/word-press.php:89
-msgid "Instant Reward (Pro)"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:102
-msgid "Integrate gamification with your e-commerce store activities."
-msgstr ""
-
-#: includes/api/controllers/taxonomy-controller.php:135
-msgid "Invalid taxonomy."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:78
-msgid "Journey Roadmap Only"
-msgstr ""
-
-#. Author of the plugin
-msgid "kodezen"
-msgstr ""
-
-#: includes/helper.php:151
-msgid "Leaderboards"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:82
-msgid "Lesson Completed"
-msgstr ""
-
-#: includes/admin/user-profile.php:75 templates/shortcode/leaderboard.php:29
-msgid "Level"
-msgstr ""
-
-#: includes/api/controllers/levels-controller.php:164
-msgid "Level Name is required."
-msgstr ""
-
-#: includes/classes/taxonomy-manager.php:47
-msgid "Level Types"
-msgstr ""
-
-#: includes/helper.php:133 templates/shortcode/profile.php:34
-msgid "Levels"
-msgstr ""
-
-#: includes/integrations/base-integration.php:77
-msgid "Limit"
-msgstr ""
-
-#: includes/addons/restrict-content/class-content-filter.php:51
-msgid "Link Hidden"
-msgstr ""
-
-#: includes/admin/setup.php:105
-msgid "Loading Setup Wizard..."
+#: includes/addons/restrict-content/class-meta-box.php:71
+msgid "Select Minimum Level:"
 msgstr ""
 
 #: includes/addons/restrict-content/class-meta-box.php:84
@@ -404,226 +118,937 @@ msgstr ""
 msgid "Lock Message:"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:45
-msgid ""
-"Lock specific parts of your content (text, images, links) based on user "
-"points, badges, or levels."
+#: includes/addons/restrict-content/class-restriction-helper.php:84
+msgid "This content is restricted. Complete requirements to unlock."
 msgstr ""
 
-#: includes/api/controllers/addons-controller.php:138
-msgid "Lock specific posts, pages, images or links based on points and badges."
+#: includes/admin/menu.php:87
+msgid "GameEngine Dashboard"
 msgstr ""
 
-#: includes/addons/progress-map/class-progress-map-logic.php:230
-msgid "Locked"
+#: includes/admin/menu.php:169
+msgid "GameEngine Warning:"
 msgstr ""
 
-#: includes/integrations/base-integration.php:69
-msgid "Log Description"
+#: includes/admin/menu.php:170
+msgid "Pretty Permalinks are required for the REST API to function correctly."
 msgstr ""
 
-#: includes/api/controllers/logs-controller.php:229
-msgid "Log entry not found."
+#: includes/admin/menu.php:172
+#: includes/admin/notice.php:49
+msgid "Update Permalinks"
 msgstr ""
 
-#: includes/api/controllers/logs-controller.php:267
-msgid "Log updated successfully."
+#: includes/admin/notice.php:47
+msgid "<strong>GameEngine:</strong> Pretty Permalinks are required for the REST API to function correctly. Please update your permalink settings."
 msgstr ""
 
-#: includes/helper.php:144
-msgid "Logs"
+#: includes/admin/setup.php:62
+#: includes/admin/setup.php:63
+msgid "GameEngine Setup"
 msgstr ""
 
-#: includes/integrations/word-press.php:90
-msgid "Min Character Count (Pro)"
+#: includes/admin/setup.php:98
+msgid "GameEngine Setup Wizard"
 msgstr ""
 
-#: includes/integrations/word-press.php:145
-msgid "Min Content Change % (Pro)"
+#: includes/admin/setup.php:109
+msgid "Loading Setup Wizard..."
 msgstr ""
 
-#: includes/addons/restrict-content/class-meta-box.php:46
-msgid "Min Level Required"
+#: includes/admin/user-profile.php:70
+msgid "GameEngine Profile"
 msgstr ""
 
-#: includes/integrations/word-press.php:75
-msgid "Min Media Count (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:203
-msgid "Min Reply Length (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:173
-msgid "Min Stay Time in Mins (Pro)"
-msgstr ""
-
-#: includes/integrations/word-press.php:60
-msgid "Min Word Count (Pro)"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:39
-msgid "Minimum Spend (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:125
-msgid "Monday"
-msgstr ""
-
-#: includes/api/controllers/taxonomy-controller.php:141
-msgid "Name is required."
-msgstr ""
-
-#. %s: Achievement title
-#: includes/classes/email-manager.php:110
-#, php-format
-msgid "New Achievement Unlocked: %s"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:137
-msgid "New Enrollment"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:28
-msgid "New Purchase"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:31
-msgid "New purchase successfully into your website."
-msgstr ""
-
-#: templates/shortcode/achievements.php:25
-msgid "No achievements created yet."
-msgstr ""
-
-#: includes/admin/user-profile.php:132
-msgid "No achievements earned yet."
-msgstr ""
-
-#: includes/api/controllers/logs-controller.php:260
-msgid "No changes made."
-msgstr ""
-
-#: templates/shortcode/leaderboard.php:83
-msgid "No data found."
+#: includes/admin/user-profile.php:75
+#: templates/shortcode/leaderboard.php:29
+#: assets/build/backend.1.0.0.js:4
+msgid "Level"
 msgstr ""
 
 #: includes/admin/user-profile.php:90
 msgid "No levels earned yet."
 msgstr ""
 
-#: templates/shortcode/levels.php:30
-msgid "No levels unlocked yet."
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:43
-msgid "None"
-msgstr ""
-
-#: templates/shortcode/profile.php:18
-msgid "Notifications"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:48
-msgid "Number (e.g. 100 for points, or ID for badge/level)"
-msgstr ""
-
-#: includes/integrations/word-press.php:105
-msgid "Only if Post < X days old (Pro)"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:49
-msgid "Optional: Custom message shown to locked users"
-msgstr ""
-
-#: includes/integrations/word-press.php:149
-msgid "Password Reset"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:72
-msgid "Paste on a page where you want users to manage their progress."
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:83
-msgid "Photo/Video Review Bonus (Pro)"
-msgstr ""
-
-#: includes/shortcodes/profile.php:19
-msgid "Please log in to view your progress."
-msgstr ""
-
-#: includes/admin/user-profile.php:98 templates/shortcode/leaderboard.php:31
-#: templates/shortcode/points.php:10 templates/shortcode/profile.php:14
+#: includes/admin/user-profile.php:98
+#: templates/shortcode/leaderboard.php:31
+#: templates/shortcode/points.php:10
+#: templates/shortcode/profile.php:14
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
 msgid "Points"
+msgstr ""
+
+#: includes/admin/user-profile.php:101
+msgid "Total Points"
+msgstr ""
+
+#: includes/admin/user-profile.php:105
+msgid "Update user points manually. Differences will be logged."
+msgstr ""
+
+#: includes/admin/user-profile.php:108
+msgid "Your current total points."
+msgstr ""
+
+#: includes/admin/user-profile.php:117
+#: includes/helper.php:129
+#: templates/shortcode/profile.php:23
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+msgid "Achievements"
+msgstr ""
+
+#: includes/admin/user-profile.php:132
+msgid "No achievements earned yet."
+msgstr ""
+
+#: includes/api/base-controller.php:38
+msgid "You do not have permission to access this endpoint."
+msgstr ""
+
+#: includes/api/controllers/achievements-controller.php:179
+msgid "Achievement Title is required."
+msgstr ""
+
+#: includes/api/controllers/actions-controller.php:160
+msgid "Action scheduled successfully."
+msgstr ""
+
+#. translators: %1$s: AddonName, %2$s: AddonStatus
+#: includes/api/controllers/addons-controller.php:92
+#: includes/integrations/academy-lms.php:29
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8
+msgid "Academy LMS"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:93
+msgid "Reward users for course completions and quiz attempts."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:101
+#: includes/integrations/woo-commerce.php:17
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:102
+msgid "Integrate gamification with your e-commerce store activities."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:110
+#: includes/integrations/store-engine.php:21
+#: assets/build/backend.1.0.0.js:8
+msgid "StoreEngine"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:111
+msgid "Advanced WooCommerce features and rewards integration."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:119
+#: assets/build/backend.1.0.0.js:8
+#: assets/build/setup.1.0.0.js:1
+msgid "Restrict Unlock"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:120
+msgid "Set dependencies between achievements and levels."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:128
+#: templates/shortcode/profile.php:20
+#: assets/build/backend.1.0.0.js:8
+#: assets/build/setup.1.0.0.js:1
+msgid "Progress Map"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:129
+msgid "Display a visual roadmap of user progress on frontend."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:137
+#: assets/build/backend.1.0.0.js:8
+#: assets/build/setup.1.0.0.js:1
+msgid "Restrict Content"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:138
+msgid "Lock specific posts, pages, images or links based on points and badges."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:147
+msgid "Wallet & Payouts"
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:148
+msgid "Manage withdrawal requests and user wallet balance from a dedicated menu."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:179
+msgid "Academy LMS is required."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:187
+msgid "StoreEngine plugin is required."
+msgstr ""
+
+#: includes/api/controllers/addons-controller.php:195
+msgid "WooCommerce is required."
+msgstr ""
+
+#: includes/api/controllers/levels-controller.php:164
+#: assets/build/backend.1.0.0.js:4
+msgid "Level Name is required."
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:174
+msgid "User ID and Points are required."
 msgstr ""
 
 #: includes/api/controllers/logs-controller.php:212
 msgid "Points adjusted successfully."
 msgstr ""
 
+#: includes/api/controllers/logs-controller.php:229
+msgid "Log entry not found."
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:260
+msgid "No changes made."
+msgstr ""
+
+#: includes/api/controllers/logs-controller.php:267
+msgid "Log updated successfully."
+msgstr ""
+
+#: includes/api/controllers/settings-controller.php:103
+msgid "Settings saved successfully."
+msgstr ""
+
+#: includes/api/controllers/taxonomy-controller.php:135
+msgid "Invalid taxonomy."
+msgstr ""
+
+#: includes/api/controllers/taxonomy-controller.php:141
+msgid "Name is required."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:44
+#: assets/build/backend.1.0.0.js:8
+msgid "Content Restriction"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:45
+msgid "Lock specific parts of your content (text, images, links) based on user points, badges, or levels."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:47
+msgid "Accepts: points, achievement, level"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:48
+msgid "Number (e.g. 100 for points, or ID for badge/level)"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:49
+msgid "Optional: Custom message shown to locked users"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:53
+msgid "Restrict by Points"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:54
+msgid "Your hidden content here..."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:57
+msgid "Restrict by Achievement"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:58
+msgid "Visible only to badge earners"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:61
+msgid "Restrict by Level"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:62
+msgid "Visible only to Level 2 and above"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:70
+msgid "User Dashboard"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:71
+msgid "Displays the full modern gamification dashboard (Tabs, Progress Map, Badges)."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:72
+msgid "Paste on a page where you want users to manage their progress."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:78
+msgid "Journey Roadmap Only"
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:79
+msgid "Shows only the visual zig-zag roadmap of levels and achievements."
+msgstr ""
+
+#: includes/api/controllers/tools-controller.php:80
+msgid "Use this if you want to show the map without the full dashboard."
+msgstr ""
+
 #: includes/api/controllers/tools-controller.php:86
+#: assets/build/backend.1.0.0.js:8
 msgid "Points Balance"
 msgstr ""
 
-#: includes/integrations/woo-commerce.php:69
-msgid "Points based on Product Price (Pro)"
+#: includes/api/controllers/tools-controller.php:87
+msgid "Displays the current users point total with a coin icon."
 msgstr ""
 
-#: includes/integrations/woo-commerce.php:38
-msgid "Points Calculation"
+#: includes/api/controllers/tools-controller.php:88
+msgid "Ideal for menus, headers, or sidebar widgets."
 msgstr ""
 
-#: includes/integrations/word-press.php:172
-msgid "Points Multiplier (Pro)"
+#: includes/api/controllers/tools-controller.php:94
+#: assets/build/backend.1.0.0.js:8
+msgid "Highest Level"
 msgstr ""
 
-#: includes/api/controllers/addons-controller.php:166
-msgid "Points Payouts"
+#: includes/api/controllers/tools-controller.php:95
+msgid "Shows the users current highest level title with a trophy icon."
 msgstr ""
 
-#: includes/addons/restrict-content/class-meta-box.php:44
-msgid "Points Required"
+#: includes/api/controllers/tools-controller.php:96
+msgid "Great for user profile headers or bio sections."
+msgstr ""
+
+#: includes/classes/email-manager.php:102
+msgid "Congratulations! You reached {level_name}"
+msgstr ""
+
+#: includes/classes/email-manager.php:142
+msgid "New Achievement Unlocked: {achievement_name}"
+msgstr ""
+
+#: includes/classes/email-manager.php:161
+msgid "We miss you! You have {points_balance} points waiting."
+msgstr ""
+
+#: includes/classes/email-manager.php:189
+msgid "You reached a milestone! {points_balance} Points!"
+msgstr ""
+
+#: includes/classes/taxonomy-manager.php:35
+#: assets/build/backend.1.0.0.js:4
+msgid "Achievement Types"
+msgstr ""
+
+#: includes/classes/taxonomy-manager.php:47
+msgid "Level Types"
 msgstr ""
 
 #: includes/helper.php:115
+#: assets/build/backend.1.0.0.js:1
+msgid "Dashboard"
+msgstr ""
+
+#: includes/helper.php:122
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
 msgid "Points System"
 msgstr ""
 
-#: includes/integrations/base-integration.php:61
+#: includes/helper.php:132
+msgid "All Achievements"
+msgstr ""
+
+#: includes/helper.php:133
+#: includes/helper.php:144
+#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:11
+msgid "Types"
+msgstr ""
+
+#: includes/helper.php:140
+#: templates/shortcode/profile.php:26
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+msgid "Levels"
+msgstr ""
+
+#: includes/helper.php:143
+msgid "All Levels"
+msgstr ""
+
+#: includes/helper.php:151
+#: assets/build/backend.1.0.0.js:5
+msgid "Logs"
+msgstr ""
+
+#: includes/helper.php:158
+#: assets/build/backend.1.0.0.js:4
+msgid "Leaderboards"
+msgstr ""
+
+#: includes/helper.php:166
+#: assets/build/backend.1.0.0.js:8
+msgid "Wallet"
+msgstr ""
+
+#: includes/helper.php:174
+msgid "Addons"
+msgstr ""
+
+#: includes/helper.php:180
+#: assets/build/backend.1.0.0.js:8
+msgid "Tools"
+msgstr ""
+
+#: includes/helper.php:188
+#: assets/build/backend.1.0.0.js:5
+msgid "Settings"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:48
+msgid "Course Completed"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:51
+msgid "Awarded when a student successfully finishes a course."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:59
+#: includes/integrations/academy-lms.php:150
+msgid "Select Course"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:64
+#: includes/integrations/academy-lms.php:155
+msgid "Include Specific Categories (Pro)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:65
+#: includes/integrations/academy-lms.php:156
+msgid "Exclude Specific Categories (Pro)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:71
+msgid "Course Published (Instructor)"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:74
+msgid "Awarded to instructors when they publish a new course."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:84
+msgid "Lesson Completed"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:87
+msgid "Awarded when a student completes a specific lesson."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:95
+msgid "Select Lesson"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:105
+msgid "Quiz Passed"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:108
+msgid "Awarded when a student passes a quiz."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:116
+msgid "Select Quiz"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:126
+msgid "Assignment Evaluated"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:129
+msgid "Awarded when an instructor evaluates a student assignment."
+msgstr ""
+
+#: includes/integrations/academy-lms.php:139
+msgid "New Enrollment"
+msgstr ""
+
+#: includes/integrations/academy-lms.php:142
+msgid "Awarded when a student joins a new course."
+msgstr ""
+
+#: includes/integrations/base-integration.php:64
+#: assets/build/backend.1.0.0.js:4
 msgid "Points to Award"
 msgstr ""
 
-#: includes/integrations/base-integration.php:61
+#: includes/integrations/base-integration.php:64
+#: assets/build/backend.1.0.0.js:4
 msgid "Points to Deduct"
 msgstr ""
 
-#: includes/integrations/word-press.php:79
-msgid "Post Comment"
+#: includes/integrations/base-integration.php:72
+msgid "Log Description"
 msgstr ""
 
-#: includes/integrations/word-press.php:59
+#: includes/integrations/base-integration.php:75
+msgid "Activity Reward"
+msgstr ""
+
+#: includes/integrations/base-integration.php:75
+msgid "Activity Penalty"
+msgstr ""
+
+#: includes/integrations/base-integration.php:80
+msgid "Repeatable Limit"
+msgstr ""
+
+#: includes/integrations/base-integration.php:84
+#: assets/build/backend.1.0.0.js:4
+msgid "Unlimited"
+msgstr ""
+
+#: includes/integrations/base-integration.php:85
+msgid "1 Time Only"
+msgstr ""
+
+#: includes/integrations/base-integration.php:86
+msgid "Once Per Day"
+msgstr ""
+
+#: includes/integrations/base-integration.php:87
+msgid "Once Per Week"
+msgstr ""
+
+#: includes/integrations/base-integration.php:88
+msgid "Once Per Month"
+msgstr ""
+
+#: includes/integrations/base-integration.php:104
+msgid "Start Time"
+msgstr ""
+
+#: includes/integrations/base-integration.php:113
+msgid "End Time"
+msgstr ""
+
+#: includes/integrations/base-integration.php:122
+msgid "Active Days"
+msgstr ""
+
+#: includes/integrations/base-integration.php:128
+msgid "Monday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:129
+msgid "Tuesday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:130
+msgid "Wednesday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:131
+msgid "Thursday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:132
+msgid "Friday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:133
+msgid "Saturday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:134
+msgid "Sunday"
+msgstr ""
+
+#: includes/integrations/base-integration.php:140
+msgid "Priority"
+msgstr ""
+
+#: includes/integrations/game-engine.php:17
+msgid "GameEngine Logic"
+msgstr ""
+
+#: includes/integrations/game-engine.php:28
+msgid "Unlock Achievement"
+msgstr ""
+
+#: includes/integrations/game-engine.php:30
+msgid "Unlock achivemeet successfully  into your website."
+msgstr ""
+
+#: includes/integrations/game-engine.php:37
+msgid "Select Achievement"
+msgstr ""
+
+#: includes/integrations/store-engine.php:37
+msgid "New Purchase (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:40
+msgid "Awarded when a customer completes a new purchase via StoreEngine checkout."
+msgstr ""
+
+#: includes/integrations/store-engine.php:46
+#: includes/integrations/store-engine.php:126
+msgid "Minimum Spend (Pro)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:47
+#: includes/integrations/woo-commerce.php:41
+msgid "Include Specific Products"
+msgstr ""
+
+#: includes/integrations/store-engine.php:48
+#: includes/integrations/woo-commerce.php:42
+msgid "Include Specific Categories"
+msgstr ""
+
+#: includes/integrations/store-engine.php:49
+#: includes/integrations/woo-commerce.php:43
+msgid "Exclude Specific Products"
+msgstr ""
+
+#: includes/integrations/store-engine.php:50
+#: includes/integrations/woo-commerce.php:44
+msgid "Exclude Specific Categories"
+msgstr ""
+
+#: includes/integrations/store-engine.php:59
+msgid "First Purchase (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:62
+msgid "Awarded once when a customer completes their very first StoreEngine order."
+msgstr ""
+
+#: includes/integrations/store-engine.php:94
+msgid "Purchase Specific Product (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:97
+msgid "Awarded when a customer purchases a specific StoreEngine product."
+msgstr ""
+
+#: includes/integrations/store-engine.php:105
+#: includes/integrations/woo-commerce.php:58
+msgid "Select Product"
+msgstr ""
+
+#: includes/integrations/store-engine.php:112
+msgid "Select Entire Category "
+msgstr ""
+
+#: includes/integrations/store-engine.php:133
+msgid "Order Completed (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:136
+msgid "Awarded when a StoreEngine order status changes to Completed."
+msgstr ""
+
+#: includes/integrations/store-engine.php:147
+msgid "Order Paid Re-attempt (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:150
+msgid "Awarded when a user successfully pays for a previously failed or pending StoreEngine order."
+msgstr ""
+
+#: includes/integrations/store-engine.php:162
+msgid "Order Refunded (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:165
+msgid "Deducts points when a StoreEngine order is refunded."
+msgstr ""
+
+#: includes/integrations/store-engine.php:181
+msgid "New Customer Registered (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:184
+msgid "Awarded when a new customer account is created during StoreEngine checkout."
+msgstr ""
+
+#: includes/integrations/store-engine.php:196
+msgid "Customer Login (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:199
+msgid "Awarded when a customer logs in via the StoreEngine login form."
+msgstr ""
+
+#: includes/integrations/store-engine.php:214
+msgid "Product Review Submitted (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:217
+msgid "Awarded when a customer submits a product review on a StoreEngine product."
+msgstr ""
+
+#: includes/integrations/store-engine.php:226
+msgid "Specific Product (optional)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:240
+msgid "Coupon Applied (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:243
+msgid "Awarded when a customer successfully applies a coupon to their StoreEngine cart."
+msgstr ""
+
+#: includes/integrations/store-engine.php:255
+msgid "Subscription Changed (StoreEngine)"
+msgstr ""
+
+#: includes/integrations/store-engine.php:258
+msgid "Fired when a customer cancels, upgrades, or downgrades a StoreEngine subscription."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:29
+msgid "New Purchase"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:32
+msgid "New purchase successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:39
+msgid "Points Calculation"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:40
+msgid "Minimum Spend"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:48
+msgid "Purchase Specific Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:50
+msgid "Purchase product successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:59
+msgid "Select Entire Category (Pro)"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:63
+msgid "Publish Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:65
+msgid "Publish product successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:74
+msgid "Review Product"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:76
+msgid "Review product successfully into your website."
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:86
+msgid "Refund Order"
+msgstr ""
+
+#: includes/integrations/woo-commerce.php:88
+msgid "Refund purchase successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:17
+msgid "Core"
+msgstr ""
+
+#: includes/integrations/word-press.php:29
+msgid "User Login"
+msgstr ""
+
+#: includes/integrations/word-press.php:32
+msgid "Awarded when a user successfully logs into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:40
+msgid "User Register"
+msgstr ""
+
+#: includes/integrations/word-press.php:42
+msgid "Awarded when a user successfully register into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:51
+msgid "Publish Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:53
+msgid "Publish post successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:60
 msgid "Post Types (Pro)"
 msgstr ""
 
-#: includes/integrations/word-press.php:138
-msgid "Post update successfully into your website."
+#: includes/integrations/word-press.php:61
+msgid "Min Word Count (Pro)"
 msgstr ""
 
-#: includes/integrations/word-press.php:136
-msgid "Post Updated"
+#: includes/integrations/word-press.php:62
+msgid "Daily Post Limit (Pro)"
 msgstr ""
 
-#: includes/integrations/word-press.php:123
+#: includes/integrations/word-press.php:67
+msgid "Publish Page"
+msgstr ""
+
+#: includes/integrations/word-press.php:69
+msgid "Publish page successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:76
+msgid "Min Media Count (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:80
+msgid "Post Comment"
+msgstr ""
+
+#: includes/integrations/word-press.php:82
+msgid "Comment post successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:90
+msgid "Min Character Count (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:91
+msgid "Daily Max Comments (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:95
+msgid "Delete Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:97
+msgid "Delete post successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:105
+msgid "Only if Post < X days old (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:109
+msgid "Role Change"
+msgstr ""
+
+#: includes/integrations/word-press.php:111
+msgid "User role change successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:118
+msgid "Target Roles"
+msgstr ""
+
+#: includes/integrations/word-press.php:122
 msgid "Profile Update"
 msgstr ""
 
-#: includes/integrations/word-press.php:125
+#: includes/integrations/word-press.php:124
 msgid "Profile update successfully into your website."
 msgstr ""
 
-#: templates/shortcode/profile.php:28
-#: includes/api/controllers/addons-controller.php:128
-msgid "Progress Map"
+#: includes/integrations/word-press.php:131
+msgid "Field-specific Rewards (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:135
+msgid "Post Updated"
+msgstr ""
+
+#: includes/integrations/word-press.php:137
+msgid "Post update successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:144
+msgid "Min Content Change % (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:148
+msgid "Password Reset"
+msgstr ""
+
+#: includes/integrations/word-press.php:150
+msgid "Reset password successfully into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:157
+msgid "Cooldown in Days (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:161
+msgid "Daily Visit"
+msgstr ""
+
+#: includes/integrations/word-press.php:163
+msgid "Daily visit successfully  into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:170
+msgid "Points Multiplier (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:171
+msgid "Min Stay Time in Mins (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:175
+msgid "Visit Specific Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:177
+msgid "Visit Specific post successfully  into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:184
+msgid "Select Post"
+msgstr ""
+
+#: includes/integrations/word-press.php:185
+msgid "Select Categories (Pro)"
+msgstr ""
+
+#: includes/integrations/word-press.php:189
+msgid "Author Reply"
+msgstr ""
+
+#: includes/integrations/word-press.php:191
+msgid "Author comment successfully  into your website."
+msgstr ""
+
+#: includes/integrations/word-press.php:202
+msgid "Min Reply Length (Pro)"
+msgstr ""
+
+#: includes/shortcodes/profile.php:19
+msgid "Please log in to view your progress."
 msgstr ""
 
 #: includes/shortcodes/progress-map.php:20
@@ -631,316 +1056,1529 @@ msgstr ""
 msgid "Progress Map addon is not active."
 msgstr ""
 
-#: includes/integrations/word-press.php:66
-msgid "Publish Page"
+#: templates/shortcode/achievements.php:25
+msgid "No achievements created yet."
 msgstr ""
 
-#: includes/integrations/word-press.php:68
-msgid "Publish page successfully into your website."
-msgstr ""
-
-#: includes/integrations/word-press.php:50
-msgid "Publish Post"
-msgstr ""
-
-#: includes/integrations/word-press.php:52
-msgid "Publish post successfully into your website."
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:60
-msgid "Publish Product"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:62
-msgid "Publish product successfully into your website."
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:46
-msgid "Purchase product successfully into your website."
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:44
-msgid "Purchase Specific Product"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:56
-msgid "Quantity Based Multiplier (Pro)"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:103
-msgid "Quiz Passed"
-msgstr ""
-
-#: templates/shortcode/leaderboard.php:27
-msgid "Rank"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:176
-msgid "Redemption Codes"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:87
-msgid "Refund Order"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:89
-msgid "Refund purchase successfully into your website."
-msgstr ""
-
-#: includes/integrations/word-press.php:151
-msgid "Reset password successfully into your website."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:57
-msgid "Restrict by Achievement"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:61
-msgid "Restrict by Level"
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:53
-msgid "Restrict by Points"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:137
-msgid "Restrict Content"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:119
-msgid "Restrict Unlock"
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:41
-msgid "Restriction Type:"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:73
-msgid "Review Product"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:75
-msgid "Review product successfully into your website."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:93
-msgid "Reward users for course completions and quiz attempts."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:156
-msgid "Rewards Marketplace"
-msgstr ""
-
-#: includes/integrations/word-press.php:110
-msgid "Role Change"
-msgstr ""
-
-#: includes/integrations/base-integration.php:130
-msgid "Saturday"
-msgstr ""
-
-#: includes/integrations/game-engine.php:36
-msgid "Select Achievement"
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:60
-msgid "Select Achievement:"
-msgstr ""
-
-#: includes/integrations/word-press.php:187
-msgid "Select Categories (Pro)"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:59
-#: includes/integrations/academy-lms.php:148
-msgid "Select Course"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:55
-msgid "Select Entire Category (Pro)"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:93
-msgid "Select Lesson"
-msgstr ""
-
-#: includes/addons/restrict-content/class-meta-box.php:71
-msgid "Select Minimum Level:"
-msgstr ""
-
-#: includes/integrations/word-press.php:186
-msgid "Select Post"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:54
-msgid "Select Product"
-msgstr ""
-
-#: includes/integrations/academy-lms.php:114
-msgid "Select Quiz"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:120
-msgid "Set dependencies between achievements and levels."
-msgstr ""
-
-#: includes/helper.php:172
-msgid "Settings"
-msgstr ""
-
-#: includes/api/controllers/settings-controller.php:93
-msgid "Settings saved successfully."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:79
-msgid "Shows only the visual zig-zag roadmap of levels and achievements."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:95
-msgid "Shows the users current highest level title with a trophy icon."
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:98
-msgid "Specific Refund Reason (Pro)"
-msgstr ""
-
-#: includes/integrations/base-integration.php:101
-msgid "Start Time (Pro)"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:110
-msgid "StoreEngine"
-msgstr ""
-
-#: includes/integrations/base-integration.php:131
-msgid "Sunday"
-msgstr ""
-
-#: includes/integrations/word-press.php:119
-msgid "Target Roles"
-msgstr ""
-
-#: includes/addons/restrict-content/class-restriction-helper.php:84
-msgid "This content is restricted. Complete requirements to unlock."
-msgstr ""
-
-#: includes/integrations/base-integration.php:128
-msgid "Thursday"
-msgstr ""
-
-#: includes/helper.php:164
-msgid "Tools"
+#: templates/shortcode/achievements.php:49
+msgid "How to unlock"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:21
 msgid "Top Performers"
 msgstr ""
 
-#: includes/admin/user-profile.php:101
-msgid "Total Points"
-msgstr ""
-
-#: includes/integrations/base-integration.php:126
-msgid "Tuesday"
-msgstr ""
-
-#: includes/helper.php:126 includes/helper.php:137
-msgid "Types"
-msgstr ""
-
-#: includes/integrations/base-integration.php:81
-msgid "Unlimited"
-msgstr ""
-
-#: includes/integrations/game-engine.php:27
-msgid "Unlock Achievement"
-msgstr ""
-
-#: includes/integrations/game-engine.php:29
-msgid "Unlock achivemeet successfully  into your website."
-msgstr ""
-
-#: includes/admin/user-profile.php:105
-msgid "Update user points manually. Differences will be logged."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:80
-msgid "Use this if you want to show the map without the full dashboard."
+#: templates/shortcode/leaderboard.php:27
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+msgid "Rank"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:28
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:11
 msgid "User"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:70
-msgid "User Dashboard"
+#: templates/shortcode/leaderboard.php:83
+msgid "No data found."
 msgstr ""
 
-#: includes/api/controllers/logs-controller.php:174
-msgid "User ID and Points are required."
+#: templates/shortcode/levels.php:280
+msgid "Next Milestone"
 msgstr ""
 
-#: includes/integrations/word-press.php:28
-msgid "User Login"
+#. translators: 1: points needed, 2: level name
+#: templates/shortcode/levels.php:294
+msgid "Collect %1$s more points to unlock %2$s"
 msgstr ""
 
-#: includes/integrations/word-press.php:39
-msgid "User Register"
+#: templates/shortcode/levels.php:328
+msgid "Unlocked"
 msgstr ""
 
-#: includes/integrations/word-press.php:112
-msgid "User role change successfully into your website."
+#: templates/shortcode/levels.php:355
+msgid "No levels available yet."
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:58
-msgid "Visible only to badge earners"
+#: templates/shortcode/profile.php:44
+msgid "Badges & Achievements"
 msgstr ""
 
-#: includes/api/controllers/tools-controller.php:62
-msgid "Visible only to Level 2 and above"
-msgstr ""
-
-#: includes/integrations/word-press.php:177
-msgid "Visit Specific Post"
-msgstr ""
-
-#: includes/integrations/word-press.php:179
-msgid "Visit Specific post successfully  into your website."
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:147
-msgid "WC Spending Gateway"
-msgstr ""
-
-#: includes/integrations/base-integration.php:127
-msgid "Wednesday"
-msgstr ""
-
-#: includes/integrations/woo-commerce.php:16
-#: includes/api/controllers/addons-controller.php:101
-msgid "WooCommerce"
-msgstr ""
-
-#: includes/api/controllers/addons-controller.php:219
-msgid "WooCommerce is required."
-msgstr ""
-
-#: includes/api/base-controller.php:38
-msgid "You do not have permission to access this endpoint."
-msgstr ""
-
-#: includes/admin/user-profile.php:108
-msgid "Your current total points."
-msgstr ""
-
-#: includes/api/controllers/tools-controller.php:54
-msgid "Your hidden content here..."
-msgstr ""
-
-#: templates/shortcode/profile.php:51
+#: templates/shortcode/profile.php:48
 msgid "Your Progression"
 msgstr ""
 
-#: templates/shortcode/levels.php:20 templates/shortcode/levels.php:22
-msgid "—"
+#: assets/build/backend.1.0.0.js:1
+msgid "Log created successfully!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Log updated successfully!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Achievement type created successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Achievement type updated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Achievement type deleted successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Achivement updated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Achivement deleted successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level type created successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level type updated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level type deleted successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level create successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level update successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Level deleted successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Payout update successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:1
+msgid "GameEngine"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/setup.1.0.0.js:1
+msgid "PRO"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Top 5 Users"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "No data available yet."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Point Distribution Chart"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Overview"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "Columns"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "10"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "15"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "20"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "25"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:1
+msgid "30"
+msgstr ""
+
+#. translators: %1$s: Item showing, %2$s: totalItems
+#: assets/build/backend.1.0.0.js:4
+msgid "Showing result %1$s out of %2$s"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Rows per page"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Please, create data to see the available list here."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No Data Available!!!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Published"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "Pending"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Draft"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Trash"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "Approved"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Approve"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Processing"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+msgid "Cancel"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Private"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Scheduled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "Rejected"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Import Default Data"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No, Thanks!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Confirm"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Items selected"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+msgid "Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Category"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Unlock Criteria"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Date"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:11
+msgid "Status"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:11
+msgid "Action"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+msgid "Delete"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+msgid "Edit"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Restore"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Delete Permanently"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Move to Trash"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Move selected items to trash?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Restore selected items?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Delete permanently? This cannot be undone."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No levels found."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Want to quickly get started by importing a default levels currency and login rewards?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add new level"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No data found for levels"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Award Log Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Deduction Log Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select..."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Enabled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Disabled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Locked Feature"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Deduct: "
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "All"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Available Hooks"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Active Hooks"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "The following hooks are used for all users"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable Require Unlock"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "(Restrict Unlock Addon Required)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Level Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enter level name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Level Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select your created types for Level."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Benefits Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Congratulations Message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Level Requirements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Required Achievements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Required Levels"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Restriction Message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Restriction message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Levels Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Change Level Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Set Level Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Allow unlock with points"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Minimum Balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enter minimum balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Maximum Balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enter maximum balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Choose the Points Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:8
+msgid "Update"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8
+msgid "Create"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Achievement Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enter point name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Maximum earnings per user"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Number of times a user can earn this badge (0 = unlimited)."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Maximum Earnings Per User:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Achivement Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select your created types for achivement."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enter point"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Achievement Requirements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8
+msgid "Name is required!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Achievement"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5
+msgid "Are you sure?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No achievements found."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Want to quickly get started by importing a default achievements currency and login rewards?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add new achievement"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "No data found for Achievements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Point Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Automatic Point Awards"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Automatic Point Deductions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Update Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Create Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Frontend Dashboard"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Frontend Dashboard settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Log settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Ecommrce"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Ecommrce settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Coupon Generate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Payout"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Payout settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Manage your license key"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Email Templates"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Customize Email Templates & Cron"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Immediate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "After 24 Hours"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "After 7 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Never"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "30 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "90 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Log Display"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Choose how activity logs are processed. Select \"Immediate\" to record and display log entries as soon as they occur."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Auto Cleanup"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Automatically remove old activity logs from the database after a specific period to keep your database optimized and improve performance."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Economy"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable successful rewards"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable this to record a log entry every time a user successfully earns points, achievements, or levels."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable System Errors"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Conversion Rate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "0"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable Gateway"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Allow customers to pay for their entire order using their points balance as a payment method during checkout."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable Partial Payment"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Allow customers to apply a portion of their points for a discount on the cart or checkout page."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Percent"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Fixed Cart"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Label"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add label"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Offer Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Point Cost"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "Amount"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Expiry Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable Coupon Generate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Activate the rewards store where users can exchange points for unique WooCommerce discount coupons via shortcode."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Offers"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Create various coupon offers with specific point costs, discount amounts, and expiry dates."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add Offer"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable Payout"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Enable users to request real money withdrawals in exchange for their earned points."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Payout methods"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select which payment methods are available for users to receive their money (e.g. PayPal, bKash, Bank)."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Max Points"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "The maximum number of points a user can request for a withdrawal."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Min Points"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "The minimum number of points a user must have to request a withdrawal."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Dashboard Integration"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select where you want to display game stats and navigation."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Select Platform"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add User Stats Menu"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Display a quick view of current Points and Rank to users."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add Navigation Links"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Allow users to redeem their points for WooCommerce discount coupons."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Add Coupon Exchange Menu"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Let users trade their points for WooCommerce discount coupons."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Need Expert Help? Hire Our Professionals"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Get access to a skilled team of designers, developers, marketers, and content experts—ready to bring your ideas to life."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Hire Us"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Learn More"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Failed to fetch license status."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "License activated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Failed to activate license."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Please enter a license key."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "GameEngine Pro — License Active"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "You have access to automatic updates, priority support, and all pro tools."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Deactivating…"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "License deactivated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Failed to deactivate license."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Deactivate License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:11
+msgid "Manage License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Failed to update opt-in setting."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Allow usage tracking to help improve GameEngine Pro."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Status:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8
+msgid "Active"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Last Checked:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Refresh status"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Expires:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "N/A"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4
+msgid "Activation Remaining:"
+msgstr ""
+
+#. translators: 1: remaining activations, 2: total limit
+#: assets/build/backend.1.0.0.js:5
+msgid "%1$d out of %2$s"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Automatic Update:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Activate GameEngine Pro for updates & support."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Activate GameEngine Pro to unlock automatic updates, priority support, and all tools to manage your contacts and automate your marketing."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Enter your license key"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Activating…"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Activate License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Don't have a license key? <PurchaseLink/>"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Purchase one here"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Level Up Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Sent when a user reaches a new level."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Achievement Unlocked Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Sent when a user unlocks a new achievement."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Inactivity Nudge Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Sent when a user has been inactive."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Points Milestone Alert"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Sent every multiple of 500 points."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "General"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "The common name for all outgoing emails."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "E-Mail Address"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "All emails will be sent from this email address."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Email Template"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Edit Template"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Save Changes"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Notify User"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Notify Admin"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Subject:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Click to copy"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Inactivity Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Additional Content"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Template Preview"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "User:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Admin:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Event"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Message / Details"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Search Items"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "No logs found"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Full screen"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Small screen"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Medium screen"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Award Points (+)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Deduct Points (-)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "User Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Action Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Points Amount"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Exp: 50"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Schedule(Optional)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Description(Optional)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Reason for adjustment..."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Edit Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Manual Trigger"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Update Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Create Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "User ID is required!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Award Actions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Actions."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Deduct Actions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "No data found"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "No point system found."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Want to quickly get started by importing a default XP currency and login rewards?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Add new point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Coming Soon"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5
+msgid "Available in pro"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "All Status"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Inactive"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Add-ons"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Clear All"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Search..."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Close notification"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Displays the current users highest achieved level rank with a trophy icon."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Perfect for user headers, bio sections, or profile sidebar widgets."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Shows the current users total points balance with a coin icon."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Ideal for menus, headers, or any place where you want to show the users wallet balance."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Achievements List"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Displays a clean grid of all achievements earned by the user."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Shows badge images, titles, and unlock hints for any locked achievements."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Profile Dashboard"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Displays the full modern gamification dashboard with Tabs and Progress Map."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "A complete hub where users can see their points, badges, and roadmap in one place."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Shows a visual zig-zag roadmap of levels and achievements progression."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Provides an interactive journey timeline without the full dashboard layout."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Lock specific text, images, or links based on points, badges, or levels."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Usage: type (points/achievement/level), value (amount or ID), and optional custom message."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Coupon Marketplace"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Allows users to exchange their points for real WooCommerce discount coupons."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Renders the dynamic reward store with offers set in your admin settings."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Payout Form"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Displays a secure withdrawal request form for converting points into currency."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Users can select payout methods like bKash or PayPal and provide their account details."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Shortcodes"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Setup Wizard"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Shortcode"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Add New"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Enter name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Slug"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Enter slug"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Parent"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8
+msgid "Enter description"
+msgstr ""
+
+#. translators: %s. Table data type name.
+#: assets/build/backend.1.0.0.js:11
+msgid "No data found for %s types"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Method"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Account Details"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Show less"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Show more"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Completed"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Search question"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Withdraw Lists"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "No data found for Wallet"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Dismiss this notice"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11
+msgid "Activate your license to unlock updates, new features, and full GameEngine Pro access."
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "I'll Configure Manually"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Create your own gamification setup from scratch with full control"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Jumpstart with Demo Data"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "This demo gamification is for preview only no real rewards applied"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Process to Next"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Skip This Step"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Congratulations"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Your GameEngine is ready to launch"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Go To Dashboard"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Visit Website"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Back"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Continue"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Author"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For authors active"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Blogger"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For blog activity"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "eCommerce"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For shop customers"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Performance"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For task results"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Community"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For community help"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Growth"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "For growth actions"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Levels & Achievements Preview"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Keep users loyal to your brand"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Boost interactions with content"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "WooCommerce Integration"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "Academy LMS Integration"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1
+msgid "I’ll decide later"
 msgstr ""

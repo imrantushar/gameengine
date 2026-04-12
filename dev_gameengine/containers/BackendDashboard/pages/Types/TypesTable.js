@@ -136,7 +136,11 @@ const TypesTable = ({ type, editHandler }) => {
         isRowSelectable={false}
         dataFetchingStatus={loading}
         showPagination={false}
-        noDataText={sprintf(__("No data found for %s types", "gameengine"), type)}
+        noDataText={sprintf(
+            // translators: %s. Table data type name.
+            __("No data found for %s types", "gameengine"),
+            type
+        )}
         suffix={type + "-table"}
       />
     </Box>
