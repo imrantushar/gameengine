@@ -138,13 +138,13 @@ final class GameEngine
             }
 
             // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-            $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
+            // $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
 
-            if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
-                if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-                    \GameEngine\Classes\JsonGenerator::generate();
-                }
-            }
+            // if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
+            //     if (class_exists('\GameEngine\Classes\JsonGenerator')) {
+            //         \GameEngine\Classes\JsonGenerator::generate();
+            //     }
+            // }
         }
 
         if (defined('WP_CLI') && WP_CLI) {
@@ -197,34 +197,3 @@ function gameengine()
 }
 
 GameEngine::instance();
-
-/**
- * Developer Utility: Reset Setup & Banners with Nonce Verification.
- */
-add_action('init', function () {
-    // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-    if (isset($_GET['reset_gameengine_setup']) && current_user_can('manage_options')) {
-
-        //  Verify Nonce for Security.
-        if (!isset($_GET['_wpnonce']) || !wp_verify_nonce(sanitize_key(wp_unslash($_GET['_wpnonce'])), 'gameengine_reset_action')) {
-            $reset_url = wp_nonce_url(add_query_arg('reset_gameengine_setup', '1'), 'gameengine_reset_action');
-            wp_die(
-                sprintf(
-                    /* translators: %s: Reset URL with Nonce */
-                    esc_html__('Are you sure you want to reset? This will delete all GameEngine settings. %s', 'gameengine'),
-                    '<a href="' . esc_url($reset_url) . '">' . esc_html__('Click here to confirm reset.', 'gameengine') . '</a>'
-                )
-            );
-        }
-
-        // 2. Proceed with reset if nonce is valid.
-        delete_option('gameengine_hide_banner_points');
-        delete_option('gameengine_hide_banner_achievements');
-        delete_option('gameengine_hide_banner_levels');
-        delete_option('gameengine_setup_completed');
-        delete_option('gameengine_active_addons');
-
-        wp_die(esc_html__('GameEngine settings and banners have been reset! Please refresh your dashboard.', 'gameengine'));
-    }
-});
-
