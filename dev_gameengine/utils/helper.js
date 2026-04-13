@@ -19,7 +19,7 @@ export const {
 	is_pro,
 	is_woocommerce_active,
 	is_academylms_active,
-	banners, 
+	banners,
 	site_url,
 	notification_position = null,
 	toplevel_menu_icon_url = null
@@ -39,29 +39,29 @@ export const useQuery = () => {
 	return new URLSearchParams(useLocation().search);
 };
 
-export const handleSliceError = ( thunkAPI, error ) => {
+export const handleSliceError = (thunkAPI, error) => {
 	thunkAPI.dispatch(
-		showNotification( {
+		showNotification({
 			message:
 				error?.response.data.message ??
 				error?.response?.message ??
 				error?.message,
 			isShow: true,
 			type: 'error',
-		} )
+		})
 	);
 	// }
-	return thunkAPI.rejectWithValue( error.message );
+	return thunkAPI.rejectWithValue(error.message);
 };
 
 
-export const handleSliceSuccess = ( thunkAPI, message ) => {
+export const handleSliceSuccess = (thunkAPI, message) => {
 	thunkAPI.dispatch(
-		showNotification( {
-			message: __( message, 'gameengine' ),
+		showNotification({
+			message: __(message, 'gameengine'),
 			isShow: true,
 			type: 'success',
-		} )
+		})
 	);
 };
 
@@ -165,7 +165,7 @@ export const tableStatusArray = [
 ];
 
 export function decodeHtmlEntity(entity) {
-  const txt = document.createElement('textarea');
-  txt.innerHTML = entity;
-  return txt.value;
+	const txt = document.createElement('textarea');
+	txt.innerHTML = entity;
+	return txt.value;
 }
