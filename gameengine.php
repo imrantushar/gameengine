@@ -63,27 +63,36 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.0.0');
-        define('GAMEENGINE_FILE', __FILE__);
-        define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
-        define('GAMEENGINE_PATH', wp_normalize_path(plugin_dir_path(GAMEENGINE_FILE)));
-        define('GAMEENGINE_URL', plugin_dir_url(GAMEENGINE_FILE));
-        define('GAMEENGINE_INCLUDES', GAMEENGINE_PATH . 'includes/');
-        define('GAMEENGINE_ROOT_DIR_PATH', plugin_dir_path(__FILE__));
+	    define( 'GAMEENGINE_VERSION', '1.0.0' );
+	    define( 'GAMEENGINE_PLUGIN_SLUG', 'gameengine' );
+	    define( 'GAMEENGINE_FILE', __FILE__ );
+	    define( 'GAMEENGINE_BASENAME', plugin_basename( GAMEENGINE_FILE ) );
+	    define( 'GAMEENGINE_PATH', wp_normalize_path( plugin_dir_path( GAMEENGINE_FILE ) ) );
+	    define( 'GAMEENGINE_URL', plugin_dir_url( GAMEENGINE_FILE ) );
+	    define( 'GAMEENGINE_INCLUDES', GAMEENGINE_PATH . 'includes/' );
+	    define( 'GAMEENGINE_ROOT_DIR_PATH', plugin_dir_path( GAMEENGINE_FILE ) );
     }
 
     /**
      * Load the plugin's dependencies.
      */
-    private function load_dependencies()
-    {
-        if (file_exists(GAMEENGINE_INCLUDES . 'autoload.php')) {
-            require_once GAMEENGINE_INCLUDES . 'autoload.php';
-        }
-        if (file_exists(GAMEENGINE_INCLUDES . 'functions.php')) {
-            require_once GAMEENGINE_INCLUDES . 'functions.php';
-        }
-    }
+	private function load_dependencies() {
+
+		if ( file_exists( GAMEENGINE_PATH . 'vendor/autoload.php' ) ) {
+			require_once GAMEENGINE_PATH . 'vendor/autoload.php';
+		}
+
+		if ( file_exists( GAMEENGINE_PATH . 'vendor/prefixed/autoload.php' ) ) {
+			require_once GAMEENGINE_PATH . 'vendor/prefixed/autoload.php';
+		}
+
+		if ( file_exists( GAMEENGINE_INCLUDES . 'autoload.php' ) ) {
+			require_once GAMEENGINE_INCLUDES . 'autoload.php';
+		}
+		if ( file_exists( GAMEENGINE_INCLUDES . 'functions.php' ) ) {
+			require_once GAMEENGINE_INCLUDES . 'functions.php';
+		}
+	}
 
     /**
      * Register the core WordPress hooks.
@@ -92,6 +101,7 @@ final class GameEngine
     {
         register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
         register_deactivation_hook(GAMEENGINE_FILE, array(__CLASS__, 'deactivate'));
+		\GameEngine\SeSdk::get_instance();
 
         add_action('init', array($this, 'init_modules'), 10);
     }

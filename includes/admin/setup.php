@@ -29,28 +29,30 @@ class Setup
     /**
      * Redirect to setup wizard if activation transient exists.
      */
-    public function redirect_after_activation()
-    {
-        if (get_transient('gameengine_activation_redirect')) {
-            delete_transient('gameengine_activation_redirect');
+	public function redirect_after_activation() {
+		if ( is_network_admin() || class_exists( \WP_CLI::class, false ) || ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 
-            if (! is_network_admin() && current_user_can('manage_options')) {
+		if ( ! get_transient( 'gameengine_activation_redirect' ) ) {
+			return;
+		}
 
-                /**
-                 * Page routing via $_GET doesn't require a nonce.
-                 */
-                // phpcs:ignore WordPress.Security.NonceVerification.Recommended
-                $current_page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : '';
+		delete_transient( 'gameengine_activation_redirect' );
 
-                if (self::PAGE_ID === $current_page) {
-                    return;
-                }
+		/**
+		 * Page routing via $_GET doesn't require a nonce.
+		 */
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		$current_page = isset( $_GET['page'] ) ? sanitize_text_field( wp_unslash( $_GET['page'] ) ) : '';
 
-                wp_safe_redirect(admin_url('admin.php?page=' . self::PAGE_ID));
-                exit;
-            }
-        }
-    }
+		if ( self::PAGE_ID === $current_page ) {
+			return;
+		}
+
+		wp_safe_redirect( admin_url( 'admin.php?page=' . self::PAGE_ID ) );
+		exit;
+	}
 
     /**
      * Register hidden setup menu and hook into its load action.

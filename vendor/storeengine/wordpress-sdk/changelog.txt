@@ -1,0 +1,57 @@
+*** Changelog ***
+
+= Unreleased =
+* Added support for localizing SDK frontend data via `script_handler`, `script_object`, `get_js_param_name()`, and `get_js_params()` for custom JavaScript or React-based license management screens.
+* Added package update metadata to localized SDK data, including current version, available update details, and update availability status.
+* Added a REST API package info endpoint for SDK integrations that need update data in custom management UIs.
+* Added `redirect_on_activation` option to allow disabling the automatic redirect to the manage license page after plugin activation.
+* Made `package_file`, `package_name`, `basename`, `package_type`, and `package_version` optional in `se_license_init()` by auto-detecting package metadata from the current plugin or theme when possible.
+* Improved package file detection to resolve a plugin's main bootstrap file when the SDK is initialized from an included file.
+* Normalized the configured license server URL before using it in client requests.
+* Updated SDK helper documentation to cover the new script localization and activation redirect options.
+* Improved updater filter signatures and forced-refresh handling for package information requests.
+* Refined internal SDK component initialization to keep shared client state in sync across license, updater, REST API, promotions, and insights modules.
+* Fixed license signature validation after activation and Freemius migration by aligning signature generation with the scheduled license check timestamp.
+* Refreshed Composer package metadata and modernized development dependency constraints.
+
+= 1.3.0 - 30-03-2026 =
+* Fixed float to int implicit conversion warning in `PHP 8.1`
+* Improved IntelliSense & type hints for sdk-init helper function.
+* Added `SensitiveParameter` attribute to hide license key from error log & crash reports.
+* Added isolated per-client REST API for license and insights management.
+* Added `init_restapi` option to `se_license_init` to conditionally enable/disable the REST API.
+* Unified license activation and deactivation logic across the REST API and the built-in management page.
+* Added support for license key masking and public data formatting in the license class.
+* Introduced `get_js_params()` in the client class for easier frontend integration.
+* Improved SDK initialization and path resolution, including PHP 8.1+ compatibility fixes.
+* Refactored REST API callbacks to provide enriched error and success responses.
+* Comprehensive documentation for `se_license_init` arguments.
+* General code style improvements and standard compliance fixes.
+
+= 1.2.0 - 02-12-2025 =
+* Refactored user agent string generation in client class for more detailed environment info and standardized header casing.
+* Enhanced promotions class to handle non-JSON and error responses from the server, ensuring only valid promotions are processed.
+* Added comments explaining logic for hiding promotions for users and admins.
+* Unified version information, passing version to SDK client form initializer.
+
+= 1.1.0 - 06-10-2025 =
+* Updated documentation and fixed typo in readme file.
+* Added doc-comment
+* Added GitHub Actions workflow for release on tag.
+* Fixed promo transient data type before storing.
+* Refactored insights opt-in logic to support delayed and conditional display.
+* Added new methods for install time and notice delay, and improved admin notice rendering.
+* Introduced new views for deactivation reasons and support ticket submission/email.
+* Updated license form and related styles for better UI consistency.
+* Redirects to license form anchor after license check for better user experience.
+* Added UTM parameters to the purchase link for tracking.
+* Updated license-check redirect URL (with hash fragment) for better navigation UX.
+* Updated insights and promotions modules to use a unified CSS variable for primary color, improving consistency across notices, modals, and forms.
+* Refactored support ticket email and form templates for insights, renamed and replaced related view files, and enhanced promo hiding logic to combine transient and user options.
+* Improved code style and documentation for better developer experience.
+* Fixed opt-in notice (insight) template loading.
+* Updated deactivation modal script loader hook priority.
+* Removed error_log statements & clean up unnecessary debug output.
+
+= 1.0.0 - 21-08-2025 =
+* Initial Commit.

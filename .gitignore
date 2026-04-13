@@ -1,7 +1,5 @@
 .DS_Store
 node_modules/
-vendor/
-library/vendor/
 !library/deps
 !assets/scss/vendor
 assets/js/*.txt
@@ -10,3 +8,4 @@ assets/js/*.txt
 **/*.map
 prepros.config
 bin
+*.log

@@ -20,6 +20,10 @@ class Installer
     public function run()
     {
         $this->create_tables();
+
+		if ( ! get_option( 'gameengine_first_install_time' ) ) {
+			add_option( 'gameengine_first_install_time', time(), false );
+		}
     }
 
     /**
