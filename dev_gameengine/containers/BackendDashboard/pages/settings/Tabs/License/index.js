@@ -346,7 +346,7 @@ const License = () => {
 				)}
 			</>
 
-			<HireUs />
+			<HireUs sdk={SeSdk} />
 		</>
 	);
 };
