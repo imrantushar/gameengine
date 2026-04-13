@@ -2,7 +2,7 @@
 
 namespace GameEngine\Classes;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -36,7 +36,7 @@ class Triggers
      */
     public function __construct()
     {
-        $this->points_manager       = new PointsManager();
+        $this->points_manager = new PointsManager();
         $this->achievements_manager = new AchievementsManager();
     }
 
@@ -62,7 +62,8 @@ class Triggers
         $triggers = TriggerRegistry::get_all_triggers();
 
         foreach ($triggers as $key => $config) {
-            if (empty($config['hook'])) continue;
+            if (empty($config['hook']))
+                continue;
 
             $args_count = isset($config['args_count']) ? (int) $config['args_count'] : 1;
 
@@ -106,6 +107,9 @@ class Triggers
         if (empty($rules)) {
             return;
         }
+
+        $total_points_awarded = 0;
+        $first_rule_processed = false;
 
         foreach ($rules as $rule) {
             $params = json_decode($rule->parameters, true);
@@ -189,9 +193,9 @@ class Triggers
             }
 
             $args = [
-                'description'    => $params['log_label'] ?? ($params['label'] ?? $config['label']),
+                'description' => $params['log_label'] ?? ($params['label'] ?? $config['label']),
                 'requirement_id' => $rule->id,
-                'point_type_id'  => $rule->reward_id
+                'point_type_id' => $rule->reward_id
             ];
 
             if ($rule->action_type === 'deduct') {
@@ -229,7 +233,7 @@ class Triggers
     {
         // WordPress: Role Change Check
         if ($key === 'user_role_change') {
-            $new_role    = isset($args[1]) ? $args[1] : '';
+            $new_role = isset($args[1]) ? $args[1] : '';
             $target_role = isset($params['target_role']) ? $params['target_role'] : '';
             return (!empty($new_role) && $new_role === $target_role);
         }
@@ -237,7 +241,7 @@ class Triggers
         // Interaction: Specific Post Visit Check
         if ($key === 'visit_specific_post') {
             $current_post_id = isset($args[1]) ? (int) $args[1] : 0;
-            $target_post_id  = isset($params['post_id']) ? (int) $params['post_id'] : 0;
+            $target_post_id = isset($params['post_id']) ? (int) $params['post_id'] : 0;
             $target_categories = isset($params['categories']) ? (array) $params['categories'] : [];
 
             // 1. Check for specific post match
@@ -249,7 +253,7 @@ class Triggers
             if (!empty($target_categories)) {
                 $post_categories = wp_get_post_categories($current_post_id);
                 foreach ($target_categories as $cat_id) {
-                    if (in_array((int)$cat_id, $post_categories)) {
+                    if (in_array((int) $cat_id, $post_categories)) {
                         return true;
                     }
                 }
@@ -261,18 +265,21 @@ class Triggers
         // GameEngine: Specific Achievement Unlock Event
         if ($key === 'unlock_specific_achievement') {
             $unlocked_id = isset($args[1]) ? (int) $args[1] : 0;
-            $target_id   = isset($params['achievement_id']) ? (int) $params['achievement_id'] : 0;
+            $target_id = isset($params['achievement_id']) ? (int) $params['achievement_id'] : 0;
             return ($unlocked_id > 0 && $unlocked_id === $target_id);
         }
 
         // WooCommerce: Specific Product Purchased or Refunded
         if ($key === 'woocommerce_purchase_specific_product' || $key === 'woocommerce_refund_specific_product') {
-            if (!function_exists('wc_get_order')) return false;
+            if (!function_exists('wc_get_order'))
+                return false;
             $order = wc_get_order($args[0]);
             $target_id = isset($params['product_id']) ? (int) $params['product_id'] : 0;
-            if (!$order || $target_id <= 0) return false;
+            if (!$order || $target_id <= 0)
+                return false;
             foreach ($order->get_items() as $item) {
-                if ((int)$item->get_product_id() === $target_id || (int)$item->get_variation_id() === $target_id) return true;
+                if ((int) $item->get_product_id() === $target_id || (int) $item->get_variation_id() === $target_id)
+                    return true;
             }
             return false;
         }
@@ -281,28 +288,28 @@ class Triggers
         if ($key === 'woocommerce_review_specific_product') {
             $comment = get_comment($args[0]);
             $target_id = isset($params['product_id']) ? (int) $params['product_id'] : 0;
-            return ($comment && (int)$comment->comment_post_ID === $target_id);
+            return ($comment && (int) $comment->comment_post_ID === $target_id);
         }
 
         //  Academy LMS: Course ID Check (Completed or Enrolled)
         if ($key === 'academy_course_completed' || $key === 'academy_new_enrollment') {
             $current_course_id = isset($args[0]) ? absint($args[0]) : 0;
-            $target_course_id  = isset($params['course_id']) ? absint($params['course_id']) : 0;
+            $target_course_id = isset($params['course_id']) ? absint($params['course_id']) : 0;
             return (0 === $target_course_id || $current_course_id === $target_course_id);
         }
 
         //  Academy LMS: Lesson ID Check
         if ($key === 'academy_lesson_completed') {
             $current_lesson_id = isset($args[2]) ? absint($args[2]) : 0;
-            $target_lesson_id  = isset($params['topic_id']) ? absint($params['topic_id']) : 0;
+            $target_lesson_id = isset($params['topic_id']) ? absint($params['topic_id']) : 0;
             return (0 === $target_lesson_id || $current_lesson_id === $target_lesson_id);
         }
 
         //  Academy LMS: Quiz ID Check
         if ($key === 'academy_quiz_passed') {
-            $attempt_data    = $args[0];
+            $attempt_data = $args[0];
             $current_quiz_id = isset($attempt_data->quiz_id) ? absint($attempt_data->quiz_id) : 0;
-            $target_quiz_id  = isset($params['quiz_id']) ? absint($params['quiz_id']) : 0;
+            $target_quiz_id = isset($params['quiz_id']) ? absint($params['quiz_id']) : 0;
             return (0 === $target_quiz_id || $current_quiz_id === $target_quiz_id);
         }
 
@@ -313,10 +320,10 @@ class Triggers
         // SE Order::get_items() returns objects with a public $product_id property.
         // Leaving product_id blank (0) makes the trigger fire for any product.
         if ($key === 'storeengine_purchase_specific_product') {
-            $order     = isset($args[0]) ? $args[0] : null;
+            $order = isset($args[0]) ? $args[0] : null;
             $target_id = isset($params['product_id']) ? absint($params['product_id']) : 0;
 
-            if (! $order || ! method_exists($order, 'get_items')) {
+            if (!$order || !method_exists($order, 'get_items')) {
                 return false;
             }
 
@@ -338,7 +345,7 @@ class Triggers
         // Hook args: ($comment_id, $comment_post_ID, $rating) — $args[1] is the product post ID.
         // Leaving product_id blank (0) makes the trigger fire for reviews on any SE product.
         if ($key === 'storeengine_product_review') {
-            $target_id           = isset($params['product_id']) ? absint($params['product_id']) : 0;
+            $target_id = isset($params['product_id']) ? absint($params['product_id']) : 0;
             $reviewed_product_id = isset($args[1]) ? absint($args[1]) : 0;
 
             return (0 === $target_id || $reviewed_product_id === $target_id);
@@ -357,7 +364,8 @@ class Triggers
         global $wpdb;
         $limit_type = $params['limit'] ?? 'unlimited';
 
-        if ($limit_type === 'unlimited') return true;
+        if ($limit_type === 'unlimited')
+            return true;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $progress = $wpdb->get_row($wpdb->prepare(
@@ -366,16 +374,21 @@ class Triggers
             absint($requirement_id)
         ));
 
-        if (!$progress) return true;
-        if ($limit_type === '1_time') return false;
+        if (!$progress)
+            return true;
+        if ($limit_type === '1_time')
+            return false;
 
         $last_update_time = strtotime($progress->last_updated);
         $current_time = current_time('timestamp');
 
         // Check different time boundaries
-        if ($limit_type === '1_per_day') return gmdate('Y-m-d', $last_update_time) !== gmdate('Y-m-d', $current_time);
-        if ($limit_type === '1_per_week') return gmdate('W-Y', $last_update_time) !== gmdate('W-Y', $current_time);
-        if ($limit_type === '1_per_month') return gmdate('m-Y', $last_update_time) !== gmdate('m-Y', $current_time);
+        if ($limit_type === '1_per_day')
+            return gmdate('Y-m-d', $last_update_time) !== gmdate('Y-m-d', $current_time);
+        if ($limit_type === '1_per_week')
+            return gmdate('W-Y', $last_update_time) !== gmdate('W-Y', $current_time);
+        if ($limit_type === '1_per_month')
+            return gmdate('m-Y', $last_update_time) !== gmdate('m-Y', $current_time);
 
 
         return true;
@@ -408,10 +421,10 @@ class Triggers
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
             $wpdb->insert($wpdb->prefix . 'gameengine_requirement_progress', [
-                'user_id'        => $safe_uid,
+                'user_id' => $safe_uid,
                 'requirement_id' => $safe_rid,
                 'progress_count' => 1,
-                'last_updated'   => $now
+                'last_updated' => $now
             ], ['%d', '%d', '%d', '%s']);
         }
     }
