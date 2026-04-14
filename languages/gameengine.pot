@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-12T07:45:37+00:00\n"
+"POT-Creation-Date: 2026-04-14T12:17:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: gameengine\n"
 
 #. Plugin Name of the plugin
@@ -37,19 +37,6 @@ msgstr ""
 #. Author URI of the plugin
 #: gameengine.php
 msgid "https://kodezen.com"
-msgstr ""
-
-#. translators: %s: Reset URL with Nonce
-#: gameengine.php:214
-msgid "Are you sure you want to reset? This will delete all GameEngine settings. %s"
-msgstr ""
-
-#: gameengine.php:215
-msgid "Click here to confirm reset."
-msgstr ""
-
-#: gameengine.php:227
-msgid "GameEngine settings and banners have been reset! Please refresh your dashboard."
 msgstr ""
 
 #: includes/addons/progress-map/class-progress-map-logic.php:135
@@ -143,16 +130,16 @@ msgstr ""
 msgid "<strong>GameEngine:</strong> Pretty Permalinks are required for the REST API to function correctly. Please update your permalink settings."
 msgstr ""
 
-#: includes/admin/setup.php:62
-#: includes/admin/setup.php:63
+#: includes/admin/setup.php:64
+#: includes/admin/setup.php:65
 msgid "GameEngine Setup"
 msgstr ""
 
-#: includes/admin/setup.php:98
+#: includes/admin/setup.php:100
 msgid "GameEngine Setup Wizard"
 msgstr ""
 
-#: includes/admin/setup.php:109
+#: includes/admin/setup.php:111
 msgid "Loading Setup Wizard..."
 msgstr ""
 
@@ -162,7 +149,7 @@ msgstr ""
 
 #: includes/admin/user-profile.php:75
 #: templates/shortcode/leaderboard.php:29
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8523
 msgid "Level"
 msgstr ""
 
@@ -174,9 +161,10 @@ msgstr ""
 #: templates/shortcode/leaderboard.php:31
 #: templates/shortcode/points.php:10
 #: templates/shortcode/profile.php:14
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:6750
+#: assets/build/backend.1.0.0.js:8313
+#: assets/build/backend.1.0.0.js:8517
+#: assets/build/backend.1.0.0.js:14567
 msgid "Points"
 msgstr ""
 
@@ -195,8 +183,10 @@ msgstr ""
 #: includes/admin/user-profile.php:117
 #: includes/helper.php:129
 #: templates/shortcode/profile.php:23
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7416
+#: assets/build/backend.1.0.0.js:7484
+#: assets/build/backend.1.0.0.js:8316
+#: assets/build/backend.1.0.0.js:8520
 msgid "Achievements"
 msgstr ""
 
@@ -216,11 +206,10 @@ msgstr ""
 msgid "Action scheduled successfully."
 msgstr ""
 
-#. translators: %1$s: AddonName, %2$s: AddonStatus
 #: includes/api/controllers/addons-controller.php:92
 #: includes/integrations/academy-lms.php:29
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:7739
+#: assets/build/backend.1.0.0.js:11876
 msgid "Academy LMS"
 msgstr ""
 
@@ -230,8 +219,8 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:101
 #: includes/integrations/woo-commerce.php:17
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:7764
+#: assets/build/backend.1.0.0.js:11872
 msgid "WooCommerce"
 msgstr ""
 
@@ -241,7 +230,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:110
 #: includes/integrations/store-engine.php:21
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:7752
 msgid "StoreEngine"
 msgstr ""
 
@@ -250,8 +239,8 @@ msgid "Advanced WooCommerce features and rewards integration."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:119
-#: assets/build/backend.1.0.0.js:8
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:7777
+#: assets/build/setup.1.0.0.js:565
 msgid "Restrict Unlock"
 msgstr ""
 
@@ -261,8 +250,9 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:128
 #: templates/shortcode/profile.php:20
-#: assets/build/backend.1.0.0.js:8
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:7799
+#: assets/build/backend.1.0.0.js:14264
+#: assets/build/setup.1.0.0.js:553
 msgid "Progress Map"
 msgstr ""
 
@@ -271,8 +261,8 @@ msgid "Display a visual roadmap of user progress on frontend."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:137
-#: assets/build/backend.1.0.0.js:8
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:7788
+#: assets/build/setup.1.0.0.js:559
 msgid "Restrict Content"
 msgstr ""
 
@@ -301,7 +291,7 @@ msgid "WooCommerce is required."
 msgstr ""
 
 #: includes/api/controllers/levels-controller.php:164
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:9898
 msgid "Level Name is required."
 msgstr ""
 
@@ -338,7 +328,7 @@ msgid "Name is required."
 msgstr ""
 
 #: includes/api/controllers/tools-controller.php:44
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14271
 msgid "Content Restriction"
 msgstr ""
 
@@ -407,7 +397,7 @@ msgid "Use this if you want to show the map without the full dashboard."
 msgstr ""
 
 #: includes/api/controllers/tools-controller.php:86
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14243
 msgid "Points Balance"
 msgstr ""
 
@@ -420,7 +410,7 @@ msgid "Ideal for menus, headers, or sidebar widgets."
 msgstr ""
 
 #: includes/api/controllers/tools-controller.php:94
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14236
 msgid "Highest Level"
 msgstr ""
 
@@ -449,7 +439,7 @@ msgid "You reached a milestone! {points_balance} Points!"
 msgstr ""
 
 #: includes/classes/taxonomy-manager.php:35
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:6974
 msgid "Achievement Types"
 msgstr ""
 
@@ -458,13 +448,14 @@ msgid "Level Types"
 msgstr ""
 
 #: includes/helper.php:115
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:8413
 msgid "Dashboard"
 msgstr ""
 
 #: includes/helper.php:122
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:10963
+#: assets/build/backend.1.0.0.js:10988
+#: assets/build/backend.1.0.0.js:11529
 msgid "Points System"
 msgstr ""
 
@@ -474,15 +465,17 @@ msgstr ""
 
 #: includes/helper.php:133
 #: includes/helper.php:144
-#: assets/build/backend.1.0.0.js:8
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:5982
+#: assets/build/backend.1.0.0.js:6285
+#: assets/build/backend.1.0.0.js:6295
 msgid "Types"
 msgstr ""
 
 #: includes/helper.php:140
 #: templates/shortcode/profile.php:26
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8320
+#: assets/build/backend.1.0.0.js:9034
+#: assets/build/backend.1.0.0.js:9099
 msgid "Levels"
 msgstr ""
 
@@ -491,17 +484,20 @@ msgid "All Levels"
 msgstr ""
 
 #: includes/helper.php:151
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:10385
+#: assets/build/backend.1.0.0.js:10480
+#: assets/build/backend.1.0.0.js:10490
 msgid "Logs"
 msgstr ""
 
 #: includes/helper.php:158
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8555
+#: assets/build/backend.1.0.0.js:8581
 msgid "Leaderboards"
 msgstr ""
 
 #: includes/helper.php:166
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:7810
 msgid "Wallet"
 msgstr ""
 
@@ -510,12 +506,14 @@ msgid "Addons"
 msgstr ""
 
 #: includes/helper.php:180
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14372
+#: assets/build/backend.1.0.0.js:14382
 msgid "Tools"
 msgstr ""
 
 #: includes/helper.php:188
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:14010
+#: assets/build/backend.1.0.0.js:14028
 msgid "Settings"
 msgstr ""
 
@@ -591,12 +589,12 @@ msgid "Awarded when a student joins a new course."
 msgstr ""
 
 #: includes/integrations/base-integration.php:64
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:4322
 msgid "Points to Award"
 msgstr ""
 
 #: includes/integrations/base-integration.php:64
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:4322
 msgid "Points to Deduct"
 msgstr ""
 
@@ -617,7 +615,7 @@ msgid "Repeatable Limit"
 msgstr ""
 
 #: includes/integrations/base-integration.php:84
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:13193
 msgid "Unlimited"
 msgstr ""
 
@@ -1069,16 +1067,16 @@ msgid "Top Performers"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:27
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:8307
+#: assets/build/backend.1.0.0.js:8506
 msgid "Rank"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:28
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:8310
+#: assets/build/backend.1.0.0.js:8514
+#: assets/build/backend.1.0.0.js:10278
+#: assets/build/backend.1.0.0.js:14561
 msgid "User"
 msgstr ""
 
@@ -1111,1474 +1109,1557 @@ msgstr ""
 msgid "Your Progression"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Log created successfully!"
+#: assets/build/backend.1.0.0.js:343
+#: assets/build/backend.1.0.0.js:3183
+#: assets/build/backend.1.0.0.js:4970
+#: assets/build/backend.1.0.0.js:6052
+#: assets/build/backend.1.0.0.js:10197
+msgid "Cancel"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Log updated successfully!"
+#: assets/build/backend.1.0.0.js:346
+msgid "Confirm"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Achievement type created successfully."
+#: assets/build/backend.1.0.0.js:352
+msgid "Items selected"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Achievement type updated successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Achievement type deleted successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Achivement updated successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Achivement deleted successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level type created successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level type updated successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level type deleted successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level create successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level update successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Level deleted successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-msgid "Payout update successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/setup.1.0.0.js:1
-msgid "GameEngine"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:1
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:497
+#: assets/build/backend.1.0.0.js:512
+#: assets/build/backend.1.0.0.js:2350
+#: assets/build/backend.1.0.0.js:11670
+#: assets/build/setup.1.0.0.js:319
 msgid "PRO"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Top 5 Users"
+#: assets/build/backend.1.0.0.js:2193
+msgid "Import Default Data"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "No data available yet."
+#: assets/build/backend.1.0.0.js:2198
+msgid "No, Thanks!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Point Distribution Chart"
+#: assets/build/backend.1.0.0.js:2397
+msgid "Activate your license to unlock updates, new features, and full GameEngine Pro access."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
-msgid "Overview"
+#: assets/build/backend.1.0.0.js:2399
+#: assets/build/backend.1.0.0.js:13131
+msgid "Manage License"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2518
 msgid "Columns"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2606
 msgid "10"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2609
 msgid "15"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2612
 msgid "20"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2615
 msgid "25"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:2618
 msgid "30"
 msgstr ""
 
 #. translators: %1$s: Item showing, %2$s: totalItems
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:2657
 msgid "Showing result %1$s out of %2$s"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:2663
 msgid "Rows per page"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:2838
 msgid "Please, create data to see the available list here."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:3045
 msgid "No Data Available!!!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Published"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "Pending"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Draft"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Trash"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "Approved"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Approve"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Processing"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
-msgid "Cancel"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Private"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Scheduled"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "Rejected"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Import Default Data"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "No, Thanks!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Confirm"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Items selected"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
-msgid "Name"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Category"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Unlock Criteria"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Date"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:11
-msgid "Status"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
-#: assets/build/backend.1.0.0.js:11
-msgid "Action"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
-msgid "Delete"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
-msgid "Edit"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Restore"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Delete Permanently"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Move to Trash"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Move selected items to trash?"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Restore selected items?"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Delete permanently? This cannot be undone."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "No levels found."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Want to quickly get started by importing a default levels currency and login rewards?"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add new level"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "No data found for levels"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Award Log Description"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Deduction Log Description"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Upgrade to Pro"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Select..."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-msgid "Enabled"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Disabled"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Locked Feature"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Deduct: "
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "All"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Available Hooks"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Active Hooks"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "The following hooks are used for all users"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable Require Unlock"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "(Restrict Unlock Addon Required)"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Level Name"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enter level name"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Level Type"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Select your created types for Level."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Benefits Description"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Congratulations Message"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Level Requirements"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Required Achievements"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Required Levels"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Restriction Message"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Restriction message"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Levels Logo"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Change Level Logo"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Set Level Logo"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Allow unlock with points"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Minimum Balance"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enter minimum balance"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Maximum Balance"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enter maximum balance"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Choose the Points Type"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:3184
+#: assets/build/backend.1.0.0.js:5982
+#: assets/build/backend.1.0.0.js:6057
+#: assets/build/backend.1.0.0.js:6990
+#: assets/build/backend.1.0.0.js:9957
 msgid "Update"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:8
-msgid "Create"
+#: assets/build/backend.1.0.0.js:3272
+msgid "Full screen"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Achievement Name"
+#: assets/build/backend.1.0.0.js:3278
+msgid "Small screen"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Enter point name"
+#: assets/build/backend.1.0.0.js:3398
+msgid "Medium screen"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Maximum earnings per user"
+#: assets/build/backend.1.0.0.js:3626
+msgid "Dismiss this notice"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Number of times a user can earn this badge (0 = unlimited)."
+#: assets/build/backend.1.0.0.js:3799
+msgid "Close notification"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Maximum Earnings Per User:"
+#: assets/build/backend.1.0.0.js:4324
+msgid "Award Log Description"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Achivement Type"
+#: assets/build/backend.1.0.0.js:4324
+msgid "Deduction Log Description"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Select your created types for achivement."
+#: assets/build/backend.1.0.0.js:4347
+msgid "Upgrade to Pro"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Enter point"
+#: assets/build/backend.1.0.0.js:4347
+msgid "Select..."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Achievement Requirements"
+#: assets/build/backend.1.0.0.js:4385
+#: assets/build/backend.1.0.0.js:13197
+msgid "Enabled"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:4385
+msgid "Disabled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4396
+msgid "Locked Feature"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4419
+msgid "Deduct: "
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4668
+#: assets/build/backend.1.0.0.js:14662
+msgid "All"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4716
+msgid "Available Hooks"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4720
+msgid "To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4804
+msgid "Active Hooks"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4808
+msgid "The following hooks are used for all users"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4963
+msgid "Published"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4964
+#: assets/build/backend.1.0.0.js:14611
+#: assets/build/backend.1.0.0.js:14665
+msgid "Pending"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4965
+msgid "Draft"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4966
+#: assets/build/backend.1.0.0.js:7190
+#: assets/build/backend.1.0.0.js:11240
+msgid "Trash"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4967
+#: assets/build/backend.1.0.0.js:14614
+msgid "Approved"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4968
+msgid "Approve"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4969
+msgid "Processing"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4971
+msgid "Private"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4972
+msgid "Scheduled"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:4973
+#: assets/build/backend.1.0.0.js:14617
+#: assets/build/backend.1.0.0.js:14647
+#: assets/build/backend.1.0.0.js:14671
+msgid "Rejected"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5257
+#: assets/build/backend.1.0.0.js:5654
+#: assets/build/backend.1.0.0.js:5670
+#: assets/build/backend.1.0.0.js:5675
+#: assets/build/setup.1.0.0.js:364
+msgid "GameEngine"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5935
+#: assets/build/backend.1.0.0.js:6933
 msgid "Name is required!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:5982
+msgid "Add New"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:5998
+#: assets/build/backend.1.0.0.js:6149
+#: assets/build/backend.1.0.0.js:7117
+#: assets/build/backend.1.0.0.js:8715
+#: assets/build/backend.1.0.0.js:11110
+#: assets/build/backend.1.0.0.js:12232
+msgid "Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6000
+msgid "Enter name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6009
+#: assets/build/backend.1.0.0.js:6168
+msgid "Slug"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6011
+msgid "Enter slug"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6019
+#: assets/build/backend.1.0.0.js:6185
+msgid "Parent"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6035
+msgid "Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6037
+msgid "Enter description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6057
+#: assets/build/backend.1.0.0.js:6990
+#: assets/build/backend.1.0.0.js:9957
+msgid "Create"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6196
+#: assets/build/backend.1.0.0.js:7185
+#: assets/build/backend.1.0.0.js:8785
+#: assets/build/backend.1.0.0.js:10359
+#: assets/build/backend.1.0.0.js:11235
+#: assets/build/backend.1.0.0.js:14635
+msgid "Action"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6201
+#: assets/build/backend.1.0.0.js:7213
+#: assets/build/backend.1.0.0.js:8813
+#: assets/build/backend.1.0.0.js:8824
+#: assets/build/backend.1.0.0.js:11261
+msgid "Edit"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6209
+#: assets/build/backend.1.0.0.js:7204
+#: assets/build/backend.1.0.0.js:8790
+#: assets/build/backend.1.0.0.js:8804
+#: assets/build/backend.1.0.0.js:8832
+#: assets/build/backend.1.0.0.js:11252
+msgid "Delete"
+msgstr ""
+
+#. translators: %s. Table data type name.
+#: assets/build/backend.1.0.0.js:6233
+msgid "No data found for %s types"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6595
+#: assets/build/backend.1.0.0.js:9527
+msgid "Enable Require Unlock"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6595
+#: assets/build/backend.1.0.0.js:9527
+msgid "(Restrict Unlock Addon Required)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6602
+msgid "Achievement Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6604
+#: assets/build/backend.1.0.0.js:10748
+msgid "Enter point name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6616
+msgid "Maximum earnings per user"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6617
+msgid "Number of times a user can earn this badge (0 = unlimited)."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6620
+msgid "Maximum Earnings Per User:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6628
+msgid "Achivement Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6630
+msgid "Select your created types for achivement."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6646
+#: assets/build/backend.1.0.0.js:9573
+msgid "Congratulations Message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6693
+#: assets/build/backend.1.0.0.js:9617
+msgid "Required Achievements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6710
+#: assets/build/backend.1.0.0.js:9634
+msgid "Required Levels"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6727
+#: assets/build/backend.1.0.0.js:9651
+msgid "Restriction Message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6729
+#: assets/build/backend.1.0.0.js:9653
+msgid "Restriction message"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6746
+#: assets/build/backend.1.0.0.js:9701
+msgid "Allow unlock with points"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6753
+msgid "Enter point"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6761
+#: assets/build/backend.1.0.0.js:9722
+msgid "Choose the Points Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6776
+msgid "Achievement Requirements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:6993
 msgid "Achievement"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:7112
+#: assets/build/backend.1.0.0.js:11100
 msgid "Are you sure?"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7142
+#: assets/build/backend.1.0.0.js:8739
+msgid "Category"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7158
+#: assets/build/backend.1.0.0.js:8758
+#: assets/build/backend.1.0.0.js:10347
+#: assets/build/backend.1.0.0.js:11207
+msgid "Date"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7163
+#: assets/build/backend.1.0.0.js:8763
+#: assets/build/backend.1.0.0.js:10351
+#: assets/build/backend.1.0.0.js:11213
+#: assets/build/backend.1.0.0.js:14607
+msgid "Status"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7301
+#: assets/build/backend.1.0.0.js:8921
+#: assets/build/backend.1.0.0.js:11334
+msgid "Restore"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7304
+#: assets/build/backend.1.0.0.js:8924
+#: assets/build/backend.1.0.0.js:11337
+msgid "Delete Permanently"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7307
+#: assets/build/backend.1.0.0.js:8927
+#: assets/build/backend.1.0.0.js:11340
+msgid "Move to Trash"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7313
+#: assets/build/backend.1.0.0.js:8933
+#: assets/build/backend.1.0.0.js:11346
+msgid "Move selected items to trash?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7327
+#: assets/build/backend.1.0.0.js:8947
+#: assets/build/backend.1.0.0.js:11360
+msgid "Restore selected items?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7329
+#: assets/build/backend.1.0.0.js:8949
+#: assets/build/backend.1.0.0.js:11362
+msgid "Delete permanently? This cannot be undone."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7405
 msgid "No achievements found."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7406
 msgid "Want to quickly get started by importing a default achievements currency and login rewards?"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7423
 msgid "Add new achievement"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7431
 msgid "No data found for Achievements"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Point Name"
+#: assets/build/backend.1.0.0.js:7638
+msgid "Coming Soon"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Automatic Point Awards"
+#: assets/build/backend.1.0.0.js:7649
+msgid "Available in pro"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Automatic Point Deductions"
+#: assets/build/backend.1.0.0.js:7743
+msgid "Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Update Point System"
+#: assets/build/backend.1.0.0.js:7756
+msgid "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Create Point System"
+#: assets/build/backend.1.0.0.js:7768
+msgid "Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Frontend Dashboard"
+#: assets/build/backend.1.0.0.js:7781
+msgid "Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Frontend Dashboard settings"
+#: assets/build/backend.1.0.0.js:7792
+msgid "Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Log"
+#: assets/build/backend.1.0.0.js:7803
+msgid "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Log settings"
+#: assets/build/backend.1.0.0.js:7814
+msgid "Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Ecommrce"
+#: assets/build/backend.1.0.0.js:7886
+msgid "All Status"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
-msgid "Ecommrce settings"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Coupon Generate"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Payout"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Payout settings"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "License"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Manage your license key"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Email Templates"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Customize Email Templates & Cron"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Immediate"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "After 24 Hours"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "After 7 Days"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Never"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "30 Days"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "90 Days"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Log Display"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Choose how activity logs are processed. Select \"Immediate\" to record and display log entries as soon as they occur."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Auto Cleanup"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Automatically remove old activity logs from the database after a specific period to keep your database optimized and improve performance."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Economy"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable successful rewards"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable this to record a log entry every time a user successfully earns points, achievements, or levels."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable System Errors"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Conversion Rate"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "0"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable Gateway"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Allow customers to pay for their entire order using their points balance as a payment method during checkout."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable Partial Payment"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Allow customers to apply a portion of their points for a discount on the cart or checkout page."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Percent"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Fixed Cart"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Label"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add label"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Offer Type"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Point Cost"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "Amount"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Expiry Days"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable Coupon Generate"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Activate the rewards store where users can exchange points for unique WooCommerce discount coupons via shortcode."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Offers"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Create various coupon offers with specific point costs, discount amounts, and expiry dates."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add Offer"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable Payout"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Enable users to request real money withdrawals in exchange for their earned points."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Payout methods"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Select which payment methods are available for users to receive their money (e.g. PayPal, bKash, Bank)."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Max Points"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "The maximum number of points a user can request for a withdrawal."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Min Points"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "The minimum number of points a user must have to request a withdrawal."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Dashboard Integration"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Select where you want to display game stats and navigation."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Select Platform"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add User Stats Menu"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Display a quick view of current Points and Rank to users."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add Navigation Links"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Allow users to redeem their points for WooCommerce discount coupons."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Add Coupon Exchange Menu"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Let users trade their points for WooCommerce discount coupons."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Need Expert Help? Hire Our Professionals"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Get access to a skilled team of designers, developers, marketers, and content experts—ready to bring your ideas to life."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Hire Us"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Learn More"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Failed to fetch license status."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "License activated successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Failed to activate license."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Please enter a license key."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "GameEngine Pro — License Active"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "You have access to automatic updates, priority support, and all pro tools."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Deactivating…"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "License deactivated successfully."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Failed to deactivate license."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Deactivate License"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:11
-msgid "Manage License"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Failed to update opt-in setting."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Allow usage tracking to help improve GameEngine Pro."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-msgid "Status:"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:4
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:7889
+#: assets/build/backend.1.0.0.js:13160
 msgid "Active"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:7892
+msgid "Inactive"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7941
+#: assets/build/backend.1.0.0.js:7953
+msgid "Add-ons"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7969
+msgid "Clear All"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:7980
+msgid "Search..."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8119
+msgid "Point Distribution Chart"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8206
+msgid "Overview"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8297
+msgid "Top 5 Users"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8298
+msgid "No data available yet."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:8755
+msgid "Unlock Criteria"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9023
+msgid "No levels found."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9024
+msgid "Want to quickly get started by importing a default levels currency and login rewards?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9041
+msgid "Add new level"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9044
+msgid "No data found for levels"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9537
+msgid "Level Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9540
+msgid "Enter level name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9547
+#: assets/build/backend.1.0.0.js:9942
+#: assets/build/backend.1.0.0.js:9960
+msgid "Level Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9549
+msgid "Select your created types for Level."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9565
+msgid "Benefits Description"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9583
+#: assets/build/backend.1.0.0.js:9736
+msgid "Level Requirements"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9662
+msgid "Levels Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9681
+msgid "Change Level Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9691
+msgid "Set Level Logo"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9704
+msgid "Minimum Balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9707
+msgid "Enter minimum balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9713
+msgid "Maximum Balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:9716
+msgid "Enter maximum balance"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10023
+msgid "Award Points (+)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10026
+msgid "Deduct Points (-)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10035
+msgid "User Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10051
+msgid "Action Type"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10061
+msgid "Points Amount"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10063
+#: assets/build/backend.1.0.0.js:10071
+msgid "Exp: 50"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10069
+msgid "Schedule(Optional)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10077
+msgid "Description(Optional)"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10079
+msgid "Reason for adjustment..."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10167
+msgid "User ID is required!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10193
+msgid "Edit Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10193
+#: assets/build/backend.1.0.0.js:10497
+msgid "Manual Trigger"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10198
+msgid "Create Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10198
+msgid "Update Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10294
+msgid "Event"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10301
+msgid "Message / Details"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10398
+msgid "Search Items"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10415
+msgid "No logs found"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10746
+msgid "Point Name"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10759
+msgid "Automatic Point Awards"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10783
+msgid "Automatic Point Deductions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10985
+msgid "Update Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:10985
+msgid "Create Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11120
+msgid "Award Actions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11160
+#: assets/build/backend.1.0.0.js:11203
+msgid "Actions."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11164
+msgid "Deduct Actions"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11438
+msgid "No data found"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11533
+msgid "No point system found."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11534
+msgid "Want to quickly get started by importing a default XP currency and login rewards?"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11544
+msgid "Point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11551
+msgid "Add new point System"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11739
+#: assets/build/backend.1.0.0.js:11881
+msgid "Frontend Dashboard"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11741
+msgid "Frontend Dashboard settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11744
+#: assets/build/backend.1.0.0.js:12590
+msgid "Log"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11746
+msgid "Log settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11749
+msgid "Ecommrce"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11751
+msgid "Ecommrce settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11754
+#: assets/build/backend.1.0.0.js:11756
+#: assets/build/backend.1.0.0.js:13579
+msgid "Coupon Generate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11759
+#: assets/build/backend.1.0.0.js:13780
+msgid "Payout"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11761
+msgid "Payout settings"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11764
+msgid "License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11766
+msgid "Manage your license key"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11769
+msgid "Email Templates"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11771
+msgid "Customize Email Templates & Cron"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11887
+msgid "Dashboard Integration"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11893
+msgid "Select where you want to display game stats and navigation."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11897
+msgid "Select Platform"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11914
+msgid "Add User Stats Menu"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11920
+msgid "Display a quick view of current Points and Rank to users."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11933
+msgid "Add Navigation Links"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11939
+msgid "Allow users to redeem their points for WooCommerce discount coupons."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11952
+msgid "Add Coupon Exchange Menu"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:11958
+msgid "Let users trade their points for WooCommerce discount coupons."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12028
+#: assets/build/backend.1.0.0.js:12641
+msgid "Economy"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12034
+msgid "Conversion Rate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12040
+msgid "Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12048
+#: assets/build/backend.1.0.0.js:13677
+#: assets/build/backend.1.0.0.js:13691
+#: assets/build/backend.1.0.0.js:13705
+#: assets/build/backend.1.0.0.js:13839
+#: assets/build/backend.1.0.0.js:13867
+msgid "0"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12057
+msgid "Enable Gateway"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12063
+msgid "Allow customers to pay for their entire order using their points balance as a payment method during checkout."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12076
+msgid "Enable Partial Payment"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12082
+msgid "Allow customers to apply a portion of their points for a discount on the cart or checkout page."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12152
+msgid "Level Up Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12153
+msgid "Sent when a user reaches a new level."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12164
+msgid "Achievement Unlocked Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12165
+msgid "Sent when a user unlocks a new achievement."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12176
+msgid "Inactivity Nudge Email"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12177
+msgid "Sent when a user has been inactive."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12188
+msgid "Points Milestone Alert"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12189
+msgid "Sent every multiple of 500 points."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12228
+msgid "General"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12237
+msgid "The common name for all outgoing emails."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12244
+msgid "E-Mail Address"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12249
+msgid "All emails will be sent from this email address."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12267
+msgid "Email Template"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12320
+msgid "Edit Template"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12344
+#: assets/build/backend.1.0.0.js:14016
+msgid "Save Changes"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12356
+msgid "Notify User"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12366
+msgid "Notify Admin"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12389
+msgid "Subject:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12399
+msgid "Click to copy"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12408
+msgid "Inactivity Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12422
+msgid "Additional Content"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12439
+msgid "Template Preview"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12492
+msgid "User:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12504
+msgid "Admin:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12551
+msgid "Immediate"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12554
+msgid "After 24 Hours"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12557
+msgid "After 7 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12561
+msgid "Never"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12564
+msgid "30 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12567
+msgid "90 Days"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12594
+msgid "Log Display"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12600
+msgid "Choose how activity logs are processed. Select \"Immediate\" to record and display log entries as soon as they occur."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12612
+msgid "Auto Cleanup"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12618
+msgid "Automatically remove old activity logs from the database after a specific period to keep your database optimized and improve performance."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12645
+msgid "Enable successful rewards"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12651
+msgid "Enable this to record a log entry every time a user successfully earns points, achievements, or levels."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12667
+msgid "Enable System Errors"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12673
+msgid "Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12748
+msgid "Need Expert Help? Hire Our Professionals"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12755
+msgid "Get access to a skilled team of designers, developers, marketers, and content experts—ready to bring your ideas to life."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12777
+msgid "Hire Us"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12795
+msgid "Learn More"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12807
+#: assets/build/backend.1.0.0.js:12808
+msgid "Kodezen Employee"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12937
+msgid "Failed to fetch license status."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12950
+msgid "Please enter a license key."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12973
+msgid "License activated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:12978
+msgid "Failed to activate license."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13003
+msgid "License deactivated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13008
+msgid "Failed to deactivate license."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13028
+msgid "Failed to update opt-in setting."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13057
+msgid "GameEngine Pro — License Active"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13062
+msgid "You have access to automatic updates, priority support, and all pro tools."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13107
+msgid "Deactivating…"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13114
+msgid "Deactivate License"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13148
+msgid "Allow usage tracking to help improve GameEngine Pro."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13159
+msgid "Status:"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:13163
 msgid "Last Checked:"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:13178
 msgid "Refresh status"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:13189
 msgid "Expires:"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:13190
 msgid "N/A"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:4
+#: assets/build/backend.1.0.0.js:13192
 msgid "Activation Remaining:"
 msgstr ""
 
 #. translators: 1: remaining activations, 2: total limit
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13194
 msgid "%1$d out of %2$s"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13196
 msgid "Automatic Update:"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13216
 msgid "Activate GameEngine Pro for updates & support."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13224
 msgid "Activate GameEngine Pro to unlock automatic updates, priority support, and all tools to manage your contacts and automate your marketing."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13257
 msgid "Enter your license key"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13284
 msgid "Activating…"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13289
 msgid "Activate License"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13293
 msgid "Don't have a license key? <PurchaseLink/>"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
+#: assets/build/backend.1.0.0.js:13301
 msgid "Purchase one here"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Level Up Email"
+#: assets/build/backend.1.0.0.js:13379
+msgid "Percent"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Sent when a user reaches a new level."
+#: assets/build/backend.1.0.0.js:13382
+msgid "Fixed Cart"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Achievement Unlocked Email"
+#: assets/build/backend.1.0.0.js:13417
+#: assets/build/backend.1.0.0.js:13643
+msgid "Label"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Sent when a user unlocks a new achievement."
+#: assets/build/backend.1.0.0.js:13423
+#: assets/build/backend.1.0.0.js:13650
+msgid "Add label"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Inactivity Nudge Email"
+#: assets/build/backend.1.0.0.js:13434
+#: assets/build/backend.1.0.0.js:13657
+msgid "Offer Type"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Sent when a user has been inactive."
+#: assets/build/backend.1.0.0.js:13451
+#: assets/build/backend.1.0.0.js:13671
+msgid "Point Cost"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Points Milestone Alert"
+#: assets/build/backend.1.0.0.js:13467
+#: assets/build/backend.1.0.0.js:13686
+#: assets/build/backend.1.0.0.js:14571
+msgid "Amount"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Sent every multiple of 500 points."
+#: assets/build/backend.1.0.0.js:13483
+#: assets/build/backend.1.0.0.js:13700
+msgid "Expiry Days"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "General"
+#: assets/build/backend.1.0.0.js:13584
+msgid "Enable Coupon Generate"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "The common name for all outgoing emails."
+#: assets/build/backend.1.0.0.js:13590
+msgid "Activate the rewards store where users can exchange points for unique WooCommerce discount coupons via shortcode."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "E-Mail Address"
+#: assets/build/backend.1.0.0.js:13620
+msgid "Offers"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "All emails will be sent from this email address."
+#: assets/build/backend.1.0.0.js:13625
+msgid "Create various coupon offers with specific point costs, discount amounts, and expiry dates."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Email Template"
+#: assets/build/backend.1.0.0.js:13720
+msgid "Add Offer"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Edit Template"
+#: assets/build/backend.1.0.0.js:13782
+msgid "Enable Payout"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Save Changes"
+#: assets/build/backend.1.0.0.js:13789
+msgid "Enable users to request real money withdrawals in exchange for their earned points."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Notify User"
+#: assets/build/backend.1.0.0.js:13803
+msgid "Payout methods"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Notify Admin"
+#: assets/build/backend.1.0.0.js:13810
+msgid "Select which payment methods are available for users to receive their money (e.g. PayPal, bKash, Bank)."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Subject:"
+#: assets/build/backend.1.0.0.js:13827
+msgid "Max Points"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Click to copy"
+#: assets/build/backend.1.0.0.js:13834
+msgid "The maximum number of points a user can request for a withdrawal."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Inactivity Days"
+#: assets/build/backend.1.0.0.js:13852
+msgid "Min Points"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Additional Content"
+#: assets/build/backend.1.0.0.js:13859
+msgid "The minimum number of points a user must have to request a withdrawal."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:5
-msgid "Template Preview"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "User:"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Admin:"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Event"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Message / Details"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Search Items"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "No logs found"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Full screen"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Small screen"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Medium screen"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Award Points (+)"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Deduct Points (-)"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "User Name"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Action Type"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Points Amount"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Exp: 50"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Schedule(Optional)"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Description(Optional)"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Reason for adjustment..."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Edit Log"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Manual Trigger"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Update Log"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Create Log"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "User ID is required!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Award Actions"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Actions."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Deduct Actions"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "No data found"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "No point system found."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Want to quickly get started by importing a default XP currency and login rewards?"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Point System"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Add new point System"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Coming Soon"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:5
-msgid "Available in pro"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "All Status"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Inactive"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Add-ons"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Clear All"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Search..."
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Close notification"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14238
 msgid "Displays the current users highest achieved level rank with a trophy icon."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14239
 msgid "Perfect for user headers, bio sections, or profile sidebar widgets."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14245
 msgid "Shows the current users total points balance with a coin icon."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14246
 msgid "Ideal for menus, headers, or any place where you want to show the users wallet balance."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14250
 msgid "Achievements List"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14252
 msgid "Displays a clean grid of all achievements earned by the user."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14253
 msgid "Shows badge images, titles, and unlock hints for any locked achievements."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14257
 msgid "Profile Dashboard"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14259
 msgid "Displays the full modern gamification dashboard with Tabs and Progress Map."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14260
 msgid "A complete hub where users can see their points, badges, and roadmap in one place."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14266
 msgid "Shows a visual zig-zag roadmap of levels and achievements progression."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14267
 msgid "Provides an interactive journey timeline without the full dashboard layout."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14273
 msgid "Lock specific text, images, or links based on points, badges, or levels."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14274
 msgid "Usage: type (points/achievement/level), value (amount or ID), and optional custom message."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14278
 msgid "Coupon Marketplace"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14280
 msgid "Allows users to exchange their points for real WooCommerce discount coupons."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14281
 msgid "Renders the dynamic reward store with offers set in your admin settings."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14285
 msgid "Payout Form"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14287
 msgid "Displays a secure withdrawal request form for converting points into currency."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14288
 msgid "Users can select payout methods like bKash or PayPal and provide their account details."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14352
 msgid "Shortcodes"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14357
 msgid "Setup Wizard"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
+#: assets/build/backend.1.0.0.js:14454
 msgid "Shortcode"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:8
-msgid "Add New"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Enter name"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Slug"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Enter slug"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Parent"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Description"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:8
-msgid "Enter description"
-msgstr ""
-
-#. translators: %s. Table data type name.
-#: assets/build/backend.1.0.0.js:11
-msgid "No data found for %s types"
-msgstr ""
-
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14575
 msgid "Method"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14579
 msgid "Account Details"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14603
 msgid "Show less"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14603
 msgid "Show more"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14620
+#: assets/build/backend.1.0.0.js:14640
+#: assets/build/backend.1.0.0.js:14668
 msgid "Completed"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14716
 msgid "Search question"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14722
+#: assets/build/backend.1.0.0.js:14732
 msgid "Withdraw Lists"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
+#: assets/build/backend.1.0.0.js:14742
 msgid "No data found for Wallet"
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
-msgid "Dismiss this notice"
+#: assets/build/backend.1.0.0.js:14879
+msgid "Achivement updated successfully."
 msgstr ""
 
-#: assets/build/backend.1.0.0.js:11
-msgid "Activate your license to unlock updates, new features, and full GameEngine Pro access."
+#: assets/build/backend.1.0.0.js:14896
+msgid "Achivement deleted successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "I'll Configure Manually"
+#: assets/build/backend.1.0.0.js:15121
+msgid "Achievement type created successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "Create your own gamification setup from scratch with full control"
+#: assets/build/backend.1.0.0.js:15142
+msgid "Achievement type updated successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "Jumpstart with Demo Data"
+#: assets/build/backend.1.0.0.js:15164
+msgid "Achievement type deleted successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "This demo gamification is for preview only no real rewards applied"
+#: assets/build/backend.1.0.0.js:15572
+msgid "Level create successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "Process to Next"
+#: assets/build/backend.1.0.0.js:15590
+msgid "Level update successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "Skip This Step"
+#: assets/build/backend.1.0.0.js:15609
+msgid "Level deleted successfully."
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/backend.1.0.0.js:15839
+msgid "Level type created successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:15860
+msgid "Level type updated successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:15882
+msgid "Level type deleted successfully."
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:15953
+msgid "Log created successfully!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:15969
+msgid "Log updated successfully!"
+msgstr ""
+
+#: assets/build/backend.1.0.0.js:16196
+msgid "Payout update successfully."
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:481
 msgid "Congratulations"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:489
 msgid "Your GameEngine is ready to launch"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:505
 msgid "Go To Dashboard"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:510
 msgid "Visit Website"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
-msgid "Back"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Continue"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Author"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For authors active"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Blogger"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For blog activity"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "eCommerce"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For shop customers"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Performance"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For task results"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Community"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For community help"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Growth"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "For growth actions"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
-msgid "Levels & Achievements Preview"
-msgstr ""
-
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:555
 msgid "Keep users loyal to your brand"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:561
+#: assets/build/setup.1.0.0.js:567
+#: assets/build/setup.1.0.0.js:574
+#: assets/build/setup.1.0.0.js:580
 msgid "Boost interactions with content"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:572
 msgid "WooCommerce Integration"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:578
 msgid "Academy LMS Integration"
 msgstr ""
 
-#: assets/build/setup.1.0.0.js:1
+#: assets/build/setup.1.0.0.js:584
 msgid "I’ll decide later"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:709
+msgid "Author"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:710
+msgid "For authors active"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:714
+msgid "Blogger"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:715
+msgid "For blog activity"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:719
+msgid "eCommerce"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:720
+msgid "For shop customers"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:724
+msgid "Performance"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:725
+msgid "For task results"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:729
+msgid "Community"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:730
+msgid "For community help"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:734
+msgid "Growth"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:735
+msgid "For growth actions"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:843
+msgid "Levels & Achievements Preview"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:944
+msgid "Back"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:954
+msgid "Continue"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1150
+msgid "I'll Configure Manually"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1151
+msgid "Create your own gamification setup from scratch with full control"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1155
+msgid "Jumpstart with Demo Data"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1156
+msgid "This demo gamification is for preview only no real rewards applied"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1260
+msgid "Process to Next"
+msgstr ""
+
+#: assets/build/setup.1.0.0.js:1268
+msgid "Skip This Step"
 msgstr ""
