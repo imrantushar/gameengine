@@ -2,11 +2,9 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { plugin_root_url } from '@GFUtils/helper';
-import { employeeBatch1, employeeBatch2, employeeBatch3 } from './helper';
+import { buildPurchaseUrl } from './helper';
 
-const batches = [ employeeBatch1, employeeBatch2, employeeBatch3 ];
-
-const HireUs = () => {
+const HireUs = ({sdk}) => {
 	return (
 		<Flex
 			alignItems="center"
@@ -46,7 +44,7 @@ const HireUs = () => {
 				<Flex gap={ 3 } alignItems="center" marginTop={'24px'}>
 					<Button
 						as="a"
-						href="https://kodezen.agency/request-a-free-call/"
+						href={buildPurchaseUrl('https://kodezen.agency/request-a-free-call/', sdk)}
 						target="_blank"
 						rel="noopener noreferrer"
 						bg="var(--gameengine-primary)"
@@ -63,7 +61,7 @@ const HireUs = () => {
 					</Button>
 					<Button
 						as="a"
-						href="https://kodezen.agency/"
+						href={buildPurchaseUrl('https://kodezen.agency/', sdk)}
 						target="_blank"
 						rel="noopener noreferrer"
 						bg="transparent"
@@ -84,25 +82,17 @@ const HireUs = () => {
 			</Box>
 
 			{/* Right: avatar grid */}
-			<Flex direction="column" gap={ 2 } flexShrink={ 0 }>
-				{ batches.map( ( batch, batchIndex ) => (
-					<Flex key={ batchIndex } gap={ 2 } alignItems="center" justifyContent={'center'}>
-						{ batch.map( ( emp ) => (
+			<Flex direction="column" gap={ 2 } flexShrink={ 0 } width={'35%'}>
+					<Flex gap={ 2 } width={'100%'} alignItems="center" justifyContent={'center'}>
 							<Image
-								key={ emp.name }
-								src={ plugin_root_url + emp.src}
-								alt={ emp.name }
-								title={ emp.name }
-								boxSize="40px"
-								borderRadius="full"
+								src={ plugin_root_url + 'assets/images/employees.png'}
+								alt={ __( 'Kodezen Employee', 'gameengine' ) }
+								title={ __( 'Kodezen Employee', 'gameengine' ) }
+								width="100%"
 								objectFit="cover"
-								border="2px solid white"
-								boxShadow="0 0 0 1px var(--chakra-colors-gray-200)"
 								flexShrink={ 0 }
 							/>
-						) ) }
 					</Flex>
-				) ) }
 			</Flex>
 		</Flex>
 	);

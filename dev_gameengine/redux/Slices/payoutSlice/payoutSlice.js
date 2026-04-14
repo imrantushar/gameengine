@@ -78,9 +78,9 @@ const payoutSlice = createSlice({
                 state.search = search;
             })
             .addCase(updatePayoutStatus.fulfilled, (state, { payload }) => {
-                state.levels = state.levels.map(item => {
+                state.data = state.data.map(item => {
                     if (Number(item.id) === Number(payload.id)) {
-                        return { ...item, ...payload }
+                        return { ...item, ...payload, status: payload.status || item.status }
                     }
                     return item;
                 })
