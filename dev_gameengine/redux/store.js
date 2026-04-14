@@ -14,7 +14,13 @@ import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import payoutReducer from './Slices/payoutSlice/payoutSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 
-import logger from 'redux-logger'
+import logger from 'redux-logger';
+
+let middleware = [];
+
+if ( process.env.NODE_ENV !== 'production' ) {
+	middleware = [ logger ];
+}
 /**
  * The main Redux store for the GameEngine application.
  *
@@ -39,6 +45,6 @@ export const store = configureStore({
         notification: notificationReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
-    middleware: (getDefaultMiddleware) =>
-        getDefaultMiddleware().concat(logger),
+    middleware: ( getDefaultMiddleware ) =>
+        getDefaultMiddleware().concat( ...middleware ),
 });
