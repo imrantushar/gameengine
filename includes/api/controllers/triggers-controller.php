@@ -114,6 +114,7 @@ class TriggersController extends BaseController
             'wordpress'   => \GameEngine\Integrations\WordPress::class,
             'woocommerce' => \GameEngine\Integrations\WooCommerce::class,
             'academylms'  => \GameEngine\Integrations\AcademyLMS::class,
+            'tutorlms'    => \GameEngine\Integrations\TutorLMS::class,
             'gameengine'  => \GameEngine\Integrations\GameEngine::class,
             'storeengine' => \GameEngine\Integrations\StoreEngine::class,
         ];

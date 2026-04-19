@@ -7,6 +7,7 @@ use GameEngine\Integrations\WooCommerce;
 use GameEngine\Integrations\GameEngine;
 use GameEngine\Integrations\Interactions;
 use GameEngine\Integrations\AcademyLMS;
+use GameEngine\Integrations\TutorLMS;
 
 if (!defined('ABSPATH')) exit;
 
@@ -41,6 +42,12 @@ final class TriggerRegistry
         if (in_array('academylms', $active_addons)) {
             if (class_exists('\GameEngine\Integrations\AcademyLMS')) {
                 self::$integrations['academylms'] = AcademyLMS::class;
+            }
+        }
+
+        if (in_array('tutorlms', $active_addons)) {
+            if (class_exists('\GameEngine\Integrations\TutorLMS')) {
+                self::$integrations['tutorlms'] = TutorLMS::class;
             }
         }
         self::$integrations = apply_filters('gameengine_integrations', self::$integrations);

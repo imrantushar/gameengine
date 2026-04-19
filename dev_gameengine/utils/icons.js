@@ -234,3 +234,37 @@ export const license = () => {
         </svg>
     )
 }
+export const tutorLms = () => {
+    return (
+        <svg
+            width="36"
+            height="36"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <rect width="48" height="48" rx="9" fill="#212a35" />
+            <path
+                d="M12 18V30C12 30 18 33 24 33C30 33 36 30 36 30V18"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M40 15L24 9L8 15L24 21L40 15Z"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M36 18V24"
+                stroke="white"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    )
+}

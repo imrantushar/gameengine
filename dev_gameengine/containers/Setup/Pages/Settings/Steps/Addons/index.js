@@ -2,8 +2,8 @@ import React from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
 import { Box, Checkbox, Flex, Icon, Image } from '@chakra-ui/react';
-import { academyLms, wooCommerce } from '@GFUtils/icons';
-import { is_academylms_active, is_woocommerce_active, plugin_root_url } from '@GFUtils/helper';
+import { academyLms, wooCommerce, tutorLms } from '@GFUtils/icons';
+import { is_academylms_active, is_woocommerce_active, is_tutorlms_active, plugin_root_url } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
 
@@ -45,6 +45,13 @@ const AddonsCard = [
     plugin_required: true
   },
   {
+    label: __('Tutor LMS Integration', 'gameengine'), 
+		name: 'tutorlms',
+    description: __('Award points for course activity', 'gameengine'), 
+    icon: tutorLms,
+    plugin_required: true
+  },
+  {
     label: __("I’ll decide later", 'gameengine'), 
     description: "", 
     icon: false,
@@ -71,6 +78,9 @@ const Addons = () => {
             (item.name === 'academylms' &&
               values.addons.includes('academylms') &&
               is_academylms_active) ||
+            (item.name === 'tutorlms' &&
+              values.addons.includes('tutorlms') &&
+              is_tutorlms_active) ||
             (item.name === 'woocommerce' &&
               values.addons.includes('woocommerce') &&
               is_woocommerce_active) ||
@@ -78,6 +88,7 @@ const Addons = () => {
 
           const isDisabled =
             (item.name === 'academylms' && !is_academylms_active) ||
+            (item.name === 'tutorlms' && !is_tutorlms_active) ||
             (item.name === 'woocommerce' && !is_woocommerce_active)
 
           return (
