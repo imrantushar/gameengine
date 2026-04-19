@@ -3,12 +3,11 @@ import { useSelector } from "react-redux";
 import { Box, Button, Flex, Icon, Switch, Image, Input, Center, RadioGroup } from "@chakra-ui/react";
 import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
+import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors, } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
 import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
-import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
@@ -83,13 +82,13 @@ const FormInner = () => {
         }
     };
 
-    const fetchTypes = async (searchKey="") => {
-        if(searchKey) searchKey = "&search=" + searchKey;
+    const fetchTypes = async (searchKey = "") => {
+        if (searchKey) searchKey = "&search=" + searchKey;
         try {
-            const url = namespace + 'taxonomies/level_type?page=1&per_page=100'+ searchKey;
+            const url = namespace + 'taxonomies/level_type?page=1&per_page=100' + searchKey;
             const response = await API.get(url);
             const selectData = response.data.map(item => {
-                return {label: item.name, value: `${item.id}`}
+                return { label: item.name, value: `${item.id}` }
             })
             setTypes(selectData)
         } catch (error) {
@@ -124,7 +123,7 @@ const FormInner = () => {
         ...wooIcon,
         ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
-        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
+        tutorlms: { icon: FaGraduationCap, bg: "#10b981" },
     };
 
     const renderHookCard = (item) => {
@@ -202,12 +201,12 @@ const FormInner = () => {
         }
     };
 
-    const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`; 
+    const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
 
     return (
         <Flex direction="column" gap={6}>
             <Flex gap="12px">
-                
+
             </Flex>
 
             <Flex className="gameengine-add-level-type" gap={'12px'}>
@@ -221,8 +220,8 @@ const FormInner = () => {
                         {...commonInput}
                     />
                 </GameEngineInput>
-                <GameEngineInput 
-                    label={__("Level Type", "gameengine")} 
+                <GameEngineInput
+                    label={__("Level Type", "gameengine")}
                     width="calc(50% - 6px)"
                     desc={__("Select your created types for Level.", "gameengine")}
                 >
@@ -236,7 +235,7 @@ const FormInner = () => {
                         }}
                         value={
                             types?.find(
-                            opt => Number(opt.value) === Number(values?.category_id)
+                                opt => Number(opt.value) === Number(values?.category_id)
                             ) || null
                         }
                         onMenuOpen={fetchTypes}
@@ -247,7 +246,7 @@ const FormInner = () => {
                     />
                 </GameEngineInput>
             </Flex>
-            
+
             <GameEngineInput label={__("Benefits Description", "gameengine")} width="100%">
                 <GameEngineEditor
                     name={'description'}
@@ -268,7 +267,7 @@ const FormInner = () => {
 
             <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-            <GameEngineInput 
+            <GameEngineInput
                 label={reqLabel}
                 width="100%"
                 direction='row'
@@ -290,14 +289,14 @@ const FormInner = () => {
                     {!isRestrictContentActive && (
                         <Button
                             as={'a'}
-                            href={admin_url+'admin.php?page=gameengine-addons'}
+                            href={admin_url + 'admin.php?page=gameengine-addons'}
                             target='_blank'
                             type="link"
                             {...clearBtn}
                             minW={'0'}
                             paddingInline={'0 4px'}
                         >
-                            <Icon as={FaExternalLinkAlt} width={'14px'}/>
+                            <Icon as={FaExternalLinkAlt} width={'14px'} />
                         </Button>
                     )}
                 </Flex>

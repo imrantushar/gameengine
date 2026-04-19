@@ -34,7 +34,7 @@ class TutorLMS extends BaseIntegration
      */
     public static function get_icon(): string
     {
-        return 'dashicons-welcome-learn-more';
+        return 'dashicons-education';
     }
 
     /**
@@ -50,7 +50,6 @@ class TutorLMS extends BaseIntegration
                 'args_count' => 2,
                 'description' => __('Awarded when a student successfully finishes a course.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
-                // Passed args: $course_id, $user_id
                 'get_user_id' => function ($course_id, $user_id = 0) {
                     return $user_id ? absint($user_id) : get_current_user_id();
                 },
@@ -67,6 +66,19 @@ class TutorLMS extends BaseIntegration
                 )),
             ),
 
+            // Course Published (Instructor Reward)
+            'tutor_course_published' => array(
+                'label' => __('Course Published (Instructor)', 'gameengine'),
+                'hook' => 'publish_courses',
+                'args_count' => 2,
+                'description' => __('Awarded to instructors when they publish a new course.', 'gameengine'),
+                'supports' => array('point_type', 'achievement', 'level'),
+                'get_user_id' => function ($post_id, $post) {
+                    return isset($post->post_author) ? absint($post->post_author) : 0;
+                },
+                'schema' => self::merge_schema(array()),
+            ),
+
             // Lesson Completed
             'tutor_lesson_completed' => array(
                 'label' => __('Lesson Completed', 'gameengine'),
@@ -74,7 +86,6 @@ class TutorLMS extends BaseIntegration
                 'args_count' => 2,
                 'description' => __('Awarded when a student completes a specific lesson.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
-                // Passed arg: $lesson_id, $user_id (sometimes just $lesson_id)
                 'get_user_id' => function ($lesson_id, $user_id = 0) {
                     return $user_id ? absint($user_id) : get_current_user_id();
                 },
@@ -89,16 +100,17 @@ class TutorLMS extends BaseIntegration
                 )),
             ),
 
-            // Quiz Passed/Attempt Ended
+            // Quiz Attempt Ended
             'tutor_quiz_ended' => array(
                 'label' => __('Quiz Attempt Ended', 'gameengine'),
                 'hook' => 'tutor_quiz/attempt_ended',
                 'args_count' => 1,
-                'description' => __('Awarded when a student finishes a quiz.', 'gameengine'),
+                'description' => __('Awarded when a student finishes a quiz attempt.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
-                // Passed arg: $attempt_id
                 'get_user_id' => function ($attempt_id) {
-                    return get_current_user_id();
+                    global $wpdb;
+                    $uid = $wpdb->get_var($wpdb->prepare("SELECT user_id FROM {$wpdb->prefix}tutor_quiz_attempts WHERE attempt_id = %d", $attempt_id));
+                    return $uid ? absint($uid) : get_current_user_id();
                 },
                 'schema' => self::merge_schema(array(
                     array(
@@ -111,15 +123,61 @@ class TutorLMS extends BaseIntegration
                 )),
             ),
 
+            // Quiz Passed
+            'tutor_quiz_passed' => array(
+                'label' => __('Quiz Passed', 'gameengine'),
+                'hook' => 'tutor_quiz/attempt_finished',
+                'args_count' => 1,
+                'description' => __('Awarded when a student passes a quiz with a passing grade.', 'gameengine'),
+                'supports' => array('point_type', 'achievement', 'level'),
+                'get_user_id' => function ($attempt_id) {
+                    global $wpdb;
+                    $attempt = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tutor_quiz_attempts WHERE attempt_id = %d", $attempt_id));
+                    if ($attempt && (float) $attempt->earned_marks >= (float) $attempt->pass_mark) {
+                        return absint($attempt->user_id);
+                    }
+                    return 0;
+                },
+                'schema' => self::merge_schema(array(
+                    array(
+                        'key' => 'quiz_id',
+                        'label' => __('Select Quiz', 'gameengine'),
+                        'type' => 'select',
+                        'width' => '50%',
+                        'dynamic' => array('integration' => 'tutorlms', 'query' => 'quizzes'),
+                    ),
+                )),
+            ),
+
+            // Assignment Submitted
+            'tutor_assignment_submitted' => array(
+                'label' => __('Assignment Submitted', 'gameengine'),
+                'hook' => 'tutor_assignment_submitted',
+                'args_count' => 2,
+                'description' => __('Awarded when a student submits an assignment.', 'gameengine'),
+                'supports' => array('point_type', 'achievement', 'level'),
+                'get_user_id' => function ($assignment_id, $user_id = 0) {
+                    return $user_id ? absint($user_id) : get_current_user_id();
+                },
+                'schema' => self::merge_schema(array(
+                    array(
+                        'key' => 'assignment_id',
+                        'label' => __('Select Assignment', 'gameengine'),
+                        'type' => 'select',
+                        'width' => '50%',
+                        'dynamic' => array('integration' => 'tutorlms', 'query' => 'assignments'),
+                    ),
+                )),
+            ),
+
             // New Enrollment
             'tutor_new_enrollment' => array(
                 'label' => __('New Enrollment', 'gameengine'),
                 'hook' => 'tutor_after_enrolled',
-                'args_count' => 2,
+                'args_count' => 3,
                 'description' => __('Awarded when a student joins a new course.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
-                // Passed args: $course_id, $user_id
-                'get_user_id' => function ($course_id, $user_id = 0) {
+                'get_user_id' => function ($course_id, $enrollment_id, $user_id = 0) {
                     return $user_id ? absint($user_id) : get_current_user_id();
                 },
                 'schema' => self::merge_schema(array(
@@ -144,40 +202,28 @@ class TutorLMS extends BaseIntegration
     {
         return array(
             'courses' => function () {
-                $posts = get_posts(array(
-                    'post_type' => 'courses',
-                    'posts_per_page' => 100,
-                    'post_status' => 'any'
-                ));
+                $posts = get_posts(array('post_type' => 'courses', 'posts_per_page' => 100, 'post_status' => 'any'));
                 if (empty($posts))
                     return array();
-
-                $data = array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
-                return array_values($data);
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
             },
             'lessons' => function () {
-                $posts = get_posts(array(
-                    'post_type' => 'lesson',
-                    'posts_per_page' => 100,
-                    'post_status' => 'any'
-                ));
+                $posts = get_posts(array('post_type' => 'lesson', 'posts_per_page' => 100, 'post_status' => 'any'));
                 if (empty($posts))
                     return array();
-
-                $data = array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
-                return array_values($data);
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
             },
             'quizzes' => function () {
-                $posts = get_posts(array(
-                    'post_type' => 'tutor_quiz',
-                    'posts_per_page' => 100,
-                    'post_status' => 'any'
-                ));
+                $posts = get_posts(array('post_type' => 'tutor_quiz', 'posts_per_page' => 100, 'post_status' => 'any'));
                 if (empty($posts))
                     return array();
-
-                $data = array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
-                return array_values($data);
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
+            },
+            'assignments' => function () {
+                $posts = get_posts(array('post_type' => 'tutor_assignments', 'posts_per_page' => 100, 'post_status' => 'any'));
+                if (empty($posts))
+                    return array();
+                return array_map(fn($p) => array('label' => $p->post_title, 'value' => $p->ID), $posts);
             },
             'course_categories' => function () {
                 $terms = get_terms(array('taxonomy' => 'course-category', 'hide_empty' => false));

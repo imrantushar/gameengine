@@ -29,7 +29,7 @@ class GameEngine extends BaseIntegration
                 'hook' => 'gameengine_achievement_unlocked',
                 'description' => __('Unlock achivemeet successfully  into your website.', 'gameengine'),
                 'args_count' => 3,
-                'supports' => ['point_type'],
+                'supports' => ['point_type', 'achievement', 'level'],
                 'get_user_id' => function ($user_id) {
                     return $user_id;
                 },

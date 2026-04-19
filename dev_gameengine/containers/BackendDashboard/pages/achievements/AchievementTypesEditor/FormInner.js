@@ -4,10 +4,9 @@ import { Box, Button, Flex, Icon, Switch, Input, Center, RadioGroup } from "@cha
 import { __, sprintf } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
-import { FaGamepad, FaWordpressSimple } from "react-icons/fa6";
+import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GameEngineEditor from "@GFComponents/editor";
-import { AiFillInteraction } from "react-icons/ai";
 import { SiWoocommerce } from "react-icons/si";
 import { GoPlus } from "react-icons/go";
 import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
@@ -115,6 +114,7 @@ const FormInner = () => {
         ...wooIcon,
         ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
+        tutorlms: { icon: FaGraduationCap, bg: "#10b981" },
     };
 
     const renderHookCard = (item, type) => {
