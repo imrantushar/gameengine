@@ -215,6 +215,7 @@ class Setup
             'admin_url'             => admin_url(),
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
             'is_academylms_active'  => \GameEngine\Helper::is_academylms_active(),
+            'is_tutorlms_active'  => \GameEngine\Helper::is_tutorlms_active(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),
                 'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),

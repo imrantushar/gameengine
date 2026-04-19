@@ -52,6 +52,20 @@ class Helper
         return false;
     }
 
+    /**
+     * Check if a tutor lms plugin is active.
+     *
+     * @return bool
+     */
+    public static function is_tutorlms_active()
+    {
+
+        if (defined('TUTOR_VERSION') || function_exists('tutor_lms') || class_exists('TUTOR\Tutor')) {
+            return true;
+        }
+        return false;
+    }
+
     public static function is_pro()
     {
         return defined('GAMEENGINE_PRO_VERSION');

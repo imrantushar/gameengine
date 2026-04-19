@@ -313,6 +313,46 @@ class Triggers
             return (0 === $target_quiz_id || $current_quiz_id === $target_quiz_id);
         }
 
+        // ── Tutor LMS ────────────────────────────────────────────────────────
+
+        // Tutor LMS: Course ID Check (Completed or Enrolled)
+        if ($key === 'tutor_course_completed' || $key === 'tutor_new_enrollment') {
+            $current_course_id = isset($args[0]) ? absint($args[0]) : 0;
+            $target_course_id = isset($params['course_id']) ? absint($params['course_id']) : 0;
+            return (0 === $target_course_id || $current_course_id === $target_course_id);
+        }
+
+        // Tutor LMS: Lesson ID Check
+        if ($key === 'tutor_lesson_completed') {
+            $current_lesson_id = isset($args[0]) ? absint($args[0]) : 0;
+            $target_lesson_id = isset($params['lesson_id']) ? absint($params['lesson_id']) : 0;
+            return (0 === $target_lesson_id || $current_lesson_id === $target_lesson_id);
+        }
+
+        // Tutor LMS: Quiz ID Check (End or Passed)
+        if ($key === 'tutor_quiz_ended' || $key === 'tutor_quiz_passed') {
+            $attempt_id = isset($args[0]) ? absint($args[0]) : 0;
+            $target_quiz_id = isset($params['quiz_id']) ? absint($params['quiz_id']) : 0;
+            
+            if (0 === $target_quiz_id) {
+                return true;
+            }
+
+            if ($attempt_id > 0) {
+                global $wpdb;
+                $quiz_id = $wpdb->get_var($wpdb->prepare("SELECT quiz_id FROM {$wpdb->prefix}tutor_quiz_attempts WHERE attempt_id = %d", $attempt_id));
+                return (absint($quiz_id) === $target_quiz_id);
+            }
+            return false;
+        }
+
+        // Tutor LMS: Assignment Submitted
+        if ($key === 'tutor_assignment_submitted') {
+            $current_assignment_id = isset($args[0]) ? absint($args[0]) : 0;
+            $target_assignment_id = isset($params['assignment_id']) ? absint($params['assignment_id']) : 0;
+            return (0 === $target_assignment_id || $current_assignment_id === $target_assignment_id);
+        }
+
         // ── StoreEngine ───────────────────────────────────────────────────────
 
         // StoreEngine: Purchase Specific Product

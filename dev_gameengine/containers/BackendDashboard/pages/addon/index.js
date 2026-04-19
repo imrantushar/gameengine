@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
-import { academyLms, storeEngine, wooCommerce } from '@GFUtils/icons';
+import { academyLms, storeEngine, wooCommerce, tutorLms } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
@@ -33,6 +33,25 @@ const infoCardsData = [
 		],
 		icon: academyLms(),
 		docsUrl: 'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+		route: "",
+	},
+	{
+		label: __('Tutor LMS', 'gameengine'),
+		name: 'tutorlms',
+		is_pro: false,
+		is_coming_soon: false,
+		details: __(
+			'Reward learners with points, badges, and levels for course completions, lessons, and quizzes.',
+			'gameengine'
+		),
+		required_plugin: [
+			{
+				plugin_dir_path: 'tutor/tutor.php',
+				plugin_name: 'Tutor LMS',
+			},
+		],
+		icon: tutorLms(),
+		docsUrl: 'https://www.themeum.com/docs/tutor-lms-introduction/',
 		route: "",
 	},
 	{

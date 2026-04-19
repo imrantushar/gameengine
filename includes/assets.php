@@ -56,6 +56,7 @@ class Assets
             'storeengine',
             'woocommerce',
             'academylms',
+            'tutorlms',
             'restrict_unlock',
             'progress_map',
             'restrict_content',
@@ -83,6 +84,7 @@ class Assets
             'is_plain_permalink' => (bool) empty(get_option('permalink_structure')),
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
+            'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
             'is_pro' => (bool) \GameEngine\Helper::is_pro(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),

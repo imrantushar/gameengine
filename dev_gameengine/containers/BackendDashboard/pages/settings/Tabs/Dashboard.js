@@ -16,6 +16,7 @@ export default function Dashboard() {
     const platformIntegrationOptions = [
         { value: 'woocommerce', label: __('WooCommerce', 'gameengine'), isDisabled: !addons?.woocommerce },
         { value: 'academylms', label: __('Academy LMS', 'gameengine'), isDisabled: !addons?.academylms },
+        { value: 'tutorlms', label: __('Tutor LMS', 'gameengine'), isDisabled: !addons?.tutorlms },
     ];
 
     return (

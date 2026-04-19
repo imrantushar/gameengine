@@ -581,6 +581,12 @@ const AddonsCard = [{
   icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_8__.academyLms,
   plugin_required: true
 }, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Tutor LMS Integration', 'gameengine'),
+  name: 'tutorlms',
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Award points for course activity', 'gameengine'),
+  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_8__.tutorLms,
+  plugin_required: true
+}, {
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("I’ll decide later", 'gameengine'),
   description: "",
   icon: false,
@@ -602,8 +608,8 @@ const Addons = () => {
     gap: '16px',
     flexWrap: 'wrap'
   }, AddonsCard.map((item, idx) => {
-    const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_academylms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_woocommerce_active || values.addons.includes(item.name);
-    const isDisabled = item.name === 'academylms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_academylms_active || item.name === 'woocommerce' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_woocommerce_active;
+    const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_academylms_active || item.name === 'tutorlms' && values.addons.includes('tutorlms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_tutorlms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_woocommerce_active || values.addons.includes(item.name);
+    const isDisabled = item.name === 'academylms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_academylms_active || item.name === 'tutorlms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_tutorlms_active || item.name === 'woocommerce' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_9__.is_woocommerce_active;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_chakra_ui_react__WEBPACK_IMPORTED_MODULE_5__.Flex, {
       key: idx,
       gap: '12px',
@@ -1383,6 +1389,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   is_academylms_active: () => (/* binding */ is_academylms_active),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
 /* harmony export */   is_pro: () => (/* binding */ is_pro),
+/* harmony export */   is_tutorlms_active: () => (/* binding */ is_tutorlms_active),
 /* harmony export */   is_woocommerce_active: () => (/* binding */ is_woocommerce_active),
 /* harmony export */   makeRequest: () => (/* binding */ makeRequest),
 /* harmony export */   menu: () => (/* binding */ menu),
@@ -1426,6 +1433,7 @@ const {
   is_pro,
   is_woocommerce_active,
   is_academylms_active,
+  is_tutorlms_active,
   banners,
   site_url,
   notification_position = null,
@@ -1568,6 +1576,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   star: () => (/* binding */ star),
 /* harmony export */   storeEngine: () => (/* binding */ storeEngine),
 /* harmony export */   trophy: () => (/* binding */ trophy),
+/* harmony export */   tutorLms: () => (/* binding */ tutorLms),
 /* harmony export */   user: () => (/* binding */ user),
 /* harmony export */   wooCommerce: () => (/* binding */ wooCommerce)
 /* harmony export */ });
@@ -1863,6 +1872,38 @@ const license = () => {
     d: "M12.082 9.16675C12.7724 9.16675 13.332 8.6071 13.332 7.91675C13.332 7.22639 12.7724 6.66675 12.082 6.66675C11.3917 6.66675 10.832 7.22639 10.832 7.91675C10.832 8.6071 11.3917 9.16675 12.082 9.16675Z",
     stroke: "#0F0E16",
     strokeWidth: "1.25",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }));
+};
+const tutorLms = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    width: "36",
+    height: "36",
+    viewBox: "0 0 48 48",
+    fill: "none",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    width: "48",
+    height: "48",
+    rx: "9",
+    fill: "#212a35"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 18V30C12 30 18 33 24 33C30 33 36 30 36 30V18",
+    stroke: "white",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M40 15L24 9L8 15L24 21L40 15Z",
+    stroke: "white",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M36 18V24",
+    stroke: "white",
+    strokeWidth: "2",
     strokeLinecap: "round",
     strokeLinejoin: "round"
   }));

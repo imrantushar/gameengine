@@ -97,6 +97,15 @@ class AddonsController extends BaseController
                 'is_locked' => false,
             ),
             array(
+                'slug'   => 'tutorlms',
+                'name'   => __('Tutor LMS', 'gameengine'),
+                'desc'   => __('Reward users for course completions, lessons, and quizzes.', 'gameengine'),
+                'icon'   => 'dashicons-welcome-learn-more',
+                'active' => in_array('tutorlms', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
+            ),
+            array(
                 'slug'   => 'woocommerce',
                 'name'   => __('WooCommerce', 'gameengine'),
                 'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gameengine'),
@@ -182,6 +191,17 @@ class AddonsController extends BaseController
                 }
             }
 
+            // Tutor LMS Check
+            if ('tutorlms' === $addon_name) {
+                if (! \GameEngine\Helper::is_tutorlms_active()) {
+                    return new \WP_Error(
+                        'dependency_missing',
+                        __('Tutor LMS is required.', 'gameengine'),
+                        array('status' => 424)
+                    );
+                }
+            }
+
             // StoreEngine Check 
             if ('storeengine' === $addon_name && ! defined('STOREENGINE_VERSION')) {
                 return new \WP_Error('dependency_missing', __('StoreEngine plugin is required.', 'gameengine'), array('status' => 424));
@@ -239,6 +259,7 @@ class AddonsController extends BaseController
             'storeengine',
             'woocommerce',
             'academylms',
+            'tutorlms',
             'restrict_unlock',
             'progress_map',
             'restrict_content',

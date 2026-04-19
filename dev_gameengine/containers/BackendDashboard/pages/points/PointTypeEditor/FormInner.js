@@ -2,10 +2,9 @@ import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Flex, Icon, Center, Input } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
-import { FaGamepad, FaWordpressSimple } from 'react-icons/fa6';
+import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors, } from '@dnd-kit/core';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { AiFillInteraction } from 'react-icons/ai';
 import { SiWoocommerce } from "react-icons/si";
 import { useFormikContext } from 'formik';
 import GameEngineInput from '@GFComponents/GameEngineInput';
@@ -60,7 +59,7 @@ const FormInner = ({ hooksLoading }) => {
         ...wooIcon,
         ...academy,
         gameengine: { icon: FaGamepad, bg: "#006BFF" },
-        interaction: { icon: AiFillInteraction, bg: "#ff5722" },
+        tutorlms: { icon: FaGraduationCap, bg: "#10b981" },
     };
 
     const getParamsFromSchema = (hook, type) => {
@@ -176,11 +175,10 @@ const FormInner = ({ hooksLoading }) => {
         );
     };
 
-    const hookTypeOptions = Array.from(
-        new Set(allHooks.map(h => h.integrationSlug).filter(Boolean))).map(slug => ({
-            label: slug.charAt(0).toUpperCase() + slug.slice(1),
-            value: slug,
-        }));
+    const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({
+        label: slug.charAt(0).toUpperCase() + slug.slice(1),
+        value: slug,
+    }));
 
     return (
         <>
