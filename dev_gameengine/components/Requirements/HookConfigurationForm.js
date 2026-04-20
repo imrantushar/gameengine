@@ -138,7 +138,7 @@ const DynamicHookForm = ({ hookId, hookInfo, type, settings, handleChange, isOpe
                     if (config.scope && !config.scope.includes(scope)) {
                         return;
                     }
-                    const currentHook = values.requirements.find(item => item.trigger_key === hookId);
+                    const currentHook = values.requirements.find(item => item.trigger_key === hookId && item.action_type === type);
 
                     return (
                         <DynamicField
@@ -163,7 +163,7 @@ const HookConfigurationForm = ({ hookId, type, hookInfo, currentSettings, isOpen
 
     const handleChange = (field, value, hook) => {
         const updatedFieldValue = values.requirements.map(item => {
-            if (item.trigger_key === hook) {
+            if (item.trigger_key === hook && item.action_type === type) {
                 return {
                     ...item,
                     parameters: {

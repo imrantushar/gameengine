@@ -1,6 +1,6 @@
 {
-    "name": "kodezen/gemcrm",
-    "description": "gemcrm is a powerful WordPress plugin that adds advanced community features.",
+    "name": "kodezen/gameengine",
+    "description": "GameEngine is a powerful WordPress plugin that adds advanced gamification features.",
     "type": "project",
     "license": "GPL-3.0-or-later",
 	"repositories": [
@@ -28,9 +28,9 @@
 	"extra": {
 		"strauss": {
 			"target_directory": "vendor/prefixed",
-			"namespace_prefix": "GemCrmPro\\",
-			"classmap_prefix": "GemCrmPro_",
-			"constant_prefix": "GEMCRM_PRO_",
+			"namespace_prefix": "GameEngine\\",
+			"classmap_prefix": "GameEngine_",
+			"constant_prefix": "GAMEENGINE_",
 			"update_call_sites": true,
 			"delete_vendor_packages": true,
 			"delete_vendor_files": true,
