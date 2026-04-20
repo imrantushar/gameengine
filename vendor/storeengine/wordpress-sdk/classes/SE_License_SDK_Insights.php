@@ -20,6 +20,8 @@ final class SE_License_SDK_Insights {
 
 	protected $first_install_time = null;
 
+	protected $purchase_url = null;
+
 	/**
 	 * Delay before OptIn Notice being shown to admin user.
 	 * Delay will be calculated relative to first_install_time.
@@ -207,7 +209,7 @@ final class SE_License_SDK_Insights {
 		// Ticket submission.
 		add_action(
 				'wp_ajax_' . $this->client->getHookName( 'submit-support-ticket' ),
-			[ $this, 'support_ticket_submission' ]
+				[ $this, 'support_ticket_submission' ]
 		);
 
 		// cron events.
@@ -217,12 +219,6 @@ final class SE_License_SDK_Insights {
 
 	public function set_support_url( string $supportURL ): SE_License_SDK_Insights {
 		$this->supportURL = $supportURL;
-
-		return $this;
-	}
-
-	public function set_purchase_url( string $purchase_url ): SE_License_SDK_Insights {
-		$this->purchase_url = $purchase_url;
 
 		return $this;
 	}
@@ -310,13 +306,13 @@ final class SE_License_SDK_Insights {
 		$all_plugins = $this->get_plugins_data();
 		$theme       = wp_get_theme();
 		$theme_data  = [
-			'slug'       => $theme->get_stylesheet(),
-			'name'       => $theme->get( 'Name' ),
-			'version'    => $theme->get( 'Version' ),
-			'author'     => $theme->get( 'Author' ),
-			'author_url' => $theme->get( 'AuthorURI' ),
-			'theme_url'  => $theme->get( 'ThemeURI' ),
-			'is_child'   => false,
+				'slug'       => $theme->get_stylesheet(),
+				'name'       => $theme->get( 'Name' ),
+				'version'    => $theme->get( 'Version' ),
+				'author'     => $theme->get( 'Author' ),
+				'author_url' => $theme->get( 'AuthorURI' ),
+				'theme_url'  => $theme->get( 'ThemeURI' ),
+				'is_child'   => false,
 		];
 
 		if ( $theme->parent() ) {
@@ -330,40 +326,40 @@ final class SE_License_SDK_Insights {
 		}
 
 		$data = [
-			'core_name'       => 'WordPress',
-			'core_version'    => get_bloginfo( 'version' ),
-			'locale'          => get_locale(),
-			'server_name'     => $this->get_server_software_name(),
-			'server_version'  => $this->get_server_version(),
-			'db_name'         => $db_name,
-			'db_version'      => $db_version,
-			'runtime'         => $name,
-			'runtime_version' => $version,
-			'os_name'         => php_uname( 's' ),
-			'os_arch'         => php_uname( 'm' ),
-			'os_version'      => $this->get_os_version(),
-			'ip_address'      => $this->client->get_server_ip_address(),
-			'usage_log'       => [
-				'admin_name'           => $admin_name,
-				'admin_email'          => $admin_emails,
-				'os_info'              => php_uname(),
-				'url'                  => esc_url( home_url() ),
-				'site'                 => $this->__get_site_name(),
-				'active_plugins'       => $all_plugins['active_plugins'],
-				'inactive_plugins'     => $all_plugins['inactive_plugins'],
-				'theme'                => $theme_data,
-				'wp_memory_limit'      => defined( 'WP_MEMORY_LIMIT' ) ? WP_MEMORY_LIMIT : 'N/A',
-				'debug_mode'           => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
-				'multisite'            => is_multisite(),
-				'php_execution_time'   => @ini_get( 'max_execution_time' ), // phpcs:ignore
-				'php_max_upload_size'  => size_format( wp_max_upload_size() ),
-				'php_default_timezone' => date_default_timezone_get(),
-				'ext_php_soap'         => class_exists( 'SoapClient' ),
-				'ext_php_fsockopen'    => function_exists( 'fsockopen' ),
-				'ext_php_curl'         => function_exists( 'curl_init' ),
-				'ext_php_ftp'          => function_exists( 'ftp_connect' ),
-				'ext_php_sftp'         => function_exists( 'ssh2_connect' ),
-			],
+				'core_name'       => 'WordPress',
+				'core_version'    => get_bloginfo( 'version' ),
+				'locale'          => get_locale(),
+				'server_name'     => $this->get_server_software_name(),
+				'server_version'  => $this->get_server_version(),
+				'db_name'         => $db_name,
+				'db_version'      => $db_version,
+				'runtime'         => $name,
+				'runtime_version' => $version,
+				'os_name'         => php_uname( 's' ),
+				'os_arch'         => php_uname( 'm' ),
+				'os_version'      => $this->get_os_version(),
+				'ip_address'      => $this->client->get_server_ip_address(),
+				'usage_log'       => [
+						'admin_name'           => $admin_name,
+						'admin_email'          => $admin_emails,
+						'os_info'              => php_uname(),
+						'url'                  => esc_url( home_url() ),
+						'site'                 => $this->__get_site_name(),
+						'active_plugins'       => $all_plugins['active_plugins'],
+						'inactive_plugins'     => $all_plugins['inactive_plugins'],
+						'theme'                => $theme_data,
+						'wp_memory_limit'      => defined( 'WP_MEMORY_LIMIT' ) ? WP_MEMORY_LIMIT : 'N/A',
+						'debug_mode'           => ( defined( 'WP_DEBUG' ) && WP_DEBUG ),
+						'multisite'            => is_multisite(),
+						'php_execution_time'   => @ini_get( 'max_execution_time' ), // phpcs:ignore
+						'php_max_upload_size'  => size_format( wp_max_upload_size() ),
+						'php_default_timezone' => date_default_timezone_get(),
+						'ext_php_soap'         => class_exists( 'SoapClient' ),
+						'ext_php_fsockopen'    => function_exists( 'fsockopen' ),
+						'ext_php_curl'         => function_exists( 'curl_init' ),
+						'ext_php_ftp'          => function_exists( 'ftp_connect' ),
+						'ext_php_sftp'         => function_exists( 'ssh2_connect' ),
+				],
 		];
 
 		$usage_log = $this->get_usage_log();
@@ -405,11 +401,11 @@ final class SE_License_SDK_Insights {
 	 */
 	protected function get_data_collection_list(): array {
 		$data = array_merge( [
-			'server_env'  => __( 'Server environment details (MySQL version, MySQL version, Server software & version, etc.).', 'storeengine-sdk' ),
-			'wp_env'      => __( 'WordPress installation details (version, debug mode, max upload size).', 'storeengine-sdk' ),
-			'wp_settings' => __( 'WordPress settings (site language, active and inactive plugins & themes).', 'storeengine-sdk' ),
-			'site_meta'   => __( 'Site Name & URL.', 'storeengine-sdk' ),
-			'admin_meta'  => __( 'Admin Name & Email.', 'storeengine-sdk' ),
+				'server_env'  => __( 'Server environment details (MySQL version, MySQL version, Server software & version, etc.).', 'storeengine-sdk' ),
+				'wp_env'      => __( 'WordPress installation details (version, debug mode, max upload size).', 'storeengine-sdk' ),
+				'wp_settings' => __( 'WordPress settings (site language, active and inactive plugins & themes).', 'storeengine-sdk' ),
+				'site_meta'   => __( 'Site Name & URL.', 'storeengine-sdk' ),
+				'admin_meta'  => __( 'Admin Name & Email.', 'storeengine-sdk' ),
 		], $this->data_collection_list );
 
 		return array_unique( array_filter( $data ) );
@@ -478,8 +474,8 @@ final class SE_License_SDK_Insights {
 	 */
 	public function get_opt_in_url(): string {
 		return add_query_arg( [
-			'optAct'   => $this->client->getHookName( 'tracker_optIn' ),
-			'_wpnonce' => wp_create_nonce( $this->client->getHookName( 'insight_action' ) ),
+				'optAct'   => $this->client->getHookName( 'tracker_optIn' ),
+				'_wpnonce' => wp_create_nonce( $this->client->getHookName( 'insight_action' ) ),
 		] );
 	}
 
@@ -489,8 +485,8 @@ final class SE_License_SDK_Insights {
 	 */
 	public function get_opt_out_url(): string {
 		return add_query_arg( [
-			'optAct'   => $this->client->getHookName( 'tracker_optOut' ),
-			'_wpnonce' => wp_create_nonce( $this->client->getHookName( 'insight_action' ) ),
+				'optAct'   => $this->client->getHookName( 'tracker_optOut' ),
+				'_wpnonce' => wp_create_nonce( $this->client->getHookName( 'insight_action' ) ),
 		] );
 	}
 
@@ -537,9 +533,9 @@ final class SE_License_SDK_Insights {
 			if ( $terms && $privacy_policy ) {
 				$terms_policy_text = sprintf(
 				/* translators: 1: Privacy Policy Link, 2: Terms Links */
-					__( 'Please read our %1$s and %2$s', 'storeengine-sdk' ),
-					$privacy_policy,
-					$terms
+						__( 'Please read our %1$s and %2$s', 'storeengine-sdk' ),
+						$privacy_policy,
+						$terms
 				);
 			} else {
 				/* translators: 1: Privacy Policy or Terms Link */
@@ -577,13 +573,13 @@ final class SE_License_SDK_Insights {
 
 		if ( isset( $_REQUEST['_wpnonce'], $_REQUEST['optAct'] ) && $this->current_user_can() ) {
 			$items = [
-				$this->client->getHookName( 'tracker_optIn' ),
-				$this->client->getHookName( 'tracker_optOut' ),
+					$this->client->getHookName( 'tracker_optIn' ),
+					$this->client->getHookName( 'tracker_optOut' ),
 			];
 			$opt_act = sanitize_text_field( wp_unslash( $_REQUEST['optAct'] ) );
 			if (
-				in_array( $opt_act, $items ) &&
-				wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), $this->client->getHookName( 'insight_action' ) )
+					in_array( $opt_act, $items ) &&
+					wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), $this->client->getHookName( 'insight_action' ) )
 			) {
 
 				if ( $this->client->getHookName( 'tracker_optOut' ) === $_REQUEST['optAct'] ) {
@@ -648,10 +644,10 @@ final class SE_License_SDK_Insights {
 
 		// phpcs:disable
 		return (int) $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT count(ID) FROM $wpdb->posts WHERE post_type = %s and post_status = 'publish'",
-				$post_type
-			)
+				$wpdb->prepare(
+						"SELECT count(ID) FROM $wpdb->posts WHERE post_type = %s and post_status = 'publish'",
+						$post_type
+				)
 		);
 		// phpcs:enable
 	}
@@ -775,11 +771,11 @@ final class SE_License_SDK_Insights {
 		foreach ( $plugins as $k => $v ) {
 			// Take care of formatting the data how we want it.
 			$formatted = [
-				'name'       => isset( $v['Name'] ) ? wp_strip_all_tags( $v['Name'] ) : '',
-				'version'    => isset( $v['Version'] ) ? wp_strip_all_tags( $v['Version'] ) : 'N/A',
-				'author'     => isset( $v['Author'] ) ? wp_strip_all_tags( $v['Author'] ) : 'N/A',
-				'network'    => isset( $v['Network'] ) ? wp_strip_all_tags( $v['Network'] ) : 'N/A',
-				'plugin_uri' => isset( $v['PluginURI'] ) ? wp_strip_all_tags( $v['PluginURI'] ) : 'N/A',
+					'name'       => isset( $v['Name'] ) ? wp_strip_all_tags( $v['Name'] ) : '',
+					'version'    => isset( $v['Version'] ) ? wp_strip_all_tags( $v['Version'] ) : 'N/A',
+					'author'     => isset( $v['Author'] ) ? wp_strip_all_tags( $v['Author'] ) : 'N/A',
+					'network'    => isset( $v['Network'] ) ? wp_strip_all_tags( $v['Network'] ) : 'N/A',
+					'plugin_uri' => isset( $v['PluginURI'] ) ? wp_strip_all_tags( $v['PluginURI'] ) : 'N/A',
 			];
 			if ( in_array( $k, $active_plugins_keys ) ) {
 				// Remove active plugins from list, so we can show active and inactive separately.
@@ -791,8 +787,8 @@ final class SE_License_SDK_Insights {
 		}
 
 		return [
-			'active_plugins'   => $active_plugins,
-			'inactive_plugins' => $plugins,
+				'active_plugins'   => $active_plugins,
+				'inactive_plugins' => $plugins,
 		];
 	}
 
@@ -822,8 +818,8 @@ final class SE_License_SDK_Insights {
 	 */
 	public function add_weekly_schedule( $schedules ) {
 		$schedules['weekly'] = [
-			'interval' => DAY_IN_SECONDS * 7,
-			'display'  => __( 'Once Weekly', 'storeengine-sdk' ),
+				'interval' => DAY_IN_SECONDS * 7,
+				'display'  => __( 'Once Weekly', 'storeengine-sdk' ),
 		];
 
 		return $schedules;
@@ -858,17 +854,17 @@ final class SE_License_SDK_Insights {
 	protected $action_links = [];
 	protected $action_links_exclude = [ 'deactivate' ];
 	protected $action_links_html = [
-		'b'      => [ 'class', 'style' ],
-		'i'      => [ 'class', 'style' ],
-		'span'   => [ 'class', 'style' ],
-		'strong' => [ 'class', 'style' ],
+			'b'      => [ 'class', 'style' ],
+			'i'      => [ 'class', 'style' ],
+			'span'   => [ 'class', 'style' ],
+			'strong' => [ 'class', 'style' ],
 	];
 	protected $action_links_args = [
-		'label'  => '',
-		'class'  => '',
-		'href'   => '',
-		'target' => '',
-		'rel'    => '',
+			'label'  => '',
+			'class'  => '',
+			'href'   => '',
+			'target' => '',
+			'rel'    => '',
 	];
 
 	protected $terms_url = '';
@@ -881,12 +877,12 @@ final class SE_License_SDK_Insights {
 
 		if ( ! in_array( $id, $this->action_links_exclude ) && ! empty( $args['label'] ) && ! empty( $args['href'] ) ) {
 			$this->action_links[ $id ] = sprintf(
-				'<a class="%s" href="%s" target="%s" rel="%s">%s</a>',
-				esc_attr( $args['class'] ),
-				esc_url( $args['href'] ),
-				esc_attr( $args['target'] ),
-				esc_attr( $args['rel'] ),
-				wp_kses( $args['label'], $this->action_links_html )
+					'<a class="%s" href="%s" target="%s" rel="%s">%s</a>',
+					esc_attr( $args['class'] ),
+					esc_url( $args['href'] ),
+					esc_attr( $args['target'] ),
+					esc_attr( $args['rel'] ),
+					wp_kses( $args['label'], $this->action_links_html )
 			);
 		}
 
@@ -931,54 +927,54 @@ final class SE_License_SDK_Insights {
 	 */
 	private function __get_uninstall_reasons(): array {
 		$reasons = [
-			[
-				'id'          => 'how-to-use',
-				'text'        => esc_html__( "I couldn't understand how to make it work.", 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Would you like us to assist you?', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'found-better',
-				'text'        => esc_html__( 'I found a better product.', 'storeengine-sdk' ),
-				'type'        => 'text',
-				'placeholder' => esc_html__( 'Which Plugin!?', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'feature-needed',
-				'text'        => esc_html__( "The plugin is great, but I need specific feature that you don't support.", 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Can you tell us more about feature that you need?', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'not-working',
-				'text'        => esc_html__( 'The plugin is not working.', 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Could you tell us a bit more whats not working?', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'looking-for-other',
-				'text'        => esc_html__( "It's not what I was looking for.", 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Could you please let us know more about the features you are looking for?', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'not-working-as-expected',
-				'text'        => esc_html__( "The plugin didn't work as expected.", 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Please let us know your needs.', 'storeengine-sdk' ),
-			],
-			[
-				'id'          => 'debugging',
-				'text'        => esc_html__( 'Temporary deactivation for debugging.', 'storeengine-sdk' ),
-				'type'        => '',
-				'placeholder' => '',
-			],
-			[
-				'id'          => 'other',
-				'text'        => esc_html__( 'Other', 'storeengine-sdk' ),
-				'type'        => 'textarea',
-				'placeholder' => esc_html__( 'Could you tell us a bit more?', 'storeengine-sdk' ),
-			],
+				[
+						'id'          => 'how-to-use',
+						'text'        => esc_html__( "I couldn't understand how to make it work.", 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Would you like us to assist you?', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'found-better',
+						'text'        => esc_html__( 'I found a better product.', 'storeengine-sdk' ),
+						'type'        => 'text',
+						'placeholder' => esc_html__( 'Which Plugin!?', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'feature-needed',
+						'text'        => esc_html__( "The plugin is great, but I need specific feature that you don't support.", 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Can you tell us more about feature that you need?', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'not-working',
+						'text'        => esc_html__( 'The plugin is not working.', 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Could you tell us a bit more whats not working?', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'looking-for-other',
+						'text'        => esc_html__( "It's not what I was looking for.", 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Could you please let us know more about the features you are looking for?', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'not-working-as-expected',
+						'text'        => esc_html__( "The plugin didn't work as expected.", 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Please let us know your needs.', 'storeengine-sdk' ),
+				],
+				[
+						'id'          => 'debugging',
+						'text'        => esc_html__( 'Temporary deactivation for debugging.', 'storeengine-sdk' ),
+						'type'        => '',
+						'placeholder' => '',
+				],
+				[
+						'id'          => 'other',
+						'text'        => esc_html__( 'Other', 'storeengine-sdk' ),
+						'type'        => 'textarea',
+						'placeholder' => esc_html__( 'Could you tell us a bit more?', 'storeengine-sdk' ),
+				],
 		];
 
 		$extra = apply_filters( $this->client->getHookName( 'uninstall_reasons' ), [], $reasons );
@@ -1016,14 +1012,14 @@ final class SE_License_SDK_Insights {
 		}
 
 		$data = [
-			'reason'      => $reason,
-			'message'     => $details,
-			'site'        => $this->__get_site_name(),
-			'url'         => esc_url( home_url() ),
-			'admin_name'  => $name,
-			'admin_email' => $current_user->user_email,
-			'usage_log'   => $this->get_tracking_data(),
-			'type'        => 'uninstall',
+				'reason'      => $reason,
+				'message'     => $details,
+				'site'        => $this->__get_site_name(),
+				'url'         => esc_url( home_url() ),
+				'admin_name'  => $name,
+				'admin_email' => $current_user->user_email,
+				'usage_log'   => $this->get_tracking_data(),
+				'type'        => 'uninstall',
 		];
 
 		$response = $this->client->request( [ 'body' => $data, 'route' => 'deactivate-license' ] );
@@ -1038,10 +1034,10 @@ final class SE_License_SDK_Insights {
 	protected function get_se_url(): string {
 		/** @noinspection HttpUrlsUsage */
 		return 'http://storeengine.pro/' .
-		       '?utm_source=sdk-support-ticket' .
-		       '&utm_medium=email-footer' .
-		       '&utm_campaign=' . $this->client->getSlug() .
-		       '&utm_content=' . $this->client->getLicenseServer();
+			   '?utm_source=sdk-support-ticket' .
+			   '&utm_medium=email-footer' .
+			   '&utm_campaign=' . $this->client->getSlug() .
+			   '&utm_content=' . $this->client->getLicenseServer();
 	}
 
 	protected function getSupportTicketEmailTemplate( $replacements ) {
@@ -1055,26 +1051,26 @@ final class SE_License_SDK_Insights {
 			<title><?php esc_html_e( 'Support Ticket Submission', 'storeengine-sdk' ); ?></title>
 		</head>
 		<body>
-			<div class="se-sdk-support-ticket-email-template">
-				<?php include $this->ticketTemplate; ?>
-				<div style="margin:10px auto">
-					<hr style="border-top-color:#008DFF"/>
-				</div>
-				<div style="margin:50px auto 10px auto">
-					<?php // Trick (h3 with &#8203 zero-width-space chars) for dashes before auto generated text version by wp_mail ?>
-					<h3 style="display:block;height:0;margin:0;opacity:0;visibility:hidden">&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;</h3>
-					<p style="font-size: 12px;">
-						<?php
-						printf(
-						// translators: %1$s. StoreEngine Site Link. %2$s. SDK version.
+		<div class="se-sdk-support-ticket-email-template">
+			<?php include $this->ticketTemplate; ?>
+			<div style="margin:10px auto">
+				<hr style="border-top-color:#008DFF"/>
+			</div>
+			<div style="margin:50px auto 10px auto">
+				<?php // Trick (h3 with &#8203 zero-width-space chars) for dashes before auto generated text version by wp_mail ?>
+				<h3 style="display:block;height:0;margin:0;opacity:0;visibility:hidden">&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;</h3>
+				<p style="font-size: 12px;">
+					<?php
+					printf(
+					// translators: %1$s. StoreEngine Site Link. %2$s. SDK version.
 							esc_html__( 'Message Processed via %1$s WordPress License SDK (v.%2$s)', 'storeengine-sdk' ),
 							'<a href="' . esc_url( $this->get_se_url() ) . '" target="_blank" style="color:#008DFF">' . esc_html__( 'StoreEngine', 'storeengine-sdk' ) . '</a>',
 							esc_html( $this->client->getVersion() )
-						);
-						?>
-					</p>
-				</div>
+					);
+					?>
+				</p>
 			</div>
+		</div>
 		</body>
 		</html>
 		<?php
@@ -1104,15 +1100,15 @@ final class SE_License_SDK_Insights {
 			// Do not translate, as the site's language might not match recipient's preference/language.
 			$subject = sprintf( 'Support Request For: %s', $this->client->getPackageName() );
 			$headers = [
-				'Content-Type: text/html; charset=UTF-8',
-				sprintf( 'From: %s <%s>', $name, $email ),
-				sprintf( 'Reply-To: %s <%s>', $name, $email ),
+					'Content-Type: text/html; charset=UTF-8',
+					sprintf( 'From: %s <%s>', $name, $email ),
+					sprintf( 'Reply-To: %s <%s>', $name, $email ),
 			];
 
 			$sanitizers = [
-				'email'   => 'sanitize_email',
-				'website' => 'esc_url_raw',
-				'message' => 'sanitize_textarea_field',
+					'email'   => 'sanitize_email',
+					'website' => 'esc_url_raw',
+					'message' => 'sanitize_textarea_field',
 			];
 
 			$data = [ 's' => [], 'r' => [] ];
@@ -1143,10 +1139,10 @@ final class SE_License_SDK_Insights {
 
 			// phpcs:disable WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail
 			$isSent = wp_mail(
-				$this->ticketRecipient,
-				$subject,
-				$this->getSupportTicketEmailTemplate( $data ),
-				$headers
+					$this->ticketRecipient,
+					$subject,
+					$this->getSupportTicketEmailTemplate( $data ),
+					$headers
 			);
 			// phpcs:enable WordPressVIPMinimum.Functions.RestrictedFunctions.wp_mail_wp_mail
 
@@ -1185,18 +1181,18 @@ final class SE_License_SDK_Insights {
 		}
 
 		wp_enqueue_style(
-			'se-sdk-deactivation-modal',
-			SE_License_SDK::sdk_url( 'static/deactivation-modal.css' ),
-			[],
-			$this->client->getVersion()
+				'se-sdk-deactivation-modal',
+				SE_License_SDK::sdk_url( 'static/deactivation-modal.css' ),
+				[],
+				$this->client->getVersion()
 		);
 
 		wp_enqueue_script(
-			'se-sdk-deactivation-modal',
-			SE_License_SDK::sdk_url( 'static/deactivation-modal.js' ),
-			[ 'jquery' ],
-			$this->client->getVersion(),
-			true
+				'se-sdk-deactivation-modal',
+				SE_License_SDK::sdk_url( 'static/deactivation-modal.js' ),
+				[ 'jquery' ],
+				$this->client->getVersion(),
+				true
 		);
 	}
 
@@ -1226,7 +1222,7 @@ final class SE_License_SDK_Insights {
 			 data-support-url="<?php echo esc_url( $this->supportURL ); ?>"
 			 data-processing-label="<?php esc_attr_e( 'Processing...', 'storeengine-sdk' ); ?>"
 			 aria-label="<?php /* translators: 1: Plugin Name */
-		     printf( esc_attr__( '&ldquo;%s&rdquo; Uninstall Confirmation', 'storeengine-sdk' ), esc_attr( $this->client->getPackageName() ) ); ?>"
+			 printf( esc_attr__( '&ldquo;%s&rdquo; Uninstall Confirmation', 'storeengine-sdk' ), esc_attr( $this->client->getPackageName() ) ); ?>"
 			 role="dialog" aria-modal="true"
 			 style="--se-sdk-primary-color: <?php echo esc_attr( $this->client->getPrimaryColor() ); ?>; --se-sdk-danger-color: #f02e5e; --se-sdk-text-color: #141A24; --se-sdk-muted-color: #738496; --se-sdk-border-color: #eeeeee;">
 			<?php
@@ -1261,24 +1257,24 @@ final class SE_License_SDK_Insights {
 			}
 
 			$data = [
-				'reason'      => 'none',
-				'message'     => wp_json_encode(
-					[
-						'new_theme' => [
-							'name'          => $new_name,
-							'version'       => $new_theme->get( 'Version' ),
-							'author'        => $new_theme->get( 'Author' ),
-							'parent_theme'  => $new_theme->parent() ? $new_theme->parent()->get( 'Name' ) : '',
-							'parent_author' => $new_theme->parent() ? $new_theme->parent()->get( 'Author' ) : '',
-						],
-					]
-				),
-				'site'        => $this->__get_site_name(),
-				'url'         => esc_url( home_url() ),
-				'admin_name'  => $name,
-				'admin_email' => $current_user->user_email,
-				'usage_log'   => $this->get_tracking_data(),
-				'type'        => 'uninstall',
+					'reason'      => 'none',
+					'message'     => wp_json_encode(
+							[
+									'new_theme' => [
+											'name'          => $new_name,
+											'version'       => $new_theme->get( 'Version' ),
+											'author'        => $new_theme->get( 'Author' ),
+											'parent_theme'  => $new_theme->parent() ? $new_theme->parent()->get( 'Name' ) : '',
+											'parent_author' => $new_theme->parent() ? $new_theme->parent()->get( 'Author' ) : '',
+									],
+							]
+					),
+					'site'        => $this->__get_site_name(),
+					'url'         => esc_url( home_url() ),
+					'admin_name'  => $name,
+					'admin_email' => $current_user->user_email,
+					'usage_log'   => $this->get_tracking_data(),
+					'type'        => 'uninstall',
 			];
 
 			$this->client->request( [ 'body' => $data, 'route' => 'deactivate-license' ] );

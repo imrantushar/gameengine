@@ -26,7 +26,7 @@ if ( ! function_exists( 'se_license_init' ) ) {
 	 * init_restapi?: bool, // Should initialize rest api for managing license. Useful if plugin developer uses custom 'manage-license' page.
 	 * script_handler?:string, // Localize js params on this handler for react/js based custom license managemnt page. Recommended if `init_restapi` is `true`
 	 * script_object?:string, // Object name for localized js params. Recommended if  if `script_handler` is being used, must be qnique/prefixed. If not set SDK will set `SE_SDK_{PLUGIN_SLUG}`
-	 * menu: false|string|array{ // False to disable built in 'manage-license' page, url for custom 'manage-license' page or menu config for adding builtin 'manage-license' page UI.
+	 * menu?: false|string|array{ // False to disable built in 'manage-license' page, url for custom 'manage-license' page or menu config for adding builtin 'manage-license' page UI.
 	 *        type: string, // menu type: menu, submenu.
 	 *        parent_slug: string, // parent menu slug if type is submenu.
 	 *        page_title: string, // Page title for the 'manage-license' page.

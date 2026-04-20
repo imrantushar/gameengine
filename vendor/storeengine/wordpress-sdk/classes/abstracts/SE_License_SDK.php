@@ -180,7 +180,7 @@ abstract class SE_License_SDK {
 			return self::$registered[ $registered_file ];
 		}
 
-		$client = SE_License_SDK_Client::get_instance( $file, $name, $args );
+		$client = SE_License_SDK_Client::get_instance( $file, $name, self::$sdk_version, $args, );
 		$client->set_sdk_version( self::$sdk_version );
 
 		$registered_file = $client->getPackageFile();
