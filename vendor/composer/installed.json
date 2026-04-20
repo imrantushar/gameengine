@@ -7,12 +7,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/imrantushar/storeengine-sdk-for-wordpress.git",
-                "reference": "eca7ea7cbc7b4196bdfb4ecca8a19f95e4d22cef"
+                "reference": "d5c72daf02149a8bccef4f08dc525b5f392f5970"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/imrantushar/storeengine-sdk-for-wordpress/zipball/eca7ea7cbc7b4196bdfb4ecca8a19f95e4d22cef",
-                "reference": "eca7ea7cbc7b4196bdfb4ecca8a19f95e4d22cef",
+                "url": "https://api.github.com/repos/imrantushar/storeengine-sdk-for-wordpress/zipball/d5c72daf02149a8bccef4f08dc525b5f392f5970",
+                "reference": "d5c72daf02149a8bccef4f08dc525b5f392f5970",
                 "shasum": ""
             },
             "require": {
@@ -27,7 +27,7 @@
                 "szepeviktor/phpstan-wordpress": "^2.0",
                 "wp-coding-standards/wpcs": "^3.0"
             },
-            "time": "2026-04-20T09:51:19+00:00",
+            "time": "2026-04-20T13:00:21+00:00",
             "type": "library",
             "extra": {
                 "scripts-description": {
