@@ -17,7 +17,7 @@
         "ext-mbstring": "*",
 		"ext-dom": "*",
 		"ext-mysqli": "*",
-        "storeengine/wordpress-sdk": "^1.3"
+        "storeengine/wordpress-sdk": "^1.4"
 	},
 	"config": {
 		"allow-plugins": {

@@ -116,6 +116,13 @@ final class SE_License_SDK_Client {
 	protected $slug;
 
 	/**
+	 * The project purchase/checkout URL.
+	 *
+	 * @var string|null
+	 */
+	protected $purchase_url = null;
+
+	/**
 	 * The project version.
 	 *
 	 * @var string
@@ -327,15 +334,39 @@ final class SE_License_SDK_Client {
 	 */
 	private static $instances = [];
 
-	public static function get_instance( string $package_file = '', string $package_name = '', array $args = [] ): SE_License_SDK_Client {
+	public static function get_instance( string $package_file = '', string $package_name = '', string $sdk_version = null, array $args = [] ): SE_License_SDK_Client {
 		$self = new self( $package_file, $package_name, $args );
-		self::init( $self, $args );
+		$self->set_sdk_version( $sdk_version );
 
+		self::init( $self, $args );
 
 		return $self;
 	}
 
 	protected static function init( SE_License_SDK_Client $client, array $args ) {
+		$client->purchase_url = $args['purchase_url'] ?? null;
+
+		if ( ! empty( $args['purchase_url'] ) && is_string( $args['purchase_url'] ) ) {
+			$client->set_purchase_url(
+				add_query_arg(
+					[
+						'utm_source'   => 'storeengine-sdk',
+						'utm_medium'   => 'license-form',
+						'utm_campaign' => 'license-activation-upsell',
+						'utm_content'  => 'purchase-link',
+						'utm_term'     => $client->getSlug(),
+						'locale'       => get_locale(),
+						'sdk_version'  => $client->getVersion(),
+						'version'      => $client->getProjectVersion(),
+						'wordpress'    => get_bloginfo( 'version' ),
+						'type'         => $client->getType(),
+						'instance'     => $client->get_device_id(),
+					],
+					$args['purchase_url']
+				)
+			);
+		}
+
 		if ( $client->maybe_init_insights() ) {
 			// Init insights.
 			$client->insights()
@@ -376,7 +407,6 @@ final class SE_License_SDK_Client {
 			$client->license( ! empty( $args['redirect_on_activation'] ) )
 			       ->set_header_message( $args['activation_prompt'] ?? null )
 			       ->set_manage_license_url( $args['store_dashboard_url'] ?? null )
-			       ->set_purchase_url( $args['purchase_url'] ?? null )
 			       ->set_header_icon( $args['product_logo'] ?? null );
 
 			$menu = array_key_exists( 'menu', $args ) ? $args['menu'] : [];
@@ -996,6 +1026,7 @@ final class SE_License_SDK_Client {
 
 		// Request URL
 		$url = $args['route'] ? esc_url_raw( $this->endpoint( $args['route'] ) ) : null;
+
 		if ( ! $url && $args['url'] && str_starts_with( $args['url'], 'https://' ) ) {
 			$url = $args['url'];
 			unset( $args['url'] );
@@ -1046,8 +1077,6 @@ final class SE_License_SDK_Client {
 			'device_id'   => $this->get_device_id(),
 			'locale'      => get_locale(),
 		] );
-
-		$updater_routes = [ 'package-info', 'check-update' ];
 
 		// Add license info for every request, if available.
 		if ( ! $this->is_free && $this->license() && $this->license()->get_key() && empty( $body['license'] ) ) {
@@ -1375,6 +1404,14 @@ final class SE_License_SDK_Client {
 	 */
 	public function add_filter( string $hook_name, $callback, int $priority = 10, int $accepted_args = 1 ): bool {
 		return add_filter( $this->getHookName( $hook_name ), $callback, $priority, $accepted_args );
+	}
+
+	public function set_purchase_url( string $purchase_url = null ) {
+		$this->purchase_url = $purchase_url;
+	}
+
+	public function get_purchase_url() {
+		return $this->purchase_url;
 	}
 
 	/**
