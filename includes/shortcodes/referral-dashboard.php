@@ -41,6 +41,9 @@ class ReferralDashboard
             $user_id
         ));
 
+        // Total Clicks from user meta
+        $total_clicks = \GameEngine\Classes\ReferralManager::get_click_count($user_id);
+
         // Fetch total points earned from referrals
         $points_table = $wpdb->prefix . 'gameengine_points_log';
         $total_points = (int) $wpdb->get_var($wpdb->prepare(
@@ -48,11 +51,24 @@ class ReferralDashboard
             $user_id
         ));
 
+        // Fetch Recent Referrals (List)
+        $recent_referrals = $wpdb->get_results($wpdb->prepare(
+            "SELECT r.status, r.created_at, u.display_name 
+             FROM {$table_name} r
+             INNER JOIN {$wpdb->users} u ON r.referee_id = u.ID
+             WHERE r.referrer_id = %d AND r.status = 'converted'
+             ORDER BY r.created_at DESC
+             LIMIT 5",
+            $user_id
+        ));
+
         $args = [
-            'referral_url'    => $referral_url,
-            'total_referrals' => $total_referrals,
-            'total_points'    => $total_points,
-            'user'            => $user
+            'referral_url'     => $referral_url,
+            'total_referrals'  => $total_referrals,
+            'total_clicks'     => $total_clicks,
+            'total_points'     => $total_points,
+            'recent_referrals' => $recent_referrals,
+            'user'             => $user
         ];
 
         ob_start();

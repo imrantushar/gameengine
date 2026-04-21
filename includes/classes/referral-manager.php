@@ -108,7 +108,17 @@ class ReferralManager
         // Do not set a cookie if the visitor is already the referrer
         if ($referrer_id > 0 && $referrer_id !== get_current_user_id()) {
             $this->set_referral_cookie($referrer_id);
+            $this->track_click($referrer_id);
         }
+    }
+
+    /**
+     * Tracks a click on a referral link.
+     */
+    private function track_click($referrer_id)
+    {
+        $clicks = (int) get_user_meta($referrer_id, 'gameengine_referral_clicks', true);
+        update_user_meta($referrer_id, 'gameengine_referral_clicks', $clicks + 1);
     }
 
     /**
@@ -133,6 +143,14 @@ class ReferralManager
     public static function get_stored_referrer_id()
     {
         return isset($_COOKIE[self::$cookie_name]) ? absint($_COOKIE[self::$cookie_name]) : 0;
+    }
+
+    /**
+     * Get total clicks for a user.
+     */
+    public static function get_click_count($user_id)
+    {
+        return (int) get_user_meta($user_id, 'gameengine_referral_clicks', true);
     }
 
     /**

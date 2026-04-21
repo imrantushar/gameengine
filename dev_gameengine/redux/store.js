@@ -13,6 +13,7 @@ import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import payoutReducer from './Slices/payoutSlice/payoutSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
+import referralReducer from './Slices/referralSlice/referralSlice';
 
 import logger from 'redux-logger';
 
@@ -43,6 +44,7 @@ export const store = configureStore({
         settings: settingsReducer,
         addons: addonsReducer,
         notification: notificationReducer,
+        referrals: referralReducer,
         // Future reducers will be added here (e.g., points, settings)
     },
     middleware: ( getDefaultMiddleware ) =>

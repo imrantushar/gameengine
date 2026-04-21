@@ -44,14 +44,20 @@ const LeftBar = () => {
             desc: __("Payout settings", "gameengine"),
             icon: general(),
         },
+        {
+            label: __("Referral", "gameengine"),
+            key: "referral",
+            desc: __("Referral & Affiliate Systems", "gameengine"),
+            icon: general(),
+        },
         ...(is_pro
-        ? [{
-            label: __("License", "gameengine"),
-            key: "license",
-            desc: __("Manage your license key", "gameengine"),
-            icon: license(),
-        }]
-        : []),
+            ? [{
+                label: __("License", "gameengine"),
+                key: "license",
+                desc: __("Manage your license key", "gameengine"),
+                icon: license(),
+            }]
+            : []),
         {
             label: __("Email Templates", "gameengine"),
             key: "email_templates",

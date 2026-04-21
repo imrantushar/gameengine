@@ -88,12 +88,10 @@ class ReferralsController extends BaseController
             $offset
         ), ARRAY_A);
 
-        return new \WP_REST_Response([
-            'data'       => $rows,
-            'total'      => $total,
-            'page'       => $page,
-            'total_pages' => (int) ceil($total / $limit),
-        ], 200);
+        return new \WP_REST_Response($rows, 200, [
+            'X-WP-Total'      => $total,
+            'X-WP-TotalPages' => (int) ceil($total / $limit),
+        ]);
     }
 
     /**
