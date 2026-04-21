@@ -134,7 +134,8 @@ final class GameEngine
             '\GameEngine\Classes\LevelsManager',
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
-            '\GameEngine\Classes\Triggers'
+            '\GameEngine\Classes\Triggers',
+            '\GameEngine\Classes\ReferralManager'
         );
 
         foreach ($services as $service) {

@@ -172,6 +172,13 @@ class Helper
             'title' => __('Leaderboards', 'gameengine'),
             'capability' => 'manage_options',
         );
+        
+        // Referrals
+        $menu[$slug . '-referrals'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Referrals', 'gameengine'),
+            'capability' => 'manage_options',
+        );
 
         // Wallet System
         if (self::is_addon_active('wallet')) {
