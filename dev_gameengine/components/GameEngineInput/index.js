@@ -1,15 +1,20 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-
-const GameEngineInput = ({ label, desc, children, width = "100%", labelType = 'input', isPro = false, ...props }) => {
-    return (
-        <Flex direction="column" gap="6px" width={width} {...props} className='gameengine-input-box'>
+const GameEngineInput = ({
+  label,
+  desc,
+  children,
+  width = "100%",
+  labelType = 'input',
+  isPro = false,
+  ...props
+}) => {
+  return <div className="gameengine-input-box flex flex-col gap-1.5" style={{
+    "width": width
+  }} {...props}>
             <GFLabel type={labelType} label={label} isPro={isPro} />
             {children}
             {desc ? <GFLabel type="simple" label={desc} /> : null}
-        </Flex>
-    );
+        </div>;
 };
-
 export default GameEngineInput;

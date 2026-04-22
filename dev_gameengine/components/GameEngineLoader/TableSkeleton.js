@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Table } from '@chakra-ui/react';
+import { Skeleton, Table } from '@GFUtils/ui';
 
 const TableLoading = ({ makeItems = 5 }) => {
     return (

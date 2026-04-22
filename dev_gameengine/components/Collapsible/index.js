@@ -1,80 +1,40 @@
 import React from "react";
-import { Box, Flex, Icon, Text, } from "@chakra-ui/react";
+import { Icon } from "@GFUtils/ui";
 import { LuChevronDown, LuChevronRight, LuChevronUp } from "react-icons/lu";
 import { FaUndo } from 'react-icons/fa';
 import { __, sprintf } from '@wordpress/i18n';
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import { arrowBackward } from "@GFUtils/icons";
+const CustomCollapsible = ({
+  label,
+  desc,
+  isOpen,
+  onClick,
+  children,
+  singleIcon = false,
+  suffix
+}) => {
+  const classes = ['gameengine-collapsible', suffix && `gameengine-collapsible--${suffix}`].filter(Boolean).join(" ");
+  return <>
+            <div className={`${`${classes + " " + "flex items-center justify-between cursor-pointer"} rounded py-3 px-4`} [border:1px_solid_var(--gameengine-border-color)]`} onClick={onClick}>
+                <GFLabel type="title" margin={0} padding={0}
+      // translators: %s: label
+      label={sprintf(__('%s', 'gemboards'), label)} fontWeight="400" />
 
-const CustomCollapsible = ({ label, desc, isOpen, onClick, children, singleIcon = false, suffix }) => {
-    const classes = [
-        'gameengine-collapsible',
-        suffix && `gameengine-collapsible--${suffix}`,
-    ].filter(Boolean).join(" ");
-
-    return (
-        <>
-            <Flex
-                padding="12px 16px"
-                border="1px solid var(--gameengine-border-color)"
-                borderRadius="4px"
-                alignItems="center"
-                justifyContent="space-between"
-                cursor="pointer"
-                onClick={onClick}
-                className={classes}
-            >
-                <GFLabel
-                    type="title"
-                    margin={0}
-                    padding={0}
-                    // translators: %s: label
-                    label={sprintf(
-                        __('%s', 'gemboards'),
-                        label,
-                    )}
-                    fontWeight="400"
-                />
-
-                {!singleIcon ? (
-                    <Icon as={isOpen ? LuChevronUp : LuChevronDown} boxSize={5} />
-                ) : (
-                    <Box
-                        bg="#FF3E2F"
-                        borderRadius="full"
-                        width="24px"
-                        height="24px"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="center"
-                        color="white"
-                    >
+                {!singleIcon ? <Icon as={isOpen ? LuChevronUp : LuChevronDown} boxSize={5} /> : <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[#FF3E2F]">
                         <Icon as={arrowBackward} boxSize={4} />
-                    </Box>
-                )}
-            </Flex>
+                    </div>}
+            </div>
 
-            {isOpen && children && (
-                <Flex
-                    flexDirection="column"
-                    padding="24px 16px"
-                    border="1px solid var(--gameengine-border-color)"
-                    borderTop="none"
-                    borderBottomLeftRadius="4px"
-                    borderBottomRightRadius="4px"
-                // marginTop="-2px"
-                >
+            {isOpen && children && <div className="flex flex-col [border:1px_solid_var(--gameengine-border-color)] [padding:24px_16px] border-t-0" borderBottomLeftRadius="4px" borderBottomRightRadius="4px"
+    // marginTop="-2px"
+    >
                     {children}
-                </Flex>
-            )}
+                </div>}
 
-            {(desc && !isOpen) && (
-                <Text fontSize="0.875rem" margin='6px 0 0 0' color='var(--gameengine-secondary)'>
+            {desc && !isOpen && <p className="text-[var(--gameengine-secondary)] text-sm mt-1.5">
                     {__(desc, 'gameengine')}
-                </Text>
-            )}
-        </>
-    );
+                </p>}
+        </>;
 };
-
 export default CustomCollapsible;

@@ -1,116 +1,79 @@
 import React, { useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
-import { Box, Button, Flex, Icon, Input, Span, Text } from '@chakra-ui/react';
+import { Icon } from '@GFUtils/ui';
 import { clearBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { FaRegCopy } from 'react-icons/fa6';
 import { AiOutlineQuestion } from 'react-icons/ai';
-
-const ShortCodeItem = ({ shortCodeItem }) => {
-	const { title, subtitle, shortCode, description, url, isPro } = shortCodeItem;
-	const shortCodeRef = useRef(null);
-	const dispatch = useDispatch();
-
-	const copyToClipboard = (e) => {
-		if (isPro) return;
-		shortCodeRef.current.select();
-		document.execCommand('copy');
-		e.target.focus();
-		dispatch(
-			showNotification({
-				message: __('Copied', 'academy'),
-				isShow: true,
-				type: 'success',
-			})
-		);
-	};
-
-	return (
-		<Flex
-			className="academy-short-code-item"
-			justify={'space-between'}
-			align={'flex-start'}
-			paddingBottom={'24px'}
-		>
-			<Box className="academy-short-code-item__info" width={'100%'}>
-				<GFLabel
-					type="title"
-					margin={0}
-					label={title}
-					isPro={isPro}
-				/>
+const ShortCodeItem = ({
+  shortCodeItem
+}) => {
+  const {
+    title,
+    subtitle,
+    shortCode,
+    description,
+    url,
+    isPro
+  } = shortCodeItem;
+  const shortCodeRef = useRef(null);
+  const dispatch = useDispatch();
+  const copyToClipboard = e => {
+    if (isPro) return;
+    shortCodeRef.current.select();
+    document.execCommand('copy');
+    e.target.focus();
+    dispatch(showNotification({
+      message: __('Copied', 'academy'),
+      isShow: true,
+      type: 'success'
+    }));
+  };
+  return <div className="academy-short-code-item flex justify-between items-start pb-6">
+			<div className="academy-short-code-item__info w-full">
+				<GFLabel type="title" margin={0} label={title} isPro={isPro} />
 				<GFLabel type="subtitle" margin={0} label={subtitle} />
-			</Box>
-			<Flex className="academy-short-code-item__body" direction={'column'} width={'100%'}>
-				<Flex className="academy-short-code-details" align={'center'} gap={'20px'}>
-					<Flex className="academy-short-code-text" width={'100%'} align={'center'}>
-						<Input
-							type="text"
-							ref={shortCodeRef}
-							className="academy-short-code-text__shortcode"
-							name={shortCode}
-							value={shortCode}
-							readOnly
-							disabled={isPro}
-							border={'1px solid var(--gameengine-border-color) !important'}
-							borderTopRightRadius={'0 !important'}
-							borderBottomRightRadius={'0 !important'}
-							borderRight={'none !important'}
-							outline={'none'}
-							boxShadow={'none !important'}
-							cursor={isPro ? 'not-allowed' : 'text'}
-						/>
-						<Button
-							onClick={copyToClipboard}
-							className="academy-btn--copy"
-							{...clearBtn}
-							border={'1px solid var(--gameengine-border-color)'}
-							borderRadius={'4px'}
-							borderTopLeftRadius={'0 !important'}
-							borderBottomLeftRadius={'0 !important'}
-							height={'40px'}
-							disabled={isPro}
-							cursor={isPro ? 'not-allowed' : 'pointer'}
-						>
+			</div>
+			<div className="academy-short-code-item__body flex flex-col w-full">
+				<div className="academy-short-code-details flex items-center gap-5">
+					<div className="academy-short-code-text flex w-full items-center">
+						<input className="academy-short-code-text__shortcode ![border:1px_solid_var(--gameengine-border-color)_]" style={{
+            "borderRight": "none !important",
+            "outline": "none",
+            "boxShadow": "none !important",
+            "cursor": isPro ? 'not-allowed' : 'text',
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0
+          }} type="text" ref={shortCodeRef} name={shortCode} value={shortCode} readOnly disabled={isPro} />
+						<button className="academy-btn--copy rounded h-10 [border:1px_solid_var(--gameengine-border-color)]" style={{
+            "cursor": isPro ? 'not-allowed' : 'pointer',
+            ...clearBtn,
+            borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0
+          }} onClick={copyToClipboard} disabled={isPro}>
 							<Icon as={FaRegCopy} />
-						</Button>
-					</Flex>
-					<Button
-						className="academy-btn--link"
-						as={'a'}
-						link={url}
-						target="_blank"
-						type="link"
-						{...clearBtn}
-						border={'1px solid var(--gameengine-border-color)'}
-						borderRadius={'50%'}
-						width={'40px'}
-						height={'40px'}
-						disabled={isPro}
-						cursor={isPro ? 'not-allowed' : 'pointer'}
-					>
+						</button>
+					</div>
+					<button className="academy-btn--link rounded-full w-10 h-10 [border:1px_solid_var(--gameengine-border-color)]" style={{
+          "cursor": isPro ? 'not-allowed' : 'pointer',
+          ...clearBtn
+        }} href={url} target="_blank" rel="noopener noreferrer" disabled={isPro}>
 						<Icon as={AiOutlineQuestion} />
-					</Button>
-				</Flex>
-				<Flex className="academy-short-code-description" paddingTop={'4px'}>
-					<Flex wordBreak={'break-all'}>
-						<Text
-							fontWeight={'400'}
-							fontStyle={'italic'}
-							fontSize={'12px'}
-							lineHeight={'22px'}
-							color={'#707070'}
-							margin={'0'}
-						>
+					</button>
+				</div>
+				<div className="academy-short-code-description flex pt-1">
+					<div className="flex break-all">
+						<p className="font-normal text-xs m-0 italic" style={{
+            "lineHeight": "22px",
+            "color": "#707070"
+          }}>
 							{__('You can use: ', 'academy') + shortCode} <br /> {description}
-						</Text>
-					</Flex>
-				</Flex>
-			</Flex>
-		</Flex >
-	);
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>;
 };
-
 export default ShortCodeItem;

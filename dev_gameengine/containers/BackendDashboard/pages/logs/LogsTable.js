@@ -6,205 +6,143 @@ import ListTable from '@GFComponents/ListTable';
 import Search from '@GFComponents/Search';
 import { FiEdit, FiClock } from "react-icons/fi";
 import { fetchLogs, setPage, setRowsPerPage, setSearchQuery } from '@GFRedux/Slices/logsSlice/logsSlice';
-import { Button, Icon, Badge, Flex, Spinner, Text } from '@chakra-ui/react';
-
-const LogsTable = ({ modalOpenHandler }) => {
-    const dispatch = useDispatch();
-    const {
-        items,
-        totalItems,
-        currentPage,
-        perPage,
-        search,
-        status
-    } = useSelector((state) => state.logs);
-    const [loading, setLoading] = useState(items.length === 0);
-
-
-    const handleRefresh = async (page = 1, per_page = 10, serchKey = "") => {
-        setLoading(true)
-        await dispatch(fetchLogs({ page, per_page, search: serchKey }));
-        setLoading(false)
-    };
-
-    useEffect(() => {
-        handleRefresh()
-    }, []);
-
-    const handlePageChange = (newPage) => {
-        handleRefresh(newPage, perPage)
-    };
-
-    const handlePerPageChange = (itemsPerPage) => {
-        handleRefresh(currentPage, itemsPerPage)
-    };
-
-    const columns = useMemo(() => [
-        {
-            name: __('User', 'gameengine'),
-            cell: (row) => (
-                <div className='gameengine-table-flex-col'>
-                    <span style={{ fontWeight: 600 }}>{row.user_name || 'Guest'}</span>
-                    <span style={{ fontSize: '12px', color: '#666' }}>{row.user_email || `ID: ${row.user_id}`}</span>
-                </div>
-            ),
-            columnWidth: "180px",
-            textAlign: "start",
-        },
-        {
-            name: __('Event', 'gameengine'),
-            cell: (row) => (
-                <Badge variant="outline" colorScheme="purple">{row.event_name}</Badge>
-            ),
-            columnWidth: "130px",
-        },
-        {
-            name: __('Message / Details', 'gameengine'),
-            cell: (row) => {
-                let points = 0;
-                if (row.points_awarded) points = parseInt(row.points_awarded);
-                else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
-
-                const scheduled = row.meta?.scheduled_for;
-                const congratsMsg = row.meta?.congratulations_message;
-
-                return (
-                    <>
+import { Icon, Spinner } from '@GFUtils/ui';
+const LogsTable = ({
+  modalOpenHandler
+}) => {
+  const dispatch = useDispatch();
+  const {
+    items,
+    totalItems,
+    currentPage,
+    perPage,
+    search,
+    status
+  } = useSelector(state => state.logs);
+  const [loading, setLoading] = useState(items.length === 0);
+  const handleRefresh = async (page = 1, per_page = 10, serchKey = "") => {
+    setLoading(true);
+    await dispatch(fetchLogs({
+      page,
+      per_page,
+      search: serchKey
+    }));
+    setLoading(false);
+  };
+  useEffect(() => {
+    handleRefresh();
+  }, []);
+  const handlePageChange = newPage => {
+    handleRefresh(newPage, perPage);
+  };
+  const handlePerPageChange = itemsPerPage => {
+    handleRefresh(currentPage, itemsPerPage);
+  };
+  const columns = useMemo(() => [{
+    name: __('User', 'gameengine'),
+    cell: row => <div className='gameengine-table-flex-col'>
+                    <span className="font-semibold">{row.user_name || 'Guest'}</span>
+                    <span className="text-xs" style={{
+        color: '#666'
+      }}>{row.user_email || `ID: ${row.user_id}`}</span>
+                </div>,
+    columnWidth: "180px",
+    textAlign: "start"
+  }, {
+    name: __('Event', 'gameengine'),
+    cell: row => <span>{row.event_name}</span>,
+    columnWidth: "130px"
+  }, {
+    name: __('Message / Details', 'gameengine'),
+    cell: row => {
+      let points = 0;
+      if (row.points_awarded) points = parseInt(row.points_awarded);else if (row.meta && row.meta.points) points = parseInt(row.meta.points);
+      const scheduled = row.meta?.scheduled_for;
+      const congratsMsg = row.meta?.congratulations_message;
+      return <>
                         <div title={row.message}>{row.message}</div>
 
-                        {congratsMsg && (
-                            <div
-                                style={{
-                                    marginTop: '6px',
-                                    padding: '6px 8px',
-                                    background: '#f0fff4', // Light Green Bg
-                                    border: '1px solid #c6f6d5',
-                                    borderRadius: '4px',
-                                    fontSize: '12px',
-                                    color: '#2f855a' // Dark Green Text
-                                }}
-                                dangerouslySetInnerHTML={{ __html: congratsMsg }}
-                            />
-                        )}
+                        {congratsMsg && <div className="rounded text-xs" style={{
+          marginTop: '6px',
+          padding: '6px 8px',
+          background: '#f0fff4',
+          // Light Green Bg
+          border: '1px solid #c6f6d5',
+          color: '#2f855a' // Dark Green Text
+        }} dangerouslySetInnerHTML={{
+          __html: congratsMsg
+        }} />}
 
-                        {points !== 0 && !isNaN(points) && (
-                            <span style={{
-                                display: 'inline-block',
-                                marginTop: '4px',
-                                color: points > 0 ? 'green' : 'red',
-                                fontWeight: 'bold',
-                                fontSize: '12px'
-                            }}>
+                        {points !== 0 && !isNaN(points) && <span className="inline-block mt-1 text-xs" style={{
+          color: points > 0 ? 'green' : 'red',
+          fontWeight: 'bold'
+        }}>
                                 ({points > 0 ? '+' : ''}{points} Points)
-                            </span>
-                        )}
+                            </span>}
 
-                        {scheduled && (
-                            <div style={{ fontSize: '11px', color: 'purple', marginTop: '2px' }}>
-                                <Icon as={FiClock} style={{ verticalAlign: 'middle', marginRight: '4px' }} />
+                        {scheduled && <div style={{
+          fontSize: '11px',
+          color: 'purple',
+          marginTop: '2px'
+        }}>
+                                <Icon as={FiClock} className="mr-1" style={{
+            verticalAlign: 'middle'
+          }} />
                                 {new Date(scheduled).toLocaleString()}
-                            </div>
-                        )}
-                    </>
-                );
-            },
-            columnWidth: "340px",
-        },
-        {
-            name: __('Date', 'gameengine'),
-            cell: (row) => <Text>
+                            </div>}
+                    </>;
+    },
+    columnWidth: "340px"
+  }, {
+    name: __('Date', 'gameengine'),
+    cell: row => <p>
                 {new Date(row.created_at).toLocaleString()}
-            </Text>,
-            columnWidth: "154px",
-        },
-        {
-            name: __('Status', 'gameengine'),
-            cell: (row) => (
-                <Badge
-                    colorScheme={row.status === 'success' ? 'green' : row.status === 'pending' ? 'yellow' : 'red'}
-                    borderRadius="full" px={3}
-                >
+            </p>,
+    columnWidth: "154px"
+  }, {
+    name: __('Status', 'gameengine'),
+    cell: row => <span className="rounded-full pl-3 pr-3">
                     {row.status}
-                </Badge>
-            ),
-            columnWidth: "100px",
-        },
-        {
-            name: __('Action', 'gameengine'),
-            cell: (row) => {
-                const isEditable = ['manual_adjustment', 'manual_award', 'manual_deduct'].includes(row.trigger_key);
-
-                if (!isEditable) return <Text fontSize="xs" color="gray.400">System Log</Text>;
-
-                return (
-                    <Button
-                        onClick={() => modalOpenHandler(row)}
-                        size="sm" variant="ghost"
-                        title="Edit Log"
-                    >
+                </span>,
+    columnWidth: "100px"
+  }, {
+    name: __('Action', 'gameengine'),
+    cell: row => {
+      const isEditable = ['manual_adjustment', 'manual_award', 'manual_deduct'].includes(row.trigger_key);
+      if (!isEditable) return <p style={{
+        "fontSize": "xs",
+        "color": "gray.400"
+      }}>System Log</p>;
+      return <button onClick={() => modalOpenHandler(row)} title="Edit Log">
                         <Icon as={FiEdit} />
-                    </Button>
-                );
-            },
-            columnWidth: "20px",
-            textAlign: "end",
-        },
-    ], []);
-
-    const subHeaderComponentMemo = useMemo(() => {
-        return (
-            <>
+                    </button>;
+    },
+    columnWidth: "20px",
+    textAlign: "end"
+  }], []);
+  const subHeaderComponentMemo = useMemo(() => {
+    return <>
 
                 <div className='gameengine-table__sub-header-left-items'>
                     <GFLabel color="var(--gameengine-font-color)" fontWeight="700" fontSize='16px' label={__(`Logs`, 'gameengine')} />
 
-                    <Button
-                        bg="var(--gameengine-secondary-color)"
-                        color="var(--gameengine-font-color)"
-                        boxShadow="var(--gameengine-shadow)"
-                        height="auto"
-                        p="4px 8px"
-                        fontSize="12px"
-                        fontWeight="400"
-                        lineHeight="16px"
-                        borderRadius="4px"
-                        onClick={() => handleRefresh()}
-                    >
+                    <button className="h-auto text-xs font-normal leading-4 rounded bg-[var(--gameengine-secondary-color)] text-[var(--gameengine-font-color)] [box-shadow:var(--gameengine-shadow)]" style={{
+          "padding": "4px 8px"
+        }} onClick={() => handleRefresh()}>
                         {status === "loading" ? "loading..." : "refresh"}
-                    </Button>
+                    </button>
                 </div>
 
-                <Search
-                    placeholder={__('Search Items', 'gameengine')}
-                    defaultValue={search}
-                    onSearchHandler={(val) => dispatch(fetchLogs({ currentPage, perPage, search: val }))}
-                />
-            </>
-        );
-    }, [status, search]);
-
-    return (
-        <>
+                <Search placeholder={__('Search Items', 'gameengine')} defaultValue={search} onSearchHandler={val => dispatch(fetchLogs({
+        currentPage,
+        perPage,
+        search: val
+      }))} />
+            </>;
+  }, [status, search]);
+  return <>
             
-            <ListTable
-                columns={columns}
-                isRowSelectable={false}
-                data={items}
-                showSubHeader={true}
-                subHeaderComponent={subHeaderComponentMemo}
-                showColumnFilter={false}
-                showPagination={true}
-                noDataText={__("No logs found", "gameengine")}
-                totalItems={totalItems}
-                currentPageNumber={currentPage}
-                perPage={perPage}
-                onChangePage={handlePageChange}
-                onChangeItemsPerPage={handlePerPageChange}
-                dataFetchingStatus={loading}
-                suffix="logs-table"
-            />
-        </>
-    );
+            <ListTable columns={columns} isRowSelectable={false} data={items} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} showColumnFilter={false} showPagination={true} noDataText={__("No logs found", "gameengine")} totalItems={totalItems} currentPageNumber={currentPage} perPage={perPage} onChangePage={handlePageChange} onChangeItemsPerPage={handlePerPageChange} dataFetchingStatus={loading} suffix="logs-table" />
+        </>;
 };
-
 export default LogsTable;

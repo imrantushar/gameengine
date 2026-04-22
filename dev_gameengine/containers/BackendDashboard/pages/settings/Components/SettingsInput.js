@@ -1,4 +1,4 @@
-import { Flex, Text, Icon } from '@chakra-ui/react';
+import { Icon } from '@GFUtils/ui';
 import { FaLock } from 'react-icons/fa6';
 import { __ } from '@wordpress/i18n';
 
@@ -25,67 +25,42 @@ import { __ } from '@wordpress/i18n';
  * </SettingsInput>
  */
 const SettingsInput = ({
-    label,
-    desc,
-    children,
-    width = "100%",
-    isPro = false,
-    subtitle = null,
-    ...props
+  label,
+  desc,
+  children,
+  width = "100%",
+  isPro = false,
+  subtitle = null,
+  ...props
 }) => {
-    const ProBadge = isPro && (
-        <Flex align="center" gap={1.5} ml={2}>
-            <Text
-                background="#FFA943"
-                margin={0}
-                color="#fff"
-                borderRadius="2px"
-                padding="3px 6px"
-                fontSize="10px"
-                lineHeight="1"
-                textTransform="uppercase"
-                display="inline-flex"
-                alignItems="center"
-            >
+  const ProBadge = isPro && <div className="flex items-center gap-1.5 ml-2">
+            <p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex" style={{
+      "background": "#FFA943",
+      "padding": "3px 6px",
+      "fontSize": "10px"
+    }}>
                 {__("PRO", 'gameengine')}
-            </Text>
+            </p>
             <Icon as={FaLock} color="orange.400" boxSize={3} />
-        </Flex>
-    );
-
-    const Label = (
-        <Flex align="center">
-            <Text
-                fontSize="0.875rem"
-                fontWeight="500"
-                lineHeight="20px"
-                color="var(--gameengine-font-color)"
-                m="0"
-            >
+        </div>;
+  const Label = <div className="flex items-center">
+            <p className="font-medium leading-5 m-0 text-[var(--gameengine-font-color)]" style={{
+      "fontSize": "0.875rem"
+    }}>
                 {label}
-            </Text>
+            </p>
             {ProBadge}
-        </Flex>
-    );
-
-    return (
-        <Flex
-            direction="row"
-            justifyContent="space-between"
-            alignItems="center"
-            gap="6px"
-            width={width}
-            {...props}
-        >
-            {subtitle ? (
-                <Flex direction="column" gap={1} width="calc(100% - 42%)">
+        </div>;
+  return <div className="flex flex-row justify-between items-center gap-1.5" style={{
+    "width": width
+  }} {...props}>
+            {subtitle ? <div className="flex flex-col gap-1" style={{
+      "width": "calc(100% - 42%)"
+    }}>
                     {Label}
                     {subtitle}
-                </Flex>
-            ) : Label}
+                </div> : Label}
             {children}
-        </Flex>
-    );
+        </div>;
 };
-
 export default SettingsInput;

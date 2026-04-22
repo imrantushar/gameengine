@@ -2,50 +2,42 @@ import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { Button, Icon, Flex, Box, } from '@chakra-ui/react';
+import { Icon } from '@GFUtils/ui';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { GoPlus } from 'react-icons/go';
 import LogsTable from './LogsTable';
 import LogsModal from './LogsModal';
-
 const Logs = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState(null);
-
-    const modalOpenHandler = (params = null) => {
-        if(params) {
-            setFormData({...params})
-        }
-
-        setIsModalOpen(true);
-    };
-
-    const onRequestClose = () => {
-        setFormData(null)
-        setIsModalOpen(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const modalOpenHandler = (params = null) => {
+    if (params) {
+      setFormData({
+        ...params
+      });
     }
-
-    return (
-        <>
+    setIsModalOpen(true);
+  };
+  const onRequestClose = () => {
+    setFormData(null);
+    setIsModalOpen(false);
+  };
+  return <>
             <TopBar path={__("Logs", "gameengine")} />
 
-            <Box className='gameengine-page-content'>
-                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+            <div className='gameengine-page-content'>
+                <div className="flex justify-between items-center" style={{
+        "padding": "24px 0"
+      }}>
                     <GFLabel type="plainHeading" margin={0} label={__("Logs", "gameengine")} />
 
-                    <Button {...primaryBtn} onClick={() => modalOpenHandler()}>
+                    <button {...primaryBtn} onClick={() => modalOpenHandler()}>
                         <Icon as={GoPlus} boxSize="20px" />  {__('Manual Trigger', 'gameengine')}
-                    </Button>
-                </Flex>
+                    </button>
+                </div>
                 <LogsTable modalOpenHandler={modalOpenHandler} />
-                <LogsModal 
-                    isModalOpen={isModalOpen}
-                    onRequestClose={onRequestClose}
-                    formData={formData}
-                />
-            </Box>
-        </>
-    );
+                <LogsModal isModalOpen={isModalOpen} onRequestClose={onRequestClose} formData={formData} />
+            </div>
+        </>;
 };
-
 export default Logs;

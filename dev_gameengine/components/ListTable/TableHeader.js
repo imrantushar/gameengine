@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Checkbox } from '@chakra-ui/react';
+import { Table, Checkbox } from '@GFUtils/ui';
 
 const TableHeader = ({
 	visibleColumn,

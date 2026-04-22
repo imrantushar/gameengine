@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 // import { sortableContainer, sortableElement } from 'react-sortable-hoc';
 // import { arrayMoveImmutable } from 'array-move';
@@ -40,147 +39,127 @@ import { __ } from '@wordpress/i18n';
 // 	);
 // } );
 
-const SortableColumns = ( {
-	setTempCopyColumns,
-	tempCopyColumns,
-	showColumnFilter,
-	checkedChange,
-	setCopyColumns,
-	copyColumns,
-	suffix,
-} ) => {
-	const [ modalOpen, isModalOpen ] = useState( false );
-	const [ defaultColumns, setDefaultColumns ] = useState( [] );
+const SortableColumns = ({
+  setTempCopyColumns,
+  tempCopyColumns,
+  showColumnFilter,
+  checkedChange,
+  setCopyColumns,
+  copyColumns,
+  suffix
+}) => {
+  const [modalOpen, isModalOpen] = useState(false);
+  const [defaultColumns, setDefaultColumns] = useState([]);
+  useEffect(() => {
+    setDefaultColumns([...tempCopyColumns]);
+  }, []);
+  const onRequestClose = () => {
+    isModalOpen(false);
+  };
 
-	useEffect( () => {
-		setDefaultColumns( [ ...tempCopyColumns ] );
-	}, [] );
+  // const onSortEnd = ( { oldIndex, newIndex } ) => {
+  // 	const sortedColumn = arrayMoveImmutable(
+  // 		tempCopyColumns,
+  // 		oldIndex,
+  // 		newIndex
+  // 	);
+  // 	setTempCopyColumns( sortedColumn );
+  // };
 
-	const onRequestClose = () => {
-		isModalOpen( false );
-	};
-
-	// const onSortEnd = ( { oldIndex, newIndex } ) => {
-	// 	const sortedColumn = arrayMoveImmutable(
-	// 		tempCopyColumns,
-	// 		oldIndex,
-	// 		newIndex
-	// 	);
-	// 	setTempCopyColumns( sortedColumn );
-	// };
-
-	const handleToggle = () => {
-		isModalOpen( ! modalOpen );
-	};
-
-	const handleReset = () => {
-		setTempCopyColumns( [ ...defaultColumns ] );
-	};
-
-	return (
-		<React.Fragment>
+  const handleToggle = () => {
+    isModalOpen(!modalOpen);
+  };
+  const handleReset = () => {
+    setTempCopyColumns([...defaultColumns]);
+  };
+  return <React.Fragment>
 			<div className="gameengine-table__sub-header-filter-icon">
-				<Button
-					color="var(--gameengine-font-color)"
-					borderColor="var(--gameengine-border-color)"
-					borderWidth="1px"
-					bg="transparent"
-					onClick={ handleToggle }
-					_hover={ {
-						bg: 'var(--gameengine-secondary-color)',
-					} }
-				>
+				<button className="bg-transparent text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border" onClick={handleToggle}>
 					<span className="gameengine-icon gameengine-icon--columns" />
-					{ __( 'Columns', 'gameengine' ) }
-				</Button>
+					{__('Columns', 'gameengine')}
+				</button>
 			</div>
 
 			{/* <ReactModal
-				isOpen={ modalOpen }
-				onRequestClose={ onRequestClose }
-				title={ __( 'Columns', 'gameengine' ) }
-				suffix="email"
-				size="medium"
-			>
-				<Box
-					minWidth="520px"
-					p="16px"
-					className="gameengine-table__filter-modal"
-				>
-					<Flex
-						justifyContent="space-between"
-						alignItems="center"
-						gap="2"
-					>
-						<Text
-							color="var(--gameengine-font-color)"
-							fontSize="sm"
-							fontWeight="medium"
-						>
-							{ __( 'Columns', 'gameengine' ) }
-						</Text>
-
-						<Button
-							onClick={ handleReset }
-							bg="transparent"
-							padding="0"
-							height="auto"
-							color="var(--gameengine-font-color)"
-						>
-							{ __( 'Reset', 'gameengine' ) }
-						</Button>
-					</Flex>
-
-					{ showColumnFilter && (
-						<SortableColumnItemContainer onSortEnd={ onSortEnd }>
-							{ tempCopyColumns?.map( ( item, index ) => (
-								<SortableColumnItem
-									key={ `column-${ index }` }
-									index={ index }
-									copyColumn={ item }
-									itemIndex={ index }
-									checkedChange={ checkedChange }
-								/>
-							) ) }
-						</SortableColumnItemContainer>
-					) }
-
-					<Flex justifyContent="flex-end" gap="2">
-						<Button
-							color="var(--gameengine-font-color)"
-							borderColor="var(--gameengine-border-color)"
-							borderWidth="1px"
-							bg="transparent"
-							_hover={ {
-								bg: 'var(--gameengine-secondary-color)',
-							} }
-							onClick={ () => {
-								setTempCopyColumns( [ ...copyColumns ] );
-								isModalOpen( false );
-							} }
-							type="button"
-						>
-							{ __( 'Cancel', 'gameengine' ) }
-						</Button>
-
-						<Button
-							bg="var(--gameengine-primary)"
-							onClick={ () => {
-								setCopyColumns( tempCopyColumns );
-								localStorage.setItem(
-									suffix,
-									JSON.stringify( tempCopyColumns )
-								);
-								isModalOpen( false );
-							} }
-						>
-							{ __( 'Apply', 'gameengine' ) }
-						</Button>
-					</Flex>
-				</Box>
-			</ReactModal> */}
-		</React.Fragment>
-	);
+    isOpen={ modalOpen }
+    onRequestClose={ onRequestClose }
+    title={ __( 'Columns', 'gameengine' ) }
+    suffix="email"
+    size="medium"
+    >
+    <Box
+    	minWidth="520px"
+    	p="16px"
+    	className="gameengine-table__filter-modal"
+    >
+    	<Flex
+    		justifyContent="space-between"
+    		alignItems="center"
+    		gap="2"
+    	>
+    		<Text
+    			color="var(--gameengine-font-color)"
+    			fontSize="sm"
+    			fontWeight="medium"
+    		>
+    			{ __( 'Columns', 'gameengine' ) }
+    		</Text>
+    			<Button
+    			onClick={ handleReset }
+    			bg="transparent"
+    			padding="0"
+    			height="auto"
+    			color="var(--gameengine-font-color)"
+    		>
+    			{ __( 'Reset', 'gameengine' ) }
+    		</Button>
+    	</Flex>
+    		{ showColumnFilter && (
+    		<SortableColumnItemContainer onSortEnd={ onSortEnd }>
+    			{ tempCopyColumns?.map( ( item, index ) => (
+    				<SortableColumnItem
+    					key={ `column-${ index }` }
+    					index={ index }
+    					copyColumn={ item }
+    					itemIndex={ index }
+    					checkedChange={ checkedChange }
+    				/>
+    			) ) }
+    		</SortableColumnItemContainer>
+    	) }
+    		<Flex justifyContent="flex-end" gap="2">
+    		<Button
+    			color="var(--gameengine-font-color)"
+    			borderColor="var(--gameengine-border-color)"
+    			borderWidth="1px"
+    			bg="transparent"
+    			_hover={ {
+    				bg: 'var(--gameengine-secondary-color)',
+    			} }
+    			onClick={ () => {
+    				setTempCopyColumns( [ ...copyColumns ] );
+    				isModalOpen( false );
+    			} }
+    			type="button"
+    		>
+    			{ __( 'Cancel', 'gameengine' ) }
+    		</Button>
+    			<Button
+    			bg="var(--gameengine-primary)"
+    			onClick={ () => {
+    				setCopyColumns( tempCopyColumns );
+    				localStorage.setItem(
+    					suffix,
+    					JSON.stringify( tempCopyColumns )
+    				);
+    				isModalOpen( false );
+    			} }
+    		>
+    			{ __( 'Apply', 'gameengine' ) }
+    		</Button>
+    	</Flex>
+    </Box>
+    </ReactModal> */}
+		</React.Fragment>;
 };
-
 export default SortableColumns;

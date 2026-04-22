@@ -1,124 +1,88 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Icon } from "@GFUtils/ui";
 import { FiMail } from "react-icons/fi";
 import { FiHelpCircle } from "react-icons/fi";
 import { is_pro, route_path } from "@GFUtils/helper";
 import { general, license, mail } from "@GFUtils/icons";
-
 const LeftBar = () => {
-    const navigate = useNavigate();
-    const locationQuery = useLocation();
-    const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-    const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
-
-    const menuList = [
-        {
-            label: __("Frontend Dashboard", "gameengine"),
-            key: "dashboard",
-            desc: __("Frontend Dashboard settings", "gameengine"),
-            icon: general(),
-        },
-        {
-            label: __("Log", "gameengine"),
-            key: "log",
-            desc: __("Log settings", "gameengine"),
-            icon: general(),
-        },
-        {
-            label: __("Ecommrce", "gameengine"),
-            key: "economy",
-            desc: __("Ecommrce settings", "gameengine"),
-            icon: general(),
-        },
-        {
-            label: __("Coupon Generate", "gameengine"),
-            key: "marketplace",
-            desc: __("Coupon Generate", "gameengine"),
-            icon: general(),
-        },
-        {
-            label: __("Payout", "gameengine"),
-            key: "payout",
-            desc: __("Payout settings", "gameengine"),
-            icon: general(),
-        },
-        ...(is_pro
-        ? [{
-            label: __("License", "gameengine"),
-            key: "license",
-            desc: __("Manage your license key", "gameengine"),
-            icon: license(),
-        }]
-        : []),
-        {
-            label: __("Email Templates", "gameengine"),
-            key: "email_templates",
-            desc: __("Customize Email Templates & Cron", "gameengine"),
-            icon: mail(),
-        },
-
-    ];
-
-    return (
-        <Box
-            minW="300px"
-            bg="#fff"
-            boxShadow="var(--gameengine-shadow)"
-            pos="sticky"
-            top="0"
-            display={{ base: "none", lg: "flex" }}
-            flexDirection="column"
-            borderRadius='4px'
-        >
-            <VStack padding='8px' width="100%" align="stretch" spacing={0}>
+  const navigate = useNavigate();
+  const locationQuery = useLocation();
+  const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
+  const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
+  const menuList = [{
+    label: __("Frontend Dashboard", "gameengine"),
+    key: "dashboard",
+    desc: __("Frontend Dashboard settings", "gameengine"),
+    icon: general()
+  }, {
+    label: __("Log", "gameengine"),
+    key: "log",
+    desc: __("Log settings", "gameengine"),
+    icon: general()
+  }, {
+    label: __("Ecommrce", "gameengine"),
+    key: "economy",
+    desc: __("Ecommrce settings", "gameengine"),
+    icon: general()
+  }, {
+    label: __("Coupon Generate", "gameengine"),
+    key: "marketplace",
+    desc: __("Coupon Generate", "gameengine"),
+    icon: general()
+  }, {
+    label: __("Payout", "gameengine"),
+    key: "payout",
+    desc: __("Payout settings", "gameengine"),
+    icon: general()
+  }, ...(is_pro ? [{
+    label: __("License", "gameengine"),
+    key: "license",
+    desc: __("Manage your license key", "gameengine"),
+    icon: license()
+  }] : []), {
+    label: __("Email Templates", "gameengine"),
+    key: "email_templates",
+    desc: __("Customize Email Templates & Cron", "gameengine"),
+    icon: mail()
+  }];
+  return <div className="flex-col bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{
+    "minWidth": "300px",
+    "top": "0",
+    "display": {
+      base: "none",
+      lg: "flex"
+    }
+  }} pos="sticky">
+            <div className="flex flex-col w-full items-stretch p-2" spacing={0}>
                 {menuList.map((item, i) => {
-                    const isActive = currentTab === item.key;
-                    return (
-                        <Flex
-                            key={i}
-                            align="flex-start"
-                            p="8px 16px"
-                            cursor="pointer"
-                            bg={isActive ? "var(--gameengine-secondary-color)" : "transparent"}
-                            transition="all 0.3s ease-in-out"
-                            _hover={{ bg: "#F9FAFB", transition: "all 0.3s ease-in-out" }}
-                            onClick={() => navigate(
-                                `${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`
-                            )}
-                            gap="12px"
-                        >
+        const isActive = currentTab === item.key;
+        return <div className="flex items-start cursor-pointer gap-3" style={{
+          "padding": "8px 16px",
+          "transition": "all 0.3s ease-in-out",
+          "background": isActive ? "var(--gameengine-secondary-color)" : "transparent"
+        }} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
                             <Icon color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt={1}>{item?.icon}</Icon>
 
-                            <Box>
-                                <Text
-                                    fontWeight={isActive ? "600" : "500"}
-                                    fontSize="14px"
-                                    lineHeight="20px"
-                                    color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
-                                    margin='0'
-                                >
+                            <div>
+                                <p className="text-sm leading-5 m-0" style={{
+              "fontWeight": isActive ? "600" : "500",
+              "color": isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"
+            }}>
                                     {item.label}
-                                </Text>
+                                </p>
 
-                                <Text
-                                    fontSize="12px"
-                                    fontWeight="400"
-                                    lineHeight="16px"
-                                    color={isActive ? "var(--gameengine-primary)" : "#738496"}
-                                    mt="-2px"
-                                    margin='0'
-                                >
+                                <p className="text-xs font-normal leading-4 m-0" style={{
+              "marginTop": "-2px",
+              "color": isActive ? "var(--gameengine-primary)" : "#738496"
+            }}>
                                     {item.desc}
-                                </Text>
-                            </Box>
-                        </Flex>
-                    );
-                })}
-            </VStack>
-        </Box>
-    );
+                                </p>
+                            </div>
+                        </div>;
+      })}
+            </div>
+        </div>;
 };
-
 export default LeftBar;
