@@ -77,8 +77,8 @@ const LevelType = () => {
     }
   };
   return <>
-            {formLoading ? <LevelsFormSkeleton /> : <Formik enableReinitialize={true} initialValues={getLevelsInitialValues(editId, levels)} onSubmit={onSubmiHandler}>
-                    {({
+    {formLoading ? <LevelsFormSkeleton /> : <Formik enableReinitialize={true} initialValues={getLevelsInitialValues(editId, levels)} onSubmit={onSubmiHandler}>
+      {({
         values,
         setFieldValue,
         submitForm,
@@ -86,20 +86,20 @@ const LevelType = () => {
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Level Type", "gameengine")} rightContent={<div className="flex gap-2.5">
-                                            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-                                            
-                                            <button {...primaryBtn} onClick={submitForm} disabled={!dirty}>
-                                                {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
-                                            </button>
-                                        </div>} />
+          <TopBar path={__("Level Type", "gameengine")} rightContent={<div className="flex gap-2.5">
+            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
 
-                                <GameEngineBox dynamicClasses="gameengine-levels" heading={__(`Level Type`, "gameengine")}>
-                                    <FormInner />
-                                </GameEngineBox>
-                            </>;
-      }}
-                </Formik>}
+            <button {...primaryBtn} onClick={submitForm} disabled={!dirty}>
+              {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+            </button>
+          </div>} />
+
+          <GameEngineBox dynamicClasses="gameengine-levels" heading={__(`Level Type`, "gameengine")}>
+            <FormInner />
+          </GameEngineBox>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default LevelType;
