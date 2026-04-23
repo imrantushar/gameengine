@@ -125,18 +125,14 @@ const Requirements = props => {
                                     <Icon as={RiArrowRightSLine} transform="rotate(180deg)" />
                                 </button>}
 
-                            <div className="flex overflow-x-auto overflow-y-hidden [border-bottom:2px_solid_var(--gameengine-border-color)]" ref={tabContainerRef} mx={tabArray.length > 4 ? "32px" : "0"} css={{
-            "&::-webkit-scrollbar": {
-              display: "none"
-            },
-            scrollbarWidth: "none"
-          }}>
+                            <div className="flex gap-4 overflow-x-auto overflow-y-hidden border-b border-gray-200" ref={tabContainerRef} mx={tabArray.length > 4 ? "32px" : "0"} style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
                                 {tabArray.map((item, index) => {
               const isActive = selectedFilterType === item.value || selectedFilterType === '' && item.value === 'all';
-              return <button className="text-xs font-medium [min-width:auto] [padding:8px_12px]" style={{
-                "borderBottom": isActive ? "2px solid var(--gameengine-primary)" : "2px solid transparent",
-                "color": isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"
-              }} key={index} onClick={() => filterHookType(item.value)}>
+              return <button 
+                key={index}
+                className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[#1a73e8] border-0 border-b-2 border-solid border-[#1a73e8]' : 'text-gray-600 border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+                style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
+                onClick={() => filterHookType(item.value)}>
                                             {item.label}
                                         </button>;
             })}

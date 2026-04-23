@@ -237,22 +237,31 @@ const PointTypesTable = () => {
         searchKey: value
       });
     };
-    return <div className="flex justify-between w-full">
-        <div className="gameengine-table-subheader-left flex justify-between">
-          {tableStatusArray.map((item, index) => <button className="bg-transparent h-auto text-xs font-medium leading-5 text-[var(--gameengine-font-color)]" style={{
-          "minWidth": "auto",
-          "padding": "16px 16px 0 16px"
-        }} onClick={() => {
-          setTableStatus(item.value);
-          fetchHandler({
-            status: item.value,
-            page: 1,
-            per_page: 15
-          });
-        }} key={index} paddingInline={'0'}>{item.label}</button>)}
+    return <div className="flex justify-between items-end w-full border-b border-gray-200 mb-4 mt-2">
+        <div className="flex gap-6 px-4">
+          {tableStatusArray.map((item, index) => {
+            const isActive = tableStats === item.value;
+            return (
+              <button 
+                key={index}
+                className={`bg-transparent outline-none cursor-pointer h-auto text-sm font-[500] pb-3 -mb-[1px] shadow-none ${isActive ? 'text-blue-600 border-0 border-b-2 border-solid border-blue-600' : 'text-[#4B5563] border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+                style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
+                onClick={() => {
+                  setTableStatus(item.value);
+                  fetchHandler({
+                    status: item.value,
+                    page: 1,
+                    per_page: 15
+                  });
+                }}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div className='gameengine-table-subheader-right'>
+        <div className='gameengine-table-subheader-right pb-2'>
           <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
         </div>
       </div>;

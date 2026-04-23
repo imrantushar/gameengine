@@ -76,8 +76,8 @@ const PointTypeEditor = () => {
     }
   };
   return <>
-            {formLoading ? <PointsSystemLoader /> : <Formik enableReinitialize={true} initialValues={getPointTypesInitialValues(editId, pointTypes)} onSubmit={onSubmitHandler}>
-                    {({
+    {formLoading ? <PointsSystemLoader /> : <Formik enableReinitialize={true} initialValues={getPointTypesInitialValues(editId, pointTypes)} onSubmit={onSubmitHandler}>
+      {({
         values,
         setFieldValue,
         submitForm,
@@ -85,24 +85,21 @@ const PointTypeEditor = () => {
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Points System", "gameengine")} rightContent={<div className="flex gap-2.5">
-                                            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-                                            <button style={{
-              "minWidth": "170px",
-              "maxWidth": "170px"
-            }} {...primaryBtn} onClick={submitForm} disabled={!dirty || isSubmitting}>
-                                                {isSubmitting ? <Spinner color="var(--gameengine-primary)" css={{
+          <TopBar path={__("Points System", "gameengine")} rightContent={<div className="flex gap-2.5">
+            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
+            <button style={primaryBtn} onClick={submitForm} disabled={!dirty || isSubmitting}>
+              {isSubmitting ? <Spinner color="var(--gameengine-primary)" css={{
                 "--spinner-track-color": "var(--gameengine-secondary)"
               }} /> : editId ? __('Update Point System', 'gameengine') : __('Create Point System', 'gameengine')}
-                                            </button>
-                                        </div>} />
+            </button>
+          </div>} />
 
-                                <GameEngineBox dynamicClasses="gameengine-points-system" heading={__("Points System", "gameengine")}>
-                                    <FormInner hooksLoading={hooksLoading} />
-                                </GameEngineBox>
-                            </>;
-      }}
-                </Formik>}
+          <GameEngineBox dynamicClasses="gameengine-points-system" heading={__("Points System", "gameengine")}>
+            <FormInner hooksLoading={hooksLoading} />
+          </GameEngineBox>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default PointTypeEditor;
