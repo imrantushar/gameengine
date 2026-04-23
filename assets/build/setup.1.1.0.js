@@ -2362,10 +2362,21 @@ const SwitchControl = ({
     }
   }));
 };
+const SwitchLabel = ({
+  children,
+  className = '',
+  style: styleProp,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: `${className} text-sm`.trim(),
+  style: styleProp,
+  ...props
+}, children);
 const Switch = Object.assign(SwitchRoot, {
   Root: SwitchRoot,
   HiddenInput: SwitchHiddenInput,
-  Control: SwitchControl
+  Control: SwitchControl,
+  Label: SwitchLabel
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

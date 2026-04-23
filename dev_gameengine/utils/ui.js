@@ -513,10 +513,16 @@ const SwitchControl = ({
     }} />
         </span>;
 };
+const SwitchLabel = ({ children, className = '', style: styleProp, ...props }) => (
+  <span className={`${className} text-sm`.trim()} style={styleProp} {...props}>
+    {children}
+  </span>
+);
 export const Switch = Object.assign(SwitchRoot, {
   Root: SwitchRoot,
   HiddenInput: SwitchHiddenInput,
-  Control: SwitchControl
+  Control: SwitchControl,
+  Label: SwitchLabel,
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
