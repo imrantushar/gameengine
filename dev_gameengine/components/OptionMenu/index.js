@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Button from '@GFComponents/Button';
 import { FiMoreHorizontal } from "react-icons/fi";
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { HiDotsHorizontal } from "react-icons/hi";
 import './styles.scss';
 const OptionMenu = props => {

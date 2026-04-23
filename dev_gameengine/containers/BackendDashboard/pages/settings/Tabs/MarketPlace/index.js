@@ -1,4 +1,4 @@
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';

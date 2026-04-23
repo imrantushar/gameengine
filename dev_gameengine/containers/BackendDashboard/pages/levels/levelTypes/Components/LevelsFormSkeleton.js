@@ -1,4 +1,4 @@
-import { Skeleton, SkeletonText } from "@GFUtils/ui";
+import { Skeleton, SkeletonText } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 const HookListSkeleton = ({
   items = 4

@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import React, { useState } from 'react';
 import { admin_url, plugin_root_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';

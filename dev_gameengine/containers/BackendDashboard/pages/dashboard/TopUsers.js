@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table } from '@GFUtils/ui';
+import { Table } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import BoxView from '@GFComponents/BoxView/BoxView';
 const TopUsers = ({

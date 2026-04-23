@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { Icon, Switch, RadioGroup } from "@GFUtils/ui";
+import { Icon, Switch, RadioGroup } from "@GFComponents/UI";
 import { __, sprintf } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";

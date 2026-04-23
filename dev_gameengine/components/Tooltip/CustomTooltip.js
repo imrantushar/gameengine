@@ -1,4 +1,4 @@
-import { Menu, Portal } from "@GFUtils/ui";
+import { Menu, Portal } from "@GFComponents/UI";
 import { useState } from "react";
 const CustomTooltip = ({
   children,

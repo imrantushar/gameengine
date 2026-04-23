@@ -106,7 +106,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 
@@ -227,7 +227,7 @@ const GFLabel = ({
     className: "flex items-center gap-1.5"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] [padding:3px_6px] text-[10px]"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_2__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaLock,
     color: "orange.400",
     boxSize: 3
@@ -312,6 +312,1424 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./dev_gameengine/components/UI/Button.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Button.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   CloseButton: () => (/* binding */ CloseButton)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Button = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  loading,
+  isLoading,
+  disabled,
+  isDisabled,
+  type = 'button',
+  onClick,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const isDisabledFinal = disabled || isDisabled || loading || isLoading;
+  const finalStyle = {
+    cursor: isDisabledFinal ? 'not-allowed' : 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
+    border: 'none',
+    background: 'transparent',
+    padding: '0',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: type,
+    ref: ref,
+    disabled: isDisabledFinal,
+    className: className,
+    style: finalStyle,
+    onClick: onClick,
+    ...rest
+  }, (loading || isLoading) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gf-spinner-inline rounded-full inline-block",
+    style: {
+      width: '14px',
+      height: '14px',
+      border: '2px solid currentColor',
+      borderTopColor: 'transparent',
+      animation: 'gf-spin 0.7s linear infinite'
+    }
+  }), children);
+});
+const CloseButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  onClick,
+  className,
+  style: styleProp,
+  disabled,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '24px',
+    height: '24px',
+    background: 'transparent',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '16px',
+    lineHeight: 1,
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    ref: ref,
+    type: "button",
+    onClick: onClick,
+    className: className,
+    style: finalStyle,
+    disabled: disabled,
+    ...rest
+  }, "\u2715");
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Dialog.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Dialog.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Dialog: () => (/* binding */ Dialog)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+
+const DialogCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const DialogRoot = ({
+  children,
+  open: openProp,
+  onOpenChange,
+  defaultOpen = false,
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultOpen);
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : isOpen;
+  const setOpen = val => {
+    if (!isControlled) setIsOpen(val);
+    onOpenChange?.(val);
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DialogCtx.Provider, {
+    value: {
+      open,
+      setOpen
+    }
+  }, children);
+};
+const DialogTrigger = ({
+  children,
+  asChild
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button"
+  }, children);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
+    onClick: e => {
+      trigger.props.onClick?.(e);
+      setOpen(true);
+    }
+  });
+};
+const DialogBackdrop = ({
+  style: styleProp
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onClick: () => setOpen(false),
+    className: "fixed",
+    style: {
+      inset: 0,
+      background: 'rgba(0,0,0,0.4)',
+      zIndex: 9998,
+      ...styleProp
+    }
+  });
+};
+const DialogPositioner = ({
+  children,
+  style: styleProp
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "fixed flex items-center justify-center overflow-y-auto p-5",
+  style: {
+    inset: 0,
+    zIndex: 9999,
+    ...styleProp
+  }
+}, children);
+const DialogContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} relative bg-white rounded-lg w-full overflow-y-auto`,
+    style: {
+      boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+      maxWidth: '900px',
+      maxHeight: '90vh',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest,
+    onClick: e => e.stopPropagation()
+  }, children);
+});
+const DialogBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} p-6`,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const DialogCloseTrigger = ({
+  children,
+  asChild
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button"
+  }, children);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
+    onClick: e => {
+      trigger.props.onClick?.(e);
+      setOpen(false);
+    },
+    style: {
+      ...trigger.props.style,
+      position: 'absolute',
+      top: '16px',
+      right: '16px'
+    }
+  });
+};
+const DialogPortal = ({
+  children
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  if (!open) return null;
+  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, document.body);
+};
+const Dialog = Object.assign(DialogRoot, {
+  Root: DialogRoot,
+  Trigger: DialogTrigger,
+  Backdrop: DialogBackdrop,
+  Positioner: DialogPositioner,
+  Content: DialogContent,
+  Body: DialogBody,
+  CloseTrigger: DialogCloseTrigger,
+  Portal: DialogPortal
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Feedback.js":
+/*!**************************************************!*\
+  !*** ./dev_gameengine/components/UI/Feedback.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
+/* harmony export */   SkeletonText: () => (/* binding */ SkeletonText),
+/* harmony export */   Spinner: () => (/* binding */ Spinner)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Spinner = ({
+  size = 'md',
+  color,
+  style: styleProp,
+  className
+}) => {
+  const sz = size === 'sm' ? '16px' : size === 'lg' ? '32px' : size === 'xl' ? '48px' : '20px';
+  const finalStyle = {
+    width: sz,
+    height: sz,
+    border: `2px solid ${color || 'currentColor'}`,
+    borderTopColor: 'transparent',
+    borderRadius: '50%',
+    display: 'inline-block',
+    animation: 'gf-spin 0.7s linear infinite',
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: className,
+    style: finalStyle
+  });
+};
+const Skeleton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    background: 'linear-gradient(90deg, #e2e8f0 25%, #edf2f7 50%, #e2e8f0 75%)',
+    backgroundSize: '200% 100%',
+    animation: 'gf-shimmer 1.5s infinite',
+    borderRadius: '4px',
+    display: 'block',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    ref: ref,
+    className: className,
+    style: finalStyle
+  }, children);
+});
+const SkeletonText = ({
+  noOfLines = 3,
+  spacing = '8px',
+  style: styleProp
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "flex flex-col",
+  style: {
+    gap: spacing,
+    ...styleProp
+  }
+}, Array.from({
+  length: noOfLines
+}).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Skeleton, {
+  key: i,
+  height: "14px",
+  width: i === noOfLines - 1 ? '60%' : '100%'
+})));
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Forms.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Forms.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Badge: () => (/* binding */ Badge),
+/* harmony export */   Checkbox: () => (/* binding */ Checkbox),
+/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup),
+/* harmony export */   Input: () => (/* binding */ Input),
+/* harmony export */   RadioGroup: () => (/* binding */ RadioGroup),
+/* harmony export */   Switch: () => (/* binding */ Switch),
+/* harmony export */   Textarea: () => (/* binding */ Textarea),
+/* harmony export */   createListCollection: () => (/* binding */ createListCollection)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Input = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    width: '100%',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  });
+});
+const Textarea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    width: '100%',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  });
+});
+const Badge = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('span');
+const RadioGroup = ({
+  children,
+  ...props
+}) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: extracted,
+    ...rest
+  }, children);
+};
+const CheckboxGroup = ({
+  children,
+  ...props
+}) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: extracted,
+    ...rest
+  }, children);
+};
+
+// --- Switch ---
+const SwitchCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const SwitchRoot = ({
+  children,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled,
+  className,
+  style: styleProp,
+  ...props
+}) => {
+  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? checked : internal;
+  const toggle = () => {
+    if (disabled) return;
+    const next = !isChecked;
+    if (!isControlled) setInternal(next);
+    onCheckedChange?.({
+      checked: next
+    });
+  };
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SwitchCtx.Provider, {
+    value: {
+      isChecked,
+      toggle,
+      disabled
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: `${className} inline-flex items-center`,
+    style: {
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children));
+};
+const SwitchHiddenInput = () => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    checked: isChecked,
+    onChange: toggle,
+    disabled: disabled,
+    className: "absolute opacity-0 w-0 h-0"
+  });
+};
+const SwitchControl = ({
+  className
+}) => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    onClick: toggle,
+    className: `${className} inline-block relative w-9 h-5 shrink-0`,
+    style: {
+      borderRadius: '10px',
+      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0',
+      transition: 'background 0.2s',
+      cursor: disabled ? 'not-allowed' : 'pointer'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "absolute w-4 h-4 rounded-full bg-white",
+    style: {
+      top: '2px',
+      left: isChecked ? '18px' : '2px',
+      transition: 'left 0.2s',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
+    }
+  }));
+};
+const SwitchLabel = ({
+  children,
+  className = '',
+  style: styleProp,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: `${className} text-sm`.trim(),
+  style: styleProp,
+  ...props
+}, children);
+const Switch = Object.assign(SwitchRoot, {
+  Root: SwitchRoot,
+  HiddenInput: SwitchHiddenInput,
+  Control: SwitchControl,
+  Label: SwitchLabel
+});
+
+// --- Checkbox ---
+const CheckboxCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const CheckboxRoot = ({
+  children,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled,
+  className,
+  style: styleProp,
+  ...props
+}) => {
+  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? !!checked : internal;
+  const toggle = () => {
+    if (disabled) return;
+    const next = !isChecked;
+    if (!isControlled) setInternal(next);
+    onCheckedChange?.({
+      checked: next
+    });
+  };
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxCtx.Provider, {
+    value: {
+      isChecked,
+      toggle,
+      disabled
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: `${className} inline-flex items-center gap-1.5`,
+    style: {
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children));
+};
+const CheckboxHiddenInput = () => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    checked: isChecked,
+    onChange: toggle,
+    disabled: disabled,
+    className: "absolute opacity-0 w-0 h-0"
+  });
+};
+const CheckboxControl = ({
+  className
+}) => {
+  const {
+    isChecked,
+    toggle
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    onClick: toggle,
+    className: `${className} inline-flex items-center justify-center w-4 h-4 cursor-pointer shrink-0`,
+    style: {
+      borderRadius: '3px',
+      border: `2px solid ${isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0'}`,
+      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#fff',
+      transition: 'all 0.15s'
+    }
+  }, isChecked && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    viewBox: "0 0 12 10",
+    fill: "none",
+    className: "h-2",
+    style: {
+      width: '10px'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M1 5l3 4L11 1",
+    stroke: "#fff",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })));
+};
+const Checkbox = Object.assign(CheckboxRoot, {
+  Root: CheckboxRoot,
+  HiddenInput: CheckboxHiddenInput,
+  Control: CheckboxControl
+});
+function createListCollection({
+  items = []
+}) {
+  return {
+    items
+  };
+}
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Layout.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Layout.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Box: () => (/* binding */ Box),
+/* harmony export */   Center: () => (/* binding */ Center),
+/* harmony export */   Flex: () => (/* binding */ Flex),
+/* harmony export */   Portal: () => (/* binding */ Portal),
+/* harmony export */   Separator: () => (/* binding */ Separator),
+/* harmony export */   VStack: () => (/* binding */ VStack)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+
+const Box = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div');
+const Flex = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex'
+});
+const Center = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+});
+const VStack = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+});
+const Separator = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
+    ref: ref,
+    className: `${`${className} m-0`} [border-top:1px_solid_var(--gameengine-border-color)]`,
+    style: {
+      border: 'none',
+      ...extracted,
+      ...styleProp
+    }
+  });
+});
+const Portal = ({
+  children,
+  container
+}) => {
+  const target = container !== null && container !== void 0 ? container : typeof document !== 'undefined' ? document.body : null;
+  if (!target) return null;
+  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, target);
+};
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Media.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Media.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icon: () => (/* binding */ Icon),
+/* harmony export */   Image: () => (/* binding */ Image)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Icon = ({
+  as: Component,
+  boxSize,
+  size,
+  color,
+  style: styleProp,
+  className,
+  ...rest
+}) => {
+  if (!Component) return null;
+  const sz = boxSize ? `${parseFloat(boxSize) * 4}px` : size === 'md' ? '20px' : size === 'sm' ? '16px' : size === 'lg' ? '24px' : undefined;
+  const s = {
+    ...(sz ? {
+      width: sz,
+      height: sz
+    } : {}),
+    ...(color ? {
+      color
+    } : {}),
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    style: Object.keys(s).length ? s : undefined,
+    className: className,
+    ...rest
+  });
+};
+const Image = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('img');
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Menu.js":
+/*!**********************************************!*\
+  !*** ./dev_gameengine/components/UI/Menu.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Menu: () => (/* binding */ Menu)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const MenuCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  open: false
+});
+const MenuRoot = ({
+  children,
+  open = false,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MenuCtx.Provider, {
+  value: {
+    open
+  }
+}, children);
+const MenuTrigger = ({
+  children,
+  asChild
+}) => {
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
+};
+const MenuPositioner = ({
+  children,
+  style: styleProp,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MenuCtx);
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  if (!open) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onMouseEnter: onMouseEnter,
+    onMouseLeave: onMouseLeave,
+    className: "absolute pointer-events-auto",
+    style: {
+      zIndex: 9999,
+      bottom: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginBottom: '6px',
+      ...extracted,
+      ...styleProp
+    }
+  }, children);
+};
+const MenuContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} bg-white rounded-md p-2`,
+    style: {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      fontSize: '13px',
+      lineHeight: '1.4',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Menu = Object.assign(MenuRoot, {
+  Root: MenuRoot,
+  Trigger: MenuTrigger,
+  Positioner: MenuPositioner,
+  Content: MenuContent
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Popover.js":
+/*!*************************************************!*\
+  !*** ./dev_gameengine/components/UI/Popover.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Popover: () => (/* binding */ Popover)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const PopoverCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  open: false
+});
+const PopoverRoot = ({
+  children,
+  open = false,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PopoverCtx.Provider, {
+  value: {
+    open
+  }
+}, children);
+const PopoverTrigger = ({
+  children,
+  asChild
+}) => {
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
+};
+const PopoverPositioner = ({
+  children,
+  style: styleProp,
+  onMouseEnter,
+  onMouseLeave
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PopoverCtx);
+  if (!open) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onMouseEnter: onMouseEnter,
+    onMouseLeave: onMouseLeave,
+    className: "absolute pointer-events-auto",
+    style: {
+      zIndex: 9999,
+      bottom: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginBottom: '6px',
+      ...styleProp
+    }
+  }, children);
+};
+const PopoverContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} bg-white rounded-md p-3`,
+    style: {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      fontSize: '13px',
+      lineHeight: '1.5',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Popover = Object.assign(PopoverRoot, {
+  Root: PopoverRoot,
+  Trigger: PopoverTrigger,
+  Positioner: PopoverPositioner,
+  Content: PopoverContent
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Table.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Table.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Table: () => (/* binding */ Table)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const TableRoot = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
+    ref: ref,
+    className: `${className} w-full`,
+    style: {
+      borderCollapse: 'collapse',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableScrollArea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} overflow-x-auto w-full`,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("thead", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tbody", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableRow = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableCell = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
+    ref: ref,
+    className: className,
+    style: {
+      padding: '8px 12px',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableColumnHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", {
+    ref: ref,
+    className: `${className} text-left font-semibold`,
+    style: {
+      padding: '8px 12px',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Table = Object.assign(TableRoot, {
+  Root: TableRoot,
+  ScrollArea: TableScrollArea,
+  Header: TableHeader,
+  Body: TableBody,
+  Row: TableRow,
+  Cell: TableCell,
+  ColumnHeader: TableColumnHeader
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Typography.js":
+/*!****************************************************!*\
+  !*** ./dev_gameengine/components/UI/Typography.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Span: () => (/* binding */ Span),
+/* harmony export */   Text: () => (/* binding */ Text)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Text = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  as: Tag = 'p',
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    margin: 0,
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Tag, {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  }, children);
+});
+const Span = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('span');
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/index.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/index.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Badge: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Badge),
+/* harmony export */   Box: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Box),
+/* harmony export */   Button: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_4__.Button),
+/* harmony export */   Center: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Center),
+/* harmony export */   Checkbox: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Checkbox),
+/* harmony export */   CheckboxGroup: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.CheckboxGroup),
+/* harmony export */   CloseButton: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_4__.CloseButton),
+/* harmony export */   Dialog: () => (/* reexport safe */ _Dialog__WEBPACK_IMPORTED_MODULE_8__.Dialog),
+/* harmony export */   Flex: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Flex),
+/* harmony export */   Icon: () => (/* reexport safe */ _Media__WEBPACK_IMPORTED_MODULE_3__.Icon),
+/* harmony export */   Image: () => (/* reexport safe */ _Media__WEBPACK_IMPORTED_MODULE_3__.Image),
+/* harmony export */   Input: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Input),
+/* harmony export */   Menu: () => (/* reexport safe */ _Menu__WEBPACK_IMPORTED_MODULE_9__.Menu),
+/* harmony export */   Popover: () => (/* reexport safe */ _Popover__WEBPACK_IMPORTED_MODULE_10__.Popover),
+/* harmony export */   Portal: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Portal),
+/* harmony export */   RadioGroup: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.RadioGroup),
+/* harmony export */   Separator: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Separator),
+/* harmony export */   Skeleton: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.Skeleton),
+/* harmony export */   SkeletonText: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.SkeletonText),
+/* harmony export */   Span: () => (/* reexport safe */ _Typography__WEBPACK_IMPORTED_MODULE_2__.Span),
+/* harmony export */   Spinner: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.Spinner),
+/* harmony export */   Switch: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Switch),
+/* harmony export */   Table: () => (/* reexport safe */ _Table__WEBPACK_IMPORTED_MODULE_7__.Table),
+/* harmony export */   Text: () => (/* reexport safe */ _Typography__WEBPACK_IMPORTED_MODULE_2__.Text),
+/* harmony export */   Textarea: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Textarea),
+/* harmony export */   VStack: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.VStack),
+/* harmony export */   createListCollection: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.createListCollection),
+/* harmony export */   el: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.el),
+/* harmony export */   extractStyleProps: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.extractStyleProps)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Layout */ "./dev_gameengine/components/UI/Layout.js");
+/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Typography */ "./dev_gameengine/components/UI/Typography.js");
+/* harmony import */ var _Media__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Media */ "./dev_gameengine/components/UI/Media.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Button */ "./dev_gameengine/components/UI/Button.js");
+/* harmony import */ var _Forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Forms */ "./dev_gameengine/components/UI/Forms.js");
+/* harmony import */ var _Feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Feedback */ "./dev_gameengine/components/UI/Feedback.js");
+/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Table */ "./dev_gameengine/components/UI/Table.js");
+/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Dialog */ "./dev_gameengine/components/UI/Dialog.js");
+/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Menu */ "./dev_gameengine/components/UI/Menu.js");
+/* harmony import */ var _Popover__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Popover */ "./dev_gameengine/components/UI/Popover.js");
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/utils.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/utils.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   el: () => (/* binding */ el),
+/* harmony export */   extractStyleProps: () => (/* binding */ extractStyleProps)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const STYLE_ALIAS = {
+  p: 'padding',
+  pt: 'paddingTop',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
+  pr: 'paddingRight',
+  m: 'margin',
+  mt: 'marginTop',
+  mb: 'marginBottom',
+  ml: 'marginLeft',
+  mr: 'marginRight',
+  w: 'width',
+  h: 'height',
+  maxW: 'maxWidth',
+  minW: 'minWidth',
+  maxH: 'maxHeight',
+  minH: 'minHeight',
+  bg: 'background',
+  boxShadow: 'boxShadow',
+  shadow: 'boxShadow',
+  borderRadius: 'borderRadius',
+  borderColor: 'borderColor',
+  borderWidth: 'borderWidth',
+  borderTopWidth: 'borderTopWidth',
+  borderBottomWidth: 'borderBottomWidth',
+  borderLeftWidth: 'borderLeftWidth',
+  borderRightWidth: 'borderRightWidth',
+  lineHeight: 'lineHeight',
+  letterSpacing: 'letterSpacing',
+  wordBreak: 'wordBreak',
+  whiteSpace: 'whiteSpace',
+  zIndex: 'zIndex',
+  gap: 'gap',
+  alignSelf: 'alignSelf',
+  justifySelf: 'justifySelf',
+  flexShrink: 'flexShrink',
+  flexGrow: 'flexGrow',
+  overflowX: 'overflowX',
+  overflowY: 'overflowY',
+  cursor: 'cursor',
+  visibility: 'visibility',
+  opacity: 'opacity',
+  userSelect: 'userSelect',
+  pointerEvents: 'pointerEvents'
+};
+const DIRECT_STYLES = new Set(['color', 'fontSize', 'fontWeight', 'fontFamily', 'width', 'height', 'padding', 'margin', 'background', 'backgroundColor', 'border', 'borderTop', 'borderBottom', 'borderLeft', 'borderRight', 'position', 'top', 'bottom', 'left', 'right', 'display', 'overflow', 'flex', 'flexDirection', 'flexWrap', 'justifyContent', 'alignItems', 'outline', 'transform', 'transition', 'textAlign', 'textTransform', 'textDecoration']);
+
+// Props that are Chakra-only and must not reach the DOM
+const SKIP_PROPS = new Set(['variant', 'colorScheme', 'colorPalette', 'size', 'focusRing', 'loading', 'isDisabled', 'as', 'asChild', 'motionPreset', 'placement', 'positioning', 'interactive', 'striped', 'showColumnBorder', 'collection', 'onValueChange', 'onCheckedChange', 'checkedIcon', 'uncheckedIcon', 'inputMode']);
+function resolveResponsive(val) {
+  if (val && typeof val === 'object' && !Array.isArray(val) && 'base' in val) {
+    return val.base;
+  }
+  return val;
+}
+function clean(val) {
+  return typeof val === 'string' ? val.replace(/\s*!important/gi, '') : val;
+}
+function extractStyleProps(props) {
+  const style = {};
+  const rest = {};
+  for (const [k, rawVal] of Object.entries(props)) {
+    if (SKIP_PROPS.has(k) || k.startsWith('_') && k !== '_') continue;
+    const val = resolveResponsive(rawVal);
+    if (k === 'px') {
+      style.paddingLeft = clean(val);
+      style.paddingRight = clean(val);
+    } else if (k === 'py') {
+      style.paddingTop = clean(val);
+      style.paddingBottom = clean(val);
+    } else if (k === 'mx') {
+      style.marginLeft = clean(val);
+      style.marginRight = clean(val);
+    } else if (k === 'my') {
+      style.marginTop = clean(val);
+      style.marginBottom = clean(val);
+    } else if (k === 'boxSize') {
+      style.width = clean(val);
+      style.height = clean(val);
+    } else if (k === 'direction') {
+      style.flexDirection = clean(val);
+    } else if (k === 'align' && !props.alignItems) {
+      style.alignItems = clean(val);
+    } else if (k === 'justify' && !props.justifyContent) {
+      style.justifyContent = clean(val);
+    } else if (k === 'wrap') {
+      style.flexWrap = clean(val);
+    } else if (STYLE_ALIAS[k]) {
+      style[STYLE_ALIAS[k]] = clean(val);
+    } else if (DIRECT_STYLES.has(k)) {
+      style[k] = clean(val);
+    } else {
+      rest[k] = rawVal;
+    }
+  }
+  return {
+    style,
+    rest
+  };
+}
+function el(tag, baseStyle = {}) {
+  const Comp = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+    children,
+    className,
+    style: styleProp,
+    ...props
+  }, ref) => {
+    const {
+      style: extracted,
+      rest
+    } = extractStyleProps(props);
+    const finalStyle = {
+      ...baseStyle,
+      ...extracted,
+      ...styleProp
+    };
+    // Remove any remaining unknown non-HTML keys (safety net)
+    const {
+      dangerouslySetInnerHTML,
+      ...safeRest
+    } = rest;
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(tag, {
+      ...safeRest,
+      ...(dangerouslySetInnerHTML ? {
+        dangerouslySetInnerHTML
+      } : {}),
+      className,
+      style: finalStyle,
+      ref
+    }, children);
+  });
+  return Comp;
+}
+
+// Inject global CSS for animations (once)
+if (typeof document !== 'undefined' && !document.getElementById('gf-ui-animations')) {
+  const style = document.createElement('style');
+  style.id = 'gf-ui-animations';
+  style.textContent = `
+        @keyframes gf-spin { to { transform: rotate(360deg); } }
+        @keyframes gf-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    `;
+  document.head.appendChild(style);
+}
+
+/***/ }),
+
 /***/ "./dev_gameengine/containers/Setup/Pages/Congratulation/index.js":
 /*!***********************************************************************!*\
   !*** ./dev_gameengine/containers/Setup/Pages/Congratulation/index.js ***!
@@ -325,7 +1743,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
@@ -392,7 +1810,7 @@ const Congratulation = () => {
     onClick: () => {
       window.open(_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.site_url, '__blank');
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Visit Website", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Visit Website", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_6__.FaArrowRightLong
   })))));
 };
@@ -416,7 +1834,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gameengine/utils/icons.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
@@ -506,7 +1924,7 @@ const Addons = () => {
           setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
         }
       }
-    }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Icon, {
       as: item.icon,
       width: '30px',
       height: '30px'
@@ -531,7 +1949,7 @@ const Addons = () => {
       label: item.description,
       fontSize: '12px',
       lineHeight: '16px'
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
       size: "sm",
       mt: "0.5",
       ml: "auto",
@@ -549,7 +1967,7 @@ const Addons = () => {
       //     );
       //   }
       // }}
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.HiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null)));
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.HiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null)));
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Addons);
@@ -572,7 +1990,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
@@ -769,7 +2187,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
@@ -805,7 +2223,7 @@ const SettingsFooter = ({
         navigate("/");
       }
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleLeft,
     width: "10px"
   }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
@@ -817,7 +2235,7 @@ const SettingsFooter = ({
         submitForm();
       }
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleRight,
     width: "10px"
   })));
@@ -971,7 +2389,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
@@ -1059,7 +2477,7 @@ const Welcome = () => {
       },
       key: idx,
       onClick: () => setSelectedCard(item.value)
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
       as: item.icon
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
       type: "simpleHeading",
@@ -1090,7 +2508,7 @@ const Welcome = () => {
         navigate('/settings');
       }
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     className: "text-sm font-medium leading-5",
@@ -1733,1258 +3151,6 @@ const tutorLms = () => {
     strokeLinejoin: "round"
   }));
 };
-
-/***/ }),
-
-/***/ "./dev_gameengine/utils/ui.js":
-/*!************************************!*\
-  !*** ./dev_gameengine/utils/ui.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Badge: () => (/* binding */ Badge),
-/* harmony export */   Box: () => (/* binding */ Box),
-/* harmony export */   Button: () => (/* binding */ Button),
-/* harmony export */   Center: () => (/* binding */ Center),
-/* harmony export */   Checkbox: () => (/* binding */ Checkbox),
-/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup),
-/* harmony export */   CloseButton: () => (/* binding */ CloseButton),
-/* harmony export */   Dialog: () => (/* binding */ Dialog),
-/* harmony export */   Flex: () => (/* binding */ Flex),
-/* harmony export */   Icon: () => (/* binding */ Icon),
-/* harmony export */   Image: () => (/* binding */ Image),
-/* harmony export */   Input: () => (/* binding */ Input),
-/* harmony export */   Menu: () => (/* binding */ Menu),
-/* harmony export */   Popover: () => (/* binding */ Popover),
-/* harmony export */   Portal: () => (/* binding */ Portal),
-/* harmony export */   RadioGroup: () => (/* binding */ RadioGroup),
-/* harmony export */   Separator: () => (/* binding */ Separator),
-/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
-/* harmony export */   SkeletonText: () => (/* binding */ SkeletonText),
-/* harmony export */   Span: () => (/* binding */ Span),
-/* harmony export */   Spinner: () => (/* binding */ Spinner),
-/* harmony export */   Switch: () => (/* binding */ Switch),
-/* harmony export */   Table: () => (/* binding */ Table),
-/* harmony export */   Text: () => (/* binding */ Text),
-/* harmony export */   Textarea: () => (/* binding */ Textarea),
-/* harmony export */   VStack: () => (/* binding */ VStack),
-/* harmony export */   createListCollection: () => (/* binding */ createListCollection),
-/* harmony export */   extractStyleProps: () => (/* binding */ extractStyleProps)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-
-/**
- * ui.js — Drop-in replacement for @chakra-ui/react
- * Provides the same API surface using plain HTML elements + inline styles.
- * No ChakraProvider required.
- */
-
-
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Style-prop extraction
-// ─────────────────────────────────────────────────────────────────────────────
-const STYLE_ALIAS = {
-  p: 'padding',
-  pt: 'paddingTop',
-  pb: 'paddingBottom',
-  pl: 'paddingLeft',
-  pr: 'paddingRight',
-  m: 'margin',
-  mt: 'marginTop',
-  mb: 'marginBottom',
-  ml: 'marginLeft',
-  mr: 'marginRight',
-  w: 'width',
-  h: 'height',
-  maxW: 'maxWidth',
-  minW: 'minWidth',
-  maxH: 'maxHeight',
-  minH: 'minHeight',
-  bg: 'background',
-  boxShadow: 'boxShadow',
-  shadow: 'boxShadow',
-  borderRadius: 'borderRadius',
-  borderColor: 'borderColor',
-  borderWidth: 'borderWidth',
-  borderTopWidth: 'borderTopWidth',
-  borderBottomWidth: 'borderBottomWidth',
-  borderLeftWidth: 'borderLeftWidth',
-  borderRightWidth: 'borderRightWidth',
-  lineHeight: 'lineHeight',
-  letterSpacing: 'letterSpacing',
-  wordBreak: 'wordBreak',
-  whiteSpace: 'whiteSpace',
-  zIndex: 'zIndex',
-  gap: 'gap',
-  alignSelf: 'alignSelf',
-  justifySelf: 'justifySelf',
-  flexShrink: 'flexShrink',
-  flexGrow: 'flexGrow',
-  overflowX: 'overflowX',
-  overflowY: 'overflowY',
-  cursor: 'cursor',
-  visibility: 'visibility',
-  opacity: 'opacity',
-  userSelect: 'userSelect',
-  pointerEvents: 'pointerEvents'
-};
-const DIRECT_STYLES = new Set(['color', 'fontSize', 'fontWeight', 'fontFamily', 'width', 'height', 'padding', 'margin', 'background', 'backgroundColor', 'border', 'borderTop', 'borderBottom', 'borderLeft', 'borderRight', 'position', 'top', 'bottom', 'left', 'right', 'display', 'overflow', 'flex', 'flexDirection', 'flexWrap', 'justifyContent', 'alignItems', 'outline', 'transform', 'transition', 'textAlign', 'textTransform', 'textDecoration']);
-
-// Props that are Chakra-only and must not reach the DOM
-const SKIP_PROPS = new Set(['variant', 'colorScheme', 'colorPalette', 'size', 'focusRing', 'loading', 'isDisabled', 'as', 'asChild', 'motionPreset', 'placement', 'positioning', 'interactive', 'striped', 'showColumnBorder', 'collection', 'onValueChange', 'onCheckedChange', 'checkedIcon', 'uncheckedIcon', 'inputMode']);
-function resolveResponsive(val) {
-  if (val && typeof val === 'object' && !Array.isArray(val) && 'base' in val) {
-    return val.base;
-  }
-  return val;
-}
-function clean(val) {
-  return typeof val === 'string' ? val.replace(/\s*!important/gi, '') : val;
-}
-function extractStyleProps(props) {
-  const style = {};
-  const rest = {};
-  for (const [k, rawVal] of Object.entries(props)) {
-    if (SKIP_PROPS.has(k) || k.startsWith('_') && k !== '_') continue;
-    const val = resolveResponsive(rawVal);
-    if (k === 'px') {
-      style.paddingLeft = clean(val);
-      style.paddingRight = clean(val);
-    } else if (k === 'py') {
-      style.paddingTop = clean(val);
-      style.paddingBottom = clean(val);
-    } else if (k === 'mx') {
-      style.marginLeft = clean(val);
-      style.marginRight = clean(val);
-    } else if (k === 'my') {
-      style.marginTop = clean(val);
-      style.marginBottom = clean(val);
-    } else if (k === 'boxSize') {
-      style.width = clean(val);
-      style.height = clean(val);
-    } else if (k === 'direction') {
-      style.flexDirection = clean(val);
-    } else if (k === 'align' && !props.alignItems) {
-      style.alignItems = clean(val);
-    } else if (k === 'justify' && !props.justifyContent) {
-      style.justifyContent = clean(val);
-    } else if (k === 'wrap') {
-      style.flexWrap = clean(val);
-    } else if (STYLE_ALIAS[k]) {
-      style[STYLE_ALIAS[k]] = clean(val);
-    } else if (DIRECT_STYLES.has(k)) {
-      style[k] = clean(val);
-    } else {
-      rest[k] = rawVal;
-    }
-  }
-  return {
-    style,
-    rest
-  };
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Generic element factory
-// ─────────────────────────────────────────────────────────────────────────────
-function el(tag, baseStyle = {}) {
-  const Comp = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-    children,
-    className,
-    style: styleProp,
-    ...props
-  }, ref) => {
-    const {
-      style: extracted,
-      rest
-    } = extractStyleProps(props);
-    const finalStyle = {
-      ...baseStyle,
-      ...extracted,
-      ...styleProp
-    };
-    // Remove any remaining unknown non-HTML keys (safety net)
-    const {
-      dangerouslySetInnerHTML,
-      ...safeRest
-    } = rest;
-    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(tag, {
-      ...safeRest,
-      ...(dangerouslySetInnerHTML ? {
-        dangerouslySetInnerHTML
-      } : {}),
-      className,
-      style: finalStyle,
-      ref
-    }, children);
-  });
-  return Comp;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Layout primitives
-// ─────────────────────────────────────────────────────────────────────────────
-const Box = el('div');
-const Flex = el('div', {
-  display: 'flex'
-});
-const Center = el('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-});
-const VStack = el('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center'
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Typography
-// ─────────────────────────────────────────────────────────────────────────────
-const Text = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  as: Tag = 'p',
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    margin: 0,
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Tag, {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  }, children);
-});
-const Span = el('span');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Icon — renders the `as` prop component directly
-// ─────────────────────────────────────────────────────────────────────────────
-const Icon = ({
-  as: Component,
-  boxSize,
-  size,
-  color,
-  style: styleProp,
-  className,
-  ...rest
-}) => {
-  if (!Component) return null;
-  const sz = boxSize ? `${parseFloat(boxSize) * 4}px` : size === 'md' ? '20px' : size === 'sm' ? '16px' : size === 'lg' ? '24px' : undefined;
-  const s = {
-    ...(sz ? {
-      width: sz,
-      height: sz
-    } : {}),
-    ...(color ? {
-      color
-    } : {}),
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
-    style: Object.keys(s).length ? s : undefined,
-    className: className,
-    ...rest
-  });
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Image
-// ─────────────────────────────────────────────────────────────────────────────
-const Image = el('img');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Button
-// ─────────────────────────────────────────────────────────────────────────────
-const Button = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  loading,
-  isLoading,
-  disabled,
-  isDisabled,
-  type = 'button',
-  onClick,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const isDisabledFinal = disabled || isDisabled || loading || isLoading;
-  const finalStyle = {
-    cursor: isDisabledFinal ? 'not-allowed' : 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    border: 'none',
-    background: 'transparent',
-    padding: '0',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: type,
-    ref: ref,
-    disabled: isDisabledFinal,
-    className: className,
-    style: finalStyle,
-    onClick: onClick,
-    ...rest
-  }, (loading || isLoading) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "gf-spinner-inline rounded-full inline-block",
-    style: {
-      width: '14px',
-      height: '14px',
-      border: '2px solid currentColor',
-      borderTopColor: 'transparent',
-      animation: 'gf-spin 0.7s linear infinite'
-    }
-  }), children);
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CloseButton
-// ─────────────────────────────────────────────────────────────────────────────
-const CloseButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  onClick,
-  className,
-  style: styleProp,
-  disabled,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    cursor: 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '24px',
-    height: '24px',
-    background: 'transparent',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '16px',
-    lineHeight: 1,
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ref: ref,
-    type: "button",
-    onClick: onClick,
-    className: className,
-    style: finalStyle,
-    disabled: disabled,
-    ...rest
-  }, "\u2715");
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Form inputs
-// ─────────────────────────────────────────────────────────────────────────────
-const Input = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    width: '100%',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  });
-});
-const Textarea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    width: '100%',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Badge
-// ─────────────────────────────────────────────────────────────────────────────
-const Badge = el('span');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Separator / Divider
-// ─────────────────────────────────────────────────────────────────────────────
-const Separator = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
-    ref: ref,
-    className: `${`${className} m-0`} [border-top:1px_solid_var(--gameengine-border-color)]`,
-    style: {
-      border: 'none',
-      ...extracted,
-      ...styleProp
-    }
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Spinner
-// ─────────────────────────────────────────────────────────────────────────────
-const Spinner = ({
-  size = 'md',
-  color,
-  style: styleProp,
-  className
-}) => {
-  const sz = size === 'sm' ? '16px' : size === 'lg' ? '32px' : size === 'xl' ? '48px' : '20px';
-  const finalStyle = {
-    width: sz,
-    height: sz,
-    border: `2px solid ${color || 'currentColor'}`,
-    borderTopColor: 'transparent',
-    borderRadius: '50%',
-    display: 'inline-block',
-    animation: 'gf-spin 0.7s linear infinite',
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: className,
-    style: finalStyle
-  });
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Skeleton / SkeletonText
-// ─────────────────────────────────────────────────────────────────────────────
-const Skeleton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  const finalStyle = {
-    background: 'linear-gradient(90deg, #e2e8f0 25%, #edf2f7 50%, #e2e8f0 75%)',
-    backgroundSize: '200% 100%',
-    animation: 'gf-shimmer 1.5s infinite',
-    borderRadius: '4px',
-    display: 'block',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    ref: ref,
-    className: className,
-    style: finalStyle
-  }, children);
-});
-const SkeletonText = ({
-  noOfLines = 3,
-  spacing = '8px',
-  style: styleProp
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-  className: "flex flex-col",
-  style: {
-    gap: spacing,
-    ...styleProp
-  }
-}, Array.from({
-  length: noOfLines
-}).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Skeleton, {
-  key: i,
-  height: "14px",
-  width: i === noOfLines - 1 ? '60%' : '100%'
-})));
-
-// ─────────────────────────────────────────────────────────────────────────────
-// RadioGroup / CheckboxGroup wrappers
-// ─────────────────────────────────────────────────────────────────────────────
-const RadioGroup = ({
-  children,
-  ...props
-}) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    style: extracted,
-    ...rest
-  }, children);
-};
-const CheckboxGroup = ({
-  children,
-  ...props
-}) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    style: extracted,
-    ...rest
-  }, children);
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Switch (compound component)
-// ─────────────────────────────────────────────────────────────────────────────
-const SwitchCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const SwitchRoot = ({
-  children,
-  checked,
-  defaultChecked,
-  onCheckedChange,
-  disabled,
-  className,
-  style: styleProp,
-  ...props
-}) => {
-  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
-  const isControlled = checked !== undefined;
-  const isChecked = isControlled ? checked : internal;
-  const toggle = () => {
-    if (disabled) return;
-    const next = !isChecked;
-    if (!isControlled) setInternal(next);
-    onCheckedChange?.({
-      checked: next
-    });
-  };
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SwitchCtx.Provider, {
-    value: {
-      isChecked,
-      toggle,
-      disabled
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: `${className} inline-flex items-center`,
-    style: {
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children));
-};
-const SwitchHiddenInput = () => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    type: "checkbox",
-    checked: isChecked,
-    onChange: toggle,
-    disabled: disabled,
-    className: "absolute opacity-0 w-0 h-0"
-  });
-};
-const SwitchControl = ({
-  className
-}) => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    onClick: toggle,
-    className: `${className} inline-block relative w-9 h-5 shrink-0`,
-    style: {
-      borderRadius: '10px',
-      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0',
-      transition: 'background 0.2s',
-      cursor: disabled ? 'not-allowed' : 'pointer'
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "absolute w-4 h-4 rounded-full bg-white",
-    style: {
-      top: '2px',
-      left: isChecked ? '18px' : '2px',
-      transition: 'left 0.2s',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
-    }
-  }));
-};
-const SwitchLabel = ({
-  children,
-  className = '',
-  style: styleProp,
-  ...props
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-  className: `${className} text-sm`.trim(),
-  style: styleProp,
-  ...props
-}, children);
-const Switch = Object.assign(SwitchRoot, {
-  Root: SwitchRoot,
-  HiddenInput: SwitchHiddenInput,
-  Control: SwitchControl,
-  Label: SwitchLabel
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Checkbox (compound component)
-// ─────────────────────────────────────────────────────────────────────────────
-const CheckboxCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const CheckboxRoot = ({
-  children,
-  checked,
-  defaultChecked,
-  onCheckedChange,
-  disabled,
-  className,
-  style: styleProp,
-  ...props
-}) => {
-  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
-  const isControlled = checked !== undefined;
-  const isChecked = isControlled ? !!checked : internal;
-  const toggle = () => {
-    if (disabled) return;
-    const next = !isChecked;
-    if (!isControlled) setInternal(next);
-    onCheckedChange?.({
-      checked: next
-    });
-  };
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxCtx.Provider, {
-    value: {
-      isChecked,
-      toggle,
-      disabled
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: `${className} inline-flex items-center gap-1.5`,
-    style: {
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children));
-};
-const CheckboxHiddenInput = () => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    type: "checkbox",
-    checked: isChecked,
-    onChange: toggle,
-    disabled: disabled,
-    className: "absolute opacity-0 w-0 h-0"
-  });
-};
-const CheckboxControl = ({
-  className
-}) => {
-  const {
-    isChecked,
-    toggle
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    onClick: toggle,
-    className: `${className} inline-flex items-center justify-center w-4 h-4 cursor-pointer shrink-0`,
-    style: {
-      borderRadius: '3px',
-      border: `2px solid ${isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0'}`,
-      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#fff',
-      transition: 'all 0.15s'
-    }
-  }, isChecked && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    viewBox: "0 0 12 10",
-    fill: "none",
-    className: "h-2",
-    style: {
-      width: '10px'
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M1 5l3 4L11 1",
-    stroke: "#fff",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  })));
-};
-const Checkbox = Object.assign(CheckboxRoot, {
-  Root: CheckboxRoot,
-  HiddenInput: CheckboxHiddenInput,
-  Control: CheckboxControl
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Table (compound — maps to native HTML table elements)
-// ─────────────────────────────────────────────────────────────────────────────
-const TableRoot = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
-    ref: ref,
-    className: `${className} w-full`,
-    style: {
-      borderCollapse: 'collapse',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableScrollArea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} overflow-x-auto w-full`,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("thead", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tbody", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableRow = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableCell = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
-    ref: ref,
-    className: className,
-    style: {
-      padding: '8px 12px',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableColumnHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", {
-    ref: ref,
-    className: `${className} text-left font-semibold`,
-    style: {
-      padding: '8px 12px',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Header: TableHeader,
-  Body: TableBody,
-  Row: TableRow,
-  Cell: TableCell,
-  ColumnHeader: TableColumnHeader
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Portal
-// ─────────────────────────────────────────────────────────────────────────────
-const Portal = ({
-  children,
-  container
-}) => {
-  const target = container !== null && container !== void 0 ? container : typeof document !== 'undefined' ? document.body : null;
-  if (!target) return null;
-  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, target);
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Dialog (compound modal)
-// ─────────────────────────────────────────────────────────────────────────────
-const DialogCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const DialogRoot = ({
-  children,
-  open: openProp,
-  onOpenChange,
-  defaultOpen = false,
-  ...props
-}) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultOpen);
-  const isControlled = openProp !== undefined;
-  const open = isControlled ? openProp : isOpen;
-  const setOpen = val => {
-    if (!isControlled) setIsOpen(val);
-    onOpenChange?.(val);
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DialogCtx.Provider, {
-    value: {
-      open,
-      setOpen
-    }
-  }, children);
-};
-const DialogTrigger = ({
-  children,
-  asChild
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: "button"
-  }, children);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
-    onClick: e => {
-      trigger.props.onClick?.(e);
-      setOpen(true);
-    }
-  });
-};
-const DialogBackdrop = ({
-  style: styleProp
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onClick: () => setOpen(false),
-    className: "fixed",
-    style: {
-      inset: 0,
-      background: 'rgba(0,0,0,0.4)',
-      zIndex: 9998,
-      ...styleProp
-    }
-  });
-};
-const DialogPositioner = ({
-  children,
-  style: styleProp
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-  className: "fixed flex items-center justify-center overflow-y-auto p-5",
-  style: {
-    inset: 0,
-    zIndex: 9999,
-    ...styleProp
-  }
-}, children);
-const DialogContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} relative bg-white rounded-lg w-full overflow-y-auto`,
-    style: {
-      boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-      maxWidth: '900px',
-      maxHeight: '90vh',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest,
-    onClick: e => e.stopPropagation()
-  }, children);
-});
-const DialogBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} p-6`,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const DialogCloseTrigger = ({
-  children,
-  asChild
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: "button"
-  }, children);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
-    onClick: e => {
-      trigger.props.onClick?.(e);
-      setOpen(false);
-    },
-    style: {
-      ...trigger.props.style,
-      position: 'absolute',
-      top: '16px',
-      right: '16px'
-    }
-  });
-};
-const DialogPortal = ({
-  children
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  if (!open) return null;
-  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, document.body);
-};
-const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  Trigger: DialogTrigger,
-  Backdrop: DialogBackdrop,
-  Positioner: DialogPositioner,
-  Content: DialogContent,
-  Body: DialogBody,
-  CloseTrigger: DialogCloseTrigger,
-  Portal: DialogPortal
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Menu (controlled — open prop driven)
-// ─────────────────────────────────────────────────────────────────────────────
-const MenuCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  open: false
-});
-const MenuRoot = ({
-  children,
-  open = false,
-  ...props
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MenuCtx.Provider, {
-  value: {
-    open
-  }
-}, children);
-const MenuTrigger = ({
-  children,
-  asChild
-}) => {
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
-};
-const MenuPositioner = ({
-  children,
-  style: styleProp,
-  onMouseEnter,
-  onMouseLeave,
-  ...props
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MenuCtx);
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  if (!open) return null;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave,
-    className: "absolute pointer-events-auto",
-    style: {
-      zIndex: 9999,
-      bottom: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      marginBottom: '6px',
-      ...extracted,
-      ...styleProp
-    }
-  }, children);
-};
-const MenuContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} bg-white rounded-md p-2`,
-    style: {
-      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      fontSize: '13px',
-      lineHeight: '1.4',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Menu = Object.assign(MenuRoot, {
-  Root: MenuRoot,
-  Trigger: MenuTrigger,
-  Positioner: MenuPositioner,
-  Content: MenuContent
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Popover (controlled — open prop driven)
-// ─────────────────────────────────────────────────────────────────────────────
-const PopoverCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  open: false
-});
-const PopoverRoot = ({
-  children,
-  open = false,
-  ...props
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PopoverCtx.Provider, {
-  value: {
-    open
-  }
-}, children);
-const PopoverTrigger = ({
-  children,
-  asChild
-}) => {
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
-};
-const PopoverPositioner = ({
-  children,
-  style: styleProp,
-  onMouseEnter,
-  onMouseLeave
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PopoverCtx);
-  if (!open) return null;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave,
-    className: "absolute pointer-events-auto",
-    style: {
-      zIndex: 9999,
-      bottom: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      marginBottom: '6px',
-      ...styleProp
-    }
-  }, children);
-};
-const PopoverContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} bg-white rounded-md p-3`,
-    style: {
-      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      fontSize: '13px',
-      lineHeight: '1.5',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  Trigger: PopoverTrigger,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// createListCollection — no-op, items passed directly
-// ─────────────────────────────────────────────────────────────────────────────
-function createListCollection({
-  items = []
-}) {
-  return {
-    items
-  };
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Inject global CSS for animations (once)
-// ─────────────────────────────────────────────────────────────────────────────
-if (typeof document !== 'undefined' && !document.getElementById('gf-ui-animations')) {
-  const style = document.createElement('style');
-  style.id = 'gf-ui-animations';
-  style.textContent = `
-        @keyframes gf-spin { to { transform: rotate(360deg); } }
-        @keyframes gf-shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    `;
-  document.head.appendChild(style);
-}
 
 /***/ }),
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { FaLock } from 'react-icons/fa6';
 import { is_pro } from '@GFUtils/helper';
 const GFLabel = ({

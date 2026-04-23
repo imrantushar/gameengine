@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';

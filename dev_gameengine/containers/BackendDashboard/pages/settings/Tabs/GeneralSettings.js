@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import Select from "react-select";

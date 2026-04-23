@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import Select from 'react-select';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";

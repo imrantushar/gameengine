@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import Divider from '@GFComponents/Divider';
 import { __ } from '@wordpress/i18n';

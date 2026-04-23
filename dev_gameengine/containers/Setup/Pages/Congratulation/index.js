@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { admin_url, plugin_root_url, site_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';

@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import moment from 'moment';
-import { Icon, Spinner } from '@GFUtils/ui';
+import { Icon, Spinner } from '@GFComponents/UI';
 import { LuRefreshCw, LuLink, LuKey } from 'react-icons/lu';
 import { useDispatch } from 'react-redux';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';

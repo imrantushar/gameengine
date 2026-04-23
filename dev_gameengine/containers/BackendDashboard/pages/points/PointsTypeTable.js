@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";

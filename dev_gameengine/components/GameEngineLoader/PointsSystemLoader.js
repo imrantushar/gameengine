@@ -1,4 +1,4 @@
-import { Skeleton } from "@GFUtils/ui";
+import { Skeleton } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import RequirementsLoader from "./RequirementsLoader";

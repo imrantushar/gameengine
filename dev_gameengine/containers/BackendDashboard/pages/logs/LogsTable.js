@@ -6,7 +6,7 @@ import ListTable from '@GFComponents/ListTable';
 import Search from '@GFComponents/Search';
 import { FiEdit, FiClock } from "react-icons/fi";
 import { fetchLogs, setPage, setRowsPerPage, setSearchQuery } from '@GFRedux/Slices/logsSlice/logsSlice';
-import { Icon, Spinner } from '@GFUtils/ui';
+import { Icon, Spinner } from '@GFComponents/UI';
 const LogsTable = ({
   modalOpenHandler
 }) => {

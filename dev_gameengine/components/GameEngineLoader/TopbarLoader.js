@@ -1,4 +1,4 @@
-import { Skeleton } from "@GFUtils/ui";
+import { Skeleton } from "@GFComponents/UI";
 const TopbarLoader = () => {
   return <>
             <div className="flex justify-between w-full mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] top-8 py-5 px-6" direction={{

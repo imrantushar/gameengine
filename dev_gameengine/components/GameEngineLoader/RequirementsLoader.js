@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton } from "@GFUtils/ui";
+import { Skeleton } from "@GFComponents/UI";
 const RequirementsLoader = () => {
   return <>
             <div className="w-full p-6 rounded mt-6 [border:1px_solid_var(--gameengine-border-color)]">

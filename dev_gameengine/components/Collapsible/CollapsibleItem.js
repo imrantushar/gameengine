@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __, sprintf } from '@wordpress/i18n';

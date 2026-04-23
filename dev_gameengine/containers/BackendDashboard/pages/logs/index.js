@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import { GoPlus } from 'react-icons/go';
 import LogsTable from './LogsTable';

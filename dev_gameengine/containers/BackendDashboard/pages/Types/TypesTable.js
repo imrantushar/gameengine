@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAchievementType, fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import { deleteLevelType, fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { sliceString } from '@GFUtils/helper';

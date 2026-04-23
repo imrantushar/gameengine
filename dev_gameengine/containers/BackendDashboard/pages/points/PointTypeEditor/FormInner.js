@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';

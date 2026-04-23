@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';

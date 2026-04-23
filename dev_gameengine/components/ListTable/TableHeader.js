@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Checkbox } from '@GFUtils/ui';
+import { Table, Checkbox } from '@GFComponents/UI';
 
 const TableHeader = ({
 	visibleColumn,

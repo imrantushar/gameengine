@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useSelector, useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { notification_position } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';

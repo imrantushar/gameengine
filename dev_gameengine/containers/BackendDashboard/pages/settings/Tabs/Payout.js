@@ -1,7 +1,7 @@
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import React from 'react';
 import { __ } from "@wordpress/i18n";
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
 import { useFormikContext } from 'formik';

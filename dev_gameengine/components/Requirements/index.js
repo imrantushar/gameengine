@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
-import { Icon, RadioGroup, Switch } from '@GFUtils/ui';
+import { Icon, RadioGroup, Switch } from '@GFComponents/UI';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';

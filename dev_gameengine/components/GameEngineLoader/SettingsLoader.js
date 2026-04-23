@@ -1,4 +1,4 @@
-import { Skeleton } from "@GFUtils/ui";
+import { Skeleton } from "@GFComponents/UI";
 import TopbarLoader from "./TopbarLoader";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 const SettingsLoader = () => {

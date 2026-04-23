@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import { API, namespace, route_path } from '@GFUtils/helper';

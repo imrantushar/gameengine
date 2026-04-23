@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { TiPointOfInterestOutline } from "react-icons/ti";
 import { GrAchievement } from "react-icons/gr";
 import { SiLevelsdotfyi } from "react-icons/si";
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
 import { plugin_root_url } from '@GFUtils/helper';

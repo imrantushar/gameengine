@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
-import { Icon, CheckboxGroup } from '@GFUtils/ui';
+import { Icon, CheckboxGroup } from '@GFComponents/UI';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteAchievement, fetchAchievements, updateAchievement } from '@GFRedux/Slices/achivementSlice/achievementsSlice';

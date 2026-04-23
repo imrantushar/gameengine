@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Dialog, Portal } from '@GFUtils/ui';
+import { Switch, Dialog, Portal } from '@GFComponents/UI';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { __ } from '@wordpress/i18n';
 import GFLabel from '@GFComponents/Labels/GFLabel';

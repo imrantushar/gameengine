@@ -1,4 +1,4 @@
-import { Icon } from "@GFUtils/ui";
+import { Icon } from "@GFComponents/UI";
 import React from "react";
 import { clearBtn, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 import { __ } from "@wordpress/i18n";

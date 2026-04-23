@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import SettingsInput from '../Components/SettingsInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import SettingsInner from '../Components/SettingsInner';
 import { useFormikContext } from 'formik';
 import { is_pro } from '@GFUtils/helper';

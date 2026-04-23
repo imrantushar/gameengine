@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import { suffixClassNames, contentClassNames } from './helper';
 import { MdFullscreen, MdPhoneAndroid, MdLaptopMac, MdViewColumn } from 'react-icons/md';
-import { Spinner } from '@GFUtils/ui';
+import { Spinner } from '@GFComponents/UI';
 import './styles.scss';
 import './suffix.scss';
 import OptionMenu from '@GFComponents/OptionMenu';

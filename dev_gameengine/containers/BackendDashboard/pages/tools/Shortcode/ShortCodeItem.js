@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { clearBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';

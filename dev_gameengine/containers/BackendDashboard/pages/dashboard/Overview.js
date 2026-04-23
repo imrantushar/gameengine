@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar, FiMinusCircle } from "react-icons/fi";
 import BoxView from '@GFComponents/BoxView/BoxView';

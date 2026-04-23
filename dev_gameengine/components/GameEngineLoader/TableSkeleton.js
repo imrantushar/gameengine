@@ -1,5 +1,5 @@
 import React from 'react';
-import { Skeleton, Table } from '@GFUtils/ui';
+import { Skeleton, Table } from '@GFComponents/UI';
 
 const TableLoading = ({ makeItems = 5 }) => {
     return (

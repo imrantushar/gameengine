@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Spinner } from '@GFUtils/ui';
+import { Spinner } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import Select from 'react-select';

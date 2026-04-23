@@ -11,7 +11,7 @@ import {
 } from '@GFUtils/helper';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { LiaAngleRightSolid } from "react-icons/lia";
 
 const AdminMenu = () => {

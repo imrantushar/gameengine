@@ -1,7 +1,7 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Icon } from "@GFUtils/ui";
+import { Icon } from "@GFComponents/UI";
 import { FiMail } from "react-icons/fi";
 import { FiHelpCircle } from "react-icons/fi";
 import { is_pro, route_path } from "@GFUtils/helper";
