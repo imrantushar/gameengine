@@ -1990,14 +1990,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
-
-
-
-
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 
 
 
@@ -2072,51 +2067,41 @@ const DataPreview = () => {
   const {
     values,
     setFieldValue
-  } = (0,formik__WEBPACK_IMPORTED_MODULE_5__.useFormikContext)();
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_4__.useFormikContext)();
   const selectedCard = previewCards.find(item => item.slug === values.preset);
   const previewData = [{
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Achievement", "gamneengine"),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Achievement", "gameengine"),
     slug: 'achievements'
   }, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Levels", "gamneengine"),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Levels", "gameengine"),
     slug: 'levels'
   }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Setup Your GameEngine', 'gemboards'),
-    subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose your preferred gamification setup', 'gemboards')
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Setup Your GameEngine', 'gameengine'),
+    subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose your preferred gamification setup', 'gameengine')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex flex-wrap gap-4"
+    className: "flex flex-wrap gap-4 justify-center"
   }, previewCards.map((item, idx) => {
     const isSelected = item.slug === values.preset;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex items-center cursor-pointer gap-3 p-4 rounded text-center",
-      style: {
-        "maxWidth": "280px",
-        "width": "calc((100% / 3) - 11px)",
-        "border": `1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`,
-        "background": isSelected && '#F3F5FF'
-      },
+      className: `flex items-center cursor-pointer gap-3 p-4 rounded-lg text-left transition-all w-[calc(33.333%-11px)] max-w-[280px] border ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`,
       key: idx,
-      onClick: () => {
-        setFieldValue('preset', item.slug);
-      }
+      onClick: () => setFieldValue('preset', item.slug)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-      className: "h-auto",
-      style: {
-        "maxWidth": "36px"
-      },
-      src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.plugin_root_url + item.icon
+      className: "h-auto max-w-[36px]",
+      src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.plugin_root_url + item.icon,
+      alt: item.label
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "flex flex-col items-start gap-1"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simpleHeading",
       margin: 0,
       padding: 0,
       label: item.label,
       lineHeight: '20px'
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: 0,
       padding: 0,
@@ -2125,49 +2110,46 @@ const DataPreview = () => {
       lineHeight: '16px'
     })));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full flex-col p-4 gap-4 rounded-md mt-6",
-    style: {
-      "background": "#F3F5FF"
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "flex w-full flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "simple",
     margin: 0,
     padding: 0,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Levels & Achievements Preview', 'gameengine')
-    // fontSize={'16px'}
-    // lineHeight={'24px'}
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Levels & Achievements Preview', 'gameengine'),
+    fontSize: "14px",
+    color: "#64748B"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex gap-4"
+    className: "flex gap-6 w-full"
   }, previewData.map((item, idx) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex flex-col gap-3 bg-white rounded",
-      style: {
-        "width": "calc(100% / 2)",
-        "padding": "16px 24px"
-      }
+      className: "flex flex-col gap-5 bg-white rounded-lg w-1/2 p-6 shadow-sm border border-white",
+      key: idx
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex items-center gap-0.5",
-      wordWrap: 'break-word'
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "flex items-center gap-1.5 flex-wrap"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simpleHeading",
       margin: 0,
       padding: 0,
       label: item.title,
       fontSize: '16px',
       lineHeight: '24px'
-    }), selectedCard && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), selectedCard && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: '2px 0 0 0',
       padding: 0,
-      label: ' ( ' + selectedCard.label + ' Points )',
+      label: `( ${selectedCard.label} Points )`,
       fontSize: '12px',
       lineHeight: '24px'
-    })), values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "flex flex-col gap-3"
+    }, values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: 0,
       padding: 0,
-      label: dataItem
-    })));
+      key: index,
+      label: dataItem,
+      color: "#475569"
+    }))));
   })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataPreview);
@@ -2188,12 +2170,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 
 
 
@@ -2209,13 +2191,12 @@ const SettingsFooter = ({
   const {
     submitForm,
     isSubmitting
-  } = (0,formik__WEBPACK_IMPORTED_MODULE_5__.useFormikContext)();
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_4__.useFormikContext)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useNavigate)();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full justify-between items-center"
+    className: "flex w-full justify-between items-center mt-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "text-sm font-medium leading-5",
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__.clearBtn,
+    style: outlineBtn,
     onClick: () => {
       if (step === "addons") {
         setStep("datapreview");
@@ -2224,10 +2205,11 @@ const SettingsFooter = ({
       }
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleLeft,
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleLeft,
     width: "10px"
-  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__.primaryBtn,
+  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.primaryBtn,
+    disabled: isSubmitting,
     onClick: () => {
       if (step === "datapreview") {
         setStep("addons");
@@ -2235,8 +2217,8 @@ const SettingsFooter = ({
         submitForm();
       }
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleRight,
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleRight,
     width: "10px"
   })));
 };
@@ -2271,20 +2253,18 @@ const SettingsHeader = ({
   subTitle
 }) => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex flex-col items-center gap-4"
+    className: "flex flex-col items-center gap-4 w-full"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "h-auto",
-    style: {
-      "maxWidth": "36px"
-    },
-    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.plugin_root_url + 'assets/images/logo.svg'
+    className: "h-auto max-w-[36px]",
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.plugin_root_url + 'assets/images/logo.svg',
+    alt: "Logo"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_1__["default"], {
     type: "heading",
     margin: 0,
     padding: 0,
-    fontSize: '38px',
+    fontSize: '36px',
     lineHeight: '38px',
     label: title,
     borderBottom: 'none'
@@ -2315,13 +2295,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
-/* harmony import */ var _components_SettingsFooter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SettingsFooter */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js");
-/* harmony import */ var _Steps_DataPreview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Steps/DataPreview */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js");
-/* harmony import */ var _Steps_Addons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Steps/Addons */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
-
+/* harmony import */ var _components_SettingsFooter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingsFooter */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js");
+/* harmony import */ var _Steps_DataPreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Steps/DataPreview */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js");
+/* harmony import */ var _Steps_Addons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Steps/Addons */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
 
 
 
@@ -2332,11 +2310,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const Settings = () => {
   const [step, setStep] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('datapreview');
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
   const onSubmitHandler = async (values, actions) => {
     actions.setSubmitting(true);
     try {
-      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.API.post('/setup/complete', {
+      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.API.post('/setup/complete', {
         ...values
       });
       if (response.status === 200) {
@@ -2349,7 +2327,7 @@ const Settings = () => {
     }
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full justify-center"
+    className: "flex w-full justify-center pb-12"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
     enableReinitialize: true,
     initialValues: {
@@ -2360,16 +2338,13 @@ const Settings = () => {
     onSubmit: onSubmitHandler
   }, () => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "w-full flex-col justify-center items-center flex gap-6 bg-white rounded-xl",
-      style: {
-        "maxWidth": "676px",
-        "padding": "40px",
-        "border": "1px solid #F6F7F8"
-      }
-    }, step === 'datapreview' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_DataPreview__WEBPACK_IMPORTED_MODULE_4__["default"], null), step === 'addons' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_Addons__WEBPACK_IMPORTED_MODULE_5__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsFooter__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      className: "w-full max-w-[676px] flex-col justify-center items-center flex gap-8 bg-white rounded-xl p-10 shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]"
+    }, step === 'datapreview' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_DataPreview__WEBPACK_IMPORTED_MODULE_3__["default"], null), step === 'addons' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_Addons__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "w-full mt-4"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsFooter__WEBPACK_IMPORTED_MODULE_2__["default"], {
       step: step,
       setStep: setStep
-    }));
+    })));
   }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
@@ -2397,8 +2372,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_lia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/lia */ "./node_modules/react-icons/lia/index.mjs");
 /* harmony import */ var react_icons_tb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/tb */ "./node_modules/react-icons/tb/index.mjs");
 /* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
 
 
 
@@ -2423,25 +2398,17 @@ const cards = [{
 }];
 const Welcome = () => {
   const [selectedCard, setSelectedCard] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('genatative');
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full flex-col justify-center items-center h-full flex gap-6"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full flex-col items-center rounded-xl gap-6",
-    style: {
-      "maxWidth": "680px",
-      "padding": "40px",
-      "boxShadow": " 0 6px 12px 0 rgba(20, 26, 36, 0.06)",
-      "border": "1px solid #F6F7F8"
-    }
+    className: "flex w-full max-w-[680px] flex-col items-center rounded-xl gap-8 p-10 bg-white shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-4"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "h-auto",
-    style: {
-      "maxWidth": "36px"
-    },
-    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.plugin_root_url + 'assets/images/logo.svg'
+    className: "h-auto max-w-[36px]",
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.plugin_root_url + 'assets/images/logo.svg',
+    alt: "Logo"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -2450,7 +2417,7 @@ const Welcome = () => {
     padding: 0,
     fontSize: '38px',
     lineHeight: '38px',
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Welcome to GameEngine 👋', 'gemboards'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Welcome to GameEngine 👋', 'gameengine'),
     borderBottom: 'none'
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
     type: "simple",
@@ -2458,27 +2425,20 @@ const Welcome = () => {
     padding: 0,
     lineHeight: '28px',
     textAlign: 'center',
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('You are just a few clicks away from transforming your website into a powerful e-commerce platform.', 'gemboards')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('You are just a few clicks away from transforming your website into a powerful e-commerce platform.', 'gameengine')
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "w-full h-px",
-    style: {
-      "background": "#E0E4E8"
-    }
+    className: "w-full h-px bg-[#E0E4E8]"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex gap-6"
+    className: "flex gap-6 w-full justify-center"
   }, cards.map((item, idx) => {
     const isSelected = selectedCard === item.value;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex flex-col items-center gap-4 p-4 rounded text-center relative",
-      style: {
-        "maxWidth": "280px",
-        "border": `1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`,
-        "background": isSelected && '#F3F5FF'
-      },
+      className: `flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`,
       key: idx,
       onClick: () => setSelectedCard(item.value)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-      as: item.icon
+      as: item.icon,
+      className: "text-xl text-gray-700"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
       type: "simpleHeading",
       margin: 0,
@@ -2493,14 +2453,10 @@ const Welcome = () => {
       label: item.description,
       lineHeight: '24px'
     }), isSelected && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "absolute w-5 h-5 rounded-full [border:4px_solid_var(--gameengine-primary)]",
-      style: {
-        "top": "8px",
-        "right": "8px"
-      }
+      className: "absolute top-2 right-2 w-5 h-5 rounded-full border-[4px] border-[var(--gameengine-primary)]"
     }));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.primaryBtn,
+    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn,
     onClick: () => {
       if (selectedCard === 'manual') {
         window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine-points';
@@ -2511,8 +2467,7 @@ const Welcome = () => {
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "text-sm font-medium leading-5",
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.clearBtn,
+    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.outlineBtn,
     onClick: () => window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine'
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Skip This Step", "gameengine")));
 };

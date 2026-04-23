@@ -1,13 +1,10 @@
 import React, { useMemo } from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
-import { TiPointOfInterestOutline } from "react-icons/ti";
-import { GrAchievement } from "react-icons/gr";
-import { SiLevelsdotfyi } from "react-icons/si";
-import { Icon } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
 import { plugin_root_url } from '@GFUtils/helper';
+
 const previewCards = [{
   label: __('Author', 'gameengine'),
   description: __('For authors active', 'gameengine'),
@@ -39,6 +36,7 @@ const previewCards = [{
   icon: '/assets/images/setup/growth.svg',
   slug: 'growth'
 }];
+
 const pointsData = {
   author: {
     use_case: 'Multi-author blogs, magazines, news sites',
@@ -71,66 +69,67 @@ const pointsData = {
     levels: ['Marketer', 'Growth Specialist', 'Growth Manager', 'Growth Leader']
   }
 };
+
 const DataPreview = () => {
-  const {
-    values,
-    setFieldValue
-  } = useFormikContext();
+  const { values, setFieldValue } = useFormikContext();
   const selectedCard = previewCards.find(item => item.slug === values.preset);
+  
   const previewData = [{
-    title: __("Achievement", "gamneengine"),
+    title: __("Achievement", "gameengine"),
     slug: 'achievements'
   }, {
-    title: __("Levels", "gamneengine"),
+    title: __("Levels", "gameengine"),
     slug: 'levels'
   }];
-  return <>
-      <SettingsHeader title={__('Setup Your GameEngine', 'gemboards')} subTitle={__('Choose your preferred gamification setup', 'gemboards')} />
+
+  return (
+    <>
+      <SettingsHeader title={__('Setup Your GameEngine', 'gameengine')} subTitle={__('Choose your preferred gamification setup', 'gameengine')} />
       <div className="w-full">
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 justify-center">
           {previewCards.map((item, idx) => {
-          const isSelected = item.slug === values.preset;
-          return <div className="flex items-center cursor-pointer gap-3 p-4 rounded text-center" style={{
-            "maxWidth": "280px",
-            "width": "calc((100% / 3) - 11px)",
-            "border": `1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`,
-            "background": isSelected && '#F3F5FF'
-          }} key={idx} onClick={() => {
-            setFieldValue('preset', item.slug);
-          }}>
-                <img className="h-auto" style={{
-              "maxWidth": "36px"
-            }} src={plugin_root_url + item.icon} />
+            const isSelected = item.slug === values.preset;
+            return (
+              <div 
+                className={`flex items-center cursor-pointer gap-3 p-4 rounded-lg text-left transition-all w-[calc(33.333%-11px)] max-w-[280px] border ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`} 
+                key={idx} 
+                onClick={() => setFieldValue('preset', item.slug)}
+              >
+                <img className="h-auto max-w-[36px]" src={plugin_root_url + item.icon} alt={item.label} />
                 <div className="flex flex-col items-start gap-1">
                   <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} lineHeight={'20px'} />
                   <GFLabel type="simple" margin={0} padding={0} label={item.description} fontSize={'12px'} lineHeight={'16px'} />
                 </div>
-              </div>;
-        })}
-        </div>
-        <div className="flex w-full flex-col p-4 gap-4 rounded-md mt-6" style={{
-        "background": "#F3F5FF"
-      }}>
-          <GFLabel type="simple" margin={0} padding={0} label={__('Levels & Achievements Preview', 'gameengine')}
-        // fontSize={'16px'}
-        // lineHeight={'24px'}
-        />
-          <div className="flex gap-4">
-            {previewData.map((item, idx) => {
-            return <div className="flex flex-col gap-3 bg-white rounded" style={{
-              "width": "calc(100% / 2)",
-              "padding": "16px 24px"
-            }}>
-                  <div className="flex items-center gap-0.5" wordWrap={'break-word'}>
-                    <GFLabel type="simpleHeading" margin={0} padding={0} label={item.title} fontSize={'16px'} lineHeight={'24px'} />
-                    {selectedCard && <GFLabel type="simple" margin={'2px 0 0 0'} padding={0} label={' ( ' + selectedCard.label + ' Points )'} fontSize={'12px'} lineHeight={'24px'} />}
-                  </div>
-                  {values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => <GFLabel type="simple" margin={0} padding={0} label={dataItem} />)}
-                </div>;
+              </div>
+            );
           })}
+        </div>
+        
+        <div className="flex w-full flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]">
+          <GFLabel type="simple" margin={0} padding={0} label={__('Levels & Achievements Preview', 'gameengine')} fontSize="14px" color="#64748B" />
+          <div className="flex gap-6 w-full">
+            {previewData.map((item, idx) => {
+              return (
+                <div className="flex flex-col gap-5 bg-white rounded-lg w-1/2 p-6 shadow-sm border border-white" key={idx}>
+                  <div className="flex items-center gap-1.5 flex-wrap">
+                    <GFLabel type="simpleHeading" margin={0} padding={0} label={item.title} fontSize={'16px'} lineHeight={'24px'} />
+                    {selectedCard && (
+                      <GFLabel type="simple" margin={'2px 0 0 0'} padding={0} label={`( ${selectedCard.label} Points )`} fontSize={'12px'} lineHeight={'24px'} />
+                    )}
+                  </div>
+                  <div className="flex flex-col gap-3">
+                    {values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (
+                      <GFLabel type="simple" margin={0} padding={0} key={index} label={dataItem} color="#475569" />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
-    </>;
+    </>
+  );
 };
+
 export default DataPreview;
