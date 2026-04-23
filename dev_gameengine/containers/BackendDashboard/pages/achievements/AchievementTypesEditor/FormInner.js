@@ -151,29 +151,29 @@ const FormInner = () => {
     const slug = item.integrationSlug || 'wordpress';
     const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
     return <DraggableItem key={`${type}_${item.id}`} id={`${type}_${item.id}`}>
-                <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
+      <div className="flex flex-col gap-1.5">
+        <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
           "padding": "10px 16px"
         }}>
-                        <div className="flex items-center gap-2">
-                            <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
+          <div className="flex items-center gap-2">
+            <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
               "background": config.bg
             }}>
-                                <Icon as={config.icon} boxSize={3} />
-                            </div>
-                            <GFLabel type="title" fontWeight="400" label={item?.label} />
-                        </div>
+              <Icon as={config.icon} boxSize={3} />
+            </div>
+            <GFLabel type="title" fontWeight="400" label={item?.label} />
+          </div>
 
-                        <div className="items-center justify-center rounded-full w-6 h-6 flex text-white" style={{
+          <div className="items-center justify-center rounded-full w-6 h-6 flex text-white" style={{
             "background": "#0CDC01"
           }}>
-                            <Icon as={arrowForward} />
-                        </div>
-                    </div>
+            <Icon as={arrowForward} />
+          </div>
+        </div>
 
-                    <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
-                </div>
-            </DraggableItem>;
+        <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+      </div>
+    </DraggableItem>;
   };
   useEffect(() => {
     if (congratulationsMessage) setMessage(congratulationsMessage);
@@ -219,110 +219,110 @@ const FormInner = () => {
   }));
   const requireLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
   return <div className="flex flex-col gap-6">
-            <div className="flex gap-3">
-                <GameEngineInput label={__("Achievement Name", "gameengine")}>
-                    <input placeholder={__("Enter point name", "gameengine")} value={values.title} onChange={e => {
+    <div className="flex gap-3">
+      <GameEngineInput label={__("Achievement Name", "gameengine")}>
+        <input className="gameengine-input" placeholder={__("Enter point name", "gameengine")} value={values.title} onChange={e => {
           const value = e.target.value;
           setFieldValue('title', value);
           setFieldValue('plural_name', `${value}s`);
         }} {...commonInput} />
-                </GameEngineInput>
-            </div>
+      </GameEngineInput>
+    </div>
 
-            <div className="gameengine-add-achievement-type flex gap-3">
-                <GameEngineInput label={__("Maximum earnings per user", "gameengine")} desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")} width="calc(50% - 6px)">
-                    <input placeholder={__("Maximum Earnings Per User:", "gameengine")} type="number" value={values.max_earnings_per_user} onChange={e => {
+    <div className="gameengine-add-achievement-type flex gap-3">
+      <GameEngineInput label={__("Maximum earnings per user", "gameengine")} desc={__("Number of times a user can earn this badge (0 = unlimited).", "gameengine")} width="calc(50% - 6px)">
+        <input className="gameengine-input" placeholder={__("Maximum Earnings Per User:", "gameengine")} type="number" value={values.max_earnings_per_user} onChange={e => {
           setFieldValue('max_earnings_per_user', e.target.value);
         }} {...commonInput} />
-                </GameEngineInput>
-                <GameEngineInput label={__("Achivement Type", "gameengine")} width="calc(50% - 6px)" desc={__("Select your created types for achivement.", "gameengine")}>
-                    <Select className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={achievementTypes} onInputChange={inputValue => {
+      </GameEngineInput>
+      <GameEngineInput label={__("Achivement Type", "gameengine")} width="calc(50% - 6px)" desc={__("Select your created types for achivement.", "gameengine")}>
+        <Select className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={achievementTypes} onInputChange={inputValue => {
           fetchAcheivementTypes(inputValue);
           return inputValue;
         }} value={achievementTypes?.find(opt => Number(opt.value) === Number(values?.category_id)) || null} onMenuOpen={fetchAcheivementTypes} onChange={option => {
           setFieldValue('category_id', option.value);
         }} menuPlacement="bottom" />
-                </GameEngineInput>
-            </div>
+      </GameEngineInput>
+    </div>
 
-            <GameEngineInput label={__("Congratulations Message", "gameengine")}>
-                <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'acivements-message'} />
-            </GameEngineInput>
+    <GameEngineInput label={__("Congratulations Message", "gameengine")}>
+      <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'acivements-message'} />
+    </GameEngineInput>
 
-            <GameEngineInput label={requireLabel} width="100%" direction='row' gap={isRestrictContentActive ? "16px" : "4px"} alignItems='center'>
-                {isRestrictContentActive ? <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
+    <GameEngineInput label={requireLabel} width="100%" direction='row' gap={isRestrictContentActive ? "16px" : "4px"} alignItems='center'>
+      {isRestrictContentActive ? <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
         setFieldValue('is_restricted', e.checked);
       }} colorPalette="blue" disabled={!isRestrictContentActive}>
-                        <Switch.HiddenInput />
-                        <Switch.Control />
-                    </Switch.Root> : <div className="flex items-center gap-4">
-                        <button className="h-auto p-0 bg-transparent" style={{
+        <Switch.HiddenInput />
+        <Switch.Control />
+      </Switch.Root> : <div className="flex items-center gap-4">
+        <button className="h-auto p-0 bg-transparent" style={{
           "minWidth": "auto"
         }} as={'a'} href={admin_url + 'admin.php?page=gameengine-achievements&action=new'} target='_blank' type="link">
-                            <Icon as={TbExternalLink} width={'20px'} />
-                        </button>
+          <Icon as={TbExternalLink} width={'20px'} />
+        </button>
 
-                        <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
+        <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
           setFieldValue('is_restricted', e.checked);
         }} colorPalette="blue" disabled={!isRestrictContentActive}>
-                            <Switch.HiddenInput />
-                            <Switch.Control />
-                        </Switch.Root>
-                    </div>}
-            </GameEngineInput>
+          <Switch.HiddenInput />
+          <Switch.Control />
+        </Switch.Root>
+      </div>}
+    </GameEngineInput>
 
-            {values?.is_restricted && isRestrictContentActive && <div className="flex flex-col gap-3">
-                    <div className="flex gap-3">
-                        <GameEngineInput label={__("Required Achievements", "gameengine")} width="calc(50% - 6px)">
-                            <Select className="gameengine-select" classNamePrefix="gameengine-select" options={achievementsData} onInputChange={inputValue => {
+    {values?.is_restricted && isRestrictContentActive && <div className="flex flex-col gap-3">
+      <div className="flex gap-3">
+        <GameEngineInput label={__("Required Achievements", "gameengine")} width="calc(50% - 6px)">
+          <Select className="gameengine-select" classNamePrefix="gameengine-select" options={achievementsData} onInputChange={inputValue => {
             fetchAchievements(inputValue);
             return inputValue;
           }} value={achievementsData?.find(opt => Number(opt.value) === Number(values?.required_achievement_id)) || null} isLoading={achievementsLoading} onChange={option => {
             setFieldValue('required_achievement_id', option?.value || null);
           }} menuPlacement="bottom" />
-                        </GameEngineInput>
-                        <GameEngineInput label={__("Required Levels", "gameengine")} width="calc(50% - 6px)">
-                            <Select className="gameengine-select" classNamePrefix="gameengine-select" options={levelsData} onInputChange={inputValue => {
+        </GameEngineInput>
+        <GameEngineInput label={__("Required Levels", "gameengine")} width="calc(50% - 6px)">
+          <Select className="gameengine-select" classNamePrefix="gameengine-select" options={levelsData} onInputChange={inputValue => {
             fetchLevels(inputValue);
             return inputValue;
           }} value={levelsData?.find(opt => Number(opt.value) === Number(values?.required_level_id)) || null} isLoading={levelsLoading} onChange={option => {
             setFieldValue('required_level_id', option.value);
           }} menuPlacement="bottom" />
-                        </GameEngineInput>
-                    </div>
-                    <GameEngineInput label={__("Restriction Message", "gameengine")}>
-                        <input placeholder={__("Restriction message", "gameengine")} type="textarea" value={values.restriction_message} onChange={e => {
+        </GameEngineInput>
+      </div>
+      <GameEngineInput label={__("Restriction Message", "gameengine")}>
+        <input placeholder={__("Restriction message", "gameengine")} type="textarea" value={values.restriction_message} onChange={e => {
           setFieldValue('restriction_message', e.target.value);
         }} {...commonInput} />
-                    </GameEngineInput>
-                </div>}
+      </GameEngineInput>
+    </div>}
 
-            <Switch.Root checked={values.unlock_with_points_enabled} onCheckedChange={e => {
+    <Switch.Root checked={values.unlock_with_points_enabled} onCheckedChange={e => {
       setFieldValue('unlock_with_points_enabled', e.checked);
     }} colorPalette="blue">
-                <Switch.HiddenInput />
-                <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gameengine")}</Switch.Label>
-                <Switch.Control />
-            </Switch.Root>
+      <Switch.HiddenInput />
+      <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gameengine")}</Switch.Label>
+      <Switch.Control />
+    </Switch.Root>
 
-            {values?.unlock_with_points_enabled ? <div className="gameengine-allow-unlock-point flex gap-3">
-                    <GameEngineInput label={__("Points", "gameengine")} width="calc(50% - 6px)">
-                        <input placeholder={__("Enter point", "gameengine")} type="number" value={values.required_points_amount} onChange={e => {
+    {values?.unlock_with_points_enabled ? <div className="gameengine-allow-unlock-point flex gap-3">
+      <GameEngineInput label={__("Points", "gameengine")} width="calc(50% - 6px)">
+        <input placeholder={__("Enter point", "gameengine")} type="number" value={values.required_points_amount} onChange={e => {
           setFieldValue('required_points_amount', e.target.value);
         }} {...commonInput} />
-                    </GameEngineInput>
+      </GameEngineInput>
 
-                    <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc(50% - 6px)">
-                        <Select className="gameengine-select" classNamePrefix="gameengine-select" options={availablePointTypes} value={availablePointTypes.length > 0 && availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))} onChange={option => {
+      <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc(50% - 6px)">
+        <Select className="gameengine-select" classNamePrefix="gameengine-select" options={availablePointTypes} value={availablePointTypes.length > 0 && availablePointTypes.find(opt => Number(opt.value) === Number(values?.required_point_type_id))} onChange={option => {
           setFieldValue('required_point_type_id', option.value);
         }} menuPlacement="top" />
-                    </GameEngineInput>
-                </div> : <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-                    <Requirements label={__("Achievement Requirements", "gameengine")} onClick={e => {
+      </GameEngineInput>
+    </div> : <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+      <Requirements label={__("Achievement Requirements", "gameengine")} onClick={e => {
         e.stopPropagation();
         setAchievements(!achievements);
       }} open={achievements} parent="gameengine-achievement-requirements" child="gameengine-achievement-requirements-wrap" childLeft="gameengine-achievement-requirements-available-hooks" childRight="gameengine-achievement-requirements-active-hooks" hookTypeOptions={hookTypeOptions} filterHookType={v => setSelectedFilterHookType(v)} renderHookCard={renderHookCard} selectedHookIds={activeHooks?.map(h => h?.id)} openHookType={openedHooks} setOpenHookType={setOpenedHooks} allHooks={allHooks} hookSettings={hookSettings} actionName="award" selectedFilterType={selectedFilterHookType} scope="achievement" />
-                </DndContext>}
-        </div>;
+    </DndContext>}
+  </div>;
 };
 export default FormInner;

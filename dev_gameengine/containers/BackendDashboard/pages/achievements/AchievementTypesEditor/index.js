@@ -69,13 +69,13 @@ const AchievementTypesEditor = () => {
           actions.setValues(getAchivementsInitialValues(payload.id, [payload]));
         }
       }
-    } catch (error) {} finally {
+    } catch (error) { } finally {
       actions.setSubmitting(false);
     }
   };
   return <>
-            {formLoading ? <AchievementFormLoader /> : <Formik enableReinitialize={true} initialValues={getAchivementsInitialValues(editId, achievements)} onSubmit={onSubmitHandler}>
-                    {({
+    {formLoading ? <AchievementFormLoader /> : <Formik enableReinitialize={true} initialValues={getAchivementsInitialValues(editId, achievements)} onSubmit={onSubmitHandler}>
+      {({
         values,
         setFieldValue,
         submitForm,
@@ -83,21 +83,19 @@ const AchievementTypesEditor = () => {
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Achievement Types", "gameengine")} rightContent={<div className="flex gap-2.5">
-                                            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-                                            <button style={{
-              "width": "140px"
-            }} {...primaryBtn} onClick={submitForm} disabled={!dirty}>
-                                                {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
-                                            </button>
-                                        </div>} />
+          <TopBar path={__("Achievement Types", "gameengine")} rightContent={<div className="flex gap-2.5">
+            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
+            <button style={primaryBtn} onClick={submitForm} disabled={!dirty}>
+              {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+            </button>
+          </div>} />
 
-                                <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
-                                    <FormInner />
-                                </GameEngineBox>
-                            </>;
-      }}
-                </Formik>}
+          <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
+            <FormInner />
+          </GameEngineBox>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default AchievementTypesEditor;

@@ -29,6 +29,8 @@ export const outlineBtn = {
     background: "transparent",
     color: "var(--gameengine-font-color)",
     border: "1px solid var(--gameengine-border-color)",
+    padding: "10px 16px",
+    borderRadius: "4px",
 }
 
 export const removeBtn = {

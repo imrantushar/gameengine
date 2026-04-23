@@ -7,7 +7,7 @@ import { Spinner } from '@GFUtils/ui';
 import './styles.scss';
 import './suffix.scss';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { primaryBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
+import { outlineBtn, primaryBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
 const ReactModalFormik = ({
   children,
   suffix = '',
@@ -228,7 +228,7 @@ const ReactModalFormik = ({
 							<div className={contentClass}>{children}</div>
 
 							{isEnabledFooter && <div className="gameengine-modal__footer">
-									<button onClick={onRequestClose}>
+									<button style={outlineBtn} onClick={onRequestClose}>
 										{cancelButtonLabel}
 									</button>
 

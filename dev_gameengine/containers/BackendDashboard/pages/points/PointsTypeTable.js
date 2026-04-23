@@ -78,8 +78,8 @@ const PointTypesTable = () => {
   const columns = [{
     name: __('Name', 'gameengine'),
     cell: row => <>
-          <span className="cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
-        </>,
+      <span className="cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
+    </>,
     textAlign: "start",
     columnWidth: "20%"
   }, {
@@ -116,15 +116,15 @@ const PointTypesTable = () => {
       // );
 
       return <div className="flex flex-wrap justify-center items-center gap-1">
-            {itemArray.length + " " + __('Actions.', 'gameengine')}
-            {/* {itemArray.length > 2 && (
+        {itemArray.length + " " + __('Actions.', 'gameengine')}
+        {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
                   {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
              )} */}
-          </div>;
+      </div>;
     },
     columnWidth: "23%"
   }, {
@@ -160,25 +160,25 @@ const PointTypesTable = () => {
       // );
 
       return <div className="flex flex-wrap justify-center items-center gap-1">
-            {itemArray.length + " " + __('Actions.', 'gameengine')}
-            {/* {itemArray.length > 2 && (
+        {itemArray.length + " " + __('Actions.', 'gameengine')}
+        {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
                   {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
              )} */}
-          </div>;
+      </div>;
     },
     columnWidth: "23%"
   }, {
     name: __('Date', 'gameengine'),
     cell: row => <div>
-					<p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
-					{/* <Text margin={0} className="academy-table-time">
+      <p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
+      {/* <Text margin={0} className="academy-table-time">
       {moment(row?.created_at).format('h:mm A')}
       </Text> */}
-				</div>,
+    </div>,
     columnWidth: "10%"
   }, {
     name: __('Status', 'gameengine'),
@@ -238,33 +238,33 @@ const PointTypesTable = () => {
       });
     };
     return <div className="flex justify-between items-end w-full border-b border-gray-200 mb-4 mt-2">
-        <div className="flex gap-6 px-4">
-          {tableStatusArray.map((item, index) => {
-            const isActive = tableStats === item.value;
-            return (
-              <button 
-                key={index}
-                className={`bg-transparent outline-none cursor-pointer h-auto text-sm font-[500] pb-3 -mb-[1px] shadow-none ${isActive ? 'text-blue-600 border-0 border-b-2 border-solid border-blue-600' : 'text-[#4B5563] border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
-                style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
-                onClick={() => {
-                  setTableStatus(item.value);
-                  fetchHandler({
-                    status: item.value,
-                    page: 1,
-                    per_page: 15
-                  });
-                }}
-              >
-                {item.label}
-              </button>
-            );
-          })}
-        </div>
+      <div className="flex gap-6 px-4">
+        {tableStatusArray.map((item, index) => {
+          const isActive = tableStats === item.value;
+          return (
+            <button
+              key={index}
+              className={`bg-transparent outline-none cursor-pointer h-auto text-sm font-[500] pb-3 -mb-[1px] shadow-none ${isActive ? 'text-blue-600 border-0 border-b-2 border-solid border-blue-600' : 'text-[#4B5563] border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+              style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
+              onClick={() => {
+                setTableStatus(item.value);
+                fetchHandler({
+                  status: item.value,
+                  page: 1,
+                  per_page: 15
+                });
+              }}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
 
-        <div className='gameengine-table-subheader-right pb-2'>
-          <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
-        </div>
-      </div>;
+      <div className='gameengine-table-subheader-right pb-2'>
+        <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
+      </div>
+    </div>;
   }, [tableStats, search]);
   const bulkOptions = tableStats === 'trash' ? [{
     value: 'restore',
@@ -364,16 +364,16 @@ const PointTypesTable = () => {
     };
   });
   return <>
-      <ListTable key={'points-type-' + pointTypes.length} columns={columns} data={pointTypes} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} isRowSelectable={true} showPagination={false} noDataText={__("No data found", "gameengine")} totalItems={total} totalRows={pointTypes.length} dataFetchingStatus={listStatus}
-    // resetSelected={resetSelectedItems}
-    rowsPerPage={perPage} currentPageNumber={[page]} getSelectRowValue={setSelectedRows} />
+    <ListTable key={'points-type-' + pointTypes.length} columns={columns} data={pointTypes} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} isRowSelectable={true} showPagination={false} noDataText={__("No data found", "gameengine")} totalItems={total} totalRows={pointTypes.length} dataFetchingStatus={listStatus}
+      // resetSelected={resetSelectedItems}
+      rowsPerPage={perPage} currentPageNumber={[page]} getSelectRowValue={setSelectedRows} />
 
-      <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
+    <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
       setSelectedRows([]);
       setActionSelected({
         value: false
       });
     }} />
-    </>;
+  </>;
 };
 export default PointTypesTable;

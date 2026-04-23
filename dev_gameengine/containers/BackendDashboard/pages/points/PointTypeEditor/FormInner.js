@@ -175,7 +175,7 @@ const FormInner = ({
   return <>
     <div className="flex gap-3">
       <GameEngineInput label={__("Point Name", "gameengine")}>
-        <input placeholder={__("Enter point name", "gameengine")} value={values?.name} onChange={e => {
+        <input className='gameengine-input' placeholder={__("Enter point name", "gameengine")} value={values?.name} onChange={e => {
           const value = e.target.value;
           setFieldValue('name', value);
         }} {...commonInput} />

@@ -35,34 +35,34 @@ const FormInner = () => {
     value: 'deduct'
   }];
   return <div className="flex flex-col gap-6">
-            <div className="flex gap-4">
-                <GameEngineInput label={__("User Name", "gameengine")}>
-                    <Select classNamePrefix='gameengine-select' className='gameengine-select' placeholder="e.g. 1" options={userOptions?.options} value={userOptions?.options.find(opt => Number(opt.value) === Number(values?.user_id))} onChange={selected => setFieldValue("user_id", selected.value)} onMenuOpen={fetchUserOptions} onInputChange={inputValue => {
+    <div className="flex gap-4">
+      <GameEngineInput label={__("User Name", "gameengine")}>
+        <Select classNamePrefix='gameengine-select' className='gameengine-select' placeholder="e.g. 1" options={userOptions?.options} value={userOptions?.options.find(opt => Number(opt.value) === Number(values?.user_id))} onChange={selected => setFieldValue("user_id", selected.value)} onMenuOpen={fetchUserOptions} onInputChange={inputValue => {
           fetchUserOptions(inputValue);
           return inputValue;
         }} isDisabled={values?.id} isLoading={userOptions.isLoading} />
-            </GameEngineInput>
+      </GameEngineInput>
 
-            <GameEngineInput label={__("Action Type", "gameengine")}>
-                <Select classNamePrefix='gameengine-select' className='gameengine-select' defaultValue={actionOptions.find(item => item.value === values?.type)} onChange={val => setFieldValue("type", val?.value)} options={actionOptions} />
-            </GameEngineInput>
-        </div>
+      <GameEngineInput label={__("Action Type", "gameengine")}>
+        <Select classNamePrefix='gameengine-select' className='gameengine-select' defaultValue={actionOptions.find(item => item.value === values?.type)} onChange={val => setFieldValue("type", val?.value)} options={actionOptions} />
+      </GameEngineInput>
+    </div>
 
-        <div className="flex gap-4">
-            <GameEngineInput label={__("Points Amount", "gameengine")}>
-                <input placeholder={__("Exp: 50", "gameengine")} type="number" value={values?.points_awarded} onChange={e => setFieldValue("points_awarded", e.target.value)} {...commonInput} />
-            </GameEngineInput>
+    <div className="flex gap-4">
+      <GameEngineInput label={__("Points Amount", "gameengine")}>
+        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="number" value={values?.points_awarded} onChange={e => setFieldValue("points_awarded", e.target.value)} {...commonInput} />
+      </GameEngineInput>
 
-            {!values?.id && <GameEngineInput label={__("Schedule(Optional)", "gameengine")}>
-                    <input placeholder={__("Exp: 50", "gameengine")} type="datetime-local" value={values?.schedule_date} onChange={e => setFieldValue("schedule_date", e.target.value)} {...commonInput} />
-                </GameEngineInput>}
-        </div>
+      {!values?.id && <GameEngineInput label={__("Schedule(Optional)", "gameengine")}>
+        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="datetime-local" value={values?.schedule_date} onChange={e => setFieldValue("schedule_date", e.target.value)} {...commonInput} />
+      </GameEngineInput>}
+    </div>
 
-        <GameEngineInput label={__("Description(Optional)", "gameengine")}>
-            <textarea style={{
+    <GameEngineInput label={__("Description(Optional)", "gameengine")}>
+      <textarea className='gameengine-textarea' style={{
         "minHeight": "100px"
       }} placeholder={__("Reason for adjustment...", "gameengine")} value={values?.message} onChange={e => setFieldValue('message', e.target.value)} {...commonInput} />
-        </GameEngineInput>
-        </div>;
+    </GameEngineInput>
+  </div>;
 };
 export default FormInner;

@@ -91,14 +91,14 @@ const TypesForm = ({
       }) => {
         return <div className="flex flex-col gap-6">
               <GameEngineInput label={__("Name", "gameengine")}>
-                <input placeholder={__("Enter name", "gameengine")} value={values.name} onChange={e => {
+                <input className='gameengine-input' placeholder={__("Enter name", "gameengine")} value={values.name} onChange={e => {
               const value = e.target.value;
               setFieldValue('name', value);
               setFieldValue('slug', generateSlug(value));
             }} {...commonInput} />
               </GameEngineInput>
               <GameEngineInput label={__("Slug", "gameengine")}>
-                <input placeholder={__("Enter slug", "gameengine")} value={values.slug} onChange={e => {
+                <input className='gameengine-input' placeholder={__("Enter slug", "gameengine")} value={values.slug} onChange={e => {
               const value = e.target.value;
               setFieldValue('slug', value);
             }} {...commonInput} />
@@ -112,7 +112,7 @@ const TypesForm = ({
             }} menuPlacement="bottom" />
               </GameEngineInput>
               <GameEngineInput label={__("Description", "gameengine")}>
-                <textarea style={{
+                <textarea className='gameengine-textarea' style={{
               "minHeight": "140px",
               "padding": "12px 16px"
             }} placeholder={__("Enter description", "gameengine")} value={values.description} onChange={e => {
@@ -121,11 +121,11 @@ const TypesForm = ({
             }} {...commonInput} />
               </GameEngineInput>
               <div className="flex gap-2.5" marginLeft={'auto'}>
-                {formData?.id && <button {...removeBtn} onClick={resetForm}>
+                {formData?.id && <button style={removeBtn} onClick={resetForm}>
                     {__("Cancel", "gameengine")}
                   </button>}
 
-                <button {...primaryBtn} disabled={!dirty} onClick={submitForm}>
+                <button style={primaryBtn} disabled={!dirty} onClick={submitForm}>
                   {!formData?.id ? __("Create", "gameengine") : __("Update", "gameengine")}
                 </button>
               </div>
