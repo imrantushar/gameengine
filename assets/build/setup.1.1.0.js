@@ -808,7 +808,7 @@ const SwitchRoot = ({
       disabled
     }
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: `${className} inline-flex items-center`,
+    className: `${className} inline-flex items-center gap-3`,
     style: {
       cursor: disabled ? 'not-allowed' : 'pointer',
       ...extracted,

@@ -91,7 +91,7 @@ const SwitchRoot = ({
     toggle,
     disabled
   }}>
-            <label className={`${className} inline-flex items-center`} style={{
+            <label className={`${className} inline-flex items-center gap-3`} style={{
       cursor: disabled ? 'not-allowed' : 'pointer',
       ...extracted,
       ...styleProp

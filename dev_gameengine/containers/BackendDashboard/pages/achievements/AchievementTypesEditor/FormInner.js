@@ -297,11 +297,11 @@ const FormInner = () => {
       </GameEngineInput>
     </div>}
 
-    <Switch.Root checked={values.unlock_with_points_enabled} onCheckedChange={e => {
+    <Switch.Root  checked={values.unlock_with_points_enabled} onCheckedChange={e => {
       setFieldValue('unlock_with_points_enabled', e.checked);
     }} colorPalette="blue">
       <Switch.HiddenInput />
-      <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gameengine")}</Switch.Label>
+      <Switch.Label  fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gameengine")}</Switch.Label>
       <Switch.Control />
     </Switch.Root>
 
