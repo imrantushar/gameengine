@@ -249,18 +249,18 @@ const FormInner = () => {
       <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'acivements-message'} />
     </GameEngineInput>
 
-    <GameEngineInput label={requireLabel} width="100%" direction='row' gap={isRestrictContentActive ? "16px" : "4px"} alignItems='center'>
+    <GameEngineInput flexdirection={'row'} label={requireLabel} width="100%" direction='row' gap={isRestrictContentActive ? "16px" : "4px"} alignItems='center'>
       {isRestrictContentActive ? <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
         setFieldValue('is_restricted', e.checked);
       }} colorPalette="blue" disabled={!isRestrictContentActive}>
         <Switch.HiddenInput />
         <Switch.Control />
       </Switch.Root> : <div className="flex items-center gap-4">
-        <button className="h-auto p-0 bg-transparent" style={{
+        <a className="h-auto p-0 bg-transparent " style={{
           "minWidth": "auto"
         }} as={'a'} href={admin_url + 'admin.php?page=gameengine-achievements&action=new'} target='_blank' type="link">
           <Icon as={TbExternalLink} width={'20px'} />
-        </button>
+        </a>
 
         <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
           setFieldValue('is_restricted', e.checked);
