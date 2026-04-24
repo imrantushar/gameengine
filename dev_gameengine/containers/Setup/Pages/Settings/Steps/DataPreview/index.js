@@ -73,7 +73,7 @@ const pointsData = {
 const DataPreview = () => {
   const { values, setFieldValue } = useFormikContext();
   const selectedCard = previewCards.find(item => item.slug === values.preset);
-  
+
   const previewData = [{
     title: __("Achievement", "gameengine"),
     slug: 'achievements'
@@ -86,13 +86,18 @@ const DataPreview = () => {
     <>
       <SettingsHeader title={__('Setup Your GameEngine', 'gameengine')} subTitle={__('Choose your preferred gamification setup', 'gameengine')} />
       <div className="w-full">
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="grid grid-cols-3 gap-4 max-w-[900px] mx-auto">
           {previewCards.map((item, idx) => {
             const isSelected = item.slug === values.preset;
+            console.log(isSelected, 'is');
             return (
-              <div 
-                className={`flex items-center cursor-pointer gap-3 p-4 rounded-lg text-left transition-all w-[calc(33.333%-11px)] max-w-[280px] border ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`} 
-                key={idx} 
+              <div
+                className={`flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all border-[1px] border-solid
+  ${isSelected
+                    ? 'border-blue-500 bg-blue-50 shadow-sm'
+                    : 'border-gray-200 bg-white hover:border-gray-300'
+                  }`}
+                key={idx}
                 onClick={() => setFieldValue('preset', item.slug)}
               >
                 <img className="h-auto max-w-[36px]" src={plugin_root_url + item.icon} alt={item.label} />
@@ -104,7 +109,7 @@ const DataPreview = () => {
             );
           })}
         </div>
-        
+
         <div className="flex w-full flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]">
           <GFLabel type="simple" margin={0} padding={0} label={__('Levels & Achievements Preview', 'gameengine')} fontSize="14px" color="#64748B" />
           <div className="flex gap-6 w-full">

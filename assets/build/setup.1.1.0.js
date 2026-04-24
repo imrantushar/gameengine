@@ -2082,11 +2082,13 @@ const DataPreview = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex flex-wrap gap-4 justify-center"
+    className: "grid grid-cols-3 gap-4 max-w-[900px] mx-auto"
   }, previewCards.map((item, idx) => {
     const isSelected = item.slug === values.preset;
+    console.log(isSelected, 'is');
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `flex items-center cursor-pointer gap-3 p-4 rounded-lg text-left transition-all w-[calc(33.333%-11px)] max-w-[280px] border ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`,
+      className: `flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all border-[1px] border-solid
+  ${isSelected ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`,
       key: idx,
       onClick: () => setFieldValue('preset', item.slug)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
@@ -2196,7 +2198,8 @@ const SettingsFooter = ({
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex w-full justify-between items-center mt-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    style: outlineBtn,
+    className: "flex items-center",
+    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.outlineBtn,
     onClick: () => {
       if (step === "addons") {
         setStep("datapreview");
@@ -2208,6 +2211,7 @@ const SettingsFooter = ({
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleLeft,
     width: "10px"
   }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    className: "flex items-center",
     style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.primaryBtn,
     disabled: isSubmitting,
     onClick: () => {
@@ -2466,8 +2470,8 @@ const Welcome = () => {
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.outlineBtn,
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "text-md ",
     onClick: () => window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine'
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Skip This Step", "gameengine")));
 };

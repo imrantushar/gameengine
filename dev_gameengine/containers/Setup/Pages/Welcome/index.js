@@ -73,12 +73,11 @@ const Welcome = () => {
         </button>
       </div>
 
-      <button 
-        style={outlineBtn} 
+      <p className="text-md "
         onClick={() => window.location.href = admin_url + 'admin.php?page=gameengine'}
       >
         {__("Skip This Step", "gameengine")}
-      </button>
+      </p>
     </div>
   );
 };

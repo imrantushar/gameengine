@@ -4,7 +4,7 @@ import { __ } from "@wordpress/i18n";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useFormikContext } from "formik";
 import { useNavigate } from "react-router-dom";
-import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { outlineBtn, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
 
 const SettingsFooter = ({ step, setStep }) => {
   const { submitForm, isSubmitting } = useFormikContext();
@@ -12,7 +12,8 @@ const SettingsFooter = ({ step, setStep }) => {
 
   return (
     <div className="flex w-full justify-between items-center mt-2">
-      <button 
+      <button
+        className="flex items-center"
         style={outlineBtn}
         onClick={() => {
           if (step === "addons") {
@@ -25,7 +26,8 @@ const SettingsFooter = ({ step, setStep }) => {
         <Icon as={FaAngleLeft} width={"10px"} />
         {__("Back", "gameengine")}
       </button>
-      <button 
+      <button
+        className="flex items-center"
         style={primaryBtn}
         disabled={isSubmitting}
         onClick={() => {
