@@ -12,7 +12,7 @@ const TopBar = ({
 }) => {
   const pathName = path ? path : __("GameEngine", "gameengine");
   return <React.Fragment>
-			<div className="gameengine-topbar flex justify-between w-full sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]" style={{
+			<div className="gameengine-topbar flex justify-between w-auto sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]" style={{
       "top": topPosition
     }} direction={{
       base: 'column',

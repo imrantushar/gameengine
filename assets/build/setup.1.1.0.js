@@ -270,7 +270,7 @@ const TopBar = ({
 }) => {
   const pathName = path ? path : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("GameEngine", "gameengine");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "gameengine-topbar flex justify-between w-full sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]",
+    className: "gameengine-topbar flex justify-between w-auto sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]",
     style: {
       "top": topPosition
     },
