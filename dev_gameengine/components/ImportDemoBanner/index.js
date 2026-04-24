@@ -1,7 +1,7 @@
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
-import { clearBtn, primaryBtn } from '../../../assets/scss/chakra/recipe';
+import { clearBtn, outlineBtn, primaryBtn } from '../../../assets/scss/chakra/recipe';
 const ImportDemoBanner = ({
   type,
   title,
@@ -18,9 +18,7 @@ const ImportDemoBanner = ({
         <button style={primaryBtn} onClick={handleImport}>
           {__("Import Default Data", 'gameengine')}
         </button>
-        <button className="py-2 px-4 [border:1px_solid_#CBD1D7]" style={{
-        ...clearBtn
-      }} onClick={handleClose}>
+        <button className="py-2 px-4 [border:1px_solid_#CBD1D7]" style={outlineBtn} onClick={handleClose}>
           {__("No, Thanks!", 'gameengine')}
         </button>
       </div>

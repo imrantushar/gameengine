@@ -1742,11 +1742,11 @@ input.gameengine-checkbox:checked::before {
 .border-0 {
   border-width: 0px;
 }
-.border-\[4px\] {
-  border-width: 4px;
-}
 .border-\[1px\] {
   border-width: 1px;
+}
+.border-\[4px\] {
+  border-width: 4px;
 }
 .border-b {
   border-bottom-width: 1px;
