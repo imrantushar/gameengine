@@ -307,7 +307,7 @@ const FormInner = () => {
 
     {values?.unlock_with_points_enabled ? <div className="gameengine-allow-unlock-point flex gap-3">
       <GameEngineInput label={__("Points", "gameengine")} width="calc(50% - 6px)">
-        <input placeholder={__("Enter point", "gameengine")} type="number" value={values.required_points_amount} onChange={e => {
+        <input className="gameengine-input" placeholder={__("Enter point", "gameengine")} type="number" value={values.required_points_amount} onChange={e => {
           setFieldValue('required_points_amount', e.target.value);
         }} {...commonInput} />
       </GameEngineInput>
