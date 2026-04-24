@@ -45,11 +45,11 @@ const Tools = () => {
           <GFLabel type="plainHeading" margin={0} label={__("Tools", "gameengine")} />
         </div>
         <div className="items-start flex gap-6 overflow-visible">
-          <div className="w-1/5">
+          <div className="w-[20%]">
             <div className="w-full bg-white rounded-md shadow-sm border border-gray-100 p-2">
               {tabs.map((tabItem, tabIndex) => {
                 const isActive = path === tabItem.name;
-                const baseClasses = "flex items-center gap-3 w-full px-3 py-2 rounded-md text-sm font-medium transition-colors";
+                const baseClasses = "flex items-center gap-3  px-3 py-2 rounded-md text-sm font-medium transition-colors";
                 const activeClasses = isActive 
                   ? "bg-gray-100 text-[var(--gameengine-primary-color)]" 
                   : "text-gray-700 hover:bg-gray-50";
@@ -59,7 +59,7 @@ const Tools = () => {
                     {tabItem.link ? (
                       <a 
                         href={tabItem.link} 
-                        className={`${baseClasses} ${activeClasses} no-underline`}
+                        className={`${baseClasses} ${activeClasses} no-underline `}
                       >
                         <Icon as={tabItem.icon} className="text-lg" />
                         {tabItem.title}
@@ -67,7 +67,7 @@ const Tools = () => {
                     ) : (
                       <Link 
                         to={`${route_path}admin.php?page=gameengine-tools${tabItem.route}`} 
-                        className={`${baseClasses} ${activeClasses} no-underline`}
+                        className={`${baseClasses} ${activeClasses} no-underline `}
                       >
                         <Icon as={tabItem.icon} className="text-lg" />
                         {tabItem.title}
@@ -78,7 +78,7 @@ const Tools = () => {
               })}
             </div>
           </div>
-          <div className="w-4/5">
+          <div className="w-[80%]">
             <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'gameengine')}>
               {renderSwitch(path)}
             </GameEngineBox>

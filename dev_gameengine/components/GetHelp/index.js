@@ -6,6 +6,7 @@ import HelpModal from './HelpModal';
 // import './styles.scss';
 import { docLists } from './DocListsArray';
 import { FaQuestion } from 'react-icons/fa6';
+import { primaryBtn } from '../../../assets/scss/chakra/recipe';
 const GetHelp = ({
   filterText
 }) => {
@@ -29,38 +30,38 @@ const GetHelp = ({
     return false;
   });
   return <>
-			{/* {!getAddonActiveStatus(allAddons, 'white-label', true) && ( */}
-				<>
-                                        <button className="gameengine-get-help-text overflow-hidden items-center justify-center fixed h-10 flex p-0 bg-[var(--gameengine-primary)] top-[85vh] right-[30px] z-[9] rounded-[40px]" onClick={() => setOpenModal(true)}
+    {/* {!getAddonActiveStatus(allAddons, 'white-label', true) && ( */}
+    <>
+      <button  className="gameengine-get-help-text overflow-hidden items-center justify-center fixed h-10 w-10 flex  bg-[var(--gameengine-primary)] top-[85vh] right-[30px] z-[9] rounded-full border-[var(--gameengine-primary)]" onClick={() => setOpenModal(true)}
       // icon={
       // 	<span className="gameengine-icon gameengine-icon--questions" />
       // }
       >
-            <>
-                <FaQuestion />
-								{/* {' '}
+        <>
+          <FaQuestion />
+          {/* {' '}
          <b>{__('Got Stuck!', 'gameengine')}</b>{' '}
          <span>
          {__('Find instant answer', 'gameengine')}
          </span> */}
-							</>
-          </button>
-					<div className="gameengine-ripple-effect">
-						<div className="gameengine-ripple-effect-container">
-							<div className="gameengine-ripple-effect-rain">
-								<div className="gameengine-ripple-effect-waves">
-									<div></div>
-									<div></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</>
-			{/* )} */}
-			<HelpModal isOpen={openModal} closeModal={() => {
+        </>
+      </button>
+      <div className="gameengine-ripple-effect">
+        <div className="gameengine-ripple-effect-container">
+          <div className="gameengine-ripple-effect-rain">
+            <div className="gameengine-ripple-effect-waves">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+    {/* )} */}
+    <HelpModal isOpen={openModal} closeModal={() => {
       setOpenModal(false);
       setSearchText('');
     }} searchText={searchText} setSearchText={setSearchText} relatedData={relatedData} commonData={commonData} searchedData={searchedData} />
-		</>;
+  </>;
 };
 export default GetHelp;

@@ -1475,6 +1475,12 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
+.h-\[\] {
+  height: ;
+}
+.h-\[40px\] {
+  height: 40px;
+}
 .min-h-\[285px\] {
   min-height: 285px;
 }
@@ -1519,6 +1525,42 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full {
   width: 100%;
+}
+.w-\[284px\] {
+  width: 284px;
+}
+.w-\[\] {
+  width: ;
+}
+.w-\[212\] {
+  width: 212;
+}
+.w-\[212px\] {
+  width: 212px;
+}
+.w-\[21px\] {
+  width: 21px;
+}
+.w-\[214px\] {
+  width: 214px;
+}
+.w-\[700\] {
+  width: 700;
+}
+.w-\[30\] {
+  width: 30;
+}
+.w-\[30\%\] {
+  width: 30%;
+}
+.w-\[70\%\] {
+  width: 70%;
+}
+.w-\[20\%\] {
+  width: 20%;
+}
+.w-\[80\%\] {
+  width: 80%;
 }
 .min-w-0 {
   min-width: 0px;

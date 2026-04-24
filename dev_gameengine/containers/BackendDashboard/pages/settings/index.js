@@ -82,45 +82,45 @@ const Settings = () => {
     }
   };
   return <>
-            {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
-                    {({
+    {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
+      {({
         handleSubmit,
         isSubmitting,
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Settings", "gameengine")} rightContent={<>
-                                            {isEmailTab ? null : <button style={primaryBtn} onClick={handleSubmit} disabled={!dirty}>
-                                                    {__('Save Changes', 'gameengine')}
-                                                </button>}
+          <TopBar path={__("Settings", "gameengine")} rightContent={<>
+            {isEmailTab ? null : <button style={primaryBtn} onClick={handleSubmit} disabled={!dirty}>
+              {__('Save Changes', 'gameengine')}
+            </button>}
 
-                                            <GetHelp filterText={['setting']} />
-                                        </>} />
+            <GetHelp filterText={['setting']} />
+          </>} />
 
-                                <div className='gameengine-page-content'>
-                                    <div className="flex justify-between items-center" style={{
+          <div className='gameengine-page-content'>
+            <div className="flex justify-between items-center" style={{
               "padding": "24px 0"
             }}>
-                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
-                                    </div>
+              <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
+            </div>
 
-                                    <div className="flex items-start w-full" gapX={4}>
+            <div className="flex items-start w-full gap-4 " gapX={4}>
 
-                                        <LeftBar />
-                                        <div className="gameengine-fade-in w-full" key={tab}>
-                                            {tab === "dashboard" && <Dashboard />}
-                                            {tab === "log" && <GeneralSettings />}
-                                            {tab === "economy" && <Economy />}
-                                            {tab === "marketplace" && <MarketPlace />}
-                                            {tab === "payout" && <Payout />}
-                                            {tab === "license" && <License />}
-                                            {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
-                                        </div>
-                                    </div>
-                                </div>
-                            </>;
-      }}
-                </Formik>}
+              <LeftBar />
+              <div className="gameengine-fade-in w-full" key={tab}>
+                {tab === "dashboard" && <Dashboard />}
+                {tab === "log" && <GeneralSettings />}
+                {tab === "economy" && <Economy />}
+                {tab === "marketplace" && <MarketPlace />}
+                {tab === "payout" && <Payout />}
+                {tab === "license" && <License />}
+                {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
+              </div>
+            </div>
+          </div>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default Settings;

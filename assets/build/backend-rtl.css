@@ -2850,6 +2850,12 @@ input.gameengine-checkbox:checked::before {
 .h-px{
   height: 1px;
 }
+.h-\[\]{
+  height: ;
+}
+.h-\[40px\]{
+  height: 40px;
+}
 .min-h-\[285px\]{
   min-height: 285px;
 }
@@ -2895,14 +2901,44 @@ input.gameengine-checkbox:checked::before {
 .w-full{
   width: 100%;
 }
+.w-\[284px\]{
+  width: 284px;
+}
+.w-\[\]{
+  width: ;
+}
+.w-\[212\]{
+  width: 212;
+}
+.w-\[212px\]{
+  width: 212px;
+}
+.w-\[21px\]{
+  width: 21px;
+}
+.w-\[214px\]{
+  width: 214px;
+}
+.w-\[700\]{
+  width: 700;
+}
+.w-\[30\]{
+  width: 30;
+}
+.w-\[30\%\]{
+  width: 30%;
+}
+.w-\[70\%\]{
+  width: 70%;
+}
+.w-\[20\%\]{
+  width: 20%;
+}
+.w-\[80\%\]{
+  width: 80%;
+}
 .min-w-0{
   min-width: 0px;
-}
-.min-w-\[120px\]{
-  min-width: 120px;
-}
-.min-w-\[200px\]{
-  min-width: 200px;
 }
 .min-w-\[300px\]{
   min-width: 300px;
@@ -4258,11 +4294,6 @@ input.gameengine-checkbox:checked::before {
   color: rgb(162 28 175 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-gray-800:hover{
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-gray-900:hover{
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
@@ -4326,10 +4357,6 @@ input.gameengine-checkbox:checked::before {
 .hover\:text-yellow-700:hover{
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
-}
-
-.hover\:opacity-90:hover{
-  opacity: 0.9;
 }
 
 .focus\:border-amber-500:focus{
@@ -5380,6 +5407,12 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
+.h-\[\] {
+  height: ;
+}
+.h-\[40px\] {
+  height: 40px;
+}
 .min-h-\[285px\] {
   min-height: 285px;
 }
@@ -5425,14 +5458,44 @@ input.gameengine-checkbox:checked::before {
 .w-full {
   width: 100%;
 }
+.w-\[284px\] {
+  width: 284px;
+}
+.w-\[\] {
+  width: ;
+}
+.w-\[212\] {
+  width: 212;
+}
+.w-\[212px\] {
+  width: 212px;
+}
+.w-\[21px\] {
+  width: 21px;
+}
+.w-\[214px\] {
+  width: 214px;
+}
+.w-\[700\] {
+  width: 700;
+}
+.w-\[30\] {
+  width: 30;
+}
+.w-\[30\%\] {
+  width: 30%;
+}
+.w-\[70\%\] {
+  width: 70%;
+}
+.w-\[20\%\] {
+  width: 20%;
+}
+.w-\[80\%\] {
+  width: 80%;
+}
 .min-w-0 {
   min-width: 0px;
-}
-.min-w-\[120px\] {
-  min-width: 120px;
-}
-.min-w-\[200px\] {
-  min-width: 200px;
 }
 .min-w-\[300px\] {
   min-width: 300px;
@@ -6788,11 +6851,6 @@ input.gameengine-checkbox:checked::before {
   color: rgb(162 28 175 / var(--tw-text-opacity, 1));
 }
 
-.hover\:text-gray-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
-}
-
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
@@ -6856,10 +6914,6 @@ input.gameengine-checkbox:checked::before {
 .hover\:text-yellow-700:hover {
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
-}
-
-.hover\:opacity-90:hover {
-  opacity: 0.9;
 }
 
 .focus\:border-amber-500:focus {

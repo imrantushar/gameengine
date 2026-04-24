@@ -55,34 +55,34 @@ const LeftBar = () => {
       lg: "flex"
     }
   }} pos="sticky">
-            <div className="flex flex-col w-full items-stretch p-2" spacing={0}>
-                {menuList.map((item, i) => {
+    <div className="flex flex-col w-[284px] items-stretch p-2" spacing={0}>
+      {menuList.map((item, i) => {
         const isActive = currentTab === item.key;
         return <div className="flex items-start cursor-pointer gap-3" style={{
           "padding": "8px 16px",
           "transition": "all 0.3s ease-in-out",
           "background": isActive ? "var(--gameengine-secondary-color)" : "transparent"
         }} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
-                            <Icon color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt={1}>{item?.icon}</Icon>
+          <Icon color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt={1}>{item?.icon}</Icon>
 
-                            <div>
-                                <p className="text-sm leading-5 m-0" style={{
+          <div>
+            <p className="text-sm leading-5 m-0" style={{
               "fontWeight": isActive ? "600" : "500",
               "color": isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"
             }}>
-                                    {item.label}
-                                </p>
+              {item.label}
+            </p>
 
-                                <p className="text-xs font-normal leading-4 m-0" style={{
+            <p className="text-xs font-normal leading-4 m-0" style={{
               "marginTop": "-2px",
               "color": isActive ? "var(--gameengine-primary)" : "#738496"
             }}>
-                                    {item.desc}
-                                </p>
-                            </div>
-                        </div>;
-      })}
-            </div>
+              {item.desc}
+            </p>
+          </div>
         </div>;
+      })}
+    </div>
+  </div>;
 };
 export default LeftBar;

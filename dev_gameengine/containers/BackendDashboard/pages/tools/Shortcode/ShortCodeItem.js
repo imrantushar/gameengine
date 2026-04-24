@@ -56,7 +56,7 @@ const ShortCodeItem = ({
 							<Icon as={FaRegCopy} />
 						</button>
 					</div>
-					<button className="academy-btn--link rounded-full w-10 h-10 [border:1px_solid_var(--gameengine-border-color)]" style={{
+					<button className="academy-btn--link rounded-full w-10  [border:1px_solid_var(--gameengine-border-color)]" style={{
           "cursor": isPro ? 'not-allowed' : 'pointer',
           ...clearBtn
         }} href={url} target="_blank" rel="noopener noreferrer" disabled={isPro}>
