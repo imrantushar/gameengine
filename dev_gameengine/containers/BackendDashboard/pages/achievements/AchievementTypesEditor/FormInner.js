@@ -259,7 +259,7 @@ const FormInner = () => {
         <a className="h-auto p-0 bg-transparent " style={{
           "minWidth": "auto"
         }} as={'a'} href={admin_url + 'admin.php?page=gameengine-achievements&action=new'} target='_blank' type="link">
-          <Icon as={TbExternalLink} width={'20px'} />
+          <Icon as={TbExternalLink} boxSize={5} />
         </a>
 
         <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
