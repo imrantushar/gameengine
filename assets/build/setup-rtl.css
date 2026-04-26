@@ -270,6 +270,14 @@
   }
 }
 
+.kz-datepicker-input--dashboard {
+  border: 1px solid var(--gameengine-border-color) !important;
+}
+
+.kz-arrow-indicator--dashboard {
+  display: none;
+}
+
 .gameengine-content-wrap {
   width: 100%;
   padding: 24px;
@@ -2160,6 +2168,9 @@ input.gameengine-checkbox:checked::before {
 .p-\[0\.45rem\] {
   padding: 0.45rem;
 }
+.p-\[32px_24px\] {
+  padding: 32px 24px;
+}
 .\!px-0 {
   padding-right: 0px !important;
   padding-left: 0px !important;
@@ -2366,6 +2377,9 @@ input.gameengine-checkbox:checked::before {
 }
 .leading-\[30px\] {
   line-height: 30px;
+}
+.leading-\[38px\] {
+  line-height: 38px;
 }
 .leading-none {
   line-height: 1;
@@ -3410,6 +3424,10 @@ input.gameengine-checkbox:checked::before {
     width: 296px;
   }
 
+  .md\:w-\[calc\(50\%_-_56px\)\] {
+    width: calc(50% - 56px);
+  }
+
   .md\:w-auto {
     width: auto;
   }
@@ -3466,6 +3484,10 @@ input.gameengine-checkbox:checked::before {
     width: 2.5rem;
   }
 
+  .lg\:w-\[calc\(25\%_\+_6px\)\] {
+    width: calc(25% + 6px);
+  }
+
   .lg\:w-auto {
     width: auto;
   }
@@ -3497,6 +3519,13 @@ input.gameengine-checkbox:checked::before {
   .lg\:text-xs {
     font-size: 0.75rem;
     line-height: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .xl\:w-\[calc\(25\%_-_60px\)\] {
+    width: calc(25% - 60px);
   }
 }
 

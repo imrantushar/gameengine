@@ -1143,6 +1143,14 @@
   }
 }
 
+.kz-datepicker-input--dashboard {
+  border: 1px solid var(--gameengine-border-color) !important;
+}
+
+.kz-arrow-indicator--dashboard {
+  display: none;
+}
+
 .gameengine-content-wrap {
   width: 100%;
   padding: 24px;
