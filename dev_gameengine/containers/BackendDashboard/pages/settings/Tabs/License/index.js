@@ -226,12 +226,7 @@ const License = () => {
           __('%1$d out of %2$s', 'gameengine'), licenseData?.remaining, licenseData?.limit)} />
 							<MetaItem label={__('Automatic Update:', 'gameengine')} value={__('Enabled', 'gameengine')} />
 						</div>
-					</div> : <div className="flex p=[4, 6] flex-col items-center text-center bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{
-        "padding": {
-          base: 4,
-          md: 6
-        }
-      }}>
+					</div> : <div className="flex p-6 flex-col items-center text-center bg-white rounded [box-shadow:var(--gameengine-shadow)]" >
 						<h2 className="text-xl font-bold m-0 mb-2 text-[var(--gameengine-font-color)]">
 							{__('Activate GameEngine Pro for updates & support.', 'gameengine')}
 						</h2>
@@ -242,7 +237,7 @@ const License = () => {
 						</p>
 
 						{/* Logo pill */}
-						<div className="flex items-center gap-3 rounded-full pl-5 pr-5 pt-2 pb-2 m-0 mb-6" style={{
+						<div className="flex items-center gap-3 rounded-full p-[2px_5px] m-0 mb-6" style={{
           "border": "1px solid",
           "borderColor": "gray.200"
         }}>

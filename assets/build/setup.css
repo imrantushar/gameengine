@@ -2278,6 +2278,12 @@ input.gameengine-checkbox:checked::before {
 .\!p-\[5px_16px\] {
   padding: 5px 16px !important;
 }
+.p-\[4px_6px\] {
+  padding: 4px 6px;
+}
+.p-\[2px_5px\] {
+  padding: 2px 5px;
+}
 .\!px-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -3554,6 +3560,14 @@ input.gameengine-checkbox:checked::before {
     width: auto;
   }
 
+  .md\:w-\[calc\(50\%_-_8px\)\] {
+    width: calc(50% - 8px);
+  }
+
+  .md\:w-\[calc\(50\%_-_42px\)\] {
+    width: calc(50% - 42px);
+  }
+
   .md\:min-w-\[296px\] {
     min-width: 296px;
   }
@@ -3612,6 +3626,14 @@ input.gameengine-checkbox:checked::before {
 
   .lg\:w-auto {
     width: auto;
+  }
+
+  .lg\:w-\[calc\(33\.333\%_-_11px\)\] {
+    width: calc(33.333% - 11px);
+  }
+
+  .lg\:w-\[calc\(33\.333\%_-_45px\)\] {
+    width: calc(33.333% - 45px);
   }
 
   .lg\:flex-row {
