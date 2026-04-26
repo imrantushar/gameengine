@@ -20,7 +20,6 @@ use GameEngine\API\Controllers\AddonsController;
 use GameEngine\API\Controllers\TaxonomyController;
 use GameEngine\API\Controllers\ToolsController;
 use GameEngine\API\Controllers\SetupController;
-use GameEngine\API\Controllers\ReferralsController;
 
 final class Manager
 {
@@ -53,7 +52,6 @@ final class Manager
             TaxonomyController::class,
             ToolsController::class,
             SetupController::class,
-            ReferralsController::class,
         ];
     }
 

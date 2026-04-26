@@ -5,27 +5,29 @@ import { useSelector } from 'react-redux';
 import { FiUsers, FiUserCheck, FiTrendingUp } from 'react-icons/fi';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 
-const StatCard = ({ title, value, icon, color }) => (
-    <GameEngineBox padding="20px" boxShadow="var(--gameengine-shadow)" border="1px solid var(--gameengine-border-color)">
-        <Flex align="center" gap="16px">
-            <Box 
-                p="12px" 
-                borderRadius="10px" 
-                bg={`${color}10`} 
-                color={color}
-            >
-                <Icon as={icon} boxSize="24px" />
-            </Box>
-            <Box>
-                <Text fontSize="14px" color="var(--gameengine-warn-muted)" fontWeight="500">
-                    {title}
-                </Text>
-                <Text fontSize="24px" fontWeight="700" color="var(--gameengine-font-color)">
-                    {value}
-                </Text>
-            </Box>
+const StatCard = ({ title, value, icon, color, bg }) => (
+    <Flex 
+        align="center" 
+        justify="space-between" 
+        bg={bg} 
+        p="32px 24px" 
+        gap={6} 
+        boxShadow="var(--gameengine-shadow)" 
+        borderRadius="4px"
+        flex="1"
+    >
+        <Flex direction="column" gap={1}>
+            <Text fontSize="30px" fontWeight="700" lineHeight="38px" m={0} color="var(--gameengine-font-color)">
+                {value}
+            </Text>
+            <Text fontSize="16px" fontWeight="500" lineHeight="24px" m={0} color="var(--gameengine-font-color)">
+                {title}
+            </Text>
         </Flex>
-    </GameEngineBox>
+        <Box bg={color} p="14px" borderRadius="full">
+            <Icon as={icon} boxSize={8} color="#fff" />
+        </Box>
+    </Flex>
 );
 
 const ReferralsStats = () => {
@@ -38,18 +40,21 @@ const ReferralsStats = () => {
                 value={stats.total_referrals} 
                 icon={FiUsers} 
                 color="#2E90FA" 
+                bg="blue.50"
             />
             <StatCard 
                 title={__('Converted Signup', 'gameengine')} 
                 value={stats.converted} 
                 icon={FiUserCheck} 
                 color="#12B76A" 
+                bg="green.50"
             />
             <StatCard 
                 title={__('Top Referrer', 'gameengine')} 
                 value={stats.top_referrer_name || __('None', 'gameengine')} 
                 icon={FiTrendingUp} 
                 color="#F79009" 
+                bg="orange.50"
             />
         </SimpleGrid>
     );

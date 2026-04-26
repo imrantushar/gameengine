@@ -23,10 +23,11 @@ final class TriggerRegistry
         // integration register
         self::$integrations['wordpress']       = WordPress::class;
         self::$integrations['gameengine']      = GameEngine::class;
-        self::$integrations['referral']        = \GameEngine\Integrations\Referral::class;
-        //self::$integrations['interaction']     = Interactions::class;
-
         $active_addons = get_option('gameengine_active_addons', []);
+
+        if (in_array('referrals', $active_addons, true)) {
+            self::$integrations['referral'] = \GameEngine\Integrations\Referral::class;
+        }
 
         if (in_array('woocommerce', $active_addons)) {
             if (class_exists('\GameEngine\Integrations\WooCommerce')) {

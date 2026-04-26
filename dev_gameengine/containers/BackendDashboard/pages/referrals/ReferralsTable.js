@@ -34,7 +34,21 @@ const ReferralsTable = () => {
             accessor: 'referrer_name',
             cell: (row) => (
                 <Flex align="center" gap="10px">
-                    <Avatar size="xs" name={row.referrer_name} />
+                    <Box 
+                        size="8" 
+                        borderRadius="full" 
+                        bg="gray.100" 
+                        display="flex" 
+                        alignItems="center" 
+                        justifyContent="center"
+                        fontSize="xs"
+                        fontWeight="bold"
+                        color="gray.600"
+                        width="32px"
+                        height="32px"
+                    >
+                        {row.referrer_name?.charAt(0).toUpperCase()}
+                    </Box>
                     <Box>
                         <Text fontWeight="600" fontSize="14px">{row.referrer_name}</Text>
                         <Text fontSize="12px" color="gray.500">{row.referrer_email}</Text>
@@ -47,7 +61,21 @@ const ReferralsTable = () => {
             accessor: 'referee_name',
             cell: (row) => row.referee_name ? (
                 <Flex align="center" gap="10px">
-                    <Avatar size="xs" name={row.referee_name} />
+                    <Box 
+                        size="8" 
+                        borderRadius="full" 
+                        bg="gray.100" 
+                        display="flex" 
+                        alignItems="center" 
+                        justifyContent="center"
+                        fontSize="xs"
+                        fontWeight="bold"
+                        color="gray.600"
+                        width="32px"
+                        height="32px"
+                    >
+                        {row.referee_name?.charAt(0).toUpperCase()}
+                    </Box>
                     <Box>
                         <Text fontWeight="600" fontSize="14px">{row.referee_name}</Text>
                         <Text fontSize="12px" color="gray.500">{row.referee_email}</Text>
@@ -82,31 +110,37 @@ const ReferralsTable = () => {
             header: __('Action', 'gameengine'),
             accessor: 'id',
             cell: (row) => (
-                <IconButton
-                    aria-label="Delete referral"
-                    icon={<FiTrash2 />}
-                    size="sm"
-                    variant="ghost"
-                    colorScheme="red"
-                    onClick={() => handleDelete(row.id)}
-                />
+                <Flex justify="center">
+                    <Box 
+                        as="button"
+                        onClick={() => handleDelete(row.id)}
+                        p="8px"
+                        borderRadius="4px"
+                        color="red.500"
+                        _hover={{ bg: "red.50" }}
+                        transition="all 0.2s"
+                        title={__('Delete referral', 'gameengine')}
+                    >
+                        <Icon as={FiTrash2} boxSize="18px" />
+                    </Box>
+                </Flex>
             ),
         },
     ];
 
     return (
         <Box bg="white" borderRadius="8px" border="1px solid var(--gameengine-border-color)" overflow="hidden">
-            <Flex p="20px" justify="flex-end">
-                <Search 
-                    placeholder={__('Search referrals...', 'gameengine')} 
-                    onSearch={handleSearch} 
-                />
-            </Flex>
-
             <ListTable 
                 columns={columns} 
                 data={items} 
                 loading={status === 'loading'} 
+                suffix="referrals"
+                subHeaderComponent={
+                    <Search 
+                        placeholder={__('Search referrals...', 'gameengine')} 
+                        onSearch={handleSearch} 
+                    />
+                }
             />
 
             <Pagination

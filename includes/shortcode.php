@@ -30,6 +30,5 @@ class Shortcode
         new Shortcodes\Levels();
         new Shortcodes\ProgressMap();
         new Shortcodes\Leaderboard();
-        new Shortcodes\ReferralDashboard();
     }
 }

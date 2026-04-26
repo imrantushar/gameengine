@@ -2,7 +2,7 @@
 
 namespace GameEngine\Core;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -22,7 +22,7 @@ final class Schema
     {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
-        $prefix          = $wpdb->prefix;
+        $prefix = $wpdb->prefix;
 
         return array(
             self::get_point_types_table_schema($prefix, $charset_collate),
@@ -34,7 +34,6 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
-            self::get_referrals_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -195,20 +194,6 @@ final class Schema
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY trigger_key (trigger_key)
-        ) $charset_collate;";
-    private static function get_referrals_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_referrals (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            referrer_id BIGINT(20) UNSIGNED NOT NULL,
-            referee_id BIGINT(20) UNSIGNED DEFAULT NULL,
-            referral_code VARCHAR(50) DEFAULT NULL,
-            status VARCHAR(20) DEFAULT 'pending',
-            ip_address VARCHAR(45) DEFAULT NULL,
-            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            KEY referrer_id (referrer_id),
-            KEY referee_id (referee_id)
         ) $charset_collate;";
     }
 }

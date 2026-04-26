@@ -40,7 +40,7 @@ const TableHeader = ({
 						textAlign={column?.textAlign ? column?.textAlign : "center"}
 						whiteSpace="nowrap"
 					>
-						{column?.name}
+						{column?.name || column?.header}
 					</Table.ColumnHeader>
 				))}
 			</Table.Row>

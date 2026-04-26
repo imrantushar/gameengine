@@ -1,9 +1,9 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Box, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { Box, Badge, Flex, Icon, Text, VStack } from "@chakra-ui/react";
 import { FiMail } from "react-icons/fi";
-import { FiHelpCircle } from "react-icons/fi";
+import { FaLock } from "react-icons/fa6";
 import { is_pro, route_path } from "@GFUtils/helper";
 import { general, license, mail } from "@GFUtils/icons";
 
@@ -49,6 +49,7 @@ const LeftBar = () => {
             key: "referral",
             desc: __("Referral & Affiliate Systems", "gameengine"),
             icon: general(),
+            is_pro: true,
         },
         ...(is_pro
             ? [{
@@ -98,15 +99,33 @@ const LeftBar = () => {
                             <Icon color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt={1}>{item?.icon}</Icon>
 
                             <Box>
-                                <Text
-                                    fontWeight={isActive ? "600" : "500"}
-                                    fontSize="14px"
-                                    lineHeight="20px"
-                                    color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
-                                    margin='0'
-                                >
-                                    {item.label}
-                                </Text>
+                                <Flex align="center" gap="8px">
+                                    <Text
+                                        fontWeight={isActive ? "600" : "500"}
+                                        fontSize="14px"
+                                        lineHeight="20px"
+                                        color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
+                                        margin='0'
+                                    >
+                                        {item.label}
+                                    </Text>
+                                    {!is_pro && item.is_pro && (
+                                        <Badge
+                                            colorScheme="orange"
+                                            borderRadius="full"
+                                            px="8px"
+                                            py="1px"
+                                            fontSize="10px"
+                                            fontWeight="600"
+                                            display="inline-flex"
+                                            alignItems="center"
+                                            gap="4px"
+                                        >
+                                            <Icon as={FaLock} boxSize="12px" />
+                                            PRO
+                                        </Badge>
+                                    )}
+                                </Flex>
 
                                 <Text
                                     fontSize="12px"

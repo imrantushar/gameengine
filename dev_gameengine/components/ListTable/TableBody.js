@@ -35,7 +35,7 @@ const TableBody = ({
 								<Checkbox.Control />
 							</Checkbox.Root>
 						</Table.Cell>
-					)} 
+					)}
 
 					{visibleColumn.map(
 						(column, columnIndex) => (
@@ -45,7 +45,7 @@ const TableBody = ({
 								textAlign={column?.textAlign ? column?.textAlign : "center"}
 								width={column?.width}
 							>
-								{column?.cell(row, rowIndex)}
+								{typeof column?.cell === 'function' ? column?.cell(row, rowIndex) : String(row[column?.accessor] ?? '')}
 							</Table.Cell>
 						)
 					)}
