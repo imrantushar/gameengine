@@ -35,7 +35,7 @@ const Logs = () => {
           className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors"
           onClick={() => modalOpenHandler()}
         >
-          <Icon as={GoPlus} className="text-lg font-bold" />
+          <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />
           {__('Manual Trigger', 'gameengine')}
         </button>
       </div>

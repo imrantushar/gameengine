@@ -40,13 +40,14 @@ const OptionMenu = props => {
       const y = rect.top + window.pageYOffset;
       const buttonHeight = relativeTo.current.offsetHeight;
       menuItemRef.current.style.position = 'absolute';
-      menuItemRef.current.style.left = `${x - 155}px`;
-      menuItemRef.current.style.top = `${y + buttonHeight - 25}px`;
+      menuItemRef.current.style.left = `${x - 168}px`;
+      menuItemRef.current.style.top = `${y + buttonHeight - -2}px`;
       document.body.appendChild(menuItemRef.current);
     } else if (menuItemRef.current && menuItemRef.current.parentNode === document.body) {
       document.body.removeChild(menuItemRef.current);
     }
   }, [itemSelected, alwaysShowOptions]);
+  
   const renderOptions = () => <div className={`gameengine-dropdown-menu__lists  ${alwaysShowOptions ? 'gameengine-dropdown-menu--inline' : ''} ${suffix && `gameengine-dropdown-menu--list-${suffix}`}`} ref={menuItemRef}>
 			<ul className={`${alwaysShowOptions ? 'gameengine-dropdown-menu__inline' : 'gameengine-more-options'}`}>
 				{options.map((item, itemIndex) => {
@@ -59,10 +60,16 @@ const OptionMenu = props => {
         };
         return <React.Fragment key={itemIndex}>
 							{item.action ? <form className={`${alwaysShowOptions ? 'gameengine-dropdown-menu__inline-form' : 'gameengine-more-options__item'}`} action={item.action} method={item.method}>
-									<button preset="transparent" iconPosition="left" {...item} suffix={`${alwaysShowOptions ? 'inline' : 'block'}`} />
+									<button type="submit" lassName='flex items-center gap-2 ' suffix={`${alwaysShowOptions ? 'inline' : 'block'}`}>
+										{item.icon && <span className="menu-item-icon">{item.icon}</span>}
+										{item.label}
+									</button>
 									{item.hasBorder && <hr className="gameengine-option-separator" />}
 								</form> : <li className={`${alwaysShowOptions ? 'gameengine-dropdown-menu__inline-form' : 'gameengine-more-options__item'}`}>
-									<button preset="transparent" iconPosition="left" {...item} onClick={handleItemClick} />
+									<button type="button" className='flex items-center gap-2' onClick={handleItemClick}>
+										{item.icon && <span className="menu-item-icon">{item.icon}</span>}
+										{item.label}
+									</button>
 									{item.hasBorder && <hr className="gameengine-option-separator" />}
 								</li>}
 						</React.Fragment>;

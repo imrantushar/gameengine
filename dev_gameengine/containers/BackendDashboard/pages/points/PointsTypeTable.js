@@ -206,7 +206,7 @@ const PointTypesTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Trash', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2  />,
         onClick: () => dispatch(updatePointType({
           id: row.id,
           ...row,
@@ -216,13 +216,13 @@ const PointTypesTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleDelete(row?.id)
       }];
       return <OptionMenu options={[{
         type: 'button',
         label: __('Edit', 'gameengine'),
-        icon: <Icon as={FiEdit} />,
+        icon: <FiEdit />,
         onClick: () => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)
       }, ...trashAction]} />;
     },

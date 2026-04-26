@@ -138,12 +138,12 @@ export default function Wallet() {
       const options = [{
         type: 'button',
         label: __('Completed', 'gameengine'),
-        icon: <Icon as={FiCheckCircle} />,
+        icon: <FiCheckCircle />,
         onClick: () => handleUpdateStatus(row.id, 'completed')
       }, {
         type: 'button',
         label: __('Rejected', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleUpdateStatus(row.id, 'rejected')
       }];
       return <OptionMenu options={options} />;

@@ -6,7 +6,7 @@ export const primaryBtn = {
     fontWeight: "600",
     lineHeight: "20px",
     border: "1px solid var(--gameengine-primary)",
-    padding: "10px 16px",
+    padding: "8px 16px",
     borderRadius: "4px",
 }
 

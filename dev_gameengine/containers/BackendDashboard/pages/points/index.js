@@ -47,7 +47,7 @@ const Points = () => {
           className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors"
           onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&path=points-types`)}
         >
-          <Icon as={GoPlus} className="text-lg font-bold" />
+          <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />
           {__('Add new point System', 'gameengine')}
         </button>
       </div>

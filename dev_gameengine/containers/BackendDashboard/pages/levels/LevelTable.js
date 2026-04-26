@@ -136,26 +136,26 @@ const LevelTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleDelete(row?.id)
       }];
       return <OptionMenu options={[{
         type: "button",
         label: __('Edit', 'gameengine'),
-        icon: <Icon as={FiEdit} />,
+        icon: <FiEdit />,
         onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
       }, ...trashAction]} />;
     },
     cell: row => <OptionMenu options={[{
       type: "button",
       label: __('Edit', 'gameengine'),
-      icon: <Icon as={FiEdit} />,
+      icon: <FiEdit />,
       onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
     }, {
       type: "button",
       suffix: "trash",
       label: __('Delete', 'gameengine'),
-      icon: <Icon as={FiTrash2} />,
+      icon: <FiTrash2 />,
       onClick: () => {
         if (confirm('Delete level?')) dispatch(deleteLevel(row.id));
       }
@@ -328,7 +328,7 @@ const LevelTable = () => {
                   className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors cursor-pointer"
                   onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&action=new`)}
                 >
-                    <Icon as={GoPlus} className="text-lg font-bold" /> {__('Add new level', 'gameengine')}
+                    <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" /> {__('Add new level', 'gameengine')}
                 </button>
             </div>
 

@@ -127,7 +127,7 @@ const AchievementsTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Trash', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => dispatch(updateAchievement({
           id: row.id,
           data: {
@@ -139,13 +139,13 @@ const AchievementsTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleDelete(row?.id)
       }];
       return <OptionMenu options={[{
         type: 'button',
         label: __('Edit', 'gameengine'),
-        icon: <Icon as={FiEdit} />,
+        icon: <FiEdit />,
         onClick: () => navigate(`${route_path}admin.php?page=gameengine-achievements&action=edit&id=${row?.id}`)
       }, ...trashAction]} />;
     },
@@ -319,7 +319,7 @@ const AchievementsTable = () => {
                   className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors cursor-pointer"
                   onClick={() => navigate(`${route_path}admin.php?page=gameengine-achievements&action=new`)}
                 >
-                    <Icon as={GoPlus} className="text-lg font-bold" /> {__('Add new achievement', 'gameengine')}
+                    <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" /> {__('Add new achievement', 'gameengine')}
                 </button>
             </div>
 
