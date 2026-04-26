@@ -1532,9 +1532,12 @@ input.gameengine-checkbox:checked::before {
 .h-\[36px\] {
   height: 36px;
 }
+<<<<<<< Updated upstream
 .h-\[calc\(100vh_-_171px\)\] {
   height: calc(100vh - 171px);
 }
+=======
+>>>>>>> Stashed changes
 .h-auto {
   height: auto;
 }
@@ -1544,9 +1547,12 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
+<<<<<<< Updated upstream
 .h-\[42px\] {
   height: 42px;
 }
+=======
+>>>>>>> Stashed changes
 .min-h-\[285px\] {
   min-height: 285px;
 }
@@ -1841,13 +1847,23 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(26 115 232 / var(--tw-border-opacity, 1));
 }
+<<<<<<< Updated upstream
+=======
+.border-\[\#E0E4E8\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(224 228 232 / var(--tw-border-opacity, 1));
+}
+>>>>>>> Stashed changes
 .border-\[\#F6F7F8\] {
   --tw-border-opacity: 1;
   border-color: rgb(246 247 248 / var(--tw-border-opacity, 1));
 }
+<<<<<<< Updated upstream
 .border-\[1px_solid_var\(--gameengine-border-color\)\] {
   border-color: 1px solid var(--gameengine-border-color);
 }
+=======
+>>>>>>> Stashed changes
 .border-\[var\(--gameengine-primary\)\] {
   border-color: var(--gameengine-primary);
 }
@@ -1938,6 +1954,7 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
 }
+<<<<<<< Updated upstream
 .\!border-\[var\(--gameengine-primary\)\] {
   border-color: var(--gameengine-primary) !important;
 }
@@ -1954,6 +1971,8 @@ input.gameengine-checkbox:checked::before {
 .\!border-\[transparent\] {
   border-color: transparent !important;
 }
+=======
+>>>>>>> Stashed changes
 .bg-\[\#E0E4E8\] {
   --tw-bg-opacity: 1;
   background-color: rgb(224 228 232 / var(--tw-bg-opacity, 1));
@@ -2239,12 +2258,15 @@ input.gameengine-checkbox:checked::before {
 .p-\[32px_24px\] {
   padding: 32px 24px;
 }
+<<<<<<< Updated upstream
 .p-\[2px\] {
   padding: 2px;
 }
 .p-\[2px_16px\] {
   padding: 2px 16px;
 }
+=======
+>>>>>>> Stashed changes
 .\!px-0 {
   padding-left: 0px !important;
   padding-right: 0px !important;
@@ -2772,9 +2794,12 @@ input.gameengine-checkbox:checked::before {
 .\!\[border\:1px_solid_var\(--gameengine-border-color\)_\] {
   border: 1px solid var(--gameengine-border-color) !important;
 }
+<<<<<<< Updated upstream
 .\[border\:1px_solid_var\(--gameengine-primary\)\] {
   border: 1px solid var(--gameengine-primary);
 }
+=======
+>>>>>>> Stashed changes
 .\[border\:1px_solid_var\(--gemboards-border-color\)\] {
   border: 1px solid var(--gemboards-border-color);
 }
@@ -2852,6 +2877,14 @@ input.gameengine-checkbox:checked::before {
   margin-bottom: 0px;
 }
 
+<<<<<<< Updated upstream
+=======
+.hover\:border-gray-200:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
+>>>>>>> Stashed changes
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
