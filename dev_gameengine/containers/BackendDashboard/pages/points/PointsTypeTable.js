@@ -13,7 +13,8 @@ import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import { LuInfo } from 'react-icons/lu';
-import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
+import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction'; 
+
 const PointTypesTable = () => {
   const {
     pointTypes,
@@ -237,15 +238,14 @@ const PointTypesTable = () => {
         searchKey: value
       });
     };
-    return <div className="flex justify-between items-end w-full border-b border-gray-200 mb-4 mt-2">
-      <div className="flex gap-6 px-4">
+    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+      <div className="gameengine-filter-toolbar__tabs flex">
         {tableStatusArray.map((item, index) => {
           const isActive = tableStats === item.value;
           return (
             <button
               key={index}
-              className={`bg-transparent outline-none cursor-pointer h-auto text-sm font-[500] pb-3 -mb-[1px] shadow-none ${isActive ? 'text-blue-600 border-0 border-b-2 border-solid border-blue-600' : 'text-[#4B5563] border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
-              style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
+              className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
               onClick={() => {
                 setTableStatus(item.value);
                 fetchHandler({
@@ -262,7 +262,11 @@ const PointTypesTable = () => {
       </div>
 
       <div className='gameengine-table-subheader-right pb-2'>
-        <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
+        <Search 
+          placeholder='Search question' 
+          onSearchHandler={searchHandler} 
+          defaultValue={search ? search : ''} 
+        />
       </div>
     </div>;
   }, [tableStats, search]);
@@ -364,9 +368,24 @@ const PointTypesTable = () => {
     };
   });
   return <>
-    <ListTable key={'points-type-' + pointTypes.length} columns={columns} data={pointTypes} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} isRowSelectable={true} showPagination={false} noDataText={__("No data found", "gameengine")} totalItems={total} totalRows={pointTypes.length} dataFetchingStatus={listStatus}
+    <ListTable 
+      key={'points-type-' + pointTypes.length} 
+      columns={columns} 
+      data={pointTypes} 
+      showColumnFilter={false} 
+      showSubHeader={true} 
+      subHeaderComponent={subHeaderComponentMemo} 
+      isRowSelectable={true} 
+      showPagination={false} 
+      noDataText={__("No data found", "gameengine")} 
+      totalItems={total} 
+      totalRows={pointTypes.length} 
+      dataFetchingStatus={listStatus}
       // resetSelected={resetSelectedItems}
-      rowsPerPage={perPage} currentPageNumber={[page]} getSelectRowValue={setSelectedRows} />
+      rowsPerPage={perPage} 
+      currentPageNumber={[page]}
+      getSelectRowValue={setSelectedRows} 
+    />
 
     <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
       setSelectedRows([]);
