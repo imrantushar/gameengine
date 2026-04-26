@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,9 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 You can award points for actions like user registration, daily logins, publishing posts, and leaving comments.
 
 == Changelog ==
+
+= 1.1.1 - 2025-04-23 =
+* Added - StoreEngine SDK integration ( License Management ).
 
 = 1.1.0 - 2025-04-20 =
 * Added Tutor LMS Integration.
