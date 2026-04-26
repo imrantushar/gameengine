@@ -91,7 +91,7 @@ const AddonCard = ({
           "fontSize": "11px"
         }}>
 							{__('Coming Soon', 'gameengine')}
-						</span> : isShowProTag ? <KodezenTooltip openerContent={<Icon as={FaLock} boxSize="15px" color="orange.400" />} contentWidth="fit-content">
+						</span> : isShowProTag ? <KodezenTooltip openerContent={<Icon as={FaLock} boxSize={5} color="orange.400" />} contentWidth="fit-content">
 							<p className="font-normal m-0" style={{
             "fontSize": "13px"
           }}>
