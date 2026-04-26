@@ -1,6 +1,6 @@
 {
-    "version": "1.1.0",
-    "generated_at": "2026-04-26 03:08:59",
+    "version": "1.1.1",
+    "generated_at": "2026-04-26 05:23:25",
     "integrations": {
         "wordpress": {
             "slug": "wordpress",
@@ -87,7 +87,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -101,7 +101,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -145,7 +145,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -159,7 +159,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -243,7 +243,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -257,7 +257,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -301,7 +301,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -315,7 +315,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -404,7 +404,7 @@
                                     "value": "page"
                                 }
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "min_words",
@@ -412,7 +412,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "daily_limit",
@@ -420,7 +420,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -434,7 +434,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -448,7 +448,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -492,7 +492,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -506,7 +506,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -584,7 +584,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -598,7 +598,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -612,7 +612,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -656,7 +656,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -670,7 +670,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -748,7 +748,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "daily_cap",
@@ -756,7 +756,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -770,7 +770,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -784,7 +784,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -828,7 +828,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -842,7 +842,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -920,7 +920,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -934,7 +934,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -948,7 +948,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -992,7 +992,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1006,7 +1006,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1089,7 +1089,7 @@
                                 "integration": "wordpress",
                                 "query": "roles"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1103,7 +1103,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1117,7 +1117,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -1161,7 +1161,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1175,7 +1175,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1263,7 +1263,7 @@
                                     "value": "avatar"
                                 }
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1277,7 +1277,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1291,7 +1291,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -1335,7 +1335,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1349,7 +1349,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1427,7 +1427,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1441,7 +1441,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1455,7 +1455,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -1499,7 +1499,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1513,7 +1513,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1591,7 +1591,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1605,7 +1605,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1619,7 +1619,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -1663,7 +1663,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1677,7 +1677,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1756,7 +1756,7 @@
                             "width": "50%",
                             "is_pro": true,
                             "placeholder": "2",
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "min_stay",
@@ -1764,7 +1764,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1778,7 +1778,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1792,7 +1792,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -1836,7 +1836,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -1850,7 +1850,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -1943,7 +1943,7 @@
                                 "integration": "wordpress",
                                 "query": "categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -1957,7 +1957,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -1971,7 +1971,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2015,7 +2015,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2029,7 +2029,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -2107,7 +2107,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -2121,7 +2121,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -2135,7 +2135,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2179,7 +2179,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2193,7 +2193,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 }
@@ -2295,7 +2295,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -2309,7 +2309,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2353,7 +2353,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2367,7 +2367,816 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
+                        }
+                    ]
+                }
+            }
+        },
+        "referral": {
+            "slug": "referral",
+            "name": "Referral System",
+            "icon": "dashicons-groups",
+            "triggers": {
+                "referral_signup": {
+                    "label": "Success Referral",
+                    "hook": "gameengine_referral_signup",
+                    "description": "Awarded when someone joins the site using the users referral link.",
+                    "args_count": 2,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "referral_engagement": {
+                    "label": "Referral Engagement",
+                    "hook": "gameengine_referral_engagement",
+                    "description": "Awarded to the referrer when their referee performs a key action.",
+                    "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "action_key",
+                            "label": "Target Action (Pro)",
+                            "type": "select",
+                            "width": "50%",
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Any Action",
+                                    "value": "any"
+                                },
+                                {
+                                    "label": "Level Up",
+                                    "value": "level_up"
+                                },
+                                {
+                                    "label": "Achievement Unlock",
+                                    "value": "achievement_unlock"
+                                }
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "referral_purchase": {
+                    "label": "Referral Purchase (Referrer Reward)",
+                    "hook": "gameengine_referral_purchase",
+                    "description": "Awarded to the referrer when their referee completes a WooCommerce purchase.",
+                    "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "referral_enrollment": {
+                    "label": "Referral Course Enrollment (Referrer Reward)",
+                    "hook": "gameengine_referral_enrollment",
+                    "description": "Awarded to the referrer when their referee enrolls in a course (Tutor/Academy LMS).",
+                    "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        }
+                    ]
+                },
+                "referral_course_complete": {
+                    "label": "Referral Course Completion (Referrer Reward)",
+                    "hook": "gameengine_referral_course_complete",
+                    "description": "Awarded to the referrer when their referee completes a course.",
+                    "args_count": 3,
+                    "supports": [
+                        "point_type",
+                        "achievement",
+                        "level"
+                    ],
+                    "get_user_id": {},
+                    "schema": [
+                        {
+                            "key": "points",
+                            "label": "Points to Award",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 10,
+                            "scope": [
+                                "point_type"
+                            ]
+                        },
+                        {
+                            "key": "log_label",
+                            "label": "Log Description",
+                            "type": "text",
+                            "width": "50%",
+                            "default": "Activity Reward",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "limit",
+                            "label": "Repeatable Limit",
+                            "type": "select",
+                            "width": "50%",
+                            "options": [
+                                {
+                                    "label": "Unlimited",
+                                    "value": "unlimited"
+                                },
+                                {
+                                    "label": "1 Time Only",
+                                    "value": "1_time"
+                                },
+                                {
+                                    "label": "Once Per Day",
+                                    "value": "1_per_day"
+                                },
+                                {
+                                    "label": "Once Per Week",
+                                    "value": "1_per_week"
+                                },
+                                {
+                                    "label": "Once Per Month",
+                                    "value": "1_per_month"
+                                }
+                            ],
+                            "default": "unlimited",
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ]
+                        },
+                        {
+                            "key": "start_time",
+                            "label": "Start Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "08:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "end_time",
+                            "label": "End Time",
+                            "type": "time",
+                            "width": "50%",
+                            "placeholder": "22:00",
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "active_days",
+                            "label": "Active Days",
+                            "type": "select",
+                            "width": "50%",
+                            "is_multi": true,
+                            "is_pro": true,
+                            "options": [
+                                {
+                                    "label": "Monday",
+                                    "value": "mon"
+                                },
+                                {
+                                    "label": "Tuesday",
+                                    "value": "tue"
+                                },
+                                {
+                                    "label": "Wednesday",
+                                    "value": "wed"
+                                },
+                                {
+                                    "label": "Thursday",
+                                    "value": "thu"
+                                },
+                                {
+                                    "label": "Friday",
+                                    "value": "fri"
+                                },
+                                {
+                                    "label": "Saturday",
+                                    "value": "sat"
+                                },
+                                {
+                                    "label": "Sunday",
+                                    "value": "sun"
+                                }
+                            ],
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
+                        },
+                        {
+                            "key": "priority",
+                            "label": "Priority",
+                            "type": "number",
+                            "width": "50%",
+                            "default": 0,
+                            "is_pro": true,
+                            "scope": [
+                                "point_type",
+                                "achievement",
+                                "level"
+                            ],
+                            "isDisabled": false
                         }
                     ]
                 }
@@ -2460,7 +3269,7 @@
                                     "label": "Percent of Order Total (Pro)",
                                     "value": "percent",
                                     "is_pro": true,
-                                    "isDisabled": true
+                                    "isDisabled": false
                                 }
                             ]
                         },
@@ -2470,7 +3279,7 @@
                             "type": "number",
                             "width": "50%",
                             "is_pro": true,
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "include_products",
@@ -2483,7 +3292,7 @@
                                 "integration": "woocommerce",
                                 "query": "products"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "include_categories",
@@ -2496,7 +3305,7 @@
                                 "integration": "woocommerce",
                                 "query": "product_cats"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_products",
@@ -2509,7 +3318,7 @@
                                 "integration": "woocommerce",
                                 "query": "products"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_categories",
@@ -2522,7 +3331,7 @@
                                 "integration": "woocommerce",
                                 "query": "product_cats"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -2536,7 +3345,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -2550,7 +3359,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2594,7 +3403,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2608,7 +3417,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -2701,7 +3510,7 @@
                                 "integration": "woocommerce",
                                 "query": "product_cats"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -2715,7 +3524,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -2729,7 +3538,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2773,7 +3582,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2787,7 +3596,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -2871,7 +3680,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -2885,7 +3694,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -2929,7 +3738,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -2943,7 +3752,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -3027,7 +3836,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3041,7 +3850,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3085,7 +3894,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3099,7 +3908,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -3183,7 +3992,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3197,7 +4006,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3241,7 +4050,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3255,7 +4064,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 }
@@ -3355,7 +4164,7 @@
                                 "integration": "academylms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_categories",
@@ -3368,7 +4177,7 @@
                                 "integration": "academylms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -3382,7 +4191,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3396,7 +4205,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3440,7 +4249,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3454,7 +4263,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -3538,7 +4347,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3552,7 +4361,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3596,7 +4405,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3610,7 +4419,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -3704,7 +4513,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3718,7 +4527,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3762,7 +4571,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3776,7 +4585,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -3870,7 +4679,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -3884,7 +4693,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -3928,7 +4737,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -3942,7 +4751,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -4026,7 +4835,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4040,7 +4849,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4084,7 +4893,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4098,7 +4907,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -4191,7 +5000,7 @@
                                 "integration": "academylms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_categories",
@@ -4204,7 +5013,7 @@
                                 "integration": "academylms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -4218,7 +5027,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4232,7 +5041,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4276,7 +5085,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4290,7 +5099,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 }
@@ -4390,7 +5199,7 @@
                                 "integration": "tutorlms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_categories",
@@ -4403,7 +5212,7 @@
                                 "integration": "tutorlms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -4417,7 +5226,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4431,7 +5240,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4475,7 +5284,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4489,7 +5298,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -4573,7 +5382,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4587,7 +5396,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4631,7 +5440,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4645,7 +5454,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -4739,7 +5548,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4753,7 +5562,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4797,7 +5606,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4811,7 +5620,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -4905,7 +5714,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -4919,7 +5728,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -4963,7 +5772,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -4977,7 +5786,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -5071,7 +5880,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -5085,7 +5894,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -5129,7 +5938,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -5143,7 +5952,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -5237,7 +6046,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -5251,7 +6060,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -5295,7 +6104,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -5309,7 +6118,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 },
@@ -5402,7 +6211,7 @@
                                 "integration": "tutorlms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "exclude_categories",
@@ -5415,7 +6224,7 @@
                                 "integration": "tutorlms",
                                 "query": "course_categories"
                             },
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "start_time",
@@ -5429,7 +6238,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "end_time",
@@ -5443,7 +6252,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "active_days",
@@ -5487,7 +6296,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         },
                         {
                             "key": "priority",
@@ -5501,7 +6310,7 @@
                                 "achievement",
                                 "level"
                             ],
-                            "isDisabled": true
+                            "isDisabled": false
                         }
                     ]
                 }
