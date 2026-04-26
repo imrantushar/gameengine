@@ -2110,7 +2110,7 @@ const DataPreview = () => {
       lineHeight: '16px'
     })));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]"
+    className: "flex flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "simple",
     margin: 0,

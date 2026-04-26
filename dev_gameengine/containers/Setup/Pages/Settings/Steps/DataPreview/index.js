@@ -110,7 +110,7 @@ const DataPreview = () => {
           })}
         </div>
 
-        <div className="flex w-full flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]">
+        <div className="flex flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]">
           <GFLabel type="simple" margin={0} padding={0} label={__('Levels & Achievements Preview', 'gameengine')} fontSize="14px" color="#64748B" />
           <div className="flex gap-6 w-full">
             {previewData.map((item, idx) => {
