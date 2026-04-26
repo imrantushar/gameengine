@@ -1537,6 +1537,57 @@ input.gameengine-checkbox:checked::before {
     padding: 0 15px;
   }
 }
+.gameengine-filter-toolbar {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.gameengine-filter-toolbar__tabs {
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.gameengine-filter-toolbar__tabs::-webkit-scrollbar {
+  display: none;
+}
+.gameengine-filter-toolbar__tab {
+  position: relative;
+  border: none;
+  background: transparent;
+  color: var(--gameengine-subtitle-color, #6B7280);
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.gameengine-filter-toolbar__tab:focus-visible {
+  outline: none;
+}
+.gameengine-filter-toolbar__tab::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--gameengine-primary-color, #2563EB);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease;
+}
+.gameengine-filter-toolbar__tab:hover {
+  color: var(--gameengine-text-color, #111827);
+}
+.gameengine-filter-toolbar__tab:hover::after {
+  transform: scaleX(1);
+}
+.gameengine-filter-toolbar__tab.is-active {
+  color: var(--gameengine-text-color, #111827);
+}
+.gameengine-filter-toolbar__tab.is-active::after {
+  transform: scaleX(1);
+}
+
 .gameengine-btn-group {
   display: flex;
   -moz-column-gap: 15px;

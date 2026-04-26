@@ -13,7 +13,7 @@ const SettingsFooter = ({ step, setStep }) => {
   return (
     <div className="flex w-full justify-between items-center mt-2">
       <button
-        className="flex items-center"
+        className="flex items-center gap-2 cursor-pointer"
         style={outlineBtn}
         onClick={() => {
           if (step === "addons") {
@@ -27,7 +27,7 @@ const SettingsFooter = ({ step, setStep }) => {
         {__("Back", "gameengine")}
       </button>
       <button
-        className="flex items-center"
+        className="flex items-center gap-2 cursor-pointer"
         style={primaryBtn}
         disabled={isSubmitting}
         onClick={() => {
@@ -39,7 +39,7 @@ const SettingsFooter = ({ step, setStep }) => {
         }}
       >
         {__("Continue", "gameengine")}
-        <Icon as={FaAngleRight} width={"10px"} />
+        <Icon as={FaAngleRight} width={"10px"} color={'#fff'}/>
       </button>
     </div>
   );

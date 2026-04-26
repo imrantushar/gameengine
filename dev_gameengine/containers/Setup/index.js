@@ -5,10 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import TopBar from '@GFComponents/TopBar';
 import Settings from './Pages/Settings';
 const Setup = () => {
-  return <div className="bg-white" style={{
-    "width": "100vw",
-    "height": "calc(100vh - 171px)"
-  }}>
+  return <div className="bg-white h-[calc(100vh_-_171px)]">
       <TopBar path={'GameEngine'} topPosition="0" />
       <Routes>
         <Route exact path="/" element={<Welcome />} />

@@ -21,18 +21,22 @@ const Congratulation = () => {
           <GFLabel type="simple" margin={0} padding={0} label={__('Your GameEngine is ready to launch', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
         </div>
         <div className="flex w-full justify-center gap-4" marginTop={'8px'}>
-          <button style={{
-          "padding": "2px 16px",
-          "border": "1px solid #CBD1D7",
-          "height": "42px"
-        }} {...clearBtn} onClick={() => {
-          window.location.href = admin_url + 'admin.php?page=gameengine';
-        }}>
+          <button
+            className="flex items-center gap-2 cursor-pointer p-[2px_16px] !border-[transparent] border-solid rounded-sm h-[42px]" 
+            {...clearBtn} 
+            onClick={() => {
+              window.location.href = admin_url + 'admin.php?page=gameengine';
+            }}
+          >
             {__("Go To Dashboard", "gameengine")}
           </button>
-          <button {...primaryBtn} onClick={() => {
-          window.open(site_url, '__blank');
-        }}>
+          <button 
+            {...primaryBtn} 
+            className="flex items-center gap-2 cursor-pointer p-[2px_16px] border-[transparent] border-solid rounded-sm h-[42px]"
+            onClick={() => {
+              window.open(site_url, '__blank');
+            }}
+          >
             {__("Visit Website", "gameengine")}
             <Icon as={FaArrowRightLong} />
           </button>

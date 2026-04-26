@@ -664,6 +664,57 @@ input.gameengine-checkbox:checked::before {
     padding: 0 15px;
   }
 }
+.gameengine-filter-toolbar {
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.gameengine-filter-toolbar__tabs {
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.gameengine-filter-toolbar__tabs::-webkit-scrollbar {
+  display: none;
+}
+.gameengine-filter-toolbar__tab {
+  position: relative;
+  border: none;
+  background: transparent;
+  color: var(--gameengine-subtitle-color, #6B7280);
+  font-size: 14px;
+  line-height: 24px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.gameengine-filter-toolbar__tab:focus-visible {
+  outline: none;
+}
+.gameengine-filter-toolbar__tab::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--gameengine-primary-color, #2563EB);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease;
+}
+.gameengine-filter-toolbar__tab:hover {
+  color: var(--gameengine-text-color, #111827);
+}
+.gameengine-filter-toolbar__tab:hover::after {
+  transform: scaleX(1);
+}
+.gameengine-filter-toolbar__tab.is-active {
+  color: var(--gameengine-text-color, #111827);
+}
+.gameengine-filter-toolbar__tab.is-active::after {
+  transform: scaleX(1);
+}
+
 .gameengine-btn-group {
   display: flex;
   -moz-column-gap: 15px;
@@ -1481,6 +1532,9 @@ input.gameengine-checkbox:checked::before {
 .h-\[36px\] {
   height: 36px;
 }
+.h-\[calc\(100vh_-_171px\)\] {
+  height: calc(100vh - 171px);
+}
 .h-auto {
   height: auto;
 }
@@ -1489,6 +1543,9 @@ input.gameengine-checkbox:checked::before {
 }
 .h-px {
   height: 1px;
+}
+.h-\[42px\] {
+  height: 42px;
 }
 .min-h-\[285px\] {
   min-height: 285px;
@@ -1784,13 +1841,12 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(26 115 232 / var(--tw-border-opacity, 1));
 }
-.border-\[\#E0E4E8\] {
-  --tw-border-opacity: 1;
-  border-color: rgb(224 228 232 / var(--tw-border-opacity, 1));
-}
 .border-\[\#F6F7F8\] {
   --tw-border-opacity: 1;
   border-color: rgb(246 247 248 / var(--tw-border-opacity, 1));
+}
+.border-\[1px_solid_var\(--gameengine-border-color\)\] {
+  border-color: 1px solid var(--gameengine-border-color);
 }
 .border-\[var\(--gameengine-primary\)\] {
   border-color: var(--gameengine-primary);
@@ -1802,10 +1858,6 @@ input.gameengine-checkbox:checked::before {
 .border-blue-500 {
   --tw-border-opacity: 1;
   border-color: rgb(59 130 246 / var(--tw-border-opacity, 1));
-}
-.border-blue-600 {
-  --tw-border-opacity: 1;
-  border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
 }
 .border-cyan-500 {
   --tw-border-opacity: 1;
@@ -1885,6 +1937,22 @@ input.gameengine-checkbox:checked::before {
 .border-yellow-500 {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
+}
+.\!border-\[var\(--gameengine-primary\)\] {
+  border-color: var(--gameengine-primary) !important;
+}
+.border-\[var\(--gameengine-border-color\)\] {
+  border-color: var(--gameengine-border-color);
+}
+.border-\[\#CBD1D7\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 209 215 / var(--tw-border-opacity, 1));
+}
+.border-\[transparent\] {
+  border-color: transparent;
+}
+.\!border-\[transparent\] {
+  border-color: transparent !important;
 }
 .bg-\[\#E0E4E8\] {
   --tw-bg-opacity: 1;
@@ -2171,6 +2239,12 @@ input.gameengine-checkbox:checked::before {
 .p-\[32px_24px\] {
   padding: 32px 24px;
 }
+.p-\[2px\] {
+  padding: 2px;
+}
+.p-\[2px_16px\] {
+  padding: 2px 16px;
+}
 .\!px-0 {
   padding-right: 0px !important;
   padding-left: 0px !important;
@@ -2251,9 +2325,6 @@ input.gameengine-checkbox:checked::before {
 .pb-2\.5 {
   padding-bottom: 0.625rem;
 }
-.pb-3 {
-  padding-bottom: 0.75rem;
-}
 .pb-6 {
   padding-bottom: 1.5rem;
 }
@@ -2304,6 +2375,10 @@ input.gameengine-checkbox:checked::before {
 }
 .align-middle {
   vertical-align: middle;
+}
+.\!text-sm {
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
 }
 .text-3xl {
   font-size: 1.875rem;
@@ -2390,10 +2465,6 @@ input.gameengine-checkbox:checked::before {
 .text-\[\#1a73e8\] {
   --tw-text-opacity: 1;
   color: rgb(26 115 232 / var(--tw-text-opacity, 1));
-}
-.text-\[\#4B5563\] {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity, 1));
 }
 .text-\[var\(--gameengine-font-black\)\] {
   color: var(--gameengine-font-black);
@@ -2779,11 +2850,6 @@ input.gameengine-checkbox:checked::before {
 
 .last\:mb-0:last-child {
   margin-bottom: 0px;
-}
-
-.hover\:border-gray-200:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
 }
 
 .hover\:border-gray-300:hover {

@@ -1797,17 +1797,14 @@ const Congratulation = () => {
     className: "flex w-full justify-center gap-4",
     marginTop: '8px'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    style: {
-      "padding": "2px 16px",
-      "border": "1px solid #CBD1D7",
-      "height": "42px"
-    },
+    className: "flex items-center gap-2 cursor-pointer p-[2px_16px] !border-[transparent] border-solid rounded-sm h-[42px]",
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_5__.clearBtn,
     onClick: () => {
       window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.admin_url + 'admin.php?page=gameengine';
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Go To Dashboard", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_5__.primaryBtn,
+    className: "flex items-center gap-2 cursor-pointer p-[2px_16px] border-[transparent] border-solid rounded-sm h-[42px]",
     onClick: () => {
       window.open(_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.site_url, '__blank');
     }
@@ -2199,7 +2196,7 @@ const SettingsFooter = ({
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex w-full justify-between items-center mt-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "flex items-center",
+    className: "flex items-center gap-2 cursor-pointer",
     style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.outlineBtn,
     onClick: () => {
       if (step === "addons") {
@@ -2212,7 +2209,7 @@ const SettingsFooter = ({
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleLeft,
     width: "10px"
   }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "flex items-center",
+    className: "flex items-center gap-2 cursor-pointer",
     style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.primaryBtn,
     disabled: isSubmitting,
     onClick: () => {
@@ -2224,7 +2221,8 @@ const SettingsFooter = ({
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleRight,
-    width: "10px"
+    width: "10px",
+    color: '#fff'
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsFooter);
@@ -2438,7 +2436,7 @@ const Welcome = () => {
   }, cards.map((item, idx) => {
     const isSelected = selectedCard === item.value;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: `flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`,
+      className: `flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border border-solid border-[var(--gameengine-border-color)] transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? '!border-[var(--gameengine-primary)] bg-[#F3F5FF]' : ''}`,
       key: idx,
       onClick: () => setSelectedCard(item.value)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
@@ -2462,6 +2460,7 @@ const Welcome = () => {
     }));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
     style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_9__.primaryBtn,
+    className: "flex items-center gap-2 cursor-pointer",
     onClick: () => {
       if (selectedCard === 'manual') {
         window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine-points';
@@ -2470,9 +2469,10 @@ const Welcome = () => {
       }
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight,
+    color: '#fff'
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
-    className: "text-md ",
+    className: "text-md cursor-pointer",
     onClick: () => window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine'
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Skip This Step", "gameengine")));
 };
@@ -2507,11 +2507,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Setup = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bg-white",
-    style: {
-      "width": "100vw",
-      "height": "calc(100vh - 171px)"
-    }
+    className: "bg-white h-[calc(100vh_-_171px)]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     path: 'GameEngine',
     topPosition: "0"

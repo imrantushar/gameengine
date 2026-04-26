@@ -43,7 +43,7 @@ const Welcome = () => {
             const isSelected = selectedCard === item.value;
             return (
               <div 
-                className={`flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? 'border-[var(--gameengine-primary)] bg-[#F3F5FF]' : 'border-[#E0E4E8] bg-white hover:border-gray-200'}`} 
+                className={`flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border border-solid border-[var(--gameengine-border-color)] transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? '!border-[var(--gameengine-primary)] bg-[#F3F5FF]' : ''}`} 
                 key={idx} 
                 onClick={() => setSelectedCard(item.value)}
               >
@@ -59,7 +59,8 @@ const Welcome = () => {
         </div>
 
         <button 
-          style={primaryBtn} 
+          style={primaryBtn}
+          className="flex items-center gap-2 cursor-pointer" 
           onClick={() => {
             if (selectedCard === 'manual') {
               window.location.href = admin_url + 'admin.php?page=gameengine-points';
@@ -69,11 +70,11 @@ const Welcome = () => {
           }}
         >
           {__("Process to Next", "gameengine")}
-          <Icon as={FaAngleRight} />
+          <Icon as={FaAngleRight} color={'#fff'} />
         </button>
       </div>
 
-      <p className="text-md "
+      <p className="text-md cursor-pointer"
         onClick={() => window.location.href = admin_url + 'admin.php?page=gameengine'}
       >
         {__("Skip This Step", "gameengine")}
