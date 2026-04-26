@@ -22,7 +22,7 @@ export const Icon = ({
     } : {}),
     ...styleProp
   };
-  return <Component style={Object.keys(s).length ? s : undefined} className={className} {...rest} />;
+  return <Component fill={color} style={Object.keys(s).length ? s : undefined} className={className} {...rest} />;
 };
 
 export const Image = el('img');
