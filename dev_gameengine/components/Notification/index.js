@@ -87,24 +87,25 @@ const Notification = () => {
     }));
   };
   return <>
-			{notification?.isShow && createPortal(<div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
-						{notification?.linkTo ? <Link to={notification.linkTo}>
-								<div className="gameengine-notification__message no-underline">
-									<Icon as={iconType(notification?.type)} size="md" />
+    {notification?.isShow && createPortal(<div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
+      {notification?.linkTo ? <Link to={notification.linkTo}>
+        <div className="gameengine-notification__message no-underline">
+          <Icon as={iconType(notification?.type)} size="md" />
 
-									{notification.isHtml ? <div dangerouslySetInnerHTML={{
+          {notification.isHtml ? <div dangerouslySetInnerHTML={{
             __html: __(notification.message, 'gameengine')
           }} /> : __(notification.message, 'gameengine')}
-								</div>
-							</Link> : <div className="gameengine-notification__message">
-								<Icon as={iconType(notification?.type)} size="md" />
+        </div>
+      </Link> : <div className="gameengine-notification__message">
+        <Icon as={iconType(notification?.type)} size="md" color="#fff" />
 
-								{notification.message}
-							</div>}
-						<button className="p-0 bg-transparent [min-width:auto]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
-							<IoCloseOutline />
-						</button>
-					</div>, document.body)}
-		</>;
+        {notification.message}
+      </div>}
+      <button className="p-0 bg-transparent [min-width:auto] border-0 text-white text-[20px]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
+        <IoCloseOutline />
+      </button>
+    </div>, document.body)}
+  </>;
 };
+
 export default Notification;
