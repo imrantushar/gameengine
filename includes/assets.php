@@ -77,6 +77,7 @@ class Assets
             'plugin_root_url'    => GAMEENGINE_URL,
             'plugin_root_path'   => GAMEENGINE_PATH,
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
+            'is_pro'             => false,
             'site_url'           => site_url(),
             'admin_url'          => admin_url(),
             'route_path'         => wp_parse_url(admin_url(), PHP_URL_PATH),

@@ -105,6 +105,16 @@ final class GameEngine
         \GameEngine\SeSdk::get_instance();
 
         add_action('init', array($this, 'init_modules'), 10);
+        add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
+    }
+
+    /**
+     * Inject default settings data.
+     */
+    public function inject_default_settings($settings)
+    {
+        $settings['config']['is_pro'] = false;
+        return $settings;
     }
 
     /**
@@ -134,7 +144,7 @@ final class GameEngine
             '\GameEngine\Classes\LevelsManager',
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
-            '\GameEngine\Classes\Triggers'
+            '\GameEngine\Classes\Triggers',
         );
 
         foreach ($services as $service) {

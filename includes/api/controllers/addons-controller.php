@@ -160,6 +160,15 @@ class AddonsController extends BaseController
                 'is_pro'    => true,
                 'is_locked' => ! $is_pro_installed,
             ),
+            array(
+                'slug'      => 'referrals',
+                'name'      => __('Referrals & Affiliates', 'gameengine'),
+                'desc'      => __('Manage referral links, clicks, and affiliate earnings.', 'gameengine'),
+                'icon'      => 'dashicons-groups',
+                'active'    => $is_pro_installed && in_array('referrals', (array) $active_addons, true),
+                'is_pro'    => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
         );
 
         return new \WP_REST_Response($addons, 200);
@@ -179,7 +188,18 @@ class AddonsController extends BaseController
         }
 
 
+        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
+
         if (true === $status) {
+            // Referrals (Pro only)
+            if ('referrals' === $addon_name && ! $is_pro_installed) {
+                return new \WP_Error(
+                    'pro_required',
+                    __('Referrals addon requires GameEngine Pro.', 'gameengine'),
+                    array('status' => 403)
+                );
+            }
+
             // Academy LMS Check
             if ('academylms' === $addon_name) {
                 if (! \GameEngine\Helper::is_academylms_active()) {
@@ -255,6 +275,7 @@ class AddonsController extends BaseController
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gameengine_active_addons', array());
+        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
         $all_addons    = array(
             'storeengine',
             'woocommerce',
@@ -263,11 +284,16 @@ class AddonsController extends BaseController
             'restrict_unlock',
             'progress_map',
             'restrict_content',
-            'wallet'
+            'wallet',
+            'referrals'
         );
 
         $mapped = array();
         foreach ($all_addons as $slug) {
+            if (! $is_pro_installed && in_array($slug, array('wallet', 'referrals'), true)) {
+                $mapped[$slug] = false;
+                continue;
+            }
             $mapped[$slug] = in_array($slug, $active_addons, true);
         }
 

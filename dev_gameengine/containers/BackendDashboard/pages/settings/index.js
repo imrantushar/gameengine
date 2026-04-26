@@ -18,6 +18,7 @@ import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
 import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
+import ReferralSettings from './Tabs/ReferralSettings';
 
 const Settings = () => {
     const locationQuery = useLocation();
@@ -52,6 +53,8 @@ const Settings = () => {
                     return dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
                 case "dashboard":
                     return dispatch(saveSettings({key: 'dashboard', payloadData: values.dashboard}));
+                case "referral":
+                    return dispatch(saveSettings({key: 'referral', payloadData: values.referral}));
                 case "email_templates":
                     return dispatch(saveSettings({key: 'email_templates', payloadData: values.email_templates}));
                 default:
@@ -108,6 +111,7 @@ const Settings = () => {
                                             {tab === "economy" && <Economy />}
                                             {tab === "marketplace" && <MarketPlace />}
                                             {tab === "payout" && <Payout />}
+                                            {tab === "referral" && <ReferralSettings />}
                                             {tab === "license" && <License />}
                                             {tab === "email_templates" && (
                                                 <EmailTemplates 
