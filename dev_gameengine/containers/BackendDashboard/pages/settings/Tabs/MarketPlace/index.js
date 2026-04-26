@@ -48,7 +48,7 @@ const MarketPlace = () => {
           {!!values?.marketplace?.offers.length && is_pro ? <MarketplaceFields /> : <div className="flex flex-col items-start w-full gap-4 rounded p-4 relative [box-shadow:var(--gameengine-shadow)]">
               <div className="flex w-full gap-4">
                 <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='50%' label={__("Label", "gameengine")}>
-                  <input className="w-full" type="text" min="0" step="1" disabled={!is_pro} placeholder={__("Add label", "gameengine")} style={commonInput} />
+                  <input className="gameengine-input" type="text" min="0" step="1" disabled={!is_pro} placeholder={__("Add label", "gameengine")} style={commonInput} />
                 </SettingsInput>
                 <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='50%' label={__("Offer Type", "gameengine")}>
                   <Select className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" isDisabled={!is_pro} menuPlacement="bottom" />
@@ -56,13 +56,13 @@ const MarketPlace = () => {
               </div>
               <div className="flex w-full gap-4">
                 <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Point Cost", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" isPro={!is_pro} placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
+                  <input className="gameengine-input" type="number" min="0" step="1" isPro={!is_pro} placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
                 </SettingsInput>
                 <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Amount", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
+                  <input className="gameengine-input" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
                 </SettingsInput>
                 <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Expiry Days", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
+                  <input className="gameengine-input" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
                 </SettingsInput>
               </div>
             </div>}
