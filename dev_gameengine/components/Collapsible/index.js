@@ -15,26 +15,31 @@ const CustomCollapsible = ({
         suffix
 }) => {
         const classes = ['gameengine-collapsible', suffix && `gameengine-collapsible--${suffix}`].filter(Boolean).join(" ");
-        return <>
-                <div className={`${`${classes + " " + "flex items-center justify-between cursor-pointer"} rounded py-3 px-4`} [border:1px_solid_var(--gameengine-border-color)]`} onClick={onClick}>
-                        <GFLabel type="title" margin={0} padding={0}
-                                // translators: %s: label
-                                label={sprintf(__('%s', 'gemboards'), label)} fontWeight="400" />
 
-                        {!singleIcon ? <Icon as={isOpen ? LuChevronUp : LuChevronDown} boxSize={5} /> : <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[#FF3E2F]">
-                                <Icon as={arrowBackward} boxSize={4} />
+        return <>
+                <div className={`${`${classes + " " + ""} rounded py-3 px-4`} [border:1px_solid_var(--gameengine-border-color)]`} onClick={onClick}>
+                        <div className="flex items-center justify-between cursor-pointer">
+                                <GFLabel type="title" margin={0} padding={0}
+                                        // translators: %s: label
+                                        label={sprintf(__('%s', 'gemboards'), label)} fontWeight="400" />
+
+                                {!singleIcon ? <Icon as={isOpen ? LuChevronUp : LuChevronDown} boxSize={5} /> : <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[#FF3E2F]">
+                                        <Icon as={arrowBackward} boxSize={4} />
+                                </div>}
+                        </div>
+
+                        {isOpen && children && <div className="flex flex-col pt-6" borderBottomLeftRadius="4px" borderBottomRightRadius="4px"
+                        // marginTop="-2px"
+                        >
+                                {children}
                         </div>}
+
+                        {desc && !isOpen && <p className="text-[var(--gameengine-secondary)] text-sm mt-1.5">
+                                {__(desc, 'gameengine')}
+                        </p>}
                 </div>
 
-                {isOpen && children && <div className="flex flex-col [border:1px_solid_var(--gameengine-border-color)] [padding:24px_16px] border-t-0" borderBottomLeftRadius="4px" borderBottomRightRadius="4px"
-                // marginTop="-2px"
-                >
-                        {children}
-                </div>}
-
-                {desc && !isOpen && <p className="text-[var(--gameengine-secondary)] text-sm mt-1.5">
-                        {__(desc, 'gameengine')}
-                </p>}
         </>;
 };
+
 export default CustomCollapsible;
