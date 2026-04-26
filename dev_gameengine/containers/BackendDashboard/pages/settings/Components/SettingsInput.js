@@ -28,39 +28,30 @@ const SettingsInput = ({
   label,
   desc,
   children,
-  width = "100%",
   isPro = false,
   subtitle = null,
   ...props
 }) => {
   const ProBadge = isPro && <div className="flex items-center gap-1.5 ml-2">
-            <p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex" style={{
-      "background": "#FFA943",
-      "padding": "3px 6px",
-      "fontSize": "10px"
-    }}>
+            <p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] px-1.5 py-[3px] text-[10px]">
                 {__("PRO", 'gameengine')}
             </p>
             <Icon as={FaLock} color="orange.400" boxSize={3} />
         </div>;
   const Label = <div className="flex items-center">
-            <p className="font-medium leading-5 m-0 text-[var(--gameengine-font-color)]" style={{
-      "fontSize": "0.875rem"
-    }}>
+            <p className="text-sm font-medium leading-5 m-0 text-[var(--gameengine-font-color)]">
                 {label}
             </p>
             {ProBadge}
         </div>;
-  return <div className="flex flex-row justify-between items-center gap-1.5" style={{
-    "width": width
-  }} {...props}>
-            {subtitle ? <div className="flex flex-col gap-1" style={{
-      "width": "calc(100% - 42%)"
-    }}>
-                    {Label}
-                    {subtitle}
-                </div> : Label}
-            {children}
+  return <div className="flex flex-row justify-between items-center gap-4 w-full py-3 border-0" {...props}>
+            <div className="flex flex-col gap-1 flex-1 min-w-0">
+                {Label}
+                {subtitle && subtitle}
+            </div>
+            <div className="shrink-0 flex items-center justify-end w-[260px]">
+                {children}
+            </div>
         </div>;
 };
 export default SettingsInput;

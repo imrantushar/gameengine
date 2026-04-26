@@ -104,7 +104,7 @@ const Settings = () => {
               <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
             </div>
 
-            <div className="flex items-start w-full gap-4 " gapX={4}>
+            <div className="flex items-start gap-4">
 
               <LeftBar />
               <div className="gameengine-fade-in w-full" key={tab}>

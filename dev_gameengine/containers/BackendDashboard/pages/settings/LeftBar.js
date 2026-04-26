@@ -47,15 +47,8 @@ const LeftBar = () => {
     desc: __("Customize Email Templates & Cron", "gameengine"),
     icon: mail()
   }];
-  return <div className="flex-col bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{
-    "minWidth": "300px",
-    "top": "0",
-    "display": {
-      base: "none",
-      lg: "flex"
-    }
-  }} pos="sticky">
-    <div className="flex flex-col w-[284px] items-stretch p-2" spacing={0}>
+  return <div className="flex flex-col sticky top-0 self-start bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
+    <div className="flex flex-col items-stretch p-2" spacing={0}>
       {menuList.map((item, i) => {
         const isActive = currentTab === item.key;
         return <div className="flex items-start cursor-pointer gap-3" style={{

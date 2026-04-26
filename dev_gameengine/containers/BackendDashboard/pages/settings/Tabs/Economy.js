@@ -21,7 +21,7 @@ export const Economy = () => {
     label: `${code} (${decodeHtmlEntity(currencySymbols[code])})`,
     symbol: decodeHtmlEntity(currencySymbols[code])
   }));
-  return <SettingsInner fullWidth={true} heading={__('Economy', 'gameengine')}>
+  return <SettingsInner width='' heading={__('Economy', 'gameengine')}>
             <div className="flex flex-col gap-4">
 
                 <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')} subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1.', 'gameengine')} />}>

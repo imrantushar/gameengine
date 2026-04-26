@@ -34,7 +34,7 @@ const DialogTrigger = ({
     setOpen
   } = useContext(DialogCtx);
   const child = React.Children.only(children);
-  const trigger = asChild ? child : <button type="button">{children}</button>;
+  const trigger = asChild ? child : <button  type="button">{children}</button>;
   return cloneElement(trigger, {
     onClick: e => {
       trigger.props.onClick?.(e);
@@ -124,7 +124,7 @@ const DialogCloseTrigger = ({
     style: {
       ...trigger.props.style,
       position: 'absolute',
-      top: '16px',
+      top: '24px',
       right: '16px'
     }
   });

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, Dialog, Portal } from '@GFComponents/UI';
+import { Switch, Dialog } from '@GFComponents/UI';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
@@ -81,11 +81,7 @@ const EmailTemplates = ({
   return <div className="w-full overflow-visible">
             {/* General Settings */}
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible" mb="30px">
-                <p className="text-xl font-medium text-[var(--gameengine-font-color)] [border-bottom:1px_solid_var(--gameengine-border-color)]" style={{
-        "lineHeight": "30px",
-        "margin": "0 0 24px 0",
-        "padding": "0 0 16px 0"
-      }}>
+                <p className="text-xl font-medium text-[var(--gameengine-font-color)] border-0 border-b border-solid border-[var(--gameengine-border-color)] leading-[30px] m-0 mb-6 pb-4">
                     {__("General", "gameengine")}
                 </p>
 
@@ -105,19 +101,13 @@ const EmailTemplates = ({
 
             {/* Templates List */}
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
-                <p className="text-xl font-medium text-[var(--gameengine-font-color)] [border-bottom:1px_solid_var(--gameengine-border-color)]" style={{
-        "lineHeight": "30px",
-        "margin": "0 0 24px 0",
-        "padding": "0 0 16px 0"
-      }}>
+                <p className="text-xl font-medium text-[var(--gameengine-font-color)] border-0 border-b border-solid border-[var(--gameengine-border-color)] leading-[30px] m-0 mb-6 pb-4">
                     {__("Email Template", "gameengine")}
                 </p>
 
                 <div className="flex flex-col gap-4">
                     {Object.entries(emailConfigs).map(([key, config]) => {
-          return <div className="flex items-center justify-between rounded-md bg-white [border:1px_solid_var(--gameengine-border-color)]" style={{
-            "padding": "16px 20px"
-          }} key={key}>
+          return <div className="flex items-center justify-between rounded-md bg-white border border-solid border-[var(--gameengine-border-color)] px-5 py-4" key={key}>
                                 <div>
                                     <p className="text-base font-semibold m-0 text-[var(--gameengine-font-color)]">
                                         {config.title}
@@ -130,7 +120,7 @@ const EmailTemplates = ({
                                 </div>
 
                                 <div className="flex items-center gap-5">
-                                    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom" onOpenChange={() => setEditingKey(key)} maxW="1230px">
+                                    <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom" onOpenChange={(isOpen) => { if (isOpen) setEditingKey(key); }} maxW="1230px">
                                         <Dialog.Trigger asChild>
                                             <button className="flex gap-1.5" style={{
                     ...outlineBtn
@@ -139,42 +129,34 @@ const EmailTemplates = ({
                                                 {__("Edit Template", "gameengine")}
                                             </button>
                                         </Dialog.Trigger>
-                                        <Portal>
+                                        <Dialog.Portal>
                                             <Dialog.Backdrop />
                                             <Dialog.Positioner style={{
                     zIndex: "9999"
                   }}>
                                                 <Dialog.Content>
-                                                    <Dialog.Body p={6}>
-                                                        <div className="flex justify-between items-center gap-2 [border-bottom:1px_solid_var(--gameengine-border-color)]" style={{
-                          "paddingRight": "50px",
-                          "paddingBottom": "20px"
-                        }}>
+                                                    <Dialog.Body className="p-6">
+                                                        <div className="flex justify-between items-center gap-2 border-0 border-b border-solid border-[var(--gameengine-border-color)] pr-12 pb-5">
                                                             <GFLabel type="heading" margin='0' label={config.title} />
-                                                            <button className="h-auto" style={{
-                            "padding": "7px 14px",
+                                                            <button className="h-auto !p-[5px_16px]" style={{
                             ...primaryBtn
                           }} onClick={handleSubmit} disabled={!dirty}>
                                                                 {__('Save Changes', 'gameengine')}
                                                             </button>
                                                         </div>
                                                         <div className="w-full overflow-visible">
-                                                            <div className="flex items-center mb-5">
+                                                            <div className="flex items-center gap-5 mb-5">
                                                                 <div className="flex items-center gap-2.5">
                                                                     <p className="text-sm font-medium">{__("Notify User", "gameengine")}</p>
                                                                     <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_user_enabled'] ?? true} onChange={val => setFieldValue(config.userEnabledField, val)} />
                                                                 </div>
-                                                                <div className="flex items-center gap-2.5" style={{
-                              "marginLeft": "20px"
-                            }}>
+                                                                <div className="flex items-center gap-2.5">
                                                                     <p className="text-sm font-medium">{__("Notify Admin", "gameengine")}</p>
                                                                     <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_admin_enabled'] ?? false} onChange={val => setFieldValue(config.adminEnabledField, val)} />
                                                                 </div>
                                                             </div>
 
-                                                            <div className="flex" style={{
-                            "gap": "30px"
-                          }} align="start">
+                                                            <div className="flex gap-8 items-start">
                                                                 {/* Left Column: Editor */}
                                                                 <div className="flex-1 min-w-0">
                                                                     <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
@@ -186,10 +168,11 @@ const EmailTemplates = ({
                                                                             </p>
 
                                                                             <div className="flex flex-wrap gap-2 mb-3">
-                                                                                {config.tags.map(tag => <button style={{
-                                      "background": "#f3f4f6",
-                                      "border": "none"
-                                    }} key={tag} style={transparentMiniBtn} onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
+                                                                                {config.tags.map(tag => <button key={tag} style={{
+                                                                                  "background": "#f3f4f6",
+                                                                                  "border": "none",
+                                                                                  ...transparentMiniBtn,
+                                                                                  }} onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
                                                                                         {tag}
                                                                                     </button>)}
                                                                             </div>
@@ -197,11 +180,11 @@ const EmailTemplates = ({
                                                                         
                                                                         <input name={config.subjectField} value={values?.email_templates?.[editingKey + '_subject'] || ''} onChange={handleChange} placeholder={config.defaultSubject} style={commonInput} />
 
-                                                                        {editingKey === 'inactivity' && <SettingsInput mt="20px" label={__("Inactivity Days", "gameengine")}>
-                                                                                <input style={{
-                                    "width": "100px"
-                                  }} type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} style={commonInput} />
-                                                                            </SettingsInput>}
+                                                                        {editingKey === 'inactivity' && <div className="mt-5">
+                                                                                <SettingsInput label={__("Inactivity Days", "gameengine")}>
+                                                                                    <input type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} style={commonInput} />
+                                                                                </SettingsInput>
+                                                                            </div>}
 
                                                                         <p className="text-sm font-medium leading-5 text-[var(--gameengine-font-color)]" style={{
                                   "margin": "24px 0 8px 0"
@@ -214,19 +197,14 @@ const EmailTemplates = ({
                                                                 </div>
 
                                                                 {/* Right Column: Live Preview */}
-                                                                <div className="flex-1 min-w-0 sticky" style={{
-                              "top": "130px"
-                            }}>
+                                                                <div className="flex-1 min-w-0 sticky top-[130px]">
                                                                     <p className="justify-between text-base font-semibold mb-2 flex" style={{
                                 "color": "#738496"
                               }}>
                                                                         {__("Template Preview", "gameengine")}
                                                                     </p>
 
-                                                                    <div className="rounded-lg [border:1px_solid_var(--gameengine-border-color)]" style={{
-                                "background": "#f8f9fa",
-                                "padding": "30px"
-                              }}>
+                                                                    <div className="rounded-lg border border-solid border-[var(--gameengine-border-color)] bg-[#f8f9fa] p-8">
                                                                         <div className="bg-white rounded-lg" style={{
                                   "padding": "30px",
                                   "boxShadow": "0 4px 12px rgba(0,0,0,0.06)"
@@ -264,20 +242,16 @@ const EmailTemplates = ({
                                                         </div>
                                                     </Dialog.Body>
                                                     <Dialog.CloseTrigger asChild>
-                                                        <button className="[border:1px_solid_var(--gameengine-border-color)]" style={{
-                          "top": "6",
-                          "right": "6",
-                          "borderRadius": "1"
-                        }} />
+                                                        <button className="absolute top-4 right-4 flex items-center justify-center w-8 h-8 rounded border border-solid border-[var(--gameengine-border-color)] bg-white text-gray-500 hover:text-gray-800 hover:bg-gray-50 cursor-pointer">
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                                                        </button>
                                                     </Dialog.CloseTrigger>
                                                 </Dialog.Content>
                                             </Dialog.Positioner>
-                                        </Portal>
+                                        </Dialog.Portal>
                                     </Dialog.Root>
 
-                                    <div className="flex items-center" style={{
-                "gap": "15px"
-              }}>
+                                    <div className="flex items-center gap-4">
                                         <div className="flex items-center gap-2">
                                             <p style={{
                     "fontSize": "13px",

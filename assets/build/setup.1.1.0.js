@@ -71,9 +71,16 @@ const clearBtn = {
   padding: "0"
 };
 const commonInput = {
+  width: "100%",
   color: "var(--gameengine-font-color)",
-  borderColor: "var(--gameengine-border-color)",
-  outline: "var(--gameengine-primary)"
+  border: "1px solid var(--gameengine-border-color)",
+  borderRadius: "6px",
+  padding: "8px 12px",
+  fontSize: "14px",
+  lineHeight: "1.5",
+  backgroundColor: "#fff",
+  outline: "none",
+  boxSizing: "border-box"
 };
 
 /***/ }),
@@ -568,7 +575,7 @@ const DialogCloseTrigger = ({
     style: {
       ...trigger.props.style,
       position: 'absolute',
-      top: '16px',
+      top: '24px',
       right: '16px'
     }
   });
