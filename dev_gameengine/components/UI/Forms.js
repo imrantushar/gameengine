@@ -116,7 +116,7 @@ const SwitchControl = ({
     toggle,
     disabled
   } = useContext(SwitchCtx);
-  return <span onClick={toggle} className={`${className} inline-block relative w-9 h-5 shrink-0`} style={{
+  return <span className={`${className} inline-block relative w-9 h-5 shrink-0`} style={{
     borderRadius: '10px',
     background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0',
     transition: 'background 0.2s',

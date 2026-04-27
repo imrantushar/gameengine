@@ -847,7 +847,6 @@ const SwitchControl = ({
     disabled
   } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    onClick: toggle,
     className: `${className} inline-block relative w-9 h-5 shrink-0`,
     style: {
       borderRadius: '10px',
