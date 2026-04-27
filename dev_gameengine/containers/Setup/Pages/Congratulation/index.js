@@ -3,7 +3,8 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import { admin_url, plugin_root_url, site_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
-import { clearBtn, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { clearBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { FaArrowRightLong } from 'react-icons/fa6';
 const Congratulation = () => {
   return <div className="w-full flex-col justify-center items-center h-full flex gap-6">
@@ -30,16 +31,12 @@ const Congratulation = () => {
           >
             {__("Go To Dashboard", "gameengine")}
           </button>
-          <button 
-            {...primaryBtn} 
-            className="flex items-center gap-2 cursor-pointer p-[2px_16px] border-[transparent] border-solid rounded-sm h-[42px]"
-            onClick={() => {
-              window.open(site_url, '__blank');
-            }}
-          >
-            {__("Visit Website", "gameengine")}
-            <Icon as={FaArrowRightLong} />
-          </button>
+          <Button
+            label={__("Visit Website", "gameengine")}
+            icon={<Icon as={FaArrowRightLong} />}
+            iconPosition="right"
+            onClick={() => window.open(site_url, '__blank')}
+          />
         </div>
       </div>
     </div>;

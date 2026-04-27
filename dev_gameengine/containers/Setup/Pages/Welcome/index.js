@@ -7,7 +7,7 @@ import { LiaUserEditSolid } from 'react-icons/lia';
 import { TbStar } from 'react-icons/tb';
 import { FaAngleRight } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom';
-import { outlineBtn, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 
 const cards = [{
   icon: LiaUserEditSolid,
@@ -58,9 +58,10 @@ const Welcome = () => {
           })}
         </div>
 
-        <button 
-          style={primaryBtn}
-          className="flex items-center gap-2 cursor-pointer" 
+        <Button
+          label={__("Process to Next", "gameengine")}
+          icon={<Icon as={FaAngleRight} color={'#fff'} />}
+          iconPosition="right"
           onClick={() => {
             if (selectedCard === 'manual') {
               window.location.href = admin_url + 'admin.php?page=gameengine-points';
@@ -68,10 +69,7 @@ const Welcome = () => {
               navigate('/settings');
             }
           }}
-        >
-          {__("Process to Next", "gameengine")}
-          <Icon as={FaAngleRight} color={'#fff'} />
-        </button>
+        />
       </div>
 
       <p className="text-md cursor-pointer"

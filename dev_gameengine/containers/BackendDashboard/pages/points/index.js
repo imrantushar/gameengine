@@ -9,7 +9,7 @@ import { GoPlus } from 'react-icons/go';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import { fetchPointTypes } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 const Points = () => {
   const [banners, setBanners] = useState(window.GameEngineGlobal.banners);
   const navigate = useNavigate();
@@ -42,14 +42,11 @@ const Points = () => {
           {__("Point System", "gameengine")}
         </h2>
 
-        <button 
-        style={primaryBtn}
-          className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors"
+        <Button
+          label={__('Add new point System', 'gameengine')}
+          icon={<Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />}
           onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&path=points-types`)}
-        >
-          <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />
-          {__('Add new point System', 'gameengine')}
-        </button>
+        />
       </div>
 
       <PointTypesTable />

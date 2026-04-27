@@ -1767,7 +1767,8 @@ input.gameengine-checkbox:checked::before {
 }
 .gameengine-btn--sm {
   padding: 8px 16px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
 }
 .gameengine-btn--md {
   padding: 10px 20px;

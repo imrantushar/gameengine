@@ -4,7 +4,8 @@ import { __ } from "@wordpress/i18n";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useFormikContext } from "formik";
 import { useNavigate } from "react-router-dom";
-import { outlineBtn, primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import { outlineBtn } from "../../../../../../assets/scss/chakra/recipe";
+import Button from "@GFComponents/Button";
 
 const SettingsFooter = ({ step, setStep }) => {
   const { submitForm, isSubmitting } = useFormikContext();
@@ -26,10 +27,13 @@ const SettingsFooter = ({ step, setStep }) => {
         <Icon as={FaAngleLeft} width={"10px"} />
         {__("Back", "gameengine")}
       </button>
-      <button
-        className="flex items-center gap-2 cursor-pointer"
-        style={primaryBtn}
-        disabled={isSubmitting}
+      <Button
+        label={__('Continue', 'gameengine')}
+        loadingLabel={__('Continue', 'gameengine')}
+        isLoading={isSubmitting}
+        isDisabled={isSubmitting}
+        icon={<Icon as={FaAngleRight} width={'10px'} color={'#fff'} />}
+        iconPosition="right"
         onClick={() => {
           if (step === "datapreview") {
             setStep("addons");
@@ -37,10 +41,7 @@ const SettingsFooter = ({ step, setStep }) => {
             submitForm();
           }
         }}
-      >
-        {__("Continue", "gameengine")}
-        <Icon as={FaAngleRight} width={"10px"} color={'#fff'}/>
-      </button>
+      />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { Icon } from '@GFComponents/UI';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { GoPlus } from 'react-icons/go';
 import LogsTable from './LogsTable';
 import LogsModal from './LogsModal';
@@ -30,14 +30,11 @@ const Logs = () => {
         "padding": "24px 0"
       }}>
         <GFLabel type="plainHeading" margin={0} label={__("Logs", "gameengine")} />
-        <button
-          style={primaryBtn}
-          className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors"
+        <Button
+          label={__('Manual Trigger', 'gameengine')}
+          icon={<Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />}
           onClick={() => modalOpenHandler()}
-        >
-          <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />
-          {__('Manual Trigger', 'gameengine')}
-        </button>
+        />
       </div>
       <LogsTable modalOpenHandler={modalOpenHandler} />
       <LogsModal isModalOpen={isModalOpen} onRequestClose={onRequestClose} formData={formData} />

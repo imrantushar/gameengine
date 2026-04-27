@@ -7,7 +7,7 @@ import { __ } from '@wordpress/i18n';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { API, banners, namespace, route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
 import { fetchLevels, deleteLevel, updateLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 import { GoPlus } from 'react-icons/go';
@@ -323,13 +323,11 @@ const LevelTable = () => {
                     {__("Levels", "gameengine")}
                 </h2>
 
-                <button 
-                  style={primaryBtn}
-                  className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors cursor-pointer"
+                <Button
+                  label={__('Add new level', 'gameengine')}
+                  icon={<Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />}
                   onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&action=new`)}
-                >
-                    <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" /> {__('Add new level', 'gameengine')}
-                </button>
+                />
             </div>
 
             <ListTable columns={columns} data={levels} noDataText={__("No data found for levels", "gameengine")} dataFetchingStatus={loading} isRowSelectable={true} showPagination={false} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} totalItems={total} totalRows={levels.length}
