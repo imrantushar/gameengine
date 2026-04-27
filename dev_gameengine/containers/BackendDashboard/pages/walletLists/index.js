@@ -165,22 +165,26 @@ export default function Wallet() {
     label: __('Rejected', 'gameengine')
   }];
   const subHeaderComponentMemo = useMemo(() => {
-    return <div className="flex justify-between w-full">
-                <div className="gameengine-table-subheader-left flex justify-between">
-                    {filterTabs.map((tab, index) => <button className="bg-transparent h-auto text-xs font-medium leading-5 text-[var(--gameengine-font-color)]" style={{
-          "minWidth": "auto",
-          "padding": "16px 16px 0 16px"
-        }} key={index} paddingInline={'0'} onClick={() => {
-          fetchPayouts({
-            status: tab.value
-          });
-          setTableStatus(tab.value);
-        }}>
-                            {tab.label}
-                        </button>)}
+    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+                <div className="gameengine-filter-toolbar__tabs flex">
+                    {filterTabs.map((tab, index) => {
+                      const isActive = tableStatus === tab.value;
+                      return (
+                        <button
+                          key={index}
+                          className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
+                          onClick={() => {
+                            setTableStatus(tab.value);
+                            fetchPayouts({ status: tab.value });
+                          }}
+                        >
+                          {tab.label}
+                        </button>
+                      );
+                    })}
                 </div>
 
-                <div>
+                <div className='gameengine-table-subheader-right pb-2'>
                     <Search placeholder={__('Search question', 'gameengine')} onSearchHandler={handleSearch} defaultValue={searchValue} />
                 </div>
             </div>;
