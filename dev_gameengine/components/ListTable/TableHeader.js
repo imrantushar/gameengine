@@ -6,7 +6,7 @@ const TableHeader = ({
 	isCheckboxColumnVisible,
 	copyDataArr,
 	selectAllRow,
-	data,
+	data,	
 }) => {
 	const isCheckboxChecked =
 		data?.length > 0 &&
