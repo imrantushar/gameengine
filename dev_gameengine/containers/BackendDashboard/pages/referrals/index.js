@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Box, Flex } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import TopBar from "@GFComponents/TopBar";
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -19,14 +18,14 @@ const Referrals = () => {
         <>
             <TopBar path={__("Referrals", "gameengine")} />
 
-            <Box className='gameengine-page-content'>
-                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
+            <div className='gameengine-page-content'>
+                <div className='flex justify-between items-center py-6'>
                     <GFLabel type="plainHeading" margin={0} label={__("Referral & Affiliate", "gameengine")} />
-                </Flex>
+                </div>
 
                 <ReferralsStats />
                 <ReferralsTable />
-            </Box>
+            </div>
         </>
     );
 };
