@@ -1,4 +1,4 @@
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import { __ } from "@wordpress/i18n";
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -15,11 +15,7 @@ const MarketPlace = () => {
     setFieldValue
   } = useFormikContext();
   return <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)">
-      <p className="text-xl font-medium text-[var(--gameengine-font-color)] [border-bottom:1px_solid_var(--gameengine-border-color)]" style={{
-      "lineHeight": "30px",
-      "margin": "0 0 24px 0",
-      "padding": "0 0 16px 0"
-    }}>
+      <p className="text-xl font-medium text-[var(--gameengine-font-color)] border-0 border-b border-solid border-[var(--gameengine-border-color)] leading-[30px] m-0 mb-6 pb-4">
           {__("Coupon Generate", "gameengine")}
       </p>
       
@@ -34,7 +30,7 @@ const MarketPlace = () => {
         </SettingsInput>
       </div>
 
-      {(values?.marketplace?.enable_marketplace || !is_pro) && <div className="flex flex-col items-start w-full gap-4" marginTop={'24px'}>
+      {(values?.marketplace?.enable_marketplace || !is_pro) && <div className="flex flex-col items-start w-full gap-4  mt-[24px]">
           <div className="flex flex-col w-full gap-1 [border-bottom:1px_solid_var(--gameengine-border-color)]" style={{
         "margin": "0 0 12px 0",
         "padding": "0 0 12px 0"
@@ -46,24 +42,44 @@ const MarketPlace = () => {
           </div>
 
           {!!values?.marketplace?.offers.length && is_pro ? <MarketplaceFields /> : <div className="flex flex-col items-start w-full gap-4 rounded p-4 relative [box-shadow:var(--gameengine-shadow)]">
-              <div className="flex w-full gap-4">
-                <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='50%' label={__("Label", "gameengine")}>
-                  <input className="w-full" type="text" min="0" step="1" disabled={!is_pro} placeholder={__("Add label", "gameengine")} style={commonInput} />
-                </SettingsInput>
-                <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='50%' label={__("Offer Type", "gameengine")}>
-                  <Select className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" isDisabled={!is_pro} menuPlacement="bottom" />
-                </SettingsInput>
+              <div className="flex gap-4 w-full">
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Label", "gameengine")}</p>
+                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
+                  </div>
+                  <input className="gameengine-input w-full" type="text" disabled={!is_pro} placeholder={__("Add label", "gameengine")} style={commonInput} />
+                </div>
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Offer Type", "gameengine")}</p>
+                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
+                  </div>
+                  <Select className="gameengine-select" classNamePrefix="gameengine-select" isDisabled={!is_pro} menuPlacement="bottom" />
+                </div>
               </div>
-              <div className="flex w-full gap-4">
-                <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Point Cost", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" isPro={!is_pro} placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
-                </SettingsInput>
-                <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Amount", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
-                </SettingsInput>
-                <SettingsInput isPro={!is_pro} flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Expiry Days", "gameengine")}>
-                  <input className="w-full" type="number" min="0" step="1" placeholder={__("0", "gameengine")} disabled={!is_pro} style={commonInput} />
-                </SettingsInput>
+              <div className="flex gap-4 w-full">
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Point Cost", "gameengine")}</p>
+                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
+                  </div>
+                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
+                </div>
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Amount", "gameengine")}</p>
+                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
+                  </div>
+                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
+                </div>
+                <div className="flex flex-col gap-1 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Expiry Days", "gameengine")}</p>
+                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
+                  </div>
+                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
+                </div>
               </div>
             </div>}
           {is_pro && <button style={primaryBtn} onClick={() => {

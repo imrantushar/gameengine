@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
 import GeneralSettings from './Tabs/GeneralSettings';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
@@ -35,92 +35,84 @@ const Settings = () => {
       });
     }
   }, []);
-  const onSubmitHandle = (values, actions) => {
-    actions.setSubmitting(true);
+  const onSubmitHandle = async (values, actions) => {
     try {
       switch (tab) {
         case "general-settings":
         case "log":
-          return dispatch(saveSettings({
-            key: 'logs',
-            payloadData: values.logs
-          }));
+          await dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
+          break;
         case "economy":
-          return dispatch(saveSettings({
-            key: 'economy',
-            payloadData: values.economy
-          }));
+          await dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
+          break;
         case "marketplace":
-          return dispatch(saveSettings({
-            key: 'marketplace',
-            payloadData: values.marketplace
-          }));
+          await dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
+          break;
         case "payout":
-          return dispatch(saveSettings({
-            key: 'payout',
-            payloadData: values.payout
-          }));
+          await dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
+          break;
         case "dashboard":
-          return dispatch(saveSettings({
-            key: 'dashboard',
-            payloadData: values.dashboard
-          }));
+          await dispatch(saveSettings({ key: 'dashboard', payloadData: values.dashboard }));
+          break;
         case "email_templates":
-          return dispatch(saveSettings({
-            key: 'email_templates',
-            payloadData: values.email_templates
-          }));
+          await dispatch(saveSettings({ key: 'email_templates', payloadData: values.email_templates }));
+          break;
         default:
-          return null;
+          break;
       }
     } catch (error) {
-      console.warn({
-        error
-      });
+      console.warn({ error });
     } finally {
       actions.setSubmitting(false);
     }
   };
   return <>
-            {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
-                    {({
+    {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
+      {({
         handleSubmit,
         isSubmitting,
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Settings", "gameengine")} rightContent={<>
-                                            {isEmailTab ? null : <button style={primaryBtn} onClick={handleSubmit} disabled={!dirty}>
-                                                    {__('Save Changes', 'gameengine')}
-                                                </button>}
+          <TopBar path={__("Settings", "gameengine")} rightContent={<>
+            {isEmailTab ? 
+              null : (
+              <Button
+                label={__('Save Changes', 'gameengine')}
+                loadingLabel={__('Save Changes', 'gameengine')}
+                isLoading={isSubmitting}
+                isDisabled={!dirty || isSubmitting}
+                onClick={handleSubmit}
+              />
+            )}
 
-                                            <GetHelp filterText={['setting']} />
-                                        </>} />
+            <GetHelp filterText={['setting']} />
+          </>} />
 
-                                <div className='gameengine-page-content'>
-                                    <div className="flex justify-between items-center" style={{
+          <div className='gameengine-page-content'>
+            <div className="flex justify-between items-center" style={{
               "padding": "24px 0"
             }}>
-                                        <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
-                                    </div>
+              <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
+            </div>
 
-                                    <div className="flex items-start w-full" gapX={4}>
+            <div className="flex items-start gap-4">
 
-                                        <LeftBar />
-                                        <div className="gameengine-fade-in w-full" key={tab}>
-                                            {tab === "dashboard" && <Dashboard />}
-                                            {tab === "log" && <GeneralSettings />}
-                                            {tab === "economy" && <Economy />}
-                                            {tab === "marketplace" && <MarketPlace />}
-                                            {tab === "payout" && <Payout />}
-                                            {tab === "license" && <License />}
-                                            {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
-                                        </div>
-                                    </div>
-                                </div>
-                            </>;
-      }}
-                </Formik>}
+              <LeftBar />
+              <div className="gameengine-fade-in w-full" key={tab}>
+                {tab === "dashboard" && <Dashboard />}
+                {tab === "log" && <GeneralSettings />}
+                {tab === "economy" && <Economy />}
+                {tab === "marketplace" && <MarketPlace />}
+                {tab === "payout" && <Payout />}
+                {tab === "license" && <License />}
+                {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
+              </div>
+            </div>
+          </div>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default Settings;

@@ -3,11 +3,8 @@ import { Form, Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import { suffixClassNames, contentClassNames } from './helper';
 import { MdFullscreen, MdPhoneAndroid, MdLaptopMac, MdViewColumn } from 'react-icons/md';
-import { Spinner } from '@GFUtils/ui';
-import './styles.scss';
-import './suffix.scss';
-import OptionMenu from '@GFComponents/OptionMenu';
-import { primaryBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
+import { outlineBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 const ReactModalFormik = ({
   children,
   suffix = '',
@@ -228,19 +225,17 @@ const ReactModalFormik = ({
 							<div className={contentClass}>{children}</div>
 
 							{isEnabledFooter && <div className="gameengine-modal__footer">
-									<button onClick={onRequestClose}>
+									<button style={outlineBtn} onClick={onRequestClose}>
 										{cancelButtonLabel}
 									</button>
 
-									<button type="submit" style={primaryBtn} disabled={isSubmitting}>
-										{isSubmitting ? <>
-												<Spinner color="var(--gameengine-primary-color)" css={{
-                  "--spinner-track-color": "var(--gameengine-secondary-color)"
-                }} />
-
-												{submitButtonLabel}
-											</> : submitButtonLabel}
-									</button>
+										<Button
+										type="submit"
+										label={submitButtonLabel}
+										loadingLabel={submitButtonLabel}
+										isLoading={isSubmitting}
+										isDisabled={isSubmitting}
+									/>
 								</div>}
 						</Form>}
 				</Formik>

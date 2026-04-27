@@ -1,9 +1,10 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { admin_url, plugin_root_url, site_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
-import { clearBtn, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import { clearBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { FaArrowRightLong } from 'react-icons/fa6';
 const Congratulation = () => {
   return <div className="w-full flex-col justify-center items-center h-full flex gap-6">
@@ -21,21 +22,21 @@ const Congratulation = () => {
           <GFLabel type="simple" margin={0} padding={0} label={__('Your GameEngine is ready to launch', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
         </div>
         <div className="flex w-full justify-center gap-4" marginTop={'8px'}>
-          <button style={{
-          "padding": "2px 16px",
-          "border": "1px solid #CBD1D7",
-          "height": "42px"
-        }} {...clearBtn} onClick={() => {
-          window.location.href = admin_url + 'admin.php?page=gameengine';
-        }}>
+          <button
+            className="flex items-center gap-2 cursor-pointer p-[2px_16px] !border-[transparent] border-solid rounded-sm h-[42px]" 
+            {...clearBtn} 
+            onClick={() => {
+              window.location.href = admin_url + 'admin.php?page=gameengine';
+            }}
+          >
             {__("Go To Dashboard", "gameengine")}
           </button>
-          <button {...primaryBtn} onClick={() => {
-          window.open(site_url, '__blank');
-        }}>
-            {__("Visit Website", "gameengine")}
-            <Icon as={FaArrowRightLong} />
-          </button>
+          <Button
+            label={__("Visit Website", "gameengine")}
+            icon={<Icon as={FaArrowRightLong} />}
+            iconPosition="right"
+            onClick={() => window.open(site_url, '__blank')}
+          />
         </div>
       </div>
     </div>;

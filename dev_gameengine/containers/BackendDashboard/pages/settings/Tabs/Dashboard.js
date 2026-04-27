@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import SettingsInput from '../Components/SettingsInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import SettingsInner from '../Components/SettingsInner';
 import { useFormikContext } from 'formik';
 import { is_pro } from '@GFUtils/helper';
@@ -27,7 +27,7 @@ export default function Dashboard() {
     label: __('Tutor LMS', 'gameengine'),
     isDisabled: !addons?.tutorlms
   }];
-  return <SettingsInner fullWidth={true} heading={__('Frontend Dashboard', 'gameengine')}>
+  return <SettingsInner width='' heading={__('Frontend Dashboard', 'gameengine')}>
             <div className="flex flex-col gap-4">
 
                 <SettingsInput isPro={!is_pro} label={__('Dashboard Integration', 'gameengine')} subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Select where you want to display game stats and navigation.', 'gameengine')} />}>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
 import { admin_url, is_pro } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
-import { LuSettings } from 'react-icons/lu';
+import { LuSettings } from "react-icons/lu";
 import { FaLock } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
@@ -70,9 +70,7 @@ const AddonCard = ({
     if (item.name === 'woocommerce') return '#873eff';
     return '#e2e8f0';
   };
-  return <div className="flex flex-col bg-white p-4 gap-3 rounded-md [box-shadow:var(--gameengine-shadow)] [border:1px_solid_var(--gameengine-border-color)]" style={{
-    "width": "calc((100% / 4) - 12px)"
-  }}>
+  return <div className="flex flex-col bg-white p-4 gap-3 rounded-md [box-shadow:var(--gameengine-shadow)] [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc(33.333%_-_45px)]">
 			<div className="flex justify-between items-start">
 				<div className="items-center justify-center p-2 rounded-md flex w-10 h-10" style={{
         "border": `1px solid ${getIconBorderColor()}`
@@ -82,7 +80,7 @@ const AddonCard = ({
 
 				<div className="flex items-center gap-2">
 					{showSettings && <Link to={admin_url + item?.route}>
-							<Icon as={LuSettings} boxSize="18px" color="var(--gameengine-font-color)" />
+							<LuSettings size={24} color="var(--gameengine-subtitle-color, #6B7280)" />
 						</Link>}
 
 					{item.is_coming_soon ? <span style={{
@@ -91,7 +89,7 @@ const AddonCard = ({
           "fontSize": "11px"
         }}>
 							{__('Coming Soon', 'gameengine')}
-						</span> : isShowProTag ? <KodezenTooltip openerContent={<Icon as={FaLock} boxSize="15px" color="orange.400" />} contentWidth="fit-content">
+						</span> : isShowProTag ? <KodezenTooltip openerContent={<Icon as={FaLock} boxSize={5} color="orange" />} contentWidth="fit-content">
 							<p className="font-normal m-0" style={{
             "fontSize": "13px"
           }}>

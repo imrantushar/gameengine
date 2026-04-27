@@ -26,7 +26,9 @@ const primaryBtn = {
   fontSize: "14px",
   fontWeight: "600",
   lineHeight: "20px",
-  border: "1px solid var(--gameengine-primary)"
+  border: "1px solid var(--gameengine-primary)",
+  padding: "8px 16px",
+  borderRadius: "4px"
 };
 const xCloseBtn = {
   color: "var(--gameengine-font-color)",
@@ -44,7 +46,9 @@ const primaryClearBtn = {
 const outlineBtn = {
   background: "transparent",
   color: "var(--gameengine-font-color)",
-  border: "1px solid var(--gameengine-border-color)"
+  border: "1px solid var(--gameengine-border-color)",
+  padding: "10px 16px",
+  borderRadius: "4px"
 };
 const removeBtn = {
   background: "var(--gameengine-placing)",
@@ -67,9 +71,16 @@ const clearBtn = {
   padding: "0"
 };
 const commonInput = {
+  width: "100%",
   color: "var(--gameengine-font-color)",
-  borderColor: "var(--gameengine-border-color)",
-  outline: "var(--gameengine-primary)"
+  border: "1px solid var(--gameengine-border-color)",
+  borderRadius: "6px",
+  padding: "8px 12px",
+  fontSize: "14px",
+  lineHeight: "1.5",
+  backgroundColor: "#fff",
+  outline: "none",
+  boxSizing: "border-box"
 };
 
 /***/ }),
@@ -84,6 +95,104 @@ const commonInput = {
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/Button/index.js":
+/*!***************************************************!*\
+  !*** ./dev_gameengine/components/Button/index.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+
+const Button = ({
+  className = '',
+  label = '',
+  size = 'sm',
+  preset = 'purple',
+  onClick,
+  type = 'button',
+  isLoading = false,
+  loadingLabel = undefined,
+  icon = undefined,
+  iconPosition = undefined,
+  isCircle = false,
+  border = undefined,
+  isDisabled = false,
+  borderRadius = undefined,
+  style = {},
+  link = '#',
+  suffix = '',
+  target = undefined,
+  isPro = true,
+  ariaLabel = '',
+  ariaHidden = false,
+  id,
+  ...rest
+}) => {
+  const [btnWidth, setBtnWidth] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
+  const btnRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (btnRef.current && !isLoading && !btnWidth) {
+      setBtnWidth(btnRef.current.offsetWidth);
+    }
+  }, [btnWidth, isLoading]);
+  const buildClassName = () => {
+    if (className) return className;
+    return ['gameengine-btn', size && `gameengine-btn--${size}`, preset && `gameengine-btn--preset-${preset}`, iconPosition && icon && !isLoading && `gameengine-btn--icon-${iconPosition}`, border && `gameengine-btn--border-${border}`, borderRadius && `gameengine-btn--border-${borderRadius}`, suffix && `gameengine-btn--${suffix}`, isCircle && 'gameengine-btn--circle', isDisabled && 'gameengine-btn--disabled'].filter(Boolean).join(' ');
+  };
+  const buttonProps = {
+    ...rest,
+    id,
+    style: {
+      ...style,
+      ...(isLoading && btnWidth ? {
+        width: `${btnWidth}px`
+      } : {})
+    },
+    disabled: isDisabled || isLoading
+  };
+  if (onClick && typeof onClick === 'function') {
+    buttonProps.onClick = onClick;
+  }
+  if (ariaLabel) buttonProps['aria-label'] = ariaLabel;
+  if (ariaHidden) buttonProps['aria-hidden'] = ariaHidden;
+  const Component = type === 'link' ? 'a' : 'button';
+  if (type === 'link') {
+    buttonProps.href = link;
+    buttonProps.target = target;
+    buttonProps.rel = 'noreferrer';
+  } else {
+    buttonProps.type = type;
+  }
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    ref: btnRef,
+    className: buildClassName(),
+    ...buttonProps
+  }, iconPosition !== 'right' && !isLoading && icon, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), loadingLabel && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gameengine-btn--label"
+  }, loadingLabel)) : label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gameengine-btn--label"
+  }, label), iconPosition === 'right' && !isLoading && icon, !isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gameengine-pro-badge"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('PRO', 'gameengine')));
+};
+Button.displayName = 'Button';
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Button);
 
 /***/ }),
 
@@ -102,7 +211,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 
@@ -223,7 +332,7 @@ const GFLabel = ({
     className: "flex items-center gap-1.5"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
     className: "items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] [padding:3px_6px] text-[10px]"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("PRO", 'gameengine')), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_2__.Icon, {
     as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaLock,
     color: "orange.400",
     boxSize: 3
@@ -266,7 +375,7 @@ const TopBar = ({
 }) => {
   const pathName = path ? path : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("GameEngine", "gameengine");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "gameengine-topbar flex justify-between w-full sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]",
+    className: "gameengine-topbar flex justify-between w-auto sticky mb-6 bg-[var(--gameengine-background)] [box-shadow:var(--gameengine-shadow)] py-5 px-6 z-[3996]",
     style: {
       "top": topPosition
     },
@@ -308,6 +417,1424 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./dev_gameengine/components/UI/Button.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Button.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Button: () => (/* binding */ Button),
+/* harmony export */   CloseButton: () => (/* binding */ CloseButton)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Button = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  loading,
+  isLoading,
+  disabled,
+  isDisabled,
+  type = 'button',
+  onClick,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const isDisabledFinal = disabled || isDisabled || loading || isLoading;
+  const finalStyle = {
+    cursor: isDisabledFinal ? 'not-allowed' : 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
+    border: 'none',
+    background: 'transparent',
+    padding: '0',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: type,
+    ref: ref,
+    disabled: isDisabledFinal,
+    className: className,
+    style: finalStyle,
+    onClick: onClick,
+    ...rest
+  }, (loading || isLoading) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "gf-spinner-inline rounded-full inline-block",
+    style: {
+      width: '14px',
+      height: '14px',
+      border: '2px solid currentColor',
+      borderTopColor: 'transparent',
+      animation: 'gf-spin 0.7s linear infinite'
+    }
+  }), children);
+});
+const CloseButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  onClick,
+  className,
+  style: styleProp,
+  disabled,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    cursor: 'pointer',
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '24px',
+    height: '24px',
+    background: 'transparent',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '16px',
+    lineHeight: 1,
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    ref: ref,
+    type: "button",
+    onClick: onClick,
+    className: className,
+    style: finalStyle,
+    disabled: disabled,
+    ...rest
+  }, "\u2715");
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Dialog.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Dialog.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Dialog: () => (/* binding */ Dialog)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+
+const DialogCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const DialogRoot = ({
+  children,
+  open: openProp,
+  onOpenChange,
+  defaultOpen = false,
+  ...props
+}) => {
+  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultOpen);
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : isOpen;
+  const setOpen = val => {
+    if (!isControlled) setIsOpen(val);
+    onOpenChange?.(val);
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DialogCtx.Provider, {
+    value: {
+      open,
+      setOpen
+    }
+  }, children);
+};
+const DialogTrigger = ({
+  children,
+  asChild
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button"
+  }, children);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
+    onClick: e => {
+      trigger.props.onClick?.(e);
+      setOpen(true);
+    }
+  });
+};
+const DialogBackdrop = ({
+  style: styleProp
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onClick: () => setOpen(false),
+    className: "fixed",
+    style: {
+      inset: 0,
+      background: 'rgba(0,0,0,0.4)',
+      zIndex: 9998,
+      ...styleProp
+    }
+  });
+};
+const DialogPositioner = ({
+  children,
+  style: styleProp
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "fixed flex items-center justify-center overflow-y-auto p-5",
+  style: {
+    inset: 0,
+    zIndex: 9999,
+    ...styleProp
+  }
+}, children);
+const DialogContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} relative bg-white rounded-lg w-full overflow-y-auto`,
+    style: {
+      boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
+      maxWidth: '900px',
+      maxHeight: '90vh',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest,
+    onClick: e => e.stopPropagation()
+  }, children);
+});
+const DialogBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} p-6`,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const DialogCloseTrigger = ({
+  children,
+  asChild
+}) => {
+  const {
+    setOpen
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    type: "button"
+  }, children);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
+    onClick: e => {
+      trigger.props.onClick?.(e);
+      setOpen(false);
+    },
+    style: {
+      ...trigger.props.style,
+      position: 'absolute',
+      top: '24px',
+      right: '16px'
+    }
+  });
+};
+const DialogPortal = ({
+  children
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
+  if (!open) return null;
+  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, document.body);
+};
+const Dialog = Object.assign(DialogRoot, {
+  Root: DialogRoot,
+  Trigger: DialogTrigger,
+  Backdrop: DialogBackdrop,
+  Positioner: DialogPositioner,
+  Content: DialogContent,
+  Body: DialogBody,
+  CloseTrigger: DialogCloseTrigger,
+  Portal: DialogPortal
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Feedback.js":
+/*!**************************************************!*\
+  !*** ./dev_gameengine/components/UI/Feedback.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
+/* harmony export */   SkeletonText: () => (/* binding */ SkeletonText),
+/* harmony export */   Spinner: () => (/* binding */ Spinner)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Spinner = ({
+  size = 'md',
+  color,
+  style: styleProp,
+  className
+}) => {
+  const sz = size === 'sm' ? '16px' : size === 'lg' ? '32px' : size === 'xl' ? '48px' : '20px';
+  const finalStyle = {
+    width: sz,
+    height: sz,
+    border: `2px solid ${color || 'currentColor'}`,
+    borderTopColor: 'transparent',
+    borderRadius: '50%',
+    display: 'inline-block',
+    animation: 'gf-spin 0.7s linear infinite',
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: className,
+    style: finalStyle
+  });
+};
+const Skeleton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    background: 'linear-gradient(90deg, #e2e8f0 25%, #edf2f7 50%, #e2e8f0 75%)',
+    backgroundSize: '200% 100%',
+    animation: 'gf-shimmer 1.5s infinite',
+    borderRadius: '4px',
+    display: 'block',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    ref: ref,
+    className: className,
+    style: finalStyle
+  }, children);
+});
+const SkeletonText = ({
+  noOfLines = 3,
+  spacing = '8px',
+  style: styleProp
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  className: "flex flex-col",
+  style: {
+    gap: spacing,
+    ...styleProp
+  }
+}, Array.from({
+  length: noOfLines
+}).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Skeleton, {
+  key: i,
+  height: "14px",
+  width: i === noOfLines - 1 ? '60%' : '100%'
+})));
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Forms.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Forms.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Badge: () => (/* binding */ Badge),
+/* harmony export */   Checkbox: () => (/* binding */ Checkbox),
+/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup),
+/* harmony export */   Input: () => (/* binding */ Input),
+/* harmony export */   RadioGroup: () => (/* binding */ RadioGroup),
+/* harmony export */   Switch: () => (/* binding */ Switch),
+/* harmony export */   Textarea: () => (/* binding */ Textarea),
+/* harmony export */   createListCollection: () => (/* binding */ createListCollection)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Input = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    width: '100%',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  });
+});
+const Textarea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    width: '100%',
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  });
+});
+const Badge = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('span');
+const RadioGroup = ({
+  children,
+  ...props
+}) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: extracted,
+    ...rest
+  }, children);
+};
+const CheckboxGroup = ({
+  children,
+  ...props
+}) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: extracted,
+    ...rest
+  }, children);
+};
+
+// --- Switch ---
+const SwitchCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const SwitchRoot = ({
+  children,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled,
+  className,
+  style: styleProp,
+  ...props
+}) => {
+  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? checked : internal;
+  const toggle = () => {
+    if (disabled) return;
+    const next = !isChecked;
+    if (!isControlled) setInternal(next);
+    onCheckedChange?.({
+      checked: next
+    });
+  };
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SwitchCtx.Provider, {
+    value: {
+      isChecked,
+      toggle,
+      disabled
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: `${className} inline-flex items-center gap-3`,
+    style: {
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children));
+};
+const SwitchHiddenInput = () => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    checked: isChecked,
+    onChange: toggle,
+    disabled: disabled,
+    className: "absolute opacity-0 w-0 h-0"
+  });
+};
+const SwitchControl = ({
+  className
+}) => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: `${className} inline-block relative w-9 h-5 shrink-0`,
+    style: {
+      borderRadius: '10px',
+      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0',
+      transition: 'background 0.2s',
+      cursor: disabled ? 'not-allowed' : 'pointer'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "absolute w-4 h-4 rounded-full bg-white",
+    style: {
+      top: '2px',
+      left: isChecked ? '18px' : '2px',
+      transition: 'left 0.2s',
+      boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
+    }
+  }));
+};
+const SwitchLabel = ({
+  children,
+  className = '',
+  style: styleProp,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  className: `${className} text-sm`.trim(),
+  style: styleProp,
+  ...props
+}, children);
+const Switch = Object.assign(SwitchRoot, {
+  Root: SwitchRoot,
+  HiddenInput: SwitchHiddenInput,
+  Control: SwitchControl,
+  Label: SwitchLabel
+});
+
+// --- Checkbox ---
+const CheckboxCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
+const CheckboxRoot = ({
+  children,
+  checked,
+  defaultChecked,
+  onCheckedChange,
+  disabled,
+  className,
+  style: styleProp,
+  ...props
+}) => {
+  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
+  const isControlled = checked !== undefined;
+  const isChecked = isControlled ? !!checked : internal;
+  const toggle = () => {
+    if (disabled) return;
+    const next = !isChecked;
+    if (!isControlled) setInternal(next);
+    onCheckedChange?.({
+      checked: next
+    });
+  };
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxCtx.Provider, {
+    value: {
+      isChecked,
+      toggle,
+      disabled
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
+    className: `${className} inline-flex items-center gap-1.5`,
+    style: {
+      cursor: disabled ? 'not-allowed' : 'pointer',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children));
+};
+const CheckboxHiddenInput = () => {
+  const {
+    isChecked,
+    toggle,
+    disabled
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
+    type: "checkbox",
+    checked: isChecked,
+    onChange: toggle,
+    disabled: disabled,
+    className: "absolute opacity-0 w-0 h-0"
+  });
+};
+const CheckboxControl = ({
+  className
+}) => {
+  const {
+    isChecked,
+    toggle
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    onClick: toggle,
+    className: `${className} inline-flex items-center justify-center w-4 h-4 cursor-pointer shrink-0`,
+    style: {
+      borderRadius: '3px',
+      border: `2px solid ${isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0'}`,
+      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#fff',
+      transition: 'all 0.15s'
+    }
+  }, isChecked && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    viewBox: "0 0 12 10",
+    fill: "none",
+    className: "h-2",
+    style: {
+      width: '10px'
+    }
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M1 5l3 4L11 1",
+    stroke: "#fff",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round"
+  })));
+};
+const Checkbox = Object.assign(CheckboxRoot, {
+  Root: CheckboxRoot,
+  HiddenInput: CheckboxHiddenInput,
+  Control: CheckboxControl
+});
+function createListCollection({
+  items = []
+}) {
+  return {
+    items
+  };
+}
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Layout.js":
+/*!************************************************!*\
+  !*** ./dev_gameengine/components/UI/Layout.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Box: () => (/* binding */ Box),
+/* harmony export */   Center: () => (/* binding */ Center),
+/* harmony export */   Flex: () => (/* binding */ Flex),
+/* harmony export */   Portal: () => (/* binding */ Portal),
+/* harmony export */   Separator: () => (/* binding */ Separator),
+/* harmony export */   VStack: () => (/* binding */ VStack)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+
+const Box = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div');
+const Flex = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex'
+});
+const Center = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+});
+const VStack = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.el)('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center'
+});
+const Separator = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_2__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
+    ref: ref,
+    className: `${`${className} m-0`} [border-top:1px_solid_var(--gameengine-border-color)]`,
+    style: {
+      border: 'none',
+      ...extracted,
+      ...styleProp
+    }
+  });
+});
+const Portal = ({
+  children,
+  container
+}) => {
+  const target = container !== null && container !== void 0 ? container : typeof document !== 'undefined' ? document.body : null;
+  if (!target) return null;
+  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, target);
+};
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Media.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Media.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Icon: () => (/* binding */ Icon),
+/* harmony export */   Image: () => (/* binding */ Image)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Icon = ({
+  as: Component,
+  boxSize,
+  size,
+  color,
+  style: styleProp,
+  className,
+  ...rest
+}) => {
+  if (!Component) return null;
+  const sz = boxSize ? `${parseFloat(boxSize) * 4}px` : size === 'md' ? '20px' : size === 'sm' ? '16px' : size === 'lg' ? '24px' : undefined;
+  const s = {
+    ...(sz ? {
+      width: sz,
+      height: sz
+    } : {}),
+    ...(color ? {
+      color
+    } : {}),
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
+    fill: color,
+    style: Object.keys(s).length ? s : undefined,
+    className: className,
+    ...rest
+  });
+};
+const Image = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('img');
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Menu.js":
+/*!**********************************************!*\
+  !*** ./dev_gameengine/components/UI/Menu.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Menu: () => (/* binding */ Menu)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const MenuCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  open: false
+});
+const MenuRoot = ({
+  children,
+  open = false,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MenuCtx.Provider, {
+  value: {
+    open
+  }
+}, children);
+const MenuTrigger = ({
+  children,
+  asChild
+}) => {
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
+};
+const MenuPositioner = ({
+  children,
+  style: styleProp,
+  onMouseEnter,
+  onMouseLeave,
+  ...props
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MenuCtx);
+  const {
+    style: extracted
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  if (!open) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onMouseEnter: onMouseEnter,
+    onMouseLeave: onMouseLeave,
+    className: "absolute pointer-events-auto",
+    style: {
+      zIndex: 9999,
+      bottom: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginBottom: '6px',
+      ...extracted,
+      ...styleProp
+    }
+  }, children);
+};
+const MenuContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} bg-white rounded-md p-2`,
+    style: {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      fontSize: '13px',
+      lineHeight: '1.4',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Menu = Object.assign(MenuRoot, {
+  Root: MenuRoot,
+  Trigger: MenuTrigger,
+  Positioner: MenuPositioner,
+  Content: MenuContent
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Popover.js":
+/*!*************************************************!*\
+  !*** ./dev_gameengine/components/UI/Popover.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Popover: () => (/* binding */ Popover)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const PopoverCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
+  open: false
+});
+const PopoverRoot = ({
+  children,
+  open = false,
+  ...props
+}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PopoverCtx.Provider, {
+  value: {
+    open
+  }
+}, children);
+const PopoverTrigger = ({
+  children,
+  asChild
+}) => {
+  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
+  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
+};
+const PopoverPositioner = ({
+  children,
+  style: styleProp,
+  onMouseEnter,
+  onMouseLeave
+}) => {
+  const {
+    open
+  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PopoverCtx);
+  if (!open) return null;
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    onMouseEnter: onMouseEnter,
+    onMouseLeave: onMouseLeave,
+    className: "absolute pointer-events-auto",
+    style: {
+      zIndex: 9999,
+      bottom: '100%',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      marginBottom: '6px',
+      ...styleProp
+    }
+  }, children);
+};
+const PopoverContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} bg-white rounded-md p-3`,
+    style: {
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      fontSize: '13px',
+      lineHeight: '1.5',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Popover = Object.assign(PopoverRoot, {
+  Root: PopoverRoot,
+  Trigger: PopoverTrigger,
+  Positioner: PopoverPositioner,
+  Content: PopoverContent
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Table.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/Table.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Table: () => (/* binding */ Table)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const TableRoot = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
+    ref: ref,
+    className: `${className} w-full`,
+    style: {
+      borderCollapse: 'collapse',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableScrollArea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    ref: ref,
+    className: `${className} overflow-x-auto w-full`,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("thead", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tbody", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableRow = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
+    ref: ref,
+    className: className,
+    style: {
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableCell = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
+    ref: ref,
+    className: className,
+    style: {
+      padding: '8px 12px',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const TableColumnHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", {
+    ref: ref,
+    className: `${className} text-left font-semibold`,
+    style: {
+      padding: '8px 12px',
+      ...extracted,
+      ...styleProp
+    },
+    ...rest
+  }, children);
+});
+const Table = Object.assign(TableRoot, {
+  Root: TableRoot,
+  ScrollArea: TableScrollArea,
+  Header: TableHeader,
+  Body: TableBody,
+  Row: TableRow,
+  Cell: TableCell,
+  ColumnHeader: TableColumnHeader
+});
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/Typography.js":
+/*!****************************************************!*\
+  !*** ./dev_gameengine/components/UI/Typography.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Span: () => (/* binding */ Span),
+/* harmony export */   Text: () => (/* binding */ Text)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+
+
+
+const Text = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+  children,
+  as: Tag = 'p',
+  className,
+  style: styleProp,
+  ...props
+}, ref) => {
+  const {
+    style: extracted,
+    rest
+  } = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.extractStyleProps)(props);
+  const finalStyle = {
+    margin: 0,
+    ...extracted,
+    ...styleProp
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Tag, {
+    className: className,
+    style: finalStyle,
+    ref: ref,
+    ...rest
+  }, children);
+});
+const Span = (0,_utils__WEBPACK_IMPORTED_MODULE_1__.el)('span');
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/index.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/index.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Badge: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Badge),
+/* harmony export */   Box: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Box),
+/* harmony export */   Button: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_4__.Button),
+/* harmony export */   Center: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Center),
+/* harmony export */   Checkbox: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Checkbox),
+/* harmony export */   CheckboxGroup: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.CheckboxGroup),
+/* harmony export */   CloseButton: () => (/* reexport safe */ _Button__WEBPACK_IMPORTED_MODULE_4__.CloseButton),
+/* harmony export */   Dialog: () => (/* reexport safe */ _Dialog__WEBPACK_IMPORTED_MODULE_8__.Dialog),
+/* harmony export */   Flex: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Flex),
+/* harmony export */   Icon: () => (/* reexport safe */ _Media__WEBPACK_IMPORTED_MODULE_3__.Icon),
+/* harmony export */   Image: () => (/* reexport safe */ _Media__WEBPACK_IMPORTED_MODULE_3__.Image),
+/* harmony export */   Input: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Input),
+/* harmony export */   Menu: () => (/* reexport safe */ _Menu__WEBPACK_IMPORTED_MODULE_9__.Menu),
+/* harmony export */   Popover: () => (/* reexport safe */ _Popover__WEBPACK_IMPORTED_MODULE_10__.Popover),
+/* harmony export */   Portal: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Portal),
+/* harmony export */   RadioGroup: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.RadioGroup),
+/* harmony export */   Separator: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.Separator),
+/* harmony export */   Skeleton: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.Skeleton),
+/* harmony export */   SkeletonText: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.SkeletonText),
+/* harmony export */   Span: () => (/* reexport safe */ _Typography__WEBPACK_IMPORTED_MODULE_2__.Span),
+/* harmony export */   Spinner: () => (/* reexport safe */ _Feedback__WEBPACK_IMPORTED_MODULE_6__.Spinner),
+/* harmony export */   Switch: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Switch),
+/* harmony export */   Table: () => (/* reexport safe */ _Table__WEBPACK_IMPORTED_MODULE_7__.Table),
+/* harmony export */   Text: () => (/* reexport safe */ _Typography__WEBPACK_IMPORTED_MODULE_2__.Text),
+/* harmony export */   Textarea: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.Textarea),
+/* harmony export */   VStack: () => (/* reexport safe */ _Layout__WEBPACK_IMPORTED_MODULE_1__.VStack),
+/* harmony export */   createListCollection: () => (/* reexport safe */ _Forms__WEBPACK_IMPORTED_MODULE_5__.createListCollection),
+/* harmony export */   el: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.el),
+/* harmony export */   extractStyleProps: () => (/* reexport safe */ _utils__WEBPACK_IMPORTED_MODULE_0__.extractStyleProps)
+/* harmony export */ });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./dev_gameengine/components/UI/utils.js");
+/* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Layout */ "./dev_gameengine/components/UI/Layout.js");
+/* harmony import */ var _Typography__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Typography */ "./dev_gameengine/components/UI/Typography.js");
+/* harmony import */ var _Media__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Media */ "./dev_gameengine/components/UI/Media.js");
+/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Button */ "./dev_gameengine/components/UI/Button.js");
+/* harmony import */ var _Forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Forms */ "./dev_gameengine/components/UI/Forms.js");
+/* harmony import */ var _Feedback__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Feedback */ "./dev_gameengine/components/UI/Feedback.js");
+/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Table */ "./dev_gameengine/components/UI/Table.js");
+/* harmony import */ var _Dialog__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Dialog */ "./dev_gameengine/components/UI/Dialog.js");
+/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Menu */ "./dev_gameengine/components/UI/Menu.js");
+/* harmony import */ var _Popover__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Popover */ "./dev_gameengine/components/UI/Popover.js");
+
+
+
+
+
+
+
+
+
+
+
+
+/***/ }),
+
+/***/ "./dev_gameengine/components/UI/utils.js":
+/*!***********************************************!*\
+  !*** ./dev_gameengine/components/UI/utils.js ***!
+  \***********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   el: () => (/* binding */ el),
+/* harmony export */   extractStyleProps: () => (/* binding */ extractStyleProps)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+const STYLE_ALIAS = {
+  p: 'padding',
+  pt: 'paddingTop',
+  pb: 'paddingBottom',
+  pl: 'paddingLeft',
+  pr: 'paddingRight',
+  m: 'margin',
+  mt: 'marginTop',
+  mb: 'marginBottom',
+  ml: 'marginLeft',
+  mr: 'marginRight',
+  w: 'width',
+  h: 'height',
+  maxW: 'maxWidth',
+  minW: 'minWidth',
+  maxH: 'maxHeight',
+  minH: 'minHeight',
+  bg: 'background',
+  boxShadow: 'boxShadow',
+  shadow: 'boxShadow',
+  borderRadius: 'borderRadius',
+  borderColor: 'borderColor',
+  borderWidth: 'borderWidth',
+  borderTopWidth: 'borderTopWidth',
+  borderBottomWidth: 'borderBottomWidth',
+  borderLeftWidth: 'borderLeftWidth',
+  borderRightWidth: 'borderRightWidth',
+  lineHeight: 'lineHeight',
+  letterSpacing: 'letterSpacing',
+  wordBreak: 'wordBreak',
+  whiteSpace: 'whiteSpace',
+  zIndex: 'zIndex',
+  gap: 'gap',
+  alignSelf: 'alignSelf',
+  justifySelf: 'justifySelf',
+  flexShrink: 'flexShrink',
+  flexGrow: 'flexGrow',
+  overflowX: 'overflowX',
+  overflowY: 'overflowY',
+  cursor: 'cursor',
+  visibility: 'visibility',
+  opacity: 'opacity',
+  userSelect: 'userSelect',
+  pointerEvents: 'pointerEvents'
+};
+const DIRECT_STYLES = new Set(['color', 'fontSize', 'fontWeight', 'fontFamily', 'width', 'height', 'padding', 'margin', 'background', 'backgroundColor', 'border', 'borderTop', 'borderBottom', 'borderLeft', 'borderRight', 'position', 'top', 'bottom', 'left', 'right', 'display', 'overflow', 'flex', 'flexDirection', 'flexWrap', 'justifyContent', 'alignItems', 'outline', 'transform', 'transition', 'textAlign', 'textTransform', 'textDecoration']);
+
+// Props that are Chakra-only and must not reach the DOM
+const SKIP_PROPS = new Set(['variant', 'colorScheme', 'colorPalette', 'size', 'focusRing', 'loading', 'isDisabled', 'as', 'asChild', 'motionPreset', 'placement', 'positioning', 'interactive', 'striped', 'showColumnBorder', 'collection', 'onValueChange', 'onCheckedChange', 'checkedIcon', 'uncheckedIcon', 'inputMode']);
+function resolveResponsive(val) {
+  if (val && typeof val === 'object' && !Array.isArray(val) && 'base' in val) {
+    return val.base;
+  }
+  return val;
+}
+function clean(val) {
+  return typeof val === 'string' ? val.replace(/\s*!important/gi, '') : val;
+}
+function extractStyleProps(props) {
+  const style = {};
+  const rest = {};
+  for (const [k, rawVal] of Object.entries(props)) {
+    if (SKIP_PROPS.has(k) || k.startsWith('_') && k !== '_') continue;
+    const val = resolveResponsive(rawVal);
+    if (k === 'px') {
+      style.paddingLeft = clean(val);
+      style.paddingRight = clean(val);
+    } else if (k === 'py') {
+      style.paddingTop = clean(val);
+      style.paddingBottom = clean(val);
+    } else if (k === 'mx') {
+      style.marginLeft = clean(val);
+      style.marginRight = clean(val);
+    } else if (k === 'my') {
+      style.marginTop = clean(val);
+      style.marginBottom = clean(val);
+    } else if (k === 'boxSize') {
+      style.width = clean(val);
+      style.height = clean(val);
+    } else if (k === 'direction') {
+      style.flexDirection = clean(val);
+    } else if (k === 'align' && !props.alignItems) {
+      style.alignItems = clean(val);
+    } else if (k === 'justify' && !props.justifyContent) {
+      style.justifyContent = clean(val);
+    } else if (k === 'wrap') {
+      style.flexWrap = clean(val);
+    } else if (STYLE_ALIAS[k]) {
+      style[STYLE_ALIAS[k]] = clean(val);
+    } else if (DIRECT_STYLES.has(k)) {
+      style[k] = clean(val);
+    } else {
+      rest[k] = rawVal;
+    }
+  }
+  return {
+    style,
+    rest
+  };
+}
+function el(tag, baseStyle = {}) {
+  const Comp = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
+    children,
+    className,
+    style: styleProp,
+    ...props
+  }, ref) => {
+    const {
+      style: extracted,
+      rest
+    } = extractStyleProps(props);
+    const finalStyle = {
+      ...baseStyle,
+      ...extracted,
+      ...styleProp
+    };
+    // Remove any remaining unknown non-HTML keys (safety net)
+    const {
+      dangerouslySetInnerHTML,
+      ...safeRest
+    } = rest;
+    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(tag, {
+      ...safeRest,
+      ...(dangerouslySetInnerHTML ? {
+        dangerouslySetInnerHTML
+      } : {}),
+      className,
+      style: finalStyle,
+      ref
+    }, children);
+  });
+  return Comp;
+}
+
+// Inject global CSS for animations (once)
+if (typeof document !== 'undefined' && !document.getElementById('gf-ui-animations')) {
+  const style = document.createElement('style');
+  style.id = 'gf-ui-animations';
+  style.textContent = `
+        @keyframes gf-spin { to { transform: rotate(360deg); } }
+        @keyframes gf-shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    `;
+  document.head.appendChild(style);
+}
+
+/***/ }),
+
 /***/ "./dev_gameengine/containers/Setup/Pages/Congratulation/index.js":
 /*!***********************************************************************!*\
   !*** ./dev_gameengine/containers/Setup/Pages/Congratulation/index.js ***!
@@ -321,13 +1848,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+/* harmony import */ var _GFComponents_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Button */ "./dev_gameengine/components/Button/index.js");
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+
 
 
 
@@ -374,23 +1903,19 @@ const Congratulation = () => {
     className: "flex w-full justify-center gap-4",
     marginTop: '8px'
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    style: {
-      "padding": "2px 16px",
-      "border": "1px solid #CBD1D7",
-      "height": "42px"
-    },
+    className: "flex items-center gap-2 cursor-pointer p-[2px_16px] !border-[transparent] border-solid rounded-sm h-[42px]",
     ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_5__.clearBtn,
     onClick: () => {
       window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.admin_url + 'admin.php?page=gameengine';
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Go To Dashboard", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_5__.primaryBtn,
-    onClick: () => {
-      window.open(_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.site_url, '__blank');
-    }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Visit Website", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_6__.FaArrowRightLong
-  })))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Go To Dashboard", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Visit Website", "gameengine"),
+    icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaArrowRightLong
+    }),
+    iconPosition: "right",
+    onClick: () => window.open(_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.site_url, '__blank')
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Congratulation);
 
@@ -412,7 +1937,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFUtils/icons */ "./dev_gameengine/utils/icons.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
@@ -502,7 +2027,7 @@ const Addons = () => {
           setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
         }
       }
-    }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Icon, {
+    }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Icon, {
       as: item.icon,
       width: '30px',
       height: '30px'
@@ -527,7 +2052,7 @@ const Addons = () => {
       label: item.description,
       fontSize: '12px',
       lineHeight: '16px'
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
       size: "sm",
       mt: "0.5",
       ml: "auto",
@@ -545,7 +2070,7 @@ const Addons = () => {
       //     );
       //   }
       // }}
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.HiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null)));
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.HiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null)));
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Addons);
@@ -568,14 +2093,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
-/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
-
-
-
-
+/* harmony import */ var _GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @GFComponents/Labels/GFLabel */ "./dev_gameengine/components/Labels/GFLabel.js");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 
 
 
@@ -650,51 +2170,43 @@ const DataPreview = () => {
   const {
     values,
     setFieldValue
-  } = (0,formik__WEBPACK_IMPORTED_MODULE_5__.useFormikContext)();
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_4__.useFormikContext)();
   const selectedCard = previewCards.find(item => item.slug === values.preset);
   const previewData = [{
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Achievement", "gamneengine"),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Achievement", "gameengine"),
     slug: 'achievements'
   }, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Levels", "gamneengine"),
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Levels", "gameengine"),
     slug: 'levels'
   }];
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Setup Your GameEngine', 'gemboards'),
-    subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose your preferred gamification setup', 'gemboards')
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Setup Your GameEngine', 'gameengine'),
+    subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Choose your preferred gamification setup', 'gameengine')
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex flex-wrap gap-4"
+    className: "grid grid-cols-3 gap-4 max-w-[900px] mx-auto"
   }, previewCards.map((item, idx) => {
     const isSelected = item.slug === values.preset;
+    console.log(isSelected, 'is');
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex items-center cursor-pointer gap-3 p-4 rounded text-center",
-      style: {
-        "maxWidth": "280px",
-        "width": "calc((100% / 3) - 11px)",
-        "border": `1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`,
-        "background": isSelected && '#F3F5FF'
-      },
+      className: `flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all border-[1px] border-solid
+  ${isSelected ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`,
       key: idx,
-      onClick: () => {
-        setFieldValue('preset', item.slug);
-      }
+      onClick: () => setFieldValue('preset', item.slug)
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-      className: "h-auto",
-      style: {
-        "maxWidth": "36px"
-      },
-      src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.plugin_root_url + item.icon
+      className: "h-auto max-w-[36px]",
+      src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.plugin_root_url + item.icon,
+      alt: item.label
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "flex flex-col items-start gap-1"
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simpleHeading",
       margin: 0,
       padding: 0,
       label: item.label,
       lineHeight: '20px'
-    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: 0,
       padding: 0,
@@ -703,49 +2215,46 @@ const DataPreview = () => {
       lineHeight: '16px'
     })));
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full flex-col p-4 gap-4 rounded-md mt-6",
-    style: {
-      "background": "#F3F5FF"
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "flex flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
     type: "simple",
     margin: 0,
     padding: 0,
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Levels & Achievements Preview', 'gameengine')
-    // fontSize={'16px'}
-    // lineHeight={'24px'}
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Levels & Achievements Preview', 'gameengine'),
+    fontSize: "14px",
+    color: "#64748B"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex gap-4"
+    className: "flex gap-6 w-full"
   }, previewData.map((item, idx) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex flex-col gap-3 bg-white rounded",
-      style: {
-        "width": "calc(100% / 2)",
-        "padding": "16px 24px"
-      }
+      className: "flex flex-col gap-5 bg-white rounded-lg w-1/2 p-6 shadow-sm border border-white",
+      key: idx
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex items-center gap-0.5",
-      wordWrap: 'break-word'
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      className: "flex items-center gap-1.5 flex-wrap"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simpleHeading",
       margin: 0,
       padding: 0,
       label: item.title,
       fontSize: '16px',
       lineHeight: '24px'
-    }), selectedCard && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    }), selectedCard && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: '2px 0 0 0',
       padding: 0,
-      label: ' ( ' + selectedCard.label + ' Points )',
+      label: `( ${selectedCard.label} Points )`,
       fontSize: '12px',
       lineHeight: '24px'
-    })), values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "flex flex-col gap-3"
+    }, values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "simple",
       margin: 0,
       padding: 0,
-      label: dataItem
-    })));
+      key: index,
+      label: dataItem,
+      color: "#475569"
+    }))));
   })))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (DataPreview);
@@ -765,13 +2274,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
+/* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
+/* harmony import */ var _GFComponents_Button__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @GFComponents/Button */ "./dev_gameengine/components/Button/index.js");
+
 
 
 
@@ -787,13 +2298,13 @@ const SettingsFooter = ({
   const {
     submitForm,
     isSubmitting
-  } = (0,formik__WEBPACK_IMPORTED_MODULE_5__.useFormikContext)();
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
+  } = (0,formik__WEBPACK_IMPORTED_MODULE_4__.useFormikContext)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useNavigate)();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full justify-between items-center"
+    className: "flex w-full justify-between items-center mt-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "text-sm font-medium leading-5",
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__.clearBtn,
+    className: "flex items-center gap-2 cursor-pointer",
+    style: _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_6__.outlineBtn,
     onClick: () => {
       if (step === "addons") {
         setStep("datapreview");
@@ -801,11 +2312,20 @@ const SettingsFooter = ({
         navigate("/");
       }
     }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleLeft,
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleLeft,
     width: "10px"
-  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_2__.primaryBtn,
+  }), (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("Back", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Button__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Continue', 'gameengine'),
+    loadingLabel: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Continue', 'gameengine'),
+    isLoading: isSubmitting,
+    isDisabled: isSubmitting,
+    icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_3__.FaAngleRight,
+      width: '10px',
+      color: '#fff'
+    }),
+    iconPosition: "right",
     onClick: () => {
       if (step === "datapreview") {
         setStep("addons");
@@ -813,10 +2333,7 @@ const SettingsFooter = ({
         submitForm();
       }
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Continue", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_4__.FaAngleRight,
-    width: "10px"
-  })));
+  }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SettingsFooter);
 
@@ -849,20 +2366,18 @@ const SettingsHeader = ({
   subTitle
 }) => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex flex-col items-center gap-4"
+    className: "flex flex-col items-center gap-4 w-full"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "h-auto",
-    style: {
-      "maxWidth": "36px"
-    },
-    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.plugin_root_url + 'assets/images/logo.svg'
+    className: "h-auto max-w-[36px]",
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.plugin_root_url + 'assets/images/logo.svg',
+    alt: "Logo"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_1__["default"], {
     type: "heading",
     margin: 0,
     padding: 0,
-    fontSize: '38px',
+    fontSize: '36px',
     lineHeight: '38px',
     label: title,
     borderBottom: 'none'
@@ -893,13 +2408,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var formik__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! formik */ "./node_modules/formik/dist/formik.esm.js");
-/* harmony import */ var _components_SettingsHeader__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingsHeader */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsHeader.js");
-/* harmony import */ var _components_SettingsFooter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/SettingsFooter */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js");
-/* harmony import */ var _Steps_DataPreview__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Steps/DataPreview */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js");
-/* harmony import */ var _Steps_Addons__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Steps/Addons */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js");
-/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
-
+/* harmony import */ var _components_SettingsFooter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/SettingsFooter */ "./dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js");
+/* harmony import */ var _Steps_DataPreview__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Steps/DataPreview */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js");
+/* harmony import */ var _Steps_Addons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Steps/Addons */ "./dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
 
 
 
@@ -910,11 +2423,11 @@ __webpack_require__.r(__webpack_exports__);
 
 const Settings = () => {
   const [step, setStep] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('datapreview');
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_6__.useNavigate)();
   const onSubmitHandler = async (values, actions) => {
     actions.setSubmitting(true);
     try {
-      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.API.post('/setup/complete', {
+      const response = await _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.API.post('/setup/complete', {
         ...values
       });
       if (response.status === 200) {
@@ -927,7 +2440,7 @@ const Settings = () => {
     }
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full justify-center"
+    className: "flex w-full justify-center pb-12"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
     enableReinitialize: true,
     initialValues: {
@@ -938,16 +2451,13 @@ const Settings = () => {
     onSubmit: onSubmitHandler
   }, () => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "w-full flex-col justify-center items-center flex gap-6 bg-white rounded-xl",
-      style: {
-        "maxWidth": "676px",
-        "padding": "40px",
-        "border": "1px solid #F6F7F8"
-      }
-    }, step === 'datapreview' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_DataPreview__WEBPACK_IMPORTED_MODULE_4__["default"], null), step === 'addons' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_Addons__WEBPACK_IMPORTED_MODULE_5__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsFooter__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      className: "w-full max-w-[676px] flex-col justify-center items-center flex gap-8 bg-white rounded-xl p-10 shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]"
+    }, step === 'datapreview' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_DataPreview__WEBPACK_IMPORTED_MODULE_3__["default"], null), step === 'addons' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Steps_Addons__WEBPACK_IMPORTED_MODULE_4__["default"], null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "w-full mt-4"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsFooter__WEBPACK_IMPORTED_MODULE_2__["default"], {
       step: step,
       setStep: setStep
-    }));
+    })));
   }));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
@@ -967,7 +2477,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFUtils/ui */ "./dev_gameengine/utils/ui.js");
+/* harmony import */ var _GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @GFComponents/UI */ "./dev_gameengine/components/UI/index.js");
 /* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
@@ -975,8 +2485,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_icons_lia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-icons/lia */ "./node_modules/react-icons/lia/index.mjs");
 /* harmony import */ var react_icons_tb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-icons/tb */ "./node_modules/react-icons/tb/index.mjs");
 /* harmony import */ var react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-icons/fa6 */ "./node_modules/react-icons/fa6/index.mjs");
-/* harmony import */ var _assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../../../assets/scss/chakra/recipe */ "./assets/scss/chakra/recipe.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
+/* harmony import */ var _GFComponents_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @GFComponents/Button */ "./dev_gameengine/components/Button/index.js");
 
 
 
@@ -1001,25 +2511,17 @@ const cards = [{
 }];
 const Welcome = () => {
   const [selectedCard, setSelectedCard] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('genatative');
-  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_9__.useNavigate)();
+  const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_8__.useNavigate)();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "w-full flex-col justify-center items-center h-full flex gap-6"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full flex-col items-center rounded-xl gap-6",
-    style: {
-      "maxWidth": "680px",
-      "padding": "40px",
-      "boxShadow": " 0 6px 12px 0 rgba(20, 26, 36, 0.06)",
-      "border": "1px solid #F6F7F8"
-    }
+    className: "flex w-full max-w-[680px] flex-col items-center rounded-xl gap-8 p-10 bg-white shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-4"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    className: "h-auto",
-    style: {
-      "maxWidth": "36px"
-    },
-    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.plugin_root_url + 'assets/images/logo.svg'
+    className: "h-auto max-w-[36px]",
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.plugin_root_url + 'assets/images/logo.svg',
+    alt: "Logo"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-col items-center gap-2"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
@@ -1028,7 +2530,7 @@ const Welcome = () => {
     padding: 0,
     fontSize: '38px',
     lineHeight: '38px',
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Welcome to GameEngine 👋', 'gemboards'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Welcome to GameEngine 👋', 'gameengine'),
     borderBottom: 'none'
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
     type: "simple",
@@ -1036,27 +2538,20 @@ const Welcome = () => {
     padding: 0,
     lineHeight: '28px',
     textAlign: 'center',
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('You are just a few clicks away from transforming your website into a powerful e-commerce platform.', 'gemboards')
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('You are just a few clicks away from transforming your website into a powerful e-commerce platform.', 'gameengine')
   }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "w-full h-px",
-    style: {
-      "background": "#E0E4E8"
-    }
+    className: "w-full h-px bg-[#E0E4E8]"
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex gap-6"
+    className: "flex gap-6 w-full justify-center"
   }, cards.map((item, idx) => {
     const isSelected = selectedCard === item.value;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "flex flex-col items-center gap-4 p-4 rounded text-center relative",
-      style: {
-        "maxWidth": "280px",
-        "border": `1px solid ${isSelected ? 'var(--gameengine-primary)' : '#E0E4E8'}`,
-        "background": isSelected && '#F3F5FF'
-      },
+      className: `flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border border-solid border-[var(--gameengine-border-color)] transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? '!border-[var(--gameengine-primary)] bg-[#F3F5FF]' : ''}`,
       key: idx,
       onClick: () => setSelectedCard(item.value)
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-      as: item.icon
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+      as: item.icon,
+      className: "text-xl text-gray-700"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Labels_GFLabel__WEBPACK_IMPORTED_MODULE_4__["default"], {
       type: "simpleHeading",
       margin: 0,
@@ -1071,14 +2566,15 @@ const Welcome = () => {
       label: item.description,
       lineHeight: '24px'
     }), isSelected && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-      className: "absolute w-5 h-5 rounded-full [border:4px_solid_var(--gameengine-primary)]",
-      style: {
-        "top": "8px",
-        "right": "8px"
-      }
+      className: "absolute top-2 right-2 w-5 h-5 rounded-full border-[4px] border-[var(--gameengine-primary)]"
     }));
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.primaryBtn,
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Button__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"),
+    icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
+      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight,
+      color: '#fff'
+    }),
+    iconPosition: "right",
     onClick: () => {
       if (selectedCard === 'manual') {
         window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine-points';
@@ -1086,11 +2582,8 @@ const Welcome = () => {
         navigate('/settings');
       }
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Process to Next", "gameengine"), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFUtils_ui__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-    as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaAngleRight
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    className: "text-sm font-medium leading-5",
-    ..._assets_scss_chakra_recipe__WEBPACK_IMPORTED_MODULE_8__.clearBtn,
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", {
+    className: "text-md cursor-pointer",
     onClick: () => window.location.href = _GFUtils_helper__WEBPACK_IMPORTED_MODULE_2__.admin_url + 'admin.php?page=gameengine'
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)("Skip This Step", "gameengine")));
 };
@@ -1125,11 +2618,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Setup = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bg-white",
-    style: {
-      "width": "100vw",
-      "height": "calc(100vh - 171px)"
-    }
+    className: "bg-white h-[calc(100vh_-_171px)]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
     path: 'GameEngine',
     topPosition: "0"
@@ -1729,1247 +3218,6 @@ const tutorLms = () => {
     strokeLinejoin: "round"
   }));
 };
-
-/***/ }),
-
-/***/ "./dev_gameengine/utils/ui.js":
-/*!************************************!*\
-  !*** ./dev_gameengine/utils/ui.js ***!
-  \************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   Badge: () => (/* binding */ Badge),
-/* harmony export */   Box: () => (/* binding */ Box),
-/* harmony export */   Button: () => (/* binding */ Button),
-/* harmony export */   Center: () => (/* binding */ Center),
-/* harmony export */   Checkbox: () => (/* binding */ Checkbox),
-/* harmony export */   CheckboxGroup: () => (/* binding */ CheckboxGroup),
-/* harmony export */   CloseButton: () => (/* binding */ CloseButton),
-/* harmony export */   Dialog: () => (/* binding */ Dialog),
-/* harmony export */   Flex: () => (/* binding */ Flex),
-/* harmony export */   Icon: () => (/* binding */ Icon),
-/* harmony export */   Image: () => (/* binding */ Image),
-/* harmony export */   Input: () => (/* binding */ Input),
-/* harmony export */   Menu: () => (/* binding */ Menu),
-/* harmony export */   Popover: () => (/* binding */ Popover),
-/* harmony export */   Portal: () => (/* binding */ Portal),
-/* harmony export */   RadioGroup: () => (/* binding */ RadioGroup),
-/* harmony export */   Separator: () => (/* binding */ Separator),
-/* harmony export */   Skeleton: () => (/* binding */ Skeleton),
-/* harmony export */   SkeletonText: () => (/* binding */ SkeletonText),
-/* harmony export */   Span: () => (/* binding */ Span),
-/* harmony export */   Spinner: () => (/* binding */ Spinner),
-/* harmony export */   Switch: () => (/* binding */ Switch),
-/* harmony export */   Table: () => (/* binding */ Table),
-/* harmony export */   Text: () => (/* binding */ Text),
-/* harmony export */   Textarea: () => (/* binding */ Textarea),
-/* harmony export */   VStack: () => (/* binding */ VStack),
-/* harmony export */   createListCollection: () => (/* binding */ createListCollection),
-/* harmony export */   extractStyleProps: () => (/* binding */ extractStyleProps)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
-
-/**
- * ui.js — Drop-in replacement for @chakra-ui/react
- * Provides the same API surface using plain HTML elements + inline styles.
- * No ChakraProvider required.
- */
-
-
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Style-prop extraction
-// ─────────────────────────────────────────────────────────────────────────────
-const STYLE_ALIAS = {
-  p: 'padding',
-  pt: 'paddingTop',
-  pb: 'paddingBottom',
-  pl: 'paddingLeft',
-  pr: 'paddingRight',
-  m: 'margin',
-  mt: 'marginTop',
-  mb: 'marginBottom',
-  ml: 'marginLeft',
-  mr: 'marginRight',
-  w: 'width',
-  h: 'height',
-  maxW: 'maxWidth',
-  minW: 'minWidth',
-  maxH: 'maxHeight',
-  minH: 'minHeight',
-  bg: 'background',
-  boxShadow: 'boxShadow',
-  shadow: 'boxShadow',
-  borderRadius: 'borderRadius',
-  borderColor: 'borderColor',
-  borderWidth: 'borderWidth',
-  borderTopWidth: 'borderTopWidth',
-  borderBottomWidth: 'borderBottomWidth',
-  borderLeftWidth: 'borderLeftWidth',
-  borderRightWidth: 'borderRightWidth',
-  lineHeight: 'lineHeight',
-  letterSpacing: 'letterSpacing',
-  wordBreak: 'wordBreak',
-  whiteSpace: 'whiteSpace',
-  zIndex: 'zIndex',
-  gap: 'gap',
-  alignSelf: 'alignSelf',
-  justifySelf: 'justifySelf',
-  flexShrink: 'flexShrink',
-  flexGrow: 'flexGrow',
-  overflowX: 'overflowX',
-  overflowY: 'overflowY',
-  cursor: 'cursor',
-  visibility: 'visibility',
-  opacity: 'opacity',
-  userSelect: 'userSelect',
-  pointerEvents: 'pointerEvents'
-};
-const DIRECT_STYLES = new Set(['color', 'fontSize', 'fontWeight', 'fontFamily', 'width', 'height', 'padding', 'margin', 'background', 'backgroundColor', 'border', 'borderTop', 'borderBottom', 'borderLeft', 'borderRight', 'position', 'top', 'bottom', 'left', 'right', 'display', 'overflow', 'flex', 'flexDirection', 'flexWrap', 'justifyContent', 'alignItems', 'outline', 'transform', 'transition', 'textAlign', 'textTransform', 'textDecoration']);
-
-// Props that are Chakra-only and must not reach the DOM
-const SKIP_PROPS = new Set(['variant', 'colorScheme', 'colorPalette', 'size', 'focusRing', 'loading', 'isDisabled', 'as', 'asChild', 'motionPreset', 'placement', 'positioning', 'interactive', 'striped', 'showColumnBorder', 'collection', 'onValueChange', 'onCheckedChange', 'checkedIcon', 'uncheckedIcon', 'inputMode']);
-function resolveResponsive(val) {
-  if (val && typeof val === 'object' && !Array.isArray(val) && 'base' in val) {
-    return val.base;
-  }
-  return val;
-}
-function clean(val) {
-  return typeof val === 'string' ? val.replace(/\s*!important/gi, '') : val;
-}
-function extractStyleProps(props) {
-  const style = {};
-  const rest = {};
-  for (const [k, rawVal] of Object.entries(props)) {
-    if (SKIP_PROPS.has(k) || k.startsWith('_') && k !== '_') continue;
-    const val = resolveResponsive(rawVal);
-    if (k === 'px') {
-      style.paddingLeft = clean(val);
-      style.paddingRight = clean(val);
-    } else if (k === 'py') {
-      style.paddingTop = clean(val);
-      style.paddingBottom = clean(val);
-    } else if (k === 'mx') {
-      style.marginLeft = clean(val);
-      style.marginRight = clean(val);
-    } else if (k === 'my') {
-      style.marginTop = clean(val);
-      style.marginBottom = clean(val);
-    } else if (k === 'boxSize') {
-      style.width = clean(val);
-      style.height = clean(val);
-    } else if (k === 'direction') {
-      style.flexDirection = clean(val);
-    } else if (k === 'align' && !props.alignItems) {
-      style.alignItems = clean(val);
-    } else if (k === 'justify' && !props.justifyContent) {
-      style.justifyContent = clean(val);
-    } else if (k === 'wrap') {
-      style.flexWrap = clean(val);
-    } else if (STYLE_ALIAS[k]) {
-      style[STYLE_ALIAS[k]] = clean(val);
-    } else if (DIRECT_STYLES.has(k)) {
-      style[k] = clean(val);
-    } else {
-      rest[k] = rawVal;
-    }
-  }
-  return {
-    style,
-    rest
-  };
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Generic element factory
-// ─────────────────────────────────────────────────────────────────────────────
-function el(tag, baseStyle = {}) {
-  const Comp = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-    children,
-    className,
-    style: styleProp,
-    ...props
-  }, ref) => {
-    const {
-      style: extracted,
-      rest
-    } = extractStyleProps(props);
-    const finalStyle = {
-      ...baseStyle,
-      ...extracted,
-      ...styleProp
-    };
-    // Remove any remaining unknown non-HTML keys (safety net)
-    const {
-      dangerouslySetInnerHTML,
-      ...safeRest
-    } = rest;
-    return react__WEBPACK_IMPORTED_MODULE_0___default().createElement(tag, {
-      ...safeRest,
-      ...(dangerouslySetInnerHTML ? {
-        dangerouslySetInnerHTML
-      } : {}),
-      className,
-      style: finalStyle,
-      ref
-    }, children);
-  });
-  return Comp;
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Layout primitives
-// ─────────────────────────────────────────────────────────────────────────────
-const Box = el('div');
-const Flex = el('div', {
-  display: 'flex'
-});
-const Center = el('div', {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-});
-const VStack = el('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center'
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Typography
-// ─────────────────────────────────────────────────────────────────────────────
-const Text = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  as: Tag = 'p',
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    margin: 0,
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Tag, {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  }, children);
-});
-const Span = el('span');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Icon — renders the `as` prop component directly
-// ─────────────────────────────────────────────────────────────────────────────
-const Icon = ({
-  as: Component,
-  boxSize,
-  size,
-  color,
-  style: styleProp,
-  className,
-  ...rest
-}) => {
-  if (!Component) return null;
-  const sz = boxSize ? `${parseFloat(boxSize) * 4}px` : size === 'md' ? '20px' : size === 'sm' ? '16px' : size === 'lg' ? '24px' : undefined;
-  const s = {
-    ...(sz ? {
-      width: sz,
-      height: sz
-    } : {}),
-    ...(color ? {
-      color
-    } : {}),
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Component, {
-    style: Object.keys(s).length ? s : undefined,
-    className: className,
-    ...rest
-  });
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Image
-// ─────────────────────────────────────────────────────────────────────────────
-const Image = el('img');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Button
-// ─────────────────────────────────────────────────────────────────────────────
-const Button = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  loading,
-  isLoading,
-  disabled,
-  isDisabled,
-  type = 'button',
-  onClick,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const isDisabledFinal = disabled || isDisabled || loading || isLoading;
-  const finalStyle = {
-    cursor: isDisabledFinal ? 'not-allowed' : 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    border: 'none',
-    background: 'transparent',
-    padding: '0',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: type,
-    ref: ref,
-    disabled: isDisabledFinal,
-    className: className,
-    style: finalStyle,
-    onClick: onClick,
-    ...rest
-  }, (loading || isLoading) && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "gf-spinner-inline rounded-full inline-block",
-    style: {
-      width: '14px',
-      height: '14px',
-      border: '2px solid currentColor',
-      borderTopColor: 'transparent',
-      animation: 'gf-spin 0.7s linear infinite'
-    }
-  }), children);
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// CloseButton
-// ─────────────────────────────────────────────────────────────────────────────
-const CloseButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  onClick,
-  className,
-  style: styleProp,
-  disabled,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    cursor: 'pointer',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '24px',
-    height: '24px',
-    background: 'transparent',
-    border: 'none',
-    borderRadius: '4px',
-    fontSize: '16px',
-    lineHeight: 1,
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    ref: ref,
-    type: "button",
-    onClick: onClick,
-    className: className,
-    style: finalStyle,
-    disabled: disabled,
-    ...rest
-  }, "\u2715");
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Form inputs
-// ─────────────────────────────────────────────────────────────────────────────
-const Input = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    width: '100%',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  });
-});
-const Textarea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  const finalStyle = {
-    width: '100%',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("textarea", {
-    className: className,
-    style: finalStyle,
-    ref: ref,
-    ...rest
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Badge
-// ─────────────────────────────────────────────────────────────────────────────
-const Badge = el('span');
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Separator / Divider
-// ─────────────────────────────────────────────────────────────────────────────
-const Separator = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("hr", {
-    ref: ref,
-    className: `${`${className} m-0`} [border-top:1px_solid_var(--gameengine-border-color)]`,
-    style: {
-      border: 'none',
-      ...extracted,
-      ...styleProp
-    }
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Spinner
-// ─────────────────────────────────────────────────────────────────────────────
-const Spinner = ({
-  size = 'md',
-  color,
-  style: styleProp,
-  className
-}) => {
-  const sz = size === 'sm' ? '16px' : size === 'lg' ? '32px' : size === 'xl' ? '48px' : '20px';
-  const finalStyle = {
-    width: sz,
-    height: sz,
-    border: `2px solid ${color || 'currentColor'}`,
-    borderTopColor: 'transparent',
-    borderRadius: '50%',
-    display: 'inline-block',
-    animation: 'gf-spin 0.7s linear infinite',
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: className,
-    style: finalStyle
-  });
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Skeleton / SkeletonText
-// ─────────────────────────────────────────────────────────────────────────────
-const Skeleton = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  const finalStyle = {
-    background: 'linear-gradient(90deg, #e2e8f0 25%, #edf2f7 50%, #e2e8f0 75%)',
-    backgroundSize: '200% 100%',
-    animation: 'gf-shimmer 1.5s infinite',
-    borderRadius: '4px',
-    display: 'block',
-    ...extracted,
-    ...styleProp
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    ref: ref,
-    className: className,
-    style: finalStyle
-  }, children);
-});
-const SkeletonText = ({
-  noOfLines = 3,
-  spacing = '8px',
-  style: styleProp
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-  className: "flex flex-col",
-  style: {
-    gap: spacing,
-    ...styleProp
-  }
-}, Array.from({
-  length: noOfLines
-}).map((_, i) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(Skeleton, {
-  key: i,
-  height: "14px",
-  width: i === noOfLines - 1 ? '60%' : '100%'
-})));
-
-// ─────────────────────────────────────────────────────────────────────────────
-// RadioGroup / CheckboxGroup wrappers
-// ─────────────────────────────────────────────────────────────────────────────
-const RadioGroup = ({
-  children,
-  ...props
-}) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    style: extracted,
-    ...rest
-  }, children);
-};
-const CheckboxGroup = ({
-  children,
-  ...props
-}) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    style: extracted,
-    ...rest
-  }, children);
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Switch (compound component)
-// ─────────────────────────────────────────────────────────────────────────────
-const SwitchCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const SwitchRoot = ({
-  children,
-  checked,
-  defaultChecked,
-  onCheckedChange,
-  disabled,
-  className,
-  style: styleProp,
-  ...props
-}) => {
-  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
-  const isControlled = checked !== undefined;
-  const isChecked = isControlled ? checked : internal;
-  const toggle = () => {
-    if (disabled) return;
-    const next = !isChecked;
-    if (!isControlled) setInternal(next);
-    onCheckedChange?.({
-      checked: next
-    });
-  };
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(SwitchCtx.Provider, {
-    value: {
-      isChecked,
-      toggle,
-      disabled
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: `${className} inline-flex items-center`,
-    style: {
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children));
-};
-const SwitchHiddenInput = () => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    type: "checkbox",
-    checked: isChecked,
-    onChange: toggle,
-    disabled: disabled,
-    className: "absolute opacity-0 w-0 h-0"
-  });
-};
-const SwitchControl = ({
-  className
-}) => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SwitchCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    onClick: toggle,
-    className: `${className} inline-block relative w-9 h-5 shrink-0`,
-    style: {
-      borderRadius: '10px',
-      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0',
-      transition: 'background 0.2s',
-      cursor: disabled ? 'not-allowed' : 'pointer'
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "absolute w-4 h-4 rounded-full bg-white",
-    style: {
-      top: '2px',
-      left: isChecked ? '18px' : '2px',
-      transition: 'left 0.2s',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.3)'
-    }
-  }));
-};
-const Switch = Object.assign(SwitchRoot, {
-  Root: SwitchRoot,
-  HiddenInput: SwitchHiddenInput,
-  Control: SwitchControl
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Checkbox (compound component)
-// ─────────────────────────────────────────────────────────────────────────────
-const CheckboxCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const CheckboxRoot = ({
-  children,
-  checked,
-  defaultChecked,
-  onCheckedChange,
-  disabled,
-  className,
-  style: styleProp,
-  ...props
-}) => {
-  const [internal, setInternal] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultChecked !== null && defaultChecked !== void 0 ? defaultChecked : false);
-  const isControlled = checked !== undefined;
-  const isChecked = isControlled ? !!checked : internal;
-  const toggle = () => {
-    if (disabled) return;
-    const next = !isChecked;
-    if (!isControlled) setInternal(next);
-    onCheckedChange?.({
-      checked: next
-    });
-  };
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(CheckboxCtx.Provider, {
-    value: {
-      isChecked,
-      toggle,
-      disabled
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("label", {
-    className: `${className} inline-flex items-center gap-1.5`,
-    style: {
-      cursor: disabled ? 'not-allowed' : 'pointer',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children));
-};
-const CheckboxHiddenInput = () => {
-  const {
-    isChecked,
-    toggle,
-    disabled
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("input", {
-    type: "checkbox",
-    checked: isChecked,
-    onChange: toggle,
-    disabled: disabled,
-    className: "absolute opacity-0 w-0 h-0"
-  });
-};
-const CheckboxControl = ({
-  className
-}) => {
-  const {
-    isChecked,
-    toggle
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(CheckboxCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    onClick: toggle,
-    className: `${className} inline-flex items-center justify-center w-4 h-4 cursor-pointer shrink-0`,
-    style: {
-      borderRadius: '3px',
-      border: `2px solid ${isChecked ? 'var(--gameengine-primary, #006BFF)' : '#CBD5E0'}`,
-      background: isChecked ? 'var(--gameengine-primary, #006BFF)' : '#fff',
-      transition: 'all 0.15s'
-    }
-  }, isChecked && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
-    viewBox: "0 0 12 10",
-    fill: "none",
-    className: "h-2",
-    style: {
-      width: '10px'
-    }
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
-    d: "M1 5l3 4L11 1",
-    stroke: "#fff",
-    strokeWidth: "2",
-    strokeLinecap: "round",
-    strokeLinejoin: "round"
-  })));
-};
-const Checkbox = Object.assign(CheckboxRoot, {
-  Root: CheckboxRoot,
-  HiddenInput: CheckboxHiddenInput,
-  Control: CheckboxControl
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Table (compound — maps to native HTML table elements)
-// ─────────────────────────────────────────────────────────────────────────────
-const TableRoot = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("table", {
-    ref: ref,
-    className: `${className} w-full`,
-    style: {
-      borderCollapse: 'collapse',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableScrollArea = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} overflow-x-auto w-full`,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("thead", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tbody", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableRow = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("tr", {
-    ref: ref,
-    className: className,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableCell = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("td", {
-    ref: ref,
-    className: className,
-    style: {
-      padding: '8px 12px',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const TableColumnHeader = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("th", {
-    ref: ref,
-    className: `${className} text-left font-semibold`,
-    style: {
-      padding: '8px 12px',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Table = Object.assign(TableRoot, {
-  Root: TableRoot,
-  ScrollArea: TableScrollArea,
-  Header: TableHeader,
-  Body: TableBody,
-  Row: TableRow,
-  Cell: TableCell,
-  ColumnHeader: TableColumnHeader
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Portal
-// ─────────────────────────────────────────────────────────────────────────────
-const Portal = ({
-  children,
-  container
-}) => {
-  const target = container !== null && container !== void 0 ? container : typeof document !== 'undefined' ? document.body : null;
-  if (!target) return null;
-  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, target);
-};
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Dialog (compound modal)
-// ─────────────────────────────────────────────────────────────────────────────
-const DialogCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({});
-const DialogRoot = ({
-  children,
-  open: openProp,
-  onOpenChange,
-  defaultOpen = false,
-  ...props
-}) => {
-  const [isOpen, setIsOpen] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(defaultOpen);
-  const isControlled = openProp !== undefined;
-  const open = isControlled ? openProp : isOpen;
-  const setOpen = val => {
-    if (!isControlled) setIsOpen(val);
-    onOpenChange?.(val);
-  };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(DialogCtx.Provider, {
-    value: {
-      open,
-      setOpen
-    }
-  }, children);
-};
-const DialogTrigger = ({
-  children,
-  asChild
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: "button"
-  }, children);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
-    onClick: e => {
-      trigger.props.onClick?.(e);
-      setOpen(true);
-    }
-  });
-};
-const DialogBackdrop = ({
-  style: styleProp
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onClick: () => setOpen(false),
-    className: "fixed",
-    style: {
-      inset: 0,
-      background: 'rgba(0,0,0,0.4)',
-      zIndex: 9998,
-      ...styleProp
-    }
-  });
-};
-const DialogPositioner = ({
-  children,
-  style: styleProp
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-  className: "fixed flex items-center justify-center overflow-y-auto p-5",
-  style: {
-    inset: 0,
-    zIndex: 9999,
-    ...styleProp
-  }
-}, children);
-const DialogContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} relative bg-white rounded-lg w-full overflow-y-auto`,
-    style: {
-      boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-      maxWidth: '900px',
-      maxHeight: '90vh',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest,
-    onClick: e => e.stopPropagation()
-  }, children);
-});
-const DialogBody = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} p-6`,
-    style: {
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const DialogCloseTrigger = ({
-  children,
-  asChild
-}) => {
-  const {
-    setOpen
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  const trigger = asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
-    type: "button"
-  }, children);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
-    onClick: e => {
-      trigger.props.onClick?.(e);
-      setOpen(false);
-    },
-    style: {
-      ...trigger.props.style,
-      position: 'absolute',
-      top: '16px',
-      right: '16px'
-    }
-  });
-};
-const DialogPortal = ({
-  children
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogCtx);
-  if (!open) return null;
-  return (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.createPortal)(children, document.body);
-};
-const Dialog = Object.assign(DialogRoot, {
-  Root: DialogRoot,
-  Trigger: DialogTrigger,
-  Backdrop: DialogBackdrop,
-  Positioner: DialogPositioner,
-  Content: DialogContent,
-  Body: DialogBody,
-  CloseTrigger: DialogCloseTrigger,
-  Portal: DialogPortal
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Menu (controlled — open prop driven)
-// ─────────────────────────────────────────────────────────────────────────────
-const MenuCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  open: false
-});
-const MenuRoot = ({
-  children,
-  open = false,
-  ...props
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(MenuCtx.Provider, {
-  value: {
-    open
-  }
-}, children);
-const MenuTrigger = ({
-  children,
-  asChild
-}) => {
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
-};
-const MenuPositioner = ({
-  children,
-  style: styleProp,
-  onMouseEnter,
-  onMouseLeave,
-  ...props
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MenuCtx);
-  const {
-    style: extracted
-  } = extractStyleProps(props);
-  if (!open) return null;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave,
-    className: "absolute pointer-events-auto",
-    style: {
-      zIndex: 9999,
-      bottom: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      marginBottom: '6px',
-      ...extracted,
-      ...styleProp
-    }
-  }, children);
-};
-const MenuContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} bg-white rounded-md p-2`,
-    style: {
-      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      fontSize: '13px',
-      lineHeight: '1.4',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Menu = Object.assign(MenuRoot, {
-  Root: MenuRoot,
-  Trigger: MenuTrigger,
-  Positioner: MenuPositioner,
-  Content: MenuContent
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Popover (controlled — open prop driven)
-// ─────────────────────────────────────────────────────────────────────────────
-const PopoverCtx = (0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)({
-  open: false
-});
-const PopoverRoot = ({
-  children,
-  open = false,
-  ...props
-}) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(PopoverCtx.Provider, {
-  value: {
-    open
-  }
-}, children);
-const PopoverTrigger = ({
-  children,
-  asChild
-}) => {
-  const child = react__WEBPACK_IMPORTED_MODULE_0___default().Children.only(children);
-  return asChild ? child : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", null, children);
-};
-const PopoverPositioner = ({
-  children,
-  style: styleProp,
-  onMouseEnter,
-  onMouseLeave
-}) => {
-  const {
-    open
-  } = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(PopoverCtx);
-  if (!open) return null;
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    onMouseEnter: onMouseEnter,
-    onMouseLeave: onMouseLeave,
-    className: "absolute pointer-events-auto",
-    style: {
-      zIndex: 9999,
-      bottom: '100%',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      marginBottom: '6px',
-      ...styleProp
-    }
-  }, children);
-};
-const PopoverContent = (0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(({
-  children,
-  className,
-  style: styleProp,
-  ...props
-}, ref) => {
-  const {
-    style: extracted,
-    rest
-  } = extractStyleProps(props);
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ref: ref,
-    className: `${className} bg-white rounded-md p-3`,
-    style: {
-      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
-      fontSize: '13px',
-      lineHeight: '1.5',
-      ...extracted,
-      ...styleProp
-    },
-    ...rest
-  }, children);
-});
-const Popover = Object.assign(PopoverRoot, {
-  Root: PopoverRoot,
-  Trigger: PopoverTrigger,
-  Positioner: PopoverPositioner,
-  Content: PopoverContent
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
-// createListCollection — no-op, items passed directly
-// ─────────────────────────────────────────────────────────────────────────────
-function createListCollection({
-  items = []
-}) {
-  return {
-    items
-  };
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// Inject global CSS for animations (once)
-// ─────────────────────────────────────────────────────────────────────────────
-if (typeof document !== 'undefined' && !document.getElementById('gf-ui-animations')) {
-  const style = document.createElement('style');
-  style.id = 'gf-ui-animations';
-  style.textContent = `
-        @keyframes gf-spin { to { transform: rotate(360deg); } }
-        @keyframes gf-shimmer {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-    `;
-  document.head.appendChild(style);
-}
 
 /***/ }),
 
@@ -68223,6 +68471,17 @@ function warning(condition, message) {
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (warning);
 
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+module.exports = window["wp"]["components"];
 
 /***/ }),
 

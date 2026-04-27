@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useSelector, useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { notification_position } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
@@ -87,24 +87,25 @@ const Notification = () => {
     }));
   };
   return <>
-			{notification?.isShow && createPortal(<div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
-						{notification?.linkTo ? <Link to={notification.linkTo}>
-								<div className="gameengine-notification__message no-underline">
-									<Icon as={iconType(notification?.type)} size="md" />
+    {notification?.isShow && createPortal(<div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
+      {notification?.linkTo ? <Link to={notification.linkTo}>
+        <div className="gameengine-notification__message no-underline">
+          <Icon as={iconType(notification?.type)} size="md" />
 
-									{notification.isHtml ? <div dangerouslySetInnerHTML={{
+          {notification.isHtml ? <div dangerouslySetInnerHTML={{
             __html: __(notification.message, 'gameengine')
           }} /> : __(notification.message, 'gameengine')}
-								</div>
-							</Link> : <div className="gameengine-notification__message">
-								<Icon as={iconType(notification?.type)} size="md" />
+        </div>
+      </Link> : <div className="gameengine-notification__message">
+        <Icon as={iconType(notification?.type)} size="md" color="#fff" />
 
-								{notification.message}
-							</div>}
-						<button className="p-0 bg-transparent [min-width:auto]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
-							<IoCloseOutline />
-						</button>
-					</div>, document.body)}
-		</>;
+        {notification.message}
+      </div>}
+      <button className="p-0 bg-transparent [min-width:auto] border-0 text-white text-[20px]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
+        <IoCloseOutline />
+      </button>
+    </div>, document.body)}
+  </>;
 };
+
 export default Notification;

@@ -1,4 +1,4 @@
-import { Skeleton } from "@GFUtils/ui";
+import { Skeleton } from "@GFComponents/UI";
 const AddOnsLoader = ({
   count = 5
 }) => {

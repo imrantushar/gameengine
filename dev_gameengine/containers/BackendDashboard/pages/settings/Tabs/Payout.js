@@ -1,7 +1,7 @@
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import React from 'react';
 import { __ } from "@wordpress/i18n";
-import { Switch } from '@GFUtils/ui';
+import { Switch } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
 import { useFormikContext } from 'formik';
@@ -38,7 +38,7 @@ const Payout = () => {
       }} menuPlacement="auto" />
       </SettingsInput>
       <SettingsInput isPro={!is_pro} width='100%' label={__("Max Points", "gameengine")} margin='0 0 24px 0' subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('The maximum number of points a user can request for a withdrawal.', 'gameengine')} />}>
-        <input style={{
+        <input className='gameengine-input' style={{
         "width": "300px",
         ...commonInput
       }} type="number" min="0" placeholder={__("0", "gameengine")} step="1" disabled={!is_pro} value={values.payout?.max_points} onChange={event => {
@@ -47,7 +47,7 @@ const Payout = () => {
       }} />
       </SettingsInput>
       <SettingsInput isPro={!is_pro} width='100%' label={__("Min Points", "gameengine")} margin='0 0 24px 0' subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('The minimum number of points a user must have to request a withdrawal.', 'gameengine')} />}>
-        <input style={{
+        <input className='gameengine-input' style={{
         "width": "300px",
         ...commonInput
       }} type="number" min="0" step="1" disabled={!is_pro} placeholder={__("0", "gameengine")} value={values.payout?.min_points} onChange={event => {

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
-import { Icon, CheckboxGroup } from '@GFUtils/ui';
+import { Icon, CheckboxGroup } from '@GFComponents/UI';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { deleteAchievement, fetchAchievements, updateAchievement } from '@GFRedux/Slices/achivementSlice/achievementsSlice';
@@ -17,6 +17,7 @@ import Search from '@GFComponents/Search';
 import StatusOptions from '@GFComponents/StatusOptions';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
+
 const AchievementsTable = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -126,7 +127,7 @@ const AchievementsTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Trash', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => dispatch(updateAchievement({
           id: row.id,
           data: {
@@ -138,13 +139,13 @@ const AchievementsTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleDelete(row?.id)
       }];
       return <OptionMenu options={[{
         type: 'button',
         label: __('Edit', 'gameengine'),
-        icon: <Icon as={FiEdit} />,
+        icon: <FiEdit />,
         onClick: () => navigate(`${route_path}admin.php?page=gameengine-achievements&action=edit&id=${row?.id}`)
       }, ...trashAction]} />;
     },
@@ -159,22 +160,30 @@ const AchievementsTable = () => {
         searchKey: value
       });
     };
-    return <div className="flex justify-between w-full">
-                <div className="gameengine-table-subheader-left flex justify-between">
-                    {tableStatusArray.map((item, index) => <button className="bg-transparent h-auto text-xs font-medium leading-5 text-[var(--gameengine-font-color)]" style={{
-          "minWidth": "auto",
-          "padding": "16px 16px 0 16px"
-        }} onClick={() => {
-          setTableStatus(item.value);
-          fetchHandler({
-            status: item.value,
-            page: 1,
-            per_page: 15
-          });
-        }} key={index} paddingInline={'0'}>{item.label}</button>)}
+    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+                <div className="gameengine-filter-toolbar__tabs flex">
+                    {tableStatusArray.map((item, index) => {
+                      const isActive = tableStats === item.value;
+                      return (
+                        <button
+                          key={index}
+                          className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
+                          onClick={() => {
+                            setTableStatus(item.value);
+                            fetchHandler({
+                              status: item.value,
+                              page: 1,
+                              per_page: 15
+                            });
+                          }}
+                        >
+                          {item.label}
+                        </button>
+                      );
+                    })}
                 </div>
 
-                <div className='gameengine-table-subheader-right'>
+                <div className='gameengine-table-subheader-right pb-2'>
                     <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
                 </div>
             </div>;
@@ -300,13 +309,17 @@ const AchievementsTable = () => {
   });
   return <div className='gameengine-page-content'>
             {achievements.length === 0 && banners?.achievements !== 'yes' && tableStats === 'all' && <ImportDemoBanner title={__("No achievements found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default achievements currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
-            <div className="flex justify-between items-center" style={{
-      "padding": "24px 0"
-    }}>
-                <GFLabel type="plainHeading" margin={0} label={__("Achievements", "gameengine")} />
+            <div className="flex justify-between items-center py-6 px-1">
+                <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
+                    {__("Achievements", "gameengine")}
+                </h2>
 
-                <button {...primaryBtn} onClick={() => navigate(`${route_path}admin.php?page=gameengine-achievements&action=new`)}>
-                    <Icon as={GoPlus} boxSize="20px" /> {__('Add new achievement', 'gameengine')}
+                <button 
+                  style={primaryBtn} 
+                  className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors cursor-pointer"
+                  onClick={() => navigate(`${route_path}admin.php?page=gameengine-achievements&action=new`)}
+                >
+                    <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" /> {__('Add new achievement', 'gameengine')}
                 </button>
             </div>
 

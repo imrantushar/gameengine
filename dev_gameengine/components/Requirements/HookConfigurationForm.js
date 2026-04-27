@@ -1,4 +1,4 @@
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';

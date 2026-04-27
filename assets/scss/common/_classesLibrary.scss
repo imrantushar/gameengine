@@ -466,3 +466,64 @@ input.gameengine-checkbox {
         padding: 0 15px;
     }
 }
+
+// Shared filter toolbar tabs (used across points, achievements, etc.)
+.gameengine-filter-toolbar {
+    flex-wrap: nowrap;
+    align-items: center;
+
+    &__tabs {
+        align-items: flex-end;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    &__tab {
+        position: relative;
+        border: none;
+        background: transparent;
+        color: var(--gameengine-subtitle-color, #6B7280);
+        font-size: 14px;
+        line-height: 24px;
+        padding: 8px 14px;
+        cursor: pointer;
+
+        &:focus-visible {
+            outline: none;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -6px;
+            height: 1px;
+            background: var(--gameengine-primary-color, #2563EB);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            color: var(--gameengine-text-color, #111827);
+
+            &::after {
+                transform: scaleX(1);
+            }
+        }
+
+        &.is-active {
+            color: var(--gameengine-text-color, #111827);
+
+            &::after {
+                transform: scaleX(1);
+            }
+        }
+    }
+}

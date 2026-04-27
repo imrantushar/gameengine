@@ -2,13 +2,14 @@ import React, { useState, useCallback } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import { createInterpolateElement } from '@wordpress/element';
 import moment from 'moment';
-import { Icon, Spinner } from '@GFUtils/ui';
+import { Icon, Spinner } from '@GFComponents/UI';
 import { LuRefreshCw, LuLink, LuKey } from 'react-icons/lu';
 import { useDispatch } from 'react-redux';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { API, plugin_root_url } from '@GFUtils/helper';
 import HireUs from './HireUs';
 import "./styles.scss";
+import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 const SeSdk = window.SE_SDK_GAMEENGINE_PRO || {};
 const licenseRequest = (endpoint, payload) => API.post(SeSdk?.rest_url + endpoint, payload);
 const licenseGet = (endpoint, params) => API.get(SeSdk?.rest_url + endpoint, {
@@ -225,12 +226,7 @@ const License = () => {
           __('%1$d out of %2$s', 'gameengine'), licenseData?.remaining, licenseData?.limit)} />
 							<MetaItem label={__('Automatic Update:', 'gameengine')} value={__('Enabled', 'gameengine')} />
 						</div>
-					</div> : <div className="flex flex-col items-center text-center bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{
-        "padding": {
-          base: 4,
-          md: 6
-        }
-      }}>
+					</div> : <div className="flex p-6 flex-col items-center text-center bg-white rounded [box-shadow:var(--gameengine-shadow)]" >
 						<h2 className="text-xl font-bold m-0 mb-2 text-[var(--gameengine-font-color)]">
 							{__('Activate GameEngine Pro for updates & support.', 'gameengine')}
 						</h2>
@@ -241,7 +237,7 @@ const License = () => {
 						</p>
 
 						{/* Logo pill */}
-						<div className="flex items-center gap-3 rounded-full pl-5 pr-5 pt-2 pb-2 m-0 mb-6" style={{
+						<div className="flex items-center gap-3 rounded-full p-[2px_5px] m-0 mb-6" style={{
           "border": "1px solid",
           "borderColor": "gray.200"
         }}>
@@ -258,7 +254,7 @@ const License = () => {
           }} type="text" placeholder={__('Enter your license key', 'gameengine')} value={licenseKey} onChange={e => setLicenseKey(e.target.value)} onKeyDown={e => {
             if (e.key === 'Enter') handleActivate();
           }} />
-							<button className="shrink-0 h-9 pl-4 pr-4 bg-[var(--gameengine-primary)] [border:1px_solid_var(--gameengine-primary)]" loadingText={__('Activating…', 'gameengine')} onClick={handleActivate}>
+							<button style={primaryBtn} loadingText={__('Activating…', 'gameengine')} onClick={handleActivate}>
 								{__('Activate License', 'gameengine')}
 							</button>
 						</div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Popover, Portal } from "@GFUtils/ui";
+import { Popover, Portal } from "@GFComponents/UI";
 import "./styles.scss";
 export default function KodezenTooltip({
   children,

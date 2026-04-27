@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { Spinner } from '@GFUtils/ui';
 import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import Select from 'react-select';
 import { fetchTriggers, savePointType, updatePointType, fetchPointTypeById } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
-import { primaryBtn } from '../../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 import { route_path, statusArray } from '@GFUtils/helper';
 import { Formik } from 'formik';
 import { getPointTypesInitialValues } from './helper';
@@ -76,8 +75,8 @@ const PointTypeEditor = () => {
     }
   };
   return <>
-            {formLoading ? <PointsSystemLoader /> : <Formik enableReinitialize={true} initialValues={getPointTypesInitialValues(editId, pointTypes)} onSubmit={onSubmitHandler}>
-                    {({
+    {formLoading ? <PointsSystemLoader /> : <Formik enableReinitialize={true} initialValues={getPointTypesInitialValues(editId, pointTypes)} onSubmit={onSubmitHandler}>
+      {({
         values,
         setFieldValue,
         submitForm,
@@ -85,24 +84,23 @@ const PointTypeEditor = () => {
         dirty
       }) => {
         return <>
-                                <TopBar path={__("Points System", "gameengine")} rightContent={<div className="flex gap-2.5">
-                                            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-                                            <button style={{
-              "minWidth": "170px",
-              "maxWidth": "170px"
-            }} {...primaryBtn} onClick={submitForm} disabled={!dirty || isSubmitting}>
-                                                {isSubmitting ? <Spinner color="var(--gameengine-primary)" css={{
-                "--spinner-track-color": "var(--gameengine-secondary)"
-              }} /> : editId ? __('Update Point System', 'gameengine') : __('Create Point System', 'gameengine')}
-                                            </button>
-                                        </div>} />
+          <TopBar path={__("Points System", "gameengine")} rightContent={<div className="flex gap-2.5">
+            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
+            <Button
+              label={editId ? __('Update Point System', 'gameengine') : __('Create Point System', 'gameengine')}
+              loadingLabel={editId ? __('Update Point System', 'gameengine') : __('Create Point System', 'gameengine')}
+              isLoading={isSubmitting}
+              isDisabled={!dirty || isSubmitting}
+              onClick={submitForm}
+            />
+          </div>} />
 
-                                <GameEngineBox dynamicClasses="gameengine-points-system" heading={__("Points System", "gameengine")}>
-                                    <FormInner hooksLoading={hooksLoading} />
-                                </GameEngineBox>
-                            </>;
-      }}
-                </Formik>}
+          <GameEngineBox dynamicClasses="gameengine-points-system" heading={__("Points System", "gameengine")}>
+            <FormInner hooksLoading={hooksLoading} />
+          </GameEngineBox>
         </>;
+      }}
+    </Formik>}
+  </>;
 };
 export default PointTypeEditor;

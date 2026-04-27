@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar, FiMinusCircle } from "react-icons/fi";
 import BoxView from '@GFComponents/BoxView/BoxView';
 import { achievement, star, trophy, user } from '@GFUtils/icons';
-import DateTimePicker from '@GFComponents/DateTimePicker';
+import Datepicker from '@kodezen/react-datepicker';
 function Overview({
   data,
   onFilterChange,
@@ -49,37 +49,54 @@ function Overview({
     bg: "red.50",
     iconColor: "#FF9381"
   }];
-  return <>
-            <BoxView width='100%' title={__('Overview', 'gameengine')} rightContent={<div className="flex items-center cursor-pointer gap-2 rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
-      "padding": "10px 12px"
-    }}>
-                        <div className="custom-datepicker flex w-full">
-                            <DateTimePicker startDate={startDate} endDate={endDate} onChange={nd => {
-          setStartDate(nd.startDate);
-          setEndDate(nd.endDate);
-        }} primaryColor="blue" variant='auto-show' />
-                        </div>
-                    </div>}>
-                <div className="flex flex-wrap gap-4 p-2">
-                    {cards.map((card, i) => <div className="flex items-center justify-between gap-6 shrink-0 rounded [box-shadow:var(--gameengine-shadow)]" style={{
-          "padding": "32px 24px",
-          "background": card?.bg
-        }} key={i} flexBasis="calc((100% - 48px) / 4)">
-                            <div className="flex flex-col gap-1">
-                                <p className="text-3xl font-bold m-0" style={{
-              "lineHeight": "38px"
-            }}>{card?.value}</p>
-                                <p className="text-base font-medium leading-6 m-0">{card?.label}</p>
-                            </div>
-                            <div className="rounded-full" style={{
-            "padding": "14px",
-            "background": card?.iconColor
-          }}>
-                                <Icon as={card?.icon} boxSize={8} color="#fff" />
-                            </div>
-                        </div>)}
-                </div>
-            </BoxView>
-        </>;
+  return (
+    <BoxView 
+      width='100%' 
+      title={__('Overview', 'gameengine')} 
+      rightContent={
+        <div 
+          className="flex items-center cursor-pointer gap-2 rounded p-[10px 12px]">
+          <div className="custom-datepicker flex w-full">
+            <Datepicker
+              value={{ startDate, endDate }}
+              onChange={(val) => {
+                setStartDate(val?.startDate ?? null);
+                setEndDate(val?.endDate ?? null);
+              }}
+              theme="light"
+              placement="left"
+              suffix='dashboard'
+            />
+          </div>
+        </div>
+      }>
+        <div 
+          className="flex 
+          flex-wrap 
+          gap-4 p-2"
+        >
+          {cards.map((card, i) => 
+            <div 
+              className="flex items-center justify-between gap-6 rounded [box-shadow:var(--gameengine-shadow)] p-[32px_24px] w-full md:w-[calc(50%_-_56px)] lg:w-[calc(25%_+_6px)] xl:w-[calc(25%_-_60px)]" 
+              style={{
+                "background": card?.bg
+              }} 
+              key={i}
+            >
+              <div className="flex flex-col gap-1">
+                <p className="text-3xl font-bold m-0 leading-[38px]" >{card?.value}</p>
+                <p className="text-base font-medium leading-6 m-0">{card?.label}</p>
+              </div>
+              <div className="rounded-full" style={{
+                "padding": "14px",
+                "background": card?.iconColor
+              }}>
+                <Icon as={card?.icon} boxSize={8} color="#fff" />
+              </div>
+            </div>
+          )}
+        </div>
+    </BoxView>
+  );
 }
 export default Overview;

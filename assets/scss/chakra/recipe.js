@@ -5,7 +5,9 @@ export const primaryBtn = {
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "20px",
-    border: "1px solid var(--gameengine-primary)"
+    border: "1px solid var(--gameengine-primary)",
+    padding: "8px 16px",
+    borderRadius: "4px",
 }
 
 export const xCloseBtn = {
@@ -27,6 +29,8 @@ export const outlineBtn = {
     background: "transparent",
     color: "var(--gameengine-font-color)",
     border: "1px solid var(--gameengine-border-color)",
+    padding: "10px 16px",
+    borderRadius: "4px",
 }
 
 export const removeBtn = {
@@ -53,7 +57,14 @@ export const clearBtn = {
 }
 
 export const commonInput = {
+    width: "100%",
     color: "var(--gameengine-font-color)",
-    borderColor: "var(--gameengine-border-color)",
-    outline: "var(--gameengine-primary)",
+    border: "1px solid var(--gameengine-border-color)",
+    borderRadius: "6px",
+    padding: "8px 12px",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    backgroundColor: "#fff",
+    outline: "none",
+    boxSizing: "border-box",
 }

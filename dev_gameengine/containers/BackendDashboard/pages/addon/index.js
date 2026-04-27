@@ -13,6 +13,7 @@ import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { plugin_root_url } from '@GFUtils/helper';
 import Select from 'react-select';
+import { outlineBtn } from '../../../../../assets/scss/chakra/recipe';
 
 const infoCardsData = [{
   label: __('Academy LMS', 'gameengine'),
@@ -239,11 +240,8 @@ const Addons = () => {
 					<GFLabel type="plainHeading" margin={0} padding={0} label={__('Add-ons', 'gameengine')} />
 
 					<div className="flex items-center gap-3">
-						<button className="h-9 font-medium" style={{
-            "padding": "0 10px",
-            "fontSize": "13px",
-            "color": "#718096"
-          }} onClick={handleClearAll}>
+						<button  classname='bg-white' style=
+            {outlineBtn} onClick={handleClearAll}>
 							{__('Clear All', 'gameengine')}
 						</button>
 
@@ -252,7 +250,7 @@ const Addons = () => {
             setLoading(true);
           }} className="gameengine-select" classNamePrefix="gameengine-select" isSearchable={false} />
 
-						<Search placeholder={__('Search...', 'gameengine')} onSearchHandler={keyword => setFilterText(keyword.trim())} />
+						<Search className="gameengine-search bg-white" placeholder={__('Search...', 'gameengine')} onSearchHandler={keyword => setFilterText(keyword.trim())} />
 					</div>
 				</div>
 

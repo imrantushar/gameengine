@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
-import { Checkbox, Icon } from '@GFUtils/ui';
+import { Checkbox, Icon } from '@GFComponents/UI';
 import { academyLms, wooCommerce, tutorLms } from '@GFUtils/icons';
 import { is_academylms_active, is_woocommerce_active, is_tutorlms_active, plugin_root_url } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';

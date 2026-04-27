@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
@@ -13,7 +13,8 @@ import moment from 'moment';
 import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import { LuInfo } from 'react-icons/lu';
-import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
+import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction'; 
+
 const PointTypesTable = () => {
   const {
     pointTypes,
@@ -78,8 +79,8 @@ const PointTypesTable = () => {
   const columns = [{
     name: __('Name', 'gameengine'),
     cell: row => <>
-          <span className="cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
-        </>,
+      <span className="cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
+    </>,
     textAlign: "start",
     columnWidth: "20%"
   }, {
@@ -116,15 +117,15 @@ const PointTypesTable = () => {
       // );
 
       return <div className="flex flex-wrap justify-center items-center gap-1">
-            {itemArray.length + " " + __('Actions.', 'gameengine')}
-            {/* {itemArray.length > 2 && (
+        {itemArray.length + " " + __('Actions.', 'gameengine')}
+        {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
                   {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
              )} */}
-          </div>;
+      </div>;
     },
     columnWidth: "23%"
   }, {
@@ -160,25 +161,25 @@ const PointTypesTable = () => {
       // );
 
       return <div className="flex flex-wrap justify-center items-center gap-1">
-            {itemArray.length + " " + __('Actions.', 'gameengine')}
-            {/* {itemArray.length > 2 && (
+        {itemArray.length + " " + __('Actions.', 'gameengine')}
+        {/* {itemArray.length > 2 && (
               <>
                 <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
                   {renderTooltipContent(8, '...')}
                 </CustomTooltip>
               </>
              )} */}
-          </div>;
+      </div>;
     },
     columnWidth: "23%"
   }, {
     name: __('Date', 'gameengine'),
     cell: row => <div>
-					<p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
-					{/* <Text margin={0} className="academy-table-time">
+      <p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
+      {/* <Text margin={0} className="academy-table-time">
       {moment(row?.created_at).format('h:mm A')}
       </Text> */}
-				</div>,
+    </div>,
     columnWidth: "10%"
   }, {
     name: __('Status', 'gameengine'),
@@ -205,7 +206,7 @@ const PointTypesTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Trash', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2  />,
         onClick: () => dispatch(updatePointType({
           id: row.id,
           ...row,
@@ -215,13 +216,13 @@ const PointTypesTable = () => {
         type: 'button',
         suffix: 'trash',
         label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
+        icon: <FiTrash2 />,
         onClick: () => handleDelete(row?.id)
       }];
       return <OptionMenu options={[{
         type: 'button',
         label: __('Edit', 'gameengine'),
-        icon: <Icon as={FiEdit} />,
+        icon: <FiEdit />,
         onClick: () => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)
       }, ...trashAction]} />;
     },
@@ -237,25 +238,37 @@ const PointTypesTable = () => {
         searchKey: value
       });
     };
-    return <div className="flex justify-between w-full">
-        <div className="gameengine-table-subheader-left flex justify-between">
-          {tableStatusArray.map((item, index) => <button className="bg-transparent h-auto text-xs font-medium leading-5 text-[var(--gameengine-font-color)]" style={{
-          "minWidth": "auto",
-          "padding": "16px 16px 0 16px"
-        }} onClick={() => {
-          setTableStatus(item.value);
-          fetchHandler({
-            status: item.value,
-            page: 1,
-            per_page: 15
-          });
-        }} key={index} paddingInline={'0'}>{item.label}</button>)}
-        </div>
+    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+      <div className="gameengine-filter-toolbar__tabs flex">
+        {tableStatusArray.map((item, index) => {
+          const isActive = tableStats === item.value;
+          return (
+            <button
+              key={index}
+              className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
+              onClick={() => {
+                setTableStatus(item.value);
+                fetchHandler({
+                  status: item.value,
+                  page: 1,
+                  per_page: 15
+                });
+              }}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
 
-        <div className='gameengine-table-subheader-right'>
-          <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
-        </div>
-      </div>;
+      <div className='gameengine-table-subheader-right pb-2'>
+        <Search 
+          placeholder='Search question' 
+          onSearchHandler={searchHandler} 
+          defaultValue={search ? search : ''} 
+        />
+      </div>
+    </div>;
   }, [tableStats, search]);
   const bulkOptions = tableStats === 'trash' ? [{
     value: 'restore',
@@ -355,16 +368,31 @@ const PointTypesTable = () => {
     };
   });
   return <>
-      <ListTable key={'points-type-' + pointTypes.length} columns={columns} data={pointTypes} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} isRowSelectable={true} showPagination={false} noDataText={__("No data found", "gameengine")} totalItems={total} totalRows={pointTypes.length} dataFetchingStatus={listStatus}
-    // resetSelected={resetSelectedItems}
-    rowsPerPage={perPage} currentPageNumber={[page]} getSelectRowValue={setSelectedRows} />
+    <ListTable 
+      key={'points-type-' + pointTypes.length} 
+      columns={columns} 
+      data={pointTypes} 
+      showColumnFilter={false} 
+      showSubHeader={true} 
+      subHeaderComponent={subHeaderComponentMemo} 
+      isRowSelectable={true} 
+      showPagination={false} 
+      noDataText={__("No data found", "gameengine")} 
+      totalItems={total} 
+      totalRows={pointTypes.length} 
+      dataFetchingStatus={listStatus}
+      // resetSelected={resetSelectedItems}
+      rowsPerPage={perPage} 
+      currentPageNumber={[page]}
+      getSelectRowValue={setSelectedRows} 
+    />
 
-      <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
+    <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
       setSelectedRows([]);
       setActionSelected({
         value: false
       });
     }} />
-    </>;
+  </>;
 };
 export default PointTypesTable;

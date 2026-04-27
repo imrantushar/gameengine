@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
-import { Icon } from '@GFUtils/ui';
+import { Icon } from '@GFComponents/UI';
 import { clearBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
@@ -39,7 +39,7 @@ const ShortCodeItem = ({
 			<div className="academy-short-code-item__body flex flex-col w-full">
 				<div className="academy-short-code-details flex items-center gap-5">
 					<div className="academy-short-code-text flex w-full items-center">
-						<input className="academy-short-code-text__shortcode ![border:1px_solid_var(--gameengine-border-color)_]" style={{
+						<input className="academy-short-code-text__shortcode gameengine-input ![border:1px_solid_var(--gameengine-border-color)_]" style={{
             "borderRight": "none !important",
             "outline": "none",
             "boxShadow": "none !important",
@@ -47,18 +47,17 @@ const ShortCodeItem = ({
             borderTopRightRadius: 0,
             borderBottomRightRadius: 0
           }} type="text" ref={shortCodeRef} name={shortCode} value={shortCode} readOnly disabled={isPro} />
-						<button className="academy-btn--copy rounded h-10 [border:1px_solid_var(--gameengine-border-color)]" style={{
+						<button className="academy-btn--copy rounded h-[36px] [border:1px_solid_var(--gameengine-border-color)]" style={{
             "cursor": isPro ? 'not-allowed' : 'pointer',
-            ...clearBtn,
             borderTopLeftRadius: 0,
             borderBottomLeftRadius: 0
           }} onClick={copyToClipboard} disabled={isPro}>
 							<Icon as={FaRegCopy} />
 						</button>
 					</div>
-					<button className="academy-btn--link rounded-full w-10 h-10 [border:1px_solid_var(--gameengine-border-color)]" style={{
+					<button className="academy-btn--link rounded-full w-10 h-[36px] [border:1px_solid_var(--gameengine-border-color)]" style={{
           "cursor": isPro ? 'not-allowed' : 'pointer',
-          ...clearBtn
+
         }} href={url} target="_blank" rel="noopener noreferrer" disabled={isPro}>
 						<Icon as={AiOutlineQuestion} />
 					</button>

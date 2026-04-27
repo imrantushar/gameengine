@@ -5,7 +5,7 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import _ from 'lodash';
-import { Table } from '@GFUtils/ui';
+import { Table } from '@GFComponents/UI';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
 import Preloader from '@GFComponents/Loader/Preloader';
 import TableSkeleton from '../GameEngineLoader/TableSkeleton';
