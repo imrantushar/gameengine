@@ -1,101 +1,44 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Box, Button, Flex, Image, Text } from '@chakra-ui/react';
 import { plugin_root_url } from '@GFUtils/helper';
 import { buildPurchaseUrl } from './helper';
-
-const HireUs = ({sdk}) => {
-	return (
-		<Flex
-			alignItems="center"
-			justifyContent="space-between"
-			gap={ 6 }
-			flexWrap="wrap"
-			padding={{ base: 4, md: 6 }}
-			background="#FFF"
-			boxShadow="var(--gameengine-shadow)"
-			borderRadius="4px"
-			mt="24px"
-		>
-			<Box flex="1" minW="220px">
-				<Text
-					fontSize="20px"
-					fontWeight="500"
-					color="var(--gameengine-font-color)"
-					lineHeight="30px"
-					m={ 0 }
-					mb={ '8px !important' }
-				>
-					{ __( 'Need Expert Help? Hire Our Professionals', 'gameengine' ) }
-				</Text>
-				<Text
-					fontSize="14px"
-					fontWeight="400"
-					color="var(--gameengine-secondary)"
-					lineHeight="20px"
-					m={ 0 }
-					maxW={'85%'}
-				>
-					{ __(
-						'Get access to a skilled team of designers, developers, marketers, and content experts—ready to bring your ideas to life.',
-						'gameengine'
-					) }
-				</Text>
-				<Flex gap={ 3 } alignItems="center" marginTop={'24px'}>
-					<Button
-						as="a"
-						href={buildPurchaseUrl('https://kodezen.agency/request-a-free-call/', sdk)}
-						target="_blank"
-						rel="noopener noreferrer"
-						bg="var(--gameengine-primary)"
-						color="white"
-						height="40px"
-						px={ 5 }
-						fontSize="14px"
-						fontWeight="500"
-						borderRadius="4px"
-						_hover={ { color: "white", bg: 'var(--gameengine-primary)', opacity: 0.9 } }
-						cursor="pointer"
-					>
-						{ __( 'Hire Us', 'gameengine' ) }
-					</Button>
-					<Button
-						as="a"
-						href={buildPurchaseUrl('https://kodezen.agency/', sdk)}
-						target="_blank"
-						rel="noopener noreferrer"
-						bg="transparent"
-						color="var(--gameengine-secondary)"
-						height="40px"
-						px={ 5 }
-						fontSize="14px"
-						fontWeight="500"
-						borderRadius="4px"
-						border="1px solid"
-						borderColor="gray.300"
-						_hover={ { bg: 'gray.50' } }
-						cursor="pointer"
-					>
-						{ __( 'Learn More', 'gameengine' ) }
-					</Button>
-				</Flex>
-			</Box>
+import { primaryBtn,outlineBtn } from '../../../../../../../assets/scss/chakra/recipe';
+const HireUs = ({
+  sdk
+}) => {
+  return <div className="flex items-center justify-between flex-wrap gap-6 bg-white rounded mt-6 p-4 [box-shadow:var(--gameengine-shadow)]">
+			<div className="flex-1 flex flex-col gap-4" style={{
+      "minWidth": "220px"
+    }}>
+				<p className="text-xl font-medium m-0 text-[var(--gameengine-font-color)]" style={{
+        "lineHeight": "30px",
+        "marginBottom": "8px !important"
+      }}>
+					{__('Need Expert Help? Hire Our Professionals', 'gameengine')}
+				</p>
+				<p className="text-sm font-normal leading-5 m-0 text-[var(--gameengine-secondary)]" style={{
+        "maxWidth": "85%"
+      }}>
+					{__('Get access to a skilled team of designers, developers, marketers, and content experts—ready to bring your ideas to life.', 'gameengine')}
+				</p>
+				<div className="flex items-center gap-3" marginTop={'24px'}>
+					<button style={primaryBtn} as="a" href={buildPurchaseUrl('https://kodezen.agency/request-a-free-call/', sdk)} target="_blank" rel="noopener noreferrer">
+						{__('Hire Us', 'gameengine')}
+					</button>
+					<button style={outlineBtn} as="a" href={buildPurchaseUrl('https://kodezen.agency/', sdk)} target="_blank" rel="noopener noreferrer">
+						{__('Learn More', 'gameengine')}
+					</button>
+				</div>
+			</div>
 
 			{/* Right: avatar grid */}
-			<Flex direction="column" gap={ 2 } flexShrink={ 0 } width={'35%'}>
-					<Flex gap={ 2 } width={'100%'} alignItems="center" justifyContent={'center'}>
-							<Image
-								src={ plugin_root_url + 'assets/images/employees.png'}
-								alt={ __( 'Kodezen Employee', 'gameengine' ) }
-								title={ __( 'Kodezen Employee', 'gameengine' ) }
-								width="100%"
-								objectFit="cover"
-								flexShrink={ 0 }
-							/>
-					</Flex>
-			</Flex>
-		</Flex>
-	);
+			<div className="flex flex-col gap-2 shrink-0" style={{
+      "width": "35%"
+    }}>
+					<div className="flex w-full items-center justify-center gap-2">
+							<img className="w-full shrink-0" src={plugin_root_url + 'assets/images/employees.png'} alt={__('Kodezen Employee', 'gameengine')} title={__('Kodezen Employee', 'gameengine')} objectFit="cover" />
+					</div>
+			</div>
+		</div>;
 };
-
 export default HireUs;

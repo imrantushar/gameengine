@@ -1,81 +1,75 @@
-import { Box, Flex, Skeleton, SkeletonText } from "@chakra-ui/react";
+import { Skeleton, SkeletonText } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
-
-const HookListSkeleton = ({ items = 4 }) => (
-  <Flex direction="column" gap="12px">
-    {Array.from({ length: items }).map((_, i) => (
-      <Skeleton key={i} height="56px" borderRadius="4px" />
-    ))}
-  </Flex>
-);
-
-const HookSidebarSkeleton = ({ items = 2 }) => (
-  <Flex direction="column" gap="16px">
-    {Array.from({ length: items }).map((_, i) => (
-      <Skeleton key={i} height="110px" borderRadius="6px" />
-    ))}
-  </Flex>
-);
-
+const HookListSkeleton = ({
+  items = 4
+}) => <div className="flex flex-col gap-3">
+    {Array.from({
+    length: items
+  }).map((_, i) => <Skeleton key={i} height="56px" borderRadius="4px" />)}
+  </div>;
+const HookSidebarSkeleton = ({
+  items = 2
+}) => <div className="flex flex-col gap-4">
+    {Array.from({
+    length: items
+  }).map((_, i) => <Skeleton key={i} height="110px" borderRadius="6px" />)}
+  </div>;
 const LevelsFormSkeleton = () => {
-  return (
-    <>
-      <Flex justify="space-between" align="center" mb={6} padding={'20px'}>
+  return <>
+      <div className="flex justify-between items-center mb-6 p-5">
         <Skeleton height="32px" width="260px" />
         <Skeleton height="40px" width="140px" borderRadius="6px" />
-      </Flex>
-      <GameEngineBox dynamicClasses="gameengine-achievements" >
-        <Flex direction="column" gap={6}>
+      </div>
+      <GameEngineBox dynamicClasses="gameengine-achievements">
+        <div className="flex flex-col gap-6">
           {/* Title + Plural */}
-          <Flex gap="12px">
+          <div className="flex gap-3">
             <Skeleton height="56px" width="50%" />
             <Skeleton height="56px" width="50%" />
-          </Flex>
+          </div>
 
           {/* Max earnings */}
           <Skeleton height="56px" />
 
           {/* Achievement Type */}
-          <Box>
+          <div>
             <Skeleton height="20px" width="200px" mb="12px" />
             <Skeleton height="64px" borderRadius="4px" />
             <Skeleton height="32px" width="160px" mt="12px" />
-          </Box>
+          </div>
 
           {/* Congratulations Editor */}
-          <Box>
+          <div>
             <Skeleton height="20px" width="240px" mb="12px" />
             <Skeleton height="140px" borderRadius="6px" />
-          </Box>
+          </div>
 
           {/* Unlock with points */}
           <Skeleton height="32px" width="260px" />
 
           {/* Requirements Section */}
-          <Box p="24px" borderRadius="4px" border="1px solid var(--gameengine-border-color)">
+          <div className="p-6 rounded [border:1px_solid_var(--gameengine-border-color)]">
             <Skeleton height="24px" width="260px" mb="16px" />
 
-            <Flex gap="24px">
+            <div className="flex gap-6">
               {/* Available hooks */}
-              <Flex width="50%" direction="column" gap="16px">
+              <div className="flex flex-col w-1/2 gap-4">
                 <Skeleton height="20px" width="180px" />
                 <SkeletonText noOfLines={2} spacing="2" />
                 <Skeleton height="72px" borderRadius="4px" />
                 <HookListSkeleton />
-              </Flex>
+              </div>
 
               {/* Active hooks */}
-              <Flex width="50%" direction="column" gap="16px">
+              <div className="flex flex-col w-1/2 gap-4">
                 <Skeleton height="20px" width="160px" />
                 <SkeletonText noOfLines={2} spacing="2" />
                 <HookSidebarSkeleton />
-              </Flex>
-            </Flex>
-          </Box>
-        </Flex>
+              </div>
+            </div>
+          </div>
+        </div>
       </GameEngineBox>
-    </>
-  );
+    </>;
 };
-
 export default LevelsFormSkeleton;

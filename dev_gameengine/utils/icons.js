@@ -285,3 +285,4 @@ export const referralIcon = () => {
         </svg>
     )
 }
+

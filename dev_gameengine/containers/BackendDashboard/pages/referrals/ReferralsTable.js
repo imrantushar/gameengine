@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { __ } from '@wordpress/i18n';
-import { Box, Flex, Text, Badge, Icon, IconButton, Avatar } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReferrals, deleteReferral, setPage, setSearchQuery } from '@GFRedux/Slices/referralSlice/referralSlice';
 import ListTable from '@GFComponents/ListTable';
-import Pagination from '@GFComponents/Pagination';
 import Search from '@GFComponents/Search';
 import { FiTrash2 } from 'react-icons/fi';
 import moment from 'moment';
@@ -12,15 +10,22 @@ import moment from 'moment';
 const ReferralsTable = () => {
     const dispatch = useDispatch();
     const { items, totalItems, currentPage, perPage, search, status } = useSelector(state => state.referrals);
+    const [loading, setLoading] = useState(items.length === 0);
+
+    const fetchHandler = async ({ page = 1, per_page = 15, searchKey = '' }) => {
+        try {
+            setLoading(true);
+            await dispatch(fetchReferrals({ page, per_page, search: searchKey }));
+        } catch (error) {
+            console.warn(error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
-        dispatch(fetchReferrals({ page: currentPage, per_page: perPage, search }));
+        fetchHandler({ page: currentPage, per_page: perPage, searchKey: search });
     }, [currentPage, perPage, search]);
-
-    const handleSearch = (value) => {
-        dispatch(setSearchQuery(value));
-        dispatch(setPage(1));
-    };
 
     const handleDelete = (id) => {
         if (window.confirm(__('Are you sure you want to delete this referral record?', 'gameengine'))) {
@@ -30,127 +35,107 @@ const ReferralsTable = () => {
 
     const columns = [
         {
-            header: __('Referrer', 'gameengine'),
-            accessor: 'referrer_name',
+            name: __('Referrer', 'gameengine'),
             cell: (row) => (
-                <Flex align="center" gap="10px">
-                    <Box 
-                        size="8" 
-                        borderRadius="full" 
-                        bg="gray.100" 
-                        display="flex" 
-                        alignItems="center" 
-                        justifyContent="center"
-                        fontSize="xs"
-                        fontWeight="bold"
-                        color="gray.600"
-                        width="32px"
-                        height="32px"
-                    >
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">
                         {row.referrer_name?.charAt(0).toUpperCase()}
-                    </Box>
-                    <Box>
-                        <Text fontWeight="600" fontSize="14px">{row.referrer_name}</Text>
-                        <Text fontSize="12px" color="gray.500">{row.referrer_email}</Text>
-                    </Box>
-                </Flex>
+                    </div>
+                    <div>
+                        <p className="font-medium m-0">{row.referrer_name}</p>
+                        <p className="text-xs text-gray-500 m-0">{row.referrer_email}</p>
+                    </div>
+                </div>
             ),
         },
         {
-            header: __('Referee (Signed up)', 'gameengine'),
-            accessor: 'referee_name',
+            name: __('Referee (Signed up)', 'gameengine'),
             cell: (row) => row.referee_name ? (
-                <Flex align="center" gap="10px">
-                    <Box 
-                        size="8" 
-                        borderRadius="full" 
-                        bg="gray.100" 
-                        display="flex" 
-                        alignItems="center" 
-                        justifyContent="center"
-                        fontSize="xs"
-                        fontWeight="bold"
-                        color="gray.600"
-                        width="32px"
-                        height="32px"
-                    >
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">
                         {row.referee_name?.charAt(0).toUpperCase()}
-                    </Box>
-                    <Box>
-                        <Text fontWeight="600" fontSize="14px">{row.referee_name}</Text>
-                        <Text fontSize="12px" color="gray.500">{row.referee_email}</Text>
-                    </Box>
-                </Flex>
-            ) : <Text color="gray.400">--</Text>,
+                    </div>
+                    <div>
+                        <p className="font-medium m-0">{row.referee_name}</p>
+                        <p className="text-xs text-gray-500 m-0">{row.referee_email}</p>
+                    </div>
+                </div>
+            ) : <span className="text-xs" style={{ color: '#999' }}>-</span>,
         },
         {
-            header: __('Status', 'gameengine'),
-            accessor: 'status',
+            name: __('Status', 'gameengine'),
             cell: (row) => (
-                <Badge 
-                    colorScheme={row.status === 'converted' ? 'green' : 'orange'} 
-                    textTransform="capitalize"
-                    borderRadius="full"
-                    px="8px"
-                >
+                <span className={`capitalize rounded-full px-2 py-0.5 text-xs font-medium ${row.status === 'converted' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'}`}>
                     {row.status}
-                </Badge>
+                </span>
             ),
         },
         {
-            header: __('IP Address', 'gameengine'),
-            accessor: 'ip_address',
+            name: __('IP Address', 'gameengine'),
+            cell: (row) => <span className="text-sm">{row.ip_address}</span>,
         },
         {
-            header: __('Date', 'gameengine'),
-            accessor: 'created_at',
-            cell: (row) => moment(row.created_at).format('MMM D, YYYY h:mm A'),
-        },
-        {
-            header: __('Action', 'gameengine'),
-            accessor: 'id',
+            name: __('Date', 'gameengine'),
             cell: (row) => (
-                <Flex justify="center">
-                    <Box 
-                        as="button"
-                        onClick={() => handleDelete(row.id)}
-                        p="8px"
-                        borderRadius="4px"
-                        color="red.500"
-                        _hover={{ bg: "red.50" }}
-                        transition="all 0.2s"
-                        title={__('Delete referral', 'gameengine')}
-                    >
-                        <Icon as={FiTrash2} boxSize="18px" />
-                    </Box>
-                </Flex>
+                <div>
+                    <p className="m-0">{moment(row.created_at).format('MMMM DD, YYYY')}</p>
+                </div>
             ),
+        },
+        {
+            name: __('Action', 'gameengine'),
+            cell: (row) => (
+                <button
+                    onClick={() => handleDelete(row.id)}
+                    className="p-2 rounded text-red-500 hover:bg-red-50 transition-all duration-200"
+                    title={__('Delete referral', 'gameengine')}
+                >
+                    <FiTrash2 size={16} />
+                </button>
+            ),
+            textAlign: 'end',
         },
     ];
 
-    return (
-        <Box bg="white" borderRadius="8px" border="1px solid var(--gameengine-border-color)" overflow="hidden">
-            <ListTable 
-                columns={columns} 
-                data={items} 
-                loading={status === 'loading'} 
-                suffix="referrals"
-                subHeaderComponent={
-                    <Search 
-                        placeholder={__('Search referrals...', 'gameengine')} 
-                        onSearch={handleSearch} 
-                    />
-                }
-            />
+    const subHeaderComponentMemo = useMemo(() => {
+        const searchHandler = (value = '') => {
+            fetchHandler({ page: 1, per_page: perPage, searchKey: value });
+            dispatch(setSearchQuery(value));
+            dispatch(setPage(1));
+        };
 
-            <Pagination
-                totalItems={totalItems}
-                perPage={perPage}
-                currentPage={currentPage}
-                onPageChange={(page) => dispatch(setPage(page))}
-            />
-        </Box>
+        return (
+            <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+                <div className="gameengine-filter-toolbar__tabs flex" />
+                <div className="gameengine-table-subheader-right pb-2">
+                    <Search
+                        placeholder={__('Search referrals...', 'gameengine')}
+                        onSearchHandler={searchHandler}
+                        defaultValue={search ? search : ''}
+                    />
+                </div>
+            </div>
+        );
+    }, [search]);
+
+    return (
+        <ListTable
+            columns={columns}
+            data={items}
+            showSubHeader={true}
+            showColumnFilter={false}
+            showPagination={false}
+            noDataText={__('No referral data found.', 'gameengine')}
+            suffix="referrals-table"
+            subHeaderComponent={subHeaderComponentMemo}
+            totalItems={totalItems}
+            totalRows={items.length}
+            dataFetchingStatus={loading}
+            rowsPerPage={perPage}
+            currentPageNumber={[currentPage]}
+        />
     );
 };
 
 export default ReferralsTable;
+

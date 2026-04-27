@@ -1,37 +1,33 @@
 import React from 'react';
-import { Box, Flex, Text } from '@chakra-ui/react';
-
-const BoxView = ({ title, subtitle, children, width = "calc(50% - 8px)", p = "16px", rightContent, minWidth }) => {
-    return (
-        <Box boxShadow="var(--gameengine-shadow)" minW={minWidth} borderRadius="4px" width={{ base: "100%", lg: width }} bg="#fff">
-            {rightContent ? (
-                <Flex justify="space-between" align="center" borderBottom="1px solid var(--gameengine-border-color)" padding="16px">
-                    {title && (
-                        <Text fontSize="20px" fontWeight="600" lineHeight="30px" color="var(--gamity-font-color)" m={0}>
+const BoxView = ({
+  title,
+  subtitle,
+  children,
+  width = "calc(50% - 8px)",
+  p = "16px",
+  rightContent,
+  minWidth
+}) => {
+  return <div className="rounded bg-white [box-shadow:var(--gameengine-shadow)]" style={{
+    "minWidth": minWidth,
+    "width": width
+  }}>
+            {rightContent ? <div className="flex justify-between items-center p-4 [border-bottom:1px_solid_var(--gameengine-border-color)]">
+                    {title && <p className="text-xl font-semibold m-0 text-[var(--gamity-font-color)] leading-[30px]">
                             {title}
-                            {subtitle ? (
-                                <Text fontSize="14px" fontWeight="400" lineHeight="20px" color="var(--gamity-font-color)" m={0}>{subtitle}</Text>
-                            ) : null}
-                        </Text>
-                    )}
+                            {subtitle ? <p className="text-sm font-normal leading-5 m-0 text-[var(--gamity-font-color)]">{subtitle}</p> : null}
+                        </p>}
                     {rightContent}
-                </Flex>
-            ) : (
-                title ? (
-                    <Text fontSize="20px" fontWeight="600" lineHeight="30px" color="var(--gamity-font-color)" padding="16px" m={0} borderBottom="1px solid var(--gameengine-border-color)">
+                </div> : title ? <p className="text-xl font-semibold p-4 m-0 text-[var(--gamity-font-color)] [border-bottom:1px_solid_var(--gameengine-border-color)] leading-[30px]">
                         {title}
-                        {subtitle ? (
-                            <Text fontSize="14px" fontWeight="400" lineHeight="20px" color="var(--gamity-font-color)" m={0}>{subtitle}</Text>
-                        ) : null}
-                    </Text>
-                ) : null
-            )}
+                        {subtitle ? <p className="text-sm font-normal leading-5 m-0 text-[var(--gamity-font-color)]">{subtitle}</p> : null}
+                    </p> : null}
 
-            <Box p={p}>
+            <div style={{
+      "padding": p
+    }}>
                 {children}
-            </Box>
-        </Box>
-    );
+            </div>
+        </div>;
 };
-
 export default BoxView;

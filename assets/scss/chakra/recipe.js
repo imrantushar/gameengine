@@ -1,18 +1,19 @@
+// CSS-compatible style objects (Tailwind migration — no Chakra props)
 export const primaryBtn = {
-    bg: "var(--gameengine-primary)",
+    background: "var(--gameengine-primary)",
     color: "#fff",
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "20px",
-    border: "1px solid var(--gameengine-primary)"
+    border: "1px solid var(--gameengine-primary)",
+    padding: "8px 16px",
+    borderRadius: "4px",
 }
 
 export const xCloseBtn = {
-    size: "xs" ,
-    color: "var(--gameengine-font-color)" ,
-    bg: "transparent" ,
-    border: "1px solid var(--gameengine-border-color)" ,
-    _hover: {bg: "var(--gameengine-secondary-color)"},
+    color: "var(--gameengine-font-color)",
+    background: "transparent",
+    border: "1px solid var(--gameengine-border-color)",
 }
 
 export const primaryClearBtn = {
@@ -25,31 +26,30 @@ export const primaryClearBtn = {
 }
 
 export const outlineBtn = {
-    bg: "transparent",
+    background: "transparent",
     color: "var(--gameengine-font-color)",
-    borderColor: "var(--gameengine-border-color)",
-    borderWidth: "1px",
+    border: "1px solid var(--gameengine-border-color)",
+    padding: "10px 16px",
+    borderRadius: "4px",
 }
 
 export const removeBtn = {
-    bg: "var(--gameengine-placing)",
+    background: "var(--gameengine-placing)",
     color: "#fff",
 }
 
 export const transparentMiniBtn = {
-    bg: "transparent",
+    background: "transparent",
     fontSize: "12px",
     color: "var(--gameengine-font-color)",
-    borderColor: "var(--gameengine-border-color)",
-    borderWidth: "1px",
+    border: "1px solid var(--gameengine-border-color)",
     padding: "2px 8px",
     lineHeight: "16px",
     height: "auto",
-    variant: "outline",
 }
 
 export const clearBtn = {
-    bg: "transparent",
+    background: "transparent",
     fontSize: "12px",
     color: "var(--gameengine-font-color)",
     height: "auto",
@@ -57,21 +57,14 @@ export const clearBtn = {
 }
 
 export const commonInput = {
-    color: "var(--gameengine-font-color) !important",
-    borderColor: "var(--gameengine-border-color) !important",
-    outline: "var(--gameengine-primary)",
-    _placeholder: {
-        color: "#738496 !important",
-        opacity: 1
-    },
-    _active: {
-        borderColor: "var(--gameengine-primary) !important"
-    },
-    _focus: {
-        borderColor: "var(--gameengine-primary) !important",
-        boxShadow: "0 0 0 1px var(--gameengine-primary) !important"
-    },
-    _hover: {
-        borderColor: "var(--gameengine-primary) !important"
-    }
+    width: "100%",
+    color: "var(--gameengine-font-color)",
+    border: "1px solid var(--gameengine-border-color)",
+    borderRadius: "6px",
+    padding: "8px 12px",
+    fontSize: "14px",
+    lineHeight: "1.5",
+    backgroundColor: "#fff",
+    outline: "none",
+    boxSizing: "border-box",
 }
