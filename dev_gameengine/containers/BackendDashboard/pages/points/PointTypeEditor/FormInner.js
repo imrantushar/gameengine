@@ -152,7 +152,7 @@ const FormInner = ({
             <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
               "background": config.bg
             }}>
-              <Icon as={config.icon} boxSize={3} />
+              <Icon as={config.icon} boxSize={3} color={'#fff'} />
             </div>
             <GFLabel type="title" fontWeight="400" label={item?.label} />
           </div>

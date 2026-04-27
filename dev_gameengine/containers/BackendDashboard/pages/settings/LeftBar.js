@@ -10,7 +10,7 @@ const LeftBar = () => {
   const navigate = useNavigate();
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-  const currentTab = tabMatch ? tabMatch[1] : 'general-settings';
+  const currentTab = tabMatch ? tabMatch[1] : 'dashboard';
   const menuList = [{
     label: __("Frontend Dashboard", "gameengine"),
     key: "dashboard",
