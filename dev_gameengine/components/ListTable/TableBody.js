@@ -1,6 +1,6 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Table, Checkbox } from '@chakra-ui/react';
+import { Table, Checkbox } from '@GFComponents/UI';
 
 const TableBody = ({
 	copyDataArr,
@@ -35,7 +35,7 @@ const TableBody = ({
 								<Checkbox.Control />
 							</Checkbox.Root>
 						</Table.Cell>
-					)}
+					)} 
 
 					{visibleColumn.map(
 						(column, columnIndex) => (
@@ -45,7 +45,7 @@ const TableBody = ({
 								textAlign={column?.textAlign ? column?.textAlign : "center"}
 								width={column?.width}
 							>
-								{typeof column?.cell === 'function' ? column?.cell(row, rowIndex) : String(row[column?.accessor] ?? '')}
+								{column?.cell(row, rowIndex)}
 							</Table.Cell>
 						)
 					)}

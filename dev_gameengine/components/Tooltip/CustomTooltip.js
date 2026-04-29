@@ -1,38 +1,26 @@
-import { Button, Menu, Portal } from "@chakra-ui/react";
+import { Menu, Portal } from "@GFComponents/UI";
 import { useState } from "react";
-
-const CustomTooltip = ({ children, button }) => {
-    const [visible, setVisible] = useState(false);
-
-    return (
-        <Menu.Root open={visible} positioning={{ placement: "top", }}>
+const CustomTooltip = ({
+  children,
+  button
+}) => {
+  const [visible, setVisible] = useState(false);
+  return <Menu.Root open={visible} positioning={{
+    placement: "top"
+  }}>
             <Menu.Trigger asChild>
-                <Button
-                    variant="plain"
-                    p="0"
-                    minWidth="auto"
-                    height="auto"
-                    size="sm"
-                    focusRing="none"
-                    onMouseEnter={() => setVisible(true)}
-                    onMouseLeave={() => setVisible(false)}
-                >
+                <button className="p-0 h-auto [min-width:auto]" onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
                     {button}
-                </Button>
+                </button>
             </Menu.Trigger>
 
             <Portal>
-                <Menu.Positioner
-                    onMouseEnter={() => setVisible(true)}
-                    onMouseLeave={() => setVisible(false)}
-                >
+                <Menu.Positioner onMouseEnter={() => setVisible(true)} onMouseLeave={() => setVisible(false)}>
                     <Menu.Content bg="var(--gameengine-primary)" color="#fff" maxW="240px" wordBreak="break-all">
                         {children}
                     </Menu.Content>
                 </Menu.Positioner>
             </Portal>
-        </Menu.Root>
-    );
+        </Menu.Root>;
 };
-
 export default CustomTooltip;

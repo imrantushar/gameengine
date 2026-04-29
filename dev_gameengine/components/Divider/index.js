@@ -1,17 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
-
-const Divider = (props) => {
-  return (
-    <Box
-      width="100%"
-      height="1px"
-      bg="var(--chakra-colors-gray-200)"
-      borderRadius="0px"
-      {...props}
-    />
-  );
+const Divider = props => {
+  return <div className="w-full h-px rounded-none bg-[var(--gameengine-border-color,_#E2E8F0)]" {...props} />;
 };
-
 export default Divider;
-

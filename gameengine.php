@@ -103,6 +103,7 @@ final class GameEngine
         register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
         register_deactivation_hook(GAMEENGINE_FILE, array(__CLASS__, 'deactivate'));
         \GameEngine\SeSdk::get_instance();
+        add_action('deactivated_plugin', array($this, 'handle_dependency_deactivation'), 10, 2);
 
         add_action('init', array($this, 'init_modules'), 10);
         add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
@@ -204,6 +205,44 @@ final class GameEngine
     {
         if (class_exists('\GameEngine\Core\Installer')) {
             (new \GameEngine\Core\Installer())->uninstall();
+        }
+    }
+
+    /**
+     * Keep addon settings consistent when dependency plugins are deactivated.
+     *
+     * @param string $plugin              Deactivated plugin basename.
+     * @param bool   $network_deactivating Whether the plugin is network deactivated.
+     */
+    public function handle_dependency_deactivation($plugin, $network_deactivating)
+    {
+        $dependency_map = array(
+            'academy/academy.php'          => 'academylms',
+            'tutor/tutor.php'              => 'tutorlms',
+            'woocommerce/woocommerce.php'  => 'woocommerce',
+            'storeengine/storeengine.php'  => 'storeengine',
+        );
+
+        if (! isset($dependency_map[$plugin])) {
+            return;
+        }
+
+        $addon_slug = $dependency_map[$plugin];
+        $active_addons = get_option('gameengine_active_addons', array());
+
+        if (! in_array($addon_slug, $active_addons, true)) {
+            return;
+        }
+
+        $active_addons = array_values(array_diff($active_addons, array($addon_slug)));
+        update_option('gameengine_active_addons', $active_addons);
+
+        if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
+            \GameEngine\Classes\TriggerRegistry::reset();
+        }
+
+        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
+            \GameEngine\Classes\JsonGenerator::generate();
         }
     }
 }

@@ -1,153 +1,94 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useEffect, useState } from 'react';
 import { Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 
-const propTypes = {
-	label: PropTypes.oneOfType( [ PropTypes.object, PropTypes.string ] ),
-	size: PropTypes.string,
-	className: PropTypes.string,
-	preset: PropTypes.string,
-	bg: PropTypes.string,
-	onClick: PropTypes.func,
-	type: PropTypes.string,
-	link: PropTypes.string,
-	isLoading: PropTypes.bool,
-	loadingLabel: PropTypes.string,
-	loadingStatus: PropTypes.string,
-	icon: PropTypes.any,
-	iconPosition: PropTypes.string,
-	border: PropTypes.string,
-	borderRadius: PropTypes.string,
-	isCircle: PropTypes.bool,
-	isDisabled: PropTypes.bool,
-	style: PropTypes.object,
-	suffix: PropTypes.string,
-	prefix: PropTypes.string,
-	target: PropTypes.string,
-	isPro: PropTypes.bool,
-};
-
 const Button = ( {
-	label = '',
-	size = 'md',
 	className = '',
+	label = '',
+	size = 'sm',
 	preset = 'purple',
-	onClick = () => {},
+	onClick,
 	type = 'button',
-	link = '#',
 	isLoading = false,
-	loadingLabel = null,
-	icon = null,
-	iconPosition = null,
+	loadingLabel = undefined,
+	icon = undefined,
+	iconPosition = undefined,
 	isCircle = false,
-	border = null,
+	border = undefined,
 	isDisabled = false,
-	borderRadius = null,
+	borderRadius = undefined,
 	style = {},
+	link = '#',
 	suffix = '',
-	target = '',
+	target = undefined,
 	isPro = true,
+	ariaLabel = '',
+	ariaHidden = false,
 	id,
-	prefix = '',
+	...rest
 } ) => {
-	const buttonClasses = [ `gameengine-btn gameengine-btn--${ size }` ];
+	const [ btnWidth, setBtnWidth ] = useState( null );
+	const btnRef = useRef( null );
 
-	if ( preset ) {
-		buttonClasses.push( 'gameengine-btn--preset-' + preset );
-	}
-	if ( iconPosition ) {
-		buttonClasses.push( 'gameengine-btn--icon-' + iconPosition );
-	}
-	if ( isCircle ) {
-		buttonClasses.push( 'gameengine-btn--circle' );
-	}
-	if ( border ) {
-		buttonClasses.push( 'gameengine-btn--border-' + border );
-	}
-	if ( borderRadius ) {
-		buttonClasses.push( 'gameengine-btn--border-' + borderRadius );
-	}
-	if ( isDisabled ) {
-		buttonClasses.push( 'gameengine-btn--disabled' );
-	}
-	if ( suffix ) {
-		buttonClasses.push( 'gameengine-btn--' + suffix );
-	}
-	if ( prefix ) {
-		buttonClasses.push( 'gameengine-btn--' + prefix );
-	}
+	useEffect( () => {
+		if ( btnRef.current && ! isLoading && ! btnWidth ) {
+			setBtnWidth( btnRef.current.offsetWidth );
+		}
+	}, [ btnWidth, isLoading ] );
 
-	if ( 'link' === type ) {
-		const targetAttribute = target ? { target } : {};
-		return (
-			<a
-				href={ link }
-				className={ className ? className : buttonClasses.join( ' ' ) }
-				type={ type }
-				onClick={ onClick }
-				disabled={ isDisabled || isLoading }
-				style={ style }
-				rel="noreferrer"
-				id={ id }
-				{ ...targetAttribute }
-			>
-				{ iconPosition !== 'right' && icon }
+	const buildClassName = () => {
+		if ( className ) return className;
+		return [
+			'gameengine-btn',
+			size && `gameengine-btn--${ size }`,
+			preset && `gameengine-btn--preset-${ preset }`,
+			iconPosition && icon && ! isLoading && `gameengine-btn--icon-${ iconPosition }`,
+			border && `gameengine-btn--border-${ border }`,
+			borderRadius && `gameengine-btn--border-${ borderRadius }`,
+			suffix && `gameengine-btn--${ suffix }`,
+			isCircle && 'gameengine-btn--circle',
+			isDisabled && 'gameengine-btn--disabled',
+		].filter( Boolean ).join( ' ' );
+	};
 
-				{ isLoading ? (
-					<>
-						<Spinner />
-						{ loadingLabel && (
-							<span className="gameengine-btn--label">
-								{ loadingLabel }
-							</span>
-						) }
-					</>
-				) : (
-					<>
-						{ label && (
-							<span className="gameengine-btn--label">
-								{ label }
-							</span>
-						) }
-					</>
-				) }
-				{ iconPosition === 'right' && icon }
-				{ ! isPro && (
-					<span className="gameengine-pro-badge">
-						{ __( 'PRO', 'gameengine' ) }
-					</span>
-				) }
-			</a>
-		);
+	const buttonProps = {
+		...rest,
+		id,
+		style: {
+			...style,
+			...( isLoading && btnWidth ? { width: `${ btnWidth }px` } : {} ),
+		},
+		disabled: isDisabled || isLoading,
+	};
+
+	if ( onClick && typeof onClick === 'function' ) {
+		buttonProps.onClick = onClick;
+	}
+	if ( ariaLabel ) buttonProps[ 'aria-label' ] = ariaLabel;
+	if ( ariaHidden ) buttonProps[ 'aria-hidden' ] = ariaHidden;
+
+	const Component = type === 'link' ? 'a' : 'button';
+
+	if ( type === 'link' ) {
+		buttonProps.href = link;
+		buttonProps.target = target;
+		buttonProps.rel = 'noreferrer';
+	} else {
+		buttonProps.type = type;
 	}
 
 	return (
-		<button
-			className={ className ? className : buttonClasses.join( ' ' ) }
-			type={ type }
-			onClick={ onClick }
-			disabled={ isDisabled || isLoading }
-			style={ style }
-			id={ id }
-		>
+		<Component ref={ btnRef } className={ buildClassName() } { ...buttonProps }>
 			{ iconPosition !== 'right' && ! isLoading && icon }
-
 			{ isLoading ? (
 				<>
 					<Spinner />
 					{ loadingLabel && (
-						<span className="gameengine-btn--label">
-							{ loadingLabel }
-						</span>
+						<span className="gameengine-btn--label">{ loadingLabel }</span>
 					) }
 				</>
 			) : (
-				<>
-					{ label && (
-						<span className="gameengine-btn--label">{ label }</span>
-					) }
-				</>
+				label && <span className="gameengine-btn--label">{ label }</span>
 			) }
 			{ iconPosition === 'right' && ! isLoading && icon }
 			{ ! isPro && (
@@ -155,9 +96,9 @@ const Button = ( {
 					{ __( 'PRO', 'gameengine' ) }
 				</span>
 			) }
-		</button>
+		</Component>
 	);
 };
 
-Button.propTypes = propTypes;
+Button.displayName = 'Button';
 export default Button;

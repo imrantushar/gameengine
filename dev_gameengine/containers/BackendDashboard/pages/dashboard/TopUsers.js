@@ -1,15 +1,12 @@
 import React from 'react';
-import { Table, Text } from '@chakra-ui/react';
+import { Table } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import BoxView from '@GFComponents/BoxView/BoxView';
-
-const TopUsers = ({ users }) => {
-    return (
-        <BoxView width='100%' title={__('Top 5 Users', 'gameengine')}>
-            {!users || users.length === 0 ? (
-                <Text>{__("No data available yet.", "gameengine")}</Text>
-            ) : (
-                <Table.Root variant="simple">
+const TopUsers = ({
+  users
+}) => {
+  return <BoxView width='100%' title={__('Top 5 Users', 'gameengine')}>
+            {!users || users.length === 0 ? <p>{__("No data available yet.", "gameengine")}</p> : <Table.Root variant="simple">
                     <Table.Header>
                         <Table.Row background="var(--gameengine-second-primary)">
                             <Table.ColumnHeader width="6.21%" borderLeftRadius="4px" color="var(--gameengine-background)" paddingLeft="24px">{__('Rank', 'gameengine')}</Table.ColumnHeader>
@@ -20,22 +17,17 @@ const TopUsers = ({ users }) => {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {users.map((item, index) => (
-                            <Table.Row key={index} borderRadius="4px" background={index % 2 === 0 ? 'var(--gameengine-background)' : 'var(--gameengine-secondary-color)'}>
+                        {users.map((item, index) => <Table.Row key={index} borderRadius="4px" background={index % 2 === 0 ? 'var(--gameengine-background)' : 'var(--gameengine-secondary-color)'}>
                                 <Table.Cell borderLeftRadius={index % 2 !== 0 ? '4px' : ''} paddingLeft="24px">
-                                    <Text as="span" fontSize="14px">#{index + 1}</Text>
+                                    <span className="text-sm">#{index + 1}</span>
                                 </Table.Cell>
                                 <Table.Cell borderRightRadius={index % 2 !== 0 ? '4px' : ''}>{item.name}</Table.Cell>
                                 <Table.Cell borderRightRadius={index % 2 !== 0 ? '4px' : ''}>{parseInt(item.total_points).toLocaleString()}</Table.Cell>
                                 <Table.Cell borderRightRadius={index % 2 !== 0 ? '4px' : ''} fontWeight="500">{item.achievements_count}</Table.Cell>
                                 <Table.Cell borderRightRadius={index % 2 !== 0 ? '4px' : ''}>{item.top_level || '-'}</Table.Cell>
-                            </Table.Row>
-                        ))}
+                            </Table.Row>)}
                     </Table.Body>
-                </Table.Root>
-            )}
-        </BoxView>
-    );
-}
-
+                </Table.Root>}
+        </BoxView>;
+};
 export default TopUsers;
