@@ -3,7 +3,7 @@ import { __ } from "@wordpress/i18n";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@GFComponents/UI";
 import { FiMail } from "react-icons/fi";
-import { FiHelpCircle } from "react-icons/fi";
+import { FaLock } from "react-icons/fa6";
 import { is_pro, route_path } from "@GFUtils/helper";
 import { general, license, mail } from "@GFUtils/icons";
 const LeftBar = () => {

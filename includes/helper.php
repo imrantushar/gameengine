@@ -191,6 +191,15 @@ class Helper
             );
         }
 
+        // Lucky Wheels
+        if (self::is_addon_active('lucky-wheels')) {
+            $menu[$slug . '-lucky-wheels'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Lucky Wheels', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
         // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,

@@ -125,6 +125,35 @@ const infoCardsData = [{
 		docsUrl: 'https://kodezen.com/docs/gameengine/referrals/',
 		route: "admin.php?page=gameengine-referrals",
 	},
+	{
+		label: __('Referrals & Affiliates', 'gameengine'),
+		name: 'referrals',
+		is_pro: true,
+		is_coming_soon: false,
+		details: __(
+			'Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: referralIcon(),
+		docsUrl: 'https://kodezen.com/docs/gameengine/referrals/',
+		route: "admin.php?page=gameengine-referrals",
+	},
+	{
+		label: __('Spin the Wheel', 'gameengine'),
+		name: 'lucky-wheels',
+		is_pro: true,
+		is_coming_soon: false,
+		details: __(
+			'Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: false,
+		image: plugin_root_url + 'assets/images/progress_map.svg', // Fallback image
+		docsUrl: '#',
+		route: "admin.php?page=gameengine-lucky-wheels",
+	},
 
 // ================= PRO + ACTIVE (NEW) =================
 // {

@@ -169,6 +169,15 @@ class AddonsController extends BaseController
                 'is_pro'    => true,
                 'is_locked' => ! $is_pro_installed,
             ),
+            array(
+                'slug'      => 'lucky-wheels',
+                'name'      => __('Spin the Wheel', 'gameengine'),
+                'desc'      => __('Allow users to spin a lucky wheel to win points and rewards.', 'gameengine'),
+                'icon'      => 'dashicons-update',
+                'active'    => $is_pro_installed && in_array('lucky-wheels', (array) $active_addons, true),
+                'is_pro'    => true,
+                'is_locked' => ! $is_pro_installed,
+            ),
         );
 
         return new \WP_REST_Response($addons, 200);
@@ -285,12 +294,13 @@ class AddonsController extends BaseController
             'progress_map',
             'restrict_content',
             'wallet',
-            'referrals'
+            'referrals',
+            'lucky-wheels'
         );
 
         $mapped = array();
         foreach ($all_addons as $slug) {
-            if (! $is_pro_installed && in_array($slug, array('wallet', 'referrals'), true)) {
+            if (! $is_pro_installed && in_array($slug, array('wallet', 'referrals', 'lucky-wheels'), true)) {
                 $mapped[$slug] = false;
                 continue;
             }
