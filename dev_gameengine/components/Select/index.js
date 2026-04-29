@@ -1,7 +1,4 @@
-"use client";
-
-import { Portal, Select, createListCollection } from "@chakra-ui/react";
-
+import ReactSelect from 'react-select';
 const GFSelect = ({
   label,
   placeholder = "Select option",
@@ -10,48 +7,34 @@ const GFSelect = ({
   onChange,
   size = "sm",
   width = "100%",
-  style
+  style,
+  isMulti = false,
+  isDisabled = false
 }) => {
-
-  const collection = createListCollection({ items });
-  return (
-    <Select.Root
-      marginTop="2px"
-      style={{ ...style }}
-      collection={collection}
-      size={size}
-      width={width}
-      value={value ?? ""}                     
-      onValueChange={(v) => onChange?.(v)}   
-    >
-      <Select.HiddenSelect />
-
-      {label && <Select.Label>{label}</Select.Label>}
-
-      <Select.Control>
-        <Select.Trigger>
-          <Select.ValueText placeholder={placeholder} />
-        </Select.Trigger>
-
-        <Select.IndicatorGroup>
-          <Select.Indicator />
-        </Select.IndicatorGroup>
-      </Select.Control>
-
-      <Portal>
-        <Select.Positioner>
-          <Select.Content>
-            {collection.items.map((item) => (
-              <Select.Item key={item.value} item={item}>
-                {item.label}
-                <Select.ItemIndicator />
-              </Select.Item>
-            ))}
-          </Select.Content>
-        </Select.Positioner>
-      </Portal>
-    </Select.Root>
-  );
+  const options = items.map(item => ({
+    value: item.value,
+    label: item.label
+  }));
+  const currentValue = isMulti ? options.filter(o => Array.isArray(value) && value.includes(o.value)) : options.find(o => o.value === (Array.isArray(value) ? value[0] : value)) || null;
+  return <div style={{
+    width,
+    marginTop: '2px',
+    ...style
+  }}>
+      {label && <label className="block text-sm font-medium mb-1">
+          {label}
+        </label>}
+      <ReactSelect isMulti={isMulti} isDisabled={isDisabled} placeholder={placeholder} options={options} value={currentValue} onChange={selected => {
+      if (isMulti) {
+        onChange?.({
+          value: selected ? selected.map(s => s.value) : []
+        });
+      } else {
+        onChange?.({
+          value: selected ? [selected.value] : []
+        });
+      }
+    }} className="gameengine-select" classNamePrefix="gameengine-select" />
+    </div>;
 };
-
 export default GFSelect;

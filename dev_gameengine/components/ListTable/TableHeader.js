@@ -1,12 +1,12 @@
 import React from 'react';
-import { Table, Checkbox } from '@chakra-ui/react';
+import { Table, Checkbox } from '@GFComponents/UI';
 
 const TableHeader = ({
 	visibleColumn,
 	isCheckboxColumnVisible,
 	copyDataArr,
 	selectAllRow,
-	data,
+	data,	
 }) => {
 	const isCheckboxChecked =
 		data?.length > 0 &&

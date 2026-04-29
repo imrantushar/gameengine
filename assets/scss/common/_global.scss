@@ -289,3 +289,11 @@
         }
     }
 }
+
+// dashboard date select 
+.kz-datepicker-input--dashboard {
+    border: 1px solid var(--gameengine-border-color) !important;
+}
+.kz-arrow-indicator--dashboard {
+    display: none;
+}

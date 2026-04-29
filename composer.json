@@ -20,6 +20,7 @@
         "storeengine/wordpress-sdk": "^1.4"
 	},
 	"config": {
+		"autoloader-suffix": "GameEngine",
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true,
 			"composer/installers": true

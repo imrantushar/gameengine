@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { reactDebounce } from '@GFUtils/helper';
 import './styles.scss';
 import { CiSearch } from "react-icons/ci";
-import { Icon } from '@chakra-ui/react';
+import { Icon } from '@GFComponents/UI';
 
 const propTypes = {
 	placeholder: PropTypes.string,

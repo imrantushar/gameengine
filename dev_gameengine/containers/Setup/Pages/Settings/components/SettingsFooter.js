@@ -1,24 +1,21 @@
-import { Button, Flex, Icon } from "@chakra-ui/react";
+import { Icon } from "@GFComponents/UI";
 import React from "react";
-import {
-  clearBtn,
-  primaryBtn,
-} from "../../../../../../assets/scss/chakra/recipe";
 import { __ } from "@wordpress/i18n";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useFormikContext } from "formik";
 import { useNavigate } from "react-router-dom";
+import { outlineBtn } from "../../../../../../assets/scss/chakra/recipe";
+import Button from "@GFComponents/Button";
 
 const SettingsFooter = ({ step, setStep }) => {
   const { submitForm, isSubmitting } = useFormikContext();
   const navigate = useNavigate();
+
   return (
-    <Flex width={"100%"} justifyContent={"space-between"} alignItems={"center"}>
-      <Button
-        {...clearBtn}
-        fontSize={"14px"}
-        fontWeight={"500"}
-        lineHeight={"20px"}
+    <div className="flex w-full justify-between items-center mt-2">
+      <button
+        className="flex items-center gap-2 cursor-pointer"
+        style={outlineBtn}
         onClick={() => {
           if (step === "addons") {
             setStep("datapreview");
@@ -29,9 +26,14 @@ const SettingsFooter = ({ step, setStep }) => {
       >
         <Icon as={FaAngleLeft} width={"10px"} />
         {__("Back", "gameengine")}
-      </Button>
+      </button>
       <Button
-        {...primaryBtn}
+        label={__('Continue', 'gameengine')}
+        loadingLabel={__('Continue', 'gameengine')}
+        isLoading={isSubmitting}
+        isDisabled={isSubmitting}
+        icon={<Icon as={FaAngleRight} width={'10px'} color={'#fff'} />}
+        iconPosition="right"
         onClick={() => {
           if (step === "datapreview") {
             setStep("addons");
@@ -39,12 +41,8 @@ const SettingsFooter = ({ step, setStep }) => {
             submitForm();
           }
         }}
-        loading={isSubmitting}
-      >
-        {__("Continue", "gameengine")}
-        <Icon as={FaAngleRight} width={"10px"} />
-      </Button>
-    </Flex>
+      />
+    </div>
   );
 };
 

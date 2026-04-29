@@ -2,7 +2,7 @@
 
 namespace GameEngine\Core;
 
-if (! defined('ABSPATH')) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
@@ -22,7 +22,7 @@ final class Schema
     {
         global $wpdb;
         $charset_collate = $wpdb->get_charset_collate();
-        $prefix          = $wpdb->prefix;
+        $prefix = $wpdb->prefix;
 
         return array(
             self::get_point_types_table_schema($prefix, $charset_collate),

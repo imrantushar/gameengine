@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
-import { Box, Button, Flex, Icon, RadioGroup, Switch, Text } from '@chakra-ui/react';
+import { Icon, RadioGroup, Switch } from '@GFComponents/UI';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -9,223 +9,163 @@ import HookConfigurationForm from './HookConfigurationForm';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { useDispatch } from 'react-redux';
 import { FaAngleDown } from 'react-icons/fa6';
-import { RiArrowRightSLine } from 'react-icons/ri';
+import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 
 // # DRAGGABLE
-const DraggableItem = ({ id, children }) => {
-    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id });
-    const style = {
-        transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-        opacity: isDragging ? 0.85 : 1,
-        cursor: "grab",
-        zIndex: isDragging ? 999 : 1
-    };
-
-    return (
-        <Box ref={setNodeRef} {...listeners} {...attributes} style={style} marginBottom="24px">
-            {children}
-        </Box>
-    );
+const DraggableItem = ({
+  id,
+  children
+}) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    isDragging
+  } = useDraggable({
+    id
+  });
+  const style = {
+    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
+    opacity: isDragging ? 0.85 : 1,
+    cursor: "grab",
+    zIndex: isDragging ? 999 : 1
+  };
+  return <div style={style} ref={setNodeRef} {...listeners} {...attributes} marginBottom="24px">
+    {children}
+  </div>;
 };
 
 // # DROPPABLE
-const DroppableArea = ({ id, children }) => {
-    const { setNodeRef } = useDroppable({ id });
-    return (
-        <Box ref={setNodeRef} borderRadius="4px" height='100%' transition="all 0.2s">
-            {children}
-        </Box>
-    );
+const DroppableArea = ({
+  id,
+  children
+}) => {
+  const {
+    setNodeRef
+  } = useDroppable({
+    id
+  });
+  return <div className="rounded h-full transition-all duration-200" ref={setNodeRef}>
+    {children}
+  </div>;
 };
+const Requirements = props => {
+  const {
+    label,
+    onClick,
+    open,
+    parent,
+    child,
+    childLeft,
+    childRight,
+    filterHookType,
+    selectedFilterType,
+    renderHookCard,
+    allHooks,
+    hookTypeOptions,
+    hookSettings,
+    openHookType,
+    setOpenHookType,
+    selectedHookIds,
+    actionName,
+    scope
+  } = props;
+  const dispatch = useDispatch();
+  const [dropdownTab, setDropdownTab] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const menuItemRef = useRef(null);
+  const relativeTo = useRef(null);
 
-const Requirements = (props) => {
-    const {
-        label, onClick, open, parent, child, childLeft, childRight, filterHookType, selectedFilterType, renderHookCard, allHooks, hookTypeOptions, hookSettings, openHookType, setOpenHookType, selectedHookIds, actionName, scope,
-    } = props;
-    const dispatch = useDispatch();
-    const [dropdownTab, setDropdownTab] = useState(null);
-    const [showDropdown, setShowDropdown] = useState(false);
-    const menuItemRef = useRef(null);
-    const relativeTo = useRef(null);
+  // const handleClick = (e) => {
+  //     if (
+  //         menuItemRef?.current &&
+  //         !menuItemRef?.current?.contains(e.target) &&
+  //         !relativeTo.current.contains(e.target)
+  //     ) {
+  //         setShowDropdown(false);
+  //     }
+  // };
 
-    // const handleClick = (e) => {
-    //     if (
-    //         menuItemRef?.current &&
-    //         !menuItemRef?.current?.contains(e.target) &&
-    //         !relativeTo.current.contains(e.target)
-    //     ) {
-    //         setShowDropdown(false);
-    //     }
-    // };
+  const tabArray = [{
+    label: __('All', 'gameengine'),
+    value: 'all'
+  }, ...hookTypeOptions];
 
-    const tabArray = [
-        { label: __('All', 'gameengine'), value: 'all' },
-        ...hookTypeOptions,
-    ]
+  // useEffect(() => {
+  //     document.addEventListener('mousedown', handleClick);
+  //     return () => document.removeEventListener('mousedown', handleClick);
+  // }, []);
 
-    // useEffect(() => {
-    //     document.addEventListener('mousedown', handleClick);
-    //     return () => document.removeEventListener('mousedown', handleClick);
-    // }, []);
+  const tabContainerRef = useRef(null);
+  const scrollLeft = () => {
+    tabContainerRef.current?.scrollBy({
+      left: -150,
+      behavior: 'smooth'
+    });
+  };
+  const scrollRight = () => {
+    tabContainerRef.current?.scrollBy({
+      left: 150,
+      behavior: 'smooth'
+    });
+  };
+  return <CollapsibleItem
+    // translators: %s: label
+    label={sprintf(__('%s', 'gemboards'), label)} onClick={onClick} open={open} dynamicClasses={parent}>
+    {open && <div className={`${`${child} gameengine-fade-in-up` + " " + "flex w-full"} gap-6 mt-6`}>
+      <div className={`${`${childLeft + " " + "flex flex-col"} w-1/2 rounded gap-6 [padding:24px_24px_0_24px]`} [box-shadow:var(--gameengine-shadow)]`}>
+        <div className="flex flex-col gap-1">
+          <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
+          <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")} />
+        </div>
 
-    const tabContainerRef = useRef(null);
-    const scrollLeft = () => {
-        tabContainerRef.current?.scrollBy({ left: -150, behavior: 'smooth' });
-    };
+        <div className="flex items-center relative">
+          {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
+            <RiArrowLeftSLine />
+          </button>}
 
-    const scrollRight = () => {
-        tabContainerRef.current?.scrollBy({ left: 150, behavior: 'smooth' });
-    };
+          <div className={`flex gap-4 overflow-x-auto overflow-y-hidden border-b border-gray-200 w-[${tabArray.length > 4 ? "80%" : "100%" }] ${tabArray.length > 4 ? "mx-auto" : ""}`} ref={tabContainerRef} mx={tabArray.length > 4 ? "32px" : "0"} style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+            {tabArray.map((item, index) => {
+              const isActive = selectedFilterType === item.value || selectedFilterType === '' && item.value === 'all';
+              return <button
+                key={index}
+                className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[#1a73e8] border-0 border-b-2 border-solid border-[#1a73e8]' : 'text-gray-600 border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+                style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
+                onClick={() => filterHookType(item.value)}>
+                {item.label}
+              </button>;
+            })}
+          </div>
 
-    return (
-        <CollapsibleItem
-            // translators: %s: label
-            label={sprintf(
-                __('%s', 'gemboards'),
-                label,
-            )}
-            onClick={onClick}
-            open={open}
-            dynamicClasses={parent}
-        >
-            {open && (
-                <Flex gap="24px" mt={6} width="100%" className={`${child} gameengine-fade-in-up`}>
-                    <Flex className={childLeft} width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gameengine-shadow)" direction="column" gap="24px">
-                        <Flex direction="column" gap="4px">
-                            <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
-                            <GFLabel
-                                type="subtitle"
-                                color="var(--gameengine-font-color)"
-                                label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")}
-                            />
-                        </Flex>
+          {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] right-0 z-[2] text-[16px] leading-4" onClick={scrollRight}>
+            <RiArrowRightSLine />
+          </button>}
+        </div>
 
-                        <Flex align="center" position="relative">
-                            {tabArray.length > 4 && (
-                                <Button
-                                    onClick={scrollLeft}
-                                    position="absolute"
-                                    left="0"
-                                    zIndex="2"
-                                    size="xs"
-                                    bg="#fff"
-                                    p={0}
-                                    borderRadius="50%"
-                                    color="var(--gameengine-font-color)"
-                                    border="1px solid var(--gameengine-border-color)"
-                                >
-                                    <Icon as={RiArrowRightSLine} transform="rotate(180deg)" />
-                                </Button>
-                            )}
+        <DroppableArea id={`${actionName}s-available`}>
+          <div className="gameengine-fade-in" key={selectedFilterType}>
+            {allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all').map(h => <div key={h.id}>
+              {renderHookCard(h, actionName)}
+              <p className="mt-1 text-xs text-gray-500">{h.subTitle}</p>
+            </div>)}
+          </div>
+        </DroppableArea>
+      </div>
 
-                            <Box
-                                ref={tabContainerRef}
-                                display="flex"
-                                overflowX="auto"
-                                overflowY="hidden"
-                                borderBottom="2px solid var(--gameengine-border-color)"
-                                mx={tabArray.length > 4 ? "32px" : "0"}
-                                css={{
-                                    "&::-webkit-scrollbar": { display: "none" },
-                                    scrollbarWidth: "none",
-                                }}
-                            >
-                                {tabArray.map((item, index) => {
-                                    const isActive = selectedFilterType === item.value || (selectedFilterType === '' && item.value === 'all');
+      <div className={`${`${childRight} w-1/2 rounded [padding:24px_24px_0_24px]`} [box-shadow:var(--gameengine-shadow)]`}>
+        <div className="flex flex-col gap-1 mb-6">
+          <GFLabel type="plainHeading" margin={0} label={__("Active Hooks", "gameengine")} />
+          <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("The following hooks are used for all users", "gameengine")} />
+        </div>
 
-                                    return (
-                                        <Button
-                                            key={index}
-                                            minW="auto"
-                                            variant="plain"
-                                            onClick={() => filterHookType(item.value)}
-                                            fontSize="12px"
-                                            fontWeight="500"
-                                            padding="8px 12px"
-                                            borderBottom={isActive ? "2px solid var(--gameengine-primary)" : "2px solid transparent"}
-                                            color={isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"}
-                                            _hover={{
-                                                color: "var(--gameengine-primary)"
-                                            }}
-                                        >
-                                            {item.label}
-                                        </Button>
-                                    );
-                                })}
-                            </Box>
-
-                            {tabArray.length > 4 && (
-                                <Button
-                                    onClick={scrollRight}
-                                    position="absolute"
-                                    right="0"
-                                    zIndex="2"
-                                    size="xs"
-                                    bg="#fff"
-                                    p={0}
-                                    borderRadius="50%"                                    
-                                    color="var(--gameengine-font-color)"
-                                    border="1px solid var(--gameengine-border-color)"
-                                >
-                                    <Icon as={RiArrowRightSLine} />
-                                </Button>
-                            )}
-                        </Flex>
-
-                        <DroppableArea id={`${actionName}s-available`}>
-                            <Box key={selectedFilterType} className="gameengine-fade-in">
-                                {allHooks
-                                    .filter(item => !selectedHookIds?.includes(item?.id))
-                                    .filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all')
-                                    .map(h => (
-                                        <Box key={h.id}>
-                                            {renderHookCard(h, actionName)}
-                                            <Text fontSize="xs" color="gray.500" mt={1}>{h.subTitle}</Text>
-                                        </Box>
-                                    ))}
-                            </Box>
-                        </DroppableArea>
-                    </Flex>
-
-                    <Box className={childRight} width="50%" p="24px 24px 0 24px" borderRadius="4px" boxShadow="var(--gameengine-shadow)">
-                        <Flex direction="column" gap="4px" mb={6}>
-                            <GFLabel type="plainHeading" margin={0} label={__("Active Hooks", "gameengine")} />
-                            <GFLabel
-                                type="subtitle"
-                                color="var(--gameengine-font-color)"
-                                label={__("The following hooks are used for all users", "gameengine")}
-                            />
-                        </Flex>
-
-                        <DroppableArea id={`${actionName}s-sidebar`}>
-                            {selectedHookIds && selectedHookIds
-                                .map(id => allHooks?.find(h => h.id === id))
-                                .filter(Boolean)
-                                .map(h => (
-                                    <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
-                                        <HookConfigurationForm
-                                            hookId={h.id}
-                                            type={actionName}
-                                            hookInfo={h}
-                                            dispatch={dispatch}
-                                            currentSettings={hookSettings[`${actionName}_${h.id}`]}
-                                            isOpen={openHookType.includes(h.id)}
-                                            setIsOpen={v =>
-                                                setOpenHookType(
-                                                    v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id)
-                                                )
-                                            }
-                                            scope={scope}
-                                        />
-                                    </DraggableItem>
-                                ))
-                            }
-                        </DroppableArea>
-                    </Box>
-                </Flex>
-            )}
-        </CollapsibleItem>
-    );
+        <DroppableArea id={`${actionName}s-sidebar`}>
+          {selectedHookIds && selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
+            <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
+          </DraggableItem>)}
+        </DroppableArea>
+      </div>
+    </div>}
+  </CollapsibleItem>;
 };
-
 export default Requirements;
