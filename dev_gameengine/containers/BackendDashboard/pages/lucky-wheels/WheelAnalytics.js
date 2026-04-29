@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Flex,
-    Box,
-    Text,
-    Spinner,
-    SimpleGrid,
-} from '@chakra-ui/react';
+import { Spinner } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import WPModal from '@GFComponents/Modal/WPModal';
@@ -37,68 +31,76 @@ export default function WheelAnalytics({ wheelId, isOpen, onClose }) {
             size="large"
         >
             {loading ? (
-                <Flex justify="center" align="center" h="200px">
-                    <Spinner size="xl" color="blue.500" />
-                </Flex>
+                <div className="flex justify-center items-center" style={{ height: '200px' }}>
+                    <Spinner />
+                </div>
             ) : !data ? (
-                <Text textAlign="center">{__('Failed to load analytics.', 'gameengine')}</Text>
+                <p className="text-center">{__('Failed to load analytics.', 'gameengine')}</p>
             ) : (
-                <Flex direction="column" gap={6} p={4}>
-                    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={4}>
-                        <GameEngineBox p={4} textAlign="center">
-                            <Text fontSize="sm" color="gray.500" fontWeight="bold" textTransform="uppercase">{__('Spins Today', 'gameengine')}</Text>
-                            <Text fontSize="2xl" fontWeight="black" color="blue.600">{data.spins_today}</Text>
+                <div className="flex flex-col gap-6 p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <GameEngineBox>
+                            <div className="text-center">
+                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Spins Today', 'gameengine')}</p>
+                                <p className="text-2xl font-black text-blue-600 m-0">{data.spins_today}</p>
+                            </div>
                         </GameEngineBox>
-                        <GameEngineBox p={4} textAlign="center">
-                            <Text fontSize="sm" color="gray.500" fontWeight="bold" textTransform="uppercase">{__('Total Spins', 'gameengine')}</Text>
-                            <Text fontSize="2xl" fontWeight="black" color="purple.600">{data.total_spins}</Text>
+                        <GameEngineBox>
+                            <div className="text-center">
+                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Total Spins', 'gameengine')}</p>
+                                <p className="text-2xl font-black text-purple-600 m-0">{data.total_spins}</p>
+                            </div>
                         </GameEngineBox>
-                        <GameEngineBox p={4} textAlign="center">
-                            <Text fontSize="sm" color="gray.500" fontWeight="bold" textTransform="uppercase">{__('Points Awarded', 'gameengine')}</Text>
-                            <Text fontSize="2xl" fontWeight="black" color="green.600">{data.total_points_awarded}</Text>
+                        <GameEngineBox>
+                            <div className="text-center">
+                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Points Awarded', 'gameengine')}</p>
+                                <p className="text-2xl font-black text-green-600 m-0">{data.total_points_awarded}</p>
+                            </div>
                         </GameEngineBox>
-                        <GameEngineBox p={4} textAlign="center">
-                            <Text fontSize="sm" color="gray.500" fontWeight="bold" textTransform="uppercase">{__('Unique Players', 'gameengine')}</Text>
-                            <Text fontSize="2xl" fontWeight="black" color="orange.500">{data.unique_users}</Text>
+                        <GameEngineBox>
+                            <div className="text-center">
+                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Unique Players', 'gameengine')}</p>
+                                <p className="text-2xl font-black text-orange-500 m-0">{data.unique_users}</p>
+                            </div>
                         </GameEngineBox>
-                    </SimpleGrid>
+                    </div>
 
-                    <Flex direction={{ base: "column", lg: "row" }} gap={6}>
-                        <Box flex="1">
+                    <div className="flex flex-col lg:flex-row gap-6">
+                        <div className="flex-1">
                             <GameEngineBox heading={__('Prize Distribution', 'gameengine')}>
                                 {data.prize_distribution && Object.keys(data.prize_distribution).length > 0 ? (
-                                    <Flex direction="column" gap={3} mt={4}>
+                                    <div className="flex flex-col gap-3 mt-4">
                                         {Object.entries(data.prize_distribution).map(([prize, count]) => (
-                                            <Flex key={prize} justify="space-between" align="center" bg="gray.50" p={3} borderRadius="md" border="1px solid" borderColor="gray.100">
-                                                <Text fontWeight="600">{prize}</Text>
-                                                <Text fontWeight="bold" color="blue.600">{count} {__('times', 'gameengine')}</Text>
-                                            </Flex>
+                                            <div key={prize} className="flex justify-between items-center bg-gray-50 p-3 rounded-md border border-gray-100">
+                                                <span className="font-semibold">{prize}</span>
+                                                <span className="font-bold text-blue-600">{count} {__('times', 'gameengine')}</span>
+                                            </div>
                                         ))}
-                                    </Flex>
+                                    </div>
                                 ) : (
-                                    <Text color="gray.500" mt={2}>{__('No prizes awarded yet.', 'gameengine')}</Text>
+                                    <p className="text-gray-500 mt-2">{__('No prizes awarded yet.', 'gameengine')}</p>
                                 )}
                             </GameEngineBox>
-                        </Box>
+                        </div>
 
-                        <Box flex="1">
+                        <div className="flex-1">
                             <GameEngineBox heading={__('Collected Guest Emails (Leads)', 'gameengine')}>
                                 {data.guest_emails && data.guest_emails.length > 0 ? (
-                                    <Flex direction="column" gap={2} mt={4} maxH="300px" overflowY="auto">
+                                    <div className="flex flex-col gap-2 mt-4 overflow-y-auto" style={{ maxHeight: '300px' }}>
                                         {data.guest_emails.map((item, idx) => (
-                                            <Flex key={idx} justify="space-between" align="center" bg="blue.50" p={2} borderRadius="md" borderLeft="4px solid" borderLeftColor="blue.400">
-                                                <Text fontSize="sm" fontWeight="500">{item.guest_email}</Text>
-                                                <Text fontSize="xs" color="gray.500">{new Date(item.created_at).toLocaleDateString()}</Text>
-                                            </Flex>
+                                            <div key={idx} className="flex justify-between items-center bg-blue-50 p-2 rounded-md border-l-4 border-blue-400">
+                                                <span className="text-sm font-medium">{item.guest_email}</span>
+                                                <span className="text-xs text-gray-500">{new Date(item.created_at).toLocaleDateString()}</span>
+                                            </div>
                                         ))}
-                                    </Flex>
+                                    </div>
                                 ) : (
-                                    <Text color="gray.500" mt={2}>{__('No guest emails collected yet.', 'gameengine')}</Text>
+                                    <p className="text-gray-500 mt-2">{__('No guest emails collected yet.', 'gameengine')}</p>
                                 )}
                             </GameEngineBox>
-                        </Box>
-                    </Flex>
-                </Flex>
+                        </div>
+                    </div>
+                </div>
             )}
         </WPModal>
     );

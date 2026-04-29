@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Box,
-    Button,
-    Flex,
-    Icon,
-    Text,
-} from '@chakra-ui/react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2, FiPlus, FiActivity } from "react-icons/fi";
 import TopBar from '@GFComponents/TopBar';
-import GFLabel from '@GFComponents/Labels/GFLabel';
 import OptionMenu from '@GFComponents/OptionMenu';
+import { Icon } from '@GFComponents/UI';
+import Button from '@GFComponents/Button';
 import { useNavigate } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
 import WheelEditor from './WheelEditor';
 import WheelAnalytics from './WheelAnalytics';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 
 export default function LuckyWheels({ action, id }) {
     const [wheels, setWheels] = useState([]);
@@ -71,7 +64,7 @@ export default function LuckyWheels({ action, id }) {
         {
             name: __('Name', 'gameengine'),
             cell: row => (
-                <Text fontWeight="500">{row.name || '—'}</Text>
+                <span className="font-medium">{row.name || '\u2014'}</span>
             ),
             columnWidth: "30%",
         },
@@ -129,15 +122,16 @@ export default function LuckyWheels({ action, id }) {
             <TopBar path={__("Lucky Wheels", "gameengine")} />
 
             <div className='gameengine-page-content'>
-                <Flex justifyContent='space-between' alignItems='center' p='24px 0'>
-                    <GFLabel type="plainHeading" margin={0} label={__("Lucky Wheels", "gameengine")} />
+                <div className="flex justify-between items-center py-6 px-1">
+                    <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
+                        {__("Lucky Wheels", "gameengine")}
+                    </h2>
                     <Button
-                        {...primaryBtn}
+                        label={__("Add New Wheel", "gameengine")}
+                        icon={<Icon as={FiPlus} color={'#fff'} className="text-lg font-bold" />}
                         onClick={() => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels&action=new`)}
-                    >
-                        <Icon as={FiPlus} boxSize="20px" /> {__("Add New Wheel", "gameengine")}
-                    </Button>
-                </Flex>
+                    />
+                </div>
 
                 <ListTable
                     key={'lucky-wheels-' + wheels.length}

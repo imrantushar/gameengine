@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-    Box,
-    Button,
-    Flex,
-    Input,
-    Text,
-    Grid,
-} from '@chakra-ui/react';
 import { __ } from '@wordpress/i18n';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
@@ -16,7 +8,8 @@ import TopBar from '@GFComponents/TopBar';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import GameEngineInput from '@GFComponents/GameEngineInput';
-import { commonInput, primaryBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
+import { commonInput } from '../../../../../assets/scss/chakra/recipe';
 
 const DEFAULT_SLICES = [
     { label: '10 Points', type: 'points', amount: 10, prob: 50, color: '#3498db' },
@@ -141,9 +134,9 @@ export default function WheelEditor({ action }) {
     // ────────── loading state ──────────
     if (loading) {
         return (
-            <Flex h="300px" align="center" justify="center">
-                <Text>{__('Loading…', 'gameengine')}</Text>
-            </Flex>
+            <div className="flex items-center justify-center" style={{ height: '300px' }}>
+                <p>{__('Loading\u2026', 'gameengine')}</p>
+            </div>
         );
     }
 
@@ -162,81 +155,81 @@ export default function WheelEditor({ action }) {
                             ? __('Edit Lucky Wheel', 'gameengine')
                             : __('Add New Lucky Wheel', 'gameengine')}
                         rightContent={
-                            <Flex gap={3}>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
+                            <div className="flex gap-3">
+                                <button
+                                    style={{ background: 'transparent', border: '1px solid var(--gameengine-border-color)', padding: '8px 16px', borderRadius: '4px', fontSize: '14px', cursor: 'pointer' }}
                                     onClick={() => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels`)}
                                 >
                                     {__('Cancel', 'gameengine')}
-                                </Button>
+                                </button>
                                 <Button
-                                    {...primaryBtn}
-                                    onClick={fSubmit}
+                                    label={editId ? __('Update Wheel', 'gameengine') : __('Save Wheel', 'gameengine')}
                                     isLoading={isSubmitting}
-                                >
-                                    {editId
-                                        ? __('Update Wheel', 'gameengine')
-                                        : __('Save Wheel', 'gameengine')}
-                                </Button>
-                            </Flex>
+                                    onClick={fSubmit}
+                                />
+                            </div>
                         }
                     />
 
                     {/* ── Page body ── */}
                     <div className="gameengine-page-content">
-                        <Flex direction={{ base: 'column', lg: 'row' }} gap={6} mt={6}>
+                        <div className="flex flex-col lg:flex-row gap-6 mt-6">
 
                             {/* ── General Settings ── */}
-                            <Box flex="1">
+                            <div className="flex-1">
                                 <GameEngineBox heading={__('General Settings', 'gameengine')}>
-                                    <Flex direction="column" gap={4}>
+                                    <div className="flex flex-col gap-4">
 
                                         <GameEngineInput label={__('Wheel Name', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 name="name"
                                                 value={fv.name}
                                                 onChange={handleChange}
                                                 placeholder={__('e.g. Daily Spin', 'gameengine')}
-                                                {...commonInput}
                                             />
                                         </GameEngineInput>
 
                                         <GameEngineInput label={__('Spin Cost (Points)', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 type="number"
                                                 name="spin_cost"
                                                 value={fv.spin_cost}
                                                 onChange={handleChange}
-                                                {...commonInput}
                                             />
                                         </GameEngineInput>
 
                                         <GameEngineInput label={__('Daily Limit (0 = unlimited)', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 type="number"
                                                 name="daily_limit"
                                                 value={fv.daily_limit}
                                                 onChange={handleChange}
-                                                {...commonInput}
                                             />
                                         </GameEngineInput>
 
                                         <GameEngineInput label={__('Cooldown (seconds)', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 type="number"
                                                 name="cooldown_timer"
                                                 value={fv.cooldown_timer}
                                                 onChange={handleChange}
-                                                {...commonInput}
                                             />
                                         </GameEngineInput>
 
-                                    </Flex>
+                                    </div>
                                 </GameEngineBox>
 
-                                <GameEngineBox heading={__('Rules & Security', 'gameengine')} mt={6}>
-                                    <Flex direction="column" gap={4}>
+                                <div className="mt-6">
+                                <GameEngineBox heading={__('Rules & Security', 'gameengine')}>
+                                    <div className="flex flex-col gap-4">
                                         <GameEngineInput label={__('Who Can Play', 'gameengine')}>
                                             <select
                                                 name="settings.who_can_play"
@@ -260,37 +253,40 @@ export default function WheelEditor({ action }) {
 
                                         {fv.settings?.who_can_play === 'specific_roles' && (
                                             <GameEngineInput label={__('Allowed Roles (comma separated)', 'gameengine')}>
-                                                <Input
+                                                <input
+                                                    className="gameengine-input"
+                                                    style={commonInput}
                                                     name="settings.allowed_roles"
                                                     value={fv.settings?.allowed_roles || ''}
                                                     onChange={handleChange}
                                                     placeholder={__('e.g. subscriber, customer', 'gameengine')}
-                                                    {...commonInput}
                                                 />
                                             </GameEngineInput>
                                         )}
 
                                         <GameEngineInput label={__('IP Daily Limit (0 = unlimited)', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 type="number"
                                                 name="settings.ip_limit"
                                                 value={fv.settings?.ip_limit}
                                                 onChange={handleChange}
-                                                {...commonInput}
                                             />
                                         </GameEngineInput>
 
                                         <GameEngineInput label={__('Jackpot Minimum Spins', 'gameengine')}>
-                                            <Input
+                                            <input
+                                                className="gameengine-input"
+                                                style={commonInput}
                                                 type="number"
                                                 name="settings.jackpot_limit"
                                                 value={fv.settings?.jackpot_limit}
                                                 onChange={handleChange}
-                                                {...commonInput}
                                             />
-                                            <Text fontSize="xs" color="gray.500" mt={1}>
+                                            <p className="text-xs text-gray-500 mt-1 m-0">
                                                 {__('Require this many total spins before a jackpot (is_jackpot=true) can be won.', 'gameengine')}
-                                            </Text>
+                                            </p>
                                         </GameEngineInput>
 
                                         <GameEngineInput label={__('Collect Guest Email?', 'gameengine')}>
@@ -302,26 +298,27 @@ export default function WheelEditor({ action }) {
                                                     onChange={handleChange}
                                                     style={{ width: '20px', height: '20px', cursor: 'pointer' }}
                                                 />
-                                                <Text as="span" ml={2} fontSize="sm" verticalAlign="top">
+                                                <span className="ml-2 text-sm align-top">
                                                     {__('Ask guest users for their email before spinning.', 'gameengine')}
-                                                </Text>
+                                                </span>
                                             </div>
                                         </GameEngineInput>
-                                    </Flex>
+                                    </div>
                                 </GameEngineBox>
-                            </Box>
+                                </div>
+                            </div>
 
                             {/* ── Wheel Slices ── */}
-                            <Box flex="2">
+                            <div style={{ flex: 2 }}>
                                 <FieldArray name="slices">
                                     {({ remove, push }) => (
                                         <GameEngineBox>
-                                            <Flex justifyContent="space-between" alignItems="center" mb={4}>
-                                                <Text fontWeight="600" fontSize="md">
+                                            <div className="flex justify-between items-center mb-4">
+                                                <span className="font-semibold text-sm">
                                                     {__('Wheel Slices', 'gameengine')}
-                                                </Text>
+                                                </span>
                                                 <Button
-                                                    {...primaryBtn}
+                                                    label={__('+ Add Slice', 'gameengine')}
                                                     onClick={() => push({
                                                         label:  'New Prize',
                                                         type:   'points',
@@ -330,57 +327,42 @@ export default function WheelEditor({ action }) {
                                                         color:  '#3498db',
                                                         is_jackpot: false,
                                                     })}
-                                                >
-                                                    {__('+ Add Slice', 'gameengine')}
-                                                </Button>
-                                            </Flex>
+                                                />
+                                            </div>
 
-                                            <Flex direction="column" gap={4}>
+                                            <div className="flex flex-col gap-4">
                                                 {fv.slices && fv.slices.map((slice, index) => (
-                                                    <Box
+                                                    <div
                                                         key={index}
-                                                        p={4}
-                                                        border="1px solid"
-                                                        borderColor="gray.200"
-                                                        borderRadius="md"
-                                                        bg="gray.50"
-                                                        position="relative"
+                                                        className="p-4 border border-gray-200 rounded-md bg-gray-50 relative"
                                                     >
-                                                        <Button
-                                                            size="xs"
-                                                            colorScheme="red"
-                                                            variant="ghost"
-                                                            position="absolute"
-                                                            top={2}
-                                                            right={2}
+                                                        <button
+                                                            type="button"
+                                                            className="absolute top-2 right-2 text-xs text-red-500 hover:text-red-700 bg-transparent border-0 cursor-pointer"
                                                             onClick={() => remove(index)}
                                                         >
                                                             {__('Delete', 'gameengine')}
-                                                        </Button>
+                                                        </button>
 
-                                                        <Grid 
-                                                            templateColumns={{ base: "1fr", md: "2fr 1.5fr 1fr 1fr 0.6fr 0.8fr" }} 
-                                                            gap={4} 
-                                                            alignItems="flex-start"
-                                                            pr="40px"
+                                                        <div
+                                                            className="grid gap-4 items-start pr-10"
+                                                            style={{ gridTemplateColumns: 'minmax(0,2fr) minmax(0,1.5fr) minmax(0,1fr) minmax(0,1fr) minmax(0,0.6fr) minmax(0,0.8fr)' }}
                                                         >
                                                             {/* Label */}
-                                                            <Box>
+                                                            <div>
                                                                 <GameEngineInput label={__('Label', 'gameengine')}>
-                                                                    <Input
-                                                                        size="sm"
+                                                                    <input
+                                                                        className="gameengine-input"
+                                                                        style={commonInput}
                                                                         name={`slices.${index}.label`}
                                                                         value={slice.label}
                                                                         onChange={handleChange}
-                                                                        bg="white"
-                                                                        borderRadius="md"
-                                                                        _focus={{ borderColor: "blue.400", boxShadow: "0 0 0 1px #4299E1" }}
                                                                     />
                                                                 </GameEngineInput>
-                                                            </Box>
+                                                            </div>
 
                                                             {/* Type */}
-                                                            <Box>
+                                                            <div>
                                                                 <GameEngineInput label={__('Type', 'gameengine')}>
                                                                     <select
                                                                         name={`slices.${index}.type`}
@@ -403,72 +385,68 @@ export default function WheelEditor({ action }) {
                                                                         <option value="coupon">{__('Coupon', 'gameengine')}</option>
                                                                     </select>
                                                                 </GameEngineInput>
-                                                            </Box>
+                                                            </div>
 
                                                             {/* Amount / Coupon Code */}
-                                                            <Box>
+                                                            <div>
                                                                 <GameEngineInput label={slice.type === 'coupon' ? __('Code', 'gameengine') : __('Amount', 'gameengine')}>
-                                                                    <Input
+                                                                    <input
+                                                                        className="gameengine-input"
+                                                                        style={commonInput}
                                                                         type={slice.type === 'coupon' ? 'text' : 'number'}
-                                                                        size="sm"
                                                                         name={`slices.${index}.amount`}
                                                                         value={slice.amount}
                                                                         onChange={handleChange}
-                                                                        bg="white"
-                                                                        borderRadius="md"
                                                                         placeholder={slice.type === 'coupon' ? 'CODE' : '0'}
                                                                     />
                                                                 </GameEngineInput>
-                                                            </Box>
+                                                            </div>
 
                                                             {/* Probability */}
-                                                            <Box>
+                                                            <div>
                                                                 <GameEngineInput label={__('Prob (%)', 'gameengine')}>
-                                                                    <Input
+                                                                    <input
+                                                                        className="gameengine-input"
+                                                                        style={commonInput}
                                                                         type="number"
-                                                                        size="sm"
                                                                         name={`slices.${index}.prob`}
                                                                         value={slice.prob}
                                                                         onChange={handleChange}
-                                                                        bg="white"
-                                                                        borderRadius="md"
                                                                     />
                                                                 </GameEngineInput>
-                                                            </Box>
+                                                            </div>
 
                                                             {/* Color */}
-                                                            <Box>
+                                                            <div>
                                                                 <GameEngineInput label={__('Color', 'gameengine')}>
-                                                                    <Box 
-                                                                        position="relative" 
-                                                                        height="32px" 
-                                                                        width="100%" 
-                                                                        borderRadius="md" 
-                                                                        overflow="hidden"
-                                                                        border="1px solid #E2E8F0"
+                                                                    <div
+                                                                        className="relative overflow-hidden rounded-md border border-gray-200"
+                                                                        style={{ height: '32px', width: '100%' }}
                                                                     >
-                                                                        <Input
+                                                                        <input
                                                                             type="color"
                                                                             name={`slices.${index}.color`}
                                                                             value={slice.color}
                                                                             onChange={handleChange}
-                                                                            position="absolute"
-                                                                            top="-5px"
-                                                                            left="-5px"
-                                                                            width="calc(100% + 10px)"
-                                                                            height="calc(100% + 10px)"
-                                                                            padding="0"
-                                                                            cursor="pointer"
-                                                                            border="none"
+                                                                            style={{
+                                                                                position: 'absolute',
+                                                                                top: '-5px',
+                                                                                left: '-5px',
+                                                                                width: 'calc(100% + 10px)',
+                                                                                height: 'calc(100% + 10px)',
+                                                                                padding: 0,
+                                                                                border: 'none',
+                                                                                cursor: 'pointer',
+                                                                            }}
                                                                         />
-                                                                    </Box>
+                                                                    </div>
                                                                 </GameEngineInput>
-                                                            </Box>
+                                                            </div>
 
                                                             {/* Is Jackpot */}
-                                                            <Box textAlign="center">
+                                                            <div className="text-center">
                                                                 <GameEngineInput label={__('Jackpot?', 'gameengine')}>
-                                                                    <Flex justify="center" align="center" h="32px">
+                                                                    <div className="flex justify-center items-center" style={{ height: '32px' }}>
                                                                         <input
                                                                             type="checkbox"
                                                                             name={`slices.${index}.is_jackpot`}
@@ -481,38 +459,36 @@ export default function WheelEditor({ action }) {
                                                                                 accentColor: '#3182ce'
                                                                             }}
                                                                         />
-                                                                    </Flex>
+                                                                    </div>
                                                                 </GameEngineInput>
-                                                            </Box>
-                                                        </Grid>
-                                                    </Box>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 ))}
 
                                                 {/* Total probability indicator */}
-                                                <Box mt={1}>
-                                                    <Text
-                                                        fontSize="xs"
-                                                        color={
+                                                <div className="mt-1">
+                                                    <span
+                                                        className={`text-xs font-medium ${
                                                             fv.slices.reduce((a, s) => a + (parseInt(s.prob) || 0), 0) === 100
-                                                                ? 'green.500'
-                                                                : 'orange.500'
-                                                        }
-                                                        fontWeight="500"
+                                                                ? 'text-green-500'
+                                                                : 'text-orange-500'
+                                                        }`}
                                                     >
                                                         {__('Total Probability:', 'gameengine')}{' '}
                                                         {fv.slices.reduce((a, s) => a + (parseInt(s.prob) || 0), 0)}%
                                                         {fv.slices.reduce((a, s) => a + (parseInt(s.prob) || 0), 0) !== 100
                                                             ? __(' (must equal 100%)', 'gameengine')
                                                             : ' ✓'}
-                                                    </Text>
-                                                </Box>
-                                            </Flex>
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </GameEngineBox>
                                     )}
                                 </FieldArray>
-                            </Box>
+                            </div>
 
-                        </Flex>
+                        </div>
                     </div>
                 </>
             )}
