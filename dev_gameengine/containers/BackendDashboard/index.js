@@ -14,6 +14,8 @@ import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import Types from './pages/Types';
 import Wallet from './pages/walletLists';
+import Referrals from './pages/referrals';
+import LuckyWheels from './pages/lucky-wheels';
 import { useLocationQuery } from '@GFHooks/';
 import LicenseNotice from '@GFComponents/LicenseNotice';
 
@@ -67,6 +69,12 @@ const renderSwitch = (page, id, action, path) => {
 
 		case 'gameengine-wallet':
 			return <Wallet />;
+
+		case 'gameengine-referrals':
+			return <Referrals />;
+
+		case 'gameengine-lucky-wheels':
+			return <LuckyWheels action={action} id={id} />;
 
 		default:
 			return <Dashboard />;

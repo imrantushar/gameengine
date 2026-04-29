@@ -268,3 +268,20 @@ export const tutorLms = () => {
         </svg>
     )
 }
+export const referralIcon = () => {
+    return (
+        <svg
+            width="36"
+            height="36"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <rect width="24" height="24" rx="6" fill="#10B981" />
+            <path d="M16 18V17C16 15.8954 15.1046 15 14 15H6C4.89543 15 4 15.8954 4 17V18" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M10 12C11.6569 12 13 10.6569 13 9C13 7.34315 11.6569 6 10 6C8.34315 6 7 7.34315 7 9C7 10.6569 8.34315 12 10 12Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M20 18V17C19.9995 16.1435 19.697 15.3155 19.1417 14.6548C18.5864 13.994 17.8105 13.5414 16.94 13.37" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16 6.37C16.8732 6.5401 17.6517 6.99346 18.2078 7.65604C18.7638 8.31862 19.0645 9.14917 19.0645 10.0075C19.0645 10.8658 18.7638 11.6964 18.2078 12.359C17.6517 13.0215 16.8732 13.4749 16 13.64" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}

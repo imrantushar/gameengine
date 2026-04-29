@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import { Box, Button, Flex } from '@chakra-ui/react';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
-import { academyLms, storeEngine, wooCommerce, tutorLms } from '@GFUtils/icons';
+import { academyLms, storeEngine, wooCommerce, tutorLms, referralIcon } from '@GFUtils/icons';
 import Search from '@GFComponents/Search';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
@@ -150,6 +150,35 @@ const infoCardsData = [
 		image: plugin_root_url + 'assets/images/progress_map.svg',
 		docsUrl: 'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
 		route: "admin.php?page=gameengine-wallet",
+	},
+	{
+		label: __('Referrals & Affiliates', 'gameengine'),
+		name: 'referrals',
+		is_pro: true,
+		is_coming_soon: false,
+		details: __(
+			'Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: referralIcon(),
+		docsUrl: 'https://kodezen.com/docs/gameengine/referrals/',
+		route: "admin.php?page=gameengine-referrals",
+	},
+	{
+		label: __('Spin the Wheel', 'gameengine'),
+		name: 'lucky-wheels',
+		is_pro: true,
+		is_coming_soon: false,
+		details: __(
+			'Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.',
+			'gameengine'
+		),
+		required_plugin: false,
+		icon: false,
+		image: plugin_root_url + 'assets/images/progress_map.svg', // Fallback image
+		docsUrl: '#',
+		route: "admin.php?page=gameengine-lucky-wheels",
 	},
 
 	// ================= PRO + ACTIVE (NEW) =================

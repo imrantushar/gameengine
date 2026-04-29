@@ -4,7 +4,7 @@
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
@@ -63,7 +63,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.1.0');
+        define('GAMEENGINE_VERSION', '1.1.1');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
@@ -105,6 +105,16 @@ final class GameEngine
         \GameEngine\SeSdk::get_instance();
 
         add_action('init', array($this, 'init_modules'), 10);
+        add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
+    }
+
+    /**
+     * Inject default settings data.
+     */
+    public function inject_default_settings($settings)
+    {
+        $settings['config']['is_pro'] = false;
+        return $settings;
     }
 
     /**
@@ -134,7 +144,7 @@ final class GameEngine
             '\GameEngine\Classes\LevelsManager',
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
-            '\GameEngine\Classes\Triggers'
+            '\GameEngine\Classes\Triggers',
         );
 
         foreach ($services as $service) {

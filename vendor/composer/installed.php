@@ -3,7 +3,7 @@
         'name' => 'kodezen/gameengine',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'e5f452de1979069fcb46977081fbc1e8fc8a8413',
+        'reference' => '3a1ce9d9d848b0552f8f1a453a8a4b7bead0ae89',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'kodezen/gameengine' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'e5f452de1979069fcb46977081fbc1e8fc8a8413',
+            'reference' => '3a1ce9d9d848b0552f8f1a453a8a4b7bead0ae89',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'storeengine/wordpress-sdk' => array(
             'pretty_version' => 'v1.4.0',
             'version' => '1.4.0.0',
-            'reference' => 'eca7ea7cbc7b4196bdfb4ecca8a19f95e4d22cef',
+            'reference' => 'd5c72daf02149a8bccef4f08dc525b5f392f5970',
             'type' => 'library',
             'install_path' => __DIR__ . '/../storeengine/wordpress-sdk',
             'aliases' => array(),
