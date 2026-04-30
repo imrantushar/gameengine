@@ -17,6 +17,7 @@ import Payout from './Tabs/Payout';
 import Dashboard from './Tabs/Dashboard';
 import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
+import ReferralSettings from './Tabs/ReferralSettings';
 const Settings = () => {
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
@@ -56,6 +57,9 @@ const Settings = () => {
           break;
         case "email_templates":
           await dispatch(saveSettings({ key: 'email_templates', payloadData: values.email_templates }));
+          break;
+        case "referral":
+          await dispatch(saveSettings({key: 'referral', payloadData: values.referral}));
           break;
         default:
           break;
@@ -107,6 +111,7 @@ const Settings = () => {
                 {tab === "payout" && <Payout />}
                 {tab === "license" && <License />}
                 {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
+                {tab === "referral" && <ReferralSettings />}
               </div>
             </div>
           </div>

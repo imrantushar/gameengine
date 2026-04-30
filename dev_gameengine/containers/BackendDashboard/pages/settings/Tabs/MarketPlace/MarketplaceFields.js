@@ -5,7 +5,6 @@ import { __ } from "@wordpress/i18n";
 import { FieldArray, useFormikContext } from 'formik';
 import React from 'react';
 import SettingsInput from '../../Components/SettingsInput';
-import { clearBtn, commonInput } from '../../../../../../../assets/scss/chakra/recipe';
 import { MdDelete } from 'react-icons/md';
 const typesArray = [{
   label: __('Percent', 'gameengine'),
@@ -29,7 +28,7 @@ const MarketplaceFields = () => {
           return <div className="flex flex-col items-start w-full gap-4 rounded p-4 relative [box-shadow:var(--gameengine-shadow)]">
                   <div className="flex w-full gap-4">
                     <SettingsInput flexDirection="column" alignItems={'flex-start'} width='50%' label={__("Label", "gameengine")}>
-                      <input className="w-full" type="text" min="0" step="1" placeholder={__("Add label", "gameengine")} value={item.label} onChange={event => {
+                      <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="text" min="0" step="1" placeholder={__('Add label', 'gameengine')} value={item.label} onChange={event => {
                   const rawValue = event.target.value;
                   setFieldValue(`marketplace.offers[${index}].label`, rawValue);
                 }} style={commonInput} />
@@ -42,31 +41,30 @@ const MarketplaceFields = () => {
                   </div>
                   <div className="flex w-full gap-4">
                     <SettingsInput flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Point Cost", "gameengine")}>
-                      <input className="w-full" type="number" min="0" step="1" value={item.point_cost} onChange={event => {
+                      <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" value={item.point_cost} onChange={event => {
                   const rawValue = event.target.value;
                   setFieldValue(`marketplace.offers[${index}].point_cost`, Number(rawValue));
                 }} style={commonInput} />
                     </SettingsInput>
                     <SettingsInput flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Amount", "gameengine")}>
-                      <input className="w-full" type="number" min="0" step="1" value={item.amount} onChange={event => {
+                      <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" value={item.amount} onChange={event => {
                   const rawValue = event.target.value;
                   setFieldValue(`marketplace.offers[${index}].amount`, Number(rawValue));
                 }} style={commonInput} />
                     </SettingsInput>
                     <SettingsInput flexDirection="column" alignItems={'flex-start'} width='calc((100% / 3) - 6px)' label={__("Expiry Days", "gameengine")}>
-                      <input className="w-full" type="number" min="0" step="1" value={item.expiry_days} onChange={event => {
+                      <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" value={item.expiry_days} onChange={event => {
                   const rawValue = event.target.value;
                   setFieldValue(`marketplace.offers[${index}].expiry_days`, Number(rawValue));
                 }} style={commonInput} />
                     </SettingsInput>
                   </div>
-                  <button className="rounded-full absolute p-0 [border:1px_solid_var(--gameengine-border-color)]" style={{
+                  <button className="rounded-full absolute p-0 [border:1px_solid_var(--gameengine-border-color)] text-xs text-[var(--gameengine-font-color)]" style={{
               "top": "-15px",
               "right": "-15px",
               "minWidth": "30px",
               "height": "30px",
-              "background": "#ffffff",
-              ...clearBtn
+              "background": "#ffffff"
             }} onClick={() => remove(index)}>
                     <Icon as={MdDelete} color={'var(--gameengine-border-color)'} _hover={{
                 color: 'red.400'

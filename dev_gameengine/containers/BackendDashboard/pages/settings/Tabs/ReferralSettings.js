@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Switch, Text, Input, Icon } from '@chakra-ui/react';
+import { Switch, Icon } from '@GFComponents/UI';
 import { __ } from "@wordpress/i18n";
 import { FaLock } from 'react-icons/fa6';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -33,32 +33,24 @@ const ReferralSettings = () => {
     const isDisabled = !is_pro;
 
     return (
-        <Box width={'100%'} overflow="visible">
+        <div className="w-full overflow-visible">
 
             {/* General */}
             <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible">
-                <Text
-                    fontSize="20px"
-                    fontWeight="500"
-                    color="var(--gameengine-font-color)"
-                    lineHeight="30px"
-                    margin='0 0 16px 0'
-                    padding='0 0 16px 0'
-                    borderBottom="1px solid var(--gameengine-border-color)"
-                >
+                <p className="text-xl font-medium text-[var(--gameengine-font-color)] leading-[30px] border-0 border-b border-solid border-[var(--gameengine-border-color)]" style={{margin: '0 0 16px 0', padding: '0 0 16px 0'}}>
                     {__("Referral System", "gameengine")}
-                </Text>
+                </p>
 
                 {!is_pro && (
-                    <Flex align="center" gap="8px" mb="16px">
-                        <Icon as={FaLock} boxSize="16px" color="orange.400" />
-                        <Text fontSize="13px" color="var(--gameengine-primary)" margin="0">
+                    <div className="flex items-center gap-2 mb-4">
+                        <Icon as={FaLock} width="16px" style={{color: '#f97316'}} />
+                        <p className="text-xs text-[var(--gameengine-primary)] m-0">
                             {__("Referral settings are available in GameEngine Pro only.", "gameengine")}
-                        </Text>
-                    </Flex>
+                        </p>
+                    </div>
                 )}
 
-                <Flex direction="column" gap='16px'>
+                <div className="flex flex-col gap-4">
 
                     {/* Enable / Disable */}
                     <SettingsInput
@@ -102,10 +94,7 @@ const ReferralSettings = () => {
                             />
                         }
                     >
-                        <Input
-                            maxWidth="300px"
-                            size="sm"
-                            borderRadius="6px"
+                        <input className="max-w-[300px] rounded-[6px] text-sm border border-solid border-[var(--gameengine-border-color)] px-3 py-1.5 outline-none bg-white text-[var(--gameengine-font-color)]"
                             value={referral?.referral_slug || 'ref'}
                             onChange={(e) => setFieldValue('referral.referral_slug', e.target.value.trim())}
                             placeholder="ref"
@@ -137,24 +126,16 @@ const ReferralSettings = () => {
                         />
                     </SettingsInput>
 
-                </Flex>
+                </div>
             </GameEngineBox>
 
             {/* Reward Settings */}
-            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
-                <Text
-                    fontSize="20px"
-                    fontWeight="500"
-                    color="var(--gameengine-font-color)"
-                    lineHeight="30px"
-                    margin='0 0 24px 0'
-                    padding='0 0 16px 0'
-                    borderBottom="1px solid var(--gameengine-border-color)"
-                >
+            <GameEngineBox dynamicClasses='gameengine-settings mt-6' boxShadow="var(--gameengine-shadow)">
+                <p className="text-xl font-medium text-[var(--gameengine-font-color)] leading-[30px] border-0 border-b border-solid border-[var(--gameengine-border-color)]" style={{margin: '0 0 24px 0', padding: '0 0 16px 0'}}>
                     {__("Reward Settings", "gameengine")}
-                </Text>
+                </p>
 
-                <Flex direction="column" gap='16px'>
+                <div className="flex flex-col gap-4">
 
                     {/* Signup Points */}
                     <SettingsInput
@@ -169,10 +150,7 @@ const ReferralSettings = () => {
                             />
                         }
                     >
-                        <Input
-                            maxWidth="150px"
-                            size="sm"
-                            borderRadius="6px"
+                        <input className="max-w-[150px] rounded-[6px] text-sm border border-solid border-[var(--gameengine-border-color)] px-3 py-1.5 outline-none bg-white text-[var(--gameengine-font-color)]"
                             type="number"
                             min={0}
                             value={referral?.signup_reward || '50'}
@@ -182,24 +160,16 @@ const ReferralSettings = () => {
                         />
                     </SettingsInput>
 
-                </Flex>
+                </div>
             </GameEngineBox>
 
             {/* Fraud Detection Settings */}
-            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" mt="24px">
-                <Text
-                    fontSize="20px"
-                    fontWeight="500"
-                    color="var(--gameengine-font-color)"
-                    lineHeight="30px"
-                    margin='0 0 24px 0'
-                    padding='0 0 16px 0'
-                    borderBottom="1px solid var(--gameengine-border-color)"
-                >
+            <GameEngineBox dynamicClasses='gameengine-settings mt-6' boxShadow="var(--gameengine-shadow)">
+                <p className="text-xl font-medium text-[var(--gameengine-font-color)] leading-[30px] border-0 border-b border-solid border-[var(--gameengine-border-color)]" style={{margin: '0 0 24px 0', padding: '0 0 16px 0'}}>
                     {__("🛡️ Fraud Detection", "gameengine")}
-                </Text>
+                </p>
 
-                <Flex direction="column" gap='16px'>
+                <div className="flex flex-col gap-4">
 
                     {/* Enable Fraud Detection */}
                     <SettingsInput
@@ -243,10 +213,7 @@ const ReferralSettings = () => {
                             />
                         }
                     >
-                        <Input
-                            maxWidth="150px"
-                            size="sm"
-                            borderRadius="6px"
+                        <input className="max-w-[150px] rounded-[6px] text-sm border border-solid border-[var(--gameengine-border-color)] px-3 py-1.5 outline-none bg-white text-[var(--gameengine-font-color)]"
                             type="number"
                             min={1}
                             value={referral?.fraud_detection_max_accounts || '3'}
@@ -280,10 +247,9 @@ const ReferralSettings = () => {
                         />
                     </SettingsInput>
 
-                </Flex>
+                </div>
             </GameEngineBox>
-
-        </Box>
+        </div>
     );
 };
 

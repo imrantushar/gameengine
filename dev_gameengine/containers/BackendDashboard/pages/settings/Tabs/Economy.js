@@ -3,7 +3,7 @@ import { Switch } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { useFormikContext } from 'formik';
 import Select from 'react-select';
-import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
+
 import SettingsInner from '../Components/SettingsInner';
 import SettingsInput from '../Components/SettingsInput';
 import { decodeHtmlEntity, is_pro } from '@GFUtils/helper';
@@ -25,10 +25,7 @@ export const Economy = () => {
             <div className="flex flex-col gap-4">
 
                 <SettingsInput isPro={!is_pro} label={__('Conversion Rate', 'gameengine')} subtitle={<GFLabel fontSize="0.75rem" color="var(--gameengine-warn-muted)" type="subtitle" margin={0} label={__('Set how many points are equal to 1 unit of your store currency. For example, entering 100 means 100 points = $1.', 'gameengine')} />}>
-                    <input style={{
-          "width": "300px",
-          ...commonInput
-        }} type="number" min="0" step="1" disabled={!is_pro} placeholder={__("0", "gameengine")} value={values?.economy?.conversion_rate ?? ''} onChange={event => {
+                    <input style={{"width": "300px"}} className="border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" disabled={!is_pro} placeholder={__("0", "gameengine")} value={values?.economy?.conversion_rate ?? ''} onChange={event => {
           const rawValue = event.target.value;
           setFieldValue('economy.conversion_rate', rawValue === '' ? '' : Number(rawValue));
         }} />

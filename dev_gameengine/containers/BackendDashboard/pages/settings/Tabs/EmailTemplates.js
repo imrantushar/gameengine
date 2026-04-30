@@ -5,7 +5,6 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../Components/SettingsInput';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import { useFormikContext } from 'formik';
-import { commonInput, outlineBtn, primaryBtn, transparentMiniBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GameEngineEditor from '@GFComponents/editor';
 const EmailTemplates = ({
   handleSubmit,
@@ -80,7 +79,7 @@ const EmailTemplates = ({
         </Switch.Root>;
   return <div className="w-full overflow-visible">
             {/* General Settings */}
-            <GameEngineBox dynamicClasses='gameengine-settings' boxShadow="var(--gameengine-shadow)" overflow="visible" mb="30px">
+            <GameEngineBox dynamicClasses='gameengine-settings mb-[30px]' boxShadow="var(--gameengine-shadow)" overflow="visible">
                 <p className="text-xl font-medium text-[var(--gameengine-font-color)] border-0 border-b border-solid border-[var(--gameengine-border-color)] leading-[30px] m-0 mb-6 pb-4">
                     {__("General", "gameengine")}
                 </p>
@@ -89,12 +88,12 @@ const EmailTemplates = ({
                     <SettingsInput label={__("Name", "gameengine")} subtitle={<p className="text-xs m-0" style={{
           "color": "#738496"
         }}>{__("The common name for all outgoing emails.", "gameengine")}</p>}>
-                        <input name="email_templates.sender_name" value={values?.email_templates?.sender_name || 'GameEngine LMS'} onChange={handleChange} style={commonInput} />
+                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_name" value={values?.email_templates?.sender_name || 'GameEngine LMS'} onChange={handleChange} />
                     </SettingsInput>
                     <SettingsInput label={__("E-Mail Address", "gameengine")} subtitle={<p className="text-xs m-0" style={{
           "color": "#738496"
         }}>{__("All emails will be sent from this email address.", "gameengine")}</p>}>
-                        <input name="email_templates.sender_email" value={values?.email_templates?.sender_email || 'admin@yoursite.com'} onChange={handleChange} style={commonInput} />
+                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_email" value={values?.email_templates?.sender_email || 'admin@yoursite.com'} onChange={handleChange} />
                     </SettingsInput>
                 </div>
             </GameEngineBox>
@@ -122,9 +121,7 @@ const EmailTemplates = ({
                                 <div className="flex items-center gap-5">
                                     <Dialog.Root size="cover" placement="center" motionPreset="slide-in-bottom" onOpenChange={(isOpen) => { if (isOpen) setEditingKey(key); }} maxW="1230px">
                                         <Dialog.Trigger asChild>
-                                            <button className="flex gap-1.5" style={{
-                    ...outlineBtn
-                  }}>
+                                            <button className="flex gap-1.5 bg-transparent text-[var(--gameengine-font-color)] border border-solid border-[var(--gameengine-border-color)] px-4 py-[10px] rounded cursor-pointer">
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                                                 {__("Edit Template", "gameengine")}
                                             </button>
@@ -138,9 +135,7 @@ const EmailTemplates = ({
                                                     <Dialog.Body className="p-6">
                                                         <div className="flex justify-between items-center gap-2 border-0 border-b border-solid border-[var(--gameengine-border-color)] pr-12 pb-5">
                                                             <GFLabel type="heading" margin='0' label={config.title} />
-                                                            <button className="h-auto !p-[5px_16px]" style={{
-                            ...primaryBtn
-                          }} onClick={handleSubmit} disabled={!dirty}>
+                                                            <button className="h-auto !p-[5px_16px] bg-[var(--gameengine-primary)] text-white text-sm font-semibold leading-5 border border-solid border-[var(--gameengine-primary)] rounded cursor-pointer" onClick={handleSubmit} disabled={!dirty}>
                                                                 {__('Save Changes', 'gameengine')}
                                                             </button>
                                                         </div>
@@ -168,21 +163,17 @@ const EmailTemplates = ({
                                                                             </p>
 
                                                                             <div className="flex flex-wrap gap-2 mb-3">
-                                                                                {config.tags.map(tag => <button key={tag} style={{
-                                                                                  "background": "#f3f4f6",
-                                                                                  "border": "none",
-                                                                                  ...transparentMiniBtn,
-                                                                                  }} onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
+                                                                                {config.tags.map(tag => <button key={tag} className="bg-[#f3f4f6] border-none bg-transparent text-xs text-[var(--gameengine-font-color)] border border-solid border-[var(--gameengine-border-color)] px-2 py-0.5 leading-4 cursor-pointer" onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
                                                                                         {tag}
                                                                                     </button>)}
                                                                             </div>
                                                                         </div>
                                                                         
-                                                                        <input name={config.subjectField} value={values?.email_templates?.[editingKey + '_subject'] || ''} onChange={handleChange} placeholder={config.defaultSubject} style={commonInput} />
+                                                                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name={config.subjectField} value={values?.email_templates?.[editingKey + '_subject'] || ''} onChange={handleChange} placeholder={config.defaultSubject} />
 
                                                                         {editingKey === 'inactivity' && <div className="mt-5">
                                                                                 <SettingsInput label={__("Inactivity Days", "gameengine")}>
-                                                                                    <input type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} style={commonInput} />
+                                                                                    <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} />
                                                                                 </SettingsInput>
                                                                             </div>}
 
