@@ -119,6 +119,7 @@ const FormInner = () => {
     hookSettings,
     congratulationsMessage
   } = useSelector(state => state.achievements);
+  const isTutorLmsActive = getAddonActiveStatus(addons, 'tutorlms');
   const wooIcon = isWoocommerceActive ? {
     woocommerce: {
       icon: SiWoocommerce,
@@ -127,8 +128,14 @@ const FormInner = () => {
   } : {};
   const academy = isAcademyActive ? {
     academylms: {
-      icon: SiWoocommerce,
+      icon: FaGraduationCap,
       bg: "#7b68ee"
+    }
+  } : {};
+  const tutorIcon = isTutorLmsActive ? {
+    tutorlms: {
+      icon: FaGraduationCap,
+      bg: "#10b981"
     }
   } : {};
   const hookCategoryIconMap = {
@@ -138,13 +145,10 @@ const FormInner = () => {
     },
     ...wooIcon,
     ...academy,
+    ...tutorIcon,
     gameengine: {
       icon: FaGamepad,
       bg: "#006BFF"
-    },
-    tutorlms: {
-      icon: FaGraduationCap,
-      bg: "#10b981"
     }
   };
   const renderHookCard = (item, type) => {

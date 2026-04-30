@@ -30,6 +30,7 @@ const FormInner = ({
   const addons = useSelector(state => state.addons);
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
+  const isTutorLmsActive = getAddonActiveStatus(addons, 'tutorlms');
   const wooIcon = isWoocommerceActive ? {
     woocommerce: {
       icon: SiWoocommerce,
@@ -38,8 +39,14 @@ const FormInner = ({
   } : {};
   const academy = isAcademyActive ? {
     academylms: {
-      icon: SiWoocommerce,
+      icon: FaGraduationCap,
       bg: "#7b68ee"
+    }
+  } : {};
+  const tutorIcon = isTutorLmsActive ? {
+    tutorlms: {
+      icon: FaGraduationCap,
+      bg: "#10b981"
     }
   } : {};
   const sensors = useSensors(useSensor(PointerSensor, {
@@ -68,13 +75,10 @@ const FormInner = ({
     },
     ...wooIcon,
     ...academy,
+    ...tutorIcon,
     gameengine: {
       icon: FaGamepad,
       bg: "#006BFF"
-    },
-    tutorlms: {
-      icon: FaGraduationCap,
-      bg: "#10b981"
     }
   };
   const getParamsFromSchema = (hook, type) => {

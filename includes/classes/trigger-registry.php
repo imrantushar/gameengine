@@ -30,25 +30,25 @@ final class TriggerRegistry
         }
 
         if (in_array('woocommerce', $active_addons)) {
-            if (class_exists('\GameEngine\Integrations\WooCommerce')) {
+            if (class_exists('\GameEngine\Integrations\WooCommerce') && class_exists('WooCommerce')) {
                 self::$integrations['woocommerce'] = WooCommerce::class;
             }
         }
 
         if (in_array('storeengine', $active_addons, true)) {
-            if (class_exists('\GameEngine\Integrations\StoreEngine')) {
+            if (class_exists('\GameEngine\Integrations\StoreEngine') && defined('STOREENGINE_VERSION')) {
                 self::$integrations['storeengine'] = \GameEngine\Integrations\StoreEngine::class;
             }
         }
 
         if (in_array('academylms', $active_addons)) {
-            if (class_exists('\GameEngine\Integrations\AcademyLMS')) {
+            if (class_exists('\GameEngine\Integrations\AcademyLMS') && (defined('ACADEMY_VERSION') || class_exists('\Academy\Academy') || function_exists('academy_start'))) {
                 self::$integrations['academylms'] = AcademyLMS::class;
             }
         }
 
         if (in_array('tutorlms', $active_addons)) {
-            if (class_exists('\GameEngine\Integrations\TutorLMS')) {
+            if (class_exists('\GameEngine\Integrations\TutorLMS') && (defined('TUTOR_VERSION') || function_exists('tutor_lms') || class_exists('TUTOR\Tutor'))) {
                 self::$integrations['tutorlms'] = TutorLMS::class;
             }
         }

@@ -81,7 +81,7 @@ const AdminMenu = () => {
 							>
 								{ item.title }
 								{ item?.sub_items && (
-									<Icon className='gameengine-icon gameengine-icon--angle-right' as={LiaAngleRightSolid} />
+									<Icon className='gameengine-icon gameengine-icon--angle-right' color={'#fff'} as={LiaAngleRightSolid} />
 								) }
 							</Link>
 						</MenuItem>

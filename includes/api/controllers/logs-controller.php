@@ -137,6 +137,10 @@ class LogsController extends BaseController
             $event_label       = ucwords(str_replace(array('_', '-'), ' ', $row['trigger_key']));
             $row['event_name'] = $event_label;
 
+            // Format points with + or - sign.
+            $points = intval($row['points_awarded']);
+            $row['points_formatted'] = ($points > 0 ? '+' : '') . $points;
+
             if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
                 $trigger_config = \GameEngine\Classes\TriggerRegistry::get($row['trigger_key']);
                 if ($trigger_config && isset($trigger_config['label'])) {
