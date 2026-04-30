@@ -63,10 +63,11 @@ export default function LuckyWheels({ action, id }) {
     const columns = [
         {
             name: __('Name', 'gameengine'),
+            textAlign: "start",
             cell: row => (
                 <span className="font-medium">{row.name || '\u2014'}</span>
             ),
-            columnWidth: "30%",
+            columnWidth: "25%",
         },
         {
             name: __('Shortcode', 'gameengine'),
@@ -75,7 +76,7 @@ export default function LuckyWheels({ action, id }) {
                     [gameengine_wheel id="{row.id}"]
                 </code>
             ),
-            columnWidth: "25%",
+            columnWidth: "30%",
         },
         {
             name: __('Spin Cost', 'gameengine'),
