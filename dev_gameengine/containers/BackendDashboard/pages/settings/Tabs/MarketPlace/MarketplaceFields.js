@@ -1,4 +1,5 @@
 import { Icon } from '@GFComponents/UI';
+import { commonInput } from "../../../../../../../assets/scss/chakra/recipe";
 import Select from 'react-select';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from "@wordpress/i18n";
