@@ -36,6 +36,13 @@ const LeftBar = () => {
     key: "payout",
     desc: __("Payout settings", "gameengine"),
     icon: general()
+  },
+  {
+    label: __("Referral", "gameengine"),
+    key: "referral",
+    desc: __("Referral & Affiliate Systems", "gameengine"),
+    icon: general(),
+    is_pro: true,
   }, ...(is_pro ? [{
     label: __("License", "gameengine"),
     key: "license",
@@ -46,7 +53,7 @@ const LeftBar = () => {
     key: "email_templates",
     desc: __("Customize Email Templates & Cron", "gameengine"),
     icon: mail()
-  }];
+  },];
   return <div className="flex flex-col sticky top-0 self-start bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
     <div className="flex flex-col items-stretch p-2" spacing={0}>
       {menuList.map((item, i) => {

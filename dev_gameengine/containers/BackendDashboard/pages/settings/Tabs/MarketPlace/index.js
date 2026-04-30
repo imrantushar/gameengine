@@ -6,7 +6,6 @@ import React from 'react';
 import SettingsInput from '../../Components/SettingsInput';
 import { useFormikContext } from 'formik';
 import MarketplaceFields from './MarketplaceFields';
-import { clearBtn, commonInput, primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 import Select from 'react-select';
 const MarketPlace = () => {
@@ -48,7 +47,7 @@ const MarketPlace = () => {
                     <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Label", "gameengine")}</p>
                     {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
                   </div>
-                  <input className="gameengine-input w-full" type="text" disabled={!is_pro} placeholder={__("Add label", "gameengine")} style={commonInput} />
+                  <input className="gameengine-input w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="text" disabled={!is_pro} placeholder={__('Add label', 'gameengine')} />
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
                   <div className="flex items-center gap-1.5">
@@ -64,25 +63,18 @@ const MarketPlace = () => {
                     <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Point Cost", "gameengine")}</p>
                     {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
                   </div>
-                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
-                </div>
-                <div className="flex flex-col gap-1 flex-1">
-                  <div className="flex items-center gap-1.5">
-                    <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Amount", "gameengine")}</p>
-                    {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
-                  </div>
-                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
+                  <input className="gameengine-input w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} />
                 </div>
                 <div className="flex flex-col gap-1 flex-1">
                   <div className="flex items-center gap-1.5">
                     <p className="text-sm font-medium m-0 text-[var(--gameengine-font-color)]">{__("Expiry Days", "gameengine")}</p>
                     {!is_pro && <span className="text-white bg-[#FFA943] px-1.5 py-[3px] text-[10px] rounded-sm uppercase leading-none">PRO</span>}
                   </div>
-                  <input className="gameengine-input w-full" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} style={commonInput} />
+                  <input className="gameengine-input w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" min="0" step="1" placeholder="0" disabled={!is_pro} />
                 </div>
               </div>
             </div>}
-          {is_pro && <button style={primaryBtn} onClick={() => {
+          {is_pro && <button className="bg-[var(--gameengine-primary)] text-white text-sm font-semibold leading-5 border border-solid border-[var(--gameengine-primary)] px-4 py-2 rounded cursor-pointer" onClick={() => {
         setFieldValue('marketplace.offers', [...values.marketplace.offers, {
           label: "",
           points_cost: 0,

@@ -9,7 +9,6 @@ import { showNotification } from '@GFRedux/Slices/notificationSlice/notification
 import { API, plugin_root_url } from '@GFUtils/helper';
 import HireUs from './HireUs';
 import "./styles.scss";
-import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 const SeSdk = window.SE_SDK_GAMEENGINE_PRO || {};
 const licenseRequest = (endpoint, payload) => API.post(SeSdk?.rest_url + endpoint, payload);
 const licenseGet = (endpoint, params) => API.get(SeSdk?.rest_url + endpoint, {
@@ -166,10 +165,7 @@ const License = () => {
 						</p>
 
 						{/* Logo pill */}
-						<div className="flex items-center gap-3 rounded-full pl-5 pr-5 pt-2 pb-2 mb-6" style={{
-          "border": "1px solid",
-          "borderColor": "gray.200"
-        }}>
+						<div className="flex items-center gap-3 rounded-full pl-5 pr-5 pt-2 pb-2 mb-6 border border-solid border-[#E2E8F0]">
 							{/* <img src={plugin_root_url + '/assets/images/logo.svg'} alt="gameengine" style={{ height: '24px' }} /> */}
 							<LuLink size={14} color="#888" />
 							<Icon as={LuKey} width={'16px'} color="#888" />
@@ -181,16 +177,12 @@ const License = () => {
             "maxWidth": "340px",
             "minWidth": "200px"
           }} value={licenseData?.license ?? ''} readOnly />
-							<button className="cursor-pointer text-white shrink-0 h-9 pl-4 pr-4 rounded" style={{
-            "background": "red.500"
-          }} loadingText={__('Deactivating…', 'gameengine')} onClick={handleDeactivate}>
+							<button className="cursor-pointer text-white shrink-0 h-9 pl-4 pr-4 rounded bg-[#E53E3E]" onClick={handleDeactivate}>
 								{__('Deactivate License', 'gameengine')}
 							</button>
-							<button className="cursor-pointer text-white shrink-0 h-9 pl-4 pr-4 rounded" style={{
-            "background": "blue.500"
-          }} as="a" href="https://store.kodezen.com/dashboard/license-keys/" target="_blank" rel="noopener noreferrer">
+							<a className="cursor-pointer text-white shrink-0 h-9 pl-4 pr-4 rounded bg-[#3182CE] flex items-center" href="https://store.kodezen.com/dashboard/license-keys/" target="_blank" rel="noopener noreferrer">
 								{__('Manage License', 'gameengine')}
-							</button>
+							</a>
 						</div>
 
 						{/* Opt-in checkbox */}
@@ -200,10 +192,7 @@ const License = () => {
 						</label>
 
 						{/* Separator */}
-						<div className="w-full mt-6 mb-6" style={{
-          "borderTop": "1px solid",
-          "borderColor": "gray.200"
-        }} />
+						<div className="w-full mt-6 mb-6 border-t border-solid border-[#E2E8F0]" />
 
 						{/* Meta row */}
 						<div className="flex justify-center flex-wrap w-full gap-8">
@@ -214,10 +203,7 @@ const License = () => {
             }}>
 											{moment.utc(licenseData?.updated_at).local().format('YYYY-MM-DD HH:mm:ss')}
 										</span>
-										<button className="p-1 h-auto" style={{
-              "minWidth": "auto",
-              "color": "gray.500"
-            }} onClick={fetchStatus} aria-label={__('Refresh status', 'gameengine')}>
+										<button className="p-1 h-auto text-[#718096]" style={{"minWidth": "auto"}} onClick={fetchStatus} aria-label={__('Refresh status', 'gameengine')}>
 											{isCheckingStatus ? <Spinner size="xs" /> : <LuRefreshCw size={8} />}
 										</button>
 									</div>} />
@@ -237,10 +223,7 @@ const License = () => {
 						</p>
 
 						{/* Logo pill */}
-						<div className="flex items-center gap-3 rounded-full p-[2px_5px] m-0 mb-6" style={{
-          "border": "1px solid",
-          "borderColor": "gray.200"
-        }}>
+						<div className="flex items-center gap-3 rounded-full p-[2px_5px] m-0 mb-6 border border-solid border-[#E2E8F0]">
 							<img src={plugin_root_url + '/assets/images/logo.svg'} alt="gameengine" className="h-6" />
 							<LuLink size={14} color="#888" />
 							<Icon as={LuKey} width={'16px'} height={'16px'} color="#000000" />
@@ -254,7 +237,7 @@ const License = () => {
           }} type="text" placeholder={__('Enter your license key', 'gameengine')} value={licenseKey} onChange={e => setLicenseKey(e.target.value)} onKeyDown={e => {
             if (e.key === 'Enter') handleActivate();
           }} />
-							<button style={primaryBtn} loadingText={__('Activating…', 'gameengine')} onClick={handleActivate}>
+							<button className="bg-[var(--gameengine-primary)] text-white text-sm font-semibold leading-5 border border-solid border-[var(--gameengine-primary)] px-4 py-2 rounded cursor-pointer" onClick={handleActivate}>
 								{__('Activate License', 'gameengine')}
 							</button>
 						</div>
