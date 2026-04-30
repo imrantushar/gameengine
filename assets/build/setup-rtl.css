@@ -1576,9 +1576,6 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
-.h-\[30px\] {
-  height: 30px;
-}
 .h-\[32px\] {
   height: 32px;
 }
@@ -1632,9 +1629,6 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full {
   width: 100%;
-}
-.w-\[30px\] {
-  width: 30px;
 }
 .w-\[32px\] {
   width: 32px;
@@ -1848,9 +1842,6 @@ input.gameengine-checkbox:checked::before {
 }
 .rounded-xl {
   border-radius: 0.75rem;
-}
-.rounded-\[\] {
-  border-radius: ;
 }
 .rounded-\[4px\] {
   border-radius: 4px;
@@ -2582,9 +2573,6 @@ input.gameengine-checkbox:checked::before {
 .font-semibold {
   font-weight: 600;
 }
-.font-\[12px\] {
-  font-weight: 12px;
-}
 .uppercase {
   text-transform: uppercase;
 }
@@ -2618,9 +2606,6 @@ input.gameengine-checkbox:checked::before {
 }
 .leading-tight {
   line-height: 1.25;
-}
-.leading-\[16px\] {
-  line-height: 16px;
 }
 .tracking-wide {
   letter-spacing: 0.025em;

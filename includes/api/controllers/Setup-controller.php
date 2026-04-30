@@ -179,18 +179,27 @@ class SetupController extends BaseController
          */
         $point_type_id = 0;
         if (! $only_module || 'points' === $only_module) {
+            $slug = sanitize_title($data['point']);
+            
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-            $wpdb->insert(
-                "{$wpdb->prefix}gameengine_point_types",
-                array(
-                    'name'        => $data['point'],
-                    'plural_name' => $data['point'] . 's',
-                    'slug'        => sanitize_title($data['point']),
-                    'status'      => 'publish',
-                    'created_at'  => current_time('mysql'),
-                )
-            );
-            $point_type_id = $wpdb->insert_id;
+            $existing_point = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE slug = %s", $slug));
+
+            if ($existing_point) {
+                $point_type_id = $existing_point->id;
+            } else {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                $wpdb->insert(
+                    "{$wpdb->prefix}gameengine_point_types",
+                    array(
+                        'name'        => $data['point'],
+                        'plural_name' => $data['point'] . 's',
+                        'slug'        => $slug,
+                        'status'      => 'publish',
+                        'created_at'  => current_time('mysql'),
+                    )
+                );
+                $point_type_id = $wpdb->insert_id;
+            }
 
             // Register Point Trigger Rule.
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -217,18 +226,25 @@ class SetupController extends BaseController
 
             foreach ($data['ach'] as $ach_title) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
-                $wpdb->insert(
-                    "{$wpdb->prefix}gameengine_achievements",
-                    array(
-                        'title'                   => $ach_title,
-                        'plural_name'             => $ach_title . 's',
-                        'category'                => absint($tid),
-                        'status'                  => 'publish',
-                        'congratulations_message' => 'Congratulations! You have unlocked the ' . $ach_title . ' badge!',
-                        'created_at'              => current_time('mysql'),
-                    )
-                );
-                $achievement_id = $wpdb->insert_id;
+                $existing_ach = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_achievements WHERE title = %s", $ach_title));
+
+                if ($existing_ach) {
+                    $achievement_id = $existing_ach->id;
+                } else {
+                    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                    $wpdb->insert(
+                        "{$wpdb->prefix}gameengine_achievements",
+                        array(
+                            'title'                   => $ach_title,
+                            'plural_name'             => $ach_title . 's',
+                            'category'                => absint($tid),
+                            'status'                  => 'publish',
+                            'congratulations_message' => 'Congratulations! You have unlocked the ' . $ach_title . ' badge!',
+                            'created_at'              => current_time('mysql'),
+                        )
+                    );
+                    $achievement_id = $wpdb->insert_id;
+                }
 
                 // Link Achievement to a Trigger.
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
@@ -260,6 +276,11 @@ class SetupController extends BaseController
             $ranges = array(array(0, 100), array(101, 500), array(501, 1000), array(1001, 5000));
 
             foreach ($data['lvl'] as $i => $lvl_title) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                $existing_lvl = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_levels WHERE title = %s", $lvl_title));
+
+                if ($existing_lvl) continue;
+
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
                 $wpdb->insert(
                     "{$wpdb->prefix}gameengine_levels",
