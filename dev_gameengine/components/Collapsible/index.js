@@ -17,8 +17,8 @@ const CustomCollapsible = ({
         const classes = ['gameengine-collapsible', suffix && `gameengine-collapsible--${suffix}`].filter(Boolean).join(" ");
 
         return <>
-                <div className={`${`${classes + " " + ""} rounded py-3 px-4`} [border:1px_solid_var(--gameengine-border-color)]`} onClick={onClick}>
-                        <div className="flex items-center justify-between cursor-pointer">
+                <div className={`${`${classes + " " + ""} rounded py-3 px-4`} [border:1px_solid_var(--gameengine-border-color)]`}>
+                        <div className="flex items-center justify-between cursor-pointer" onClick={onClick}>
                                 <GFLabel type="title" margin={0} padding={0}
                                         // translators: %s: label
                                         label={sprintf(__('%s', 'gemboards'), label)} fontWeight="400" />

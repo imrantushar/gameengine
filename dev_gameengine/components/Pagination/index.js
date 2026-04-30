@@ -112,30 +112,30 @@ const Pagination = ({
   };
   return <div className="gameengine-pagination">
 			{showPrevButton && <>
-					<button className="bg-transparent h-auto p-1.5 text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border [min-width:auto]" onClick={() => {
+					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
         handlePageChange(1);
       }}>
-						<Icon as={IoIosArrowBack} boxSize="16px" />
+						<IoIosArrowBack />
 					</button>
-					<button className="bg-transparent h-auto p-1.5 text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border [min-width:auto]" onClick={() => {
+					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
         handlePageChange(page - 1);
       }}>
-						<Icon as={HiChevronDoubleLeft} boxSize="16px" />
+						<HiChevronDoubleLeft />
 					</button>
 				</>}
 			{pageNumbers.length > 1 && <ul className="gameengine-pagination-list">
 					{renderPageNumbers()}
 				</ul>}
 			{showNextButton && <>
-					<button className="bg-transparent h-auto p-1.5 text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border [min-width:auto]" onClick={() => {
+					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
         handlePageChange(page + 1);
       }}>
-						<Icon as={IoIosArrowForward} boxSize="16px" />
+						<IoIosArrowForward />
 					</button>
-					<button className="bg-transparent h-auto p-1.5 text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border [min-width:auto]" onClick={() => {
+					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
         handlePageChange(pageNumbers.length);
       }}>
-						<Icon as={HiChevronDoubleRight} boxSize="16px" />
+						<HiChevronDoubleRight />
 					</button>
 				</>}
 		</div>;

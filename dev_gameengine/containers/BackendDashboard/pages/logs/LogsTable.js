@@ -113,8 +113,11 @@ const LogsTable = ({
         "fontSize": "xs",
         "color": "gray.400"
       }}>System Log</p>;
-      return <button onClick={() => modalOpenHandler(row)} title="Edit Log">
-        <Icon as={FiEdit} />
+      return <button 
+        onClick={() => modalOpenHandler(row)} title="Edit Log"
+        className='border border-solid border-[var(--gameengine-border-color)] rounded px-2 py-1 text-sm text-[var(--gameengine-font-color)] hover:bg-[var(--gameengine-border-color)] transition-opacity opacity-80 hover:opacity-100'
+        >
+        <FiEdit className='cursor-pointer'/>
       </button>;
     },
     columnWidth: "20px",
@@ -129,8 +132,9 @@ const LogsTable = ({
         <button
           onClick={handleRefresh}
           disabled={status === "loading"}
+          className='bg-transparent p-1.5 cursor-pointer text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]'
         >
-          {status === "loading" ? "loading..." : "refresh"}
+          {status === "loading" ? "Loading..." : "Refresh"}
         </button>
       </div>
 

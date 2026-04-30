@@ -1910,10 +1910,12 @@ const Congratulation = () => {
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Go To Dashboard", "gameengine")), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)("Visit Website", "gameengine"),
-    icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_1__.Icon, {
-      as: react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaArrowRightLong
-    }),
+    icon: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_icons_fa6__WEBPACK_IMPORTED_MODULE_7__.FaArrowRightLong, null),
     iconPosition: "right",
+    style: {
+      fontSize: '12px',
+      fontWeight: '400'
+    },
     onClick: () => window.open(_GFUtils_helper__WEBPACK_IMPORTED_MODULE_3__.site_url, '__blank')
   }))));
 };
@@ -1990,6 +1992,7 @@ const AddonsCard = [{
   plugin_required: true
 }, {
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)("I’ll decide later", 'gameengine'),
+  name: 'decide_later',
   description: "",
   icon: false,
   plugin_required: false
@@ -2021,8 +2024,13 @@ const Addons = () => {
       },
       key: idx,
       onClick: () => {
+        const isDeciodeLater = item.name === 'decide_later';
         if (!values.addons.includes(item.name)) {
-          setFieldValue('addons', [...values.addons, item.name]);
+          if (isDeciodeLater) {
+            setFieldValue('addons', ['decide_later']);
+          } else {
+            setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
+          }
         } else {
           setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
         }
@@ -2052,25 +2060,28 @@ const Addons = () => {
       label: item.description,
       fontSize: '12px',
       lineHeight: '16px'
-    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
+    })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+      className: "ml-auto",
+      onClick: e => e.stopPropagation()
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
       size: "sm",
       mt: "0.5",
       ml: "auto",
       disabled: isDisabled,
-      checked: isChecked
-      // onCheckedChange={(changes) => {
-      //   if (changes.checked) {
-      //     if (!values.addons.includes(item.name)) {
-      //       setFieldValue('addons', [...values.addons, item.name]);
-      //     }
-      //   } else {
-      //     setFieldValue(
-      //       'addons',
-      //       values.addons.filter(addon => addon !== item.name)
-      //     );
-      //   }
-      // }}
-    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.HiddenInput, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null)));
+      checked: isChecked,
+      onCheckedChange: () => {
+        const isDeciodeLater = item.name === 'decide_later';
+        if (!values.addons.includes(item.name)) {
+          if (isDeciodeLater) {
+            setFieldValue('addons', ['decide_later']);
+          } else {
+            setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
+          }
+        } else {
+          setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
+        }
+      }
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null))));
   })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Addons);

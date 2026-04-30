@@ -1498,6 +1498,9 @@ input.gameengine-checkbox:checked::before {
 .mt-\[24px\] {
   margin-top: 24px;
 }
+.ml-auto {
+  margin-left: auto;
+}
 .block {
   display: block;
 }
@@ -1573,6 +1576,12 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
+.h-\[30px\] {
+  height: 30px;
+}
+.h-\[32px\] {
+  height: 32px;
+}
 .min-h-\[285px\] {
   min-height: 285px;
 }
@@ -1623,6 +1632,12 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full {
   width: 100%;
+}
+.w-\[30px\] {
+  width: 30px;
+}
+.w-\[32px\] {
+  width: 32px;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1833,6 +1848,12 @@ input.gameengine-checkbox:checked::before {
 }
 .rounded-xl {
   border-radius: 0.75rem;
+}
+.rounded-\[\] {
+  border-radius: ;
+}
+.rounded-\[4px\] {
+  border-radius: 4px;
 }
 .rounded-l-full {
   border-top-left-radius: 9999px;
@@ -2411,6 +2432,10 @@ input.gameengine-checkbox:checked::before {
   padding-top: 3px;
   padding-bottom: 3px;
 }
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .pb-1 {
   padding-bottom: 0.25rem;
 }
@@ -2557,6 +2582,9 @@ input.gameengine-checkbox:checked::before {
 .font-semibold {
   font-weight: 600;
 }
+.font-\[12px\] {
+  font-weight: 12px;
+}
 .uppercase {
   text-transform: uppercase;
 }
@@ -2590,6 +2618,9 @@ input.gameengine-checkbox:checked::before {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.leading-\[16px\] {
+  line-height: 16px;
 }
 .tracking-wide {
   letter-spacing: 0.025em;
@@ -2811,6 +2842,9 @@ input.gameengine-checkbox:checked::before {
 .opacity-0 {
   opacity: 0;
 }
+.opacity-80 {
+  opacity: 0.8;
+}
 .\!shadow-none {
   --tw-shadow: 0 0 #0000 !important;
   --tw-shadow-colored: 0 0 #0000 !important;
@@ -2871,6 +2905,11 @@ input.gameengine-checkbox:checked::before {
 }
 .transition-colors {
   transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-opacity {
+  transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -3095,6 +3134,10 @@ input.gameengine-checkbox:checked::before {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-\[var\(--gameengine-border-color\)\]:hover {
+  background-color: var(--gameengine-border-color);
+}
+
 .hover\:text-amber-700:hover {
   --tw-text-opacity: 1;
   color: rgb(180 83 9 / var(--tw-text-opacity, 1));
@@ -3188,6 +3231,10 @@ input.gameengine-checkbox:checked::before {
 .hover\:text-yellow-700:hover {
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
+}
+
+.hover\:opacity-100:hover {
+  opacity: 1;
 }
 
 .focus\:border-amber-500:focus {

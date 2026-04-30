@@ -44,8 +44,7 @@ const AddonsCard = [{
   icon: tutorLms,
   plugin_required: true
 }, {
-  label: __("I’ll decide later", 'gameengine'),
-  description: "",
+  label: __("I’ll decide later", 'gameengine'),  name: 'decide_later',  description: "",
   icon: false,
   plugin_required: false
 }];
@@ -68,8 +67,13 @@ const Addons = () => {
           "border": "1px solid #CBD1D7",
           "width": "calc(100% / 2)"
         }} key={idx} onClick={() => {
+          const isDeciodeLater = item.name === 'decide_later';
           if (!values.addons.includes(item.name)) {
-            setFieldValue('addons', [...values.addons, item.name]);
+            if (isDeciodeLater) {
+              setFieldValue('addons', ['decide_later']);
+            } else {
+              setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
+            }
           } else {
             setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
           }
@@ -81,23 +85,24 @@ const Addons = () => {
                 <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} lineHeight={'20px'} />
                 <GFLabel type="simple" margin={0} padding={0} label={item.description} fontSize={'12px'} lineHeight={'16px'} />
               </div>
-              <Checkbox.Root size="sm" mt="0.5" ml='auto' disabled={isDisabled} checked={isChecked}
-          // onCheckedChange={(changes) => {
-          //   if (changes.checked) {
-          //     if (!values.addons.includes(item.name)) {
-          //       setFieldValue('addons', [...values.addons, item.name]);
-          //     }
-          //   } else {
-          //     setFieldValue(
-          //       'addons',
-          //       values.addons.filter(addon => addon !== item.name)
-          //     );
-          //   }
-          // }}
+              <span className='ml-auto' onClick={e => e.stopPropagation()}>
+                <Checkbox.Root size="sm" mt="0.5" ml='auto' disabled={isDisabled} checked={isChecked}
+            onCheckedChange={() => {
+              const isDeciodeLater = item.name === 'decide_later';
+              if (!values.addons.includes(item.name)) {
+                if (isDeciodeLater) {
+                  setFieldValue('addons', ['decide_later']);
+                } else {
+                  setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
+                }
+              } else {
+                setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
+              }
+            }}
           >
-                <Checkbox.HiddenInput />
-                <Checkbox.Control />
-              </Checkbox.Root>
+                  <Checkbox.Control />
+                </Checkbox.Root>
+              </span>
             </div>;
       })}
         </div>

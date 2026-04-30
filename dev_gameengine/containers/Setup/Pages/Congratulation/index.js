@@ -33,8 +33,9 @@ const Congratulation = () => {
           </button>
           <Button
             label={__("Visit Website", "gameengine")}
-            icon={<Icon as={FaArrowRightLong} />}
+            icon={<FaArrowRightLong />}
             iconPosition="right"
+            style={{ fontSize: '12px', fontWeight: '400' }}
             onClick={() => window.open(site_url, '__blank')}
           />
         </div>
