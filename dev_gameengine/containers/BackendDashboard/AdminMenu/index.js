@@ -87,30 +87,29 @@ const AdminMenu = () => {
 						</MenuItem>
 					);
 				} ) }
-				{/* <>
-					{ is_pro ? (
-						<li
-							className={
-								page === 'gameengine-license' ? 'current' : ''
-							}
-						>
-							<a href="admin.php?page=gameengine-license">
-								{ __( 'License', 'gameengine' ) }
-							</a>
-						</li>
-					) : (
-						<li
-							className={
-								page === 'gameengine-get-pro' ? 'current' : ''
-							}
-						>
-							<a href="admin.php?page=gameengine-get-pro">
-								<span className="dashicons dashicons-awards gameengine-blue-color"></span>{ ' ' }
-								{ __( 'Get Pro', 'gameengine' ) }
-							</a>
-						</li>
-					) }
-				</> */}
+
+				{ is_pro === "1" ? (
+					<li
+						className={
+							page === 'gameengine-license' ? 'current' : ''
+						}
+					>
+						<a href="admin.php?page=gameengine-license">
+							{ __( 'License', 'gameengine' ) }
+						</a>
+					</li>
+				) : (
+					<li
+						className={
+							page === 'gameengine-get-pro' ? 'current' : ''
+						}
+					>
+						<a href="https://gameengine.pro/pricing/" target='_blank'>
+							<span className="dashicons dashicons-awards gameengine-blue-color"></span>{ ' ' }
+							{ __( 'Get Pro', 'gameengine' ) }
+						</a>
+					</li>
+				) }
 			</ul>
 		</React.Fragment>
 	);
