@@ -224,6 +224,11 @@ class ActionsController extends BaseController
                     $event_label = $trigger_config['label'];
                 }
             }
+
+            // Format points with + or - sign.
+            $points = intval($log_data['points_awarded']);
+            $log_data['points_formatted'] = ($points > 0 ? '+' : '') . $points;
+
             $log_data['event_name'] = $event_label;
         }
 

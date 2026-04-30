@@ -77,6 +77,7 @@ class Referral extends BaseIntegration
                     ]
                 ])
             ],
+
             'referral_purchase' => [
                 'label' => __('Referral Purchase (Referrer Reward)', 'gameengine'),
                 'hook' => 'gameengine_referral_purchase',

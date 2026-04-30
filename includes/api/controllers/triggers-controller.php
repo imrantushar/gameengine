@@ -43,7 +43,11 @@ class TriggersController extends BaseController
         if (file_exists($file)) {
             // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
             $manifest = json_decode(file_get_contents($file), true);
-            $data = $manifest['integrations'] ?? [];
+            $all_data = $manifest['integrations'] ?? [];
+
+            // Filter out inactive integrations using the refined TriggerRegistry logic.
+            $active_integrations = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
+            $data = array_intersect_key($all_data, $active_integrations);
         } else {
             $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
         }
