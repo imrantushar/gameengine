@@ -94,7 +94,7 @@ const AdminMenu = () => {
 							page === 'gameengine-license' ? 'current' : ''
 						}
 					>
-						<a href="admin.php?page=gameengine-license">
+						<a href="admin.php?page=gameengine-settings&settings=1&tab=license">
 							{ __( 'License', 'gameengine' ) }
 						</a>
 					</li>
