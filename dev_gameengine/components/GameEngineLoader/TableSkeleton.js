@@ -8,7 +8,7 @@ const TableLoading = ({ makeItems = 5 }) => {
                 {[...Array(makeItems)].map((_, i) => (
                     <Table.Row>
                         {[...Array(makeItems)].map((_, i) => (
-                            <Table.Cell key={i}><Skeleton height="4" width="100%" /></Table.Cell>
+                            <Table.Cell key={i}><Skeleton height="16px" width="100%" /></Table.Cell>
                         ))}
                     </Table.Row>
                 ))}
