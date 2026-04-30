@@ -20,6 +20,7 @@ export const {
 	is_woocommerce_active,
 	is_academylms_active,
 	is_tutorlms_active,
+	is_storeengine_active,
 	banners,
 	site_url,
 	notification_position = null,

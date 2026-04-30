@@ -1953,6 +1953,12 @@ const AddonsCard = [{
   icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.wooCommerce,
   plugin_required: true
 }, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('StoreEngine Integration', 'gameengine'),
+  name: 'storeengine',
+  description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Boost interactions with content', 'gameengine'),
+  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.storeEngine,
+  plugin_required: true
+}, {
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Academy LMS Integration', 'gameengine'),
   name: 'academylms',
   description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Boost interactions with content', 'gameengine'),
@@ -1976,6 +1982,18 @@ const Addons = () => {
     values,
     setFieldValue
   } = (0,formik__WEBPACK_IMPORTED_MODULE_7__.useFormikContext)();
+  const handleToggle = itemName => {
+    const isDeciodeLater = itemName === 'decide_later';
+    if (!values.addons.includes(itemName)) {
+      if (isDeciodeLater) {
+        setFieldValue('addons', ['decide_later']);
+      } else {
+        setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), itemName]);
+      }
+    } else {
+      setFieldValue('addons', values.addons.filter(addon => addon !== itemName));
+    }
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_components_SettingsHeader__WEBPACK_IMPORTED_MODULE_1__["default"], {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Gamification Category', 'gemboards'),
     subTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('What best describes your Needs?', 'gemboards')
@@ -1987,28 +2005,19 @@ const Addons = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex flex-wrap gap-4"
   }, AddonsCard.map((item, idx) => {
-    const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_academylms_active || item.name === 'tutorlms' && values.addons.includes('tutorlms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_tutorlms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_woocommerce_active || values.addons.includes(item.name);
-    const isDisabled = item.name === 'academylms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_academylms_active || item.name === 'tutorlms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_tutorlms_active || item.name === 'woocommerce' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_woocommerce_active;
+    const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_academylms_active || item.name === 'tutorlms' && values.addons.includes('tutorlms') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_tutorlms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_woocommerce_active || item.name === 'storeengine' && values.addons.includes('storeengine') && _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_storeengine_active || values.addons.includes(item.name);
+    const isDisabled = item.name === 'academylms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_academylms_active || item.name === 'tutorlms' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_tutorlms_active || item.name === 'woocommerce' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_woocommerce_active || item.name === 'storeengine' && !_GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.is_storeengine_active;
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: "flex items-center cursor-pointer gap-3 p-4 rounded text-center",
       style: {
         "maxWidth": "280px",
         "border": "1px solid #CBD1D7",
-        "width": "calc(100% / 2)"
+        "width": "calc(100% / 2)",
+        "opacity": isDisabled ? 0.6 : 1,
+        "pointerEvents": isDisabled ? 'none' : 'auto'
       },
       key: idx,
-      onClick: () => {
-        const isDeciodeLater = item.name === 'decide_later';
-        if (!values.addons.includes(item.name)) {
-          if (isDeciodeLater) {
-            setFieldValue('addons', ['decide_later']);
-          } else {
-            setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
-          }
-        } else {
-          setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
-        }
-      }
+      onClick: () => handleToggle(item.name)
     }, item.icon ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Icon, {
       as: item.icon,
       width: '30px',
@@ -2035,26 +2044,14 @@ const Addons = () => {
       fontSize: '12px',
       lineHeight: '16px'
     })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-      className: "ml-auto",
-      onClick: e => e.stopPropagation()
+      className: "ml-auto"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Root, {
       size: "sm",
       mt: "0.5",
       ml: "auto",
       disabled: isDisabled,
       checked: isChecked,
-      onCheckedChange: () => {
-        const isDeciodeLater = item.name === 'decide_later';
-        if (!values.addons.includes(item.name)) {
-          if (isDeciodeLater) {
-            setFieldValue('addons', ['decide_later']);
-          } else {
-            setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
-          }
-        } else {
-          setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
-        }
-      }
+      readOnly: true
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_UI__WEBPACK_IMPORTED_MODULE_3__.Checkbox.Control, null))));
   })));
 };
@@ -2684,6 +2681,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   is_academylms_active: () => (/* binding */ is_academylms_active),
 /* harmony export */   is_plain_permalink: () => (/* binding */ is_plain_permalink),
 /* harmony export */   is_pro: () => (/* binding */ is_pro),
+/* harmony export */   is_storeengine_active: () => (/* binding */ is_storeengine_active),
 /* harmony export */   is_tutorlms_active: () => (/* binding */ is_tutorlms_active),
 /* harmony export */   is_woocommerce_active: () => (/* binding */ is_woocommerce_active),
 /* harmony export */   makeRequest: () => (/* binding */ makeRequest),
@@ -2729,6 +2727,7 @@ const {
   is_woocommerce_active,
   is_academylms_active,
   is_tutorlms_active,
+  is_storeengine_active,
   banners,
   site_url,
   notification_position = null,

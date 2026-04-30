@@ -2892,6 +2892,9 @@ input.gameengine-checkbox:checked::before {
 .ml-\[1\.2rem\]{
   margin-left: 1.2rem;
 }
+.ml-auto{
+  margin-left: auto;
+}
 .mr-1{
   margin-right: 0.25rem;
 }
@@ -2930,9 +2933,6 @@ input.gameengine-checkbox:checked::before {
 }
 .mt-\[24px\]{
   margin-top: 24px;
-}
-.ml-auto{
-  margin-left: auto;
 }
 .block{
   display: block;
@@ -2991,6 +2991,9 @@ input.gameengine-checkbox:checked::before {
 .h-9{
   height: 2.25rem;
 }
+.h-\[32px\]{
+  height: 32px;
+}
 .h-\[36px\]{
   height: 36px;
 }
@@ -3008,9 +3011,6 @@ input.gameengine-checkbox:checked::before {
 }
 .h-px{
   height: 1px;
-}
-.h-\[32px\]{
-  height: 32px;
 }
 .min-h-\[285px\]{
   min-height: 285px;
@@ -3054,6 +3054,9 @@ input.gameengine-checkbox:checked::before {
 .w-\[260px\]{
   width: 260px;
 }
+.w-\[32px\]{
+  width: 32px;
+}
 .w-\[80\%\]{
   width: 80%;
 }
@@ -3062,9 +3065,6 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full{
   width: 100%;
-}
-.w-\[32px\]{
-  width: 32px;
 }
 .min-w-0{
   min-width: 0px;
@@ -3255,6 +3255,9 @@ input.gameengine-checkbox:checked::before {
 .rounded{
   border-radius: 0.25rem;
 }
+.rounded-\[4px\]{
+  border-radius: 4px;
+}
 .rounded-\[6px\]{
   border-radius: 6px;
 }
@@ -3275,9 +3278,6 @@ input.gameengine-checkbox:checked::before {
 }
 .rounded-xl{
   border-radius: 0.75rem;
-}
-.rounded-\[4px\]{
-  border-radius: 4px;
 }
 .rounded-l-full{
   border-top-left-radius: 9999px;
@@ -3812,6 +3812,10 @@ input.gameengine-checkbox:checked::before {
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
 }
+.py-1{
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .py-1\.5{
   padding-top: 0.375rem;
   padding-bottom: 0.375rem;
@@ -3855,10 +3859,6 @@ input.gameengine-checkbox:checked::before {
 .py-\[3px\]{
   padding-top: 3px;
   padding-bottom: 3px;
-}
-.py-1{
-  padding-top: 0.25rem;
-  padding-bottom: 0.25rem;
 }
 .pb-1{
   padding-bottom: 0.25rem;
@@ -4452,6 +4452,10 @@ input.gameengine-checkbox:checked::before {
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
 }
 
+.hover\:bg-\[var\(--gameengine-border-color\)\]:hover{
+  background-color: var(--gameengine-border-color);
+}
+
 .hover\:bg-amber-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(217 119 6 / var(--tw-bg-opacity, 1));
@@ -4550,10 +4554,6 @@ input.gameengine-checkbox:checked::before {
 .hover\:bg-yellow-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-\[var\(--gameengine-border-color\)\]:hover{
-  background-color: var(--gameengine-border-color);
 }
 
 .hover\:text-amber-700:hover{

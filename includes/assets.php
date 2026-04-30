@@ -86,6 +86,7 @@ class Assets
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
+            'is_storeengine_active' => defined('STOREENGINE_VERSION'),
             'is_pro' => (bool) \GameEngine\Helper::is_pro(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),

@@ -2,8 +2,8 @@ import React from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
 import { Checkbox, Icon } from '@GFComponents/UI';
-import { academyLms, wooCommerce, tutorLms } from '@GFUtils/icons';
-import { is_academylms_active, is_woocommerce_active, is_tutorlms_active, plugin_root_url } from '@GFUtils/helper';
+import { academyLms, wooCommerce, tutorLms, storeEngine } from '@GFUtils/icons';
+import { is_academylms_active, is_woocommerce_active, is_tutorlms_active, is_storeengine_active, plugin_root_url } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
 const AddonsCard = [{
@@ -32,6 +32,12 @@ const AddonsCard = [{
   icon: wooCommerce,
   plugin_required: true
 }, {
+  label: __('StoreEngine Integration', 'gameengine'),
+  name: 'storeengine',
+  description: __('Boost interactions with content', 'gameengine'),
+  icon: storeEngine,
+  plugin_required: true
+}, {
   label: __('Academy LMS Integration', 'gameengine'),
   name: 'academylms',
   description: __('Boost interactions with content', 'gameengine'),
@@ -53,6 +59,20 @@ const Addons = () => {
     values,
     setFieldValue
   } = useFormikContext();
+
+  const handleToggle = (itemName) => {
+    const isDeciodeLater = itemName === 'decide_later';
+    if (!values.addons.includes(itemName)) {
+      if (isDeciodeLater) {
+        setFieldValue('addons', ['decide_later']);
+      } else {
+        setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), itemName]);
+      }
+    } else {
+      setFieldValue('addons', values.addons.filter(addon => addon !== itemName));
+    }
+  };
+
   return <>
       <SettingsHeader title={__('Gamification Category', 'gemboards')} subTitle={__('What best describes your Needs?', 'gemboards')} />
       <div className="w-full h-px" style={{
@@ -60,24 +80,15 @@ const Addons = () => {
     }} />
       <div className="flex flex-wrap gap-4">
         {AddonsCard.map((item, idx) => {
-        const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && is_academylms_active || item.name === 'tutorlms' && values.addons.includes('tutorlms') && is_tutorlms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && is_woocommerce_active || values.addons.includes(item.name);
-        const isDisabled = item.name === 'academylms' && !is_academylms_active || item.name === 'tutorlms' && !is_tutorlms_active || item.name === 'woocommerce' && !is_woocommerce_active;
+        const isChecked = item.name === 'academylms' && values.addons.includes('academylms') && is_academylms_active || item.name === 'tutorlms' && values.addons.includes('tutorlms') && is_tutorlms_active || item.name === 'woocommerce' && values.addons.includes('woocommerce') && is_woocommerce_active || item.name === 'storeengine' && values.addons.includes('storeengine') && is_storeengine_active || values.addons.includes(item.name);
+        const isDisabled = item.name === 'academylms' && !is_academylms_active || item.name === 'tutorlms' && !is_tutorlms_active || item.name === 'woocommerce' && !is_woocommerce_active || item.name === 'storeengine' && !is_storeengine_active;
         return <div className="flex items-center cursor-pointer gap-3 p-4 rounded text-center" style={{
           "maxWidth": "280px",
           "border": "1px solid #CBD1D7",
-          "width": "calc(100% / 2)"
-        }} key={idx} onClick={() => {
-          const isDeciodeLater = item.name === 'decide_later';
-          if (!values.addons.includes(item.name)) {
-            if (isDeciodeLater) {
-              setFieldValue('addons', ['decide_later']);
-            } else {
-              setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
-            }
-          } else {
-            setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
-          }
-        }}>
+          "width": "calc(100% / 2)",
+          "opacity": isDisabled ? 0.6 : 1,
+          "pointerEvents": isDisabled ? 'none' : 'auto'
+        }} key={idx} onClick={() => handleToggle(item.name)}>
               {item.icon ? <Icon as={item.icon} width={'30px'} height={'30px'} /> : <img className="h-auto" style={{
             "maxWidth": "36px"
           }} src={item.image} />}
@@ -85,21 +96,15 @@ const Addons = () => {
                 <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} lineHeight={'20px'} />
                 <GFLabel type="simple" margin={0} padding={0} label={item.description} fontSize={'12px'} lineHeight={'16px'} />
               </div>
-              <span className='ml-auto' onClick={e => e.stopPropagation()}>
-                <Checkbox.Root size="sm" mt="0.5" ml='auto' disabled={isDisabled} checked={isChecked}
-            onCheckedChange={() => {
-              const isDeciodeLater = item.name === 'decide_later';
-              if (!values.addons.includes(item.name)) {
-                if (isDeciodeLater) {
-                  setFieldValue('addons', ['decide_later']);
-                } else {
-                  setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), item.name]);
-                }
-              } else {
-                setFieldValue('addons', values.addons.filter(addon => addon !== item.name));
-              }
-            }}
-          >
+              <span className='ml-auto'>
+                <Checkbox.Root 
+                  size="sm" 
+                  mt="0.5" 
+                  ml='auto' 
+                  disabled={isDisabled} 
+                  checked={isChecked}
+                  readOnly
+                >
                   <Checkbox.Control />
                 </Checkbox.Root>
               </span>
