@@ -120,12 +120,12 @@ const Requirements = props => {
           <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")} />
         </div>
 
-        <div className="flex items-center relative">
+        <div className="flex items-center relative gameengine-border-bottom">
           {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
             <RiArrowLeftSLine />
           </button>}
 
-          <div className={`flex gap-4 overflow-x-auto overflow-y-hidden border-b border-gray-200 w-[${tabArray.length > 4 ? "80%" : "100%" }] ${tabArray.length > 4 ? "mx-auto" : ""}`} ref={tabContainerRef} mx={tabArray.length > 4 ? "32px" : "0"} style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+          <div className={`flex gap-4 overflow-x-auto overflow-y-hidden w-[${tabArray.length > 4 ? "80%" : "100%" }] ${tabArray.length > 4 ? "mx-auto" : ""}`} ref={tabContainerRef} mx={tabArray.length > 4 ? "32px" : "0"} style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
             {tabArray.map((item, index) => {
               const isActive = selectedFilterType === item.value || selectedFilterType === '' && item.value === 'all';
               return <button

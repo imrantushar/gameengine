@@ -1289,6 +1289,14 @@ input.gameengine-checkbox:checked::before {
     max-width: 1536px;
   }
 }
+.gameengine-border-bottom {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: var(--gameengine-border-color);
+}
 .pointer-events-auto {
   pointer-events: auto;
 }
@@ -1375,6 +1383,9 @@ input.gameengine-checkbox:checked::before {
 }
 .m-1 {
   margin: 0.25rem;
+}
+.m-\[0_0_24px_0\] {
+  margin: 0 0 24px 0;
 }
 .mx-auto {
   margin-right: auto;
@@ -1877,23 +1888,23 @@ input.gameengine-checkbox:checked::before {
 .border-l {
   border-right-width: 1px;
 }
+.border-l-0 {
+  border-right-width: 0px;
+}
 .border-l-4 {
   border-right-width: 4px;
 }
 .border-r {
   border-left-width: 1px;
 }
+.border-r-0 {
+  border-left-width: 0px;
+}
 .border-t {
   border-top-width: 1px;
 }
 .border-t-0 {
   border-top-width: 0px;
-}
-.border-l-0 {
-  border-right-width: 0px;
-}
-.border-r-0 {
-  border-left-width: 0px;
 }
 .border-solid {
   border-style: solid;
@@ -2339,6 +2350,9 @@ input.gameengine-checkbox:checked::before {
 }
 .p-\[12px\] {
   padding: 12px;
+}
+.p-\[24px_24px_0_24px_\] {
+  padding: 24px 24px 0 24px;
 }
 .p-\[2px_16px\] {
   padding: 2px 16px;
