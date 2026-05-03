@@ -12,8 +12,8 @@ const TableSubHeader = ({
 	suffix,
 }) => {
 	return (
-		<div className="flex justify-between items-center w-full">
-			<div className="flex justify-between items-center w-full">
+		<div className="flex justify-between items-center w-full gameengine-table__subheader-wrap">
+			<div className="flex justify-between items-center w-full gameengine-table__subheader">
 				{subHeaderComponent && subHeaderComponent}
 			</div>
 

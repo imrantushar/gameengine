@@ -1001,16 +1001,10 @@ input.gameengine-checkbox:checked::before {
   padding: 24px;
 }
 
-.gameengine-table--logs-table .gameengine-table__sub-header-left {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.gameengine-table--logs-table .gameengine-table__sub-header-left .gameengine-table__sub-header-left-items {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.gameengine-table--logs-table .gameengine-table__subheader {
+  border-bottom: 1px solid var(--gameengine-border-color);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
 }
 
 .gameengine-select--width-full {
@@ -2356,16 +2350,10 @@ input.gameengine-checkbox:checked::before {
   padding: 24px;
 }
 
-.gameengine-table--logs-table .gameengine-table__sub-header-left {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-.gameengine-table--logs-table .gameengine-table__sub-header-left .gameengine-table__sub-header-left-items {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.gameengine-table--logs-table .gameengine-table__subheader {
+  border-bottom: 1px solid var(--gameengine-border-color);
+  margin-bottom: 12px;
+  padding-bottom: 8px;
 }
 
 .gameengine-select--width-full {
@@ -2696,6 +2684,9 @@ input.gameengine-checkbox:checked::before {
   border-style: solid;
   border-color: var(--gameengine-border-color);
 }
+.pointer-events-none{
+  pointer-events: none;
+}
 .pointer-events-auto{
   pointer-events: auto;
 }
@@ -2774,6 +2765,9 @@ input.gameengine-checkbox:checked::before {
 .z-\[3996\]{
   z-index: 3996;
 }
+.z-\[99999\]{
+  z-index: 99999;
+}
 .z-\[9\]{
   z-index: 9;
 }
@@ -2804,6 +2798,9 @@ input.gameengine-checkbox:checked::before {
 }
 .-mb-\[1px\]{
   margin-bottom: -1px;
+}
+.mb-0{
+  margin-bottom: 0px;
 }
 .mb-1{
   margin-bottom: 0.25rem;
@@ -3027,6 +3024,9 @@ input.gameengine-checkbox:checked::before {
 .min-w-0{
   min-width: 0px;
 }
+.min-w-\[175px\]{
+  min-width: 175px;
+}
 .min-w-\[300px\]{
   min-width: 300px;
 }
@@ -3096,6 +3096,9 @@ input.gameengine-checkbox:checked::before {
 }
 .resize{
   resize: both;
+}
+.list-none{
+  list-style-type: none;
 }
 .grid-cols-1{
   grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -3786,6 +3789,10 @@ input.gameengine-checkbox:checked::before {
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
+.px-2\.5{
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
 .px-3{
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -3957,6 +3964,9 @@ input.gameengine-checkbox:checked::before {
 .text-\[13px\]{
   font-size: 13px;
 }
+.text-\[14px\]{
+  font-size: 14px;
+}
 .text-\[16px\]{
   font-size: 16px;
 }
@@ -4050,6 +4060,10 @@ input.gameengine-checkbox:checked::before {
 .tracking-wider{
   letter-spacing: 0.05em;
 }
+.\!text-\[\#FF4D4D\]{
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 77 77 / var(--tw-text-opacity, 1)) !important;
+}
 .text-\[\#1a73e8\]{
   --tw-text-opacity: 1;
   color: rgb(26 115 232 / var(--tw-text-opacity, 1));
@@ -4078,6 +4092,9 @@ input.gameengine-checkbox:checked::before {
 }
 .text-\[var\(--gameengine-secondary\)\]{
   color: var(--gameengine-secondary);
+}
+.text-\[var\(--gameengine-warn-muted\)\]{
+  color: var(--gameengine-warn-muted);
 }
 .text-\[var\(--gamity-font-color\)\]{
   color: var(--gamity-font-color);
@@ -4291,6 +4308,11 @@ input.gameengine-checkbox:checked::before {
   --tw-shadow-colored: 0 6px 12px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+.shadow-\[0px_12px_24px_-4px_rgba\(16\2c 24\2c 40\2c 0\.08\)\]{
+  --tw-shadow: 0px 12px 24px -4px rgba(16,24,40,0.08);
+  --tw-shadow-colored: 0px 12px 24px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .shadow-none{
   --tw-shadow: 0 0 #0000;
   --tw-shadow-colored: 0 0 #0000;
@@ -4463,6 +4485,10 @@ input.gameengine-checkbox:checked::before {
   margin-bottom: 0px;
 }
 
+.hover\:rounded:hover{
+  border-radius: 0.25rem;
+}
+
 .hover\:border-gray-300:hover{
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
@@ -4470,6 +4496,10 @@ input.gameengine-checkbox:checked::before {
 
 .hover\:bg-\[var\(--gameengine-border-color\)\]:hover{
   background-color: var(--gameengine-border-color);
+}
+
+.hover\:bg-\[var\(--gameengine-secondary-color\)\]:hover{
+  background-color: var(--gameengine-secondary-color);
 }
 
 .hover\:bg-amber-600:hover{
@@ -4570,6 +4600,15 @@ input.gameengine-checkbox:checked::before {
 .hover\:bg-yellow-600:hover{
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:\!text-\[\#FF4D4D\]:hover{
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 77 77 / var(--tw-text-opacity, 1)) !important;
+}
+
+.hover\:text-\[var\(--gameengine-font-color\)\]:hover{
+  color: var(--gameengine-font-color);
 }
 
 .hover\:text-amber-700:hover{
@@ -4754,6 +4793,10 @@ input.gameengine-checkbox:checked::before {
 .focus\:border-yellow-500:focus{
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
+}
+
+.focus\:bg-\[var\(--gameengine-secondary-color\)\]:focus{
+  background-color: var(--gameengine-secondary-color);
 }
 
 .focus\:bg-amber-100\/50:focus{
@@ -5526,108 +5569,6 @@ input.gameengine-checkbox:checked::before {
   max-width: -moz-fit-content;
   max-width: fit-content;
   margin-top: 24px;
-}
-/*!*************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/OptionMenu/styles.scss ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-dropdown-menu {
-  position: relative;
-  border-radius: 4px;
-  border: 1px solid var(--gameengine-border-color) !important;
-  cursor: pointer;
-  background: transparent;
-  padding: 0px 4px !important;
-}
-.gameengine-dropdown-menu:focus, .gameengine-dropdown-menu:hover {
-  background: var(--gameengine-secondary-color);
-  color: none;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options {
-  position: relative;
-  min-width: 175px;
-  z-index: 99999;
-  border-radius: 4px;
-  border: 1px solid var(--gameengine-border-color);
-  background: var(--gameengine-background);
-  margin: 0;
-  padding: 8px 8px 4px 8px;
-  box-shadow: 0px 12px 24px -4px rgba(16, 24, 40, 0.08);
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item {
-  cursor: pointer;
-  margin-bottom: 0;
-  border-radius: 6px;
-  list-style: none;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a, .gameengine-dropdown-menu__lists .gameengine-more-options__item button {
-  cursor: pointer;
-  border: none;
-  width: 100%;
-  color: var(--gameengine-font-color);
-  border-radius: 6px;
-  padding: 8px 10px 8px 10px;
-  display: flex;
-  margin-bottom: 4px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a:hover, .gameengine-dropdown-menu__lists .gameengine-more-options__item button:hover {
-  background: var(--gameengine-secondary-color);
-  color: var(--gameengine-font-color);
-  border-radius: 4px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-icon-slash, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-icon-slash {
-  width: 18px;
-  margin-right: 10px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-icon, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-icon {
-  margin-right: 10px;
-  font-size: 20px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-icon--reset, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-icon--reset {
-  font-size: 14px;
-  font-weight: 500;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-icon--edit, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-icon--edit {
-  font-size: 20px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-icon--delete::before, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-icon--delete::before {
-  color: #fff;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .gameengine-btn--label, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .gameengine-btn--label {
-  pointer-events: none;
-  font-size: 12px;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item a .dashicons, .gameengine-dropdown-menu__lists .gameengine-more-options__item button .dashicons {
-  font-size: 16px;
-  height: auto;
-  width: auto;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item .gameengine-btn--trash {
-  color: #FF4D4D;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item .gameengine-btn--trash .gameengine-icon::before {
-  color: #FF4D4D;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item .gameengine-btn--trash:hover {
-  color: #FF4D4D;
-}
-.gameengine-dropdown-menu__lists .gameengine-more-options__item .gameengine-option-separator {
-  margin: 4px 0;
-}
-.gameengine-dropdown-menu__inline {
-  display: flex;
-}
-.gameengine-dropdown-menu__inline-form:not(.gameengine-dropdown-menu__inline-form:last-child) {
-  border-right: 1px solid var(--gameengine-border-color);
-  padding-right: 2px;
-  margin-right: 2px;
-}
-.gameengine-dropdown-menu__inline-form .gameengine-btn--inline {
-  padding: 0;
-  color: var(--gameengine-warn-muted);
-}
-.gameengine-dropdown-menu__inline-form .gameengine-btn--trash {
-  padding: 0;
-  color: var(--gameengine-placing);
 }
 /*!****************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/StatusOptions/styles.scss ***!

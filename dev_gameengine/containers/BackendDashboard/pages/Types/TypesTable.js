@@ -103,7 +103,8 @@ const TypesTable = ({
           type: 'button',
           label: __('Edit', 'gameengine'),
           icon: <FiEdit />,
-          onClick: () => editHandler(row)
+          onClick: () => editHandler(row),
+          hasBorder: true,
         }, {
           type: 'button',
           suffix: 'trash',

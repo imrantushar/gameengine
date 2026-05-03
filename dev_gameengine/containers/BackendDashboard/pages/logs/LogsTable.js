@@ -142,7 +142,7 @@ const LogsTable = ({
         <button
           onClick={handleRefresh}
           disabled={status === "loading"}
-          className='bg-transparent p-1.5 cursor-pointer text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]'
+          className='bg-transparent p-1.5 cursor-pointer text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border border-solid rounded-[4px]'
         >
           {status === "loading" ? "Loading..." : "Refresh"}
         </button>

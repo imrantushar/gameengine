@@ -230,7 +230,8 @@ const PointTypesTable = () => {
           type: 'button',
           label: __('Edit', 'gameengine'),
           icon: <FiEdit />,
-          onClick: () => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`),
+          hasBorder: true,
         }, ...trashAction]} />;
       },
       columnWidth: "10%"

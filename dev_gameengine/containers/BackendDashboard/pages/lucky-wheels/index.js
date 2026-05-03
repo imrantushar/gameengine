@@ -101,7 +101,8 @@ export default function LuckyWheels({ action, id }) {
                         type: 'button',
                         label: __('Analytics', 'gameengine'),
                         icon: <Icon as={FiActivity} />,
-                        onClick: () => setAnalyticsId(row.id)
+                        onClick: () => setAnalyticsId(row.id),
+                        hasBorder: true,
                     },
                     {
                         type: 'button',

@@ -150,7 +150,8 @@ const LevelTable = () => {
           type: "button",
           label: __('Edit', 'gameengine'),
           icon: <FiEdit />,
-          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`),
+          hasBorder: true,
         }, ...trashAction]} />;
       },
       cell: row => <OptionMenu options={[
@@ -158,7 +159,8 @@ const LevelTable = () => {
           type: "button",
           label: __('Edit', 'gameengine'),
           icon: <FiEdit />,
-          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`),
+          hasBorder: true,
         },
         {
           type: "button",

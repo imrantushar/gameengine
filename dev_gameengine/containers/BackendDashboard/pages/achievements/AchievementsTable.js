@@ -152,7 +152,8 @@ const AchievementsTable = () => {
           type: 'button',
           label: __('Edit', 'gameengine'),
           icon: <FiEdit />,
-          onClick: () => navigate(`${route_path}admin.php?page=gameengine-achievements&action=edit&id=${row?.id}`)
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-achievements&action=edit&id=${row?.id}`),
+          hasBorder: true,
         }, ...trashAction]} />;
       },
     }
