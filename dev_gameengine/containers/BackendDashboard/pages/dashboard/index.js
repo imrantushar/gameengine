@@ -7,6 +7,7 @@ import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
 import Overview from "./Overview";
 import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
+
 const Dashboard = () => {
   const dispatch = useDispatch();
   const {
@@ -36,17 +37,19 @@ const Dashboard = () => {
     return <div className="flex items-center justify-center" style={{
       "height": "100vh"
     }}><Spinner size="xl" color="blue.500" /></div>;
-  }
+  };
+  
   return <>
-            <TopBar path={__("Dashboard", "gameengine")} />
+    <TopBar path={__("Dashboard", "gameengine")} />
 
-            <div className="gameengine-page-content flex flex-col gap-6">
-                <Overview data={overview} onFilterChange={handleFilterChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
+    <div className="gameengine-page-content flex flex-col gap-6">
+      <Overview data={overview} onFilterChange={handleFilterChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
 
-                <Distribution chartData={chart} />
+      <Distribution chartData={chart} />
 
-                <TopUsers users={topUsers} />
-            </div>
-        </>;
+      <TopUsers users={topUsers} />
+    </div>
+  </>;
 };
+
 export default Dashboard;

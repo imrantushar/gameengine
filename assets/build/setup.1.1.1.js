@@ -2893,6 +2893,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   general: () => (/* binding */ general),
 /* harmony export */   license: () => (/* binding */ license),
 /* harmony export */   mail: () => (/* binding */ mail),
+/* harmony export */   minus: () => (/* binding */ minus),
 /* harmony export */   referralIcon: () => (/* binding */ referralIcon),
 /* harmony export */   star: () => (/* binding */ star),
 /* harmony export */   storeEngine: () => (/* binding */ storeEngine),
@@ -3167,6 +3168,32 @@ const arrowBackward = () => {
     d: "M12.25 5.54171C12.25 6.54732 11.8508 7.51203 11.1397 8.22311C10.4287 8.93418 9.46395 9.33338 8.45833 9.33338H3.74154L5.66244 11.2543C5.89024 11.4821 5.89024 11.8513 5.66244 12.0791C5.43463 12.307 5.06537 12.307 4.83757 12.0791L1.9209 9.16248C1.69309 8.93467 1.69309 8.56541 1.9209 8.33761L4.83757 5.42094C5.06537 5.19314 5.43463 5.19314 5.66244 5.42094C5.89024 5.64875 5.89024 6.01801 5.66244 6.24581L3.74154 8.16671H8.45833C9.15453 8.16671 9.82201 7.88995 10.3143 7.39767C10.8066 6.90538 11.0833 6.2379 11.0833 5.54171C11.0833 5.19704 11.0153 4.85583 10.8834 4.5374C10.7515 4.21892 10.558 3.92951 10.3143 3.68575C9.82201 3.19347 9.15453 2.91671 8.45833 2.91671H6.41667C6.0945 2.91671 5.83333 2.65554 5.83333 2.33338C5.83333 2.01121 6.0945 1.75004 6.41667 1.75004H8.45833C9.46395 1.75004 10.4287 2.14924 11.1397 2.86032C11.4918 3.2124 11.7706 3.63076 11.9612 4.09078C12.1517 4.55081 12.25 5.04378 12.25 5.54171Z",
     fill: "currentColor"
   }));
+};
+const minus = () => {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("g", {
+    clipPath: "url(#clip0_minus)"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z",
+    fill: "white"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M12 20.7422C16.8282 20.7422 20.7422 16.8282 20.7422 12C20.7422 7.17182 16.8282 3.25781 12 3.25781C7.17182 3.25781 3.25781 7.17182 3.25781 12C3.25781 16.8282 7.17182 20.7422 12 20.7422Z",
+    fill: "#EF4444"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("path", {
+    d: "M8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z",
+    fill: "white"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("defs", null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("clipPath", {
+    id: "clip0_minus"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("rect", {
+    width: "24",
+    height: "24",
+    fill: "white"
+  }))));
 };
 const license = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("svg", {

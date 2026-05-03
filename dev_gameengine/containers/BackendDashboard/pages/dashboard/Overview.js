@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
-import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
-import { FiUser, FiAward, FiTrendingUp, FiStar, FiCalendar, FiMinusCircle } from "react-icons/fi";
-import BoxView from '@GFComponents/BoxView/BoxView';
-import { achievement, star, trophy, user } from '@GFUtils/icons';
+import { achievement, minus, star, trophy, user } from '@GFUtils/icons';
 import Datepicker from '@kodezen/react-datepicker';
+import PlainBox from '@GFComponents/BoxView/PlainBox';
+
 function Overview({
   data,
   onFilterChange,
@@ -18,6 +17,7 @@ function Overview({
       onFilterChange(startDate, endDate);
     }
   }, [startDate, endDate]);
+
   const cards = [{
     label: "Points Given",
     value: data?.points || "0",
@@ -27,9 +27,9 @@ function Overview({
   }, {
     label: "Points Deducted",
     value: data?.points_deducted || "0",
-    icon: FiMinusCircle,
+    icon: minus,
     bg: "red.50",
-    iconColor: "red.500"
+    iconColor: "#FF9381"
   }, {
     label: "Achievements Given",
     value: data?.achievements || "0",
@@ -49,54 +49,49 @@ function Overview({
     bg: "red.50",
     iconColor: "#FF9381"
   }];
+
   return (
-    <BoxView 
-      width='100%' 
-      title={__('Overview', 'gameengine')} 
-      rightContent={
-        <div 
-          className="flex items-center cursor-pointer gap-2 rounded p-[10px 12px]">
-          <div className="custom-datepicker flex w-full">
-            <Datepicker
-              value={{ startDate, endDate }}
-              onChange={(val) => {
-                setStartDate(val?.startDate ?? null);
-                setEndDate(val?.endDate ?? null);
-              }}
-              theme="light"
-              placement="left"
-              suffix='dashboard'
-            />
-          </div>
+    <>
+      <div className='flex items-center justify-between'>
+        <p className='text-[20px] font-medium leading-[30px] m-0'>{__('Overview', 'gameengine')}</p>
+        <div className="custom-datepicker flex w-1/4">
+          <Datepicker
+            value={{ startDate, endDate }}
+            onChange={(val) => {
+              setStartDate(val?.startDate ?? null);
+              setEndDate(val?.endDate ?? null);
+            }}
+            theme="light"
+            placement="left"
+            suffix='dashboard'
+          />
         </div>
-      }>
-        <div 
-          className="flex 
-          flex-wrap 
-          gap-4 p-2"
-        >
-          {cards.map((card, i) => 
-            <div 
-              className="flex items-center justify-between gap-6 rounded [box-shadow:var(--gameengine-shadow)] p-[32px_24px] w-full md:w-[calc(50%_-_56px)] lg:w-[calc(25%_+_6px)] xl:w-[calc(25%_-_60px)]" 
+      </div>
+
+      <PlainBox>
+        <div className="flex flex-wrap gap-4">
+          {cards.map((card, i) =>
+            <div
+              className="flex items-center justify-between gap-6 rounded [box-shadow:var(--gameengine-shadow)] p-[32px_24px] w-full md:w-[calc(50%_-_56px)] lg:w-[calc(25%_+_6px)] xl:w-[calc(25%_-_60px)]"
               style={{
                 "background": card?.bg
-              }} 
+              }}
               key={i}
             >
               <div className="flex flex-col gap-1">
-                <p className="text-3xl font-bold m-0 leading-[38px]" >{card?.value}</p>
-                <p className="text-base font-medium leading-6 m-0">{card?.label}</p>
+                <p className="text-[30px] font-bold m-0 leading-[38px]" >{card?.value}</p>
+                <p className="text-[16px] font-medium leading-6 m-0">{card?.label}</p>
               </div>
-              <div className="rounded-full" style={{
-                "padding": "14px",
-                "background": card?.iconColor
-              }}>
-                <Icon as={card?.icon} boxSize={8} color="#fff" />
-              </div>
+
+              <span className='text-white leading-[12px] p-[12px] rounded-full' style={{ "background": card?.iconColor }}>
+                {card?.icon()}
+              </span>
             </div>
           )}
         </div>
-    </BoxView>
+      </PlainBox>
+    </>
   );
 }
+
 export default Overview;
