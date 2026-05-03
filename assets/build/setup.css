@@ -951,40 +951,6 @@ input.gameengine-checkbox:checked::before {
   background: #fff;
   padding: 24px;
 }
-.gameengine-table__sub-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 16px;
-}
-.gameengine-table .gameengine-table-flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.gameengine-table__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 12px;
-}
-.gameengine-table__footer-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-pagination-per-page {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-label {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 14px;
-  margin: 0;
-}
 
 .gameengine-table--logs-table .gameengine-table__sub-header-left {
   display: flex;
@@ -1483,6 +1449,9 @@ input.gameengine-checkbox:checked::before {
 .mt-2\.5 {
   margin-top: 0.625rem;
 }
+.mt-3 {
+  margin-top: 0.75rem;
+}
 .mt-4 {
   margin-top: 1rem;
 }
@@ -1680,6 +1649,9 @@ input.gameengine-checkbox:checked::before {
 }
 .shrink-0 {
   flex-shrink: 0;
+}
+.border-collapse {
+  border-collapse: collapse;
 }
 .border-separate {
   border-collapse: separate;
@@ -1913,6 +1885,15 @@ input.gameengine-checkbox:checked::before {
 }
 .border-t {
   border-top-width: 1px;
+}
+.border-t-0 {
+  border-top-width: 0px;
+}
+.border-l-0 {
+  border-left-width: 0px;
+}
+.border-r-0 {
+  border-right-width: 0px;
 }
 .border-solid {
   border-style: solid;
@@ -2653,6 +2634,9 @@ input.gameengine-checkbox:checked::before {
 .tracking-wide {
   letter-spacing: 0.025em;
 }
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
 .text-\[\#1a73e8\] {
   --tw-text-opacity: 1;
   color: rgb(26 115 232 / var(--tw-text-opacity, 1));
@@ -2870,6 +2854,9 @@ input.gameengine-checkbox:checked::before {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity, 1));
 }
+.accent-current {
+  accent-color: currentColor;
+}
 .opacity-0 {
   opacity: 0;
 }
@@ -2942,6 +2929,9 @@ input.gameengine-checkbox:checked::before {
 .transition-opacity {
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-150 {
   transition-duration: 150ms;
 }
 .duration-200 {
@@ -4069,6 +4059,33 @@ input.gameengine-checkbox:checked::before {
   .dark\:focus\:bg-white\/10:focus {
     background-color: rgb(255 255 255 / 0.1);
   }
+}
+
+.\[\&_tbody_tr\:nth-child\(even\)\]\:bg-gray-50 tbody tr:nth-child(even) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.\[\&_tbody_tr\]\:cursor-pointer tbody tr {
+  cursor: pointer;
+}
+
+.\[\&_td\]\:border-x td {
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.\[\&_td\]\:border-\[var\(--gameengine-border-color\)\] td {
+  border-color: var(--gameengine-border-color);
+}
+
+.\[\&_th\]\:border-x th {
+  border-left-width: 1px;
+  border-right-width: 1px;
+}
+
+.\[\&_th\]\:border-\[var\(--gameengine-border-color\)\] th {
+  border-color: var(--gameengine-border-color);
 }
 
 /*# sourceMappingURL=setup.css.map*/

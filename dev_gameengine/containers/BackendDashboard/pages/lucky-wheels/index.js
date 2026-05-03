@@ -63,7 +63,6 @@ export default function LuckyWheels({ action, id }) {
     const columns = [
         {
             name: __('Name', 'gameengine'),
-            textAlign: "start",
             cell: row => (
                 <span className="font-medium">{row.name || '\u2014'}</span>
             ),
@@ -114,7 +113,6 @@ export default function LuckyWheels({ action, id }) {
                 return <OptionMenu options={options} />;
             },
             columnWidth: "15%",
-            textAlign: "end",
         },
     ];
 

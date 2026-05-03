@@ -4,11 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { Icon } from '@GFComponents/UI';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { __ } from '@wordpress/i18n';
-import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
 import OptionMenu from '@GFComponents/OptionMenu';
 import Button from '@GFComponents/Button';
-import { API, banners, namespace, route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
+import { API, namespace, route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
 import { fetchLevels, deleteLevel, updateLevel } from '../../../../redux/Slices/levelsSlice/levelsSlice';
 import { GoPlus } from 'react-icons/go';
 import { fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
@@ -17,6 +16,7 @@ import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
+
 const LevelTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,6 +57,7 @@ const LevelTable = () => {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     if (types.data?.length === 0) {
       dispatch(fetchLevelTypes());
@@ -69,99 +70,109 @@ const LevelTable = () => {
       });
     }
   }, []);
-  const columns = [{
-    name: __('Name', 'gameengine'),
-    cell: row => <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&path=levels-types&id=${row.id}`)}>
-                    {/* Optional: Show Level Icon if available */}
-                    {row.icon && <img src={row.icon} alt="" className="w-6 h-6 object-contain" />}
-                    <span className="font-medium">{row.title}</span>
-                </div>,
-    textAlign: "start"
-  }, {
-    name: __('Category', 'gameengine'),
-    cell: (row = {}) => {
-      const category = types.data.find(item => Number(row?.category_id) === Number(item.id));
-      if (!category) return <span className="text-xs" style={{
-        color: '#999'
-      }}>-</span>;
-      return <span className="rounded pl-2 pr-2">
-                        {category?.name}
-                    </span>;
-    }
-  }, {
-    name: __('Unlock Criteria', 'gameengine'),
-    cell: row => parseInt(row.unlock_with_points_enabled) ? `${row.min_points} - ${row.max_points} Points` : 'Triggers'
-  }, {
-    name: __('Date', 'gameengine'),
-    cell: row => <div>
-                    <p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
-                    {/* <Text margin={0} className="academy-table-time">
+
+  const columns = [
+    {
+      name: __('Name', 'gameengine'),
+      cell: row => <div className="flex items-center gap-2 cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&path=levels-types&id=${row.id}`)}>
+        {/* Optional: Show Level Icon if available */}
+        {row.icon && <img src={row.icon} alt="" className="w-6 h-6 object-contain" />}
+        <span className="font-medium">{row.title}</span>
+      </div>,
+    },
+    {
+      name: __('Category', 'gameengine'),
+      cell: (row = {}) => {
+        const category = types.data.find(item => Number(row?.category_id) === Number(item.id));
+        if (!category) return <span className="text-xs" style={{
+          color: '#999'
+        }}>-</span>;
+        return <span className="rounded pl-2 pr-2">
+          {category?.name}
+        </span>;
+      }
+    },
+    {
+      name: __('Unlock Criteria', 'gameengine'),
+      cell: row => parseInt(row.unlock_with_points_enabled) ? `${row.min_points} - ${row.max_points} Points` : 'Triggers'
+    },
+    {
+      name: __('Date', 'gameengine'),
+      cell: row => <div>
+        <p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
+        {/* <Text margin={0} className="academy-table-time">
                         {moment(row?.created_at).format('h:mm A')}
                      </Text> */}
-                </div>
-  }, {
-    name: __('Status', 'gameengine'),
-    cell: row => {
-      const statusUpdateHandler = itemStatus => {
-        const updatedData = {
-          ...row,
-          status: itemStatus
-        };
-        dispatch(updateLevel({
-          id: row.id,
-          payload: updatedData
-        }));
-      };
-      return <StatusOptions value={row?.status} options={{
-        items: [...statusArray]
-      }} onChangeHandler={statusUpdateHandler} />;
+      </div>
     },
-    width: "15%"
-  }, {
-    name: __('Action', 'gameengine'),
-    cell: (row = {}) => {
-      const trashAction = tableStats !== 'trash' ? [{
-        type: "button",
-        suffix: "trash",
-        label: __('Delete', 'gameengine'),
-        icon: <Icon as={FiTrash2} />,
-        onClick: () => dispatch(updateLevel({
-          id: row.id,
-          payload: {
+    {
+      name: __('Status', 'gameengine'),
+      cell: row => {
+        const statusUpdateHandler = itemStatus => {
+          const updatedData = {
             ...row,
-            status: 'trash'
-          }
-        }))
-      }] : [{
-        type: 'button',
-        suffix: 'trash',
-        label: __('Delete', 'gameengine'),
-        icon: <FiTrash2 />,
-        onClick: () => handleDelete(row?.id)
-      }];
-      return <OptionMenu options={[{
-        type: "button",
-        label: __('Edit', 'gameengine'),
-        icon: <FiEdit />,
-        onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
-      }, ...trashAction]} />;
+            status: itemStatus
+          };
+          dispatch(updateLevel({
+            id: row.id,
+            payload: updatedData
+          }));
+        };
+        return <StatusOptions value={row?.status} options={{
+          items: [...statusArray]
+        }} onChangeHandler={statusUpdateHandler} />;
+      },
+      width: "15%"
     },
-    cell: row => <OptionMenu options={[{
-      type: "button",
-      label: __('Edit', 'gameengine'),
-      icon: <FiEdit />,
-      onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
-    }, {
-      type: "button",
-      suffix: "trash",
-      label: __('Delete', 'gameengine'),
-      icon: <FiTrash2 />,
-      onClick: () => {
-        if (confirm('Delete level?')) dispatch(deleteLevel(row.id));
-      }
-    }]} />,
-    textAlign: "end"
-  }];
+    {
+      name: __('Action', 'gameengine'),
+      cell: (row = {}) => {
+        const trashAction = tableStats !== 'trash' ? [{
+          type: "button",
+          suffix: "trash",
+          label: __('Delete', 'gameengine'),
+          icon: <Icon as={FiTrash2} />,
+          onClick: () => dispatch(updateLevel({
+            id: row.id,
+            payload: {
+              ...row,
+              status: 'trash'
+            }
+          }))
+        }] : [{
+          type: 'button',
+          suffix: 'trash',
+          label: __('Delete', 'gameengine'),
+          icon: <FiTrash2 />,
+          onClick: () => handleDelete(row?.id)
+        }];
+        return <OptionMenu options={[{
+          type: "button",
+          label: __('Edit', 'gameengine'),
+          icon: <FiEdit />,
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
+        }, ...trashAction]} />;
+      },
+      cell: row => <OptionMenu options={[
+        {
+          type: "button",
+          label: __('Edit', 'gameengine'),
+          icon: <FiEdit />,
+          onClick: () => navigate(`${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`)
+        },
+        {
+          type: "button",
+          suffix: "trash",
+          label: __('Delete', 'gameengine'),
+          icon: <FiTrash2 />,
+          onClick: () => {
+            if (confirm('Delete level?')) dispatch(deleteLevel(row.id));
+          }
+        }
+      ]} />,
+    }
+  ];
+
   const subHeaderComponentMemo = useMemo(() => {
     const searchHandler = (value = "") => {
       fetchHandler({
@@ -171,41 +182,45 @@ const LevelTable = () => {
         searchKey: value
       });
     };
-    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
-                    <div className="gameengine-filter-toolbar__tabs flex">
-                        {tableStatusArray.map((item, index) => {
-                          const isActive = tableStats === item.value;
-                          return (
-                            <button
-                              key={index}
-                              className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
-                              onClick={() => {
-                                setTableStatus(item.value);
-                                fetchHandler({
-                                  status: item.value,
-                                  page: 1,
-                                  per_page: 15
-                                });
-                              }}
-                            >
-                              {item.label}
-                            </button>
-                          );
-                        })}
-                    </div>
-    
-                    <div className='gameengine-table-subheader-right pb-2'>
-                        <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
-                    </div>
-                </div>;
+
+    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
+      <div className="gameengine-filter-toolbar__tabs flex">
+        {tableStatusArray.map((item, index) => {
+          const isActive = tableStats === item.value;
+          return (
+            <button
+              key={index}
+              className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
+              onClick={() => {
+                setTableStatus(item.value);
+                fetchHandler({
+                  status: item.value,
+                  page: 1,
+                  per_page: 15
+                });
+              }}
+            >
+              {item.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className='gameengine-table-subheader-right pb-2'>
+        <Search placeholder='Search question' onSearchHandler={searchHandler} defaultValue={search ? search : ''} />
+      </div>
+    </div>;
   }, [tableStats, search]);
+
   const importHandler = async () => {
     await API.post(namespace + 'setup/import-module', {
       module: "levels"
     });
     await dispatch(fetchLevels({}));
   };
+
   const [banners, setBanners] = useState(window.GameEngineGlobal.banners);
+
   const closeHandler = async () => {
     await API.post(namespace + 'setup/dismiss-banner', {
       module: "levels"
@@ -215,6 +230,7 @@ const LevelTable = () => {
       levels: 'yes'
     }));
   };
+
   const bulkOptions = tableStats === 'trash' ? [{
     value: 'restore',
     label: __('Restore', 'gameengine')
@@ -225,6 +241,7 @@ const LevelTable = () => {
     value: 'trash',
     label: __('Move to Trash', 'gameengine')
   }];
+
   const applyBulkActionHandler = (rows, action) => {
     if (!rows.length) return;
     let message = '';
@@ -253,6 +270,7 @@ const LevelTable = () => {
       message
     });
   };
+
   const confirmBulkHandler = async () => {
     if (!selectedRows.length || !actionSelected.type) return;
     try {
@@ -305,6 +323,7 @@ const LevelTable = () => {
       console.error('Bulk action failed:', err);
     }
   };
+
   const snackbarActionButtons = bulkOptions.map(opt => {
     let btnClass = '';
     if (opt.value === 'restore') btnClass = 'gameengine-btn--restore';
@@ -316,30 +335,46 @@ const LevelTable = () => {
       className: btnClass
     };
   });
-  return <div className='gameengine-page-content'>
-            {levels.length === 0 && banners?.levels !== 'yes' && tableStats === 'all' && <ImportDemoBanner title={__("No levels found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default levels currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
-            <div className="flex justify-between items-center py-6 px-1">
-                <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
-                    {__("Levels", "gameengine")}
-                </h2>
 
-                <Button
-                  label={__('Add new level', 'gameengine')}
-                  icon={<Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />}
-                  onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&action=new`)}
-                />
-            </div>
+  return (
+    <div className='gameengine-page-content'>
+      {levels.length === 0 && banners?.levels !== 'yes' && tableStats === 'all' && <ImportDemoBanner title={__("No levels found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default levels currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
+      <div className="flex justify-between items-center py-6 px-1">
+        <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
+          {__("Levels", "gameengine")}
+        </h2>
 
-            <ListTable columns={columns} data={levels} noDataText={__("No data found for levels", "gameengine")} dataFetchingStatus={loading} isRowSelectable={true} showPagination={false} showColumnFilter={false} showSubHeader={true} subHeaderComponent={subHeaderComponentMemo} totalItems={total} totalRows={levels.length}
-    // resetSelected={resetSelectedItems}
-    rowsPerPage={perPage} currentPageNumber={[page]} getSelectRowValue={setSelectedRows} />
+        <Button
+          label={__('Add new level', 'gameengine')}
+          icon={<Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />}
+          onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&action=new`)}
+        />
+      </div>
 
-            <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
-      setSelectedRows([]);
-      setActionSelected({
-        value: false
-      });
-    }} />
-        </div>;
+      <ListTable
+        columns={columns}
+        data={levels}
+        noDataText={__("No data found for levels", "gameengine")}
+        dataFetchingStatus={loading}
+        isRowSelectable={true}
+        showPagination={false}
+        showColumnFilter={false}
+        showSubHeader={true}
+        subHeaderComponent={subHeaderComponentMemo}
+        totalItems={total}
+        totalRows={levels.length}
+        rowsPerPage={perPage}
+        currentPageNumber={[page]} getSelectRowValue={setSelectedRows}
+      />
+
+      <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
+        setSelectedRows([]);
+        setActionSelected({
+          value: false
+        });
+      }} />
+    </div>
+  );
 };
+
 export default LevelTable;

@@ -105,7 +105,7 @@ const ReferralsTable = () => {
         };
 
         return (
-            <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4 mt-2">
+            <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
                 <div className="gameengine-filter-toolbar__tabs flex" />
                 <div className="gameengine-table-subheader-right pb-2">
                     <Search

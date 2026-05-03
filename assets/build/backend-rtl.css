@@ -1000,40 +1000,6 @@ input.gameengine-checkbox:checked::before {
   background: #fff;
   padding: 24px;
 }
-.gameengine-table__sub-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 16px;
-}
-.gameengine-table .gameengine-table-flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.gameengine-table__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 12px;
-}
-.gameengine-table__footer-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-pagination-per-page {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-label {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 14px;
-  margin: 0;
-}
 
 .gameengine-table--logs-table .gameengine-table__sub-header-left {
   display: flex;
@@ -2389,40 +2355,6 @@ input.gameengine-checkbox:checked::before {
   background: #fff;
   padding: 24px;
 }
-.gameengine-table__sub-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 16px;
-}
-.gameengine-table .gameengine-table-flex-col {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.gameengine-table__footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 12px;
-}
-.gameengine-table__footer-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-pagination-per-page {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-.gameengine-table__footer-label {
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 14px;
-  margin: 0;
-}
 
 .gameengine-table--logs-table .gameengine-table__sub-header-left {
   display: flex;
@@ -2916,6 +2848,9 @@ input.gameengine-checkbox:checked::before {
 .mt-2\.5{
   margin-top: 0.625rem;
 }
+.mt-3{
+  margin-top: 0.75rem;
+}
 .mt-4{
   margin-top: 1rem;
 }
@@ -3113,6 +3048,9 @@ input.gameengine-checkbox:checked::before {
 }
 .shrink-0{
   flex-shrink: 0;
+}
+.border-collapse{
+  border-collapse: collapse;
 }
 .border-separate{
   border-collapse: separate;
@@ -3346,6 +3284,15 @@ input.gameengine-checkbox:checked::before {
 }
 .border-t{
   border-top-width: 1px;
+}
+.border-t-0{
+  border-top-width: 0px;
+}
+.border-l-0{
+  border-right-width: 0px;
+}
+.border-r-0{
+  border-left-width: 0px;
 }
 .border-solid{
   border-style: solid;
@@ -4086,6 +4033,9 @@ input.gameengine-checkbox:checked::before {
 .tracking-wide{
   letter-spacing: 0.025em;
 }
+.tracking-wider{
+  letter-spacing: 0.05em;
+}
 .text-\[\#1a73e8\]{
   --tw-text-opacity: 1;
   color: rgb(26 115 232 / var(--tw-text-opacity, 1));
@@ -4303,6 +4253,9 @@ input.gameengine-checkbox:checked::before {
   --tw-placeholder-opacity: 1;
   color: rgb(156 163 175 / var(--tw-placeholder-opacity, 1));
 }
+.accent-current{
+  accent-color: currentColor;
+}
 .opacity-0{
   opacity: 0;
 }
@@ -4375,6 +4328,9 @@ input.gameengine-checkbox:checked::before {
 .transition-opacity{
   transition-property: opacity;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.duration-150{
   transition-duration: 150ms;
 }
 .duration-200{
@@ -5425,6 +5381,33 @@ input.gameengine-checkbox:checked::before {
     background-color: rgb(255 255 255 / 0.1);
   }
 }
+
+.\[\&_tbody_tr\:nth-child\(even\)\]\:bg-gray-50 tbody tr:nth-child(even){
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.\[\&_tbody_tr\]\:cursor-pointer tbody tr{
+  cursor: pointer;
+}
+
+.\[\&_td\]\:border-x td{
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+
+.\[\&_td\]\:border-\[var\(--gameengine-border-color\)\] td{
+  border-color: var(--gameengine-border-color);
+}
+
+.\[\&_th\]\:border-x th{
+  border-right-width: 1px;
+  border-left-width: 1px;
+}
+
+.\[\&_th\]\:border-\[var\(--gameengine-border-color\)\] th{
+  border-color: var(--gameengine-border-color);
+}
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/TopBar/styles.scss ***!
   \*********************************************************************************************************************************************************************************************************************************************************************/
@@ -5529,30 +5512,6 @@ input.gameengine-checkbox:checked::before {
   max-width: -moz-fit-content;
   max-width: fit-content;
   margin-top: 24px;
-}
-/*!************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Loader/preloader.scss ***!
-  \************************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-preloader {
-  overflow: visible;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.gameengine-preloader svg {
-  width: 45px;
-  height: 45px;
-  overflow: visible !important;
-  margin: 15px !important;
-}
-.gameengine-preloader svg circle {
-  stroke-width: 4px;
-}
-.gameengine-preloader svg path {
-  stroke-width: 4px;
-  color: var(--ecm-primary);
 }
 /*!*************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/OptionMenu/styles.scss ***!
@@ -6161,6 +6120,54 @@ body.ReactModal__Body--open {
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/containers/BackendDashboard/pages/settings/Tabs/License/styles.scss ***!
   \***********************************************************************************************************************************************************************************************************************************************************************************************************/
 
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/CustomSwitch/switchfield.scss ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+.gameengine-ccb-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 16px;
+}
+.gameengine-ccb-switch input[type=checkbox] {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+.gameengine-ccb-switch .gameengine-ccb-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: #CBD1D7;
+  transition: 0.4s;
+  border-radius: 12.5px;
+  height: 16px;
+  width: 32px;
+}
+.gameengine-ccb-switch .gameengine-ccb-slider:before {
+  content: "";
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  background: #fff;
+  right: 0px;
+  bottom: -1px;
+  border-radius: 50%;
+  transition: 0.2s;
+  border: 1px solid #CBD1D7;
+  box-shadow: 0px 2px 4px rgba(20, 26, 36, 0.1), 0px 0px 1px rgba(20, 26, 36, 0.3);
+}
+
+.gameengine-ccb-switch input:checked + .gameengine-ccb-slider {
+  background: var(--gameengine-primary);
+}
+
+.gameengine-ccb-switch input:checked + .gameengine-ccb-slider:before {
+  transform: translateX(-16px);
+}
 /*!**********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Tooltip/styles.scss ***!
   \**********************************************************************************************************************************************************************************************************************************************************************/
@@ -6420,54 +6427,6 @@ body.ReactModal__Body--open {
   background: #fff;
   color: var(--gameengine-font-color);
   box-shadow: var(--gameengine-box-shadow);
-}
-/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/CustomSwitch/switchfield.scss ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************/
-.gameengine-ccb-switch {
-  position: relative;
-  display: inline-block;
-  width: 36px;
-  height: 16px;
-}
-.gameengine-ccb-switch input[type=checkbox] {
-  width: 0;
-  height: 0;
-  opacity: 0;
-}
-.gameengine-ccb-switch .gameengine-ccb-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background: #CBD1D7;
-  transition: 0.4s;
-  border-radius: 12.5px;
-  height: 16px;
-  width: 32px;
-}
-.gameengine-ccb-switch .gameengine-ccb-slider:before {
-  content: "";
-  position: absolute;
-  height: 18px;
-  width: 18px;
-  background: #fff;
-  right: 0px;
-  bottom: -1px;
-  border-radius: 50%;
-  transition: 0.2s;
-  border: 1px solid #CBD1D7;
-  box-shadow: 0px 2px 4px rgba(20, 26, 36, 0.1), 0px 0px 1px rgba(20, 26, 36, 0.3);
-}
-
-.gameengine-ccb-switch input:checked + .gameengine-ccb-slider {
-  background: var(--gameengine-primary);
-}
-
-.gameengine-ccb-switch input:checked + .gameengine-ccb-slider:before {
-  transform: translateX(-16px);
 }
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Notice/styles.scss ***!

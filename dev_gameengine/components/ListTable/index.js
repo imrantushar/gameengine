@@ -5,229 +5,295 @@ import TableHeader from './TableHeader';
 import TableBody from './TableBody';
 import TableFooter from './TableFooter';
 import _ from 'lodash';
-import { Table } from '@GFComponents/UI';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
-import Preloader from '@GFComponents/Loader/Preloader';
 import TableSkeleton from '../GameEngineLoader/TableSkeleton';
-const ListTable = props => {
-  const {
-    columns = [],
-    data = [],
-    isRowSelectable = true,
-    getSelectRowValue,
-    showSubHeader = true,
-    subHeaderComponent,
-    showColumnFilter = true,
-    showPagination = false,
-    onChangePage,
-    onChangeItemsPerPage,
-    suffix = '',
-    noDataText = __('Please, create data to see the available list here.', 'gameengine'),
-    totalItems = 0,
-    dataFetchingStatus = false,
-    resetSelected = false,
-    currentPageNumber = 1,
-    rowsPerPage = 10,
-    Button = false,
-    hoverAction = false,
-    interactive = true,
-    striped = false,
-    showColumnBorder = false
-  } = props;
-  const bodyRef = useRef(null);
 
-  // eslint-disable-next-line
-  const [isRowsPerPage, setIsRowsPerPage] = useState('10');
-  const [loadingHeight, setLoadingHeight] = useState('0px');
-  const [copyDataArr, setCopyDataArr] = useState([]);
-  const [copyColumns, setCopyColumns] = useState(columns?.map((copyColumn, index) => ({
-    ...copyColumn,
-    visible: true,
-    id: `column-${index}`
-  })));
-  const shouldRerender = _.isEqual(data, copyDataArr);
-  const [visibleColumn, setVisibleColumn] = useState(copyColumns?.filter(copyColumn => copyColumn.visible));
-  const [tempCopyColumns, setTempCopyColumns] = useState([...copyColumns]);
-  const [showSlider, setShowSlider] = useState(false);
-  const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
-  const selectRowChange = ({
-    row,
-    select
-  }) => {
-    const updatedDataArr = copyDataArr.map(dataItem => {
-      if (dataItem.rowId === row.rowId) {
-        return {
-          ...dataItem,
-          select
-        };
-      }
-      return dataItem;
-    });
-    setCopyDataArr(updatedDataArr);
-  };
-  const selectAllRow = changes => setCopyDataArr(prev => prev.map(prevData => ({
-    ...prevData,
-    select: changes.checked
-  })));
-  const checkedChange = ({
-    id,
-    visible
-  }) => {
-    let updatedColumns;
-    if (id === 'reset') {
-      updatedColumns = tempCopyColumns.map(column => ({
-        ...column,
-        visible: true
-      }));
-    } else {
-      updatedColumns = tempCopyColumns.map(column => {
-        if (column.id === id) {
-          return {
-            ...column,
-            visible
-          };
-        }
-        return column;
-      });
-    }
-    setTempCopyColumns(updatedColumns);
-  };
-  const paginationPerPageChange = option => {
-    setIsRowsPerPage(option.value);
-    setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
-    onChangeItemsPerPage(Number(option.value), Number(currentPageNumber));
-  };
+const ListTable = (props) => {
+	const {
+		columns = [],
+		data = [],
+		isRowSelectable = true,
+		getSelectRowValue,
+		showSubHeader = true,
+		subHeaderComponent,
+		showColumnFilter = true,
+		showPagination = false,
+		onChangePage,
+		onChangeItemsPerPage,
+		suffix = '',
+		noDataText = __('Please, create data to see the available list here.', 'gameengine'),
+		totalItems = 0,
+		dataFetchingStatus = false,
+		resetSelected = false,
+		currentPageNumber = 1,
+		rowsPerPage = 10,
+		Button = false,
+		hoverAction = false,
+		interactive = true,
+		striped = false,
+		showColumnBorder = false,
+	} = props;
 
-  // Reset copyDataArr if shouldRerender is false
-  useEffect(() => {
-    if (!shouldRerender) {
-      setCopyDataArr(data?.map((row, index) => ({
-        ...row,
-        rowId: `row-${index}`,
-        select: false
-      })));
-    }
-  }, [shouldRerender, data]);
+	const bodyRef = useRef(null);
 
-  //side effect
-  useEffect(() => {
-    setCopyDataArr(data && data?.map((row, index) => ({
-      ...row,
-      rowId: `row-${index}`,
-      select: false
-    })));
-  }, [data?.length]);
-  useEffect(() => {
-    if (0 === data.length || false === data) {
-      setLoadingHeight('400px');
-    } else if (bodyRef.current.offsetHeight < 100) {
-      setLoadingHeight(`100px`);
-    } else {
-      setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
-    }
-  }, [data?.length, bodyRef, rowsPerPage]);
-  useEffect(() => {
-    const visibleColumns = copyColumns.filter(item => item.visible === true);
-    function handleResponsiveSlideShow() {
-      if (window.innerWidth < 1280 || visibleColumns.length > 6) {
-        setShowSlider(true);
-      } else {
-        setShowSlider(false);
-      }
-    }
+	// eslint-disable-next-line
+	const [isRowsPerPage, setIsRowsPerPage] = useState('10');
+	const [loadingHeight, setLoadingHeight] = useState('0px');
+	const [copyDataArr, setCopyDataArr] = useState([]);
+	const [copyColumns, setCopyColumns] = useState(
+		columns?.map((copyColumn, index) => ({
+			...copyColumn,
+			visible: true,
+			id: `column-${index}`,
+		}))
+	);
 
-    // Add event listener for window resize
-    window.addEventListener('resize', handleResponsiveSlideShow);
+	const shouldRerender = _.isEqual(data, copyDataArr);
+	const [visibleColumn, setVisibleColumn] = useState(
+		copyColumns?.filter((copyColumn) => copyColumn.visible)
+	);
+	const [tempCopyColumns, setTempCopyColumns] = useState([...copyColumns]);
+	const [showSlider, setShowSlider] = useState(false);
 
-    // Initial check on component mount
-    handleResponsiveSlideShow();
+	const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener('resize', handleResponsiveSlideShow);
-    };
-  }, [window.innerWidth, copyColumns]);
-  useEffect(() => {
-    setVisibleColumn(copyColumns?.filter(copyColumn => copyColumn.visible));
-    setLoadingHeight(false);
-  }, [copyColumns]);
+	const selectRowChange = ({ row, select }) => {
+		const updatedDataArr = copyDataArr.map((dataItem) => {
+			if (dataItem.rowId === row.rowId) {
+				return { ...dataItem, select };
+			}
+			return dataItem;
+		});
+		setCopyDataArr(updatedDataArr);
+	};
 
-  // get Local storage data every time page refresh
-  useEffect(() => {
-    const localColumns = JSON.parse(localStorage.getItem(suffix));
-    if (localColumns) {
-      const mergeColumns = copyColumns.reduce((acc, column) => {
-        localColumns.forEach(item => {
-          if (item.id === column.id) {
-            acc.push({
-              ...item,
-              cell: column.cell
-            });
-          }
-        });
-        return acc;
-      }, []);
-      const sortColumn = localColumns.reduce((acc, column) => {
-        mergeColumns.forEach(item => {
-          if (column.id === item.id) {
-            acc.push({
-              ...item
-            });
-          }
-        });
-        return acc;
-      }, []);
-      setTempCopyColumns(sortColumn);
-      setCopyColumns(sortColumn);
-    }
-  }, []);
+	const selectAllRow = (changes) =>
+		setCopyDataArr((prev) =>
+			prev.map((prevData) => ({ ...prevData, select: changes.checked }))
+		);
 
-  // current select row
-  useEffect(() => {
-    if (typeof getSelectRowValue === 'function') {
-      getSelectRowValue(copyDataArr && copyDataArr?.filter(copyRow => copyRow.select));
-    }
-  }, [copyDataArr]);
+	const checkedChange = ({ id, visible }) => {
+		let updatedColumns;
+		if (id === 'reset') {
+			updatedColumns = tempCopyColumns.map((column) => ({ ...column, visible: true }));
+		} else {
+			updatedColumns = tempCopyColumns.map((column) => {
+				if (column.id === id) {
+					return { ...column, visible };
+				}
+				return column;
+			});
+		}
+		setTempCopyColumns(updatedColumns);
+	};
 
-  // reset selected
-  useEffect(() => {
-    if (resetSelected && copyDataArr) {
-      setCopyDataArr(copyDataArr && copyDataArr?.map(row => ({
-        ...row,
-        select: false
-      })));
-    }
-  }, [resetSelected]);
-  const showPaginationData = showPagination && copyDataArr?.length > 0;
-  const classes = ['gameengine-table', suffix && 'gameengine-table--' + suffix].filter(Boolean).join(" ");
-  const isLoading = dataFetchingStatus;
-  return <div className={classes}>
-			{showSubHeader && <TableSubHeader subHeaderComponent={subHeaderComponent} setTempCopyColumns={setTempCopyColumns} tempCopyColumns={tempCopyColumns} showColumnFilter={showColumnFilter} checkedChange={checkedChange} setCopyColumns={setCopyColumns} copyColumns={copyColumns} suffix={suffix} />}
+	const paginationPerPageChange = (option) => {
+		setIsRowsPerPage(option.value);
+		setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
+		onChangeItemsPerPage(Number(option.value), Number(currentPageNumber));
+	};
 
-			{isLoading ? <div className="flex items-center justify-center w-full" style={{
-      "minHeight": loadingHeight
-    }} ref={bodyRef}>
+	// Reset copyDataArr if shouldRerender is false
+	useEffect(() => {
+		if (!shouldRerender) {
+			setCopyDataArr(
+				data?.map((row, index) => ({ ...row, rowId: `row-${index}`, select: false }))
+			);
+		}
+	}, [shouldRerender, data]);
+
+	// Side effect: sync on data length change
+	useEffect(() => {
+		setCopyDataArr(
+			data &&
+				data?.map((row, index) => ({ ...row, rowId: `row-${index}`, select: false }))
+		);
+	}, [data?.length]);
+
+	useEffect(() => {
+		if (0 === data.length || false === data) {
+			setLoadingHeight('400px');
+		} else if (bodyRef.current.offsetHeight < 100) {
+			setLoadingHeight('100px');
+		} else {
+			setLoadingHeight(`${bodyRef.current.offsetHeight}px`);
+		}
+	}, [data?.length, bodyRef, rowsPerPage]);
+
+	useEffect(() => {
+		const visibleColumns = copyColumns.filter((item) => item.visible === true);
+
+		function handleResponsiveSlideShow() {
+			if (window.innerWidth < 1280 || visibleColumns.length > 6) {
+				setShowSlider(true);
+			} else {
+				setShowSlider(false);
+			}
+		}
+
+		window.addEventListener('resize', handleResponsiveSlideShow);
+		handleResponsiveSlideShow();
+
+		return () => {
+			window.removeEventListener('resize', handleResponsiveSlideShow);
+		};
+	}, [window.innerWidth, copyColumns]);
+
+	useEffect(() => {
+		setVisibleColumn(copyColumns?.filter((copyColumn) => copyColumn.visible));
+		setLoadingHeight(false);
+	}, [copyColumns]);
+
+	// Get local storage data every time page refreshes
+	useEffect(() => {
+		const localColumns = JSON.parse(localStorage.getItem(suffix));
+		if (localColumns) {
+			const mergeColumns = copyColumns.reduce((acc, column) => {
+				localColumns.forEach((item) => {
+					if (item.id === column.id) {
+						acc.push({ ...item, cell: column.cell });
+					}
+				});
+				return acc;
+			}, []);
+
+			const sortColumn = localColumns.reduce((acc, column) => {
+				mergeColumns.forEach((item) => {
+					if (column.id === item.id) {
+						acc.push({ ...item });
+					}
+				});
+				return acc;
+			}, []);
+
+			setTempCopyColumns(sortColumn);
+			setCopyColumns(sortColumn);
+		}
+	}, []);
+
+	// Emit selected rows
+	useEffect(() => {
+		if (typeof getSelectRowValue === 'function') {
+			getSelectRowValue(copyDataArr && copyDataArr?.filter((copyRow) => copyRow.select));
+		}
+	}, [copyDataArr]);
+
+	// Reset selected rows
+	useEffect(() => {
+		if (resetSelected && copyDataArr) {
+			setCopyDataArr(
+				copyDataArr && copyDataArr?.map((row) => ({ ...row, select: false }))
+			);
+		}
+	}, [resetSelected]);
+
+	const showPaginationData = showPagination && copyDataArr?.length > 0;
+
+	const classes = [
+		'gameengine-table',
+		suffix && 'gameengine-table--' + suffix,
+	]
+		.filter(Boolean)
+		.join(' ');
+
+	const isLoading = dataFetchingStatus;
+
+	const tableRootClasses = [
+		'w-full border border-[var(--gameengine-border-color)] border-collapse',
+		showColumnBorder ? '[&_td]:border-x [&_th]:border-x [&_td]:border-[var(--gameengine-border-color)] [&_th]:border-[var(--gameengine-border-color)]' : '',
+		striped ? '[&_tbody_tr:nth-child(even)]:bg-gray-50' : '',
+		interactive ? '[&_tbody_tr]:cursor-pointer' : '',
+	]
+		.filter(Boolean)
+		.join(' ');
+
+	return (
+		<div className={classes}>
+			{showSubHeader && (
+				<TableSubHeader
+					subHeaderComponent={subHeaderComponent}
+					setTempCopyColumns={setTempCopyColumns}
+					tempCopyColumns={tempCopyColumns}
+					showColumnFilter={showColumnFilter}
+					checkedChange={checkedChange}
+					setCopyColumns={setCopyColumns}
+					copyColumns={copyColumns}
+					suffix={suffix}
+				/>
+			)}
+
+			{isLoading ? (
+				<div
+					className="flex items-center justify-center w-full"
+					style={{ minHeight: loadingHeight }}
+					ref={bodyRef}
+				>
 					<TableSkeleton />
-				</div> : <>
-					{copyDataArr.length === 0 ? <>
-							<Table.Root variant="outline">
-								<TableHeader data={data} visibleColumn={visibleColumn} copyDataArr={copyDataArr} selectAllRow={selectAllRow} isCheckboxColumnVisible={isCheckboxColumnVisible} />
-							</Table.Root>
-		
-							<div ref={bodyRef}>
-								<CustomTableMessage title={__('No Data Available!!!', 'gameengine')} subText={noDataText} />
+				</div>
+			) : (
+				<>
+					{copyDataArr.length === 0 ? (
+						<>
+							<div className="overflow-x-auto border border-[var(--gameengine-border-color)] rounded">
+								<table className={tableRootClasses}>
+									<TableHeader
+										data={data}
+										visibleColumn={visibleColumn}
+										copyDataArr={copyDataArr}
+										selectAllRow={selectAllRow}
+										isCheckboxColumnVisible={isCheckboxColumnVisible}
+									/>
+								</table>
 							</div>
-						</> : <Table.ScrollArea>
-							<Table.Root borderBottomWidth="1px" borderColor="var(--gameengine-border-color)" variant="outline" interactive={interactive} showColumnBorder={showColumnBorder} striped={striped}>
-								<TableHeader data={data} visibleColumn={visibleColumn} copyDataArr={copyDataArr} selectAllRow={selectAllRow} isCheckboxColumnVisible={isCheckboxColumnVisible} />
-		
-								<TableBody dataFetchingStatus={dataFetchingStatus} copyDataArr={copyDataArr} visibleColumn={visibleColumn} isCheckboxColumnVisible={isCheckboxColumnVisible} selectRowChange={selectRowChange} noDataText={noDataText} button={Button} hoverAction={hoverAction} loadingHeight={loadingHeight} bodyRef={bodyRef} />
-							</Table.Root>
-						</Table.ScrollArea>}
-				</>}
 
-			{showPaginationData && <TableFooter data={data} totalItems={totalItems} paginationPerPageChange={paginationPerPageChange} rowsPerPage={rowsPerPage} onChangePage={onChangePage} currentPageNumber={currentPageNumber} />}
+							<div ref={bodyRef}>
+								<CustomTableMessage
+									title={__('No Data Available!!!', 'gameengine')}
+									subText={noDataText}
+								/>
+							</div>
+						</>
+					) : (
+						<div className="overflow-x-auto border border-b border-[var(--gameengine-border-color)] rounded">
+							<table className={tableRootClasses}>
+								<TableHeader
+									data={data}
+									visibleColumn={visibleColumn}
+									copyDataArr={copyDataArr}
+									selectAllRow={selectAllRow}
+									isCheckboxColumnVisible={isCheckboxColumnVisible}
+								/>
 
-		</div>;
+								<TableBody
+									dataFetchingStatus={dataFetchingStatus}
+									copyDataArr={copyDataArr}
+									visibleColumn={visibleColumn}
+									isCheckboxColumnVisible={isCheckboxColumnVisible}
+									selectRowChange={selectRowChange}
+									noDataText={noDataText}
+									button={Button}
+									hoverAction={hoverAction}
+									loadingHeight={loadingHeight}
+									bodyRef={bodyRef}
+								/>
+							</table>
+						</div>
+					)}
+				</>
+			)}
+
+			{showPaginationData && (
+				<TableFooter
+					data={data}
+					totalItems={totalItems}
+					paginationPerPageChange={paginationPerPageChange}
+					rowsPerPage={rowsPerPage}
+					onChangePage={onChangePage}
+					currentPageNumber={currentPageNumber}
+				/>
+			)}
+		</div>
+	);
 };
+
 export default ListTable;
