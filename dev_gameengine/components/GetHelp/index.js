@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
-// import { getAddonActiveStatus } from '@GFUtils/helper';
 import { useSelector } from 'react-redux';
 import HelpModal from './HelpModal';
-// import './styles.scss';
 import { docLists } from './DocListsArray';
 import { FaQuestion } from 'react-icons/fa6';
-import { primaryBtn } from '../../../assets/scss/chakra/recipe';
-const GetHelp = ({
-  filterText
-}) => {
+
+import './styles.scss';
+
+const GetHelp = ({ filterText }) => {
   const allAddons = useSelector(state => state.addons);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -18,34 +16,35 @@ const GetHelp = ({
     const tagsIncludeFilterText = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
     return titleIncludesFilterText || tagsIncludeFilterText;
   });
+
   const commonData = docLists.filter(item => {
     const hasTitleMatch = filterText.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()));
     const hasTagMatch = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
     return !hasTitleMatch || !hasTagMatch;
   });
+
   const searchedData = docLists.filter(item => {
     if (item.title.toLowerCase().includes(searchText.toLowerCase()) || item.tags.includes(searchText.toLowerCase())) {
       return item;
     }
     return false;
   });
-  return <>
-    {/* {!getAddonActiveStatus(allAddons, 'white-label', true) && ( */}
+
+  return (
     <>
-      <button  className="gameengine-get-help-text overflow-hidden items-center justify-center fixed h-10 w-10 flex  bg-[var(--gameengine-primary)] top-[85vh] right-[30px] z-[9] rounded-full border-[var(--gameengine-primary)]" onClick={() => setOpenModal(true)}
-      // icon={
-      // 	<span className="gameengine-icon gameengine-icon--questions" />
-      // }
-      >
-        <>
-          <FaQuestion />
-          {/* {' '}
-         <b>{__('Got Stuck!', 'gameengine')}</b>{' '}
-         <span>
-         {__('Find instant answer', 'gameengine')}
-         </span> */}
-        </>
+      <button className="gameengine-get-help-text" onClick={() => setOpenModal(true)}>
+        <div className="gameengine-get-help-text__label">
+          <p className="m-0">
+            <span className="font-medium">{__('Got Stuck! ', 'gameengine')}</span>
+            <span>{__('Find instant answer.', 'gameengine')}</span>
+          </p>
+        </div>
+
+        <div className="gameengine-get-help-text__icon">
+          <FaQuestion color="#fff" />
+        </div>
       </button>
+
       <div className="gameengine-ripple-effect">
         <div className="gameengine-ripple-effect-container">
           <div className="gameengine-ripple-effect-rain">
@@ -56,12 +55,21 @@ const GetHelp = ({
           </div>
         </div>
       </div>
+
+      <HelpModal
+        isOpen={openModal}
+        closeModal={() => {
+          setOpenModal(false);
+          setSearchText('');
+        }}
+        searchText={searchText}
+        setSearchText={setSearchText}
+        relatedData={relatedData}
+        commonData={commonData}
+        searchedData={searchedData}
+      />
     </>
-    {/* )} */}
-    <HelpModal isOpen={openModal} closeModal={() => {
-      setOpenModal(false);
-      setSearchText('');
-    }} searchText={searchText} setSearchText={setSearchText} relatedData={relatedData} commonData={commonData} searchedData={searchedData} />
-  </>;
+  );
 };
+
 export default GetHelp;
