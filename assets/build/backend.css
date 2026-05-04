@@ -4338,6 +4338,10 @@ input.gameengine-checkbox:checked::before {
   --tw-shadow-color: var(--gameengine-shadow);
   --tw-shadow: var(--tw-shadow-colored);
 }
+.shadow-\[\]{
+  --tw-shadow-color: ;
+  --tw-shadow: var(--tw-shadow-colored);
+}
 .\!outline-none{
   outline: 2px solid transparent !important;
   outline-offset: 2px !important;

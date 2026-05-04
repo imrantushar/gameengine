@@ -61,6 +61,7 @@ const Payout = () => {
           classNamePrefix="gameengine-select"
           options={payoutMethods}
           isMulti
+          isClearable={false}
           isDisabled={!is_pro}
           value={payoutMethods.filter((option) =>
             (values?.payout?.methods || []).includes(option.value)
