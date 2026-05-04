@@ -9,14 +9,11 @@
   --gameengine-font-color: #141A24;
   --gameengine-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
   --gameengine-secondary-color: #F6F7F8;
-  --gameengine-second-primary: #8F7EE7;
   --gameengine-background: #FFFFFF;
-  --gameengine-secondary: #738496;
   --gameengine-warn-muted: #738496;
   --gameengine-placing: #F15B50;
   --gameengine-warning: #FDB022;
   --gameengine-placeholder: #A2ADB9;
-  --gameengine-gray: #F6F7F8;
 }
 
 #wpbody-content {
@@ -1410,14 +1407,11 @@ input.gameengine-checkbox:checked::before {
   --gameengine-font-color: #141A24;
   --gameengine-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
   --gameengine-secondary-color: #F6F7F8;
-  --gameengine-second-primary: #8F7EE7;
   --gameengine-background: #FFFFFF;
-  --gameengine-secondary: #738496;
   --gameengine-warn-muted: #738496;
   --gameengine-placing: #F15B50;
   --gameengine-warning: #FDB022;
   --gameengine-placeholder: #A2ADB9;
-  --gameengine-gray: #F6F7F8;
 }
 
 #wpbody-content {
@@ -2780,9 +2774,6 @@ input.gameengine-checkbox:checked::before {
 .m-\[0_0_24px_0\]{
   margin: 0 0 24px 0;
 }
-.m-\[\]{
-  margin: ;
-}
 .mx-auto{
   margin-right: auto;
   margin-left: auto;
@@ -3753,6 +3744,9 @@ input.gameengine-checkbox:checked::before {
 .p-\[0\.45rem\]{
   padding: 0.45rem;
 }
+.p-\[0_0_16px_0\]{
+  padding: 0 0 16px 0;
+}
 .p-\[12px\]{
   padding: 12px;
 }
@@ -3767,12 +3761,6 @@ input.gameengine-checkbox:checked::before {
 }
 .p-\[32px_24px\]{
   padding: 32px 24px;
-}
-.p-\[\]{
-  padding: ;
-}
-.p-\[0_0_16px_0\]{
-  padding: 0 0 16px 0;
 }
 .\!px-0{
   padding-right: 0px !important;
@@ -4063,9 +4051,6 @@ input.gameengine-checkbox:checked::before {
 .leading-tight{
   line-height: 1.25;
 }
-.leading-\[\]{
-  line-height: ;
-}
 .tracking-wide{
   letter-spacing: 0.025em;
 }
@@ -4278,18 +4263,6 @@ input.gameengine-checkbox:checked::before {
 .text-yellow-600{
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
-}
-.text-\[\]{
-  color: ;
-}
-.text-\[xl\]{
-  color: xl;
-}
-.text-\[x\]{
-  color: x;
-}
-.text-\[20x\]{
-  color: 20x;
 }
 .underline{
   text-decoration-line: underline;

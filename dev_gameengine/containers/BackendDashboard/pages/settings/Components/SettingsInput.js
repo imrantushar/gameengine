@@ -35,7 +35,7 @@ const SettingsInput = ({
             <div className="flex flex-col gap-1 flex-1 min-w-0">
                 {Label}
                 {subtitle && (
-                    <p className="text-[14px] font-normal leading-5 m-0 text-[var(--gameengine-font-color)]">
+                    <p className="text-[14px] font-normal leading-5 m-0 text-[var(--gameengine-warn-muted)]">
                         {subtitle}
                     </p>
                 )}
