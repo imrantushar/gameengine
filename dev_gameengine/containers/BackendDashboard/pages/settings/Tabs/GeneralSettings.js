@@ -45,7 +45,7 @@ const GeneralSettings = () => {
         dynamicClasses="gameengine-settings overflow-visible"
         boxShadow="var(--gameengine-shadow)"
       >
-        <p className="text-[20px] font-medium text-[var(--gameengine-font-color)] gameengine-border-bottom m-[0_0_24px_0] p-[0_0_16px_0] leading-[30px]">
+        <p className="gameengine-settings-heading">
           {__('Log', 'gameengine')}
         </p>
 
@@ -105,7 +105,7 @@ const GeneralSettings = () => {
         boxShadow="var(--gameengine-shadow)"
       >
         <p
-          className="text-[20px] font-medium text-[var(--gameengine-font-color)] gameengine-border-bottom m-[0_0_24px_0] p-[0_0_16px_0] leading-[30px]"
+          className="gameengine-settings-heading"
         >
           {__('Economy', 'gameengine')}
         </p>

@@ -3,11 +3,10 @@ import { __ } from '@wordpress/i18n';
 
 const SettingsInput = ({
     label,
-    desc,
+    className,
     children,
     isPro = false,
     subtitle = null,
-    ...props
 }) => {
     const ProBadge = isPro && (
         <div className="flex items-center gap-1.5 ml-2">
@@ -27,11 +26,13 @@ const SettingsInput = ({
         </div>
     );
 
+    const classes = [
+        "flex flex-row justify-between items-center gap-4 w-full border-0",
+        className && className
+    ].filter(Boolean).join(" ");
+
     return (
-        <div
-            className="flex flex-row justify-between items-center gap-4 w-full border-0"
-            {...props}
-        >
+        <div className={classes}>
             <div className="flex flex-col gap-1 flex-1 min-w-0">
                 {Label}
                 {subtitle && (
