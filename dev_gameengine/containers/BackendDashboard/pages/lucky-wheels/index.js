@@ -94,20 +94,21 @@ export default function LuckyWheels({ action, id }) {
                     {
                         type: 'button',
                         label: __('Edit', 'gameengine'),
-                        icon: <Icon as={FiEdit} />,
+                        icon: <FiEdit />,
                         onClick: () => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels&action=edit&id=${row.id}`)
                     },
                     {
                         type: 'button',
                         label: __('Analytics', 'gameengine'),
-                        icon: <Icon as={FiActivity} />,
+                        icon: <FiActivity />,
                         onClick: () => setAnalyticsId(row.id),
                         hasBorder: true,
                     },
                     {
                         type: 'button',
                         label: __('Delete', 'gameengine'),
-                        icon: <Icon as={FiTrash2} />,
+                        suffix: 'trash',
+                        icon: <FiTrash2 />,
                         onClick: () => handleDelete(row.id)
                     }
                 ];

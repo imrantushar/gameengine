@@ -125,7 +125,8 @@
     width: -moz-fit-content;
     width: fit-content;
   }
-  .gameengine-ticket-table table td, .gameengine-ticket-table table tr {
+  .gameengine-ticket-table table td,
+  .gameengine-ticket-table table tr {
     display: revert;
   }
 }
@@ -273,6 +274,24 @@
 
 .kz-arrow-indicator--dashboard {
   display: none;
+}
+
+.gameengine-input {
+  width: 100%;
+  color: var(--gameengine-font-color);
+  border: 1px solid var(--gameengine-border-color);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  background-color: #fff;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gameengine-input:focus {
+  border-color: var(--gameengine-primary) !important;
 }
 
 .gameengine-content-wrap {
@@ -1280,6 +1299,18 @@ input.gameengine-checkbox:checked::before {
     max-width: 1536px;
   }
 }
+.gameengine-border {
+  border-radius: 0.25rem;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--gameengine-border-color);
+}
+.gemboards-date-picker .flex.items-center.space-x-1\.5.gameengine-border {
+  width: 280px;
+  min-width: 280px;
+  padding: 4px 12px;
+  margin: -8px 0 8px 8px;
+}
 .gameengine-border-bottom {
   border-right-width: 0px;
   border-left-width: 0px;
@@ -1629,6 +1660,9 @@ input.gameengine-checkbox:checked::before {
 }
 .w-\[6\.21\%\] {
   width: 6.21%;
+}
+.w-\[70\%\] {
+  width: 70%;
 }
 .w-\[80\%\] {
   width: 80%;
@@ -2368,14 +2402,8 @@ input.gameengine-checkbox:checked::before {
 .p-\[0\.45rem\] {
   padding: 0.45rem;
 }
-.p-\[0_0_16px_0\] {
-  padding: 0 0 16px 0;
-}
 .p-\[12px\] {
   padding: 12px;
-}
-.p-\[24px_24px_0_24px_\] {
-  padding: 24px 24px 0 24px;
 }
 .p-\[2px_16px\] {
   padding: 2px 16px;
@@ -2946,10 +2974,6 @@ input.gameengine-checkbox:checked::before {
 }
 .shadow-\[var\(--gameengine-shadow\)\] {
   --tw-shadow-color: var(--gameengine-shadow);
-  --tw-shadow: var(--tw-shadow-colored);
-}
-.shadow-\[\] {
-  --tw-shadow-color: ;
   --tw-shadow: var(--tw-shadow-colored);
 }
 .\!outline-none {

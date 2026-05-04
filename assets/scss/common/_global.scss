@@ -16,7 +16,7 @@
     // --gameengine-gray: #F6F7F8;
 }
 
-#wpbody-content{
+#wpbody-content {
     padding: 0
 }
 
@@ -113,13 +113,16 @@
 .gameengine-radio-option.active .gameengine-radio-label {
     color: var(--gameengine-primary-color);
 }
+
 // Custom radio button
 
 @media (max-width: 768px) {
-    .gameengine-ticket-table td > p{
+    .gameengine-ticket-table td>p {
         width: fit-content;
     }
-    .gameengine-ticket-table table td, .gameengine-ticket-table table tr {
+
+    .gameengine-ticket-table table td,
+    .gameengine-ticket-table table tr {
         display: revert;
     }
 }
@@ -129,91 +132,92 @@
     position: fixed;
     right: -11px;
     top: 88vh;
-    z-index: 1; 
+    z-index: 1;
+
     .academy-ripple-effect-container {
         height: 100%;
         min-width: 150px;
     }
-    
+
     .academy-ripple-effect-rain {
         position: relative;
         width: 100%;
         height: 100%;
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(1) {
         --duration: 2.7s;
         --delay: 1s;
         transform: translate(10%, 10%) scale(0.9);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(2) {
         --duration: 2.1s;
         --delay: 1.2s;
         transform: translate(-20%, 40%) scale(1.3);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(3) {
         --duration: 2.3s;
         --delay: 2s;
         transform: translate(0%, 50%) scale(1.1);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(4) {
         --duration: 2s;
         --delay: 4s;
         transform: translate(0%, -10%) scale(1.2);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(5) {
         --duration: 2.5s;
         --delay: 0s;
         transform: translate(10%, 0%) scale(0.9);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(6) {
         --duration: 2s;
         --delay: 2.7s;
         transform: translate(-20%, 0%) scale(1);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(7) {
         --duration: 1.8s;
         --delay: 1.3s;
         transform: translate(20%, -40%) scale(1.2);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(8) {
         --duration: 2.2s;
         --delay: 0s;
         transform: translate(20%, 0%) scale(1);
     }
-    
+
     .academy-ripple-effect-rain:nth-of-type(9) {
         --duration: 2s;
         --delay: 0.5s;
         transform: translate(0%, -10%) scale(1.3);
     }
-    
+
     @keyframes fall {
         0% {
             transform: translateY(-120vh);
         }
-    
+
         45% {
             transform: translateY(0%);
             opacity: 1;
         }
-    
+
         46% {
             opacity: 0;
         }
-    
+
         100% {
             opacity: 0;
         }
     }
-    
+
     .academy-ripple-effect-waves>div {
         position: absolute;
         top: 0px;
@@ -229,60 +233,60 @@
         animation-timing-function: ease-out;
         animation-fill-mode: backwards;
     }
-    
+
     .academy-ripple-effect-waves>div:nth-child(2) {
         animation-delay: calc(var(--delay) + 0.3s);
         animation-timing-function: linear;
     }
-    
+
     @keyframes spread {
         0% {
             transform: scale(0);
             opacity: 1;
         }
-    
+
         40% {
             transform: scale(0);
             opacity: 1;
         }
-    
+
         100% {
             transform: scale(1);
             opacity: 0;
         }
     }
-    
+
     @keyframes jumpLeft {
         0% {
             transform: translate(0, 0) scale(0);
         }
-    
+
         45% {
             transform: translate(0, 0) scale(0);
         }
-    
+
         60% {
             transform: translate(-50px, -90px) scale(1);
         }
-    
+
         100% {
             transform: translate(-60px, 0px) scale(0.1);
         }
     }
-    
+
     @keyframes jumpRight {
         0% {
             transform: translate(0, 0) scale(0);
         }
-    
+
         45% {
             transform: translate(0, 0) scale(0);
         }
-    
+
         60% {
             transform: translate(30px, -80px) scale(1);
         }
-    
+
         100% {
             transform: translate(50px, 0px) scale(0.1);
         }
@@ -293,6 +297,25 @@
 .kz-datepicker-input--dashboard {
     border: 1px solid var(--gameengine-border-color) !important;
 }
+
 .kz-arrow-indicator--dashboard {
     display: none;
+}
+
+.gameengine-input {
+    width: 100%;
+    color: var(--gameengine-font-color);
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gameengine-input:focus {
+    border-color: var(--gameengine-primary) !important;
 }

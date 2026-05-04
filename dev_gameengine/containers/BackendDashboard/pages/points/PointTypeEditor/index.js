@@ -110,7 +110,7 @@ const PointTypeEditor = () => {
               />
             </div>} />
 
-            <GameEngineBox dynamicClasses="gameengine-points-system p-[24px_24px_0_24px_]" heading={__("Points System", "gameengine")}>
+            <GameEngineBox dynamicClasses="gameengine-points-system p-6" heading={__("Points System", "gameengine")}>
               <FormInner hooksLoading={hooksLoading} />
             </GameEngineBox>
           </>;

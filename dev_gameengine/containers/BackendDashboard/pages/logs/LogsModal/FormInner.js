@@ -50,18 +50,18 @@ const FormInner = () => {
 
     <div className="flex gap-4">
       <GameEngineInput label={__("Points Amount", "gameengine")}>
-        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="number" value={values?.points_awarded} onChange={e => setFieldValue("points_awarded", e.target.value)} {...commonInput} />
+        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="number" value={values?.points_awarded} onChange={e => setFieldValue("points_awarded", e.target.value)} />
       </GameEngineInput>
 
       {!values?.id && <GameEngineInput label={__("Schedule(Optional)", "gameengine")}>
-        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="datetime-local" value={values?.schedule_date} onChange={e => setFieldValue("schedule_date", e.target.value)} {...commonInput} />
+        <input className='gameengine-input' placeholder={__("Exp: 50", "gameengine")} type="datetime-local" value={values?.schedule_date} onChange={e => setFieldValue("schedule_date", e.target.value)} />
       </GameEngineInput>}
     </div>
 
     <GameEngineInput label={__("Description(Optional)", "gameengine")}>
       <textarea className='gameengine-textarea' style={{
         "minHeight": "100px"
-      }} placeholder={__("Reason for adjustment...", "gameengine")} value={values?.message} onChange={e => setFieldValue('message', e.target.value)} {...commonInput} />
+      }} placeholder={__("Reason for adjustment...", "gameengine")} value={values?.message} onChange={e => setFieldValue('message', e.target.value)} />
     </GameEngineInput>
   </div>;
 };

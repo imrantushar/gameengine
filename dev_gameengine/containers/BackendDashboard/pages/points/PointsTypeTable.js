@@ -3,7 +3,12 @@ import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import OptionMenu from '@GFComponents/OptionMenu';
-import { fetchPointTypes, deletePointType, fetchTriggers, updatePointType } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
+import {
+  fetchPointTypes,
+  deletePointType,
+  fetchTriggers,
+  updatePointType
+} from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { route_path, statusArray, tableStatusArray } from '@GFUtils/helper';
@@ -22,10 +27,12 @@ const PointTypesTable = () => {
     total,
     search
   } = useSelector(state => state.pointType);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const action = searchParams.get('action');
+
   const [tableStats, setTableStatus] = useState('all');
   const [actionSelected, setActionSelected] = useState({
     value: false,
@@ -34,6 +41,7 @@ const PointTypesTable = () => {
   });
   const [selectedRows, setSelectedRows] = useState([]);
   const [originalStages, setOriginalStages] = useState({});
+
   const fetchHandler = async ({
     status = 'all',
     page = 1,
@@ -55,7 +63,8 @@ const PointTypesTable = () => {
   useEffect(() => {
     if (!action) {
       dispatch(fetchTriggers());
-      if (!pointTypes || pointTypes && pointTypes.length <= 1) {
+
+      if (!pointTypes || (pointTypes && pointTypes.length <= 1)) {
         fetchHandler({
           status: tableStats,
           page,
@@ -72,63 +81,55 @@ const PointTypesTable = () => {
   };
 
   const renderAction = (row, type) => {
-    let actionsArry = row.requirements.filter(item => item.action_type === type).map(item => item.trigger_key);
-    actionsArry = allHooks.map(item => actionsArry.includes(item.id) ? item : false).filter(Boolean).map(item => item.label);
+    let actionsArry = row.requirements
+      .filter(item => item.action_type === type)
+      .map(item => item.trigger_key);
+
+    actionsArry = allHooks
+      .map(item => actionsArry.includes(item.id) ? item : false)
+      .filter(Boolean)
+      .map(item => item.label);
+
     return actionsArry;
   };
 
   const columns = [
     {
       name: __('Name', 'gameengine'),
-      cell: row => <>
-        <span className="cursor-pointer" onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`)}>{row?.name}</span>
-      </>,
-      // textAlign: "start",
+      cell: row => (
+        <>
+          <span
+            className="cursor-pointer"
+            onClick={() =>
+              navigate(
+                `${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`
+              )
+            }
+          >
+            {row?.name}
+          </span>
+        </>
+      ),
       columnWidth: "20%"
     },
     {
       name: __('Award Actions', 'gameengine'),
       cell: row => {
         const itemArray = renderAction(row, 'award');
-        if (itemArray.length === 0) return <span className="text-xs" style={{
-          color: '#999'
-        }}>--</span>;
 
-        // const renderTypeNames = (sliceIndex = 2) => (
-        //   <>
-        //     {itemArray.slice(0, sliceIndex).map((item, idx) => (
-        //       <React.Fragment key={idx}>
-        //         <Badge variant="subtle" borderRadius="4px" px={2}>
-        //           {item}
-        //         </Badge>
-        //         {idx < sliceIndex - 1 && ','}
-        //       </React.Fragment>
-        //     ))}
-        //   </>
-        // );
+        if (itemArray.length === 0) {
+          return (
+            <span className="text-xs" style={{ color: '#999' }}>
+              --
+            </span>
+          );
+        }
 
-        // const renderTooltipContent = (sliceIndex, moreContent='') => (
-        //   <Flex flexWrap={'wrap'} gap={1}>
-        //     {itemArray.slice(0,sliceIndex).map((item, idx) => (
-        //       <React.Fragment key={idx}>
-        //         <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
-        //         {idx < itemArray.slice(2).length - 1 && ','}
-        //       </React.Fragment>
-        //     ))}
-        //     {moreContent}
-        //   </Flex>
-        // );
-
-        return <div className="flex flex-wrap justify-center items-center gap-1">
-          {itemArray.length + " " + __('Actions.', 'gameengine')}
-          {/* {itemArray.length > 2 && (
-              <>
-                <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
-                  {renderTooltipContent(8, '...')}
-                </CustomTooltip>
-              </>
-             )} */}
-        </div>;
+        return (
+          <div className="flex flex-wrap justify-center items-center gap-1">
+            {itemArray.length + " " + __('Actions.', 'gameengine')}
+          </div>
+        );
       },
       columnWidth: "23%"
     },
@@ -136,55 +137,32 @@ const PointTypesTable = () => {
       name: __('Deduct Actions', 'gameengine'),
       cell: row => {
         const itemArray = renderAction(row, 'deduct');
-        if (itemArray.length === 0) return <span className="text-xs" style={{
-          color: '#999'
-        }}>-</span>;
-        // const renderTypeNames = (sliceIndex = 2) => (
-        //   <>
-        //     {itemArray.slice(0, sliceIndex).map((item, idx) => (
-        //       <React.Fragment key={idx}>
-        //         <Badge variant="subtle" borderRadius="4px" px={2}>
-        //           {item}
-        //         </Badge>
-        //         {idx < sliceIndex - 1 && ','}
-        //       </React.Fragment>
-        //     ))}
-        //   </>
-        // );
 
-        // const renderTooltipContent = (sliceIndex, moreContent='') => (
-        //   <Flex flexWrap={'wrap'} gap={1}>
-        //     {itemArray.slice(0,sliceIndex).map((item, idx) => (
-        //       <React.Fragment key={idx}>
-        //         <Badge variant="subtle" borderRadius="4px" px={2}>{item}</Badge>
-        //         {idx < itemArray.slice(2).length - 1 && ','}
-        //       </React.Fragment>
-        //     ))}
-        //     {moreContent}
-        //   </Flex>
-        // );
+        if (itemArray.length === 0) {
+          return (
+            <span className="text-xs" style={{ color: '#999' }}>
+              -
+            </span>
+          );
+        }
 
-        return <div className="flex flex-wrap justify-center items-center gap-1">
-          {itemArray.length + " " + __('Actions.', 'gameengine')}
-          {/* {itemArray.length > 2 && (
-              <>
-                <CustomTooltip button={<LuInfo style={{ cursor: 'pointer' }} />}>
-                  {renderTooltipContent(8, '...')}
-                </CustomTooltip>
-              </>
-             )} */}
-        </div>;
+        return (
+          <div className="flex flex-wrap justify-center items-center gap-1">
+            {itemArray.length + " " + __('Actions.', 'gameengine')}
+          </div>
+        );
       },
       columnWidth: "23%"
     },
     {
       name: __('Date', 'gameengine'),
-      cell: row => <div>
-        <p className="m-0">{moment(row?.created_at).format('MMMM DD, YYYY')}</p>
-        {/* <Text margin={0} className="academy-table-time">
-      {moment(row?.created_at).format('h:mm A')}
-      </Text> */}
-      </div>,
+      cell: row => (
+        <div>
+          <p className="m-0">
+            {moment(row?.created_at).format('MMMM DD, YYYY')}
+          </p>
+        </div>
+      ),
       columnWidth: "10%"
     },
     {
@@ -195,44 +173,71 @@ const PointTypesTable = () => {
             ...row,
             status: itemStatus
           };
+
           dispatch(updatePointType({
             id: row.id,
             data: updatedData
           }));
         };
-        return <StatusOptions value={row?.status} options={{
-          items: [...statusArray]
-        }} onChangeHandler={statusUpdateHandler} />;
+
+        return (
+          <StatusOptions
+            value={row?.status}
+            options={{ items: [...statusArray] }}
+            onChangeHandler={statusUpdateHandler}
+          />
+        );
       },
       columnWidth: "14%"
     },
     {
       name: __('Action', 'gameengine'),
       cell: row => {
-        const trashAction = tableStats !== 'trash' ? [{
-          type: 'button',
-          suffix: 'trash',
-          label: __('Trash', 'gameengine'),
-          icon: <FiTrash2 />,
-          onClick: () => dispatch(updatePointType({
-            id: row.id,
-            ...row,
-            status: 'trash'
-          }))
-        }] : [{
-          type: 'button',
-          suffix: 'trash',
-          label: __('Delete', 'gameengine'),
-          icon: <FiTrash2 />,
-          onClick: () => handleDelete(row?.id)
-        }];
-        return <OptionMenu options={[{
-          type: 'button',
-          label: __('Edit', 'gameengine'),
-          icon: <FiEdit />,
-          onClick: () => navigate(`${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`),
-          hasBorder: true,
-        }, ...trashAction]} />;
+        const trashAction =
+          tableStats !== 'trash'
+            ? [
+                {
+                  type: 'button',
+                  suffix: 'trash',
+                  label: __('Trash', 'gameengine'),
+                  icon: <FiTrash2 />,
+                  onClick: () =>
+                    dispatch(
+                      updatePointType({
+                        id: row.id,
+                        ...row,
+                        status: 'trash'
+                      })
+                    )
+                }
+              ]
+            : [
+                {
+                  type: 'button',
+                  suffix: 'trash',
+                  label: __('Delete', 'gameengine'),
+                  icon: <FiTrash2 />,
+                  onClick: () => handleDelete(row?.id)
+                }
+              ];
+
+        return (
+          <OptionMenu
+            options={[
+              {
+                type: 'button',
+                label: __('Edit', 'gameengine'),
+                icon: <FiEdit />,
+                onClick: () =>
+                  navigate(
+                    `${route_path}admin.php?page=gameengine-points&action=edit&id=${row?.id}&path=name`
+                  ),
+                hasBorder: true
+              },
+              ...trashAction
+            ]}
+          />
+        );
       },
       columnWidth: "10%"
     }
@@ -248,62 +253,79 @@ const PointTypesTable = () => {
       });
     };
 
-    return <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
-      <div className="gameengine-filter-toolbar__tabs flex">
-        {tableStatusArray.map((item, index) => {
-          const isActive = tableStats === item.value;
-          return (
-            <button
-              key={index}
-              className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
-              onClick={() => {
-                setTableStatus(item.value);
-                fetchHandler({
-                  status: item.value,
-                  page: 1,
-                  per_page: 15
-                });
-              }}
-            >
-              {item.label}
-            </button>
-          );
-        })}
-      </div>
+    return (
+      <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
+        <div className="gameengine-filter-toolbar__tabs flex">
+          {tableStatusArray.map((item, index) => {
+            const isActive = tableStats === item.value;
 
-      <div className='gameengine-table-subheader-right pb-2'>
-        <Search
-          placeholder='Search question'
-          onSearchHandler={searchHandler}
-          defaultValue={search ? search : ''}
-        />
+            return (
+              <button
+                key={index}
+                className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''}`}
+                onClick={() => {
+                  setTableStatus(item.value);
+
+                  fetchHandler({
+                    status: item.value,
+                    page: 1,
+                    per_page: 15
+                  });
+                }}
+              >
+                {item.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div className='gameengine-table-subheader-right pb-2'>
+          <Search
+            placeholder='Search question'
+            onSearchHandler={searchHandler}
+            defaultValue={search ? search : ''}
+          />
+        </div>
       </div>
-    </div>;
+    );
   }, [tableStats, search]);
 
-  const bulkOptions = tableStats === 'trash' ? [{
-    value: 'restore',
-    label: __('Restore', 'gameengine')
-  }, {
-    value: 'delete',
-    label: __('Delete Permanently', 'gameengine')
-  }] : [{
-    value: 'trash',
-    label: __('Move to Trash', 'gameengine')
-  }];
+  const bulkOptions =
+    tableStats === 'trash'
+      ? [
+          {
+            value: 'restore',
+            label: __('Restore', 'gameengine')
+          },
+          {
+            value: 'delete',
+            label: __('Delete Permanently', 'gameengine')
+          }
+        ]
+      : [
+          {
+            value: 'trash',
+            label: __('Move to Trash', 'gameengine')
+          }
+        ];
 
   const applyBulkActionHandler = (rows, action) => {
     if (!rows.length) return;
+
     let message = '';
+
     if (action.value === 'trash') {
       message = __('Move selected items to trash?', 'gameengine');
+
       setOriginalStages(prev => {
         const updates = {};
+
         rows.forEach(row => {
           if (row.status !== 'trash' && !(row.id in prev)) {
             updates[row.id] = row.status || 'publish';
           }
         });
+
         return {
           ...prev,
           ...updates
@@ -314,6 +336,7 @@ const PointTypesTable = () => {
     } else if (action.value === 'delete') {
       message = __('Delete permanently? This cannot be undone.', 'gameengine');
     }
+
     setActionSelected({
       value: true,
       type: action.value,
@@ -324,6 +347,7 @@ const PointTypesTable = () => {
   const confirmBulkHandler = async () => {
     try {
       if (!selectedRows.length) return;
+
       for (const row of selectedRows) {
         if (actionSelected.type === 'trash') {
           await dispatch(updatePointType({
@@ -334,32 +358,34 @@ const PointTypesTable = () => {
             }
           }));
         }
+
         if (actionSelected.type === 'restore') {
           for (const row of selectedRows) {
             const prevStage = originalStages[row.id] || 'pending';
+
             await dispatch(updatePointType({
               id: row.id,
               data: {
                 status: prevStage
               }
             }));
+
             setOriginalStages(prev => {
-              const copy = {
-                ...prev
-              };
+              const copy = { ...prev };
               delete copy[row.id];
               return copy;
             });
           }
         }
+
         if (actionSelected.type === 'delete') {
           await dispatch(deletePointType(row.id));
         }
       }
+
       setSelectedRows([]);
-      setActionSelected({
-        value: false
-      });
+      setActionSelected({ value: false });
+
       fetchHandler({
         status: tableStats,
         page,
@@ -372,9 +398,11 @@ const PointTypesTable = () => {
 
   const snackbarActionButtons = bulkOptions.map(opt => {
     let btnClass = '';
+
     if (opt.value === 'restore') btnClass = 'gameengine-btn--restore';
     if (opt.value === 'delete') btnClass = 'gameengine-btn--delete';
     if (opt.value === 'trash') btnClass = 'gameengine-btn--trash';
+
     return {
       label: opt.label,
       onClick: () => applyBulkActionHandler(selectedRows, opt),
@@ -382,32 +410,38 @@ const PointTypesTable = () => {
     };
   });
 
-  return <>
-    <ListTable
-      key={'points-type-' + pointTypes.length}
-      columns={columns}
-      data={pointTypes}
-      showColumnFilter={false}
-      showSubHeader={true}
-      subHeaderComponent={subHeaderComponentMemo}
-      isRowSelectable={true}
-      showPagination={false}
-      noDataText={__("No data found", "gameengine")}
-      totalItems={total}
-      totalRows={pointTypes.length}
-      dataFetchingStatus={listStatus}
-      rowsPerPage={perPage}
-      currentPageNumber={[page]}
-      getSelectRowValue={setSelectedRows}
-    />
+  return (
+    <>
+      <ListTable
+        key={'points-type-' + pointTypes.length}
+        columns={columns}
+        data={pointTypes}
+        showColumnFilter={false}
+        showSubHeader={true}
+        subHeaderComponent={subHeaderComponentMemo}
+        isRowSelectable={true}
+        showPagination={false}
+        noDataText={__("No data found", "gameengine")}
+        totalItems={total}
+        totalRows={pointTypes.length}
+        dataFetchingStatus={listStatus}
+        rowsPerPage={perPage}
+        currentPageNumber={[page]}
+        getSelectRowValue={setSelectedRows}
+      />
 
-    <SnackbarAction itemsLength={selectedRows.length} actionButtons={snackbarActionButtons} isActionSelected={actionSelected} confirmHandler={confirmBulkHandler} resetHandler={() => {
-      setSelectedRows([]);
-      setActionSelected({
-        value: false
-      });
-    }} />
-  </>;
+      <SnackbarAction
+        itemsLength={selectedRows.length}
+        actionButtons={snackbarActionButtons}
+        isActionSelected={actionSelected}
+        confirmHandler={confirmBulkHandler}
+        resetHandler={() => {
+          setSelectedRows([]);
+          setActionSelected({ value: false });
+        }}
+      />
+    </>
+  );
 };
 
 export default PointTypesTable;

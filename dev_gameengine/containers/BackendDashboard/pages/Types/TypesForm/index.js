@@ -3,7 +3,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import { capitalizeFirstLetter, getTermInitalValues } from './helper';
 import { Formik } from 'formik';
-import { commonInput, primaryBtn, removeBtn } from '../../../../../../assets/scss/chakra/recipe';
+import { primaryBtn, removeBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { useDispatch } from 'react-redux';
@@ -11,6 +11,7 @@ import { createAchievementType, updateAchievementType } from '@GFRedux/Slices/ac
 import { createLevelType, updateLevelType } from '@GFRedux/Slices/levelsSlice/types';
 import Select from "react-select";
 import { API, generateSlug, namespace } from '@GFUtils/helper';
+
 const TypesForm = ({
   type = "",
   resetForm,
@@ -34,6 +35,7 @@ const TypesForm = ({
       console.warn(error);
     }
   };
+
   const onSubmitHandler = (values, actions) => {
     actions.setSubmitting(true);
     if (!values.name) {
@@ -74,64 +76,89 @@ const TypesForm = ({
       resetForm();
     }
   };
-  return <div className="sticky rounded bg-white p-4 [border:1px_solid_var(--gemboards-border-color)]" style={{
-    "top": "132px",
-    "alignSelf": "flex-start",
-    "width": "30%"
-  }}>
+
+  return (
+    <div className="sticky rounded bg-white p-4 [border:1px_solid_var(--gemboards-border-color)]" style={{ "top": "132px", "alignSelf": "flex-start", "width": "30%" }}>
       <GFLabel type='heading' label={!formData?.id ? __("Add New", "gameengine") : __("Update", "gameengine") + " " + capitalizeFirstLetter(type) + " " + __("Types", "gameengine")} />
 
       <Formik enableReinitialize={true} initialValues={getTermInitalValues(formData)} onSubmit={onSubmitHandler}>
-        {({
-        values,
-        submitForm,
-        isSubmitting,
-        dirty,
-        setFieldValue
-      }) => {
-        return <div className="flex flex-col gap-6">
+        {({ values, submitForm, isSubmitting, dirty, setFieldValue }) => {
+          return (
+            <div className="flex flex-col gap-6">
               <GameEngineInput label={__("Name", "gameengine")}>
-                <input className='gameengine-input' placeholder={__("Enter name", "gameengine")} value={values.name} onChange={e => {
-              const value = e.target.value;
-              setFieldValue('name', value);
-              setFieldValue('slug', generateSlug(value));
-            }} {...commonInput} />
+                <input
+                  className='gameengine-input'
+                  placeholder={__("Enter name", "gameengine")}
+                  value={values.name}
+                  onChange={e => {
+                    const value = e.target.value;
+                    setFieldValue('name', value);
+                    setFieldValue('slug', generateSlug(value));
+                  }}
+                />
               </GameEngineInput>
+
               <GameEngineInput label={__("Slug", "gameengine")}>
-                <input className='gameengine-input' placeholder={__("Enter slug", "gameengine")} value={values.slug} onChange={e => {
-              const value = e.target.value;
-              setFieldValue('slug', value);
-            }} {...commonInput} />
+                <input
+                  className='gameengine-input'
+                  placeholder={__("Enter slug", "gameengine")}
+                  value={values.slug}
+                  onChange={e => {
+                    const value = e.target.value;
+                    setFieldValue('slug', value);
+                  }}
+                />
               </GameEngineInput>
+
               <GameEngineInput label={__("Parent", "gameengine")}>
-                <Select className="gameengine-select" classNamePrefix="gameengine-select" options={typesData} onInputChange={inputValue => {
-              fetchTypes(inputValue);
-              return inputValue;
-            }} value={typesData?.find(opt => Number(opt.value) === Number(values?.parent)) || null} onMenuOpen={fetchTypes} onChange={option => {
-              setFieldValue('parent', option.value);
-            }} menuPlacement="bottom" />
+                <Select
+                  className="gameengine-select"
+                  classNamePrefix="gameengine-select"
+                  options={typesData}
+                  onInputChange={inputValue => {
+                    fetchTypes(inputValue);
+                    return inputValue;
+                  }}
+                  value={typesData?.find(opt => Number(opt.value) === Number(values?.parent)) || null}
+                  onMenuOpen={fetchTypes}
+                  onChange={option => {
+                    setFieldValue('parent', option.value);
+                  }}
+                  menuPlacement="bottom"
+                />
               </GameEngineInput>
+
               <GameEngineInput label={__("Description", "gameengine")}>
-                <textarea className='gameengine-textarea' style={{
-              "minHeight": "140px",
-              "padding": "12px 16px"
-            }} placeholder={__("Enter description", "gameengine")} value={values.description} onChange={e => {
-              const value = e.target.value;
-              setFieldValue('description', value);
-            }} {...commonInput} />
+                <textarea
+                  className='gameengine-textarea'
+                  style={{
+                    "minHeight": "140px",
+                    "padding": "12px 16px"
+                  }}
+                  placeholder={__("Enter description", "gameengine")}
+                  value={values.description}
+                  onChange={e => {
+                    const value = e.target.value;
+                    setFieldValue('description', value);
+                  }}
+                />
               </GameEngineInput>
+
               <div className="flex gap-2.5" marginLeft={'auto'}>
                 {formData?.id && <button style={removeBtn} onClick={resetForm}>
-                    {__("Cancel", "gameengine")}
-                  </button>}
+                  {__("Cancel", "gameengine")}
+                </button>}
 
                 <button style={primaryBtn} disabled={!dirty} onClick={submitForm}>
                   {!formData?.id ? __("Create", "gameengine") : __("Update", "gameengine")}
                 </button>
               </div>
-            </div>;
-      }}
+            </div>
+          );
+        }}
       </Formik>
-    </div>;
+    </div>
+  );
 };
+
 export default TypesForm;

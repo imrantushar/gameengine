@@ -118,9 +118,7 @@ const TypesTable = ({
   ];
 
   return (
-    <div style={{
-      "width": "70%"
-    }}>
+    <div className="w-[70%]">
       <ListTable
         key={`${type}-table-` + data?.length}
         columns={columns}
