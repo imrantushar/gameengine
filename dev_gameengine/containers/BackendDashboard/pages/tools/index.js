@@ -78,6 +78,7 @@ const Tools = () => {
               })}
             </div>
           </div>
+          
           <div className="w-[80%]">
             <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'gameengine')}>
               {renderSwitch(path)}
