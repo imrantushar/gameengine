@@ -20,6 +20,7 @@ import {
 } from '@GFUtils/icons';
 import { plugin_root_url } from '@GFUtils/helper';
 import { outlineBtn } from '../../../../../assets/scss/chakra/recipe';
+import Button from '@GFComponents/Button';
 
 const infoCardsData = [
   {
@@ -270,25 +271,17 @@ const Addons = () => {
       <TopBar path={__('Add-ons', 'gameengine')} />
 
       <div className="gameengine-page-content">
-        <div
-          className="flex justify-between items-center mb-1"
-          style={{ padding: '16px 0' }}
-        >
-          <GFLabel
-            type="plainHeading"
-            margin={0}
-            padding={0}
-            label={__('Add-ons', 'gameengine')}
-          />
+        <div className="flex justify-between items-center py-6 px-1">
+          <h2 className="gameengine-page-heading">
+            {__("Add-ons", "gameengine")}
+          </h2>
 
-          <div className="flex items-center gap-3">
-            <button
-              classname="bg-white"
-              style={outlineBtn}
+          <div className="flex items-end gap-4">
+            <Button
+              preset='gray'
               onClick={handleClearAll}
-            >
-              {__('Clear All', 'gameengine')}
-            </button>
+              label={__('Clear All', 'gameengine')}
+            />
 
             <Select
               options={statusOptions}

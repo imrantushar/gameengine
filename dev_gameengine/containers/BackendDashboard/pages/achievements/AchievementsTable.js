@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
-import { Icon } from '@GFComponents/UI';
+import Button from '@GFComponents/Button';
 import OptionMenu from '@GFComponents/OptionMenu';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import {
@@ -11,7 +11,6 @@ import {
   fetchAchievements,
   updateAchievement
 } from '@GFRedux/Slices/achivementSlice/achievementsSlice';
-import { primaryBtn } from '../../../../../assets/scss/chakra/recipe';
 import {
   API,
   namespace,
@@ -446,22 +445,15 @@ const AchievementsTable = () => {
         )}
 
       <div className="flex justify-between items-center py-6 px-1">
-        <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
+        <h2 className="gameengine-page-heading">
           {__("Achievements", "gameengine")}
         </h2>
 
-        <button
-          style={primaryBtn}
-          className="flex items-center gap-2 text-sm shadow-sm font-medium transition-colors cursor-pointer"
-          onClick={() =>
-            navigate(
-              `${route_path}admin.php?page=gameengine-achievements&action=new`
-            )
-          }
-        >
-          <Icon as={GoPlus} color={'#fff'} className="text-lg font-bold" />
-          {__('Add new achievement', 'gameengine')}
-        </button>
+        <Button
+          label={__('Add new achievement', 'gameengine')}
+          icon={<GoPlus size="16px" />}
+          onClick={() => navigate(`${route_path}admin.php?page=gameengine-achievements&action=new`)}
+        />
       </div>
 
       <ListTable

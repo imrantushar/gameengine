@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import GFLabel from '@GFComponents/Labels/GFLabel';
 import { __ } from '@wordpress/i18n';
 import { capitalizeFirstLetter, getTermInitalValues } from './helper';
 import { Formik } from 'formik';
-import { primaryBtn, removeBtn } from '../../../../../../assets/scss/chakra/recipe';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { useDispatch } from 'react-redux';
@@ -78,9 +76,9 @@ const TypesForm = ({
   };
 
   return (
-    <div className="sticky rounded bg-white p-4 [border:1px_solid_var(--gemboards-border-color)]" style={{ "top": "132px", "alignSelf": "flex-start", "width": "30%" }}>
-      <GFLabel type='heading' label={!formData?.id ? __("Add New", "gameengine") : __("Update", "gameengine") + " " + capitalizeFirstLetter(type) + " " + __("Types", "gameengine")} />
-
+    <div className="sticky rounded bg-white p-6 [border:1px_solid_var(--gemboards-border-color)]" style={{ "top": "132px", "alignSelf": "flex-start", "width": "30%" }}>
+      <p className='gameengine-heading'>{!formData?.id ? __("Add New", "gameengine") : __("Update", "gameengine") + " " + capitalizeFirstLetter(type) + " " + __("Types", "gameengine")}</p>
+      
       <Formik enableReinitialize={true} initialValues={getTermInitalValues(formData)} onSubmit={onSubmitHandler}>
         {({ values, submitForm, isSubmitting, dirty, setFieldValue }) => {
           return (
@@ -130,11 +128,7 @@ const TypesForm = ({
 
               <GameEngineInput label={__("Description", "gameengine")}>
                 <textarea
-                  className='gameengine-textarea'
-                  style={{
-                    "minHeight": "140px",
-                    "padding": "12px 16px"
-                  }}
+                  className='gameengine-input min-h-[140px] p-[8px_12px]'
                   placeholder={__("Enter description", "gameengine")}
                   value={values.description}
                   onChange={e => {
@@ -145,11 +139,11 @@ const TypesForm = ({
               </GameEngineInput>
 
               <div className="flex gap-2.5" marginLeft={'auto'}>
-                {formData?.id && <button style={removeBtn} onClick={resetForm}>
+                {formData?.id && <button className='gameengine-close-btn' onClick={resetForm}>
                   {__("Cancel", "gameengine")}
                 </button>}
 
-                <button style={primaryBtn} disabled={!dirty} onClick={submitForm}>
+                <button className="gameengine-primary-btn" disabled={!dirty} onClick={submitForm}>
                   {!formData?.id ? __("Create", "gameengine") : __("Update", "gameengine")}
                 </button>
               </div>

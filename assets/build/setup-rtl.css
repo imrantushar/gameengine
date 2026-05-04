@@ -276,6 +276,39 @@
   display: none;
 }
 
+.gameengine-primary-btn {
+  cursor: pointer;
+  background: var(--gameengine-primary);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  border: 1px solid var(--gameengine-primary);
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: 0.2s ease;
+}
+.gameengine-primary-btn:hover {
+  background: color-mix(in srgb, var(--gameengine-primary) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--gameengine-primary) 60%, transparent);
+}
+
+.gameengine-close-btn {
+  cursor: pointer;
+  background: transparent;
+  color: var(--gameengine-font-color);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  border: 1px solid var(--gameengine-border-color);
+  padding: 8px 16px;
+  border-radius: 4px;
+}
+.gameengine-close-btn:hover {
+  background: var(--gameengine-secondary-color);
+  border: 1px solid var(--gameengine-border-color);
+}
+
 .gameengine-input {
   width: 100%;
   color: var(--gameengine-font-color);
@@ -292,6 +325,15 @@
 
 .gameengine-input:focus {
   border-color: var(--gameengine-primary) !important;
+}
+
+.gameengine-page-heading {
+  color: var(--gameengine-font-color);
+  font-size: 24px;
+  font-style: 400;
+  font-weight: 600;
+  line-height: 32px;
+  margin: 0;
 }
 
 .gameengine-content-wrap {
@@ -846,10 +888,11 @@ input.gameengine-checkbox:checked::before {
   border: 2px solid var(--gameengine-border-color);
 }
 .gameengine-btn--bg-gray, .gameengine-btn--preset-gray {
-  background: var(--gameengine-border-color);
+  background: transparent;
+  border: 1px solid var(--gameengine-border-color);
 }
 .gameengine-btn--bg-gray:hover, .gameengine-btn--bg-gray:focus, .gameengine-btn--preset-gray:hover, .gameengine-btn--preset-gray:focus {
-  background: var(--gameengine-gray-color);
+  background: var(--gameengine-secondary-color);
 }
 .gameengine-btn--preset-white {
   background: #fff;
@@ -1333,6 +1376,20 @@ input.gameengine-checkbox:checked::before {
   line-height: 30px;
   color: var(--gameengine-font-color);
 }
+.gameengine-heading {
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-top-width: 0px;
+  border-bottom-width: 1px;
+  border-style: solid;
+  border-color: var(--gameengine-border-color);
+  margin: 0 0 24px 0;
+  padding: 0 0 16px 0;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 30px;
+  color: var(--gameengine-font-color);
+}
 .pointer-events-none {
   pointer-events: none;
 }
@@ -1603,6 +1660,9 @@ input.gameengine-checkbox:checked::before {
 }
 .h-px {
   height: 1px;
+}
+.min-h-\[140px\] {
+  min-height: 140px;
 }
 .min-h-\[285px\] {
   min-height: 285px;
@@ -2359,6 +2419,10 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
+.bg-\[\#f0fff4\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 244 / var(--tw-bg-opacity, 1));
+}
 .object-contain {
   -o-object-fit: contain;
      object-fit: contain;
@@ -2413,6 +2477,9 @@ input.gameengine-checkbox:checked::before {
 }
 .p-\[32px_24px\] {
   padding: 32px 24px;
+}
+.p-\[8px_12px\] {
+  padding: 8px 12px;
 }
 .\!px-0 {
   padding-right: 0px !important;
@@ -2513,6 +2580,22 @@ input.gameengine-checkbox:checked::before {
 .py-\[3px\] {
   padding-top: 3px;
   padding-bottom: 3px;
+}
+.px-0 {
+  padding-right: 0px;
+  padding-left: 0px;
+}
+.py-\[\] {
+  padding-top: ;
+  padding-bottom: ;
+}
+.py-\[8px\] {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+.px-\[6px\] {
+  padding-right: 6px;
+  padding-left: 6px;
 }
 .pb-1 {
   padding-bottom: 0.25rem;
@@ -4168,6 +4251,10 @@ input.gameengine-checkbox:checked::before {
   .dark\:focus\:bg-white\/10:focus {
     background-color: rgb(255 255 255 / 0.1);
   }
+}
+
+.\[\&\>p\]\:m-0>p {
+  margin: 0px;
 }
 
 .\[\&_tbody_tr\:nth-child\(even\)\]\:bg-gray-50 tbody tr:nth-child(even) {

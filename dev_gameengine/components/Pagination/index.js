@@ -6,7 +6,7 @@ import './styles.scss';
 const Pagination = ({
   totalItems = 0,
   currentPageNumber = 1,
-  fetchHandler = () => {},
+  fetchHandler = () => { },
   rowsPerPage = 10
 }) => {
   const [page, setPage] = useState(currentPageNumber ? currentPageNumber : 1);
@@ -37,8 +37,8 @@ const Pagination = ({
         const pageItem = <li className={`gameengine-pagination-list__item ${item === page && 'gameengine-pagination-list__item-active'}`} key={index} onClick={() => {
           handlePageChange(item);
         }} role="presentation">
-						{item}
-					</li>;
+          {item}
+        </li>;
         renderedPages.push(pageItem);
       });
     } else if (page <= 3) {
@@ -47,36 +47,36 @@ const Pagination = ({
         const pageItem = <li className={`gameengine-pagination-list__item ${i === page && 'gameengine-pagination-list__item-active'}`} key={i} onClick={() => {
           handlePageChange(i);
         }} role="presentation">
-						{i}
-					</li>;
+          {i}
+        </li>;
         renderedPages.push(pageItem);
       }
       renderedPages.push(<li className="gameengine-pagination-list__item gameengine-pagination-list__item-dots" key="dots">
-					...
-				</li>);
+        ...
+      </li>);
       const lastPageItem = <li className="gameengine-pagination-list__item" key={totalPages} onClick={() => {
         handlePageChange(totalPages);
       }} role="presentation">
-					{totalPages}
-				</li>;
+        {totalPages}
+      </li>;
       renderedPages.push(lastPageItem);
     } else if (page >= totalPages - 2) {
       // when current page is within the last three pages
       const firstPageItem = <li className="gameengine-pagination-list__item" key={1} onClick={() => {
         handlePageChange(1);
       }} role="presentation">
-					{1}
-				</li>;
+        {1}
+      </li>;
       renderedPages.push(firstPageItem);
       renderedPages.push(<li className="gameengine-pagination-list__item gameengine-pagination-list__item-dots" key="dots">
-					...
-				</li>);
+        ...
+      </li>);
       for (let i = totalPages - 2; i <= totalPages; i++) {
         const pageItem = <li className={`gameengine-pagination-list__item ${i === page && 'gameengine-pagination-list__item-active'}`} key={i} onClick={() => {
           handlePageChange(i);
         }} role="presentation">
-						{i}
-					</li>;
+          {i}
+        </li>;
         renderedPages.push(pageItem);
       }
     } else {
@@ -84,60 +84,62 @@ const Pagination = ({
       const firstPageItem = <li className="gameengine-pagination-list__item" key={1} onClick={() => {
         handlePageChange(1);
       }} role="presentation">
-					{1}
-				</li>;
+        {1}
+      </li>;
       renderedPages.push(firstPageItem);
       renderedPages.push(<li className="gameengine-pagination-list__item gameengine-pagination-list__item-dots" key="dots-start">
-					...
-				</li>);
+        ...
+      </li>);
       for (let i = page - 1; i <= page + 1; i++) {
         const pageItem = <li className={`gameengine-pagination-list__item ${i === page && 'gameengine-pagination-list__item-active'}`} key={i} onClick={() => {
           handlePageChange(i);
         }} role="presentation">
-						{i}
-					</li>;
+          {i}
+        </li>;
         renderedPages.push(pageItem);
       }
       renderedPages.push(<li className="gameengine-pagination-list__item gameengine-pagination-list__item-dots" key="dots-end">
-					...
-				</li>);
+        ...
+      </li>);
       const lastPageItem = <li className="gameengine-pagination-list__item" key={totalPages} onClick={() => {
         handlePageChange(totalPages);
       }} role="presentation">
-					{totalPages}
-				</li>;
+        {totalPages}
+      </li>;
       renderedPages.push(lastPageItem);
     }
     return renderedPages;
   };
   return <div className="gameengine-pagination">
-			{showPrevButton && <>
-					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
+    {showPrevButton && <>
+      <button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] gameengine-border cursor-pointer" onClick={() => {
         handlePageChange(1);
       }}>
-						<IoIosArrowBack />
-					</button>
-					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
+        <IoIosArrowBack />
+      </button>
+      <button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] gameengine-border cursor-pointer" onClick={() => {
         handlePageChange(page - 1);
       }}>
-						<HiChevronDoubleLeft />
-					</button>
-				</>}
-			{pageNumbers.length > 1 && <ul className="gameengine-pagination-list">
-					{renderPageNumbers()}
-				</ul>}
-			{showNextButton && <>
-					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
+        <HiChevronDoubleLeft />
+      </button>
+    </>}
+    {pageNumbers.length > 1 && <ul className="gameengine-pagination-list">
+      {renderPageNumbers()}
+    </ul>}
+    {showNextButton && <>
+      <button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] gameengine-border cursor-pointer" onClick={() => {
         handlePageChange(page + 1);
       }}>
-						<IoIosArrowForward />
-					</button>
-					<button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border rounded-[4px]" onClick={() => {
+        <IoIosArrowForward />
+      </button>
+
+      <button className="bg-transparent h-[32px] w-[32px] p-1.5 flex items-center justify-center text-[var(--gameengine-font-color)] gameengine-border cursor-pointer" onClick={() => {
         handlePageChange(pageNumbers.length);
       }}>
-						<HiChevronDoubleRight />
-					</button>
-				</>}
-		</div>;
+        <HiChevronDoubleRight />
+      </button>
+    </>}
+  </div>;
 };
+
 export default Pagination;

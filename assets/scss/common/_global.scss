@@ -302,6 +302,41 @@
     display: none;
 }
 
+.gameengine-primary-btn {
+    cursor: pointer;
+    background: var(--gameengine-primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid var(--gameengine-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: 0.2s ease;
+    
+    &:hover {
+        background: color-mix(in srgb,var(--gameengine-primary) 60%,transparent);
+        border: 1px solid color-mix(in srgb,var(--gameengine-primary) 60%,transparent);
+    }
+}
+
+.gameengine-close-btn {
+    cursor: pointer;
+    background: transparent;
+    color: var(--gameengine-font-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid var(--gameengine-border-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--gameengine-secondary-color);
+        border: 1px solid var(--gameengine-border-color);
+    }
+}
+
 .gameengine-input {
     width: 100%;
     color: var(--gameengine-font-color);
@@ -319,3 +354,15 @@
 .gameengine-input:focus {
     border-color: var(--gameengine-primary) !important;
 }
+
+.gameengine {
+    &-page-heading {
+        color: var(--gameengine-font-color);
+        font-size: 24px;
+        font-style: 400;
+        font-weight: 600;
+        line-height: 32px;
+        margin: 0;
+    }
+}
+

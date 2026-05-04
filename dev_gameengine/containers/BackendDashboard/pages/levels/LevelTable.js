@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Icon } from '@GFComponents/UI';
 import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { __ } from '@wordpress/i18n';
 import ListTable from '@GFComponents/ListTable';
@@ -178,58 +177,6 @@ const LevelTable = () => {
       width: "15%"
     },
     {
-      name: __('Action', 'gameengine'),
-      cell: (row = {}) => {
-        const trashAction =
-          tableStats !== 'trash'
-            ? [
-                {
-                  type: "button",
-                  suffix: "trash",
-                  label: __('Delete', 'gameengine'),
-                  icon: <Icon as={FiTrash2} />,
-                  onClick: () =>
-                    dispatch(
-                      updateLevel({
-                        id: row.id,
-                        payload: {
-                          ...row,
-                          status: 'trash'
-                        }
-                      })
-                    )
-                }
-              ]
-            : [
-                {
-                  type: 'button',
-                  suffix: 'trash',
-                  label: __('Delete', 'gameengine'),
-                  icon: <FiTrash2 />,
-                  onClick: () => handleDelete(row?.id)
-                }
-              ];
-
-        return (
-          <OptionMenu
-            options={[
-              {
-                type: "button",
-                label: __('Edit', 'gameengine'),
-                icon: <FiEdit />,
-                onClick: () =>
-                  navigate(
-                    `${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`
-                  ),
-                hasBorder: true
-              },
-              ...trashAction
-            ]}
-          />
-        );
-      }
-    },
-    {
       cell: row => (
         <OptionMenu
           options={[
@@ -279,9 +226,8 @@ const LevelTable = () => {
             return (
               <button
                 key={index}
-                className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${
-                  isActive ? ' is-active' : ''
-                }`}
+                className={`gameengine-filter-toolbar__tab !text-sm font-medium transition-all${isActive ? ' is-active' : ''
+                  }`}
                 onClick={() => {
                   setTableStatus(item.value);
 
@@ -335,21 +281,21 @@ const LevelTable = () => {
   const bulkOptions =
     tableStats === 'trash'
       ? [
-          {
-            value: 'restore',
-            label: __('Restore', 'gameengine')
-          },
-          {
-            value: 'delete',
-            label: __('Delete Permanently', 'gameengine')
-          }
-        ]
+        {
+          value: 'restore',
+          label: __('Restore', 'gameengine')
+        },
+        {
+          value: 'delete',
+          label: __('Delete Permanently', 'gameengine')
+        }
+      ]
       : [
-          {
-            value: 'trash',
-            label: __('Move to Trash', 'gameengine')
-          }
-        ];
+        {
+          value: 'trash',
+          label: __('Move to Trash', 'gameengine')
+        }
+      ];
 
   const applyBulkActionHandler = (rows, action) => {
     if (!rows.length) return;
@@ -472,24 +418,14 @@ const LevelTable = () => {
         )}
 
       <div className="flex justify-between items-center py-6 px-1">
-        <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
+        <h2 className="gameengine-page-heading">
           {__("Levels", "gameengine")}
         </h2>
 
         <Button
           label={__('Add new level', 'gameengine')}
-          icon={
-            <Icon
-              as={GoPlus}
-              color={'#fff'}
-              className="text-lg font-bold"
-            />
-          }
-          onClick={() =>
-            navigate(
-              `${route_path}admin.php?page=gameengine-levels&action=new`
-            )
-          }
+          icon={<GoPlus size="16px" />}
+          onClick={() => navigate(`${route_path}admin.php?page=gameengine-levels&action=new`)}
         />
       </div>
 

@@ -112,7 +112,8 @@ const ReferralSettings = () => {
                         label={__("Points Per Successful Signup", "gameengine")}
                         subtitle={__('Default points awarded to the referrer when someone registers using their link. This is the fallback value — you can configure exact rewards in the Triggers section.', 'gameengine')}
                     >
-                        <input className="max-w-[150px] rounded-[6px] text-sm border border-solid border-[var(--gameengine-border-color)] px-3 py-1.5 outline-none bg-white text-[var(--gameengine-font-color)]"
+                        <input 
+                            className="gameengine-input"
                             type="number"
                             min={0}
                             value={referral?.signup_reward || '50'}
@@ -157,7 +158,8 @@ const ReferralSettings = () => {
                         label={__("Max Accounts Per IP Address", "gameengine")}
                         subtitle={__('Maximum number of new accounts allowed from the same IP address within the specified timeframe. Exceeding this triggers a fraud alert.', 'gameengine')}
                     >
-                        <input className="max-w-[150px] rounded-[6px] text-sm border border-solid border-[var(--gameengine-border-color)] px-3 py-1.5 outline-none bg-white text-[var(--gameengine-font-color)]"
+                        <input 
+                            className="gameengine-input"
                             type="number"
                             min={1}
                             value={referral?.fraud_detection_max_accounts || '3'}

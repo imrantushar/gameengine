@@ -35,7 +35,7 @@ export const Economy = () => {
         >
           <input
             style={{ width: '300px' }}
-            className="border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]"
+            className="gameengine-input"
             type="number"
             min="0"
             step="1"

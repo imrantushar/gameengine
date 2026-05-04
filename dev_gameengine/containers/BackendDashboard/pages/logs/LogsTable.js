@@ -6,7 +6,6 @@ import ListTable from '@GFComponents/ListTable';
 import Search from '@GFComponents/Search';
 import { FiEdit, FiClock } from "react-icons/fi";
 import { fetchLogs, } from '@GFRedux/Slices/logsSlice/logsSlice';
-import { Icon, } from '@GFComponents/UI';
 
 const LogsTable = ({
   modalOpenHandler
@@ -69,16 +68,14 @@ const LogsTable = ({
         return <>
           <div title={row.message}>{row.message}</div>
 
-          {congratsMsg && <div className="rounded text-xs" style={{
-            marginTop: '6px',
-            padding: '6px 8px',
-            background: '#f0fff4',
-            // Light Green Bg
-            border: '1px solid #c6f6d5',
-            color: '#2f855a' // Dark Green Text
-          }} dangerouslySetInnerHTML={{
-            __html: congratsMsg
-          }} />}
+          {congratsMsg && (
+            <div
+              className="[&>p]:m-0 mt-6 px-[6px] py-[8px] rounded bg-[#f0fff4] color-[#2f855a]"
+              dangerouslySetInnerHTML={{
+                __html: congratsMsg
+              }}
+            />
+          )}
 
           {points !== 0 && !isNaN(points) && <span className="inline-block mt-1 text-xs" style={{
             color: points > 0 ? 'green' : 'red',
@@ -92,9 +89,7 @@ const LogsTable = ({
             color: 'purple',
             marginTop: '2px'
           }}>
-            <Icon as={FiClock} className="mr-1" style={{
-              verticalAlign: 'middle'
-            }} />
+            <FiClock />
             {new Date(scheduled).toLocaleString()}
           </div>}
         </>;
