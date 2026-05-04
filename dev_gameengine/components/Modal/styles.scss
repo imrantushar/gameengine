@@ -19,7 +19,8 @@ body.ReactModal__Body--open {
        justify-content: center;
        align-items: center;
        z-index: 9999;
-       transition: opacity 300ms ease-in-out;  
+       transition: opacity 300ms ease-in-out;
+
        &--after-open {
               opacity: 1;
        }
@@ -32,12 +33,12 @@ body.ReactModal__Body--open {
               align-items: flex-start;
               padding-top: 20px;
        }
-       
+
        &--bottom {
               align-items: flex-end;
               padding-bottom: 20px;
        }
-       
+
        &--center {
               align-items: center;
        }
@@ -51,12 +52,15 @@ body.ReactModal__Body--open {
        animation: gameengine-modal-fade-in 0.3s ease-in-out forwards;
        margin: 0 auto;
        height: fit-content;
+
        &--small {
               width: 600px;
        }
+
        &--medium {
               width: 1020px;
        }
+
        &--large {
               width: calc(100vw - 17px);
               min-height: 100vh;
@@ -72,25 +76,27 @@ body.ReactModal__Body--open {
               border-bottom: 1px solid var(--gameengine-border-color);
 
               .gameengine-modal-buttons {
-              display: flex;
-              align-items: center;
-              gap: 8px;
-              button {
-                     padding: 8px;
-                     background: #fff;
-                     color: #111;
-                     border: 1px solid var(--gameengine-border-color) !important;
-                     border-radius: 4px;
                      display: flex;
-                     transition: all .3s ease;
-                     justify-content: center;
                      align-items: center;
-                     font-size: 16px;
-                     cursor: pointer;
-                     &:hover {
-                     border-color: var(--gameengine-primary-color) !important;
+                     gap: 8px;
+
+                     button {
+                            padding: 8px;
+                            background: #fff;
+                            color: #111;
+                            border: 1px solid var(--gameengine-border-color) !important;
+                            border-radius: 4px;
+                            display: flex;
+                            transition: all .3s ease;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 16px;
+                            cursor: pointer;
+
+                            &:hover {
+                                   border-color: var(--gameengine-primary-color) !important;
+                            }
                      }
-              }
               }
        }
 
@@ -124,23 +130,25 @@ body.ReactModal__Body--open {
 }
 
 @keyframes gameengine-modal-fade-in {
-    from {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+       from {
+              opacity: 0;
+              transform: scale(0.95) translateY(10px);
+       }
+
+       to {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+       }
 }
 
 @keyframes gameengine-modal-fade-out {
-    from {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-    to {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-    }
+       from {
+              opacity: 1;
+              transform: scale(1) translateY(0);
+       }
+
+       to {
+              opacity: 0;
+              transform: scale(0.95) translateY(10px);
+       }
 }

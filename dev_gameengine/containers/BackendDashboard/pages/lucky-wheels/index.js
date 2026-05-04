@@ -4,7 +4,6 @@ import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2, FiPlus, FiActivity } from "react-icons/fi";
 import TopBar from '@GFComponents/TopBar';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Icon } from '@GFComponents/UI';
 import Button from '@GFComponents/Button';
 import { useNavigate } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
@@ -124,12 +123,13 @@ export default function LuckyWheels({ action, id }) {
 
             <div className='gameengine-page-content'>
                 <div className="flex justify-between items-center py-6 px-1">
-                    <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
-                        {__("Lucky Wheels", "gameengine")}
-                    </h2>
+                    <p className="gameengine-page-heading">
+                    {__('Lucky Wheels', 'gameengine')}
+                    </p>
+
                     <Button
                         label={__("Add New Wheel", "gameengine")}
-                        icon={<Icon as={FiPlus} color={'#fff'} className="text-lg font-bold" />}
+                        icon={<FiPlus />}
                         onClick={() => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels&action=new`)}
                     />
                 </div>

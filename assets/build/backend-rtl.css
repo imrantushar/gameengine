@@ -2887,9 +2887,6 @@ input.gameengine-checkbox:checked::before {
 .right-2{
   left: 0.5rem;
 }
-.right-4{
-  left: 1rem;
-}
 .right-\[30px\]{
   left: 30px;
 }
@@ -2898,9 +2895,6 @@ input.gameengine-checkbox:checked::before {
 }
 .top-2{
   top: 0.5rem;
-}
-.top-4{
-  top: 1rem;
 }
 .top-8{
   top: 2rem;
@@ -2995,9 +2989,6 @@ input.gameengine-checkbox:checked::before {
 }
 .ml-auto{
   margin-right: auto;
-}
-.mr-1{
-  margin-left: 0.25rem;
 }
 .mr-3\.5{
   margin-left: 0.875rem;
@@ -3196,9 +3187,6 @@ input.gameengine-checkbox:checked::before {
 }
 .min-w-\[300px\]{
   min-width: 300px;
-}
-.max-w-\[150px\]{
-  max-width: 150px;
 }
 .max-w-\[280px\]{
   max-width: 280px;
@@ -3623,6 +3611,10 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(255 169 67 / var(--tw-bg-opacity, 1));
 }
+.bg-\[\#f0fff4\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 255 244 / var(--tw-bg-opacity, 1));
+}
 .bg-\[\#f3f4f6\]{
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -3874,29 +3866,6 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
-.bg-\[\#f0fff4\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(240 255 244 / var(--tw-bg-opacity, 1));
-}
-.bg-\[var\(--gameengine-border-color\)\]{
-  background-color: var(--gameengine-border-color);
-}
-.bg-gray-300{
-  --tw-bg-opacity: 1;
-  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
-}
-.bg-\[var\(\)\]{
-  background-color: var();
-}
-.bg-\[var\(--\)\]{
-  background-color: var(--);
-}
-.bg-\[var\(--gameen\)\]{
-  background-color: var(--gameen);
-}
-.bg-\[var\(--gameengine\)\]{
-  background-color: var(--gameengine);
-}
 .bg-gradient-to-r{
   background-image: linear-gradient(to left, var(--tw-gradient-stops));
 }
@@ -4014,6 +3983,10 @@ input.gameengine-checkbox:checked::before {
   padding-right: 1.5rem;
   padding-left: 1.5rem;
 }
+.px-\[6px\]{
+  padding-right: 6px;
+  padding-left: 6px;
+}
 .py-0\.5{
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
@@ -4070,21 +4043,9 @@ input.gameengine-checkbox:checked::before {
   padding-top: 3px;
   padding-bottom: 3px;
 }
-.px-0{
-  padding-right: 0px;
-  padding-left: 0px;
-}
-.py-\[\]{
-  padding-top: ;
-  padding-bottom: ;
-}
 .py-\[8px\]{
   padding-top: 8px;
   padding-bottom: 8px;
-}
-.px-\[6px\]{
-  padding-right: 6px;
-  padding-left: 6px;
 }
 .pb-1{
   padding-bottom: 0.25rem;
@@ -4182,6 +4143,9 @@ input.gameengine-checkbox:checked::before {
 .text-\[10px\]{
   font-size: 10px;
 }
+.text-\[12px\]{
+  font-size: 12px;
+}
 .text-\[13px\]{
   font-size: 13px;
 }
@@ -4216,6 +4180,9 @@ input.gameengine-checkbox:checked::before {
 .text-xs{
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.text-\[18px\]{
+  font-size: 18px;
 }
 .font-\[500\]{
   font-weight: 500;
@@ -4487,6 +4454,9 @@ input.gameengine-checkbox:checked::before {
 .text-yellow-600{
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
+}
+.text-\[\]{
+  color: ;
 }
 .underline{
   text-decoration-line: underline;
@@ -4859,11 +4829,6 @@ input.gameengine-checkbox:checked::before {
 .hover\:text-fuchsia-700:hover{
   --tw-text-opacity: 1;
   color: rgb(162 28 175 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-gray-800:hover{
-  --tw-text-opacity: 1;
-  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-gray-900:hover{
