@@ -94,9 +94,9 @@ const Settings = () => {
           </>} />
 
           <div className='gameengine-page-content'>
-            <div className="flex justify-between items-center" style={{ "padding": "24px 0" }}>
-              <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
-            </div>
+            <h2 className="gameengine-page-heading py-6">
+              {__("Settings", "gameengine")}
+            </h2>
 
             <div className="flex items-start gap-4">
               <LeftBar />

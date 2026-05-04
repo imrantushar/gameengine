@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
-import { Icon } from '@GFComponents/UI';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { FaRegCopy } from 'react-icons/fa6';
@@ -68,7 +67,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
               onClick={copyToClipboard}
               disabled={isPro}
             >
-              <Icon as={FaRegCopy} />
+              <FaRegCopy />
             </button>
           </div>
 
@@ -82,7 +81,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
             rel="noopener noreferrer"
             disabled={isPro}
           >
-            <Icon as={AiOutlineQuestion} />
+            <AiOutlineQuestion />
           </button>
         </div>
 

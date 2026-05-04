@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { reactDebounce } from '@GFUtils/helper';
-import './styles.scss';
 import { CiSearch } from "react-icons/ci";
-import { Icon } from '@GFComponents/UI';
+
+import './styles.scss';
 
 const propTypes = {
 	placeholder: PropTypes.string,
@@ -46,7 +46,7 @@ export default function Search( {
 		<React.Fragment>
 			<div className={ classNames }>
 				<span className="gameengine-search-component__search gameengine-icon gameengine-icon--search" >
-					<Icon as={CiSearch}></Icon>
+					<CiSearch />
 					</span>
 				<input
 					id="search"

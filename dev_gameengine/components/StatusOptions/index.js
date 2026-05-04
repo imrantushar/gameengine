@@ -2,9 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { __ } from '@wordpress/i18n';
 import { createPortal } from 'react-dom';
-import './styles.scss';
-import { Icon } from '@GFComponents/UI';
 import { FaAngleDown } from 'react-icons/fa6';
+
+import './styles.scss';
 
 const propTypes = {
 	children: PropTypes.object,
@@ -89,7 +89,7 @@ const StatusOptions = ( props ) => {
 				<span
 					className={ `gameengine-icon gameengine-icon--arrow-down` }
 				>
-					<Icon as={FaAngleDown} />
+					<FaAngleDown />
 				</span>
 			</button>
 			{ createPortal(

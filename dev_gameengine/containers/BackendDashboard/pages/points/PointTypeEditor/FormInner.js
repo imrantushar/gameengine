@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
@@ -8,7 +7,6 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import { SiWoocommerce } from "react-icons/si";
 import { useFormikContext } from 'formik';
 import GameEngineInput from '@GFComponents/GameEngineInput';
-import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoader';
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
@@ -156,10 +154,8 @@ const FormInner = ({ hooksLoading }) => {
             "padding": "10px 16px"
           }}>
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
-                "background": config.bg
-              }}>
-                <Icon as={config.icon} boxSize={3} color={'#fff'} />
+              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{ "background": config?.bg }}>
+                {config?.icon()}
               </div>
               <GFLabel type="title" fontWeight="400" label={item?.label} />
             </div>
@@ -167,7 +163,7 @@ const FormInner = ({ hooksLoading }) => {
             <div className="items-center justify-center rounded-full w-6 h-6 flex text-white" style={{
               "background": type === 'award' ? "#0CDC01" : "#FF3E2F"
             }}>
-              <Icon as={arrowForward} />
+              {arrowForward()}
             </div>
           </div>
 

@@ -1,4 +1,3 @@
-import { Icon } from "@GFComponents/UI";
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
@@ -24,15 +23,16 @@ const SettingsFooter = ({ step, setStep }) => {
           }
         }}
       >
-        <Icon as={FaAngleLeft} width={"10px"} />
+        <FaAngleLeft size="16px" />
         {__("Back", "gameengine")}
       </button>
+
       <Button
         label={__('Continue', 'gameengine')}
         loadingLabel={__('Continue', 'gameengine')}
         isLoading={isSubmitting}
         isDisabled={isSubmitting}
-        icon={<Icon as={FaAngleRight} width={'10px'} color={'#fff'} />}
+        icon={<FaAngleRight size={'14px'} color={'#fff'} />}
         iconPosition="right"
         onClick={() => {
           if (step === "datapreview") {

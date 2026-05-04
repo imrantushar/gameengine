@@ -1,4 +1,3 @@
-import { Icon } from '@GFComponents/UI';
 import React, { useState } from 'react';
 import { admin_url, plugin_root_url } from '@GFUtils/helper';
 import { __ } from '@wordpress/i18n';
@@ -42,12 +41,12 @@ const Welcome = () => {
           {cards.map((item, idx) => {
             const isSelected = selectedCard === item.value;
             return (
-              <div 
-                className={`flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border border-solid border-[var(--gameengine-border-color)] transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? '!border-[var(--gameengine-primary)] bg-[#F3F5FF]' : ''}`} 
-                key={idx} 
+              <div
+                className={`flex flex-col items-center gap-4 p-5 rounded-lg text-center relative border border-solid border-[var(--gameengine-border-color)] transition-all cursor-pointer w-full max-w-[280px] ${isSelected ? '!border-[var(--gameengine-primary)] bg-[#F3F5FF]' : ''}`}
+                key={idx}
                 onClick={() => setSelectedCard(item.value)}
               >
-                <Icon as={item.icon} className="text-xl text-gray-700" />
+                {item.icon}
                 <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} fontSize={'16px'} lineHeight={'24px'} />
                 <GFLabel type="simple" margin={0} padding={0} label={item.description} lineHeight={'24px'} />
                 {isSelected && (
@@ -60,7 +59,7 @@ const Welcome = () => {
 
         <Button
           label={__("Process to Next", "gameengine")}
-          icon={<Icon as={FaAngleRight} color={'#fff'} />}
+          icon={<FaAngleRight />}
           iconPosition="right"
           onClick={() => {
             if (selectedCard === 'manual') {

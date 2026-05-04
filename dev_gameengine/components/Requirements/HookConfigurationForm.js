@@ -1,16 +1,15 @@
-import { Icon } from '@GFComponents/UI';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
-import { FaLock } from 'react-icons/fa6';
 import Select from 'react-select';
 import { commonInput } from '../../../assets/scss/chakra/recipe';
 import { is_pro } from '@GFUtils/helper';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+
 const DynamicField = ({
   fieldKey,
   config,
@@ -85,6 +84,7 @@ const DynamicField = ({
             </GameEngineInput>
         </div>;
 };
+
 const DynamicHookForm = ({
   hookId,
   hookInfo,
@@ -111,6 +111,7 @@ const DynamicHookForm = ({
             </div>
         </CustomCollapsible>;
 };
+
 const HookConfigurationForm = ({
   hookId,
   type,
@@ -143,4 +144,5 @@ const HookConfigurationForm = ({
             <DynamicHookForm hookId={hookId} hookInfo={hookInfo} type={type} settings={currentSettings || {}} handleChange={handleChange} isOpen={isOpen} setIsOpen={setIsOpen} scope={scope} />
         </div>;
 };
+
 export default HookConfigurationForm;

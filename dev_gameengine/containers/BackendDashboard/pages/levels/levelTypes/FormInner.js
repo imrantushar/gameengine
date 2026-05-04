@@ -1,13 +1,12 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { Icon, Switch, } from "@GFComponents/UI";
+import { Switch, } from "@GFComponents/UI";
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
-import { clearBtn, commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
@@ -187,10 +186,8 @@ const FormInner = () => {
             "padding": "10px 16px"
           }}>
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
-                "background": config.bg
-              }}>
-                {config?.icon}
+              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{ "background": config.bg }}>
+                {config?.icon()}
               </div>
               <GFLabel type="title" fontWeight="400" label={item?.label} />
             </div>

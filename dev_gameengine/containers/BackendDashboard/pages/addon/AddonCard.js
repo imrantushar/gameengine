@@ -1,17 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { __, sprintf } from '@wordpress/i18n';
-import { Icon } from '@GFComponents/UI';
 import CustomSwitch from '@GFComponents/CustomSwitch';
-import {
-  fetchAddons,
-  saveAddon,
-} from '@GFRedux//Slices/addonsSlice/addonsSlice';
+import { fetchAddons, saveAddon, } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
-import {
-  admin_url,
-  is_pro,
-} from '@GFUtils/helper';
+import { admin_url, is_pro, } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { LuSettings } from 'react-icons/lu';
@@ -137,7 +130,7 @@ const AddonCard = ({ item, value }) => {
           ) : isShowProTag ? (
             <KodezenTooltip
               openerContent={
-                <Icon as={FaLock} boxSize={5} color="orange" />
+                <FaLock size="20px" color="orange" />
               }
               contentWidth="fit-content"
             >

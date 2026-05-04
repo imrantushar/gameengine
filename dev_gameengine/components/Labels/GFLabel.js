@@ -1,8 +1,8 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { Icon } from '@GFComponents/UI';
 import { FaLock } from 'react-icons/fa6';
 import { is_pro } from '@GFUtils/helper';
+
 const GFLabel = ({
   type = "title",
   label = "",
@@ -77,13 +77,16 @@ const GFLabel = ({
       margin: "0"
     }
   };
+
   const styles = variantStyles[type] || variantStyles.title;
   const autoPro = typeof label === 'string' && (label.includes('(Pro)') || label.includes('(PRO)'));
   const showPro = (isPro || autoPro) && !is_pro;
   let displayLabel = label;
+
   if (typeof label === 'string' && is_pro) {
     displayLabel = label.replace(/\s*\(Pro\)/gi, '').trim();
   }
+
   const textStyle = {
     fontFamily: "var(--gameengine-font)",
     fontSize: fontSize ?? styles.fontSize,
@@ -101,14 +104,18 @@ const GFLabel = ({
     whiteSpace,
     width
   };
-  return <div className="flex items-center gap-2" style={{
-    ...textStyle
-  }}>
-			{typeof label === 'string' ? <p style={textStyle}>{displayLabel}</p> : <div className="flex" style={textStyle}>{displayLabel}</div>}
-			{showPro && <div className="flex items-center gap-1.5">
-					<p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] [padding:3px_6px] text-[10px]">{__("PRO", 'gameengine')}</p>
-					<Icon as={FaLock} color="orange.400" boxSize={3} />
-				</div>}
-		</div>;
+
+  return (
+    <div className="flex items-center gap-2" style={{
+      ...textStyle
+    }}>
+      {typeof label === 'string' ? <p style={textStyle}>{displayLabel}</p> : <div className="flex" style={textStyle}>{displayLabel}</div>}
+      {showPro && <div className="flex items-center gap-1.5">
+        <p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] [padding:3px_6px] text-[10px]">{__("PRO", 'gameengine')}</p>
+        <FaLock color="orange.400" size="16px" />
+      </div>}
+    </div>
+  );
 };
+
 export default GFLabel;

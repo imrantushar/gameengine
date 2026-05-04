@@ -170,10 +170,8 @@ const FormInner = () => {
             "padding": "10px 16px"
           }}>
             <div className="flex items-center gap-2">
-              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
-                "background": config.bg
-              }}>
-                {config?.icon}
+              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{ "background": config.bg }}>
+                {config?.icon()}
               </div>
               <GFLabel type="title" fontWeight="400" label={item?.label} />
             </div>

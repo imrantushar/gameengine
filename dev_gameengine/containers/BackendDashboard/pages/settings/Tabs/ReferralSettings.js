@@ -1,8 +1,7 @@
 import React from 'react';
-import { Switch, Icon } from '@GFComponents/UI';
+import { Switch } from '@GFComponents/UI';
 import { __ } from "@wordpress/i18n";
 import { FaLock } from 'react-icons/fa6';
-import GFLabel from '@GFComponents/Labels/GFLabel';
 import Select from "react-select";
 import { useFormikContext } from 'formik';
 import SettingsInput from '../Components/SettingsInput';
@@ -40,7 +39,7 @@ const ReferralSettings = () => {
 
                 {!is_pro && (
                     <div className="flex items-center gap-2 mb-4">
-                        <Icon as={FaLock} width="16px" style={{color: '#f97316'}} />
+                        <FaLock size="16px" color='#f97316' />
                         <p className="text-xs text-[var(--gameengine-primary)] m-0">
                             {__("Referral settings are available in GameEngine Pro only.", "gameengine")}
                         </p>

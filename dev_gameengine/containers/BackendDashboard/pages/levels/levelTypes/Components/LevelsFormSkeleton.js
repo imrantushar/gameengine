@@ -1,5 +1,6 @@
 import { Skeleton, SkeletonText } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
+
 const HookListSkeleton = ({
   items = 4
 }) => <div className="flex flex-col gap-3">
@@ -7,6 +8,7 @@ const HookListSkeleton = ({
     length: items
   }).map((_, i) => <Skeleton key={i} height="56px" borderRadius="4px" />)}
   </div>;
+
 const HookSidebarSkeleton = ({
   items = 2
 }) => <div className="flex flex-col gap-4">
@@ -14,6 +16,7 @@ const HookSidebarSkeleton = ({
     length: items
   }).map((_, i) => <Skeleton key={i} height="110px" borderRadius="6px" />)}
   </div>;
+
 const LevelsFormSkeleton = () => {
   return <>
       <div className="flex justify-between items-center mb-6 p-5">
@@ -72,4 +75,5 @@ const LevelsFormSkeleton = () => {
       </GameEngineBox>
     </>;
 };
+
 export default LevelsFormSkeleton;

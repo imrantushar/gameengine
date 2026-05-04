@@ -1,15 +1,12 @@
-import { Icon } from '@GFComponents/UI';
 import CustomCollapsible from '@GFComponents/Collapsible';
-import Divider from '@GFComponents/Divider';
 import { __ } from '@wordpress/i18n';
-import { primaryBtn } from '../../../../../../../assets/scss/chakra/recipe';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
-import { FaLock } from 'react-icons/fa6';
 import Select from 'react-select';
 import { is_pro as isProActive } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+
 const DynamicField = ({
   fieldKey,
   config,
@@ -80,6 +77,7 @@ const DynamicField = ({
             <LabeledInput label={displayLabel} isPro={config.is_pro} placeholder={isDisabled ? __('Locked Feature', 'gameengine') : config.placeholder || ''} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
         </div>;
 };
+
 export const DynamicHookForm = ({
   hookId,
   hookInfo,
@@ -102,4 +100,5 @@ export const DynamicHookForm = ({
             </div>
         </CustomCollapsible>;
 };
+
 export default DynamicHookForm;

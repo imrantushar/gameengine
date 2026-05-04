@@ -25,7 +25,6 @@ import StatusOptions from '@GFComponents/StatusOptions';
 import Search from '@GFComponents/Search';
 import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import SnackbarAction from '@GFComponents/BulkAction/SnackbarAction';
-
 const LevelTable = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
