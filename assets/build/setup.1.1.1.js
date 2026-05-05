@@ -2820,29 +2820,30 @@ const makeRequest = async (action, payload = {}, isRaw = false, suffix = '') => 
   return data;
 };
 const statusArray = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Publish', 'academy'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Publish', 'gameengine'),
   value: 'publish'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Draft', 'academy'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Draft', 'gameengine'),
   value: 'draft'
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Pending', 'academy'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Pending', 'gameengine'),
   value: 'pending'
-},
+}
 // {
-// 	label: __('Private', 'academy'),
+// 	label: __('Private', 'gameengine'),
 // 	value: 'private',
 // },
 // {
-// 	label: __('Schedule', 'academy'),
+// 	label: __('Schedule', 'gameengine'),
 // 	value: 'future',
 // },
-{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Trash', 'academy'),
-  value: 'trash'
-}];
+// {
+// 	label: __('Trash', 'gameengine'),
+// 	value: 'trash',
+// },
+];
 const tableStatusArray = [{
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('All', 'academy'),
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('All', 'gameengine'),
   value: 'all'
 }, ...statusArray];
 function decodeHtmlEntity(entity) {

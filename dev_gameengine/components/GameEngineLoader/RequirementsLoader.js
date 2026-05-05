@@ -1,7 +1,9 @@
 import React from 'react';
-import { Skeleton } from "@GFComponents/UI";
+import Skeleton from './Skeleton';
+
 const RequirementsLoader = () => {
-  return <>
+    return (
+        <>
             <div className="w-full p-6 rounded mt-6 [border:1px_solid_var(--gameengine-border-color)]">
                 <Skeleton height="32px" width="20%" />
             </div>
@@ -29,6 +31,8 @@ const RequirementsLoader = () => {
                     </div>
                 </div>
             </div>
-        </>;
+        </>
+    );
 };
+
 export default RequirementsLoader;

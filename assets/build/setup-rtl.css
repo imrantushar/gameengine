@@ -1297,9 +1297,6 @@ input.gameengine-checkbox:checked::before {
 .right-2 {
   left: 0.5rem;
 }
-.right-\[30px\] {
-  left: 30px;
-}
 .top-0 {
   top: 0px;
 }
@@ -1315,9 +1312,6 @@ input.gameengine-checkbox:checked::before {
 .top-\[130px\] {
   top: 130px;
 }
-.top-\[85vh\] {
-  top: 85vh;
-}
 .z-10 {
   z-index: 10;
 }
@@ -1332,9 +1326,6 @@ input.gameengine-checkbox:checked::before {
 }
 .z-\[99999\] {
   z-index: 99999;
-}
-.z-\[9\] {
-  z-index: 9;
 }
 .m-0 {
   margin: 0px;
@@ -1588,10 +1579,6 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full {
   width: 100%;
-}
-.w-fit {
-  width: -moz-fit-content;
-  width: fit-content;
 }
 .min-w-0 {
   min-width: 0px;

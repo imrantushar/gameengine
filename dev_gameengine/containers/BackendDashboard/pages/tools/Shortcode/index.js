@@ -6,7 +6,7 @@ import { is_pro } from '@GFUtils/helper';
 // const proShortCode = is_pro
 // 	? [
 // 			{
-// 				title: __('Certificate Verification', 'academy'),
+// 				title: __('Certificate Verification', 'gameengine'),
 // 				shortCode: '[academy_pro_certificate_verification]',
 // 				description: `[academy_pro_certificate_verification]`,
 // 				url: 'https://academylms.net/Docs/how-to-use-the-certificate-verification-shortcode/',

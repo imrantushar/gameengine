@@ -37,13 +37,13 @@ const AddonCard = ({ item, value }) => {
           dispatch(fetchAddons());
 
           const statusMessage = payload?.active_addons[item.name]
-            ? __('Activated', 'academy')
-            : __('Deactivate', 'academy');
+            ? __('Activated', 'gameengine')
+            : __('Deactivate', 'gameengine');
 
           dispatch(
             showNotification({
               message: sprintf(
-                __('%1$s successfully %2$s', 'academy'),
+                __('%1$s successfully %2$s', 'gameengine'),
                 item.label,
                 statusMessage
               ),

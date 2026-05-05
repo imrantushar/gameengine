@@ -331,7 +331,7 @@ const Addons = () => {
                         ))
                       ) : (
                         <CustomTableMessage
-                          title={__('No Addons Found!', 'academy')}
+                          title={__('No Addons Found!', 'gameengine')}
                         />
                       )}
                     </div>

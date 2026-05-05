@@ -22,7 +22,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
 
     dispatch(
       showNotification({
-        message: __('Copied', 'academy'),
+        message: __('Copied', 'gameengine'),
         isShow: true,
         type: 'success',
       })
@@ -30,17 +30,17 @@ const ShortCodeItem = ({ shortCodeItem }) => {
   };
 
   return (
-    <div className="academy-short-code-item flex justify-between items-start pb-6">
-      <div className="academy-short-code-item__info w-full">
+    <div className="gameengine-short-code-item flex justify-between items-start pb-6">
+      <div className="gameengine-short-code-item__info w-full">
         <GFLabel type="title" margin={0} label={title} isPro={isPro} />
         <GFLabel type="subtitle" margin={0} label={subtitle} />
       </div>
 
-      <div className="academy-short-code-item__body flex flex-col w-full">
-        <div className="academy-short-code-details flex items-center gap-5">
-          <div className="academy-short-code-text flex w-full items-center">
+      <div className="gameengine-short-code-item__body flex flex-col w-full">
+        <div className="gameengine-short-code-details flex items-center gap-5">
+          <div className="gameengine-short-code-text flex w-full items-center">
             <input
-              className="academy-short-code-text__shortcode gameengine-input ![border:1px_solid_var(--gameengine-border-color)_]"
+              className="gameengine-short-code-text__shortcode gameengine-input ![border:1px_solid_var(--gameengine-border-color)_]"
               style={{
                 borderRight: 'none !important',
                 outline: 'none',
@@ -58,7 +58,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
             />
 
             <button
-              className="academy-btn--copy rounded h-[36px] [border:1px_solid_var(--gameengine-border-color)]"
+              className="gameengine-btn--copy rounded h-[36px] [border:1px_solid_var(--gameengine-border-color)]"
               style={{
                 cursor: isPro ? 'not-allowed' : 'pointer',
                 borderTopLeftRadius: 0,
@@ -72,7 +72,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
           </div>
 
           <button
-            className="academy-btn--link rounded-full w-10 h-[36px] [border:1px_solid_var(--gameengine-border-color)]"
+            className="gameengine-btn--link rounded-full w-10 h-[36px] [border:1px_solid_var(--gameengine-border-color)]"
             style={{
               cursor: isPro ? 'not-allowed' : 'pointer',
             }}
@@ -85,7 +85,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
           </button>
         </div>
 
-        <div className="academy-short-code-description flex pt-1">
+        <div className="gameengine-short-code-description flex pt-1">
           <div className="flex break-all">
             <p
               className="font-normal text-xs m-0 italic"
@@ -94,7 +94,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
                 color: '#707070',
               }}
             >
-              {__('You can use: ', 'academy') + shortCode} <br />{' '}
+              {__('You can use: ', 'gameengine') + shortCode} <br />{' '}
               {description}
             </p>
           </div>
