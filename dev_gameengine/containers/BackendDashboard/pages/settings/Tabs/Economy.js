@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import { __ } from '@wordpress/i18n';
 import { useFormikContext } from 'formik';
 import SettingsInner from '../Components/SettingsInner';
@@ -61,19 +61,11 @@ export const Economy = () => {
             'gameengine'
           )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
             checked={Boolean(values?.economy?.enable_gateway)}
-            onCheckedChange={(changes) => {
-              setFieldValue('economy.enable_gateway', changes.checked);
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            onChange={(val) => setFieldValue('economy.enable_gateway', val)}
+          />
         </SettingsInput>
 
         <SettingsInput
@@ -84,22 +76,11 @@ export const Economy = () => {
             'gameengine'
           )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
             checked={Boolean(values?.economy?.enable_partial_payment)}
-            onCheckedChange={(changes) => {
-              setFieldValue(
-                'economy.enable_partial_payment',
-                changes.checked
-              );
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            onChange={(val) => setFieldValue('economy.enable_partial_payment', val)}
+          />
         </SettingsInput>
       </div>
     </SettingsInner>

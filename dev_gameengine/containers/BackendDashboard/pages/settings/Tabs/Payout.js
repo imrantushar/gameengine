@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import { useFormikContext } from 'formik';
 import Select from 'react-select';
 import GameEngineBox from '@GFComponents/GameEngineBox';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import SettingsInput from '../Components/SettingsInput';
 import { is_pro } from '@GFUtils/helper';
 
@@ -31,20 +31,11 @@ const Payout = () => {
           'gameengine'
         )}
       >
-        <Switch.Root
-          colorPalette="blue"
-          size="sm"
-          mt="0.5"
+        <Switch
           disabled={!is_pro}
-          aria-label="Select row"
-          checked={values?.payout?.enable_payout}
-          onCheckedChange={(changes) => {
-            setFieldValue('payout.enable_payout', changes.checked);
-          }}
-        >
-          <Switch.HiddenInput />
-          <Switch.Control />
-        </Switch.Root>
+          checked={Boolean(values?.payout?.enable_payout)}
+          onChange={(val) => setFieldValue('payout.enable_payout', val)}
+        />
       </SettingsInput>
 
       <SettingsInput

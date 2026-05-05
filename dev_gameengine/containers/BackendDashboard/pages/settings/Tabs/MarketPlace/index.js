@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 import { useFormikContext } from 'formik';
 import Select from 'react-select';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import SettingsInput from '../../Components/SettingsInput';
@@ -27,23 +27,11 @@ const MarketPlace = () => {
                 'gameengine'
               )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
-            aria-label="Select row"
-            checked={values?.marketplace?.enable_marketplace}
-            onCheckedChange={(changes) => {
-              setFieldValue(
-                'marketplace.enable_marketplace',
-                changes.checked
-              );
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            checked={Boolean(values?.marketplace?.enable_marketplace)}
+            onChange={(val) => setFieldValue('marketplace.enable_marketplace', val)}
+          />
         </SettingsInput>
       </div>
 

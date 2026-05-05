@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import { __ } from "@wordpress/i18n";
 import { FaLock } from 'react-icons/fa6';
 import Select from "react-select";
@@ -52,20 +52,11 @@ const ReferralSettings = () => {
                         label={__("Enable Referral System", "gameengine")}
                         subtitle={__('Turn the entire referral & affiliate tracking system on or off.', 'gameengine')}
                     >
-                        <Switch.Root
-                            colorPalette="blue"
-                            size="sm"
-                            mt="0.5"
-                            aria-label="Enable referral system"
+                        <Switch
                             checked={referral?.enabled === 'yes'}
                             disabled={isDisabled}
-                            onCheckedChange={(changes) => {
-                                setFieldValue('referral.enabled', changes.checked ? 'yes' : 'no');
-                            }}
-                        >
-                            <Switch.HiddenInput />
-                            <Switch.Control />
-                        </Switch.Root>
+                            onChange={(val) => setFieldValue('referral.enabled', val ? 'yes' : 'no')}
+                        />
                     </SettingsInput>
 
                     {/* Referral URL Slug */}
@@ -136,20 +127,11 @@ const ReferralSettings = () => {
                         label={__("Enable Fraud Detection", "gameengine")}
                         subtitle={__('Monitor and flag suspicious referral patterns like multiple account signups from the same IP address.', 'gameengine')}
                     >
-                        <Switch.Root
-                            colorPalette="blue"
-                            size="sm"
-                            mt="0.5"
-                            aria-label="Enable fraud detection"
+                        <Switch
                             checked={referral?.fraud_detection_enabled === 'yes'}
                             disabled={isDisabled}
-                            onCheckedChange={(changes) => {
-                                setFieldValue('referral.fraud_detection_enabled', changes.checked ? 'yes' : 'no');
-                            }}
-                        >
-                            <Switch.HiddenInput />
-                            <Switch.Control />
-                        </Switch.Root>
+                            onChange={(val) => setFieldValue('referral.fraud_detection_enabled', val ? 'yes' : 'no')}
+                        />
                     </SettingsInput>
 
                     {/* Max Accounts Per IP */}

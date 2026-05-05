@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Switch, } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import { __ } from "@wordpress/i18n";
 import SettingsInput from '../Components/SettingsInput';
 import GameEngineBox from '@GFComponents/GameEngineBox';
@@ -66,13 +66,9 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
         navigator.clipboard.writeText(tag);
     };
 
-    const CustomSwitch = ({
-        isChecked,
-        onChange
-    }) => <Switch.Root colorPalette="blue" size="sm" checked={isChecked} onCheckedChange={details => onChange(details.checked)}>
-            <Switch.HiddenInput />
-            <Switch.Control />
-        </Switch.Root>;
+    const CustomSwitch = ({ isChecked, onChange }) => (
+        <Switch checked={isChecked} onChange={onChange} />
+    );
 
     return (
         <div className="w-full">

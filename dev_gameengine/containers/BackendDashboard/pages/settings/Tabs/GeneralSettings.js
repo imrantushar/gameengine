@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import { __ } from '@wordpress/i18n';
 import Select from 'react-select';
 import { useFormikContext } from 'formik';
@@ -118,31 +118,17 @@ const GeneralSettings = () => {
               'gameengine'
             )}
           >
-            <Switch.Root
-              colorPalette="blue"
-              size="sm"
-              mt="0.5"
-              aria-label="Select row"
+            <Switch
               checked={values?.logs?.log_levels?.includes('success')}
-              onCheckedChange={(changes) => {
-                if (changes.checked) {
-                  setFieldValue('logs.log_levels', [
-                    ...values?.logs?.log_levels,
-                    'success',
-                  ]);
-                } else {
-                  setFieldValue(
-                    'logs.log_levels',
-                    values?.logs?.log_levels.filter(
-                      (item) => item !== 'success'
-                    )
-                  );
-                }
+              onChange={(val) => {
+                setFieldValue(
+                  'logs.log_levels',
+                  val
+                    ? [...values?.logs?.log_levels, 'success']
+                    : values?.logs?.log_levels.filter((item) => item !== 'success')
+                );
               }}
-            >
-              <Switch.HiddenInput />
-              <Switch.Control />
-            </Switch.Root>
+            />
           </SettingsInput>
 
           <SettingsInput
@@ -152,31 +138,17 @@ const GeneralSettings = () => {
               'gameengine'
             )}
           >
-            <Switch.Root
-              colorPalette="blue"
-              size="sm"
-              mt="0.5"
-              aria-label="Select row"
+            <Switch
               checked={values?.logs?.log_levels?.includes('error')}
-              onCheckedChange={(changes) => {
-                if (changes.checked) {
-                  setFieldValue('logs.log_levels', [
-                    ...values?.logs?.log_levels,
-                    'error',
-                  ]);
-                } else {
-                  setFieldValue(
-                    'logs.log_levels',
-                    values?.logs?.log_levels.filter(
-                      (item) => item !== 'error'
-                    )
-                  );
-                }
+              onChange={(val) => {
+                setFieldValue(
+                  'logs.log_levels',
+                  val
+                    ? [...values?.logs?.log_levels, 'error']
+                    : values?.logs?.log_levels.filter((item) => item !== 'error')
+                );
               }}
-            >
-              <Switch.HiddenInput />
-              <Switch.Control />
-            </Switch.Root>
+            />
           </SettingsInput>
         </div>
       </GameEngineBox>

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import Select from 'react-select';
 import SettingsInput from '../Components/SettingsInput';
 import SettingsInner from '../Components/SettingsInner';
-import { Switch } from '@GFComponents/UI';
+import Switch from '@GFComponents/Switch/Switch';
 import { is_pro } from '@GFUtils/helper';
 
 export default function Dashboard() {
@@ -77,22 +77,11 @@ export default function Dashboard() {
             'gameengine'
           )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
             checked={Boolean(values?.dashboard?.show_stats_widget)}
-            onCheckedChange={(changes) => {
-              setFieldValue(
-                'dashboard.show_stats_widget',
-                changes.checked
-              );
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            onChange={(val) => setFieldValue('dashboard.show_stats_widget', val)}
+          />
         </SettingsInput>
 
         <SettingsInput
@@ -103,19 +92,11 @@ export default function Dashboard() {
             'gameengine'
           )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
             checked={Boolean(values?.dashboard?.menu_payout)}
-            onCheckedChange={(changes) => {
-              setFieldValue('dashboard.menu_payout', changes.checked);
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            onChange={(val) => setFieldValue('dashboard.menu_payout', val)}
+          />
         </SettingsInput>
 
         <SettingsInput
@@ -126,22 +107,11 @@ export default function Dashboard() {
             'gameengine'
           )}
         >
-          <Switch.Root
-            colorPalette="blue"
-            size="sm"
-            mt="0.5"
+          <Switch
             disabled={!is_pro}
             checked={Boolean(values?.dashboard?.menu_marketplace)}
-            onCheckedChange={(changes) => {
-              setFieldValue(
-                'dashboard.menu_marketplace',
-                changes.checked
-              );
-            }}
-          >
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+            onChange={(val) => setFieldValue('dashboard.menu_marketplace', val)}
+          />
         </SettingsInput>
       </div>
     </SettingsInner>

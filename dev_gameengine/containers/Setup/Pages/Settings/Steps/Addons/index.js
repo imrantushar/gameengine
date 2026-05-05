@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
-import { Checkbox, } from '@GFComponents/UI';
+import Checkbox from '@GFComponents/Checkbox/Checkbox';
 import { academyLms, wooCommerce, tutorLms, storeEngine } from '@GFUtils/icons';
 import { is_academylms_active, is_woocommerce_active, is_tutorlms_active, is_storeengine_active, plugin_root_url } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -120,16 +120,7 @@ const Addons = () => {
               </div>
 
               <span className='ml-auto'>
-                <Checkbox.Root
-                  size="sm"
-                  mt="0.5"
-                  ml='auto'
-                  disabled={isDisabled}
-                  checked={isChecked}
-                  readOnly
-                >
-                  <Checkbox.Control />
-                </Checkbox.Root>
+                <Checkbox checked={isChecked} disabled={isDisabled} />
               </span>
             </div>
           );

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { Switch, } from "@GFComponents/UI";
+import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
@@ -308,29 +308,21 @@ const FormInner = () => {
         alignItems='center'
       >
         {isRestrictContentActive ? (
-          <Switch.Root checked={values.is_restricted} onCheckedChange={e => {
-            setFieldValue('is_restricted', e.checked);
-          }} colorPalette="blue" disabled={!isRestrictContentActive}>
-            <Switch.HiddenInput />
-            <Switch.Control />
-          </Switch.Root>
+          <Switch
+            checked={values.is_restricted}
+            onChange={(val) => setFieldValue('is_restricted', val)}
+            disabled={!isRestrictContentActive}
+          />
         ) : (
           <div className="flex items-center gap-4">
             <Link to={admin_url + 'admin.php?page=gameengine-addons'} target='_blank'>
               <LuExternalLink size="20px" />
             </Link>
-
-            <Switch.Root
+            <Switch
               checked={values.is_restricted}
-              onCheckedChange={e => {
-                setFieldValue('is_restricted', e.checked);
-              }}
-              colorPalette="blue"
+              onChange={(val) => setFieldValue('is_restricted', val)}
               disabled={!isRestrictContentActive}
-            >
-              <Switch.HiddenInput />
-              <Switch.Control />
-            </Switch.Root>
+            />
           </div>
         )}
       </GameEngineInput>
@@ -389,17 +381,13 @@ const FormInner = () => {
         </GameEngineInput>
       </div>}
 
-      <Switch.Root
-        checked={values.unlock_with_points_enabled}
-        onCheckedChange={e => {
-          setFieldValue('unlock_with_points_enabled', e.checked);
-        }}
-        colorPalette="blue"
-      >
-        <Switch.HiddenInput />
-        <Switch.Label fontSize="14px" fontWeight="500" lineHeight="20px">{__("Allow unlock with points", "gameengine")}</Switch.Label>
-        <Switch.Control />
-      </Switch.Root>
+      <div className="flex items-center gap-3">
+        <Switch
+          checked={values.unlock_with_points_enabled}
+          onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
+        />
+        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px' }}>{__("Allow unlock with points", "gameengine")}</span>
+      </div>
 
       {values?.unlock_with_points_enabled ? (
         <div className="gameengine-allow-unlock-point flex gap-3">

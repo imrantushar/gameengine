@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Spinner } from "@GFComponents/UI";
+import Spinner from '@GFComponents/Spinner/Spinner';
 import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import TopUsers from "./TopUsers";
