@@ -127,6 +127,20 @@ const shortCodeData = [
     url: 'https://gameengine.pro/docs/shortcodes/',
     isPro: is_pro === '1' ? false : true,
   },
+  {
+    title: __('Referral Dashboard', 'gameengine'),
+    shortCode: '[gameengine_referral_dashboard]',
+    subtitle: __(
+      'View your referral stats and earned rewards at a glance.',
+      'gameengine'
+    ),
+    description: __(
+      'Users can select payout methods like bKash or PayPal and provide their account details.',
+      'gameengine'
+    ),
+    url: 'https://gameengine.pro/docs/shortcodes/',
+    isPro: is_pro === '1' ? false : true,
+  },
 ];
 
 const ShortCode = () => {
