@@ -1968,10 +1968,10 @@ const AddonsCard = [{
   image: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.plugin_root_url + 'assets/images/restrict_unlock.svg',
   plugin_required: false
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WooCommerce Integration', 'gameengine'),
-  name: 'woocommerce',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Academy LMS Integration', 'gameengine'),
+  name: 'academylms',
   description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Boost interactions with content', 'gameengine'),
-  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.wooCommerce,
+  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.academyLms,
   plugin_required: true
 }, {
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('StoreEngine Integration', 'gameengine'),
@@ -1980,10 +1980,10 @@ const AddonsCard = [{
   icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.storeEngine,
   plugin_required: true
 }, {
-  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Academy LMS Integration', 'gameengine'),
-  name: 'academylms',
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('WooCommerce Integration', 'gameengine'),
+  name: 'woocommerce',
   description: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Boost interactions with content', 'gameengine'),
-  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.academyLms,
+  icon: _GFUtils_icons__WEBPACK_IMPORTED_MODULE_4__.wooCommerce,
   plugin_required: true
 }, {
   label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Tutor LMS Integration', 'gameengine'),

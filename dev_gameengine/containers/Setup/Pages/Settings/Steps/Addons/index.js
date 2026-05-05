@@ -31,10 +31,10 @@ const AddonsCard = [
     plugin_required: false
   },
   {
-    label: __('WooCommerce Integration', 'gameengine'),
-    name: 'woocommerce',
+    label: __('Academy LMS Integration', 'gameengine'),
+    name: 'academylms',
     description: __('Boost interactions with content', 'gameengine'),
-    icon: wooCommerce,
+    icon: academyLms,
     plugin_required: true
   },
   {
@@ -44,11 +44,11 @@ const AddonsCard = [
     icon: storeEngine,
     plugin_required: true
   },
-  {
-    label: __('Academy LMS Integration', 'gameengine'),
-    name: 'academylms',
+    {
+    label: __('WooCommerce Integration', 'gameengine'),
+    name: 'woocommerce',
     description: __('Boost interactions with content', 'gameengine'),
-    icon: academyLms,
+    icon: wooCommerce,
     plugin_required: true
   },
   {

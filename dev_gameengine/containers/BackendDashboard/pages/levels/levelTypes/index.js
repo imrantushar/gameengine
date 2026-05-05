@@ -9,10 +9,11 @@ import GameEngineBox from "@GFComponents/GameEngineBox";
 import { Formik } from "formik";
 import { getLevelsInitialValues } from "./helper";
 import FormInner from "./FormInner";
-import LevelsFormSkeleton from "./Components/LevelsFormSkeleton";
+import LevelsFormSkeleton from "@GFComponents/GameEngineLoader/LevelsFormSkeleton";
 import Button from '@GFComponents/Button';
 import { route_path, statusArray } from "@GFUtils/helper";
 import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
+
 const LevelType = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

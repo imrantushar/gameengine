@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "skills": {
+    "react": {
+      "source": "vercel-labs/json-render",
+      "sourceType": "github",
+      "skillPath": "skills/react/SKILL.md",
+      "computedHash": "67d6daabd85c23cc58eeabea56f25b899723932dfb69c55ddae4990b43c918d2"
+    },
+    "tailwind-design-system": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/frontend-mobile-development/skills/tailwind-design-system/SKILL.md",
+      "computedHash": "f54f39ce967af3a4bba1f662c3600f0253467508d5fbbc7c545c67e102da2253"
+    },
+    "wp-plugin-development": {
+      "source": "wordpress/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/wp-plugin-development/SKILL.md",
+      "computedHash": "40af067f51996d7aec27afa4cb16c9db6f2458ecfd2c832e3c3036ef0cfb0a25"
+    }
+  }
+}

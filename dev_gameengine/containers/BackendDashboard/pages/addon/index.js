@@ -9,7 +9,6 @@ import Search from '@GFComponents/Search';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import AddOnsLoader from '@GFComponents/GameEngineLoader/AddOnsLoader';
 import CustomTableMessage from '@GFComponents/Oops/CustomTableMessage';
-import GFLabel from '@GFComponents/Labels/GFLabel';
 import { fetchAddons } from '@GFRedux/Slices/addonsSlice/addonsSlice';
 import {
   academyLms,
@@ -19,7 +18,6 @@ import {
   referralIcon,
 } from '@GFUtils/icons';
 import { plugin_root_url } from '@GFUtils/helper';
-import { outlineBtn } from '../../../../../assets/scss/chakra/recipe';
 import Button from '@GFComponents/Button';
 
 const infoCardsData = [
