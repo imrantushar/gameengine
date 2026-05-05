@@ -10,5 +10,6 @@ prepros.config
 bin
 *.log
 
+openspec/
 .agents/
 .claude/
