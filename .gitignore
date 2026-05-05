@@ -9,3 +9,6 @@ assets/js/*.txt
 prepros.config
 bin
 *.log
+
+.agent/
+.claude/
