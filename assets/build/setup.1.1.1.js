@@ -2187,7 +2187,6 @@ const DataPreview = () => {
     className: "grid grid-cols-3 gap-4 max-w-[900px] mx-auto"
   }, previewCards.map((item, idx) => {
     const isSelected = item.slug === values.preset;
-    console.log(isSelected, 'is');
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
       className: `flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all border-[1px] border-solid
   ${isSelected ? 'border-blue-500 bg-blue-50 shadow-sm' : 'border-gray-200 bg-white hover:border-gray-300'}`,
