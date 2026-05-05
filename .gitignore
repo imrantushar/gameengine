@@ -10,5 +10,5 @@ prepros.config
 bin
 *.log
 
-.agent/
+.agents/
 .claude/
