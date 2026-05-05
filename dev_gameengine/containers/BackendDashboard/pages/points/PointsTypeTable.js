@@ -157,11 +157,7 @@ const PointTypesTable = () => {
     {
       name: __('Date', 'gameengine'),
       cell: row => (
-        <div>
-          <p className="m-0">
-            {moment(row?.created_at).format('MMMM DD, YYYY')}
-          </p>
-        </div>
+        <span className="text-sm">{moment(row?.created_at).format('MMMM DD, YYYY')}</span>
       ),
       columnWidth: "10%"
     },

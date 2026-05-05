@@ -141,11 +141,7 @@ const LevelTable = () => {
     {
       name: __('Date', 'gameengine'),
       cell: row => (
-        <div>
-          <p className="m-0">
-            {moment(row?.created_at).format('MMMM DD, YYYY')}
-          </p>
-        </div>
+        <span className="text-sm">{moment(row?.created_at).format('MMMM DD, YYYY')}</span>
       )
     },
     {
@@ -195,7 +191,7 @@ const LevelTable = () => {
               label: __('Delete', 'gameengine'),
               icon: <FiTrash2 />,
               onClick: () => {
-                if (confirm('Delete level?')) {
+                if (window.confirm(__('Are you sure?', 'gameengine'))) {
                   dispatch(deleteLevel(row.id));
                 }
               }

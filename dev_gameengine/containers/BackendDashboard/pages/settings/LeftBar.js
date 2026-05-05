@@ -62,8 +62,8 @@ const LeftBar = () => {
     },
   ];
 
-  return <div className="flex flex-col sticky top-0 self-start bg-white rounded [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
-    <div className="flex flex-col items-stretch p-2" spacing={0}>
+  return <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
+    <div className="flex flex-col items-stretch p-2">
       {menuList.map((item, i) => {
         const isActive = currentTab === item.key;
         return (

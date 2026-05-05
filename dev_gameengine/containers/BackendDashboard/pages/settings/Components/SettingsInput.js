@@ -13,7 +13,7 @@ const SettingsInput = ({
             <p className="items-center m-0 text-white rounded-sm leading-none uppercase inline-flex bg-[#FFA943] px-1.5 py-[3px] text-[10px]">
                 {__('PRO', 'gameengine')}
             </p>
-            <FaLock color="orange.400" />
+            <FaLock color="#FFA943" />
         </div>
     );
 

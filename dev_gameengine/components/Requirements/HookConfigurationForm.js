@@ -39,8 +39,8 @@ const DynamicField = ({
     displayLabel = type === 'award' ? __('Award Log Description', 'gameengine') : __('Deduction Log Description', 'gameengine');
   }
   const labelElement = <div className="mb-2">
-            <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} isPro={config.is_pro} fontSize="sm" fontWeight="500" margin="0" />
-        </div>;
+    <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} isPro={config.is_pro} fontSize="sm" fontWeight="500" margin="0" />
+  </div>;
   if (config.type === 'select' || config.type === 'dynamic_select') {
     const optionsSource = config.options ? Array.isArray(config.options) ? config.options : Object.entries(config.options).map(([val, lbl]) => ({
       value: val,
@@ -50,39 +50,39 @@ const DynamicField = ({
       "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
       "opacity": isDisabled ? 0.7 : 1
     }}>
-                {labelElement}
+      {labelElement}
 
-                <Select isMulti={config?.is_multi} isDisabled={isDisabled} isLoading={loading} placeholder={isDisabled ? __('Upgrade to Pro', 'gameengine') : __('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
+      <Select isMulti={config?.is_multi} isDisabled={isDisabled} isLoading={loading} placeholder={isDisabled ? __('Upgrade to Pro', 'gameengine') : __('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
         if (config?.is_multi) {
           onChange(val ? val.map(v => v.value) : []);
         } else {
           onChange(val ? val.value : '');
         }
       }} />
-            </div>;
+    </div>;
   }
   if (config.type === 'switch') {
     return <div className="flex items-center justify-between p-2 border border-dashed border-gray-200 rounded-md" style={{
       "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
       "opacity": isDisabled ? 0.6 : 1
     }}>
-                <div>
-                    <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
-                    {config.description && <p className="text-xs text-gray-500 mt-0.5">{config.description}</p>}
-                </div>
-                <button onClick={() => onChange(!value)}>
-                    {value ? __('Enabled', 'gameengine') : __('Disabled', 'gameengine')}
-                </button>
-            </div>;
+      <div>
+        <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
+        {config.description && <p className="text-xs text-gray-500 mt-0.5">{config.description}</p>}
+      </div>
+      <button onClick={() => onChange(!value)}>
+        {value ? __('Enabled', 'gameengine') : __('Disabled', 'gameengine')}
+      </button>
+    </div>;
   }
   return <div style={{
     "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
     "opacity": isDisabled ? 0.7 : 1
   }}>
-            <GameEngineInput label={displayLabel} isPro={config.is_pro}>
-                <input style={commonInput} label={displayLabel} placeholder={isDisabled ? __('Locked Feature', 'gameengine') : config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
-            </GameEngineInput>
-        </div>;
+    <GameEngineInput label={displayLabel} isPro={config.is_pro}>
+      <input style={commonInput} label={displayLabel} placeholder={isDisabled ? __('Locked Feature', 'gameengine') : config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
+    </GameEngineInput>
+  </div>;
 };
 
 const DynamicHookForm = ({
@@ -99,17 +99,19 @@ const DynamicHookForm = ({
   const {
     values
   } = useFormikContext();
-  return <CustomCollapsible label={(type === 'deduct' ? __('Deduct: ', 'gameengine') : '') + (hookInfo?.label || hookId)} desc={hookInfo?.subTitle} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} singleIcon={true}>
-            <div className="gameengine-active-hooks__inner flex flex-wrap w-full gap-4">
-                {fieldsConfig.map(config => {
-        if (config.scope && !config.scope.includes(scope)) {
-          return;
-        }
-        const currentHook = values.requirements.find(item => item.trigger_key === hookId && item.action_type === type);
-        return <DynamicField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} type={type} parameters={currentHook?.parameters} onChange={val => handleChange(config.key, val, hookInfo.id)} />;
-      })}
-            </div>
-        </CustomCollapsible>;
+  return (
+    <CustomCollapsible label={(type === 'deduct' ? __('Deduct: ', 'gameengine') : '') + (hookInfo?.label || hookId)} desc={hookInfo?.subTitle} isOpen={isOpen} onClick={() => setIsOpen(!isOpen)} singleIcon={true}>
+      <div className="gameengine-active-hooks__inner flex flex-wrap w-full gap-3 pt-3">
+        {fieldsConfig.map(config => {
+          if (config.scope && !config.scope.includes(scope)) {
+            return;
+          }
+          const currentHook = values.requirements.find(item => item.trigger_key === hookId && item.action_type === type);
+          return <DynamicField key={config.key} fieldKey={config.key} config={config} value={settings[config.key] ?? config.default ?? ''} integrationSlug={hookInfo.integrationSlug} type={type} parameters={currentHook?.parameters} onChange={val => handleChange(config.key, val, hookInfo.id)} />;
+        })}
+      </div>
+    </CustomCollapsible>
+  );
 };
 
 const HookConfigurationForm = ({
@@ -140,9 +142,11 @@ const HookConfigurationForm = ({
     });
     setFieldValue('requirements', updatedFieldValue);
   };
-  return <div className="gameengine-active-hooks bg-white rounded mb-2">
-            <DynamicHookForm hookId={hookId} hookInfo={hookInfo} type={type} settings={currentSettings || {}} handleChange={handleChange} isOpen={isOpen} setIsOpen={setIsOpen} scope={scope} />
-        </div>;
+  return (
+    <div className="gameengine-active-hooks bg-white rounded-lg mb-2 border border-solid border-[var(--gameengine-border-color)]">
+      <DynamicHookForm hookId={hookId} hookInfo={hookInfo} type={type} settings={currentSettings || {}} handleChange={handleChange} isOpen={isOpen} setIsOpen={setIsOpen} scope={scope} />
+    </div>
+  );
 };
 
 export default HookConfigurationForm;

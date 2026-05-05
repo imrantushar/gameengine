@@ -48,6 +48,7 @@ const TypesTable = ({
   }, [type]);
 
   const deleteHandler = row => {
+    if (!window.confirm(__('Are you sure?', 'gameengine'))) return;
     if (type === "achievement") {
       dispatch(deleteAchievementType(row.id));
     }

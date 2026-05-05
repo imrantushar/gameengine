@@ -8,7 +8,7 @@ const SettingsInner = ({
 }) => {
   return (
     <div
-      className="rounded p-6 bg-[var(--gameengine-background)] shadow-[var(--gameengine-shadow)]"
+      className="rounded-lg p-6 bg-[var(--gameengine-background)] shadow-[var(--gameengine-shadow)]"
       style={{ "width": fullWidth ? "100%" : width ? width : "" }}
     >
       <p className="gameengine-settings-heading">

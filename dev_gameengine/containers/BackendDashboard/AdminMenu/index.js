@@ -61,6 +61,7 @@ const AdminMenu = () => {
 					}
 					const menuItemClassName =
 						index === 0 ? 'wp-first-item ' : '';
+
 					return (
 						<MenuItem
 							className={
@@ -75,8 +76,9 @@ const AdminMenu = () => {
 						>
 							<Link
 								to={`${route_path}admin.php?page=${key}`}
+								style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}
 							>
-								{item.title}
+								<span>{item.title}</span>
 								{item?.sub_items && (
 									<LiaAngleRightSolid color={'#fff'} />
 								)}

@@ -87,7 +87,7 @@ const AchievementsTable = () => {
   }, []);
 
   const handleDelete = id => {
-    if (confirm(__('Are you sure?', 'gameengine'))) {
+    if (window.confirm(__('Are you sure?', 'gameengine'))) {
       dispatch(deleteAchievement(id));
     }
   };
@@ -141,11 +141,7 @@ const AchievementsTable = () => {
     {
       name: __('Date', 'gameengine'),
       cell: row => (
-        <div>
-          <p className="m-0">
-            {moment(row?.created_at).format('MMMM DD, YYYY')}
-          </p>
-        </div>
+        <span className="text-sm">{moment(row?.created_at).format('MMMM DD, YYYY')}</span>
       )
     },
     {
