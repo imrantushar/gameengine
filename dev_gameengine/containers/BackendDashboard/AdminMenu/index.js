@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { __ } from '@wordpress/i18n';
 import {
 	route_path,
 	toplevel_menu_icon_url,
-	toplevel_menu_title,
 	is_pro,
 	plugin_root_url,
 	useQuery,
 } from '@GFUtils/helper';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
-import { Icon } from '@GFComponents/UI';
 import { LiaAngleRightSolid } from "react-icons/lia";
 
 const AdminMenu = () => {
@@ -63,6 +61,7 @@ const AdminMenu = () => {
 					}
 					const menuItemClassName =
 						index === 0 ? 'wp-first-item ' : '';
+
 					return (
 						<MenuItem
 							className={
@@ -77,10 +76,11 @@ const AdminMenu = () => {
 						>
 							<Link
 								to={`${route_path}admin.php?page=${key}`}
+								style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}
 							>
-								{item.title}
+								<span>{item.title}</span>
 								{item?.sub_items && (
-									<Icon className='gameengine-icon gameengine-icon--angle-right' color={'#fff'} as={LiaAngleRightSolid} />
+									<LiaAngleRightSolid color={'#fff'} />
 								)}
 							</Link>
 						</MenuItem>

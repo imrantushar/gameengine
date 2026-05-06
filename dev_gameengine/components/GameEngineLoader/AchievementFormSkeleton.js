@@ -1,9 +1,11 @@
-import { Skeleton } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import TopbarLoader from "./TopbarLoader";
+import Skeleton from "./Skeleton";
+
 const AchievementFormLoader = () => {
-  return <>
+  return (
+    <>
       <TopbarLoader />
 
       <GameEngineBox heading={<Skeleton height="20px" width="50%" />}>
@@ -52,6 +54,7 @@ const AchievementFormLoader = () => {
           </div>
         </div>
       </GameEngineBox>
-    </>;
+    </>
+  );
 };
 export default AchievementFormLoader;

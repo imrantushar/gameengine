@@ -18,6 +18,7 @@ import Dashboard from './Tabs/Dashboard';
 import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
 import ReferralSettings from './Tabs/ReferralSettings';
+
 const Settings = () => {
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
@@ -28,6 +29,7 @@ const Settings = () => {
   const [settingsLoading, setSettingsLoading] = useState(!settingsData);
   const dispatch = useDispatch();
   const isEmailTab = tab === 'email_templates';
+
   useEffect(() => {
     if (!settingsData) {
       setSettingsLoading(true);
@@ -36,6 +38,7 @@ const Settings = () => {
       });
     }
   }, []);
+
   const onSubmitHandle = async (values, actions) => {
     try {
       switch (tab) {
@@ -59,7 +62,7 @@ const Settings = () => {
           await dispatch(saveSettings({ key: 'email_templates', payloadData: values.email_templates }));
           break;
         case "referral":
-          await dispatch(saveSettings({key: 'referral', payloadData: values.referral}));
+          await dispatch(saveSettings({ key: 'referral', payloadData: values.referral }));
           break;
         default:
           break;
@@ -70,39 +73,34 @@ const Settings = () => {
       actions.setSubmitting(false);
     }
   };
+
   return <>
     {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
-      {({
-        handleSubmit,
-        isSubmitting,
-        dirty
-      }) => {
+      {({ handleSubmit, isSubmitting, dirty }) => {
         return <>
           <TopBar path={__("Settings", "gameengine")} rightContent={<>
-            {isEmailTab ? 
+            {isEmailTab ?
               null : (
-              <Button
-                label={__('Save Changes', 'gameengine')}
-                loadingLabel={__('Save Changes', 'gameengine')}
-                isLoading={isSubmitting}
-                isDisabled={!dirty || isSubmitting}
-                onClick={handleSubmit}
-              />
-            )}
+                <Button
+                  label={__('Save Changes', 'gameengine')}
+                  loadingLabel={__('Save Changes', 'gameengine')}
+                  isLoading={isSubmitting}
+                  isDisabled={!dirty || isSubmitting}
+                  onClick={handleSubmit}
+                />
+              )}
 
             <GetHelp filterText={['setting']} />
           </>} />
 
           <div className='gameengine-page-content'>
-            <div className="flex justify-between items-center" style={{
-              "padding": "24px 0"
-            }}>
-              <GFLabel type="plainHeading" margin={0} label={__("Settings", "gameengine")} />
-            </div>
+            <h2 className="gameengine-page-heading py-6">
+              {__("Settings", "gameengine")}
+            </h2>
 
             <div className="flex items-start gap-4">
-
               <LeftBar />
+
               <div className="gameengine-fade-in w-full" key={tab}>
                 {tab === "dashboard" && <Dashboard />}
                 {tab === "log" && <GeneralSettings />}
@@ -120,4 +118,5 @@ const Settings = () => {
     </Formik>}
   </>;
 };
+
 export default Settings;

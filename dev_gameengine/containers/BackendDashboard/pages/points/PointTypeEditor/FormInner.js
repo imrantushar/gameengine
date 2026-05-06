@@ -1,6 +1,5 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Icon } from '@GFComponents/UI';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
@@ -8,19 +7,14 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import { SiWoocommerce } from "react-icons/si";
 import { useFormikContext } from 'formik';
 import GameEngineInput from '@GFComponents/GameEngineInput';
-import { commonInput } from '../../../../../../assets/scss/chakra/recipe';
 import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoader';
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
 import { arrowForward } from '@GFUtils/icons';
 import { getAddonActiveStatus } from '@GFUtils/helper';
-const FormInner = ({
-  hooksLoading
-}) => {
-  const {
-    values,
-    setFieldValue
-  } = useFormikContext();
+
+const FormInner = ({ hooksLoading }) => {
+  const { values, setFieldValue } = useFormikContext();
   const [pointAwards, setPointAwards] = useState(true);
   const [pointDeductions, setPointDeductions] = useState(false);
   const [openedAwardHooks, setOpenedAwardHooks] = useState([]);
@@ -31,43 +25,48 @@ const FormInner = ({
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
   const isTutorLmsActive = getAddonActiveStatus(addons, 'tutorlms');
+
   const wooIcon = isWoocommerceActive ? {
     woocommerce: {
       icon: SiWoocommerce,
       bg: "#96588a"
     }
   } : {};
+
   const academy = isAcademyActive ? {
     academylms: {
       icon: FaGraduationCap,
       bg: "#7b68ee"
     }
   } : {};
+
   const tutorIcon = isTutorLmsActive ? {
     tutorlms: {
       icon: FaGraduationCap,
       bg: "#10b981"
     }
   } : {};
+
   const sensors = useSensors(useSensor(PointerSensor, {
     activationConstraint: {
       distance: 5
     }
   }));
-  const {
-    allHooks,
-    hookSettings
-  } = useSelector(state => state.pointType);
+
+  const { allHooks, hookSettings } = useSelector(state => state.pointType);
+
   const selectedAwardHookIds = useMemo(() => {
     if (values?.requirements?.length > 0) {
       return values?.requirements.map(item => item?.action_type === 'award' && item?.trigger_key);
     }
   }, [values?.requirements]);
+
   const selectedDeductHookIds = useMemo(() => {
     if (values?.requirements?.length > 0) {
       return values?.requirements.map(item => item?.action_type === 'deduct' && item?.trigger_key);
     }
   }, [values?.requirements]);
+
   const hookCategoryIconMap = {
     wordpress: {
       icon: FaWordpressSimple,
@@ -81,6 +80,7 @@ const FormInner = ({
       bg: "#006BFF"
     }
   };
+
   const getParamsFromSchema = (hook, type) => {
     const settings = hookSettings[`${type}_${hook.id}`] || {};
     const params = {};
@@ -89,10 +89,8 @@ const FormInner = ({
     });
     return params;
   };
-  const handleDragEnd = ({
-    active,
-    over
-  }) => {
+
+  const handleDragEnd = ({ active, over }) => {
     if (!over) return;
     const draggedId = active.id;
     const requirements = values?.requirements;
@@ -144,63 +142,118 @@ const FormInner = ({
       }
     }
   };
+
   const renderHookCard = (item, type) => {
     const slug = item?.integrationSlug || item?.category || 'wordpress';
     const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
-    return <DraggableItem key={`${type}_${item?.id}`} id={`${type}_${item?.id}`}>
-      <div className="flex flex-col gap-1.5">
-        <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
-          "padding": "10px 16px"
-        }}>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{
-              "background": config.bg
-            }}>
-              <Icon as={config.icon} boxSize={3} color={'#fff'} />
-            </div>
-            <GFLabel type="title" fontWeight="400" label={item?.label} />
-          </div>
 
-          <div className="items-center justify-center rounded-full w-6 h-6 flex text-white" style={{
-            "background": type === 'award' ? "#0CDC01" : "#FF3E2F"
+    return (
+      <DraggableItem key={`${type}_${item?.id}`} id={`${type}_${item?.id}`}>
+        <div className="flex flex-col gap-1.5">
+          <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
+            "padding": "10px 16px"
           }}>
-            <Icon as={arrowForward} />
-          </div>
-        </div>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center justify-center rounded-full w-6 h-6 text-white" style={{ "background": config?.bg }}>
+                {config?.icon()}
+              </div>
+              <GFLabel type="title" fontWeight="400" label={item?.label} />
+            </div>
 
-        <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
-      </div>
-    </DraggableItem>;
+            <div className="items-center justify-center rounded-full w-6 h-6 flex text-white" style={{
+              "background": type === 'award' ? "#0CDC01" : "#FF3E2F"
+            }}>
+              {arrowForward()}
+            </div>
+          </div>
+
+          <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+        </div>
+      </DraggableItem>
+    );
   };
+
   const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({
     label: slug.charAt(0).toUpperCase() + slug.slice(1),
     value: slug
   }));
-  return <>
-    <div className="flex gap-3">
-      <GameEngineInput label={__("Point Name", "gameengine")}>
-        <input className='gameengine-input' placeholder={__("Enter point name", "gameengine")} value={values?.name} onChange={e => {
-          const value = e.target.value;
-          setFieldValue('name', value);
-        }} {...commonInput} />
-      </GameEngineInput>
-    </div>
 
-    {hooksLoading ? <RequirementsLoader /> : <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
-      <Requirements label={__("Automatic Point Awards", "gameengine")} onClick={e => {
-        e.stopPropagation();
-        setPointAwards(!pointAwards);
-      }} open={pointAwards} parent="gameengine-points-automatic-point-awards" child="gameengine-points-automatic-point-awards-wrap" childLeft="gameengine-points-automatic-point-awards-available-hooks" childRight="gameengine-points-automatic-point-awards-active-hooks" hookTypeOptions={hookTypeOptions} filterHookType={checkedItem => {
-        setSelectedFilterHookType(checkedItem);
-      }} renderHookCard={renderHookCard} allHooks={allHooks} hookSettings={hookSettings} openHookType={openedAwardHooks} setOpenHookType={setOpenedAwardHooks} selectedHookIds={selectedAwardHookIds} actionName="award" selectedFilterType={selectedFilterHookType} scope="point_type" />
+  return (
+    <>
+      <div className="flex gap-3">
+        <GameEngineInput label={__("Point Name", "gameengine")}>
+          <input
+            className='gameengine-input'
+            placeholder={__("Enter point name", "gameengine")}
+            value={values?.name}
+            onChange={e => {
+              const value = e.target.value;
+              setFieldValue('name', value);
+            }}
+          />
+        </GameEngineInput>
+      </div>
 
-      <Requirements label={__("Automatic Point Deductions", "gameengine")} onClick={e => {
-        e.stopPropagation();
-        setPointDeductions(!pointDeductions);
-      }} open={pointDeductions} parent="gameengine-points-automatic-point-deductions" child="gameengine-points-automatic-point-deductions-wrap" childLeft="gameengine-points-automatic-point-deductions-available-hooks" childRight="gameengine-points-automatic-point-deductions-active-hooks" hookTypeOptions={hookTypeOptions} filterHookType={checkedItem => {
-        setSelectedDeductFilterType(checkedItem);
-      }} renderHookCard={renderHookCard} allHooks={allHooks} hookSettings={hookSettings} openHookType={openedDeductHooks} setOpenHookType={setOpenedDeductHooks} selectedHookIds={selectedDeductHookIds} actionName="deduct" selectedFilterType={selectedDeductFilterType} scope="point_type" />
-    </DndContext>}
-  </>;
+      {hooksLoading ? (
+        <RequirementsLoader />
+      ) : (
+        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+          <Requirements
+            label={__("Automatic Point Awards", "gameengine")}
+            onClick={e => {
+              e.stopPropagation();
+              setPointAwards(!pointAwards);
+            }}
+            open={pointAwards}
+            parent="gameengine-points-automatic-point-awards"
+            child="gameengine-points-automatic-point-awards-wrap"
+            childLeft="gameengine-points-automatic-point-awards-available-hooks"
+            childRight="gameengine-points-automatic-point-awards-active-hooks"
+            hookTypeOptions={hookTypeOptions}
+            filterHookType={checkedItem => {
+              setSelectedFilterHookType(checkedItem);
+            }}
+            renderHookCard={renderHookCard}
+            allHooks={allHooks}
+            hookSettings={hookSettings}
+            openHookType={openedAwardHooks}
+            setOpenHookType={setOpenedAwardHooks}
+            selectedHookIds={selectedAwardHookIds}
+            actionName="award"
+            selectedFilterType={selectedFilterHookType}
+            scope="point_type"
+            externalClasses="mt-6 mb-6"
+          />
+
+          <Requirements
+            label={__("Automatic Point Deductions", "gameengine")}
+            onClick={e => {
+              e.stopPropagation();
+              setPointDeductions(!pointDeductions);
+            }}
+            open={pointDeductions}
+            parent="gameengine-points-automatic-point-deductions"
+            child="gameengine-points-automatic-point-deductions-wrap"
+            childLeft="gameengine-points-automatic-point-deductions-available-hooks"
+            childRight="gameengine-points-automatic-point-deductions-active-hooks"
+            hookTypeOptions={hookTypeOptions}
+            filterHookType={checkedItem => {
+              setSelectedDeductFilterType(checkedItem);
+            }}
+            renderHookCard={renderHookCard}
+            allHooks={allHooks}
+            hookSettings={hookSettings}
+            openHookType={openedDeductHooks}
+            setOpenHookType={setOpenedDeductHooks}
+            selectedHookIds={selectedDeductHookIds}
+            actionName="deduct"
+            selectedFilterType={selectedDeductFilterType}
+            scope="point_type"
+          />
+        </DndContext>
+      )}
+    </>
+  );
 };
+
 export default FormInner;

@@ -1,19 +1,19 @@
 import React from 'react';
-import { Skeleton, Table } from '@GFComponents/UI';
+import Skeleton from './Skeleton';
 
-const TableLoading = ({ makeItems = 5 }) => {
+const TableLoading = ({ rows = 5, cols = 5 }) => {
     return (
-        <Table.Root>
-            <Table.Body>
-                {[...Array(makeItems)].map((_, i) => (
-                    <Table.Row>
-                        {[...Array(makeItems)].map((_, i) => (
-                            <Table.Cell key={i}><Skeleton height="16px" width="100%" /></Table.Cell>
-                        ))}
-                    </Table.Row>
-                ))}
-            </Table.Body>
-        </Table.Root>
+        <table className="w-full border-separate border-spacing-y-2">
+            {[...Array(rows)].map((_, rowIndex) => (
+                <tr key={rowIndex}>
+                    {[...Array(cols)].map((_, colIndex) => (
+                        <td key={colIndex}>
+                            <Skeleton />
+                        </td>
+                    ))}
+                </tr>
+            ))}
+        </table>
     );
 };
 

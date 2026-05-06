@@ -119,9 +119,10 @@
     }
     &--bg-gray,
     &--preset-gray {
-        background: var(--gameengine-border-color);
+        background: transparent;
+        border: 1px solid var(--gameengine-border-color);
         &:hover, &:focus {
-            background: var(--gameengine-gray-color);
+            background: var(--gameengine-secondary-color);
         }
     }
     &--preset-white {

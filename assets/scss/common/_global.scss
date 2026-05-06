@@ -6,17 +6,17 @@
     --gameengine-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
     --gameengine-secondary-color: #F6F7F8;
 
-    --gameengine-second-primary: #8F7EE7;
+    // --gameengine-second-primary: #8F7EE7;
     --gameengine-background: #FFFFFF;
-    --gameengine-secondary: #738496;
+    // --gameengine-secondary: #738496;
     --gameengine-warn-muted: #738496;
     --gameengine-placing: #F15B50;
     --gameengine-warning: #FDB022;
     --gameengine-placeholder: #A2ADB9;
-    --gameengine-gray: #F6F7F8;
+    // --gameengine-gray: #F6F7F8;
 }
 
-#wpbody-content{
+#wpbody-content {
     padding: 0
 }
 
@@ -113,180 +113,17 @@
 .gameengine-radio-option.active .gameengine-radio-label {
     color: var(--gameengine-primary-color);
 }
+
 // Custom radio button
 
 @media (max-width: 768px) {
-    .gameengine-ticket-table td > p{
+    .gameengine-ticket-table td>p {
         width: fit-content;
     }
-    .gameengine-ticket-table table td, .gameengine-ticket-table table tr {
+
+    .gameengine-ticket-table table td,
+    .gameengine-ticket-table table tr {
         display: revert;
-    }
-}
-
-
-.academy-ripple-effect {
-    height: 55px;
-    position: fixed;
-    right: -11px;
-    top: 88vh;
-    z-index: 1; 
-    .academy-ripple-effect-container {
-        height: 100%;
-        min-width: 150px;
-    }
-    
-    .academy-ripple-effect-rain {
-        position: relative;
-        width: 100%;
-        height: 100%;
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(1) {
-        --duration: 2.7s;
-        --delay: 1s;
-        transform: translate(10%, 10%) scale(0.9);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(2) {
-        --duration: 2.1s;
-        --delay: 1.2s;
-        transform: translate(-20%, 40%) scale(1.3);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(3) {
-        --duration: 2.3s;
-        --delay: 2s;
-        transform: translate(0%, 50%) scale(1.1);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(4) {
-        --duration: 2s;
-        --delay: 4s;
-        transform: translate(0%, -10%) scale(1.2);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(5) {
-        --duration: 2.5s;
-        --delay: 0s;
-        transform: translate(10%, 0%) scale(0.9);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(6) {
-        --duration: 2s;
-        --delay: 2.7s;
-        transform: translate(-20%, 0%) scale(1);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(7) {
-        --duration: 1.8s;
-        --delay: 1.3s;
-        transform: translate(20%, -40%) scale(1.2);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(8) {
-        --duration: 2.2s;
-        --delay: 0s;
-        transform: translate(20%, 0%) scale(1);
-    }
-    
-    .academy-ripple-effect-rain:nth-of-type(9) {
-        --duration: 2s;
-        --delay: 0.5s;
-        transform: translate(0%, -10%) scale(1.3);
-    }
-    
-    @keyframes fall {
-        0% {
-            transform: translateY(-120vh);
-        }
-    
-        45% {
-            transform: translateY(0%);
-            opacity: 1;
-        }
-    
-        46% {
-            opacity: 0;
-        }
-    
-        100% {
-            opacity: 0;
-        }
-    }
-    
-    .academy-ripple-effect-waves>div {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-        right: 0px;
-        bottom: 0px;
-        border-radius: 50%;
-        border: solid var(--gameengine-primary) 3px;
-        animation-name: spread;
-        animation-duration: var(--duration);
-        animation-delay: var(--delay);
-        animation-iteration-count: infinite;
-        animation-timing-function: ease-out;
-        animation-fill-mode: backwards;
-    }
-    
-    .academy-ripple-effect-waves>div:nth-child(2) {
-        animation-delay: calc(var(--delay) + 0.3s);
-        animation-timing-function: linear;
-    }
-    
-    @keyframes spread {
-        0% {
-            transform: scale(0);
-            opacity: 1;
-        }
-    
-        40% {
-            transform: scale(0);
-            opacity: 1;
-        }
-    
-        100% {
-            transform: scale(1);
-            opacity: 0;
-        }
-    }
-    
-    @keyframes jumpLeft {
-        0% {
-            transform: translate(0, 0) scale(0);
-        }
-    
-        45% {
-            transform: translate(0, 0) scale(0);
-        }
-    
-        60% {
-            transform: translate(-50px, -90px) scale(1);
-        }
-    
-        100% {
-            transform: translate(-60px, 0px) scale(0.1);
-        }
-    }
-    
-    @keyframes jumpRight {
-        0% {
-            transform: translate(0, 0) scale(0);
-        }
-    
-        45% {
-            transform: translate(0, 0) scale(0);
-        }
-    
-        60% {
-            transform: translate(30px, -80px) scale(1);
-        }
-    
-        100% {
-            transform: translate(50px, 0px) scale(0.1);
-        }
     }
 }
 
@@ -294,6 +131,72 @@
 .kz-datepicker-input--dashboard {
     border: 1px solid var(--gameengine-border-color) !important;
 }
+
 .kz-arrow-indicator--dashboard {
     display: none;
 }
+
+.gameengine-primary-btn {
+    cursor: pointer;
+    background: var(--gameengine-primary);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid var(--gameengine-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: 0.2s ease;
+    
+    &:hover {
+        background: color-mix(in srgb,var(--gameengine-primary) 60%,transparent);
+        border: 1px solid color-mix(in srgb,var(--gameengine-primary) 60%,transparent);
+    }
+}
+
+.gameengine-close-btn {
+    cursor: pointer;
+    background: transparent;
+    color: var(--gameengine-font-color);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    border: 1px solid var(--gameengine-border-color);
+    padding: 8px 16px;
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--gameengine-secondary-color);
+        border: 1px solid var(--gameengine-border-color);
+    }
+}
+
+.gameengine-input {
+    width: 100%;
+    color: var(--gameengine-font-color);
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gameengine-input:focus {
+    border-color: var(--gameengine-primary) !important;
+}
+
+.gameengine {
+    &-page-heading {
+        color: var(--gameengine-font-color);
+        font-size: 24px;
+        font-style: 400;
+        font-weight: 600;
+        line-height: 32px;
+        margin: 0;
+    }
+}
+

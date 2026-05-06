@@ -2,9 +2,15 @@ import React, { useEffect, useState, useRef } from 'react';
 import { Form, Formik } from 'formik';
 import { __ } from '@wordpress/i18n';
 import { suffixClassNames, contentClassNames } from './helper';
-import { MdFullscreen, MdPhoneAndroid, MdLaptopMac, MdViewColumn } from 'react-icons/md';
+import {
+  MdFullscreen,
+  MdPhoneAndroid,
+  MdLaptopMac,
+  MdViewColumn
+} from 'react-icons/md';
 import { outlineBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
 import Button from '@GFComponents/Button';
+
 const ReactModalFormik = ({
   children,
   suffix = '',
@@ -42,9 +48,17 @@ const ReactModalFormik = ({
     expandableSize: size,
     activeIconIndex: 3
   });
+
   const modalRef = useRef(null);
   const overlayRef = useRef(null);
-  const iconOptions = [<MdFullscreen />, <MdLaptopMac />, <MdPhoneAndroid />, <MdViewColumn />];
+
+  const iconOptions = [
+    <MdFullscreen />,
+    <MdLaptopMac />,
+    <MdPhoneAndroid />,
+    <MdViewColumn />
+  ];
+
   const toggleIcon = index => {
     setDevicePreview(prevState => ({
       ...prevState,
@@ -60,9 +74,11 @@ const ReactModalFormik = ({
       display: 'flex',
       justifyContent: 'center'
     };
+
     const baseContent = {
       ...style.content
     };
+
     switch (position) {
       case 'top':
         return {
@@ -76,6 +92,7 @@ const ReactModalFormik = ({
             marginTop: '0px'
           }
         };
+
       case 'bottom':
         return {
           overlay: {
@@ -89,6 +106,7 @@ const ReactModalFormik = ({
             marginBottom: '0px'
           }
         };
+
       case 'center':
       default:
         return {
@@ -98,27 +116,52 @@ const ReactModalFormik = ({
           },
           content: {
             ...baseContent,
-            marginTop: devicePreview?.expandableSize === 'large' ? '30px' : '50px'
+            marginTop:
+              devicePreview?.expandableSize === 'large'
+                ? '30px'
+                : '50px'
           }
         };
     }
   };
+
   const modalStyle = getPositionStyles();
-  const showLargeTab = isLargeAvailable ? [{
-    type: 'button',
-    label: <span>{__('Full screen', 'gameengine')}</span>,
-    icon: MdFullscreen,
-    onClick: () => toggleIcon(0)
-  }] : [];
-  const showSmallTab = isSmallAvailable ? [{
-    type: 'button',
-    label: <span>{__('Small screen', 'gameengine')}</span>,
-    icon: MdPhoneAndroid,
-    onClick: () => toggleIcon(2)
-  }] : [];
-  const contentLabel = typeof title === 'object' ? title.props.children[0] : title;
-  const modalClass = suffixClassNames(suffix, devicePreview?.expandableSize);
-  const contentClass = contentClassNames(devicePreview?.expandableSize);
+
+  const showLargeTab = isLargeAvailable
+    ? [
+        {
+          type: 'button',
+          label: <span>{__('Full screen', 'gameengine')}</span>,
+          icon: MdFullscreen,
+          onClick: () => toggleIcon(0)
+        }
+      ]
+    : [];
+
+  const showSmallTab = isSmallAvailable
+    ? [
+        {
+          type: 'button',
+          label: <span>{__('Small screen', 'gameengine')}</span>,
+          icon: MdPhoneAndroid,
+          onClick: () => toggleIcon(2)
+        }
+      ]
+    : [];
+
+  const contentLabel =
+    typeof title === 'object'
+      ? title.props.children[0]
+      : title;
+
+  const modalClass = suffixClassNames(
+    suffix,
+    devicePreview?.expandableSize
+  );
+
+  const contentClass = contentClassNames(
+    devicePreview?.expandableSize
+  );
 
   // Handle escape key
   useEffect(() => {
@@ -127,9 +170,15 @@ const ReactModalFormik = ({
         onRequestClose();
       }
     };
+
     if (isOpen) {
       document.addEventListener('keydown', handleEscapeKey);
-      return () => document.removeEventListener('keydown', handleEscapeKey);
+
+      return () =>
+        document.removeEventListener(
+          'keydown',
+          handleEscapeKey
+        );
     }
   }, [isOpen, onRequestClose]);
 
@@ -137,7 +186,9 @@ const ReactModalFormik = ({
   useEffect(() => {
     if (isOpen) {
       document.body.classList.add('ReactModal__Body--open');
-      return () => document.body.classList.remove('ReactModal__Body--open');
+
+      return () =>
+        document.body.classList.remove('ReactModal__Body--open');
     }
   }, [isOpen]);
 
@@ -164,82 +215,153 @@ const ReactModalFormik = ({
         });
       }
     };
-    handleResize(); // Initial check
+
+    handleResize();
+
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    return () =>
+      window.removeEventListener('resize', handleResize);
   }, [size]);
 
   // Handle focus trap
   useEffect(() => {
     if (isOpen && modalRef.current) {
-      const focusableElements = modalRef.current.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const focusableElements =
+        modalRef.current.querySelectorAll(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+
       if (focusableElements.length > 0) {
         const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+        const lastElement =
+          focusableElements[focusableElements.length - 1];
+
         const handleTabKey = e => {
           if (e.key === 'Tab') {
             if (e.shiftKey) {
-              if (document.activeElement === firstElement) {
+              if (
+                document.activeElement === firstElement
+              ) {
                 lastElement.focus();
                 e.preventDefault();
               }
             } else {
-              if (document.activeElement === lastElement) {
+              if (
+                document.activeElement === lastElement
+              ) {
                 firstElement.focus();
                 e.preventDefault();
               }
             }
           }
         };
-        modalRef.current.addEventListener('keydown', handleTabKey);
+
+        modalRef.current.addEventListener(
+          'keydown',
+          handleTabKey
+        );
+
         firstElement.focus();
+
         return () => {
           if (modalRef.current) {
-            modalRef.current.removeEventListener('keydown', handleTabKey);
+            modalRef.current.removeEventListener(
+              'keydown',
+              handleTabKey
+            );
           }
         };
       }
     }
   }, [isOpen]);
+
   if (!isOpen) return null;
-  return <div ref={overlayRef} className={`gameengine-modal-overlay gameengine-modal-overlay--${position}`} style={modalStyle.overlay} role="dialog" aria-modal="true" aria-label={contentLabel}>
-			<div ref={modalRef} className={modalClass} style={modalStyle.content} role="document">
-				<Formik {...formik}>
-					{({
-          isSubmitting
-        }) => <Form>
-							<div className="gameengine-modal__head">
-								{title && <p className="text-lg font-semibold leading-5 m-0 text-[var(--gameengine-font-black)]">{title}</p>}
-								<div className="gameengine-modal-buttons">
-									{isEnabledResize && <OptionMenu icon={iconOptions[devicePreview?.activeIconIndex]} options={[...showLargeTab, {
-                type: 'button',
-                label: <span>{__('Medium screen', 'gameengine')}</span>,
-                icon: MdLaptopMac,
-                onClick: () => toggleIcon(1)
-              }, ...showSmallTab]} />}
 
-									<button onClick={onRequestClose} disabled={isSubmitting} style={xCloseBtn} />
-								</div>
-							</div>
+  return (
+    <div
+      ref={overlayRef}
+      className={`gameengine-modal-overlay gameengine-modal-overlay--${position}`}
+      style={modalStyle.overlay}
+      role="dialog"
+      aria-modal="true"
+      aria-label={contentLabel}
+    >
+      <div
+        ref={modalRef}
+        className={modalClass}
+        style={modalStyle.content}
+        role="document"
+      >
+        <Formik {...formik}>
+          {({ isSubmitting }) => (
+            <Form>
+              <div className="gameengine-modal__head">
+                {title && (
+                  <p className="text-lg font-semibold leading-5 m-0 text-[var(--gameengine-font-black)]">
+                    {title}
+                  </p>
+                )}
 
-							<div className={contentClass}>{children}</div>
+                <div className="gameengine-modal-buttons">
+                  {isEnabledResize && (
+                    <OptionMenu
+                      icon={
+                        iconOptions[
+                          devicePreview?.activeIconIndex
+                        ]
+                      }
+                      options={[
+                        ...showLargeTab,
+                        {
+                          type: 'button',
+                          label: (
+                            <span>
+                              {__('Medium screen', 'gameengine')}
+                            </span>
+                          ),
+                          icon: MdLaptopMac,
+                          onClick: () => toggleIcon(1)
+                        },
+                        ...showSmallTab
+                      ]}
+                    />
+                  )}
 
-							{isEnabledFooter && <div className="gameengine-modal__footer">
-									<button style={outlineBtn} onClick={onRequestClose}>
-										{cancelButtonLabel}
-									</button>
+                  <button
+                    onClick={onRequestClose}
+                    disabled={isSubmitting}
+                    style={xCloseBtn}
+                  />
+                </div>
+              </div>
 
-										<Button
-										type="submit"
-										label={submitButtonLabel}
-										loadingLabel={submitButtonLabel}
-										isLoading={isSubmitting}
-										isDisabled={isSubmitting}
-									/>
-								</div>}
-						</Form>}
-				</Formik>
-			</div>
-		</div>;
+              <div className={contentClass}>{children}</div>
+
+              {isEnabledFooter && (
+                <div className="gameengine-modal__footer">
+                  <button
+                    style={outlineBtn}
+                    onClick={onRequestClose}
+                  >
+                    {cancelButtonLabel}
+                  </button>
+
+                  <Button
+                    type="submit"
+                    label={submitButtonLabel}
+                    loadingLabel={submitButtonLabel}
+                    isLoading={isSubmitting}
+                    isDisabled={isSubmitting}
+                  />
+                </div>
+              )}
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </div>
+  );
 };
+
 export default ReactModalFormik;

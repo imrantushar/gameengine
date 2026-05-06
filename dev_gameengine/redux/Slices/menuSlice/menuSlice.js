@@ -8,7 +8,6 @@ export const fetchAdminMenuItems = createAsyncThunk(
 		try {
 			return await API.get(`${namespace}menus`)
 				.then((res) => {
-					console.log({res});
 					return res?.data;
 				});
 		} catch (error) {

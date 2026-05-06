@@ -1,13 +1,12 @@
-import { Icon } from '@GFComponents/UI';
 import CustomCollapsible from '@GFComponents/Collapsible';
 import { __ } from '@wordpress/i18n';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
-import { FaLock } from 'react-icons/fa6';
 import LabeledInput from '@GFComponents/LabeledInput';
 import { is_pro as isProActive } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+
 const DynamicLevelField = ({
   fieldKey,
   config,

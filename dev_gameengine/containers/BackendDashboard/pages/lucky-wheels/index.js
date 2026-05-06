@@ -4,12 +4,12 @@ import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2, FiPlus, FiActivity } from "react-icons/fi";
 import TopBar from '@GFComponents/TopBar';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Icon } from '@GFComponents/UI';
 import Button from '@GFComponents/Button';
 import { useNavigate } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
 import WheelEditor from './WheelEditor';
 import WheelAnalytics from './WheelAnalytics';
+import GetHelp from '@GFComponents/GetHelp';
 
 export default function LuckyWheels({ action, id }) {
     const [wheels, setWheels] = useState([]);
@@ -63,7 +63,6 @@ export default function LuckyWheels({ action, id }) {
     const columns = [
         {
             name: __('Name', 'gameengine'),
-            textAlign: "start",
             cell: row => (
                 <span className="font-medium">{row.name || '\u2014'}</span>
             ),
@@ -95,41 +94,43 @@ export default function LuckyWheels({ action, id }) {
                     {
                         type: 'button',
                         label: __('Edit', 'gameengine'),
-                        icon: <Icon as={FiEdit} />,
+                        icon: <FiEdit />,
                         onClick: () => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels&action=edit&id=${row.id}`)
                     },
                     {
                         type: 'button',
                         label: __('Analytics', 'gameengine'),
-                        icon: <Icon as={FiActivity} />,
-                        onClick: () => setAnalyticsId(row.id)
+                        icon: <FiActivity />,
+                        onClick: () => setAnalyticsId(row.id),
+                        hasBorder: true,
                     },
                     {
                         type: 'button',
                         label: __('Delete', 'gameengine'),
-                        icon: <Icon as={FiTrash2} />,
+                        suffix: 'trash',
+                        icon: <FiTrash2 />,
                         onClick: () => handleDelete(row.id)
                     }
                 ];
                 return <OptionMenu options={options} />;
             },
             columnWidth: "15%",
-            textAlign: "end",
         },
     ];
 
     return (
         <>
-            <TopBar path={__("Lucky Wheels", "gameengine")} />
+            <TopBar path={__("Lucky Wheels", "gameengine")} rightContent={<GetHelp filterText={['lucky-wheels']} />} />
 
             <div className='gameengine-page-content'>
                 <div className="flex justify-between items-center py-6 px-1">
-                    <h2 className="text-xl md:text-2xl font-[500] text-gray-800 m-0">
-                        {__("Lucky Wheels", "gameengine")}
-                    </h2>
+                    <p className="gameengine-page-heading">
+                    {__('Lucky Wheels', 'gameengine')}
+                    </p>
+
                     <Button
                         label={__("Add New Wheel", "gameengine")}
-                        icon={<Icon as={FiPlus} color={'#fff'} className="text-lg font-bold" />}
+                        icon={<FiPlus />}
                         onClick={() => navigate(`${route_path}admin.php?page=gameengine-lucky-wheels&action=new`)}
                     />
                 </div>

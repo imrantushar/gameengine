@@ -40,47 +40,47 @@ import { __ } from '@wordpress/i18n';
 // } );
 
 const SortableColumns = ({
-  setTempCopyColumns,
-  tempCopyColumns,
-  showColumnFilter,
-  checkedChange,
-  setCopyColumns,
-  copyColumns,
-  suffix
+	setTempCopyColumns,
+	tempCopyColumns,
+	showColumnFilter,
+	checkedChange,
+	setCopyColumns,
+	copyColumns,
+	suffix
 }) => {
-  const [modalOpen, isModalOpen] = useState(false);
-  const [defaultColumns, setDefaultColumns] = useState([]);
-  useEffect(() => {
-    setDefaultColumns([...tempCopyColumns]);
-  }, []);
-  const onRequestClose = () => {
-    isModalOpen(false);
-  };
+	const [modalOpen, isModalOpen] = useState(false);
+	const [defaultColumns, setDefaultColumns] = useState([]);
+	useEffect(() => {
+		setDefaultColumns([...tempCopyColumns]);
+	}, []);
+	const onRequestClose = () => {
+		isModalOpen(false);
+	};
 
-  // const onSortEnd = ( { oldIndex, newIndex } ) => {
-  // 	const sortedColumn = arrayMoveImmutable(
-  // 		tempCopyColumns,
-  // 		oldIndex,
-  // 		newIndex
-  // 	);
-  // 	setTempCopyColumns( sortedColumn );
-  // };
+	// const onSortEnd = ( { oldIndex, newIndex } ) => {
+	// 	const sortedColumn = arrayMoveImmutable(
+	// 		tempCopyColumns,
+	// 		oldIndex,
+	// 		newIndex
+	// 	);
+	// 	setTempCopyColumns( sortedColumn );
+	// };
 
-  const handleToggle = () => {
-    isModalOpen(!modalOpen);
-  };
-  const handleReset = () => {
-    setTempCopyColumns([...defaultColumns]);
-  };
-  return <React.Fragment>
-			<div className="gameengine-table__sub-header-filter-icon">
-				<button className="bg-transparent text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border" onClick={handleToggle}>
-					<span className="gameengine-icon gameengine-icon--columns" />
-					{__('Columns', 'gameengine')}
-				</button>
-			</div>
+	const handleToggle = () => {
+		isModalOpen(!modalOpen);
+	};
+	const handleReset = () => {
+		setTempCopyColumns([...defaultColumns]);
+	};
+	return <React.Fragment>
+		<div className="gameengine-table__sub-header-filter-icon">
+			<button className="bg-transparent text-[var(--gameengine-font-color)] [border-color:var(--gameengine-border-color)] border" onClick={handleToggle}>
+				<span className="gameengine-icon gameengine-icon--columns" />
+				{__('Columns', 'gameengine')}
+			</button>
+		</div>
 
-			{/* <ReactModal
+		{/* <ReactModal
     isOpen={ modalOpen }
     onRequestClose={ onRequestClose }
     title={ __( 'Columns', 'gameengine' ) }
@@ -160,6 +160,7 @@ const SortableColumns = ({
     	</Flex>
     </Box>
     </ReactModal> */}
-		</React.Fragment>;
+	</React.Fragment>;
 };
+
 export default SortableColumns;

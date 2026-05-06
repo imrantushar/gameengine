@@ -1,12 +1,11 @@
 import React from 'react';
-import { Table, Checkbox } from '@GFComponents/UI';
 
 const TableHeader = ({
 	visibleColumn,
 	isCheckboxColumnVisible,
 	copyDataArr,
 	selectAllRow,
-	data,	
+	data,
 }) => {
 	const isCheckboxChecked =
 		data?.length > 0 &&
@@ -14,37 +13,44 @@ const TableHeader = ({
 		copyDataArr?.every((row) => row.select);
 
 	return (
-		<Table.Header bg="var(--gameengine-secondary-color)">
-			<Table.Row>
+		<thead className="bg-[var(--gameengine-secondary-color)]">
+			<tr>
 				{isCheckboxColumnVisible && (
-					<Table.ColumnHeader width="40px">
-						<Checkbox.Root
-							size="sm"
-							mt="0.5"
-							aria-label="Select row"
+					<th className="w-10 px-3 py-3 text-center">
+						<input
+							type="checkbox"
+							aria-label="Select all rows"
 							checked={isCheckboxChecked}
-							onCheckedChange={selectAllRow}
-						>
-							<Checkbox.HiddenInput />
-							<Checkbox.Control />
-						</Checkbox.Root>
-					</Table.ColumnHeader>
-				)} 
+							onChange={(e) => selectAllRow({ checked: e.target.checked })}
+							className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-current"
+						/>
+					</th>
+				)}
 
-				{visibleColumn?.map((column, index) => (
-					<Table.ColumnHeader 
-						key={index} 
-						minW={column?.columnWidth ? column?.columnWidth : "auto"} 
-						maxW={column?.columnWidth ? column?.columnWidth : "auto"} 
-						w={column?.columnWidth ? column?.columnWidth : "auto"} 
-						textAlign={column?.textAlign ? column?.textAlign : "center"}
-						whiteSpace="nowrap"
-					>
-						{column?.name}
-					</Table.ColumnHeader>
-				))}
-			</Table.Row>
-		</Table.Header>
+				{visibleColumn?.map((column, index) => {
+					const alignClass =
+						column?.textAlign 
+							? `text-${column.textAlign}`
+							: index === 0
+							? 'text-left'
+							: 'text-center';
+
+					return (
+						<th
+							key={index}
+							style={{
+								minWidth: column?.columnWidth ?? 'auto',
+								maxWidth: column?.columnWidth ?? 'auto',
+								width: column?.columnWidth ?? 'auto',
+							}}
+							className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider whitespace-nowrap border-b border-[var(--gameengine-border-color)] ${alignClass}`}
+						>
+							{column?.name}
+						</th>
+					);
+				})}
+			</tr>
+		</thead>
 	);
 };
 

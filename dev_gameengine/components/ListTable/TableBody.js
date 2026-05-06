@@ -1,6 +1,4 @@
 import React from 'react';
-import { __ } from '@wordpress/i18n';
-import { Table, Checkbox } from '@GFComponents/UI';
 
 const TableBody = ({
 	copyDataArr,
@@ -10,48 +8,52 @@ const TableBody = ({
 	bodyRef,
 }) => {
 	return (
-		<Table.Body ref={bodyRef}>
-			{copyDataArr.length > 0 && copyDataArr.map((row, rowIndex) => (
-				<Table.Row
-					key={rowIndex}
-					role="group"
-					borderBottomWidth="1px" borderColor="var(--gameengine-border-color)"
-				>
-					{isCheckboxColumnVisible && (
-						<Table.Cell width="40px">
-							<Checkbox.Root
-								size="sm"
-								mt="0.5"
-								aria-label="Select row"
-								checked={row.select}
-								onCheckedChange={(changes) =>
-									selectRowChange({
-										row,
-										select: changes.checked,
-									})
-								}
-							>
-								<Checkbox.HiddenInput />
-								<Checkbox.Control />
-							</Checkbox.Root>
-						</Table.Cell>
-					)} 
+		<tbody ref={bodyRef}>
+			{copyDataArr.length > 0 &&
+				copyDataArr.map((row, rowIndex) => (
+					<tr
+						key={rowIndex}
+						role="group"
+						className="border-solid border-t-0 border-l-0 border-r-0 border-b border-[var(--gameengine-border-color)] hover:bg-gray-50 transition-colors duration-150"
+					>
+						{isCheckboxColumnVisible && (
+							<td className="w-10 px-3 py-3 text-center">
+								<input
+									type="checkbox"
+									aria-label="Select row"
+									checked={row.select}
+									onChange={(e) =>
+										selectRowChange({
+											row,
+											select: e.target.checked,
+										})
+									}
+									className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-current"
+								/>
+							</td>
+						)}
 
-					{visibleColumn.map(
-						(column, columnIndex) => (
-							<Table.Cell
-								key={columnIndex}
-								position="relative"
-								textAlign={column?.textAlign ? column?.textAlign : "center"}
-								width={column?.width}
-							>
-								{column?.cell(row, rowIndex)}
-							</Table.Cell>
-						)
-					)}
-				</Table.Row>
-			))}
-		</Table.Body>
+						{visibleColumn.map((column, columnIndex) => {
+							const alignClass =
+								column?.textAlign
+									? `text-${column.textAlign}`
+									: columnIndex === 0
+										? 'text-left'
+										: 'text-center';
+
+							return (
+								<td
+									key={columnIndex}
+									style={{ width: column?.width }}
+									className={`px-4 py-3 text-sm relative ${alignClass}`}
+								>
+									{column?.cell(row, rowIndex)}
+								</td>
+							);
+						})}
+					</tr>
+				))}
+		</tbody>
 	);
 };
 

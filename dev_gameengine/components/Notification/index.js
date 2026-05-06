@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import { useSelector, useDispatch } from 'react-redux';
 import { createPortal } from 'react-dom';
-import { Icon } from '@GFComponents/UI';
 import { notification_position } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
@@ -11,20 +10,22 @@ import { BiErrorCircle } from 'react-icons/bi';
 import { FiInfo } from 'react-icons/fi';
 import { IoCloseOutline } from 'react-icons/io5';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
+
 const iconType = type => {
   switch (type) {
     case 'success':
-      return IoMdCheckmarkCircleOutline;
+      return <IoMdCheckmarkCircleOutline size="20px" />;
     case 'warning':
-      return RiErrorWarningLine;
+      return <RiErrorWarningLine size="20px" />;
     case 'error':
-      return BiErrorCircle;
+      return <BiErrorCircle size="20px" />;
     case 'info':
-    case 'notification':
+      return <FiInfo size="20px" />;
     default:
-      return FiInfo;
+      return <FiInfo size="20px" />;
   }
 };
+
 const Notification = () => {
   const notificationRef = useRef(null);
   const targetElement = document.querySelector('#gameengine-admin-app');
@@ -86,26 +87,35 @@ const Notification = () => {
       type: ''
     }));
   };
-  return <>
-    {notification?.isShow && createPortal(<div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
-      {notification?.linkTo ? <Link to={notification.linkTo}>
-        <div className="gameengine-notification__message no-underline">
-          <Icon as={iconType(notification?.type)} size="md" />
 
-          {notification.isHtml ? <div dangerouslySetInnerHTML={{
-            __html: __(notification.message, 'gameengine')
-          }} /> : __(notification.message, 'gameengine')}
-        </div>
-      </Link> : <div className="gameengine-notification__message">
-        <Icon as={iconType(notification?.type)} size="md" color="#fff" />
+  return (
+    <>
+      {notification?.isShow && createPortal(
+        <div className={`gameengine-notification ${notification.type && `gameengine-notification--${notification.type}`}`} ref={notificationRef}>
+          {notification?.linkTo ? (
+            <Link to={notification.linkTo}>
+              <div className="gameengine-notification__message no-underline">
+                {iconType(notification?.type)}
 
-        {notification.message}
-      </div>}
-      <button className="p-0 bg-transparent [min-width:auto] border-0 text-white text-[20px]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
-        <IoCloseOutline />
-      </button>
-    </div>, document.body)}
-  </>;
+                {notification.isHtml ? <div dangerouslySetInnerHTML={{
+                  __html: __(notification.message, 'gameengine')
+                }} /> : __(notification.message, 'gameengine')}
+              </div>
+            </Link>
+          ) : (
+            <div className="gameengine-notification__message">
+              {iconType(notification?.type)}
+
+              {notification.message}
+            </div>
+          )}
+
+          <button className="p-0 bg-transparent [min-width:auto] border-0 text-white text-[20px]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
+            <IoCloseOutline />
+          </button>
+        </div>, document.body)}
+    </>
+  );
 };
 
 export default Notification;

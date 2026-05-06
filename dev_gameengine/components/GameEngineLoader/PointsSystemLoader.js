@@ -1,10 +1,12 @@
-import { Skeleton } from "@GFComponents/UI";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import RequirementsLoader from "./RequirementsLoader";
 import TopbarLoader from "./TopbarLoader";
+import Skeleton from "./Skeleton";
+
 export const PointsSystemLoader = () => {
-  return <>
+    return (
+        <>
             <TopbarLoader />
 
             <GameEngineBox dynamicClasses="gameengine-points-system" heading={<Skeleton height="20px" width="50%" />}>
@@ -16,5 +18,6 @@ export const PointsSystemLoader = () => {
 
                 <RequirementsLoader />
             </GameEngineBox>
-        </>;
+        </>
+    );
 };

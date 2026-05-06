@@ -129,7 +129,7 @@ class Menu
 			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gameengine"]:after,
 			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li a[href*="admin.php?page=gameengine-tools"]:after {
 				border-bottom: 1px solid hsla(0,0%,100%,.2);
-				display: block; float: left; margin: 15px -15px 7px;
+				display: block; float: left; margin: -30px 0 0 -36px;
 				content: ""; width: calc(100% + 26px);
 			}
 

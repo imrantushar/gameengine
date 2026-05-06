@@ -56,3 +56,37 @@
     min-height: -webkit-fill-available !important;
     border: none !important;
 }
+
+@layer components {
+    .gameengine-border {
+        @apply border border-solid border-[var(--gameengine-border-color)] rounded;
+    }
+
+    .gameengine-border-top {
+        @apply border-r-0 border-l-0 border-b-0 border-t border-solid border-[var(--gameengine-border-color)];
+    }
+
+    .gameengine-border-bottom {
+        @apply border-r-0 border-l-0 border-t-0 border-b border-solid border-[var(--gameengine-border-color)];
+    }
+
+    .gameengine-border-left {
+        @apply border-r-0 border-b-0 border-t-0 border-l border-solid border-[var(--gameengine-border-color)];
+    }
+
+    .gameengine-border-right {
+        @apply border-b-0 border-l-0 border-t-0 border-r border-solid border-[var(--gameengine-border-color)];
+    }
+
+    .gameengine-border-top-bottom {
+        @apply border-l-0 border-r-0 border-t border-b border-solid border-[var(--gameengine-border-color)];
+    }
+
+    .gameengine-settings-heading {
+        @apply text-[20px] font-medium text-[var(--gameengine-font-color)] gameengine-border-bottom m-[0_0_24px_0] p-[0_0_16px_0] leading-[30px];
+    }
+
+    .gameengine-heading {
+        @apply text-[20px] font-medium text-[var(--gameengine-font-color)] gameengine-border-bottom m-[0_0_24px_0] p-[0_0_16px_0] leading-[30px];
+    }
+}

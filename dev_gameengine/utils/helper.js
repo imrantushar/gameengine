@@ -133,34 +133,34 @@ export const makeRequest = async (
 
 export const statusArray = [
 	{
-		label: __('Publish', 'academy'),
+		label: __('Publish', 'gameengine'),
 		value: 'publish',
 	},
 	{
-		label: __('Draft', 'academy'),
+		label: __('Draft', 'gameengine'),
 		value: 'draft',
 	},
 	{
-		label: __('Pending', 'academy'),
+		label: __('Pending', 'gameengine'),
 		value: 'pending',
 	},
 	// {
-	// 	label: __('Private', 'academy'),
+	// 	label: __('Private', 'gameengine'),
 	// 	value: 'private',
 	// },
 	// {
-	// 	label: __('Schedule', 'academy'),
+	// 	label: __('Schedule', 'gameengine'),
 	// 	value: 'future',
 	// },
-	{
-		label: __('Trash', 'academy'),
-		value: 'trash',
-	},
+	// {
+	// 	label: __('Trash', 'gameengine'),
+	// 	value: 'trash',
+	// },
 ];
 
 export const tableStatusArray = [
 	{
-		label: __('All', 'academy'),
+		label: __('All', 'gameengine'),
 		value: 'all',
 	},
 	...statusArray

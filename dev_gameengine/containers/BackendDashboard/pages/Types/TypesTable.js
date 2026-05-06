@@ -5,12 +5,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteAchievementType, fetchAchievementTypes } from '@GFRedux/Slices/achivementSlice/types';
 import { deleteLevelType, fetchLevelTypes } from '@GFRedux/Slices/levelsSlice/types';
 import OptionMenu from '@GFComponents/OptionMenu';
-import { Icon } from '@GFComponents/UI';
 import { FiEdit, FiTrash2 } from 'react-icons/fi';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { sliceString } from '@GFUtils/helper';
 import Tooltip from '@GFComponents/Tooltip';
 import { LuInfo } from 'react-icons/lu';
+
 const TypesTable = ({
   type,
   editHandler
@@ -28,6 +28,7 @@ const TypesTable = ({
   } = useSelector(state => state.levels);
   const data = type === "achievement" ? achivementTypes : levelTypes;
   const [loading, setLoading] = useState(data.length === 0);
+
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -45,7 +46,9 @@ const TypesTable = ({
       }
     })();
   }, [type]);
+
   const deleteHandler = row => {
+    if (!window.confirm(__('Are you sure?', 'gameengine'))) return;
     if (type === "achievement") {
       dispatch(deleteAchievementType(row.id));
     }
@@ -53,70 +56,86 @@ const TypesTable = ({
       dispatch(deleteLevelType(row.id));
     }
   };
-  const columns = [{
-    name: __('Name', 'gameengine'),
-    textAlign: "start",
-    cell: (row = {}) => <>
-          {row?.description ? <div className="flex items-center gap-2">
-              <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
-              <Tooltip content={row?.description}><LuInfo /></Tooltip>
-            </div> : <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />}
-        </>,
-    textAlign: "start",
-    columnWidth: "30%"
-  }, {
-    name: __('Slug', 'gameengine'),
-    cell: (row = {}) => <>{sliceString(row?.slug, 30)}</>,
-    columnWidth: "30%"
-  },
-  // {
-  //     name: __('Description', 'gameengine'),
-  //     columnWidth: "180px",
-  //     textAlign: "start",
-  //     cell: (row = {}) => <Box>{row?.description}</Box>
-  // },
-  // {
-  //     name: __('Count', 'gameengine'),
-  //     columnWidth: "180px",
-  //     textAlign: "start",
-  //     cell: (row = {}) => <Box>{row?.count}</Box>
-  // },
-  {
-    name: __('Parent', 'gameengine'),
-    cell: (row = {}) => {
-      let parentItem = {};
-      parentItem = data.find(item => Number(item.id) === Number(row.parent));
-      if (!parentItem) {
-        return "...";
-      }
-      return <>{parentItem?.name}</>;
+
+  const columns = [
+    {
+      name: __('Name', 'gameengine'),
+      cell: (row = {}) => <>
+        {row?.description ? <div className="flex items-center gap-2">
+          <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />
+          <Tooltip content={row?.description}><LuInfo /></Tooltip>
+        </div> : <GFLabel type='basic' label={sliceString(row?.name, 30)} margin={0} />}
+      </>,
+      columnWidth: "30%"
     },
-    columnWidth: "30%"
-  }, {
-    name: __('Action', 'gameengine'),
-    cell: (row = {}) => {
-      return <OptionMenu options={[{
-        type: 'button',
-        label: __('Edit', 'gameengine'),
-        icon: <FiEdit />,
-        onClick: () => editHandler(row)
-      }, {
-        type: 'button',
-        suffix: 'trash',
-        label: __('Delete', 'gameengine'),
-        icon: <FiTrash2 />,
-        onClick: () => deleteHandler(row)
-      }]} />;
+    {
+      name: __('Slug', 'gameengine'),
+      cell: (row = {}) => <>{sliceString(row?.slug, 30)}</>,
+      columnWidth: "30%"
     },
-    textAlign: "end",
-    columnWidth: "10%"
-  }];
-  return <div style={{
-    "width": "70%"
-  }}>
-      <ListTable key={`${type}-table-` + data?.length} columns={columns} data={data} showSubHeader={false} showColumnFilter={false} isRowSelectable={false} dataFetchingStatus={loading} showPagination={false} noDataText={sprintf(
-    // translators: %s. Table data type name.
-    __("No data found for %s types", "gameengine"), type)} suffix={type + "-table"} />
-    </div>;
+    // {
+    //     name: __('Description', 'gameengine'),
+    //     columnWidth: "180px",
+    //     // textAlign: "start",
+    //     cell: (row = {}) => <Box>{row?.description}</Box>
+    // },
+    // {
+    //     name: __('Count', 'gameengine'),
+    //     columnWidth: "180px",
+    //     // textAlign: "start",
+    //     cell: (row = {}) => <Box>{row?.count}</Box>
+    // },
+    {
+      name: __('Parent', 'gameengine'),
+      cell: (row = {}) => {
+        let parentItem = {};
+        parentItem = data.find(item => Number(item.id) === Number(row.parent));
+        if (!parentItem) {
+          return "...";
+        }
+        return <>{parentItem?.name}</>;
+      },
+      columnWidth: "30%"
+    },
+    {
+      name: __('Action', 'gameengine'),
+      cell: (row = {}) => {
+        return <OptionMenu options={[{
+          type: 'button',
+          label: __('Edit', 'gameengine'),
+          icon: <FiEdit />,
+          onClick: () => editHandler(row),
+          hasBorder: true,
+        }, {
+          type: 'button',
+          suffix: 'trash',
+          label: __('Delete', 'gameengine'),
+          icon: <FiTrash2 />,
+          onClick: () => deleteHandler(row)
+        }]} />;
+      },
+      columnWidth: "10%"
+    }
+  ];
+
+  return (
+    <div className="w-[70%]">
+      <ListTable
+        key={`${type}-table-` + data?.length}
+        columns={columns}
+        data={data}
+        showSubHeader={false}
+        showColumnFilter={false}
+        isRowSelectable={false}
+        dataFetchingStatus={loading}
+        showPagination={false}
+        noDataText={sprintf(
+          // translators: %s. Table data type name.
+          __("No data found for %s types", "gameengine"), type)}
+        suffix={type + "-table"}
+      />
+    </div>
+  );
 };
+
 export default TypesTable;

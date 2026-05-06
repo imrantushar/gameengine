@@ -225,6 +225,38 @@ export const arrowBackward = () => {
     )
 }
 
+export const minus = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+        >
+            <g clipPath="url(#clip0_minus)">
+                <path
+                d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
+                fill="white"
+                />
+                <path
+                d="M12 20.7422C16.8282 20.7422 20.7422 16.8282 20.7422 12C20.7422 7.17182 16.8282 3.25781 12 3.25781C7.17182 3.25781 3.25781 7.17182 3.25781 12C3.25781 16.8282 7.17182 20.7422 12 20.7422Z"
+                fill="#EF4444"
+                />
+                <path
+                d="M8 12C8 11.4477 8.44772 11 9 11H15C15.5523 11 16 11.4477 16 12C16 12.5523 15.5523 13 15 13H9C8.44772 13 8 12.5523 8 12Z"
+                fill="white"
+                />
+            </g>
+            <defs>
+                <clipPath id="clip0_minus">
+                <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+    );
+};
+
 export const license = () => {
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">

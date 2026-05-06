@@ -13,22 +13,22 @@ import FormInner from "./FormInner";
 import AchievementFormLoader from "@GFComponents/GameEngineLoader/AchievementFormSkeleton";
 import { showNotification } from "@GFRedux/Slices/notificationSlice/notificationSlice";
 import { route_path, statusArray } from "@GFUtils/helper";
+
 const AchievementTypesEditor = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const editId = searchParams.get('id');
   const [message, setMessage] = useState("");
-  const {
-    congratulationsMessage,
-    achievements
-  } = useSelector(state => state.achievements);
+  const { congratulationsMessage, achievements } = useSelector(state => state.achievements);
   const exitstignItem = achievements.find(item => Number(item.id) === Number(editId));
   const [formLoading, setFormLoading] = useState(!exitstignItem && editId);
+
   useEffect(() => {
     dispatch(fetchTriggers('achievement'));
     dispatch(fetchPointTypes());
   }, []);
+
   useEffect(() => {
     if (!editId) return;
     if (exitstignItem) return;
@@ -37,9 +37,11 @@ const AchievementTypesEditor = () => {
       setFormLoading(false);
     });
   }, [editId, exitstignItem]);
+
   useEffect(() => {
     if (congratulationsMessage) setMessage(congratulationsMessage);
   }, [congratulationsMessage]);
+
   const onSubmitHandler = async (values, actions) => {
     actions.setSubmitting(true);
     if (!values?.title) {
@@ -73,29 +75,36 @@ const AchievementTypesEditor = () => {
       actions.setSubmitting(false);
     }
   };
-  return <>
-    {formLoading ? <AchievementFormLoader /> : <Formik enableReinitialize={true} initialValues={getAchivementsInitialValues(editId, achievements)} onSubmit={onSubmitHandler}>
-      {({
-        values,
-        setFieldValue,
-        submitForm,
-        isSubmitting,
-        dirty
-      }) => {
-        return <>
-          <TopBar path={__("Achievement Types", "gameengine")} rightContent={<div className="flex gap-2.5">
-            <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-            <button style={primaryBtn} onClick={submitForm} disabled={!dirty}>
-              {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
-            </button>
-          </div>} />
 
-          <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
-            <FormInner />
-          </GameEngineBox>
-        </>;
-      }}
-    </Formik>}
+  return <>
+    {formLoading ? (
+      <AchievementFormLoader />
+    ) : (
+      <Formik enableReinitialize={true} initialValues={getAchivementsInitialValues(editId, achievements)} onSubmit={onSubmitHandler}>
+        {({ values, setFieldValue, submitForm, isSubmitting, dirty }) => {
+          return (
+            <>
+              <TopBar
+                path={__("Achievement Types", "gameengine")}
+                rightContent={
+                  <div className="flex gap-2.5">
+                    <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
+                    <button style={primaryBtn} onClick={submitForm} disabled={!dirty}>
+                      {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+                    </button>
+                  </div>
+                }
+              />
+
+              <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
+                <FormInner />
+              </GameEngineBox>
+            </>
+          );
+        }}
+      </Formik>
+    )}
   </>;
 };
+
 export default AchievementTypesEditor;
