@@ -2,6 +2,7 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Setup from '@GFContainers/Setup';
 import { HashRouter } from 'react-router-dom';
+
 import './../assets/scss/setup.scss';
 
 document.addEventListener('DOMContentLoaded', () => {

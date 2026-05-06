@@ -37,7 +37,7 @@ You can award points for actions like user registration, daily logins, publishin
 
 == Changelog ==
 
-= 1.1.1 - 2025-05-05 =
+= 1.1.1 - 2025-05-06 =
 * Improved - Chakra UI removed and migrated to tailwind.
 * Improved - Complete UI updated.
 
