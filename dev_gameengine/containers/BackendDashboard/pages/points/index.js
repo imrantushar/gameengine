@@ -9,6 +9,7 @@ import ImportDemoBanner from '@GFComponents/ImportDemoBanner';
 import { fetchPointTypes } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@GFComponents/Button';
+import GetHelp from '@GFComponents/GetHelp';
 
 const Points = () => {
   const [banners, setBanners] = useState(window.GameEngineGlobal.banners);
@@ -33,26 +34,28 @@ const Points = () => {
     }));
   };
 
-  return <>
-    <TopBar path={__("Points System", "gameengine")} />
+  return (
+    <>
+      <TopBar path={__("Points System", "gameengine")} rightContent={<GetHelp filterText={['points']} />} />
 
-    <div className='gameengine-page-content'>
-      {pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
-      <div className="flex justify-between items-center py-6 px-1">
-        <h2 className="gameengine-page-heading">
-          {__("Point System", "gameengine")}
-        </h2>
+      <div className='gameengine-page-content'>
+        {pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
+        <div className="flex justify-between items-center py-6 px-1">
+          <h2 className="gameengine-page-heading">
+            {__("Point System", "gameengine")}
+          </h2>
 
-        <Button
-          label={__('Add new point System', 'gameengine')}
-          icon={<GoPlus size="16px" />}
-          onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&path=points-types`)}
-        />
+          <Button
+            label={__('Add new point System', 'gameengine')}
+            icon={<GoPlus size="16px" />}
+            onClick={() => navigate(`${route_path}admin.php?page=gameengine-points&path=points-types`)}
+          />
+        </div>
+
+        <PointTypesTable />
       </div>
-
-      <PointTypesTable />
-    </div>
-  </>;
+    </>
+  );
 };
 
 export default Points;

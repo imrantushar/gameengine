@@ -5,6 +5,7 @@ import { __ } from '@wordpress/i18n';
 import TopBar from "@GFComponents/TopBar";
 import ListTable from '@GFComponents/ListTable';
 import { fetchLeaderboard, fetchPointTypes, setPage, setRowsPerPage, setFilterPointType, setFilterTimeRange } from '../../../../redux/Slices/leaderboardSlice/leaderboardSlice';
+import GetHelp from '@GFComponents/GetHelp';
 
 const Leaderboards = () => {
   const dispatch = useDispatch();
@@ -134,7 +135,7 @@ const Leaderboards = () => {
   }, [pointTypes]);
 
   return <>
-    <TopBar path={__("Leaderboards", "gameengine")} />
+    <TopBar path={__("Leaderboards", "gameengine")} rightContent={<GetHelp filterText={['leaderboards']} />} />
 
     <div className='gameengine-page-content'>
       {subHeaderComponentMemo}

@@ -11,20 +11,20 @@ const GetHelp = ({ filterText }) => {
   const allAddons = useSelector(state => state.addons);
   const [openModal, setOpenModal] = useState(false);
   const [searchText, setSearchText] = useState('');
-  const relatedData = docLists.filter(item => {
-    const titleIncludesFilterText = filterText.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()));
-    const tagsIncludeFilterText = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
+  const relatedData = docLists?.filter(item => {
+    const titleIncludesFilterText = filterText?.some(keyword => item?.title?.toLowerCase().includes(keyword.toLowerCase()));
+    const tagsIncludeFilterText = filterText?.some(keyword => item?.tags.toLowerCase().includes(keyword.toLowerCase()));
     return titleIncludesFilterText || tagsIncludeFilterText;
   });
 
-  const commonData = docLists.filter(item => {
-    const hasTitleMatch = filterText.some(keyword => item.title.toLowerCase().includes(keyword.toLowerCase()));
-    const hasTagMatch = filterText.some(keyword => item.tags.toLowerCase().includes(keyword.toLowerCase()));
+  const commonData = docLists?.filter(item => {
+    const hasTitleMatch = filterText?.some(keyword => item?.title?.toLowerCase().includes(keyword.toLowerCase()));
+    const hasTagMatch = filterText?.some(keyword => item?.tags.toLowerCase().includes(keyword.toLowerCase()));
     return !hasTitleMatch || !hasTagMatch;
   });
 
-  const searchedData = docLists.filter(item => {
-    if (item.title.toLowerCase().includes(searchText.toLowerCase()) || item.tags.includes(searchText.toLowerCase())) {
+  const searchedData = docLists?.filter(item => {
+    if (item?.title?.toLowerCase().includes(searchText.toLowerCase()) || item?.tags.includes(searchText.toLowerCase())) {
       return item;
     }
     return false;

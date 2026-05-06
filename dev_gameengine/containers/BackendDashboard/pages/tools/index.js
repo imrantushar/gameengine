@@ -7,6 +7,7 @@ import { admin_url, route_path, useQuery } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { TfiShortcode } from "react-icons/tfi";
 import { FcDataConfiguration } from "react-icons/fc";
+import GetHelp from '@GFComponents/GetHelp';
 
 const Tools = () => {
   const query = useQuery();
@@ -40,7 +41,7 @@ const Tools = () => {
 
   return (
     <>
-      <TopBar path={__('Tools', "gameengine")} />
+      <TopBar path={__('Tools', "gameengine")} rightContent={<GetHelp filterText={['tools']} />} />
 
       <div className='gameengine-page-content'>
         <h2 className="gameengine-page-heading py-6">

@@ -87,13 +87,13 @@ const ReferralsTable = () => {
             cell: (row) => (
                 <button
                     onClick={() => handleDelete(row.id)}
-                    className="p-2 rounded text-red-500 hover:bg-red-50 transition-all duration-200"
-                    title={__('Delete referral', 'gameengine')}
+                    className="p-2 rounded text-red-500 hover:bg-red-50 transition-all duration-200 border-0"
+                    aria-label={__('Delete referral', 'gameengine')}
                 >
                     <FiTrash2 size={16} />
                 </button>
             ),
-            textAlign: 'end',
+            textAlign: 'center',
         },
     ];
 

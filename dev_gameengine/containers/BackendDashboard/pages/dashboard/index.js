@@ -7,6 +7,7 @@ import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
 import Overview from "./Overview";
 import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
+import GetHelp from '@GFComponents/GetHelp';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const Dashboard = () => {
   };
   
   return <>
-    <TopBar path={__("Dashboard", "gameengine")} />
+    <TopBar path={__("Dashboard", "gameengine")} rightContent={<GetHelp />} />
 
     <div className="gameengine-page-content flex flex-col gap-6">
       <Overview data={overview} onFilterChange={handleFilterChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />

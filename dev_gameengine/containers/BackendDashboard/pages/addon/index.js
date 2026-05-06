@@ -19,6 +19,7 @@ import {
 } from '@GFUtils/icons';
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
+import GetHelp from '@GFComponents/GetHelp';
 
 const infoCardsData = [
   {
@@ -266,7 +267,7 @@ const Addons = () => {
 
   return (
     <>
-      <TopBar path={__('Add-ons', 'gameengine')} />
+      <TopBar path={__('Add-ons', 'gameengine')} rightContent={<GetHelp filterText={['addons']} />} />
 
       <div className="gameengine-page-content">
         <div className="flex justify-between items-center py-6 px-1">

@@ -6,6 +6,7 @@ import GFLabel from '@GFComponents/Labels/GFLabel';
 import ReferralsStats from './ReferralsStats';
 import ReferralsTable from './ReferralsTable';
 import { fetchReferralStats } from '@GFRedux/Slices/referralSlice/referralSlice';
+import GetHelp from '@GFComponents/GetHelp';
 
 const Referrals = () => {
     const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const Referrals = () => {
 
     return (
         <>
-            <TopBar path={__("Referrals", "gameengine")} />
+            <TopBar path={__("Referrals", "gameengine")} rightContent={<GetHelp filterText={['referrals']} />} />
 
             <div className='gameengine-page-content'>
                 <div className='flex justify-between items-center py-6'>

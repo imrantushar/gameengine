@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { route_path } from '@GFUtils/helper';
 import WheelEditor from './WheelEditor';
 import WheelAnalytics from './WheelAnalytics';
+import GetHelp from '@GFComponents/GetHelp';
 
 export default function LuckyWheels({ action, id }) {
     const [wheels, setWheels] = useState([]);
@@ -119,7 +120,7 @@ export default function LuckyWheels({ action, id }) {
 
     return (
         <>
-            <TopBar path={__("Lucky Wheels", "gameengine")} />
+            <TopBar path={__("Lucky Wheels", "gameengine")} rightContent={<GetHelp filterText={['lucky-wheels']} />} />
 
             <div className='gameengine-page-content'>
                 <div className="flex justify-between items-center py-6 px-1">

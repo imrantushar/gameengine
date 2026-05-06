@@ -14,6 +14,7 @@ import {
 import { reactDebounce } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import TopBar from '@GFComponents/TopBar';
+import GetHelp from '@GFComponents/GetHelp';
 
 export default function Wallet() {
   const {
@@ -186,10 +187,12 @@ export default function Wallet() {
                   icon: <FiCheckCircle />,
                   onClick: () =>
                     handleUpdateStatus(row.id, 'completed'),
+                  hasBorder: true,
                 },
                 {
                   type: 'button',
                   label: __('Rejected', 'gameengine'),
+                  suffix: 'trash',
                   icon: <FiTrash2 />,
                   onClick: () =>
                     handleUpdateStatus(row.id, 'rejected'),
@@ -248,7 +251,7 @@ export default function Wallet() {
 
   return (
     <>
-      <TopBar path={__('Withdraw Lists', 'gameengine')} />
+      <TopBar path={__('Withdraw Lists', 'gameengine')} rightContent={<GetHelp filterText={['withdraw']} />} />
 
       <div className="gameengine-page-content">
         <div

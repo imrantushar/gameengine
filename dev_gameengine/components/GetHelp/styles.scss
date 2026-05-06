@@ -221,22 +221,22 @@
     }
 }
 
-.academy-wp-modal--help {
+.gameengine-wp-modal--help {
     position: absolute;
     right: 35px;
     top: 16%;
     bottom: 114px;
     max-height: 100%;
     border-radius: 0;
-    background: var(--academy-gray-color);
+    background: #fff;
 
     .components-modal {
         &__header {
             justify-content: center;
-            border-bottom: 1px solid var(--academy-border-color);
+            border-bottom: 1px solid var(--gameengine-border-color);
             padding: 20px;
             height: 90px;
-            background: var(--academy-primary-color);
+            background: var(--gameengine-primary);
             position: relative;
 
             .components-button {
@@ -256,17 +256,22 @@
         &__content {
             position: relative;
             margin: 0;
+            padding: 0;
             width: 400px;
+            scrollbar-width: none;
+            /* For Internet Explorer and Edge */
+            -ms-overflow-style: none;
 
-            .academy-search-component {
+            .gameengine-help-search {
                 position: relative;
                 top: -20px;
                 width: calc(100% - 35px);
                 z-index: 99;
                 left: 16px;
-
-                &__input {
-                    max-width: 100%;
+                background: #fff;
+                border-radius: 4px;
+                .gameengine-search-component__input {
+                    max-width: 100% !important;
                 }
 
                 &__control {
@@ -285,10 +290,10 @@
                 }
             }
 
-            .academy-btn--close-modal {
+            .gameengine-btn-close-modal {
                 position: absolute;
-                top: 20px;
-                left: 24px;
+                top: 24px;
+                right: 24px;
                 width: 24px;
                 height: 24px;
                 background: #fff;
@@ -296,30 +301,20 @@
                 transition: all .3s ease;
                 z-index: 99;
                 padding: 0;
-
-                .academy-icon {
-                    &::before {
-                        font-size: 16px;
-                        color: #0F0E16;
-                    }
-                }
+                border: none;
 
                 &:hover {
-                    .academy-icon {
-                        &::before {
-                            color: var(--academy-primary-color);
-                        }
-                    }
+                    color: var(--gameengine-primary);
                 }
             }
 
-            .academy-get-help-list {
+            .gameengine-get-help-list {
                 margin: 0;
-                padding: 0 24px 10px 24px;
+                padding: 0 24px 24px 24px;
                 display: flex;
                 flex-direction: column;
                 overflow: hidden;
-                overflow-y: scroll;
+                overflow-y: auto;
                 z-index: 9999;
                 transition: all 0.5s ease-out;
                 background: #fff;
@@ -343,7 +338,7 @@
 
                     li {
                         margin: 0;
-                        border: 1px solid var(--academy-border-color);
+                        border: 1px solid var(--gameengine-border-color);
                         border-radius: 4px;
                         width: 100%;
 
@@ -368,7 +363,7 @@
                             &:hover {
                                 .academy-docs-title {
                                     text-decoration: underline;
-                                    color: var(--academy-primary-color);
+                                    color: var(--gameengine-primary-color);
                                 }
                             }
 
@@ -376,7 +371,7 @@
                                 text-decoration: none !important;
 
                                 &::before {
-                                    color: var(--academy-primary-color);
+                                    color: var(--gameengine-primary-color);
                                 }
                             }
                         }
@@ -400,7 +395,7 @@
                         &:hover {
                             .academy-icon {
                                 &::before {
-                                    color: var(--academy-primary-color);
+                                    color: var(--gameengine-primary-color);
                                 }
                             }
                         }
@@ -434,7 +429,7 @@
                             align-items: center;
                             justify-content: center;
                             background: #fff;
-                            border: 1px solid var(--academy-border-color);
+                            border: 1px solid var(--gameengine-border-color);
                             height: 32px;
                             width: 32px;
                             padding: 14px;
@@ -458,7 +453,7 @@
 }
 
 @media screen and (max-width: 1280) {
-    .academy-wp-modal--help {
+    .gameengine-wp-modal--help {
         bottom: 72px;
 
         .components-modal {
