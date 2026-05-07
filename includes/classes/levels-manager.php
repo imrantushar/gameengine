@@ -155,6 +155,32 @@ class LevelsManager
     }
 
     /**
+     * Revoke a level from a user.
+     */
+    public function revoke(int $user_id, int $level_id): bool
+    {
+        global $wpdb;
+        $safe_user_id  = absint($user_id);
+        $safe_level_id = absint($level_id);
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $deleted = $wpdb->delete(
+            $wpdb->prefix . 'gameengine_user_levels',
+            ['user_id' => $safe_user_id, 'level_id' => $safe_level_id],
+            ['%d', '%d']
+        );
+
+        if ($deleted) {
+            wp_cache_delete("gameengine_all_levels_{$safe_user_id}", 'gameengine');
+            wp_cache_delete("gameengine_current_level_{$safe_user_id}", 'gameengine');
+            do_action('gameengine_level_revoked', $safe_user_id, $safe_level_id);
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Get Current Top Level of User.
      */
     public function get_current_level($user_id)

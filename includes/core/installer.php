@@ -20,10 +20,59 @@ class Installer
     public function run()
     {
         $this->create_tables();
+        $this->maybe_run_migrations();
 
 		if ( ! get_option( 'gameengine_first_install_time' ) ) {
 			add_option( 'gameengine_first_install_time', time(), false );
 		}
+    }
+
+    /**
+     * Run additive schema migrations keyed by a DB version stored in options.
+     * Each migration is run once; the version is bumped after success.
+     */
+    private function maybe_run_migrations()
+    {
+        $current_db_version = (int) get_option('gameengine_db_version', 0);
+
+        $migrations = [
+            // Version 1: add expiration columns and badge assertion column
+            1 => function () {
+                global $wpdb;
+                $log_table = $wpdb->prefix . 'gameengine_points_log';
+                $ua_table  = $wpdb->prefix . 'gameengine_user_achievements';
+
+                // phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                $has_expires = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$log_table} LIKE %s", 'expires_at'));
+                if (empty($has_expires)) {
+                    $wpdb->query("ALTER TABLE {$log_table} ADD COLUMN expires_at DATETIME NULL DEFAULT NULL AFTER description");
+                }
+
+                $has_expired = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$log_table} LIKE %s", 'expired'));
+                if (empty($has_expired)) {
+                    $wpdb->query("ALTER TABLE {$log_table} ADD COLUMN expired TINYINT(1) NOT NULL DEFAULT 0 AFTER expires_at");
+                }
+
+                $has_pt_idx = $wpdb->get_results($wpdb->prepare("SHOW INDEX FROM {$log_table} WHERE Key_name = %s", 'pt_created'));
+                if (empty($has_pt_idx)) {
+                    $wpdb->query("ALTER TABLE {$log_table} ADD INDEX pt_created (point_type_id, created_at)");
+                }
+
+                $has_assertion = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ua_table} LIKE %s", 'badge_assertion_id'));
+                if (empty($has_assertion)) {
+                    $wpdb->query("ALTER TABLE {$ua_table} ADD COLUMN badge_assertion_id BIGINT(20) UNSIGNED NULL DEFAULT NULL");
+                }
+                // phpcs:enable
+            },
+        ];
+
+        foreach ($migrations as $version => $migration) {
+            if ($current_db_version < $version) {
+                $migration();
+                update_option('gameengine_db_version', $version);
+                $current_db_version = $version;
+            }
+        }
     }
 
     /**

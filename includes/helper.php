@@ -200,6 +200,51 @@ class Helper
             );
         }
 
+        // Bulk Admin Tools
+        if (self::is_addon_active('bulk_admin_tools')) {
+            $menu[$slug . '-bulk-tools'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Bulk Tools', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
+        // Data Import / Export
+        if (self::is_addon_active('data_import_export')) {
+            $menu[$slug . '-import-export'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Import / Export', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
+        // Point Transfers (pro)
+        if (self::is_addon_active('point_transfers')) {
+            $menu[$slug . '-transfers'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Transfers', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
+        // Buy Points Orders (pro)
+        if (self::is_addon_active('buy_points')) {
+            $menu[$slug . '-buy-points'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Buy Points', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
+        // Analytics Charts (pro)
+        if (self::is_addon_active('analytics_charts')) {
+            $menu[$slug . '-analytics'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Analytics', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
         // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,

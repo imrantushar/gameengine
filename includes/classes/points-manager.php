@@ -81,6 +81,26 @@ class PointsManager
         $requirement_id = isset($args['requirement_id']) ? absint($args['requirement_id']) : null;
         $description    = isset($args['description']) ? sanitize_text_field($args['description']) : null;
 
+        // Cap enforcement: truncate award when points-cap addon is active (award path only).
+        if ($points_value > 0) {
+            $attempted = $points_value;
+            $points_value = $this->apply_cap($safe_user_id, $point_type_id, $points_value);
+            if ($points_value <= 0) {
+                do_action('gameengine_points_capped', $safe_user_id, $point_type_id, $attempted, 0);
+                return false;
+            }
+            if ($points_value < $attempted) {
+                do_action('gameengine_points_capped', $safe_user_id, $point_type_id, $attempted, $points_value);
+            }
+        }
+
+        // Expiration: set expires_at when expiry_days is provided.
+        $expires_at = null;
+        if ($points_value > 0 && ! empty($args['expiry_days'])) {
+            $days       = absint($args['expiry_days']);
+            $expires_at = gmdate('Y-m-d H:i:s', strtotime("+{$days} days", current_time('timestamp')));
+        }
+
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $result = $wpdb->insert(
             $wpdb->prefix . 'gameengine_points_log',
@@ -91,9 +111,11 @@ class PointsManager
                 'context'        => sanitize_key($context),
                 'requirement_id' => $requirement_id,
                 'description'    => $description,
+                'expires_at'     => $expires_at,
+                'expired'        => 0,
                 'created_at'     => current_time('mysql'),
             ],
-            ['%d', '%d', '%d', '%s', '%d', '%s', '%s']
+            ['%d', '%d', '%d', '%s', '%d', '%s', '%s', '%d', '%s']
         );
 
         if (! $result) {
@@ -117,6 +139,31 @@ class PointsManager
         }
 
         return $log_id;
+    }
+
+    /**
+     * Apply balance cap for the given user/point type.
+     * Returns the (possibly truncated) points amount to award.
+     * Returns 0 if the user is already at or above cap.
+     * Returns the original amount unchanged if no cap is set.
+     */
+    private function apply_cap(int $user_id, int $point_type_id, int $points): int
+    {
+        // Cap is enforced via filter so the pro addon can hook in without modifying this class.
+        $cap = (int) apply_filters('gameengine_get_point_cap', 0, $user_id, $point_type_id);
+
+        if ($cap <= 0) {
+            return $points;
+        }
+
+        $current = $this->get_total($user_id, $point_type_id);
+        $room    = $cap - $current;
+
+        if ($room <= 0) {
+            return 0;
+        }
+
+        return min($points, $room);
     }
 
     /**

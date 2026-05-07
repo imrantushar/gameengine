@@ -82,6 +82,8 @@
 		"post-update-cmd": "Internal use. Runs `prefix-namespaces` after package update."
 	},
     "require-dev": {
-        "php-stubs/wp-cli-stubs": "^2.12"
+        "php-stubs/wp-cli-stubs": "^2.12",
+        "phpunit/phpunit": "^9.0",
+        "wp-phpunit/wp-phpunit": "^6.4"
     }
 }

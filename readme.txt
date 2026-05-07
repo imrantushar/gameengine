@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,23 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 You can award points for actions like user registration, daily logins, publishing posts, and leaving comments.
 
 == Changelog ==
+
+= 1.2.0 - 2026-05-07 =
+* Added: Points Expiration — award points with an expiry window; daily cron deducts expired points automatically.
+* Added: Enhanced Email Notifications — per-event HTML email templates with tag substitution and per-user opt-out.
+* Added: New Engagement Triggers — link-click tracking, video watch threshold, birthday, and anniversary triggers.
+* Added: Social Sharing — share achievement unlocks to Facebook, Twitter, and LinkedIn with auto-generated OG images.
+* Added: Bulk Admin Tools — award/deduct/badge/level users in bulk by role or CSV upload with dry-run preview.
+* Added: Data Import/Export — CSV export/import for point balances; JSON export/import for full plugin configuration.
+* Added: Progress Bar — `[gameengine_progress_bar]` shortcode with level and achievement modes; CSS custom-property theming.
+* Added: BuddyPress/BuddyBoss Integration — forum topics, replies, group joins, friend accepts, profile photo, profile updates.
+* Added: LearnDash Integration — course/lesson/topic completion, quiz pass/fail, assignment submitted/approved.
+* Added: bbPress Integration — new topics, replies, topic resolved, first-post lifetime award with deduplication.
+* Added: Gutenberg Blocks — Leaderboard, Points Balance, Achievements, Levels, Profile, Progress Map, Point History, Progress Bar blocks.
+* Added: `expiry_days` parameter to trigger rule schemas for all integrations.
+* Added: `gameengine_get_point_cap` filter for pro cap enforcement without modifying core PointsManager.
+* Added: `badge_assertion_id` column on user achievements table; `disable_sharing` flag on achievements table.
+* Added: WP-CLI `wp gameengine expire-points [--dry-run]` command.
 
 = 1.1.1 - 2025-05-06 =
 * Improved - Chakra UI removed and migrated to tailwind.

@@ -16,6 +16,11 @@ import Types from './pages/Types';
 import Wallet from './pages/walletLists';
 import Referrals from './pages/referrals';
 import LuckyWheels from './pages/lucky-wheels';
+import BulkTools from './pages/bulk-tools';
+import ImportExport from './pages/import-export';
+import Transfers from './pages/transfers';
+import BuyPointsAdmin from './pages/buy-points-admin';
+import Analytics from './pages/analytics';
 import { useLocationQuery } from '@GFHooks/';
 import LicenseNotice from '@GFComponents/LicenseNotice';
 
@@ -75,6 +80,21 @@ const renderSwitch = (page, id, action, path) => {
 
 		case 'gameengine-lucky-wheels':
 			return <LuckyWheels action={action} id={id} />;
+
+		case 'gameengine-bulk-tools':
+			return <BulkTools />;
+
+		case 'gameengine-import-export':
+			return <ImportExport />;
+
+		case 'gameengine-transfers':
+			return <Transfers />;
+
+		case 'gameengine-buy-points':
+			return <BuyPointsAdmin />;
+
+		case 'gameengine-analytics':
+			return <Analytics />;
 
 		default:
 			return <Dashboard />;

@@ -34,6 +34,9 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
+            self::get_point_transfers_table_schema($prefix, $charset_collate),
+            self::get_buy_orders_table_schema($prefix, $charset_collate),
+            self::get_notifications_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -65,6 +68,7 @@ final class Schema
             max_earnings_per_user INT(11) DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
             is_restricted TINYINT(1) DEFAULT 0,
+            disable_sharing TINYINT(1) DEFAULT 0,
             required_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_points_amount INT(11) DEFAULT 0,
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
@@ -147,10 +151,13 @@ final class Schema
             context VARCHAR(100) NOT NULL,
             requirement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             description TEXT,
+            expires_at DATETIME NULL DEFAULT NULL,
+            expired TINYINT(1) NOT NULL DEFAULT 0,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY user_id (user_id),
-            KEY point_type_id (point_type_id)
+            KEY point_type_id (point_type_id),
+            KEY pt_created (point_type_id, created_at)
         ) $charset_collate;";
     }
 
@@ -161,6 +168,7 @@ final class Schema
             user_id BIGINT(20) UNSIGNED NOT NULL,
             achievement_id BIGINT(20) UNSIGNED NOT NULL,
             achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            badge_assertion_id BIGINT(20) UNSIGNED NULL DEFAULT NULL,
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY achievement_id (achievement_id)
@@ -194,6 +202,58 @@ final class Schema
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY trigger_key (trigger_key)
+        ) $charset_collate;";
+    }
+
+    private static function get_point_transfers_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_point_transfers (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            sender_id BIGINT(20) UNSIGNED NOT NULL,
+            receiver_id BIGINT(20) UNSIGNED NOT NULL,
+            point_type_id BIGINT(20) UNSIGNED NOT NULL,
+            amount INT(11) UNSIGNED NOT NULL,
+            fee INT(11) UNSIGNED NOT NULL DEFAULT 0,
+            status ENUM('completed','reversed') NOT NULL DEFAULT 'completed',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY sender_id (sender_id),
+            KEY receiver_id (receiver_id),
+            KEY point_type_id (point_type_id)
+        ) $charset_collate;";
+    }
+
+    private static function get_buy_orders_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_buy_orders (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            point_type_id BIGINT(20) UNSIGNED NOT NULL,
+            points_amount INT(11) UNSIGNED NOT NULL,
+            price DECIMAL(10,2) NOT NULL,
+            currency VARCHAR(10) NOT NULL DEFAULT 'USD',
+            gateway VARCHAR(50) NOT NULL,
+            status ENUM('pending','completed','failed','refunded') NOT NULL DEFAULT 'pending',
+            gateway_transaction_id VARCHAR(255) DEFAULT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY status (status)
+        ) $charset_collate;";
+    }
+
+    private static function get_notifications_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_notifications (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            event_type VARCHAR(100) NOT NULL,
+            payload JSON,
+            is_read TINYINT(1) NOT NULL DEFAULT 0,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_unread (user_id, is_read),
+            KEY created_at (created_at)
         ) $charset_collate;";
     }
 }

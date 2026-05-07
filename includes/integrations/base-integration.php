@@ -90,6 +90,14 @@ abstract class BaseIntegration implements IntegrationInterface
                 'default' => 'unlimited',
                 'scope' => array('point_type', 'achievement', 'level'),
             ),
+            array(
+                'key'         => 'expiry_days',
+                'label'       => __('Points Expire After (days)', 'gameengine'),
+                'type'        => 'number',
+                'width'       => '50%',
+                'placeholder' => __('Leave empty for no expiry', 'gameengine'),
+                'scope'       => array('point_type'),
+            ),
         );
     }
 

@@ -4,7 +4,7 @@
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
- * Version:           1.1.2
+ * Version:           1.2.0
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
@@ -63,7 +63,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.1.2');
+        define('GAMEENGINE_VERSION', '1.2.0');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
@@ -146,6 +146,7 @@ final class GameEngine
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
             '\GameEngine\Classes\Triggers',
+            '\GameEngine\Classes\Blocks',
         );
 
         foreach ($services as $service) {
@@ -182,7 +183,18 @@ final class GameEngine
         $paths = array(
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
-            'addons/restrict-content/init.php'
+            'addons/restrict-content/init.php',
+            // New addons (each file gate-checks gameengine_active_addons internally).
+            'addons/points-expiration/init.php',
+            'addons/enhanced-email-notifications/init.php',
+            'addons/new-engagement-triggers/init.php',
+            'addons/social-sharing/init.php',
+            'addons/bulk-admin-tools/init.php',
+            'addons/data-import-export/init.php',
+            'addons/progress-bar/init.php',
+            'addons/buddypress-integration/init.php',
+            'addons/learndash-integration/init.php',
+            'addons/bbpress-integration/init.php',
         );
 
         foreach ($paths as $path) {

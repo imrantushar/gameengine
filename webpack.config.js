@@ -1,14 +1,15 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
 
-const GAMEENGINE_VERSION = '1.1.2';
+const GAMEENGINE_VERSION = '1.2.0';
 
 module.exports = {
     ...defaultConfig,
     entry: {
         backend: path.resolve(__dirname, 'dev_gameengine/backend.js'),
         frontend: path.resolve(__dirname, 'dev_gameengine/frontend.js'),
-        setup: path.resolve(__dirname, 'dev_gameengine/setup.js')
+        setup: path.resolve(__dirname, 'dev_gameengine/setup.js'),
+        blocks: path.resolve(__dirname, 'src/blocks/index.js'),
     },
     output: {
         filename: `[name].${GAMEENGINE_VERSION}.js`,
