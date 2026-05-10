@@ -11,7 +11,7 @@ import { SiWoocommerce } from "react-icons/si";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
-import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, is_pro, namespace } from "@GFUtils/helper";
 import { fetchBadges } from '@GFRedux/Slices/badgesSlice/badgesSlice';
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
@@ -110,13 +110,11 @@ const FormInner = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isRestrictContentActive) {
-      if (achievementsData.length === 0) {
-        fetchAchievements();
-      }
-      if (levelsData.length === 0) {
-        fetchLevels();
-      }
+    if (achievementsData.length === 0) {
+      fetchAchievements();
+    }
+    if (isRestrictContentActive && levelsData.length === 0) {
+      fetchLevels();
     }
     fetchAcheivementTypes();
     if (dispatch && badges.length === 0) {
@@ -356,6 +354,29 @@ const FormInner = () => {
             ))}
           </div>
         </div>
+      )}
+
+      {is_pro && (
+        <GameEngineInput
+          label={__("Required Achievement (Prerequisite)", "gameengine")}
+          desc={__("User must earn this achievement before unlocking the current one.", "gameengine")}
+        >
+          <Select
+            className="gameengine-select gameengine-select--width-full"
+            classNamePrefix="gameengine-select"
+            options={[{ label: __('None', 'gameengine'), value: null }, ...(achievementsData || [])]}
+            onInputChange={inputValue => { fetchAchievements(inputValue); return inputValue; }}
+            value={
+              values.prerequisite_id
+                ? (achievementsData?.find(opt => Number(opt.value) === Number(values.prerequisite_id)) || null)
+                : { label: __('None', 'gameengine'), value: null }
+            }
+            isLoading={achievementsLoading}
+            onChange={option => setFieldValue('prerequisite_id', option?.value || null)}
+            menuPlacement="bottom"
+            placeholder={__('None', 'gameengine')}
+          />
+        </GameEngineInput>
       )}
 
       <GameEngineInput label={__("Congratulations Message", "gameengine")}>

@@ -11,7 +11,7 @@ import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
 import Notification from '@GFComponents/Notification';
-import NotificationBell from '@GFComponents/NotificationBell';
+import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Tools from './pages/tools';
 import Types from './pages/Types';
 import Wallet from './pages/walletLists';
@@ -20,6 +20,10 @@ import LuckyWheels from './pages/lucky-wheels';
 import Ranks from './pages/ranks';
 import Badges from './pages/badges';
 import Streaks from './pages/streaks';
+import Analytics from './pages/analytics';
+import BonusRules from './pages/bonus-rules';
+import Seasons from './pages/seasons';
+import Webhooks from './pages/webhooks';
 import { useLocationQuery } from '@GFHooks/';
 import LicenseNotice from '@GFComponents/LicenseNotice';
 
@@ -89,6 +93,18 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-streaks':
 			return <Streaks />;
 
+		case 'gameengine-analytics':
+			return <Analytics />;
+
+		case 'gameengine-bonus-rules':
+			return <BonusRules />;
+
+		case 'gameengine-seasons':
+			return <Seasons />;
+
+		case 'gameengine-webhooks':
+			return <Webhooks />;
+
 		default:
 			return <Dashboard />;
 	}
@@ -113,7 +129,7 @@ export default function BackendDashboard() {
 			<LicenseNotice />
 			<Notification />
 			<div style={{ position: 'fixed', top: '36px', right: '16px', zIndex: 4000 }}>
-				<NotificationBell />
+				<AdminActivityFeed />
 			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }

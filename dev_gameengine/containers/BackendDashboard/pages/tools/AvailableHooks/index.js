@@ -64,6 +64,9 @@ const AvailableHooks = () => {
 
     return (
         <div className="flex flex-col gap-4">
+            <p style={{ margin: 0, fontSize: '13px', color: '#4a5568', background: '#ebf8ff', border: '1px solid #bee3f8', borderRadius: '6px', padding: '10px 14px', lineHeight: '1.6' }}>
+                {__('These are all WordPress action hooks that GameEngine listens to. Developers can copy a hook key and use it as a trigger in Points, Achievements, or Streaks rules to award points when that action fires.', 'gameengine')}
+            </p>
             <div className="flex gap-3 items-center flex-wrap">
                 <input
                     type="text"

@@ -2434,6 +2434,9 @@ input.gameengine-checkbox:checked::before {
 .visible{
   visibility: visible;
 }
+.collapse{
+  visibility: collapse;
+}
 .static{
   position: static;
 }
@@ -2957,6 +2960,11 @@ input.gameengine-checkbox:checked::before {
 }
 .overflow-y-hidden{
   overflow-y: hidden;
+}
+.truncate{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .whitespace-nowrap{
   white-space: nowrap;

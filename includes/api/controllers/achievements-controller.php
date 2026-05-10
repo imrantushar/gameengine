@@ -194,6 +194,7 @@ class AchievementsController extends BaseController
             'required_level_id'          => ! empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
             'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
             'badge_id'                   => ! empty($params['badge_id']) ? absint($params['badge_id']) : null,
+            'prerequisite_id'            => ! empty($params['prerequisite_id']) ? absint($params['prerequisite_id']) : null,
             'created_at'                 => current_time('mysql'),
         );
 

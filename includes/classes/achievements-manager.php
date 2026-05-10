@@ -84,6 +84,11 @@ class AchievementsManager
             return false;
         }
 
+        $allowed = (bool) apply_filters('pre_gameengine_achievement_unlock', true, $safe_user_id, $safe_ach_id);
+        if (! $allowed) {
+            return false;
+        }
+
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $achievement = $wpdb->get_row($wpdb->prepare(
             "SELECT title, congratulations_message, max_earnings_per_user FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d",

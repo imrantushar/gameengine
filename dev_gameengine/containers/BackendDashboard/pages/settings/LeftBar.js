@@ -60,12 +60,32 @@ const LeftBar = () => {
       desc: __("Product to points mappings", "gameengine"),
       icon: general()
     },
-    ...(is_pro ? [{
-      label: __("License", "gameengine"),
-      key: "license",
-      desc: __("Manage your license key", "gameengine"),
-      icon: license()
-    }] : []),
+    ...(is_pro ? [
+      {
+        label: __("Email Notifications", "gameengine"),
+        key: "email_notifications",
+        desc: __("Auto-email users on rank/achievement/streak events", "gameengine"),
+        icon: mail()
+      },
+      {
+        label: __("Points Transfer", "gameengine"),
+        key: "transfer",
+        desc: __("Allow users to gift points to each other", "gameengine"),
+        icon: general()
+      },
+      {
+        label: __("Points Expiry", "gameengine"),
+        key: "expiry",
+        desc: __("Configure auto-expiry per point type", "gameengine"),
+        icon: general()
+      },
+      {
+        label: __("License", "gameengine"),
+        key: "license",
+        desc: __("Manage your license key", "gameengine"),
+        icon: license()
+      },
+    ] : []),
     {
       label: __("Email Templates", "gameengine"),
       key: "email_templates",

@@ -22,6 +22,18 @@ class NotificationsController extends BaseController
     {
         register_rest_route(
             $this->namespace,
+            '/' . $this->rest_base . '/admin-feed',
+            array(
+                array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_admin_feed'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                ),
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
             '/' . $this->rest_base,
             array(
                 array(
@@ -55,6 +67,35 @@ class NotificationsController extends BaseController
                 ),
             )
         );
+    }
+
+    public function get_admin_feed(\WP_REST_Request $request)
+    {
+        global $wpdb;
+
+        $since_24h = gmdate('Y-m-d H:i:s', strtotime('-24 hours'));
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $items = $wpdb->get_results(
+            "SELECT n.id, n.user_id, u.display_name, n.type, n.message, n.is_read, n.created_at
+             FROM {$wpdb->prefix}gameengine_notifications n
+             INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
+             ORDER BY n.created_at DESC
+             LIMIT 20",
+            ARRAY_A
+        );
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $recent_count = (int) $wpdb->get_var(
+            $wpdb->prepare(
+                "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications WHERE created_at >= %s",
+                $since_24h
+            )
+        );
+
+        $response = new \WP_REST_Response($items ?: array(), 200);
+        $response->header('X-GE-Recent-Count', $recent_count);
+        return $response;
     }
 
     public function logged_in_check(\WP_REST_Request $request)

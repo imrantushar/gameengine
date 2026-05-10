@@ -35,18 +35,17 @@ class Leaderboard
                 'count'      => 10,
                 'point_type' => 0,
                 'time_range' => 'all_time',
+                'season_id'  => 0,
             ),
             $atts
         );
 
-        $limit = absint($args['count']);
+        $limit     = absint($args['count']);
+        $season_id = absint($args['season_id']);
+
         if ($limit <= 0) {
             $limit = 10;
         }
-
-        $pt_id      = absint($args['point_type']);
-        $time_range = sanitize_text_field($args['time_range']);
-        $start_date = $this->get_start_date($time_range);
 
         $cache_key = 'ge_front_lb_' . md5(wp_json_encode($args));
         $top_users = wp_cache_get($cache_key, 'gameengine');
@@ -54,38 +53,57 @@ class Leaderboard
         if (false === $top_users) {
             global $wpdb;
 
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $top_users = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT
-                        u.ID AS user_id,
-                        u.display_name AS name,
-                        IFNULL(SUM(p.points), 0) AS total_points,
-                        (
-                            SELECT l.title
-                            FROM {$wpdb->prefix}gameengine_user_levels ul
-                            JOIN {$wpdb->prefix}gameengine_levels l
-                                ON ul.level_id = l.id
-                            WHERE ul.user_id = u.ID
-                            ORDER BY l.priority DESC
-                            LIMIT 1
-                        ) AS top_level
-                    FROM {$wpdb->users} u
-                    JOIN {$wpdb->prefix}gameengine_points_log p
-                        ON u.ID = p.user_id
-                    WHERE p.points > 0
-                    AND ( %d = 0 OR p.point_type_id = %d )
-                    AND p.created_at >= %s
-                    GROUP BY u.ID
-                    ORDER BY total_points DESC
-                    LIMIT %d",
-                    $pt_id,
-                    $pt_id,
-                    $start_date,
+            if ($season_id > 0 && class_exists('\GameEngine\Pro\Pro_Init')) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                $top_users = $wpdb->get_results($wpdb->prepare(
+                    "SELECT sr.position, u.ID AS user_id, u.display_name AS name,
+                            sr.total_points, NULL AS top_level
+                     FROM {$wpdb->prefix}gameengine_pro_season_rankings sr
+                     INNER JOIN {$wpdb->users} u ON sr.user_id = u.ID
+                     WHERE sr.season_id = %d
+                     ORDER BY sr.position ASC
+                     LIMIT %d",
+                    $season_id,
                     $limit
-                ),
-                ARRAY_A
-            );
+                ), ARRAY_A);
+            } else {
+                $pt_id      = absint($args['point_type']);
+                $time_range = sanitize_text_field($args['time_range']);
+                $start_date = $this->get_start_date($time_range);
+
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+                $top_users = $wpdb->get_results(
+                    $wpdb->prepare(
+                        "SELECT
+                            u.ID AS user_id,
+                            u.display_name AS name,
+                            IFNULL(SUM(p.points), 0) AS total_points,
+                            (
+                                SELECT l.title
+                                FROM {$wpdb->prefix}gameengine_user_levels ul
+                                JOIN {$wpdb->prefix}gameengine_levels l
+                                    ON ul.level_id = l.id
+                                WHERE ul.user_id = u.ID
+                                ORDER BY l.priority DESC
+                                LIMIT 1
+                            ) AS top_level
+                        FROM {$wpdb->users} u
+                        JOIN {$wpdb->prefix}gameengine_points_log p
+                            ON u.ID = p.user_id
+                        WHERE p.points > 0
+                        AND ( %d = 0 OR p.point_type_id = %d )
+                        AND p.created_at >= %s
+                        GROUP BY u.ID
+                        ORDER BY total_points DESC
+                        LIMIT %d",
+                        $pt_id,
+                        $pt_id,
+                        $start_date,
+                        $limit
+                    ),
+                    ARRAY_A
+                );
+            }
 
             if (! is_array($top_users)) {
                 $top_users = array();

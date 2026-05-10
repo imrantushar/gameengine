@@ -21,6 +21,12 @@ class PointsManager
             return false;
         }
 
+        $points = (int) apply_filters('gameengine_points_to_award', $points, $context, $user_id, $args);
+
+        if ($points <= 0) {
+            return false;
+        }
+
         return $this->log_transaction($user_id, abs($points), $context, $args);
     }
 

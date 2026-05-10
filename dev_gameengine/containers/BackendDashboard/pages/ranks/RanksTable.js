@@ -8,6 +8,7 @@ import Button from '@GFComponents/Button';
 import OptionMenu from '@GFComponents/OptionMenu';
 import Modal from '@GFComponents/Modal/Modal';
 import GameEngineInput from '@GFComponents/GameEngineInput';
+import DashiconPicker from '@GFComponents/DashiconPicker';
 import {
     fetchRanks,
     createRank,
@@ -96,7 +97,9 @@ const RanksTable = () => {
             name: __('Rank', 'gameengine'),
             cell: (row) => (
                 <div className="flex items-center gap-2">
-                    {row.icon ? (
+                    {row.icon && row.icon.startsWith('dashicons-') ? (
+                        <span className={row.icon} style={{ fontSize: '22px', color: row.color || '#6c5ce7' }} />
+                    ) : row.icon ? (
                         <img src={row.icon} alt="" className="w-7 h-7 object-contain" />
                     ) : (
                         <span
@@ -215,14 +218,19 @@ const RanksTable = () => {
                         />
                     </GameEngineInput>
 
-                    <GameEngineInput label={__('Icon URL', 'gameengine')} desc={__('Optional image URL for this rank badge.', 'gameengine')}>
-                        <input
-                            type="url"
-                            className="gameengine-input"
-                            value={form.icon}
-                            onChange={(e) => handleChange('icon', e.target.value)}
-                            placeholder="https://..."
-                        />
+                    <GameEngineInput label={__('Icon', 'gameengine')} desc={__('Choose a dashicon or enter an image URL.', 'gameengine')}>
+                        <div className="flex items-start gap-3">
+                            <div style={{ flex: 1 }}>
+                                <DashiconPicker value={form.icon} onChange={(val) => handleChange('icon', val)} />
+                            </div>
+                            {form.icon && (
+                                form.icon.startsWith('dashicons-') ? (
+                                    <span className={form.icon} style={{ fontSize: '28px', color: form.color || '#6c5ce7', marginTop: '6px' }} />
+                                ) : (
+                                    <img src={form.icon} alt="" style={{ width: '36px', height: '36px', objectFit: 'contain', marginTop: '6px' }} />
+                                )
+                            )}
+                        </div>
                     </GameEngineInput>
 
                     <GameEngineInput label={__('Color', 'gameengine')} desc={__('Used as fallback when no icon is set.', 'gameengine')}>

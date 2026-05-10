@@ -8,6 +8,7 @@ import GetHelp from '@GFComponents/GetHelp';
 import Button from '@GFComponents/Button';
 import Modal from '@GFComponents/Modal/Modal';
 import GameEngineInput from '@GFComponents/GameEngineInput';
+import DashiconPicker from '@GFComponents/DashiconPicker';
 import {
     fetchBadges,
     createBadge,
@@ -125,7 +126,9 @@ const BadgesPage = () => {
                                 className="w-16 h-16 rounded-full flex items-center justify-center"
                                 style={{ backgroundColor: badge.color || '#6c5ce7' }}
                             >
-                                {badge.icon ? (
+                                {badge.icon && badge.icon.startsWith('dashicons-') ? (
+                                    <span className={badge.icon} style={{ fontSize: '28px', color: '#fff' }} />
+                                ) : badge.icon ? (
                                     <img src={badge.icon} alt={badge.title} className="w-10 h-10 object-contain" />
                                 ) : (
                                     <span className="text-white text-2xl font-bold">
@@ -189,14 +192,8 @@ const BadgesPage = () => {
                         />
                     </GameEngineInput>
 
-                    <GameEngineInput label={__('Icon URL', 'gameengine')} desc={__('Direct URL to an image file for this badge.', 'gameengine')}>
-                        <input
-                            type="url"
-                            className="gameengine-input"
-                            value={form.icon}
-                            onChange={(e) => handleChange('icon', e.target.value)}
-                            placeholder="https://..."
-                        />
+                    <GameEngineInput label={__('Icon', 'gameengine')} desc={__('Choose a dashicon or enter an image URL.', 'gameengine')}>
+                        <DashiconPicker value={form.icon} onChange={(val) => handleChange('icon', val)} />
                     </GameEngineInput>
 
                     <GameEngineInput label={__('Background Color', 'gameengine')} desc={__('Shown when no icon image is set.', 'gameengine')}>
@@ -218,7 +215,9 @@ const BadgesPage = () => {
                                 className="w-16 h-16 rounded-full flex items-center justify-center"
                                 style={{ backgroundColor: form.color || '#6c5ce7' }}
                             >
-                                {form.icon ? (
+                                {form.icon && form.icon.startsWith('dashicons-') ? (
+                                    <span className={form.icon} style={{ fontSize: '28px', color: '#fff' }} />
+                                ) : form.icon ? (
                                     <img src={form.icon} alt="" className="w-10 h-10 object-contain" />
                                 ) : (
                                     <span className="text-white text-2xl font-bold">

@@ -20,6 +20,10 @@ import EmailTemplates from './Tabs/EmailTemplates';
 import ReferralSettings from './Tabs/ReferralSettings';
 import NotificationsSettings from './Tabs/NotificationsSettings';
 import BuyPointsSettings from './Tabs/BuyPointsSettings';
+import ProEmailSettings from './Tabs/ProEmailSettings';
+import ProTransferSettings from './Tabs/ProTransferSettings';
+import ProExpirySettings from './Tabs/ProExpirySettings';
+import { is_pro } from '@GFUtils/helper';
 
 const Settings = () => {
   const locationQuery = useLocation();
@@ -32,6 +36,7 @@ const Settings = () => {
   const dispatch = useDispatch();
   const isEmailTab = tab === 'email_templates';
   const isNonFormikTab = isEmailTab || tab === 'buy_points';
+  const isProTab = ['email_notifications', 'transfer', 'expiry'].includes(tab);
 
   useEffect(() => {
     if (!settingsData) {
@@ -73,6 +78,15 @@ const Settings = () => {
           break;
         case "buy_points":
           await dispatch(saveSettings({ key: 'buy_points', payloadData: values.buy_points }));
+          break;
+        case "email_notifications":
+          await dispatch(saveSettings({ key: 'email_notifications', payloadData: values.email_notifications }));
+          break;
+        case "transfer":
+          await dispatch(saveSettings({ key: 'transfer', payloadData: values.transfer }));
+          break;
+        case "expiry":
+          await dispatch(saveSettings({ key: 'expiry', payloadData: values.expiry }));
           break;
         default:
           break;
@@ -122,6 +136,9 @@ const Settings = () => {
                 {tab === "referral" && <ReferralSettings />}
                 {tab === "notifications" && <NotificationsSettings />}
                 {tab === "buy_points" && <BuyPointsSettings />}
+                {tab === "email_notifications" && is_pro && <ProEmailSettings />}
+                {tab === "transfer" && is_pro && <ProTransferSettings />}
+                {tab === "expiry" && is_pro && <ProExpirySettings />}
               </div>
             </div>
           </div>

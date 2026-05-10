@@ -34,8 +34,21 @@ if (empty($gameengine_all_achievements)) : ?>
         ?>
             <div class="gameengine-achievement-card <?php echo esc_attr($gameengine_status_class); ?>">
                 <div class="gameengine-achievement-icon-box">
+                    <?php
+                    $gameengine_badge_icon = '';
+                    if (! empty($gameengine_ach['badge_id'])) {
+                        $gameengine_badge_icon = get_post_meta((int) $gameengine_ach['badge_id'], '_ge_badge_icon', true);
+                    }
+                    if (! empty($gameengine_badge_icon) && strpos($gameengine_badge_icon, 'dashicons-') === 0) {
+                        wp_enqueue_style('dashicons');
+                    }
+                    ?>
                     <?php if (! empty($gameengine_ach['badge_image'])) : ?>
                         <img src="<?php echo esc_url($gameengine_ach['badge_image']); ?>" alt="<?php echo esc_attr($gameengine_ach['title']); ?>">
+                    <?php elseif (! empty($gameengine_badge_icon) && strpos($gameengine_badge_icon, 'dashicons-') === 0) : ?>
+                        <span class="dashicons <?php echo esc_attr($gameengine_badge_icon); ?>" style="font-size:32px;width:32px;height:32px;"></span>
+                    <?php elseif (! empty($gameengine_badge_icon)) : ?>
+                        <img src="<?php echo esc_url($gameengine_badge_icon); ?>" alt="<?php echo esc_attr($gameengine_ach['title']); ?>">
                     <?php else : ?>
                         <span class="gameengine-default-icon">🏅</span>
                     <?php endif; ?>

@@ -29,9 +29,17 @@ $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_shar
                 <h3><?php echo esc_html($gameengine_user_data->display_name); ?></h3>
                 <span class="gameengine-points-tag">🪙 <?php echo esc_html(number_format_i18n($gameengine_points_total)); ?> <?php esc_html_e('Points', 'gameengine'); ?></span>
                 <?php if ($gameengine_user_rank) : ?>
+                <?php
+                $gameengine_rank_icon = $gameengine_user_rank['icon'] ?? '';
+                if (! empty($gameengine_rank_icon) && strpos($gameengine_rank_icon, 'dashicons-') === 0) {
+                    wp_enqueue_style('dashicons');
+                }
+                ?>
                 <span class="gameengine-rank-tag" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;">
-                    <?php if (! empty($gameengine_user_rank['icon'])) : ?>
-                        <img src="<?php echo esc_url($gameengine_user_rank['icon']); ?>" alt="" style="width:16px;height:16px;object-fit:contain;">
+                    <?php if (! empty($gameengine_rank_icon) && strpos($gameengine_rank_icon, 'dashicons-') === 0) : ?>
+                        <span class="dashicons <?php echo esc_attr($gameengine_rank_icon); ?>" style="font-size:16px;width:16px;height:16px;"></span>
+                    <?php elseif (! empty($gameengine_rank_icon)) : ?>
+                        <img src="<?php echo esc_url($gameengine_rank_icon); ?>" alt="" style="width:16px;height:16px;object-fit:contain;">
                     <?php else : ?>
                         🎖️
                     <?php endif; ?>
@@ -105,4 +113,95 @@ $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_shar
             <?php endif; ?>
         </div>
     </div>
+
+    <?php
+    // Send Points (Pro Points Transfer)
+    $gameengine_transfer_settings = get_option('gameengine_pro_transfer_settings', array());
+    if (class_exists('\GameEngine\Pro\Pro_Init') && ! empty($gameengine_transfer_settings['enable_transfer'])) :
+        $gameengine_point_types = \GameEngine\Classes\PointsManager::get_point_types();
+    ?>
+    <div class="gameengine-send-points" style="margin-top:24px;padding:20px;background:#fff;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.08);">
+        <h4 style="margin:0 0 16px;"><?php esc_html_e('Send Points', 'gameengine'); ?></h4>
+        <div id="ge-transfer-msg" style="display:none;margin-bottom:12px;padding:8px 12px;border-radius:6px;font-size:13px;"></div>
+        <form id="ge-transfer-form" style="display:flex;flex-direction:column;gap:12px;max-width:400px;">
+            <label style="font-size:13px;font-weight:500;">
+                <?php esc_html_e('Recipient (username or email)', 'gameengine'); ?>
+                <input type="text" id="ge-transfer-recipient" class="gameengine-input" style="margin-top:4px;width:100%;" placeholder="<?php esc_attr_e('Enter username or email', 'gameengine'); ?>" required>
+            </label>
+            <?php if (count((array) $gameengine_point_types) > 1) : ?>
+            <label style="font-size:13px;font-weight:500;">
+                <?php esc_html_e('Point Type', 'gameengine'); ?>
+                <select id="ge-transfer-type" class="gameengine-input" style="margin-top:4px;width:100%;">
+                    <?php foreach ((array) $gameengine_point_types as $gameengine_pt) : ?>
+                    <option value="<?php echo esc_attr($gameengine_pt->id ?? $gameengine_pt['id'] ?? 1); ?>">
+                        <?php echo esc_html($gameengine_pt->title ?? $gameengine_pt['title'] ?? ''); ?>
+                    </option>
+                    <?php endforeach; ?>
+                </select>
+            </label>
+            <?php endif; ?>
+            <label style="font-size:13px;font-weight:500;">
+                <?php esc_html_e('Points Amount', 'gameengine'); ?>
+                <input type="number" id="ge-transfer-points" class="gameengine-input" style="margin-top:4px;width:100%;" min="1" placeholder="<?php esc_attr_e('e.g. 100', 'gameengine'); ?>" required>
+            </label>
+            <label style="font-size:13px;font-weight:500;">
+                <?php esc_html_e('Message (optional)', 'gameengine'); ?>
+                <input type="text" id="ge-transfer-message" class="gameengine-input" style="margin-top:4px;width:100%;" placeholder="<?php esc_attr_e('A note to the recipient', 'gameengine'); ?>" maxlength="255">
+            </label>
+            <button type="submit" class="gameengine-btn gameengine-btn-primary" style="align-self:flex-start;">
+                <?php esc_html_e('Send Points', 'gameengine'); ?>
+            </button>
+        </form>
+    </div>
+    <script>
+    (function() {
+        var form = document.getElementById('ge-transfer-form');
+        if (!form) return;
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var recipient = document.getElementById('ge-transfer-recipient').value.trim();
+            var points    = parseInt(document.getElementById('ge-transfer-points').value, 10);
+            var message   = document.getElementById('ge-transfer-message').value.trim();
+            var typeEl    = document.getElementById('ge-transfer-type');
+            var typeId    = typeEl ? parseInt(typeEl.value, 10) : 1;
+            var msgEl     = document.getElementById('ge-transfer-msg');
+            var btn       = form.querySelector('button[type="submit"]');
+            btn.disabled  = true;
+
+            var lookup = fetch('<?php echo esc_url(rest_url('wp/v2/users')); ?>?search=' + encodeURIComponent(recipient) + '&context=edit', {
+                headers: { 'X-WP-Nonce': '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>' }
+            }).then(function(r) { return r.json(); });
+
+            lookup.then(function(users) {
+                var userId = (users && users.length) ? users[0].id : 0;
+                if (!userId) throw new Error('<?php echo esc_js(__('Recipient not found.', 'gameengine')); ?>');
+                return fetch('<?php echo esc_url(rest_url('gameengine/v1/pro/transfers')); ?>', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>' },
+                    body: JSON.stringify({ to_user_id: userId, point_type_id: typeId, points: points, message: message })
+                }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); });
+            }).then(function(res) {
+                msgEl.style.display = 'block';
+                if (res.ok) {
+                    msgEl.style.background = '#f0fdf4';
+                    msgEl.style.color = '#166534';
+                    msgEl.textContent = '<?php echo esc_js(__('Points sent successfully!', 'gameengine')); ?>';
+                    form.reset();
+                } else {
+                    msgEl.style.background = '#fef2f2';
+                    msgEl.style.color = '#991b1b';
+                    msgEl.textContent = res.data.message || '<?php echo esc_js(__('An error occurred.', 'gameengine')); ?>';
+                }
+            }).catch(function(err) {
+                msgEl.style.display = 'block';
+                msgEl.style.background = '#fef2f2';
+                msgEl.style.color = '#991b1b';
+                msgEl.textContent = err.message || '<?php echo esc_js(__('An error occurred.', 'gameengine')); ?>';
+            }).finally(function() {
+                btn.disabled = false;
+            });
+        });
+    })();
+    </script>
+    <?php endif; ?>
 </div>
