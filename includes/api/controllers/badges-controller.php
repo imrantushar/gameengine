@@ -88,8 +88,8 @@ class BadgesController extends BaseController
     {
         $params = $request->get_json_params();
 
-        if (empty($params['name'])) {
-            return new \WP_Error('missing_data', __('Badge name is required.', 'gameengine'), array('status' => 400));
+        if (empty($params['title'])) {
+            return new \WP_Error('missing_data', __('Badge title is required.', 'gameengine'), array('status' => 400));
         }
 
         $id = BadgeManager::create($params);

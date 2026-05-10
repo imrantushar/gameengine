@@ -1469,9 +1469,6 @@ input.gameengine-checkbox:checked::before {
 .h-12 {
   height: 3rem;
 }
-.h-16 {
-  height: 4rem;
-}
 .h-4 {
   height: 1rem;
 }
@@ -1534,9 +1531,6 @@ input.gameengine-checkbox:checked::before {
 }
 .w-12 {
   width: 3rem;
-}
-.w-16 {
-  width: 4rem;
 }
 .w-4 {
   width: 1rem;

@@ -35,7 +35,7 @@ const BonusRules = () => {
     useEffect(() => {
         fetchAll();
         API.get(namespace + 'point-types').then(r => setPointTypes(r.data || [])).catch(() => {});
-        API.get(namespace + 'hooks').then(r => setAvailableHooks(r.data || [])).catch(() => {});
+        API.get(namespace + 'tools/available-hooks').then(r => setAvailableHooks(r.data || [])).catch(() => {});
     }, []);
 
     const openCreate = () => { setForm({ ...EMPTY_RULE, conditions: {} }); setModal('create'); };
@@ -163,7 +163,7 @@ const BonusRules = () => {
                                         onChange={e => setForm(f => ({ ...f, hook_key: e.target.value }))}>
                                         <option value="">{__('— Any hook —', 'gameengine')}</option>
                                         {availableHooks.map((h, i) => (
-                                            <option key={i} value={h.hook_key || h}>{h.hook_key || h}</option>
+                                            <option key={i} value={h.hook_key}>{h.label || h.hook_key}</option>
                                         ))}
                                     </select>
                                 ) : (

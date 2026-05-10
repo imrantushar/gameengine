@@ -74,7 +74,7 @@ class BadgeManager
     {
         $post_id = wp_insert_post(array(
             'post_type'   => 'ge_badge',
-            'post_title'  => sanitize_text_field($data['name'] ?? ''),
+            'post_title'  => sanitize_text_field($data['title'] ?? ''),
             'post_status' => 'publish',
         ));
 
@@ -93,7 +93,7 @@ class BadgeManager
     {
         $result = wp_update_post(array(
             'ID'         => $id,
-            'post_title' => sanitize_text_field($data['name'] ?? ''),
+            'post_title' => sanitize_text_field($data['title'] ?? ''),
         ));
 
         if (is_wp_error($result)) {
@@ -135,16 +135,30 @@ class BadgeManager
         if (isset($data['icon_type'])) {
             update_post_meta($post_id, '_ge_badge_icon_type', sanitize_key($data['icon_type']));
         }
+        if (isset($data['shape'])) {
+            $allowed_shapes = array('circle', 'square', 'shield');
+            $shape = in_array($data['shape'], $allowed_shapes, true) ? $data['shape'] : 'circle';
+            update_post_meta($post_id, '_ge_badge_shape', $shape);
+        }
+        if (isset($data['border_color'])) {
+            update_post_meta($post_id, '_ge_badge_border_color', sanitize_hex_color($data['border_color']) ?? '#ffffff');
+        }
+        if (isset($data['text_color'])) {
+            update_post_meta($post_id, '_ge_badge_text_color', sanitize_hex_color($data['text_color']) ?? '#ffffff');
+        }
     }
 
     private static function format_badge(\WP_Post $post): array
     {
         return array(
-            'id'        => $post->ID,
-            'name'      => $post->post_title,
-            'icon'      => get_post_meta($post->ID, '_ge_badge_icon', true),
-            'color'     => get_post_meta($post->ID, '_ge_badge_color', true) ?: '#6366f1',
-            'icon_type' => get_post_meta($post->ID, '_ge_badge_icon_type', true) ?: 'dashicon',
+            'id'           => $post->ID,
+            'title'        => $post->post_title,
+            'icon'         => get_post_meta($post->ID, '_ge_badge_icon', true),
+            'color'        => get_post_meta($post->ID, '_ge_badge_color', true) ?: '#6366f1',
+            'icon_type'    => get_post_meta($post->ID, '_ge_badge_icon_type', true) ?: 'dashicon',
+            'shape'        => get_post_meta($post->ID, '_ge_badge_shape', true) ?: 'circle',
+            'border_color' => get_post_meta($post->ID, '_ge_badge_border_color', true) ?: '#ffffff',
+            'text_color'   => get_post_meta($post->ID, '_ge_badge_text_color', true) ?: '#ffffff',
         );
     }
 }

@@ -184,11 +184,12 @@ class RanksManager
                 'slug'            => $slug,
                 'description'     => sanitize_textarea_field($data['description'] ?? ''),
                 'icon'            => sanitize_text_field($data['icon'] ?? ''),
+                'color'           => sanitize_hex_color($data['color'] ?? '') ?: '#6c5ce7',
                 'points_required' => absint($data['points_required'] ?? 0),
                 'status'          => 'publish',
                 'created_at'      => current_time('mysql'),
             ),
-            array('%s', '%s', '%s', '%s', '%d', '%s', '%s')
+            array('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s')
         );
 
         return (int) $wpdb->insert_id;
@@ -210,6 +211,9 @@ class RanksManager
         }
         if (isset($data['icon'])) {
             $update['icon'] = sanitize_text_field($data['icon']);
+        }
+        if (isset($data['color'])) {
+            $update['color'] = sanitize_hex_color($data['color']) ?: '#6c5ce7';
         }
         if (isset($data['points_required'])) {
             $update['points_required'] = absint($data['points_required']);

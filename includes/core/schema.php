@@ -211,6 +211,7 @@ final class Schema
             slug VARCHAR(255) NOT NULL,
             description TEXT DEFAULT NULL,
             icon VARCHAR(255) DEFAULT NULL,
+            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
             points_required INT(11) NOT NULL DEFAULT 0,
             status VARCHAR(20) DEFAULT 'publish',
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

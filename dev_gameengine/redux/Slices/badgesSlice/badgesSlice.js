@@ -22,7 +22,7 @@ export const createBadge = createAsyncThunk('badges/create', async (payload, thu
 
 export const updateBadge = createAsyncThunk('badges/update', async ({ id, payload }, thunkAPI) => {
     try {
-        const res = await API.post(namespace + 'badges/' + id, payload);
+        const res = await API.put(namespace + 'badges/' + id, payload);
         handleSliceSuccess(thunkAPI, 'Badge updated successfully.');
         return res.data;
     } catch (error) {
@@ -32,7 +32,7 @@ export const updateBadge = createAsyncThunk('badges/update', async ({ id, payloa
 
 export const deleteBadge = createAsyncThunk('badges/delete', async (id, thunkAPI) => {
     try {
-        await API.post(namespace + 'badges/' + id, {}, { headers: { 'X-HTTP-Method-Override': 'DELETE' } });
+        await API.delete(namespace + 'badges/' + id);
         handleSliceSuccess(thunkAPI, 'Badge deleted successfully.');
         return id;
     } catch (error) {
