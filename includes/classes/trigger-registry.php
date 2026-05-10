@@ -8,6 +8,10 @@ use GameEngine\Integrations\GameEngine;
 use GameEngine\Integrations\Interactions;
 use GameEngine\Integrations\AcademyLMS;
 use GameEngine\Integrations\TutorLMS;
+use GameEngine\Integrations\BuddyPress;
+use GameEngine\Integrations\LearnDash;
+use GameEngine\Integrations\GemBoards;
+use GameEngine\Integrations\bbPress;
 
 if (!defined('ABSPATH')) exit;
 
@@ -52,6 +56,22 @@ final class TriggerRegistry
                 self::$integrations['tutorlms'] = TutorLMS::class;
             }
         }
+        if (function_exists('bp_is_active') || class_exists('BuddyPress')) {
+            self::$integrations['buddypress'] = BuddyPress::class;
+        }
+
+        if (defined('LEARNDASH_VERSION') || class_exists('SFWD_LMS')) {
+            self::$integrations['learndash'] = LearnDash::class;
+        }
+
+        if (defined('GEMBOARDS_VERSION') || class_exists('GemBoards')) {
+            self::$integrations['gemboards'] = GemBoards::class;
+        }
+
+        if (function_exists('bbpress') || class_exists('bbPress')) {
+            self::$integrations['bbpress'] = bbPress::class;
+        }
+
         self::$integrations = apply_filters('gameengine_integrations', self::$integrations);
         self::$initialized = true;
     }
@@ -90,6 +110,22 @@ final class TriggerRegistry
             }
         }
         return $all_triggers;
+    }
+
+    /**
+     * Get all triggers as a flat list for the Available Hooks UI.
+     * Returns: [ [ hook_key, label, integration, hook, description ], ... ]
+     */
+    public static function get_all(): array
+    {
+        self::init();
+        $list = [];
+        foreach (self::$integrations as $class) {
+            if (class_exists($class) && method_exists($class, 'get_hooks_list')) {
+                $list = array_merge($list, $class::get_hooks_list());
+            }
+        }
+        return $list;
     }
 
     public static function reset()

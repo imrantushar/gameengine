@@ -34,6 +34,11 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
+            self::get_ranks_table_schema($prefix, $charset_collate),
+            self::get_user_ranks_table_schema($prefix, $charset_collate),
+            self::get_notifications_table_schema($prefix, $charset_collate),
+            self::get_streaks_table_schema($prefix, $charset_collate),
+            self::get_user_streaks_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -59,6 +64,7 @@ final class Schema
             plural_name VARCHAR(255) DEFAULT NULL,
             status VARCHAR(20) DEFAULT 'publish',
             badge_image VARCHAR(255),
+            badge_id BIGINT(20) UNSIGNED DEFAULT NULL,
             category VARCHAR(255) DEFAULT NULL,
             congratulations_message TEXT DEFAULT NULL,
             secret_achievement TINYINT(1) DEFAULT 0,
@@ -194,6 +200,86 @@ final class Schema
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY trigger_key (trigger_key)
+        ) $charset_collate;";
+    }
+
+    private static function get_ranks_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_ranks (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL,
+            description TEXT DEFAULT NULL,
+            icon VARCHAR(255) DEFAULT NULL,
+            points_required INT(11) NOT NULL DEFAULT 0,
+            status VARCHAR(20) DEFAULT 'publish',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY slug (slug),
+            KEY points_required (points_required)
+        ) $charset_collate;";
+    }
+
+    private static function get_user_ranks_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_user_ranks (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            rank_id BIGINT(20) UNSIGNED NOT NULL,
+            achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY rank_id (rank_id),
+            UNIQUE KEY user_rank (user_id, rank_id)
+        ) $charset_collate;";
+    }
+
+    private static function get_notifications_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_notifications (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            type VARCHAR(50) NOT NULL DEFAULT 'points',
+            message TEXT NOT NULL,
+            is_read TINYINT(1) NOT NULL DEFAULT 0,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY is_read (is_read)
+        ) $charset_collate;";
+    }
+
+    private static function get_streaks_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_streaks (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL,
+            trigger_hook VARCHAR(255) NOT NULL,
+            interval_type ENUM('daily','weekly') NOT NULL DEFAULT 'daily',
+            bonus_points INT(11) NOT NULL DEFAULT 0,
+            bonus_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            milestone_at INT(11) NOT NULL DEFAULT 7,
+            status VARCHAR(20) DEFAULT 'publish',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY slug (slug)
+        ) $charset_collate;";
+    }
+
+    private static function get_user_streaks_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_user_streaks (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            streak_id BIGINT(20) UNSIGNED NOT NULL,
+            current_count INT(11) NOT NULL DEFAULT 0,
+            longest_count INT(11) NOT NULL DEFAULT 0,
+            last_action_at DATETIME DEFAULT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY user_streak (user_id, streak_id),
+            KEY user_id (user_id)
         ) $charset_collate;";
     }
 }

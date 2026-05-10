@@ -38,6 +38,7 @@ const retentionDays = [
 
 const GeneralSettings = () => {
   const { values, setFieldValue } = useFormikContext();
+  const general = values?.general || {};
 
   return (
     <>
@@ -95,6 +96,27 @@ const GeneralSettings = () => {
                 setFieldValue('logs.retention_days', option.value);
               }}
               menuPlacement="auto"
+            />
+          </SettingsInput>
+        </div>
+      </GameEngineBox>
+
+      <GameEngineBox
+        dynamicClasses="gameengine-settings mt-6"
+        boxShadow="var(--gameengine-shadow)"
+      >
+        <p className="gameengine-settings-heading">
+          {__('General', 'gameengine')}
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <SettingsInput
+            label={__('Social Sharing', 'gameengine')}
+            subtitle={__('Allow users to share their achievements and ranks via the Web Share API or clipboard link copy.', 'gameengine')}
+          >
+            <Switch
+              checked={!!general.social_sharing}
+              onChange={(val) => setFieldValue('general.social_sharing', val)}
             />
           </SettingsInput>
         </div>

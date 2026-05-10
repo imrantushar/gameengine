@@ -146,6 +146,12 @@ final class GameEngine
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
             '\GameEngine\Classes\Triggers',
+            '\GameEngine\Classes\BadgeManager',
+            '\GameEngine\Classes\RanksManager',
+            '\GameEngine\Classes\NotificationManager',
+            '\GameEngine\Classes\StreaksManager',
+            '\GameEngine\Classes\BuyPointsManager',
+            '\GameEngine\Classes\SocialSharing',
         );
 
         foreach ($services as $service) {

@@ -18,6 +18,8 @@ import Dashboard from './Tabs/Dashboard';
 import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
 import ReferralSettings from './Tabs/ReferralSettings';
+import NotificationsSettings from './Tabs/NotificationsSettings';
+import BuyPointsSettings from './Tabs/BuyPointsSettings';
 
 const Settings = () => {
   const locationQuery = useLocation();
@@ -29,6 +31,7 @@ const Settings = () => {
   const [settingsLoading, setSettingsLoading] = useState(!settingsData);
   const dispatch = useDispatch();
   const isEmailTab = tab === 'email_templates';
+  const isNonFormikTab = isEmailTab || tab === 'buy_points';
 
   useEffect(() => {
     if (!settingsData) {
@@ -45,6 +48,7 @@ const Settings = () => {
         case "general-settings":
         case "log":
           await dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
+          await dispatch(saveSettings({ key: 'general', payloadData: values.general }));
           break;
         case "economy":
           await dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
@@ -63,6 +67,12 @@ const Settings = () => {
           break;
         case "referral":
           await dispatch(saveSettings({ key: 'referral', payloadData: values.referral }));
+          break;
+        case "notifications":
+          await dispatch(saveSettings({ key: 'notifications', payloadData: values.notifications }));
+          break;
+        case "buy_points":
+          await dispatch(saveSettings({ key: 'buy_points', payloadData: values.buy_points }));
           break;
         default:
           break;
@@ -110,6 +120,8 @@ const Settings = () => {
                 {tab === "license" && <License />}
                 {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
                 {tab === "referral" && <ReferralSettings />}
+                {tab === "notifications" && <NotificationsSettings />}
+                {tab === "buy_points" && <BuyPointsSettings />}
               </div>
             </div>
           </div>

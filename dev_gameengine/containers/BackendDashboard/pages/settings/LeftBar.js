@@ -48,6 +48,18 @@ const LeftBar = () => {
       icon: general(),
       is_pro: true,
     },
+    {
+      label: __("Notifications", "gameengine"),
+      key: "notifications",
+      desc: __("Notification center settings", "gameengine"),
+      icon: general()
+    },
+    {
+      label: __("Buy Points", "gameengine"),
+      key: "buy_points",
+      desc: __("Product to points mappings", "gameengine"),
+      icon: general()
+    },
     ...(is_pro ? [{
       label: __("License", "gameengine"),
       key: "license",

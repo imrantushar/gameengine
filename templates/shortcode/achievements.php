@@ -1,6 +1,8 @@
 <?php
 if (! defined('ABSPATH')) exit;
 global $wpdb;
+$gameengine_ach_general_settings = get_option('gameengine_general_settings', array());
+$gameengine_ach_sharing_enabled  = ! isset($gameengine_ach_general_settings['social_sharing']) || ! empty($gameengine_ach_general_settings['social_sharing']);
 $gameengine_current_user_id = get_current_user_id();
 
 $gameengine_all_ach_cache_key = 'gameengine_all_achievements_list';
@@ -48,6 +50,16 @@ if (empty($gameengine_all_achievements)) : ?>
                         <div class="gameengine-ach-hint" title="<?php echo esc_attr($gameengine_ach['restriction_message']); ?>">
                             ℹ️ <?php esc_html_e('How to unlock', 'gameengine'); ?>
                         </div>
+                    <?php endif; ?>
+                    <?php if ($gameengine_is_earned && $gameengine_ach_sharing_enabled && ! empty($gameengine_ach['slug'])) : ?>
+                        <a
+                            href="<?php echo esc_url(add_query_arg('gameengine_achievement', esc_attr($gameengine_ach['slug']), home_url('/'))); ?>"
+                            class="gameengine-share-link"
+                            style="font-size:11px;color:#6c5ce7;text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-top:4px;"
+                            onclick="event.preventDefault();if(navigator.share){navigator.share({title:<?php echo wp_json_encode($gameengine_ach['title']); ?>,url:this.href});}else{navigator.clipboard&&navigator.clipboard.writeText(this.href);this.textContent='✓ Copied!';}"
+                        >
+                            🔗 <?php esc_html_e('Share', 'gameengine'); ?>
+                        </a>
                     <?php endif; ?>
                 </div>
             </div>

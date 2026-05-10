@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
@@ -12,6 +12,7 @@ import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { fetchBadges } from '@GFRedux/Slices/badgesSlice/badgesSlice';
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem } from "@GFComponents/Requirements/helper";
 import { arrowForward } from "@GFUtils/icons";
@@ -39,6 +40,7 @@ const FormInner = () => {
   const {
     availablePointTypes
   } = useSelector(state => state.achievements);
+  const { items: badges } = useSelector(state => state.badges || { items: [] });
   const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
@@ -105,6 +107,8 @@ const FormInner = () => {
     }
   };
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     if (isRestrictContentActive) {
       if (achievementsData.length === 0) {
@@ -115,6 +119,9 @@ const FormInner = () => {
       }
     }
     fetchAcheivementTypes();
+    if (dispatch && badges.length === 0) {
+      dispatch(fetchBadges());
+    }
   }, [isRestrictContentActive]);
 
   const {
@@ -294,6 +301,62 @@ const FormInner = () => {
           />
         </GameEngineInput>
       </div>
+
+      {badges.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <GFLabel type="input" label={__("Badge (optional)", "gameengine")} />
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <div
+              onClick={() => setFieldValue('badge_id', null)}
+              style={{
+                width: '52px',
+                height: '52px',
+                borderRadius: '50%',
+                border: !values.badge_id ? '2px solid var(--gameengine-primary-color, #6c5ce7)' : '2px solid #e2e8f0',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#a0aec0',
+                fontSize: '11px',
+                background: '#f7fafc',
+              }}
+              title={__('No badge', 'gameengine')}
+            >
+              ✕
+            </div>
+            {badges.map(badge => (
+              <div
+                key={badge.id}
+                onClick={() => setFieldValue('badge_id', badge.id)}
+                title={badge.title}
+                style={{
+                  width: '52px',
+                  height: '52px',
+                  borderRadius: '50%',
+                  border: Number(values.badge_id) === Number(badge.id) ? '2px solid var(--gameengine-primary-color, #6c5ce7)' : '2px solid #e2e8f0',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: badge.color || '#6c5ce7',
+                  overflow: 'hidden',
+                  boxShadow: Number(values.badge_id) === Number(badge.id) ? '0 0 0 3px rgba(108,92,231,0.25)' : 'none',
+                  transition: 'box-shadow 0.15s',
+                }}
+              >
+                {badge.icon ? (
+                  <img src={badge.icon} alt={badge.title} style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
+                ) : (
+                  <span style={{ color: '#fff', fontWeight: '700', fontSize: '18px' }}>
+                    {(badge.title || '?').charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <GameEngineInput label={__("Congratulations Message", "gameengine")}>
         <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'acivements-message'} />

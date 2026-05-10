@@ -11,11 +11,15 @@ import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
 import Notification from '@GFComponents/Notification';
+import NotificationBell from '@GFComponents/NotificationBell';
 import Tools from './pages/tools';
 import Types from './pages/Types';
 import Wallet from './pages/walletLists';
 import Referrals from './pages/referrals';
 import LuckyWheels from './pages/lucky-wheels';
+import Ranks from './pages/ranks';
+import Badges from './pages/badges';
+import Streaks from './pages/streaks';
 import { useLocationQuery } from '@GFHooks/';
 import LicenseNotice from '@GFComponents/LicenseNotice';
 
@@ -76,6 +80,15 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-lucky-wheels':
 			return <LuckyWheels action={action} id={id} />;
 
+		case 'gameengine-ranks':
+			return <Ranks />;
+
+		case 'gameengine-badge-editor':
+			return <Badges />;
+
+		case 'gameengine-streaks':
+			return <Streaks />;
+
 		default:
 			return <Dashboard />;
 	}
@@ -99,6 +112,9 @@ export default function BackendDashboard() {
 		<div className="gameengine-admin-content">
 			<LicenseNotice />
 			<Notification />
+			<div style={{ position: 'fixed', top: '36px', right: '16px', zIndex: 4000 }}>
+				<NotificationBell />
+			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }
 			</div>

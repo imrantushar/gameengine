@@ -145,6 +145,7 @@ class Helper
             'sub_items' => array(
                 array('title' => __('All Achievements', 'gameengine'), 'slug' => ''),
                 array('title' => __('Types', 'gameengine'), 'slug' => 'achievement-types'),
+                array('title' => __('Badge Editor', 'gameengine'), 'slug' => 'badge-editor'),
             )
         );
 
@@ -157,6 +158,20 @@ class Helper
                 array('title' => __('All Levels', 'gameengine'), 'slug' => ''),
                 array('title' => __('Types', 'gameengine'), 'slug' => 'level-types'),
             )
+        );
+
+        // Ranks
+        $menu[$slug . '-ranks'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Ranks', 'gameengine'),
+            'capability' => 'manage_options',
+        );
+
+        // Streaks
+        $menu[$slug . '-streaks'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Streaks', 'gameengine'),
+            'capability' => 'manage_options',
         );
 
         // Logs
@@ -212,6 +227,11 @@ class Helper
             'title' => __('Tools', 'gameengine'),
             'capability' => 'manage_options',
             'slug' => 'tools',
+            'sub_items' => array(
+                array('title' => __('Shortcodes', 'gameengine'), 'slug' => 'shortcodes'),
+                array('title' => __('Export / Import', 'gameengine'), 'slug' => 'export-import'),
+                array('title' => __('Available Hooks', 'gameengine'), 'slug' => 'available-hooks'),
+            ),
         );
 
         //  Settings

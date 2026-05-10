@@ -153,6 +153,46 @@ class LeaderboardController extends BaseController
 
         $total_pages = (int) ceil($total_items / $per_page);
 
+        // Current user position in leaderboard.
+        $current_user_position = null;
+        $current_user_id       = get_current_user_id();
+        if ($current_user_id) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $user_points = (float) $wpdb->get_var(
+                $wpdb->prepare(
+                    "SELECT SUM(points) FROM {$wpdb->prefix}gameengine_points_log
+                     WHERE user_id = %d
+                     AND ( point_type_id = %d OR 0 = %d )
+                     AND created_at >= %s",
+                    $current_user_id,
+                    $point_type_id,
+                    $point_type_id,
+                    $start_date
+                )
+            );
+            if ($user_points > 0) {
+                // Count users who have strictly more total points than the current user.
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+                $ahead = (int) $wpdb->get_var(
+                    $wpdb->prepare(
+                        "SELECT COUNT(*) FROM (
+                            SELECT user_id, SUM(points) as total_points
+                            FROM {$wpdb->prefix}gameengine_points_log
+                            WHERE ( point_type_id = %d OR 0 = %d )
+                            AND created_at >= %s
+                            GROUP BY user_id
+                            HAVING SUM(points) > %f
+                         ) as ahead_users",
+                        $point_type_id,
+                        $point_type_id,
+                        $start_date,
+                        $user_points
+                    )
+                );
+                $current_user_position = $ahead + 1;
+            }
+        }
+
         // Store Cache.
         $cache_to_save = array(
             'results' => $results,
@@ -164,6 +204,9 @@ class LeaderboardController extends BaseController
         $response = new \WP_REST_Response($results, 200);
         $response->header('X-WP-Total', $total_items);
         $response->header('X-WP-TotalPages', $total_pages);
+        if (null !== $current_user_position) {
+            $response->header('X-GE-Current-User-Rank', $current_user_position);
+        }
 
         return $response;
     }

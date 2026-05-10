@@ -87,12 +87,17 @@ class Assets
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
             'is_storeengine_active' => defined('STOREENGINE_VERSION'),
+            'is_buddypress_active' => function_exists('bp_is_active') || class_exists('BuddyPress'),
+            'is_learndash_active' => defined('LEARNDASH_VERSION') || class_exists('SFWD_LMS'),
+            'is_gemboards_active' => defined('GEMBOARDS_VERSION') || class_exists('GemBoards'),
+            'is_bbpress_active' => function_exists('bbpress') || class_exists('bbPress'),
             'is_pro' => (bool) \GameEngine\Helper::is_pro(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),
                 'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),
                 'levels'       => get_option('gameengine_hide_banner_levels', 'no'),
             ),
+            'social_sharing' => (bool) ( get_option('gameengine_general_settings', array())['social_sharing'] ?? true ),
         );
     }
 

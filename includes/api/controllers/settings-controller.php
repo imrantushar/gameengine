@@ -55,6 +55,21 @@ class SettingsController extends BaseController
                 'inactivity_subject'=> '',
                 'inactivity_body'   => '',
             )),
+            'general' => get_option('gameengine_general_settings', array(
+                'social_sharing' => true,
+            )),
+            'notifications' => get_option('gameengine_notification_settings', array(
+                'enabled'              => true,
+                'notify_points_added'  => true,
+                'notify_points_deducted' => true,
+                'notify_achievement'   => true,
+                'notify_level_up'      => true,
+                'notify_rank'          => true,
+                'retention_days'       => 30,
+            )),
+            'buy_points' => array(
+                'mappings' => get_option('gameengine_buy_points_mappings', array()),
+            ),
             'config' => array(
                 'is_pro' => false, // Default is false
             )
@@ -90,6 +105,40 @@ class SettingsController extends BaseController
                 }
             }
             update_option('gameengine_email_templates', $email_settings);
+        }
+
+        if (isset($params['general'])) {
+            $general = (array) $params['general'];
+            update_option('gameengine_general_settings', array(
+                'social_sharing' => ! empty($general['social_sharing']),
+            ));
+        }
+
+        if (isset($params['notifications'])) {
+            $notif = (array) $params['notifications'];
+            $sanitized = array(
+                'enabled'               => ! empty($notif['enabled']),
+                'notify_points_added'   => ! empty($notif['notify_points_added']),
+                'notify_points_deducted'=> ! empty($notif['notify_points_deducted']),
+                'notify_achievement'    => ! empty($notif['notify_achievement']),
+                'notify_level_up'       => ! empty($notif['notify_level_up']),
+                'notify_rank'           => ! empty($notif['notify_rank']),
+                'retention_days'        => absint($notif['retention_days'] ?? 30),
+            );
+            update_option('gameengine_notification_settings', $sanitized);
+        }
+
+        if (isset($params['buy_points']['mappings'])) {
+            $mappings = array();
+            foreach ((array) $params['buy_points']['mappings'] as $row) {
+                $product_id    = absint($row['product_id'] ?? 0);
+                $point_type_id = absint($row['point_type_id'] ?? 0);
+                $amount        = absint($row['amount'] ?? 0);
+                if ($product_id && $point_type_id && $amount) {
+                    $mappings[$product_id] = array($point_type_id, $amount);
+                }
+            }
+            update_option('gameengine_buy_points_mappings', $mappings);
         }
 
         /**

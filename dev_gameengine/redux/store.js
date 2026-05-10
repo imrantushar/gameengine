@@ -14,6 +14,10 @@ import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import payoutReducer from './Slices/payoutSlice/payoutSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 import referralReducer from './Slices/referralSlice/referralSlice';
+import badgesReducer from './Slices/badgesSlice/badgesSlice';
+import ranksReducer from './Slices/ranksSlice/ranksSlice';
+import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
+import streaksReducer from './Slices/streaksSlice/streaksSlice';
 
 import logger from 'redux-logger';
 
@@ -45,7 +49,10 @@ export const store = configureStore({
         addons: addonsReducer,
         notification: notificationReducer,
         referrals: referralReducer,
-        // Future reducers will be added here (e.g., points, settings)
+        badges: badgesReducer,
+        ranks: ranksReducer,
+        notificationCenter: notificationCenterReducer,
+        streaks: streaksReducer,
     },
     middleware: ( getDefaultMiddleware ) =>
         getDefaultMiddleware().concat( ...middleware ),

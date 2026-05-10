@@ -20,6 +20,13 @@ use GameEngine\API\Controllers\AddonsController;
 use GameEngine\API\Controllers\TaxonomyController;
 use GameEngine\API\Controllers\ToolsController;
 use GameEngine\API\Controllers\SetupController;
+use GameEngine\API\Controllers\BadgesController;
+use GameEngine\API\Controllers\RanksController;
+use GameEngine\API\Controllers\NotificationsController;
+use GameEngine\API\Controllers\StreaksController;
+use GameEngine\API\Controllers\ToolsExportController;
+use GameEngine\API\Controllers\ToolsImportController;
+use GameEngine\API\Controllers\ToolsHooksController;
 
 final class Manager
 {
@@ -52,6 +59,13 @@ final class Manager
             TaxonomyController::class,
             ToolsController::class,
             SetupController::class,
+            BadgesController::class,
+            RanksController::class,
+            NotificationsController::class,
+            StreaksController::class,
+            ToolsExportController::class,
+            ToolsImportController::class,
+            ToolsHooksController::class,
         ];
     }
 

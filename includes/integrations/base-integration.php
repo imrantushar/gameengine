@@ -154,4 +154,27 @@ abstract class BaseIntegration implements IntegrationInterface
     {
         return self::merge_schema(array(), $type);
     }
+
+    /**
+     * Returns a flat list of all triggers from this integration for the Available Hooks UI.
+     * Each entry: [ hook_key, label, integration, hook, parameters ]
+     */
+    public static function get_hooks_list(): array
+    {
+        $integration = static::get_name();
+        $triggers    = static::get_triggers();
+        $list        = array();
+
+        foreach ($triggers as $key => $trigger) {
+            $list[] = array(
+                'hook_key'    => $key,
+                'label'       => $trigger['label'] ?? $key,
+                'integration' => $integration,
+                'hook'        => $trigger['hook'] ?? $key,
+                'description' => $trigger['description'] ?? '',
+            );
+        }
+
+        return $list;
+    }
 }

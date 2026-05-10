@@ -3,10 +3,13 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
 import ShortCode from './Shortcode';
+import ExportImport from './ExportImport';
+import AvailableHooks from './AvailableHooks';
 import { admin_url, route_path, useQuery } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { TfiShortcode } from "react-icons/tfi";
 import { FcDataConfiguration } from "react-icons/fc";
+import { FiDownload, FiAnchor } from 'react-icons/fi';
 import GetHelp from '@GFComponents/GetHelp';
 
 const Tools = () => {
@@ -22,6 +25,20 @@ const Tools = () => {
       route: `&path=shortcodes`
     },
     {
+      icon: FiDownload,
+      title: __('Export / Import', 'gameengine'),
+      name: 'export-import',
+      slug: 'export-import',
+      route: `&path=export-import`
+    },
+    {
+      icon: FiAnchor,
+      title: __('Available Hooks', 'gameengine'),
+      name: 'available-hooks',
+      slug: 'available-hooks',
+      route: `&path=available-hooks`
+    },
+    {
       title: __('Setup Wizard', 'gameengine'),
       icon: FcDataConfiguration,
       name: 'setup',
@@ -34,6 +51,10 @@ const Tools = () => {
     switch (urlPath) {
       case 'shortcodes':
         return <ShortCode />;
+      case 'export-import':
+        return <ExportImport />;
+      case 'available-hooks':
+        return <AvailableHooks />;
       default:
         return <ShortCode />;
     }
@@ -84,7 +105,7 @@ const Tools = () => {
           </div>
 
           <div className="w-[80%]">
-            <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'gameengine')}>
+            <GameEngineBox dynamicClasses={'gameengine-tools'} heading={tabs.find(t => t.name === path)?.title || __('Shortcodes', 'gameengine')}>
               {renderSwitch(path)}
             </GameEngineBox>
           </div>
