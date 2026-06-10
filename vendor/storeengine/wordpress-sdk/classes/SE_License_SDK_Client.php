@@ -116,6 +116,15 @@ final class SE_License_SDK_Client {
 	protected $slug;
 
 	/**
+	 * Package-relative paths that MUST exist in an update package for it to be
+	 * considered complete. Used by the Updater to abort an incomplete update
+	 * before the live plugin folder is swapped. Null means "use the SDK default".
+	 *
+	 * @var ?array
+	 */
+	protected $critical_paths = null;
+
+	/**
 	 * The project purchase/checkout URL.
 	 *
 	 * @var string|null
@@ -275,6 +284,7 @@ final class SE_License_SDK_Client {
 			'allow_local'     => false,
 			'product_logo'    => null,
 			'primary_color'   => '#008DFF',
+			'critical_paths'  => null,
 		] );
 
 		if ( ! $args['license_server'] ) {
@@ -298,6 +308,7 @@ final class SE_License_SDK_Client {
 		$this->slug              = $args['slug'];
 		$this->type              = $args['package_type'];
 		$this->package_version   = $args['package_version'];
+		$this->critical_paths    = is_array( $args['critical_paths'] ) ? $args['critical_paths'] : null;
 
 		if ( ! $this->basename || ! $this->slug || ! $this->type || ! $this->package_version ) {
 			$this->set_basename_and_slug();
@@ -1110,8 +1121,14 @@ final class SE_License_SDK_Client {
 
 		$timeout  = $this->validate_timeout( $args );
 
-		// Body.
-		$body = array_merge( $args['body'], [
+		// Body. Caller-provided fields win over auto-added defaults — this
+		// matters for routes like /software/get-package where `version`
+		// means "which version's zip to fetch" rather than the SDK's
+		// default meaning of "currently installed plugin version". Before
+		// 1.5.2 the order was reversed and `version` was always clobbered
+		// by getProjectVersion(), so rollback always re-downloaded the
+		// currently-installed version's zip.
+		$body = array_merge( [
 			'is_free'     => $this->is_free,
 			'slug'        => $this->getSlug(),
 			'site_url'    => site_url(),
@@ -1120,7 +1137,7 @@ final class SE_License_SDK_Client {
 			'sdk_version' => $this->getVersion(),
 			'device_id'   => $this->get_device_id(),
 			'locale'      => get_locale(),
-		] );
+		], $args['body'] );
 
 		// Add license info for every request, if available.
 		if ( ! $this->is_free && $this->license() && $this->license()->get_key() && empty( $body['license'] ) ) {
@@ -1375,6 +1392,17 @@ final class SE_License_SDK_Client {
 	 */
 	public function getSlug(): string {
 		return $this->slug;
+	}
+
+	/**
+	 * Package-relative paths that must exist for an update package to be
+	 * considered complete. Null when the consumer didn't declare any (the
+	 * Updater falls back to a conservative default).
+	 *
+	 * @return ?array
+	 */
+	public function getCriticalPaths() {
+		return $this->critical_paths;
 	}
 
 	/**

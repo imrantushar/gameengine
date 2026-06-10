@@ -17,7 +17,7 @@
         "ext-mbstring": "*",
 		"ext-dom": "*",
 		"ext-mysqli": "*",
-        "storeengine/wordpress-sdk": "^1.4"
+        "storeengine/wordpress-sdk": "^1.5"
 	},
 	"config": {
 		"autoloader-suffix": "GameEngine",
