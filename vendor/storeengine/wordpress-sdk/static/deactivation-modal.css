@@ -132,7 +132,7 @@ body.se-sdk-deactivation-modal-open {
 	overflow: auto;
 }
 
-.feedback-message {
+.se-sdk-deactivation-modal .feedback-message {
 	margin-bottom: 24px;
 	color: var(--se-sdk-text-color, #141A24);
 	font-size: 16px;
@@ -141,15 +141,15 @@ body.se-sdk-deactivation-modal-open {
 	line-height: 24px;
 }
 
-.reasons {
+.se-sdk-deactivation-modal .reasons {
 	display: flex;
 	flex-direction: column;
 	gap: 12px;
 	margin: 0;
 }
 
-dd,
-li {
+.se-sdk-deactivation-modal dd,
+.se-sdk-deactivation-modal li {
 	margin: 0;
 }
 
@@ -201,7 +201,7 @@ li {
 	margin: 4px auto;
 }
 
-.mui {
+.se-sdk-deactivation-modal .mui {
 	display: inline-flex;
 	flex-direction: column;
 	min-width: 0;
@@ -262,8 +262,8 @@ li {
 	color: var(--se-sdk-primary-color, #008DFF);
 }
 
-p:not(.helper-text).mui-error,
-div:not(.helper-text).mui-error,
+.se-sdk-deactivation-modal p:not(.helper-text).mui-error,
+.se-sdk-deactivation-modal div:not(.helper-text).mui-error,
 .se-sdk-deactivation-modal .mui label.mui-error {
 	padding: 5px 10px;
 	color: var(--se-sdk-danger-color, #f02e5e);
@@ -273,8 +273,8 @@ div:not(.helper-text).mui-error,
 	padding: 0;
 }
 
-p:not(.helper-text).mui-error,
-div:not(.helper-text).mui-error {
+.se-sdk-deactivation-modal p:not(.helper-text).mui-error,
+.se-sdk-deactivation-modal div:not(.helper-text).mui-error {
 	font-weight: bold;
 	border: 1px solid var(--se-sdk-danger-color, #f02e5e);
 }
@@ -412,9 +412,10 @@ div:not(.helper-text).mui-error {
 	font-size: 11px;
 }
 
+.se-sdk-deactivation-modal--open-ticket a,
 .se-sdk-deactivation-modal--open-ticket button,
 .se-sdk-deactivation-modal .button {
-	display: flex;
+	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	padding: 2px 14px;
@@ -424,9 +425,11 @@ div:not(.helper-text).mui-error {
 	text-decoration: none;
 	cursor: pointer;
 	background: var(--se-sdk-primary-color, #008DFF);
+	border: 1px solid var(--se-sdk-primary-color, #008DFF);
 	border-radius: 4px;
 }
 
+.se-sdk-deactivation-modal--open-ticket a,
 .se-sdk-deactivation-modal--open-ticket button {
 	gap: 8px;
 	margin-top: 12px;
@@ -445,6 +448,18 @@ div:not(.helper-text).mui-error {
 	box-shadow: inset 1px 1px 12px -1px #00000040;
 }
 
+.se-sdk-deactivation-modal--open-ticket a:hover,
+.se-sdk-deactivation-modal--open-ticket button:hover {
+	color: #fff;
+	background: var(--se-sdk-primary-color, #008DFF);
+}
+
+.se-sdk-deactivation-modal--open-ticket a:hover svg path,
+.se-sdk-deactivation-modal--open-ticket button:hover svg path {
+	fill: #fff;
+}
+
+.se-sdk-deactivation-modal--open-ticket a:focus,
 .se-sdk-deactivation-modal--open-ticket button:focus,
 .se-sdk-deactivation-modal .button:focus {
 	box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--se-sdk-primary-color, #008DFF);
@@ -452,7 +467,8 @@ div:not(.helper-text).mui-error {
 
 .se-sdk-deactivation-modal .button.button-link,
 .se-sdk-deactivation-modal button.button-link {
-	color: #454F59;
+	color: var(--se-sdk-muted-color, #738496);
+	font-weight: 400;
 	background: transparent;
 	border-color: transparent;
 }
@@ -469,7 +485,8 @@ div:not(.helper-text).mui-error {
 	box-shadow: 0 0 0 1px #fff, 0 0 0 3px currentColor;
 }
 
-.se-sdk-deactivation-modal .open-ticket-form svg path {
+.se-sdk-deactivation-modal .open-ticket-form svg path,
+.se-sdk-deactivation-modal .open-ticket-link svg path {
 	fill: var(--se-sdk-primary-color, #008DFF);
 }
 
@@ -482,6 +499,54 @@ div:not(.helper-text).mui-error {
 	border: 1px solid #c8c8c8;
 	box-shadow: none;
 	color: #7a7a7a;
+}
+
+/* Loading state keeps the original primary colour so the spinner reads
+   as "submitting" rather than "disabled". `.loading` always wins over
+   `.disabled` thanks to ordering below. */
+.se-sdk-deactivation-modal .button.loading,
+.se-sdk-deactivation-modal button.loading,
+.se-sdk-deactivation-modal .button.disabled.loading,
+.se-sdk-deactivation-modal button.disabled.loading,
+.se-sdk-deactivation-modal .button.loading:disabled,
+.se-sdk-deactivation-modal button.loading:disabled {
+	cursor: wait !important;
+	background: var(--se-sdk-primary-color, #008DFF) !important;
+	border: 1px solid var(--se-sdk-primary-color, #008DFF) !important;
+	color: #fff !important;
+	box-shadow: none;
+	opacity: 0.85;
+}
+
+/* Skip & Deactivate is the muted "link" button — keep its look while loading. */
+.se-sdk-deactivation-modal .button.button-link.loading,
+.se-sdk-deactivation-modal button.button-link.loading,
+.se-sdk-deactivation-modal .button.button-link.disabled.loading,
+.se-sdk-deactivation-modal button.button-link.disabled.loading {
+	background: transparent !important;
+	border-color: transparent !important;
+	color: var(--se-sdk-muted-color, #738496) !important;
+}
+
+/* In-button loading spinner shown while feedback is being sent. */
+.se-sdk-deactivation-modal .se-sdk-spinner {
+	display: inline-block;
+	width: 12px;
+	height: 12px;
+	margin-right: 8px;
+	border: 2px solid currentColor;
+	border-right-color: transparent;
+	border-radius: 50%;
+	vertical-align: -2px;
+	animation: se-sdk-modal-spin 0.7s linear infinite;
+}
+
+.se-sdk-deactivation-modal .se-sdk-spinner-label {
+	vertical-align: middle;
+}
+
+@keyframes se-sdk-modal-spin {
+	to { transform: rotate(360deg); }
 }
 
 .se-sdk-deactivation-modal .button.disabled.button-link,

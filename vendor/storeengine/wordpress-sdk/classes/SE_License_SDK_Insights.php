@@ -926,54 +926,40 @@ final class SE_License_SDK_Insights {
 	 * @return array
 	 */
 	private function __get_uninstall_reasons(): array {
+		// Five-option list — minimal cognitive load. Only "found-better"
+		// and "other" expose an optional text input to capture the
+		// follow-up detail that's useful as feedback. All other reasons
+		// stand on their own.
 		$reasons = [
 				[
-						'id'          => 'how-to-use',
-						'text'        => esc_html__( "I couldn't understand how to make it work.", 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Would you like us to assist you?', 'storeengine-sdk' ),
+						'id'          => 'no-longer-needed',
+						'text'        => esc_html__( 'I no longer need the plugin', 'storeengine-sdk' ),
+						'type'        => '',
+						'placeholder' => '',
 				],
 				[
 						'id'          => 'found-better',
-						'text'        => esc_html__( 'I found a better product.', 'storeengine-sdk' ),
+						'text'        => esc_html__( 'I found a better plugin', 'storeengine-sdk' ),
 						'type'        => 'text',
-						'placeholder' => esc_html__( 'Which Plugin!?', 'storeengine-sdk' ),
+						'placeholder' => esc_html__( 'Which one?', 'storeengine-sdk' ),
 				],
 				[
-						'id'          => 'feature-needed',
-						'text'        => esc_html__( "The plugin is great, but I need specific feature that you don't support.", 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Can you tell us more about feature that you need?', 'storeengine-sdk' ),
-				],
-				[
-						'id'          => 'not-working',
-						'text'        => esc_html__( 'The plugin is not working.', 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Could you tell us a bit more whats not working?', 'storeengine-sdk' ),
-				],
-				[
-						'id'          => 'looking-for-other',
-						'text'        => esc_html__( "It's not what I was looking for.", 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Could you please let us know more about the features you are looking for?', 'storeengine-sdk' ),
-				],
-				[
-						'id'          => 'not-working-as-expected',
-						'text'        => esc_html__( "The plugin didn't work as expected.", 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Please let us know your needs.', 'storeengine-sdk' ),
+						'id'          => 'how-to-use',
+						'text'        => esc_html__( "I couldn't get the plugin to work", 'storeengine-sdk' ),
+						'type'        => '',
+						'placeholder' => '',
 				],
 				[
 						'id'          => 'debugging',
-						'text'        => esc_html__( 'Temporary deactivation for debugging.', 'storeengine-sdk' ),
+						'text'        => esc_html__( "It's a temporary deactivation", 'storeengine-sdk' ),
 						'type'        => '',
 						'placeholder' => '',
 				],
 				[
 						'id'          => 'other',
 						'text'        => esc_html__( 'Other', 'storeengine-sdk' ),
-						'type'        => 'textarea',
-						'placeholder' => esc_html__( 'Could you tell us a bit more?', 'storeengine-sdk' ),
+						'type'        => 'text',
+						'placeholder' => esc_html__( 'Please share the reason', 'storeengine-sdk' ),
 				],
 		];
 
@@ -1211,7 +1197,7 @@ final class SE_License_SDK_Insights {
 		$reasons           = $this->__get_uninstall_reasons();
 		$admin_user        = $this->client->get_admin_data();
 		$displayName       = $admin_user->first_name ? trim( $admin_user->first_name . ' ' . $admin_user->last_name ) : $admin_user->display_name;
-		$showSupportTicket = $this->ticketTemplate && $this->ticketRecipient;
+		$showSupportTicket = ! empty( $this->supportURL );
 		?>
 		<div class="se-sdk-product-<?php echo esc_attr( $this->client->getSlug() ); ?> se-sdk-deactivation-modal"
 			 id="<?php echo esc_attr( $this->client->getSlug() ); ?>-se-sdk-deactivation-modal"
@@ -1226,10 +1212,6 @@ final class SE_License_SDK_Insights {
 			 role="dialog" aria-modal="true"
 			 style="--se-sdk-primary-color: <?php echo esc_attr( $this->client->getPrimaryColor() ); ?>; --se-sdk-danger-color: #f02e5e; --se-sdk-text-color: #141A24; --se-sdk-muted-color: #738496; --se-sdk-border-color: #eeeeee;">
 			<?php
-			if ( $showSupportTicket ) {
-				include __DIR__ . '/../views/insights-support-ticket-form.php';
-			}
-
 			include __DIR__ . '/../views/insights-deactivation-reasons.php';
 			?>
 		</div>

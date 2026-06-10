@@ -562,6 +562,9 @@ final class SE_License_SDK_License {
 	 * @return void
 	 */
 	public function render_menu_page() {
+		$mount_id = 'se-sdk-license-app-' . sanitize_html_class( $this->client->getSlug() );
+
+		$this->enqueue_license_app( $mount_id );
 		?>
 		<div class="se-sdk-product-<?php echo esc_attr( $this->client->getSlug() ); ?> wrap se-sdk-license-settings-wrapper"
 			 style="--se-sdk-primary-color: <?php echo esc_attr( $this->client->getPrimaryColor() ); ?>;">
@@ -571,9 +574,82 @@ final class SE_License_SDK_License {
 						esc_html( $this->client->getPackageName() )
 				); ?></h1>
 			<hr class="wp-header-end">
-			<?php $this->render_license_page(); ?>
+
+			<?php
+			/**
+			 * Skip the React panel entirely. Filter return true to fall back
+			 * to the PHP form (useful for SSR debugging or hosts where
+			 * wp.element isn't available).
+			 *
+			 * @param bool $disabled
+			 */
+			$react_disabled = (bool) apply_filters( $this->client->getHookName( 'disable_react_panel' ), false );
+
+			if ( ! $react_disabled && $this->client->maybe_init_restapi() ) :
+				?>
+				<div id="<?php echo esc_attr( $mount_id ); ?>" class="se-sdk-app-mount"></div>
+				<noscript>
+					<div class="se-sdk-noscript">
+						<p><?php esc_html_e( 'JavaScript is required for the full license & updates panel. The simplified form below still works.', 'storeengine-sdk' ); ?></p>
+						<?php $this->render_license_page(); ?>
+					</div>
+				</noscript>
+				<?php
+			else :
+				$this->render_license_page();
+			endif;
+			?>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Enqueue the React panel + its config. Called from render_menu_page()
+	 * so it only fires on the license page, not on every admin screen.
+	 */
+	private function enqueue_license_app( string $mount_id ): void {
+		$handle = 'se-sdk-license-app-' . sanitize_html_class( $this->client->getSlug() );
+
+		wp_enqueue_style(
+			$handle,
+			SE_License_SDK::sdk_url( 'static/license-app.css' ),
+			[],
+			$this->client->getVersion()
+		);
+
+		wp_enqueue_script(
+			$handle,
+			SE_License_SDK::sdk_url( 'static/license-app.js' ),
+			[ 'wp-element', 'wp-i18n' ],
+			$this->client->getVersion(),
+			true
+		);
+
+		$is_free = $this->client->isFree();
+
+		// Surface only the bits the React app actually needs — never echo
+		// raw license data; the JS calls /license/status itself.
+		$config = [
+			'mountId'           => $mount_id,
+			'slug'              => $this->client->getSlug(),
+			'packageName'       => $this->client->getPackageName(),
+			'isFree'            => $is_free,
+			'restUrl'           => trailingslashit( rest_url( 'storeengine-sdk/v1/' . $this->client->getSlug() ) ),
+			'nonce'             => wp_create_nonce( 'wp_rest' ),
+			'initialLicense'    => $is_free ? null : $this->get_public_data(),
+			'storeDashboardUrl' => $this->manage_license_url ?: null,
+			'purchaseUrl'       => $this->client->get_purchase_url() ?: null,
+		];
+
+		// Per-instance global so multiple SDK consumers on the same page
+		// (e.g. plugin + addon) don't clobber each other's config.
+		$var_name = 'seSdkLicenseAppConfig_' . preg_replace( '/[^A-Za-z0-9_]/', '_', $this->client->getSlug() );
+
+		wp_add_inline_script(
+			$handle,
+			sprintf( 'window.%s = %s;', $var_name, wp_json_encode( $config ) ),
+			'before'
+		);
 	}
 
 	public function render_license_page() {
@@ -1361,8 +1437,29 @@ final class SE_License_SDK_License {
 	 * @return void
 	 */
 	public function project_deactivation() {
-		$this->get_license();
-		$this->deactivate_client_license();
+		// Intentionally NOT calling deactivate_client_license() here.
+		//
+		// WordPress plugin deactivation is often temporary — a user
+		// disables a plugin to debug, swap themes, test a conflict, etc.
+		// Surrendering the license seat on every deactivation forces the
+		// user to re-paste their key on reactivation, which is bad UX and
+		// also creates spurious "deactivated → reactivated" noise in the
+		// vendor's activation audit log.
+		//
+		// We match the behaviour of ACF Pro / EDD / Yoast Premium: the
+		// license stays active across WP plugin deactivate/reactivate.
+		// The seat is only released when the user explicitly clicks
+		// "Deactivate License" in the SDK panel, or when they truly
+		// uninstall the plugin (via wp-admin Plugins → Delete, which
+		// runs the consumer's own uninstall.php — the SDK can't hook
+		// that path because it's bundled inside the host plugin).
+		$this->clear_license_check_schedule();
+
+		// Drop the cached update-info transient so a future reactivation
+		// starts with a fresh check.
+		if ( method_exists( $this->client, 'updater' ) ) {
+			$this->client->updater()->delete_cached_version_info();
+		}
 	}
 
 	/**
