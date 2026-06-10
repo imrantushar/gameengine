@@ -1,7 +1,7 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
 
-const GAMEENGINE_VERSION = '1.1.2';
+const GAMEENGINE_VERSION = '1.1.3';
 
 module.exports = {
     ...defaultConfig,

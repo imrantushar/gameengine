@@ -63,7 +63,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.1.2');
+        define('GAMEENGINE_VERSION', '1.1.3');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
