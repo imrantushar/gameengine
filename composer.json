@@ -55,7 +55,10 @@
 		"lint": "phpcs --colors --extensions=php ./includes ./addons ./templates",
 		"lint:log": "phpcs --colors --extensions=php --report=full --report-file=./phpcs.log ./includes ./addons ./templates",
 		"test": "vendor/bin/phpunit",
-		"build": "@composer install --no-dev --optimize-autoloader",
+		"build": [
+			"@composer install --no-dev --optimize-autoloader",
+			"@composer dump-autoload --no-dev --optimize --classmap-authoritative"
+		],
 		"dev": "@composer install",
 		"wp:gen-pot": "@php -d memory_limit=512M \"$(which wp)\" i18n make-pot --allow-root .",
 		"cache:clear": [
@@ -73,7 +76,7 @@
 		"lint": "Check the PHP WPCS (phpcs) violations.",
 		"lint:log": "Write lint output to a log file (phpcs.log).",
 		"test": "Runs unit tests.",
-		"build": "Builds dependencies without dev-dependencies.",
+		"build": "Build for release: install runtime deps only (no dev) with an optimized, authoritative classmap autoloader. Runs the strauss prefix step via post-install, then re-dumps authoritative. Use before packaging/release.",
 		"dev": "Install all dependencies including dev-dependencies.",
 		"wp:gen-pot": "Run WP-CLI pot generator with increased php memory limit.",
 		"cache:clear": "Clear Composer caches.",
