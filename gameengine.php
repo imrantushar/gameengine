@@ -105,6 +105,7 @@ final class GameEngine
         \GameEngine\SeSdk::get_instance();
         add_action('deactivated_plugin', array($this, 'handle_dependency_deactivation'), 10, 2);
 
+        add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
         add_action('init', array($this, 'init_modules'), 10);
         add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
     }
