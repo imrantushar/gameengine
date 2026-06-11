@@ -81,12 +81,7 @@ const Button = ({
 		<Component ref={btnRef} className={buildClassName()} {...buttonProps}>
 			{iconPosition !== 'right' && !isLoading && icon}
 			{isLoading ? (
-				<>
-					<Spinner />
-					{loadingLabel && (
-						<span className="gameengine-btn--label">{loadingLabel}</span>
-					)}
-				</>
+				<Spinner />
 			) : (
 				label && <span className="gameengine-btn--label">{label}</span>
 			)}

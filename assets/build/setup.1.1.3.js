@@ -183,9 +183,7 @@ const Button = ({
     ref: btnRef,
     className: buildClassName(),
     ...buttonProps
-  }, iconPosition !== 'right' && !isLoading && icon, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null), loadingLabel && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
-    className: "gameengine-btn--label"
-  }, loadingLabel)) : label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+  }, iconPosition !== 'right' && !isLoading && icon, isLoading ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null) : label && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gameengine-btn--label"
   }, label), iconPosition === 'right' && !isLoading && icon, !isPro && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
     className: "gameengine-pro-badge"
