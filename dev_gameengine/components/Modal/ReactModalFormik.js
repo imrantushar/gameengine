@@ -8,8 +8,9 @@ import {
   MdLaptopMac,
   MdViewColumn
 } from 'react-icons/md';
-import { outlineBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
+import { outlineBtn } from '../../../assets/scss/chakra/recipe';
 import Button from '@GFComponents/Button';
+import { IoClose } from 'react-icons/io5';
 
 const ReactModalFormik = ({
   children,
@@ -331,8 +332,9 @@ const ReactModalFormik = ({
                   <button
                     onClick={onRequestClose}
                     disabled={isSubmitting}
-                    style={xCloseBtn}
-                  />
+                  >
+                    <IoClose />
+                  </button>
                 </div>
               </div>
 

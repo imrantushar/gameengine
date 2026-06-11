@@ -48,18 +48,18 @@ const LeftBar = () => {
       icon: refIcon(),
       is_pro: true,
     },
-    ...(is_pro ? [{
-      label: __("License", "gameengine"),
-      key: "license",
-      desc: __("Manage your license key", "gameengine"),
-      icon: licenseIcon()
-    }] : []),
     {
       label: __("Email Templates", "gameengine"),
       key: "email_templates",
       desc: __("Customize Email Templates & Cron", "gameengine"),
       icon: mail()
     },
+    ...(is_pro ? [{
+      label: __("License", "gameengine"),
+      key: "license",
+      desc: __("Manage your license key", "gameengine"),
+      icon: licenseIcon()
+    }] : []),
   ];
 
   return (
