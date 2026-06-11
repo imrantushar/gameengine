@@ -1,7 +1,3 @@
-/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/TopBar/styles.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************/
-
 /*!***********************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./assets/scss/setup.scss ***!
   \***********************************************************************************************************************************************************************************************************************************************/
@@ -1336,6 +1332,9 @@ input.gameengine-checkbox:checked::before {
 .z-\[99999\] {
   z-index: 99999;
 }
+.z-\[9999\] {
+  z-index: 9999;
+}
 .m-0 {
   margin: 0px;
 }
@@ -1360,6 +1359,10 @@ input.gameengine-checkbox:checked::before {
 .my-6 {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+}
+.mx-4 {
+  margin-right: 1rem;
+  margin-left: 1rem;
 }
 .-mb-\[1px\] {
   margin-bottom: -1px;
@@ -1627,6 +1630,9 @@ input.gameengine-checkbox:checked::before {
 }
 .max-w-\[120px\] {
   max-width: 120px;
+}
+.max-w-\[400px\] {
+  max-width: 400px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -2014,6 +2020,21 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
 }
+.border-\[\] {
+  border-color: ;
+}
+.border-\[var\(\)\] {
+  border-color: var();
+}
+.border-\[var\(--gamene\)\] {
+  border-color: var(--gamene);
+}
+.border-\[var\(--gameneengine-border-color\)\] {
+  border-color: var(--gameneengine-border-color);
+}
+.border-\[var\(----gameengine-border-color\)\] {
+  border-color: var(----gameengine-border-color);
+}
 .border-b-orange-50 {
   --tw-border-opacity: 1;
   border-bottom-color: rgb(255 247 237 / var(--tw-border-opacity, 1));
@@ -2289,6 +2310,9 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
+.bg-black\/50 {
+  background-color: rgb(0 0 0 / 0.5);
+}
 .bg-gradient-to-r {
   background-image: linear-gradient(to left, var(--tw-gradient-stops));
 }
@@ -2515,6 +2539,9 @@ input.gameengine-checkbox:checked::before {
 .pt-6 {
   padding-top: 1.5rem;
 }
+.pt-5 {
+  padding-top: 1.25rem;
+}
 .text-left {
   text-align: right;
 }
@@ -2640,6 +2667,9 @@ input.gameengine-checkbox:checked::before {
 }
 .leading-tight {
   line-height: 1.25;
+}
+.leading-relaxed {
+  line-height: 1.625;
 }
 .tracking-wide {
   letter-spacing: 0.025em;
@@ -2855,6 +2885,9 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
 }
+.text-\[var\(--gameengine-heading-color\)\] {
+  color: var(--gameengine-heading-color);
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -2904,6 +2937,11 @@ input.gameengine-checkbox:checked::before {
 .shadow-sm {
   --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-\[0_20px_60px_0_rgba\(0\2c 0\2c 0\2c 0\.15\)\] {
+  --tw-shadow: 0 20px 60px 0 rgba(0,0,0,0.15);
+  --tw-shadow-colored: 0 20px 60px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-\[var\(--gameengine-shadow\)\] {
@@ -3241,6 +3279,9 @@ body {
 }
 .hover\:opacity-100:hover {
   opacity: 1;
+}
+.hover\:opacity-90:hover {
+  opacity: 0.9;
 }
 .focus\:border-amber-500:focus {
   --tw-border-opacity: 1;
