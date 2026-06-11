@@ -3161,6 +3161,11 @@ input.gameengine-checkbox:checked::before {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-white:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:\!text-\[\#FF4D4D\]:hover {
   --tw-text-opacity: 1 !important;
   color: rgb(255 77 77 / var(--tw-text-opacity, 1)) !important;

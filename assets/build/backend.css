@@ -4337,6 +4337,11 @@ input.gameengine-checkbox:checked::before {
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:bg-white:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:\!text-\[\#FF4D4D\]:hover{
   --tw-text-opacity: 1 !important;
   color: rgb(255 77 77 / var(--tw-text-opacity, 1)) !important;
@@ -7075,6 +7080,52 @@ body.ReactModal__Body--open {
   color: var(--gameengine-font-color);
   box-shadow: var(--gameengine-box-shadow);
 }
+/*!***************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./dev_gameengine/containers/BackendDashboard/pages/addon/addon-tabs.css ***!
+  \***************************************************************************************************************************************************************************************************************************/
+.gameengine-addon-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.gameengine-addon-tabs__tab {
+  position: relative;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gameengine-font-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.gameengine-addon-tabs__tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--gameengine-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.gameengine-addon-tabs__tab:hover::after {
+  transform: scaleX(1);
+}
+
+.gameengine-addon-tabs__tab--active {
+  color: var(--gameengine-primary);
+}
+
+.gameengine-addon-tabs__tab--active::after {
+  transform: scaleX(1);
+}
+
 /*!*********************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./dev_gameengine/components/Notice/styles.scss ***!
   \*********************************************************************************************************************************************************************************************************************************************************************/
