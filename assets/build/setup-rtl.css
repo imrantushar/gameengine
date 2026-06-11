@@ -2631,6 +2631,10 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1;
   color: rgb(113 128 150 / var(--tw-text-opacity, 1));
 }
+.text-\[\#738496\] {
+  --tw-text-opacity: 1;
+  color: rgb(115 132 150 / var(--tw-text-opacity, 1));
+}
 .text-\[var\(--gameengine-background\)\] {
   color: var(--gameengine-background);
 }

@@ -62,38 +62,42 @@ const LeftBar = () => {
     },
   ];
 
-  return <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
-    <div className="flex flex-col items-stretch p-2">
-      {menuList.map((item, i) => {
-        const isActive = currentTab === item.key;
-        return (
-          <div className="flex items-start cursor-pointer gap-3" style={{
-            "padding": "8px 16px",
-            "transition": "all 0.3s ease-in-out",
-            "background": isActive ? "var(--gameengine-secondary-color)" : "transparent"
-          }} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
-            <span className={`${isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt-1`}>{item?.icon}</span>
+    return (
+      <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
+        <div className="flex flex-col gap-1 items-stretch p-2">
+          {menuList.map((item, i) => {
+            const isActive = currentTab === item.key;
+            return (
+              <div className="flex items-start cursor-pointer gap-3" style={{
+                "padding": "8px 16px",
+                "transition": "all 0.3s ease-in-out",
+                "background": isActive ? "var(--gameengine-secondary-color)" : "transparent"
+              }} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
+                <span className={`${isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt-1`}>{item?.icon}</span>
 
-            <div>
-              <p className="text-sm leading-5 m-0" style={{
-                "fontWeight": isActive ? "600" : "500",
-                "color": isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"
-              }}>
-                {item.label}
-              </p>
+                <div>
+                  <p 
+                    className={`text-sm leading-5 font-semibold m-0 ${
+                      isActive ? "text-[var(--gameengine-primary)]" : "text-[var(--gameengine-font-color)]"
+                    }`}
+                  >
+                    {item.label}
+                  </p>
 
-              <p className="text-xs font-normal leading-4 m-0" style={{
-                "marginTop": "-2px",
-                "color": isActive ? "var(--gameengine-primary)" : "#738496"
-              }}>
-                {item.desc}
-              </p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  </div>;
+                  <p
+                    className={`text-xs font-normal leading-4 m-0 mt-1 ${
+                      isActive ? "text-[var(--gameengine-primary)]" : "text-[#738496]"
+                    }`}
+                  >
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
 };
 
 export default LeftBar;
