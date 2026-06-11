@@ -183,6 +183,14 @@ class Setup
 
         $asset_data = require $asset_file;
 
+        // Load Roboto font — declared in _global.scss but never fetched without this
+        wp_enqueue_style(
+            'gameengine-google-fonts',
+            'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap',
+            array(),
+            null
+        );
+
         // Enqueue Wizard CSS
         wp_enqueue_style(
             'gameengine-setup-style',

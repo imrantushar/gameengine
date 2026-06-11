@@ -1240,6 +1240,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router/dist/development/chunk-4WY6JWTD.mjs");
 /* harmony import */ var _GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @GFComponents/TopBar */ "./dev_gameengine/components/TopBar/index.js");
 /* harmony import */ var _Pages_Settings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Pages/Settings */ "./dev_gameengine/containers/Setup/Pages/Settings/index.js");
+/* harmony import */ var _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @GFUtils/helper */ "./dev_gameengine/utils/helper.js");
+
 
 
 
@@ -1250,10 +1252,12 @@ __webpack_require__.r(__webpack_exports__);
 const Setup = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "bg-white h-[calc(100vh_-_171px)]"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_GFComponents_TopBar__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    path: 'GameEngine',
-    topPosition: "0"
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "px-6 py-5 mb-6 border-0 border-b border-solid border-[var(--gameengine-border-color)]"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    className: "h-auto max-w-[120px]",
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_6__.plugin_root_url + 'assets/images/logo-text.svg'
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
     exact: true,
     path: "/",
     element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Pages_Welcome__WEBPACK_IMPORTED_MODULE_1__["default"], null)

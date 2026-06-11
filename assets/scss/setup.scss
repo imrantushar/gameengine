@@ -1,7 +1,18 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 @import './common/global';
 @import "./common/classesLibrary";
 @import './common/button';
 @import './common/listTable';
 @import './common/reactSelect';
 @import './common/notification';
-@import './tailwind.scss'
+@import './tailwind.scss';
+
+
+body {
+    font-family: var(--gameengine-font);
+}
