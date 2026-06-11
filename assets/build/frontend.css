@@ -893,6 +893,10 @@
   --gameengine-placeholder: #A2ADB9;
 }
 
+h1, h2, h3, h4, h5, h6, p, span, label, div, th {
+  font-family: var(--gameengine-font);
+}
+
 #wpbody-content {
   padding: 0;
 }

@@ -96,7 +96,7 @@ const AddonCard = ({ item, value }) => {
   };
 
   return (
-    <div className="flex flex-col bg-white p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc(33.333%_-_45px)]">
+    <div className="flex flex-col bg-white p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc((100%/3)_-_11px)]">
       <div className="flex justify-between items-start mb-4">
         <div
           className="items-center justify-center p-2 rounded-md flex w-10 h-10"
