@@ -1589,11 +1589,11 @@ input.gameengine-checkbox:checked::before {
 .min-w-\[175px\] {
   min-width: 175px;
 }
-.min-w-\[300px\] {
-  min-width: 300px;
-}
 .min-w-\[284px\] {
   min-width: 284px;
+}
+.min-w-\[300px\] {
+  min-width: 300px;
 }
 .max-w-\[280px\] {
   max-width: 280px;
@@ -2830,6 +2830,9 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
 }
+.text-\[\] {
+  color: ;
+}
 .underline {
   text-decoration-line: underline;
 }
@@ -3159,11 +3162,6 @@ input.gameengine-checkbox:checked::before {
 .hover\:bg-yellow-600:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
-}
-
-.hover\:bg-white:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:\!text-\[\#FF4D4D\]:hover {
