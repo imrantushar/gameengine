@@ -63,16 +63,12 @@ const LeftBar = () => {
   ];
 
     return (
-      <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)]" style={{ "minWidth": "284px" }}>
+      <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)] min-w-[284px]">
         <div className="flex flex-col gap-1 items-stretch p-2">
           {menuList.map((item, i) => {
             const isActive = currentTab === item.key;
             return (
-              <div className="flex items-start cursor-pointer gap-3" style={{
-                "padding": "8px 16px",
-                "transition": "all 0.3s ease-in-out",
-                "background": isActive ? "var(--gameengine-secondary-color)" : "transparent"
-              }} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
+              <div className={`flex items-start cursor-pointer gap-3 px-4 py-2 transition-all duration-300 ease-in-out ${isActive ? "bg-[var(--gameengine-secondary-color)]" : "bg-transparent"}`} key={i} onClick={() => navigate(`${route_path}admin.php?page=gameengine-settings&settings=1&tab=${item.key}`)}>
                 <span className={`${isActive ? "var(--gameengine-primary)" : "var(--gameengine-font-color)"} mt-1`}>{item?.icon}</span>
 
                 <div>

@@ -2768,6 +2768,9 @@ input.gameengine-checkbox:checked::before {
 .min-w-\[300px\]{
   min-width: 300px;
 }
+.min-w-\[284px\]{
+  min-width: 284px;
+}
 .max-w-\[280px\]{
   max-width: 280px;
 }
