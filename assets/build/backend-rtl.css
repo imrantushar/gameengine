@@ -3456,9 +3456,6 @@ input.gameengine-checkbox:checked::before {
   -o-object-fit: contain;
      object-fit: contain;
 }
-.\!p-\[5px_16px\]{
-  padding: 5px 16px !important;
-}
 .p-0{
   padding: 0px;
 }
