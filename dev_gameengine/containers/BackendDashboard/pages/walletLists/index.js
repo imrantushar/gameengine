@@ -240,7 +240,7 @@ export default function Wallet() {
 
         <div className="gameengine-table-subheader-right pb-2">
           <Search
-            placeholder={__('Search question', 'gameengine')}
+            placeholder={__('Search wallets', 'gameengine')}
             onSearchHandler={handleSearch}
             defaultValue={searchValue}
           />
