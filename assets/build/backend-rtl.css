@@ -5459,6 +5459,7 @@ body.ReactModal__Body--open {
   left: -11px;
   top: 88vh;
   z-index: 1;
+  pointer-events: none;
 }
 .gameengine-ripple-effect .gameengine-ripple-effect-container {
   height: 100%;
