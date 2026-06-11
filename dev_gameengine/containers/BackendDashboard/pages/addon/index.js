@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import Select from 'react-select';
 import { __ } from '@wordpress/i18n';
 import AddonCard from './AddonCard';
 import TopBar from '@GFComponents/TopBar';
@@ -20,6 +19,7 @@ import {
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import './addon-tabs.css';
 
 const infoCardsData = [
   {
@@ -199,10 +199,12 @@ const infoCardsData = [
   },
 ];
 
-const statusOptions = [
-  { value: 'all', label: __('All Status', 'gameengine') },
-  { value: 'active', label: __('Active', 'gameengine') },
+const TABS = [
+  { value: 'all',      label: __('All',      'gameengine') },
+  { value: 'active',   label: __('Active',   'gameengine') },
   { value: 'inactive', label: __('Inactive', 'gameengine') },
+  { value: 'free',     label: __('Free',     'gameengine') },
+  { value: 'pro',      label: __('Pro',      'gameengine') },
 ];
 
 const Addons = () => {
@@ -261,10 +263,6 @@ const Addons = () => {
     });
   };
 
-  const selectedStatus =
-    statusOptions.find((o) => o.value === filterMenu) ||
-    statusOptions[0];
-
   return (
     <>
       <TopBar path={__('Add-ons', 'gameengine')} rightContent={<GetHelp filterText={['addons']} />} />
@@ -282,17 +280,17 @@ const Addons = () => {
               label={__('Clear All', 'gameengine')}
             />
 
-            <Select
-              options={statusOptions}
-              value={selectedStatus}
-              onChange={(selected) => {
-                setFilterMenu(selected.value);
-                setLoading(true);
-              }}
-              className="gameengine-select"
-              classNamePrefix="gameengine-select"
-              isSearchable={false}
-            />
+            <div className="gameengine-addon-tabs">
+              {TABS.map((tab) => (
+                <button
+                  key={tab.value}
+                  onClick={() => setFilterMenu(tab.value)}
+                  className={`gameengine-addon-tabs__tab${filterMenu === tab.value ? ' gameengine-addon-tabs__tab--active' : ''}`}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
 
             <Search
               className="gameengine-search bg-white"
