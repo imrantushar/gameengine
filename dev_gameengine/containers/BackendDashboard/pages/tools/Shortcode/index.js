@@ -145,7 +145,7 @@ const shortCodeData = [
 
 const ShortCode = () => {
   return (
-    <div className="gameengine-tools-page__short-code">
+    <div className="gameengine-tools-page__short-code border-0 border-t border-solid border-[var(--gameengine-border-color)] pt-6">
       {shortCodeData.map((item, index) => (
         <ShortCodeItem shortCodeItem={item} key={index} />
       ))}

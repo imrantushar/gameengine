@@ -1993,6 +1993,9 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
 }
+.border-\[var\(\)\] {
+  border-color: var();
+}
 .bg-\[\#E0E4E8\] {
   --tw-bg-opacity: 1;
   background-color: rgb(224 228 232 / var(--tw-bg-opacity, 1));
