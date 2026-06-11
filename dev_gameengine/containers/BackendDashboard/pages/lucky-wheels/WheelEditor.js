@@ -147,7 +147,7 @@ export default function WheelEditor({ action }) {
             onSubmit={handleSubmit}
             enableReinitialize   /* safe here – values state changes only once after fetch */
         >
-            {({ values: fv, handleChange, setFieldValue, handleSubmit: fSubmit, isSubmitting }) => (
+            {({ values: fv, handleChange, setFieldValue, handleSubmit: fSubmit, isSubmitting, dirty }) => (
                 <>
                     {/* ── Top bar ── */}
                     <TopBar
@@ -165,6 +165,7 @@ export default function WheelEditor({ action }) {
                                 <Button
                                     label={editId ? __('Update Wheel', 'gameengine') : __('Save Wheel', 'gameengine')}
                                     isLoading={isSubmitting}
+                                    isDisabled={!dirty || isSubmitting}
                                     onClick={fSubmit}
                                 />
                             </div>

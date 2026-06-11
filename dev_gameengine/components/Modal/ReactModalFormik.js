@@ -294,7 +294,7 @@ const ReactModalFormik = ({
         role="document"
       >
         <Formik {...formik}>
-          {({ isSubmitting }) => (
+          {({ isSubmitting, dirty }) => (
             <Form>
               <div className="gameengine-modal__head">
                 {title && (
@@ -352,7 +352,7 @@ const ReactModalFormik = ({
                     label={submitButtonLabel}
                     loadingLabel={submitButtonLabel}
                     isLoading={isSubmitting}
-                    isDisabled={isSubmitting}
+                    isDisabled={!dirty || isSubmitting}
                   />
                 </div>
               )}

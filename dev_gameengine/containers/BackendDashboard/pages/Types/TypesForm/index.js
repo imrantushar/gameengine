@@ -9,6 +9,7 @@ import { createAchievementType, updateAchievementType } from '@GFRedux/Slices/ac
 import { createLevelType, updateLevelType } from '@GFRedux/Slices/levelsSlice/types';
 import Select from "react-select";
 import { API, generateSlug, namespace } from '@GFUtils/helper';
+import Button from '@GFComponents/Button';
 
 const TypesForm = ({
   type = "",
@@ -69,7 +70,7 @@ const TypesForm = ({
     } catch (error) {
       console.warn(error);
     } finally {
-      actions.setSubmitting(true);
+      actions.setSubmitting(false);
       actions.resetForm();
       resetForm();
     }
@@ -143,9 +144,12 @@ const TypesForm = ({
                   {__("Cancel", "gameengine")}
                 </button>}
 
-                <button className="gameengine-primary-btn" disabled={!dirty} onClick={submitForm}>
-                  {!formData?.id ? __("Create", "gameengine") : __("Update", "gameengine")}
-                </button>
+                <Button
+                  label={!formData?.id ? __("Create", "gameengine") : __("Update", "gameengine")}
+                  isLoading={isSubmitting}
+                  isDisabled={!dirty || isSubmitting}
+                  onClick={submitForm}
+                />
               </div>
             </div>
           );
