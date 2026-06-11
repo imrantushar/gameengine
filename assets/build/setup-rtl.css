@@ -1505,6 +1505,9 @@ input.gameengine-checkbox:checked::before {
 .h-px {
   height: 1px;
 }
+.h-\[40px\] {
+  height: 40px;
+}
 .min-h-\[140px\] {
   min-height: 140px;
 }
@@ -1582,6 +1585,9 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full {
   width: 100%;
+}
+.w-\[40px\] {
+  width: 40px;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1831,6 +1837,12 @@ input.gameengine-checkbox:checked::before {
   border-top-left-radius: 9999px;
   border-bottom-left-radius: 9999px;
 }
+.rounded-bl-none {
+  border-bottom-right-radius: 0px;
+}
+.rounded-tl-none {
+  border-top-right-radius: 0px;
+}
 .\!border-0 {
   border-width: 0px !important;
 }
@@ -1845,6 +1857,9 @@ input.gameengine-checkbox:checked::before {
 }
 .border-\[4px\] {
   border-width: 4px;
+}
+.\!border-r-0 {
+  border-left-width: 0px !important;
 }
 .border-b {
   border-bottom-width: 1px;
@@ -1992,9 +2007,6 @@ input.gameengine-checkbox:checked::before {
 .border-yellow-500 {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
-}
-.border-\[var\(\)\] {
-  border-color: var();
 }
 .bg-\[\#E0E4E8\] {
   --tw-bg-opacity: 1;
@@ -2833,9 +2845,6 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
 }
-.text-\[\] {
-  color: ;
-}
 .underline {
   text-decoration-line: underline;
 }
@@ -2972,9 +2981,6 @@ input.gameengine-checkbox:checked::before {
 }
 .\[border\:1px_solid_var\(--gameengine-border-color\)\] {
   border: 1px solid var(--gameengine-border-color);
-}
-.\!\[border\:1px_solid_var\(--gameengine-border-color\)_\] {
-  border: 1px solid var(--gameengine-border-color) !important;
 }
 .\[border\:1px_solid_var\(--gemboards-border-color\)\] {
   border: 1px solid var(--gemboards-border-color);
