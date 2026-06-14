@@ -154,6 +154,11 @@ export default function WheelEditor({ action }) {
                         path={editId
                             ? __('Edit Lucky Wheel', 'gameengine')
                             : __('Add New Lucky Wheel', 'gameengine')}
+                        hasBreadCrumb={true}
+                        items={[
+                            { label: __('Lucky Wheels', 'gameengine'), href: `${route_path}admin.php?page=gameengine-lucky-wheels` },
+                            { label: fv?.name ?? __('N/A', 'gameengine') }
+                        ]}
                         rightContent={
                             <div className="flex gap-3">
                                 <button
