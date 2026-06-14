@@ -20,6 +20,7 @@ import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
 import './addon-tabs.css';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const infoCardsData = [
   {
@@ -262,7 +263,15 @@ const Addons = () => {
 
   return (
     <>
-      <TopBar path={__('Add-ons', 'gameengine')} rightContent={<GetHelp filterText={['addons']} />} />
+      <TopBar path={__('Add-ons', 'gameengine')}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+
+                <GetHelp filterText={['addons']} />
+            </div>
+        }
+      />
 
       <div className="gameengine-page-content">
         <div className="flex justify-between items-center py-6 px-1">

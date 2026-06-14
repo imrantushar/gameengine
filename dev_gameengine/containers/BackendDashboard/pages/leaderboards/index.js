@@ -6,6 +6,7 @@ import TopBar from "@GFComponents/TopBar";
 import ListTable from '@GFComponents/ListTable';
 import { fetchLeaderboard, fetchPointTypes, setPage, setRowsPerPage, setFilterPointType, setFilterTimeRange } from '../../../../redux/Slices/leaderboardSlice/leaderboardSlice';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Leaderboards = () => {
   const dispatch = useDispatch();
@@ -135,7 +136,15 @@ const Leaderboards = () => {
   }, [pointTypes]);
 
   return <>
-    <TopBar path={__("Leaderboards", "gameengine")} rightContent={<GetHelp filterText={['leaderboards']} />} />
+    <TopBar path={__("Leaderboards", "gameengine")}
+      rightContent={
+          <div className="flex items-center gap-2">
+              <WhatsNew />
+
+              <GetHelp filterText={['leaderboards']} />
+          </div>
+      }
+    />
 
     <div className='gameengine-page-content'>
       {subHeaderComponentMemo}

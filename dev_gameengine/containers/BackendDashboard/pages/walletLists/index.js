@@ -15,6 +15,7 @@ import { reactDebounce } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import TopBar from '@GFComponents/TopBar';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 export default function Wallet() {
   const {
@@ -251,7 +252,14 @@ export default function Wallet() {
 
   return (
     <>
-      <TopBar path={__('Withdraw Lists', 'gameengine')} rightContent={<GetHelp filterText={['withdraw']} />} />
+      <TopBar path={__('Withdraw Lists', 'gameengine')}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+                <GetHelp filterText={['withdraw']} />
+            </div>
+        }
+      />
 
       <div className="gameengine-page-content">
         <div

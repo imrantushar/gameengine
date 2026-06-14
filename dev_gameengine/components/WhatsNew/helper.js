@@ -23,7 +23,7 @@ export const CHANGELOGS = [
         version: '1.2.0',
         changes: [
             {
-                type: 'Improved',
+                type: 'improved',
                 text: 'Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard.',
             },
             {

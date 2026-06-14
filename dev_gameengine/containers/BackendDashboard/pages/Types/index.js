@@ -5,6 +5,7 @@ import TypesForm from './TypesForm';
 import TypesTable from './TypesTable';
 import { capitalizeFirstLetter } from './TypesForm/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Types = ({
   type
@@ -20,7 +21,7 @@ const Types = ({
   };
 
   return <>
-    <TopBar path={capitalizeFirstLetter(type) + " " + __("Types", "gameengine")} />
+    <TopBar path={capitalizeFirstLetter(type) + " " + __("Types", "gameengine")} rightContent={<WhatsNew />} />
 
     <div className='gameengine-page-content'>
       <p className='gameengine-page-heading py-6'>{capitalizeFirstLetter(type) + " " + __("Types", "gameengine")}</p>

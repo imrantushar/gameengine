@@ -7,6 +7,7 @@ import ReferralsStats from './ReferralsStats';
 import ReferralsTable from './ReferralsTable';
 import { fetchReferralStats } from '@GFRedux/Slices/referralSlice/referralSlice';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Referrals = () => {
     const dispatch = useDispatch();
@@ -17,7 +18,15 @@ const Referrals = () => {
 
     return (
         <>
-            <TopBar path={__("Referrals", "gameengine")} rightContent={<GetHelp filterText={['referrals']} />} />
+            <TopBar path={__("Referrals", "gameengine")}
+                rightContent={
+                    <div className="flex items-center gap-2">
+                        <WhatsNew />
+
+                        <GetHelp filterText={['referrals']} />
+                    </div>
+                }
+            />
 
             <div className='gameengine-page-content'>
                 <div className='flex justify-between items-center py-6'>
