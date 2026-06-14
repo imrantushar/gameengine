@@ -3735,6 +3735,42 @@ body {
     width: auto;
   }
 
+  .lg\:w-\[calc\(\(25\%_\+_6px\)\)\] {
+    width: calc((25% + 6px));
+  }
+
+  .lg\:w-\[calc\(\(25\%_\+_6px\)__\)\] {
+    width: calc((25% + 6px) );
+  }
+
+  .lg\:w-\[calc\(\(25\%_\+_6px\)_-_\)\] {
+    width: calc((25% + 6px) - );
+  }
+
+  .lg\:w-\[calc\(\(25\%_\+_6px\)_-_12p\)\] {
+    width: calc((25% + 6px) - 12p);
+  }
+
+  .lg\:w-\[calc\(\(25\%_\+_6px\)_-_12px\)\] {
+    width: calc((25% + 6px) - 12px);
+  }
+
+  .lg\:w-\[calc\(\(25\%_\+_3\)_-_12px\)\] {
+    width: calc((25% + 3) - 12px);
+  }
+
+  .lg\:w-\[calc\(\(25\%__3\)_-_12px\)\] {
+    width: calc((25% 3) - 12px);
+  }
+
+  .lg\:w-\[calc\(\(25\%_\/_3\)_-_12px\)\] {
+    width: calc((25% / 3) - 12px);
+  }
+
+  .lg\:w-\[calc\(\(100\%_\/_3\)_-_12px\)\] {
+    width: calc((100% / 3) - 12px);
+  }
+
   .lg\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -3772,6 +3808,14 @@ body {
 
   .xl\:w-\[calc\(25\%_-_60px\)\] {
     width: calc(25% - 60px);
+  }
+
+  .xl\:w-\[calc\(25\%_-_px\)\] {
+    width: calc(25% - px);
+  }
+
+  .xl\:w-\[calc\(25\%_-_12px\)\] {
+    width: calc(25% - 12px);
   }
 }
 @media (min-width: 1536px) {
