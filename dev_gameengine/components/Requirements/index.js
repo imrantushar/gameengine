@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -6,7 +6,7 @@ import HookConfigurationForm from './HookConfigurationForm';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { useDispatch } from 'react-redux';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
-import { TbPlugConnected } from 'react-icons/tb';
+import EmptyState from './EmptyState';
 
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
@@ -145,17 +145,7 @@ const Requirements = props => {
 
             <DroppableArea id={`${actionName}s-sidebar`}>
               {!selectedHookIds || selectedHookIds.length === 0 ? (
-                <div className="flex flex-col items-center justify-center min-h-[200px] gap-3 py-10 text-center border border-solid border-[var(--gameengine-border-color)] rounded">
-                  <TbPlugConnected size={40} className="text-[var(--gameengine-border-color)]" />
-                  <div className="flex flex-col gap-1">
-                    <p className="text-lg font-medium text-[var(--gameengine-heading-color)] m-0">
-                      {__('No active hooks yet', 'gameengine')}
-                    </p>
-                    <p className="text-sm text-[var(--gameengine-font-color)] m-0">
-                      {__('Drag and drop an item from Available Hooks to activate it', 'gameengine')}
-                    </p>
-                  </div>
-                </div>
+                <EmptyState />
               ) : (
                 selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
                   <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />

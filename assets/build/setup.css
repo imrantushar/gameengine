@@ -1542,6 +1542,9 @@ input.gameengine-checkbox:checked::before {
 .h-\[20px\] {
   height: 20px;
 }
+.h-\[50px\] {
+  height: 50px;
+}
 .min-h-\[140px\] {
   min-height: 140px;
 }
@@ -1631,6 +1634,9 @@ input.gameengine-checkbox:checked::before {
 }
 .w-\[20px\] {
   width: 20px;
+}
+.w-\[50px\] {
+  width: 50px;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1942,6 +1948,9 @@ input.gameengine-checkbox:checked::before {
 .border-t-0 {
   border-top-width: 0px;
 }
+.border-l-2 {
+  border-left-width: 2px;
+}
 .border-solid {
   border-style: solid;
 }
@@ -2061,6 +2070,33 @@ input.gameengine-checkbox:checked::before {
 .border-yellow-500 {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
+}
+.border-\[\] {
+  border-color: ;
+}
+.border-\[var\(\)\] {
+  border-color: var();
+}
+.border-\[var\(--gameengine-bo\)\] {
+  border-color: var(--gameengine-bo);
+}
+.border-l-\[\] {
+  border-left-color: ;
+}
+.border-l-\[var\(\)\] {
+  border-left-color: var();
+}
+.border-l-\[var\(--ga\)\] {
+  border-left-color: var(--ga);
+}
+.border-l-\[var\(--gameengine-primary-colro\)\] {
+  border-left-color: var(--gameengine-primary-colro);
+}
+.border-l-\[var\(--gameengine-primary-color\)\] {
+  border-left-color: var(--gameengine-primary-color);
+}
+.border-l-\[var\(--gameengine-primary\)\] {
+  border-left-color: var(--gameengine-primary);
 }
 .bg-\[\#E0E4E8\] {
   --tw-bg-opacity: 1;
@@ -2342,6 +2378,19 @@ input.gameengine-checkbox:checked::before {
 }
 .bg-\[var\(--gembooking-background\)\] {
   background-color: var(--gembooking-background);
+}
+.bg-\[\] {
+  background-color: ;
+}
+.bg-\[\#\] {
+  background-color: #;
+}
+.bg-\[\#\#E3E7FF\] {
+  background-color: ##E3E7FF;
+}
+.bg-\[\#F6F7F8\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 247 248 / var(--tw-bg-opacity, 1));
 }
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
@@ -2712,6 +2761,12 @@ input.gameengine-checkbox:checked::before {
 .leading-tight {
   line-height: 1.25;
 }
+.leading-\[\] {
+  line-height: ;
+}
+.leading-\[14px\] {
+  line-height: 14px;
+}
 .tracking-wide {
   letter-spacing: 0.025em;
 }
@@ -2938,6 +2993,12 @@ input.gameengine-checkbox:checked::before {
 }
 .text-\[var\(--gembooking-text-color\)\] {
   color: var(--gembooking-text-color);
+}
+.text-\[738496\] {
+  color: 738496;
+}
+.text-\[10\] {
+  color: 10;
 }
 .underline {
   text-decoration-line: underline;
