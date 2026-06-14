@@ -1,0 +1,59 @@
+import { __ } from '@wordpress/i18n';
+
+export const CHANGELOG_TYPES = {
+    added: {
+        label: __('Added', 'gameengine'),
+        textColor: 'text-green-700',
+        bgColor: 'bg-green-100',
+    },
+    improved: {
+        label: __('Improved', 'gameengine'),
+        textColor: 'text-blue-700',
+        bgColor: 'bg-blue-100',
+    },
+    fixed: {
+        label: __('Fixed', 'gameengine'),
+        textColor: 'text-orange-700',
+        bgColor: 'bg-orange-100',
+    },
+};
+
+export const CHANGELOGS = [
+    {
+        version: '1.2.0',
+        changes: [
+            {
+                type: 'Improved',
+                text: 'Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard.',
+            },
+            {
+                type: 'fixed',
+                text: 'All buttons dirty and disable issue fixed',
+            },
+        ],
+    },
+
+    {
+        version: '1.1.1',
+        changes: [
+            {
+                type: 'improved',
+                text: 'Chakra UI removed and migrated to tailwind',
+            },
+            {
+                type: 'improved',
+                text: 'Complete UI updated.',
+            },
+        ],
+    },
+
+    {
+        version: '1.1.1',
+        changes: [
+            {
+                type: 'added',
+                text: 'StoreEngine SDK integration ( License Management ).',
+            },
+        ],
+    },
+];

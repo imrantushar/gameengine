@@ -869,7 +869,7 @@ input.gameengine-checkbox:checked::before {
 .gameengine-btn--sm {
   padding: 8px 16px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .gameengine-btn--md {
   padding: 10px 20px;
@@ -2011,7 +2011,7 @@ input.gameengine-checkbox:checked::before {
 .gameengine-btn--sm {
   padding: 8px 16px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 .gameengine-btn--md {
   padding: 10px 20px;
@@ -2445,6 +2445,9 @@ input.gameengine-checkbox:checked::before {
 .pointer-events-none{
   pointer-events: none;
 }
+.pointer-events-auto{
+  pointer-events: auto;
+}
 .visible{
   visibility: visible;
 }
@@ -2505,11 +2508,11 @@ input.gameengine-checkbox:checked::before {
 .top-\[130px\]{
   top: 130px;
 }
-.top-\[69px\]{
-  top: 69px;
-}
 .top-\[32px\]{
   top: 32px;
+}
+.top-\[69px\]{
+  top: 69px;
 }
 .z-0{
   z-index: 0;
@@ -2523,11 +2526,14 @@ input.gameengine-checkbox:checked::before {
 .z-50{
   z-index: 50;
 }
+.z-\[100000\]{
+  z-index: 100000;
+}
+.z-\[100001\]{
+  z-index: 100001;
+}
 .z-\[2\]{
   z-index: 2;
-}
-.z-\[3996\]{
-  z-index: 3996;
 }
 .z-\[99999\]{
   z-index: 99999;
@@ -2594,6 +2600,9 @@ input.gameengine-checkbox:checked::before {
 .mb-6{
   margin-bottom: 1.5rem;
 }
+.mb-\[-4px\]{
+  margin-bottom: -4px;
+}
 .mb-\[30px\]{
   margin-bottom: 30px;
 }
@@ -2644,9 +2653,6 @@ input.gameengine-checkbox:checked::before {
 }
 .mt-\[24px\]{
   margin-top: 24px;
-}
-.mb-\[-4px\]{
-  margin-bottom: -4px;
 }
 .block{
   display: block;
@@ -2699,6 +2705,9 @@ input.gameengine-checkbox:checked::before {
 .h-8{
   height: 2rem;
 }
+.h-\[20px\]{
+  height: 20px;
+}
 .h-\[32px\]{
   height: 32px;
 }
@@ -2711,6 +2720,9 @@ input.gameengine-checkbox:checked::before {
 .h-\[42px\]{
   height: 42px;
 }
+.h-\[50px\]{
+  height: 50px;
+}
 .h-\[calc\(100vh-69px\)\]{
   height: calc(100vh - 69px);
 }
@@ -2722,12 +2734,6 @@ input.gameengine-checkbox:checked::before {
 }
 .h-px{
   height: 1px;
-}
-.h-\[20px\]{
-  height: 20px;
-}
-.h-\[50px\]{
-  height: 50px;
 }
 .min-h-\[140px\]{
   min-height: 140px;
@@ -2774,6 +2780,9 @@ input.gameengine-checkbox:checked::before {
 .w-\[20\%\]{
   width: 20%;
 }
+.w-\[20px\]{
+  width: 20px;
+}
 .w-\[22\.06\%\]{
   width: 22.06%;
 }
@@ -2791,6 +2800,9 @@ input.gameengine-checkbox:checked::before {
 }
 .w-\[40px\]{
   width: 40px;
+}
+.w-\[50px\]{
+  width: 50px;
 }
 .w-\[6\.21\%\]{
   width: 6.21%;
@@ -2815,12 +2827,6 @@ input.gameengine-checkbox:checked::before {
 }
 .w-full{
   width: 100%;
-}
-.w-\[20px\]{
-  width: 20px;
-}
-.w-\[50px\]{
-  width: 50px;
 }
 .min-w-0{
   min-width: 0px;
@@ -2882,6 +2888,14 @@ input.gameengine-checkbox:checked::before {
 .border-spacing-y-2{
   --tw-border-spacing-y: 0.5rem;
   border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+}
+.translate-x-0{
+  --tw-translate-x: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.translate-x-full{
+  --tw-translate-x: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .translate-y-0{
   --tw-translate-y: 0px;
@@ -3117,6 +3131,9 @@ input.gameengine-checkbox:checked::before {
 .border-l-0{
   border-left-width: 0px;
 }
+.border-l-2{
+  border-left-width: 2px;
+}
 .border-l-4{
   border-left-width: 4px;
 }
@@ -3131,9 +3148,6 @@ input.gameengine-checkbox:checked::before {
 }
 .border-t-0{
   border-top-width: 0px;
-}
-.border-l-2{
-  border-left-width: 2px;
 }
 .border-solid{
   border-style: solid;
@@ -3255,30 +3269,6 @@ input.gameengine-checkbox:checked::before {
   --tw-border-opacity: 1;
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
 }
-.border-\[\]{
-  border-color: ;
-}
-.border-\[var\(\)\]{
-  border-color: var();
-}
-.border-\[var\(--gameengine-bo\)\]{
-  border-color: var(--gameengine-bo);
-}
-.border-l-\[\]{
-  border-left-color: ;
-}
-.border-l-\[var\(\)\]{
-  border-left-color: var();
-}
-.border-l-\[var\(--ga\)\]{
-  border-left-color: var(--ga);
-}
-.border-l-\[var\(--gameengine-primary-colro\)\]{
-  border-left-color: var(--gameengine-primary-colro);
-}
-.border-l-\[var\(--gameengine-primary-color\)\]{
-  border-left-color: var(--gameengine-primary-color);
-}
 .border-l-\[var\(--gameengine-primary\)\]{
   border-left-color: var(--gameengine-primary);
 }
@@ -3286,9 +3276,17 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(224 228 232 / var(--tw-bg-opacity, 1));
 }
+.bg-\[\#E3E7FF\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(227 231 255 / var(--tw-bg-opacity, 1));
+}
 .bg-\[\#F3F5FF\]{
   --tw-bg-opacity: 1;
   background-color: rgb(243 245 255 / var(--tw-bg-opacity, 1));
+}
+.bg-\[\#F6F7F8\]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 247 248 / var(--tw-bg-opacity, 1));
 }
 .bg-\[\#FF3E2F\]{
   --tw-bg-opacity: 1;
@@ -3556,26 +3554,6 @@ input.gameengine-checkbox:checked::before {
   --tw-bg-opacity: 1;
   background-color: rgb(234 179 8 / var(--tw-bg-opacity, 1));
 }
-.bg-\[\#E3E7FF\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(227 231 255 / var(--tw-bg-opacity, 1));
-}
-.bg-\[var\(--gembooking-background\)\]{
-  background-color: var(--gembooking-background);
-}
-.bg-\[\]{
-  background-color: ;
-}
-.bg-\[\#\]{
-  background-color: #;
-}
-.bg-\[\#\#E3E7FF\]{
-  background-color: ##E3E7FF;
-}
-.bg-\[\#F6F7F8\]{
-  --tw-bg-opacity: 1;
-  background-color: rgb(246 247 248 / var(--tw-bg-opacity, 1));
-}
 .bg-gradient-to-r{
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
@@ -3804,6 +3782,9 @@ input.gameengine-checkbox:checked::before {
 .pt-1{
   padding-top: 0.25rem;
 }
+.pt-2{
+  padding-top: 0.5rem;
+}
 .pt-3{
   padding-top: 0.75rem;
 }
@@ -3851,6 +3832,9 @@ input.gameengine-checkbox:checked::before {
 }
 .text-\[14px\]{
   font-size: 14px;
+}
+.text-\[15px\]{
+  font-size: 15px;
 }
 .text-\[16px\]{
   font-size: 16px;
@@ -3930,6 +3914,9 @@ input.gameengine-checkbox:checked::before {
 .leading-\[12px\]{
   line-height: 12px;
 }
+.leading-\[14px\]{
+  line-height: 14px;
+}
 .leading-\[30px\]{
   line-height: 30px;
 }
@@ -3945,12 +3932,6 @@ input.gameengine-checkbox:checked::before {
 .leading-tight{
   line-height: 1.25;
 }
-.leading-\[\]{
-  line-height: ;
-}
-.leading-\[14px\]{
-  line-height: 14px;
-}
 .tracking-wide{
   letter-spacing: 0.025em;
 }
@@ -3958,9 +3939,17 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1 !important;
   color: rgb(255 77 77 / var(--tw-text-opacity, 1)) !important;
 }
+.text-\[\#1a1a2e\]{
+  --tw-text-opacity: 1;
+  color: rgb(26 26 46 / var(--tw-text-opacity, 1));
+}
 .text-\[\#1a73e8\]{
   --tw-text-opacity: 1;
   color: rgb(26 115 232 / var(--tw-text-opacity, 1));
+}
+.text-\[\#22A06B\]{
+  --tw-text-opacity: 1;
+  color: rgb(34 160 107 / var(--tw-text-opacity, 1));
 }
 .text-\[\#454F59\]{
   --tw-text-opacity: 1;
@@ -3976,9 +3965,6 @@ input.gameengine-checkbox:checked::before {
 }
 .text-\[var\(--gameengine-background\)\]{
   color: var(--gameengine-background);
-}
-.text-\[var\(--gameengine-border-color\)\]{
-  color: var(--gameengine-border-color);
 }
 .text-\[var\(--gameengine-font-black\)\]{
   color: var(--gameengine-font-black);
@@ -4022,6 +4008,10 @@ input.gameengine-checkbox:checked::before {
 .text-blue-600{
   --tw-text-opacity: 1;
   color: rgb(37 99 235 / var(--tw-text-opacity, 1));
+}
+.text-blue-700{
+  --tw-text-opacity: 1;
+  color: rgb(29 78 216 / var(--tw-text-opacity, 1));
 }
 .text-cyan-500{
   --tw-text-opacity: 1;
@@ -4175,15 +4165,6 @@ input.gameengine-checkbox:checked::before {
   --tw-text-opacity: 1;
   color: rgb(202 138 4 / var(--tw-text-opacity, 1));
 }
-.text-\[var\(--gembooking-text-color\)\]{
-  color: var(--gembooking-text-color);
-}
-.text-\[738496\]{
-  color: 738496;
-}
-.text-\[10\]{
-  color: 10;
-}
 .underline{
   text-decoration-line: underline;
 }
@@ -4207,6 +4188,9 @@ input.gameengine-checkbox:checked::before {
 .opacity-0{
   opacity: 0;
 }
+.opacity-100{
+  opacity: 1;
+}
 .opacity-80{
   opacity: 0.8;
 }
@@ -4214,6 +4198,11 @@ input.gameengine-checkbox:checked::before {
   --tw-shadow: 0 0 #0000 !important;
   --tw-shadow-colored: 0 0 #0000 !important;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow) !important;
+}
+.shadow-2xl{
+  --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .shadow-\[0_20px_60px_0_rgba\(0\2c 0\2c 0\2c 0\.15\)\]{
   --tw-shadow: 0 20px 60px 0 rgba(0,0,0,0.15);
@@ -4240,16 +4229,12 @@ input.gameengine-checkbox:checked::before {
   --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
-.shadow-\[var\(--gameengine-shadow\)\]{
-  --tw-shadow-color: var(--gameengine-shadow);
-  --tw-shadow: var(--tw-shadow-colored);
-}
-.shadow-\[var\(--gembooking-box-shadow\)\]{
-  --tw-shadow-color: var(--gembooking-box-shadow);
-  --tw-shadow: var(--tw-shadow-colored);
-}
 .shadow-\[var\(--gameengine-box-shadow\)\]{
   --tw-shadow-color: var(--gameengine-box-shadow);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+.shadow-\[var\(--gameengine-shadow\)\]{
+  --tw-shadow-color: var(--gameengine-shadow);
   --tw-shadow: var(--tw-shadow-colored);
 }
 .\!outline-none{
@@ -4292,6 +4277,11 @@ input.gameengine-checkbox:checked::before {
 }
 .transition-opacity{
   transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.transition-transform{
+  transition-property: transform;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }
@@ -4409,6 +4399,9 @@ body {
 .last\:mb-0:last-child{
   margin-bottom: 0px;
 }
+.last\:border-b-0:last-child{
+  border-bottom-width: 0px;
+}
 .hover\:rounded:hover{
   border-radius: 0.25rem;
 }
@@ -4509,8 +4502,8 @@ body {
 .hover\:text-\[var\(--gameengine-font-color\)\]:hover{
   color: var(--gameengine-font-color);
 }
-.hover\:text-\[var\(--gameengine-primary\)\]:hover{
-  color: var(--gameengine-primary);
+.hover\:text-\[var\(--gameengine-primary-color\)\]:hover{
+  color: var(--gameengine-primary-color);
 }
 .hover\:text-amber-700:hover{
   --tw-text-opacity: 1;
@@ -4531,6 +4524,10 @@ body {
 .hover\:text-fuchsia-700:hover{
   --tw-text-opacity: 1;
   color: rgb(162 28 175 / var(--tw-text-opacity, 1));
+}
+.hover\:text-gray-700:hover{
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
 }
 .hover\:text-gray-900:hover{
   --tw-text-opacity: 1;
@@ -4583,12 +4580,6 @@ body {
 .hover\:text-yellow-700:hover{
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
-}
-.hover\:text-\[var\(--gembooking-primary-color\)\]:hover{
-  color: var(--gembooking-primary-color);
-}
-.hover\:text-\[var\(--gameengine-primary-color\)\]:hover{
-  color: var(--gameengine-primary-color);
 }
 .hover\:opacity-100:hover{
   opacity: 1;
