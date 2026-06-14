@@ -2505,11 +2505,20 @@ input.gameengine-checkbox:checked::before {
 .top-\[130px\]{
   top: 130px;
 }
+.top-\[69px\]{
+  top: 69px;
+}
+.z-0{
+  z-index: 0;
+}
 .z-10{
   z-index: 10;
 }
 .z-20{
   z-index: 20;
+}
+.z-50{
+  z-index: 50;
 }
 .z-\[2\]{
   z-index: 2;
@@ -2693,8 +2702,8 @@ input.gameengine-checkbox:checked::before {
 .h-\[42px\]{
   height: 42px;
 }
-.h-\[calc\(100vh_-_171px\)\]{
-  height: calc(100vh - 171px);
+.h-\[calc\(100vh-69px\)\]{
+  height: calc(100vh - 69px);
 }
 .h-auto{
   height: auto;
@@ -2713,6 +2722,9 @@ input.gameengine-checkbox:checked::before {
 }
 .min-h-\[285px\]{
   min-height: 285px;
+}
+.min-h-screen{
+  min-height: 100vh;
 }
 .w-0{
   width: 0px;
@@ -2834,6 +2846,9 @@ input.gameengine-checkbox:checked::before {
 .flex-shrink{
   flex-shrink: 1;
 }
+.flex-shrink-0{
+  flex-shrink: 0;
+}
 .shrink-0{
   flex-shrink: 0;
 }
@@ -2870,6 +2885,11 @@ input.gameengine-checkbox:checked::before {
 }
 .cursor-text{
   cursor: text;
+}
+.select-none{
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .resize{
   resize: both;
@@ -3504,6 +3524,10 @@ input.gameengine-checkbox:checked::before {
   -o-object-fit: contain;
      object-fit: contain;
 }
+.object-cover{
+  -o-object-fit: cover;
+     object-fit: cover;
+}
 .p-0{
   padding: 0px;
 }
@@ -3718,6 +3742,9 @@ input.gameengine-checkbox:checked::before {
 .pt-6{
   padding-top: 1.5rem;
 }
+.pt-\[120px\]{
+  padding-top: 120px;
+}
 .text-left{
   text-align: left;
 }
@@ -3849,9 +3876,6 @@ input.gameengine-checkbox:checked::before {
 }
 .tracking-wide{
   letter-spacing: 0.025em;
-}
-.tracking-wider{
-  letter-spacing: 0.05em;
 }
 .\!text-\[\#FF4D4D\]{
   --tw-text-opacity: 1 !important;
@@ -4863,32 +4887,14 @@ body {
   .lg\:w-10{
     width: 2.5rem;
   }
+  .lg\:w-\[calc\(\(100\%\/3\)_-_11px\)\]{
+    width: calc((100% / 3) - 11px);
+  }
   .lg\:w-\[calc\(25\%_\+_6px\)\]{
     width: calc(25% + 6px);
   }
-  .lg\:w-\[calc\(33\.333\%_-_45px\)\]{
-    width: calc(33.333% - 45px);
-  }
   .lg\:w-auto{
     width: auto;
-  }
-  .lg\:w-\[calc\(_-_45px\)\]{
-    width: calc( - 45px);
-  }
-  .lg\:w-\[calc\(\(\)_-_45px\)\]{
-    width: calc(() - 45px);
-  }
-  .lg\:w-\[calc\(\(100\)_-_45px\)\]{
-    width: calc((100) - 45px);
-  }
-  .lg\:w-\[calc\(\(100\%\/\)_-_45px\)\]{
-    width: calc((100% / ) - 45px);
-  }
-  .lg\:w-\[calc\(\(100\%\/3\)_-_45px\)\]{
-    width: calc((100% / 3) - 45px);
-  }
-  .lg\:w-\[calc\(\(100\%\/3\)_-_11px\)\]{
-    width: calc((100% / 3) - 11px);
   }
   .lg\:grid-cols-4{
     grid-template-columns: repeat(4, minmax(0, 1fr));

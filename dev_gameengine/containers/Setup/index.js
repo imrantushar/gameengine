@@ -11,8 +11,8 @@ const Setup = () => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className="bg-white h-[calc(100vh_-_171px)]">
-      <div className='flex items-center justify-between px-6 py-5 mb-6 border-0 border-b border-solid border-[var(--gameengine-border-color)]'>
+    <div className="bg-white min-h-screen flex flex-col">
+      <div className="sticky top-0 z-50 bg-white flex-shrink-0 flex items-center justify-between px-6 py-5 border-0 border-b border-solid border-[var(--gameengine-border-color)]">
         <img className="h-auto max-w-[120px]" src={plugin_root_url + 'assets/images/logo-text.svg'} />
         <button
           onClick={() => setShowConfirm(true)}
@@ -23,11 +23,19 @@ const Setup = () => {
         </button>
       </div>
 
-      <Routes>
-        <Route exact path="/" element={<Welcome />} />
-        <Route exact path="/settings" element={<Settings />} />
-        <Route path="/congratulation" element={<Congratulation />} />
-      </Routes>
+      <img
+        src={plugin_root_url + 'assets/images/setup_bg.png'}
+        className="fixed top-[69px] left-0 w-full h-[calc(100vh-69px)] object-cover pointer-events-none select-none z-0"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-10 flex-1">
+        <Routes>
+          <Route exact path="/" element={<Welcome />} />
+          <Route exact path="/settings" element={<Settings />} />
+          <Route path="/congratulation" element={<Congratulation />} />
+        </Routes>
+      </div>
 
       {showConfirm && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50">

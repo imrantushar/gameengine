@@ -25,7 +25,7 @@ const Welcome = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full flex-col justify-center items-center h-full flex gap-6">
+    <div className="w-full flex-col justify-center items-center h-full flex gap-6 pt-[120px]">
       <div className="flex w-full max-w-[680px] flex-col items-center rounded-xl gap-8 p-10 bg-white shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]">
         <div className="flex flex-col items-center gap-4">
           <img className="h-auto max-w-[36px]" src={plugin_root_url + 'assets/images/logo.svg'} alt="Logo" />

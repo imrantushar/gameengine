@@ -436,7 +436,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const Congratulation = () => {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "w-full flex-col justify-center items-center h-full flex gap-6"
+    className: "w-full flex-col justify-center items-center h-full flex gap-6 pt-[120px]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex w-full flex-col items-center rounded-xl gap-6",
     style: {
@@ -1004,7 +1004,7 @@ const Settings = () => {
     }
   };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex w-full justify-center pb-12"
+    className: "flex w-full justify-center pb-12 pt-[120px]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(formik__WEBPACK_IMPORTED_MODULE_1__.Formik, {
     enableReinitialize: true,
     initialValues: {
@@ -1075,7 +1075,7 @@ const Welcome = () => {
   const [selectedCard, setSelectedCard] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('genatative');
   const navigate = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_7__.useNavigate)();
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "w-full flex-col justify-center items-center h-full flex gap-6"
+    className: "w-full flex-col justify-center items-center h-full flex gap-6 pt-[120px]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "flex w-full max-w-[680px] flex-col items-center rounded-xl gap-8 p-10 bg-white shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -1180,9 +1180,9 @@ __webpack_require__.r(__webpack_exports__);
 const Setup = () => {
   const [showConfirm, setShowConfirm] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "bg-white h-[calc(100vh_-_171px)]"
+    className: "bg-white min-h-screen flex flex-col"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "flex items-center justify-between px-6 py-5 mb-6 border-0 border-b border-solid border-[var(--gameengine-border-color)]"
+    className: "sticky top-0 z-50 bg-white flex-shrink-0 flex items-center justify-between px-6 py-5 border-0 border-b border-solid border-[var(--gameengine-border-color)]"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     className: "h-auto max-w-[120px]",
     src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.plugin_root_url + 'assets/images/logo-text.svg'
@@ -1192,7 +1192,13 @@ const Setup = () => {
     "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_7__.__)('Close setup wizard', 'gameengine')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_icons_io__WEBPACK_IMPORTED_MODULE_6__.IoMdClose, {
     size: 20
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: _GFUtils_helper__WEBPACK_IMPORTED_MODULE_5__.plugin_root_url + 'assets/images/setup_bg.png',
+    className: "fixed top-[69px] left-0 w-full h-[calc(100vh-69px)] object-cover pointer-events-none select-none z-0",
+    "aria-hidden": "true"
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "relative z-10 flex-1"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Routes, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
     exact: true,
     path: "/",
     element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Pages_Welcome__WEBPACK_IMPORTED_MODULE_1__["default"], null)
@@ -1203,7 +1209,7 @@ const Setup = () => {
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react_router_dom__WEBPACK_IMPORTED_MODULE_3__.Route, {
     path: "/congratulation",
     element: (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Pages_Congratulation__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-  })), showConfirm && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }))), showConfirm && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "fixed inset-0 z-[9999] flex items-center justify-center bg-black/50"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "bg-white rounded p-6 max-w-[400px] w-full mx-4 flex flex-col gap-5 shadow-[0_20px_60px_0_rgba(0,0,0,0.15)]"
