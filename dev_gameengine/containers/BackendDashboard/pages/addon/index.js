@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
-import Select from 'react-select';
 import { __ } from '@wordpress/i18n';
 import AddonCard from './AddonCard';
 import TopBar from '@GFComponents/TopBar';
@@ -20,6 +19,8 @@ import {
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import './addon-tabs.css';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const infoCardsData = [
   {
@@ -37,7 +38,8 @@ const infoCardsData = [
         plugin_name: 'Academy LMS',
       },
     ],
-    icon: academyLms(),
+    image:
+      plugin_root_url + 'assets/images/academy-lms.svg',
     docsUrl:
       'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
     route: '',
@@ -57,7 +59,8 @@ const infoCardsData = [
         plugin_name: 'Tutor LMS',
       },
     ],
-    icon: tutorLms(),
+    image:
+      plugin_root_url + 'assets/images/tutor_logo.png',
     docsUrl: 'https://www.themeum.com/docs/tutor-lms-introduction/',
     route: '',
   },
@@ -162,7 +165,7 @@ const infoCardsData = [
     required_plugin: false,
     icon: false,
     image:
-      plugin_root_url + 'assets/images/progress_map.svg',
+      plugin_root_url + 'assets/images/wallet.svg',
     docsUrl:
       'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
     route: 'admin.php?page=gameengine-wallet',
@@ -193,16 +196,18 @@ const infoCardsData = [
     required_plugin: false,
     icon: false,
     image:
-      plugin_root_url + 'assets/images/progress_map.svg',
+      plugin_root_url + 'assets/images/wheel.svg',
     docsUrl: '#',
     route: 'admin.php?page=gameengine-lucky-wheels',
   },
 ];
 
-const statusOptions = [
-  { value: 'all', label: __('All Status', 'gameengine') },
-  { value: 'active', label: __('Active', 'gameengine') },
+const TABS = [
+  { value: 'all',      label: __('All',      'gameengine') },
+  { value: 'active',   label: __('Active',   'gameengine') },
   { value: 'inactive', label: __('Inactive', 'gameengine') },
+  { value: 'free',     label: __('Free',     'gameengine') },
+  { value: 'pro',      label: __('Pro',      'gameengine') },
 ];
 
 const Addons = () => {
@@ -226,11 +231,6 @@ const Addons = () => {
       }
     })();
   }, []);
-
-  const handleClearAll = () => {
-    setFilterText('');
-    setFilterMenu('all');
-  };
 
   const getAddonLists = (values) => {
     return infoCardsData.filter((item) => {
@@ -261,13 +261,17 @@ const Addons = () => {
     });
   };
 
-  const selectedStatus =
-    statusOptions.find((o) => o.value === filterMenu) ||
-    statusOptions[0];
-
   return (
     <>
-      <TopBar path={__('Add-ons', 'gameengine')} rightContent={<GetHelp filterText={['addons']} />} />
+      <TopBar path={__('Add-ons', 'gameengine')}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+
+                <GetHelp filterText={['addons']} />
+            </div>
+        }
+      />
 
       <div className="gameengine-page-content">
         <div className="flex justify-between items-center py-6 px-1">
@@ -275,36 +279,28 @@ const Addons = () => {
             {__("Add-ons", "gameengine")}
           </h2>
 
-          <div className="flex items-end gap-4">
-            <Button
-              preset='gray'
-              onClick={handleClearAll}
-              label={__('Clear All', 'gameengine')}
-            />
-
-            <Select
-              options={statusOptions}
-              value={selectedStatus}
-              onChange={(selected) => {
-                setFilterMenu(selected.value);
-                setLoading(true);
-              }}
-              className="gameengine-select"
-              classNamePrefix="gameengine-select"
-              isSearchable={false}
-            />
-
-            <Search
-              className="gameengine-search bg-white"
-              placeholder={__('Search...', 'gameengine')}
-              onSearchHandler={(keyword) =>
-                setFilterText(keyword.trim())
-              }
-            />
-          </div>
+          <Search
+            className="gameengine-search bg-white"
+            placeholder={__('Search...', 'gameengine')}
+            onSearchHandler={(keyword) =>
+              setFilterText(keyword.trim())
+            }
+          />
         </div>
 
-        <GameEngineBox dynamicClasses="addons">
+        <div className="gameengine-addon-tabs">
+          {TABS.map((tab) => (
+            <button
+              key={tab.value}
+              onClick={() => setFilterMenu(tab.value)}
+              className={`gameengine-addon-tabs__tab${filterMenu === tab.value ? ' gameengine-addon-tabs__tab--active' : ''}`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <GameEngineBox dynamicClasses="addons mt-6">
           <Formik
             enableReinitialize
             initialValues={{ ...addonsSavedData }}

@@ -18,7 +18,7 @@ const MarketplaceFields = () => {
   return <div className="w-full">
     <FieldArray name="marketplace.offers">
       {({ push, remove }) => <div className="flex flex-col gap-6">
-        {values.marketplace.offers.map((item, index) => {
+        {values?.marketplace?.offers?.map((item, index) => {
           return (
             <div className='relative'>
               <div className="flex flex-col items-start w-[calc(100%-32px)] gap-4 rounded p-4 relative [box-shadow:var(--gameengine-shadow)]">

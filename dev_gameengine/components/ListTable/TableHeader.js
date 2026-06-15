@@ -43,7 +43,7 @@ const TableHeader = ({
 								maxWidth: column?.columnWidth ?? 'auto',
 								width: column?.columnWidth ?? 'auto',
 							}}
-							className={`px-4 py-3 text-xs font-semibold uppercase tracking-wider whitespace-nowrap border-b border-[var(--gameengine-border-color)] ${alignClass}`}
+							className={`px-4 py-3 text-sm font-medium capitalize whitespace-nowrap border-b border-[var(--gameengine-border-color)] ${alignClass}`}
 						>
 							{column?.name}
 						</th>

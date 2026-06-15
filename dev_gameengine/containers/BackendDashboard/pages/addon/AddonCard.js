@@ -82,14 +82,22 @@ const AddonCard = ({ item, value }) => {
 
   const getIconBorderColor = () => {
     if (item.name === 'certificates') return '#7b68ee';
+    if (item.name === 'academylms') return '#7B68EE';
+    if (item.name === 'tutorlms') return '#0049F8';
     if (item.name === 'storeengine') return '#008dff';
     if (item.name === 'woocommerce') return '#873eff';
+    if (item.name === 'restrict_unlock') return '#8270DB';
+    if (item.name === 'restrict_content') return '#4F46E5';
+    if (item.name === 'progress_map') return '#10B981';
+    if (item.name === 'referrals') return '#10B981';
+    if (item.name === 'wallet') return '#10B981';
+    if (item.name === 'lucky-wheels') return '#F97316';
     return '#e2e8f0';
   };
 
   return (
-    <div className="flex flex-col bg-white p-4 gap-3 rounded-md [box-shadow:var(--gameengine-shadow)] [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc(33.333%_-_45px)]">
-      <div className="flex justify-between items-start">
+    <div className="flex flex-col bg-white p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc((100%/3)_-_11px)]">
+      <div className="flex justify-between items-start mb-4">
         <div
           className="items-center justify-center p-2 rounded-md flex w-10 h-10"
           style={{
@@ -160,10 +168,9 @@ const AddonCard = ({ item, value }) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2 mb-2">
         <p
-          className="text-sm font-semibold m-0 text-[var(--gameengine-font-color)]"
-          style={{ lineHeight: '1.4' }}
+          className="text-[16px] font-medium leading-6 m-0 text-[var(--gameengine-font-color)]"
         >
           {item.label}
         </p>
@@ -185,11 +192,7 @@ const AddonCard = ({ item, value }) => {
       </div>
 
       <p
-        className="text-xs font-normal m-0"
-        style={{
-          color: '#738496',
-          lineHeight: '1.6',
-        }}
+        className="text-xs font-normal leading-5 m-0 text-[#738496]"
       >
         {item.details}
       </p>

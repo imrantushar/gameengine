@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.1.3
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,19 +37,23 @@ You can award points for actions like user registration, daily logins, publishin
 
 == Changelog ==
 
-= 1.1.1 - 2025-05-06 =
+= 1.2.0 - 2026-06-14 =
+* Improved - Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard..
+* Fixed - All buttons dirty and disable issue fixed.
+
+= 1.1.2 - 2026-05-06 =
 * Improved - Chakra UI removed and migrated to tailwind.
 * Improved - Complete UI updated.
 
-= 1.1.1 - 2025-04-23 =
+= 1.1.1 - 2026-04-23 =
 * Added - StoreEngine SDK integration ( License Management ).
 
-= 1.1.0 - 2025-04-20 =
+= 1.1.0 - 2026-04-20 =
 * Added Tutor LMS Integration.
 * New Triggers: Course Completed, Course Published (Instructor), Lesson Completed, Quiz Attempt Ended, Quiz Passed, Assignment Submitted, and New Enrollment.
 * Dynamic schema support for selection of specific Courses, Lessons, Quizzes, and Assignments.
 
-= 1.0.0 - 2025-01-20 =
+= 1.0.0 - 2026-01-20 =
 * Initial release of the GameEngine plugin.
 * Fixed coding standards and security guidelines for WordPress.org submission.
 

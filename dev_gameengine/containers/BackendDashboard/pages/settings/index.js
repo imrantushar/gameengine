@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
@@ -19,6 +19,23 @@ import License from './Tabs/License';
 import EmailTemplates from './Tabs/EmailTemplates';
 import ReferralSettings from './Tabs/ReferralSettings';
 
+const EMAIL_STRING_FIELDS = [
+  'sender_name', 'sender_email',
+  'level_subject', 'level_body',
+  'achievement_subject', 'achievement_body',
+  'inactivity_subject', 'inactivity_body', 'inactivity_days',
+  'milestone_subject', 'milestone_body',
+];
+
+const normalizeEmailTemplates = (data) => {
+  if (!data) return data;
+  const et = { ...(data.email_templates || {}) };
+  EMAIL_STRING_FIELDS.forEach(key => {
+    if (et[key] == null) et[key] = '';
+  });
+  return { ...data, email_templates: et };
+};
+
 const Settings = () => {
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
@@ -26,6 +43,7 @@ const Settings = () => {
   const {
     data: settingsData
   } = useSelector(state => state.settings);
+  const normalizedSettings = useMemo(() => normalizeEmailTemplates(settingsData), [settingsData]);
   const [settingsLoading, setSettingsLoading] = useState(!settingsData);
   const dispatch = useDispatch();
   const isEmailTab = tab === 'email_templates';
@@ -71,11 +89,12 @@ const Settings = () => {
       console.warn({ error });
     } finally {
       actions.setSubmitting(false);
+      actions.resetForm({ values });
     }
   };
 
   return <>
-    {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={settingsData} onSubmit={onSubmitHandle}>
+    {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={normalizedSettings} onSubmit={onSubmitHandle}>
       {({ handleSubmit, isSubmitting, dirty }) => {
         return <>
           <TopBar path={__("Settings", "gameengine")} rightContent={<>

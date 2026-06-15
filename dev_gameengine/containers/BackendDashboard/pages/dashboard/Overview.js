@@ -72,7 +72,7 @@ function Overview({
         <div className="flex flex-wrap gap-4">
           {cards.map((card, i) =>
             <div
-              className="flex items-center justify-between gap-6 rounded [box-shadow:var(--gameengine-shadow)] p-[32px_24px] w-full md:w-[calc(50%_-_56px)] lg:w-[calc(25%_+_6px)] xl:w-[calc(25%_-_60px)]"
+              className="flex items-center justify-between gap-6 rounded [box-shadow:var(--gameengine-shadow)] p-[32px_24px] w-full md:w-[calc(50%_-_56px)] lg:w-[calc((100%_/_3)_-_12px)] xl:w-[calc(25%_-_12px)]"
               style={{
                 "background": card?.bg
               }}

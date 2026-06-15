@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { __, sprintf } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -6,6 +6,7 @@ import HookConfigurationForm from './HookConfigurationForm';
 import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { useDispatch } from 'react-redux';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
+import EmptyState from './EmptyState';
 
 // # DRAGGABLE
 const DraggableItem = ({ id, children }) => {
@@ -143,9 +144,13 @@ const Requirements = props => {
             </div>
 
             <DroppableArea id={`${actionName}s-sidebar`}>
-              {selectedHookIds && selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
-                <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
-              </DraggableItem>)}
+              {!selectedHookIds || selectedHookIds.length === 0 ? (
+                <EmptyState />
+              ) : (
+                selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
+                  <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
+                </DraggableItem>)
+              )}
             </DroppableArea>
           </div>
         </div>

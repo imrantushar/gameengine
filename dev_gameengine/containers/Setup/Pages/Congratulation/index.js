@@ -8,7 +8,7 @@ import { FaArrowRightLong } from 'react-icons/fa6';
 
 const Congratulation = () => {
   return (
-    <div className="w-full flex-col justify-center items-center h-full flex gap-6">
+    <div className="w-full flex-col justify-center items-center h-full flex gap-6 pt-[120px]">
       <div className="flex w-full flex-col items-center rounded-xl gap-6" style={{
         "maxWidth": "680px",
         "padding": "80px 40px",

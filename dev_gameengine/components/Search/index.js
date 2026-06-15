@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { reactDebounce } from '@GFUtils/helper';
 import { CiSearch } from "react-icons/ci";
+import { IoClose } from 'react-icons/io5';
 
 import './styles.scss';
 
@@ -47,7 +48,8 @@ export default function Search( {
 			<div className={ classNames }>
 				<span className="gameengine-search-component__search gameengine-icon gameengine-icon--search" >
 					<CiSearch />
-					</span>
+				</span>
+
 				<input
 					id="search"
 					type="text"
@@ -56,12 +58,13 @@ export default function Search( {
 					value={ searchText }
 					onChange={ ( e ) => searchHandler( e.target.value ) }
 				/>
+				
 				{ searchText && (
 					<button
 						onClick={ handleClear }
 						className="gameengine-search-component__control"
 					>
-						<span className="gameengine-icon gameengine-icon--close-small"></span>
+						<IoClose />
 					</button>
 				) }
 			</div>

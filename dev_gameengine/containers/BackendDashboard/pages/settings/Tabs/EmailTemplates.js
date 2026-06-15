@@ -6,6 +6,7 @@ import GameEngineBox from '@GFComponents/GameEngineBox';
 import { useFormikContext } from 'formik';
 import GameEngineEditor from '@GFComponents/editor';
 import Modal from '@GFComponents/Modal/Modal';
+import Button from '@GFComponents/Button';
 
 const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
     const { values, setFieldValue, handleChange, } = useFormikContext();
@@ -79,13 +80,12 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                         {__("General", "gameengine")}
                     </p>
 
-                    <button
-                        className="h-auto !p-[5px_16px] bg-[var(--gameengine-primary)] text-white text-sm font-semibold leading-5 border border-solid border-[var(--gameengine-primary)] rounded cursor-pointer"
+                    <Button
+                        label={__('Save Changes', 'gameengine')}
+                        isLoading={isSubmitting}
+                        isDisabled={!dirty || isSubmitting}
                         onClick={handleSubmit}
-                        disabled={!dirty || isSubmitting}
-                    >
-                        {__('Save Changes', 'gameengine')}
-                    </button>
+                    />
                 </div>
 
                 <div className="flex flex-col gap-4">
@@ -138,17 +138,20 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                                     <div className="flex items-center gap-5">
                                                         <div className="flex items-center gap-2.5">
                                                             <p className="text-sm font-medium m-0">{__("Notify User", "gameengine")}</p>
-                                                            <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_user_enabled'] ?? true} onChange={val => setFieldValue(config?.userEnabledField, val)} />
+                                                            <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_user_enabled'] ?? true} onChange={val => { setFieldValue(config?.userEnabledField, val); handleSubmit(); }} />
                                                         </div>
                                                         <div className="flex items-center gap-2.5">
                                                             <p className="text-sm font-medium m-0">{__("Notify Admin", "gameengine")}</p>
-                                                            <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_admin_enabled'] ?? false} onChange={val => setFieldValue(config?.adminEnabledField, val)} />
+                                                            <CustomSwitch isChecked={values?.email_templates?.[editingKey + '_admin_enabled'] ?? false} onChange={val => { setFieldValue(config?.adminEnabledField, val); handleSubmit(); }} />
                                                         </div>
                                                     </div>
 
-                                                    <button className="h-auto !p-[5px_16px] bg-[var(--gameengine-primary)] text-white text-sm font-semibold leading-5 border border-solid border-[var(--gameengine-primary)] rounded cursor-pointer" onClick={handleSubmit} disabled={!dirty}>
-                                                        {__('Save Changes', 'gameengine')}
-                                                    </button>
+                                                    <Button
+                                                        label={__('Save Changes', 'gameengine')}
+                                                        isLoading={isSubmitting}
+                                                        isDisabled={!dirty || isSubmitting}
+                                                        onClick={handleSubmit}
+                                                    />
                                                 </div>
 
                                                 <div className="flex gap-8 items-start">

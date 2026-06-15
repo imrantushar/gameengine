@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { TfiShortcode } from "react-icons/tfi";
 import { FcDataConfiguration } from "react-icons/fc";
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Tools = () => {
   const query = useQuery();
@@ -41,7 +42,15 @@ const Tools = () => {
 
   return (
     <>
-      <TopBar path={__('Tools', "gameengine")} rightContent={<GetHelp filterText={['tools']} />} />
+      <TopBar path={__('Tools', "gameengine")}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+
+                <GetHelp filterText={['tools']} />
+            </div>
+        }
+      />
 
       <div className='gameengine-page-content'>
         <h2 className="gameengine-page-heading py-6">

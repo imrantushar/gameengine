@@ -147,13 +147,18 @@ export default function WheelEditor({ action }) {
             onSubmit={handleSubmit}
             enableReinitialize   /* safe here – values state changes only once after fetch */
         >
-            {({ values: fv, handleChange, setFieldValue, handleSubmit: fSubmit, isSubmitting }) => (
+            {({ values: fv, handleChange, setFieldValue, handleSubmit: fSubmit, isSubmitting, dirty }) => (
                 <>
                     {/* ── Top bar ── */}
                     <TopBar
                         path={editId
                             ? __('Edit Lucky Wheel', 'gameengine')
                             : __('Add New Lucky Wheel', 'gameengine')}
+                        hasBreadCrumb={true}
+                        items={[
+                            { label: __('Lucky Wheels', 'gameengine'), href: `${route_path}admin.php?page=gameengine-lucky-wheels` },
+                            { label: fv?.name ?? __('N/A', 'gameengine') }
+                        ]}
                         rightContent={
                             <div className="flex gap-3">
                                 <button
@@ -165,6 +170,7 @@ export default function WheelEditor({ action }) {
                                 <Button
                                     label={editId ? __('Update Wheel', 'gameengine') : __('Save Wheel', 'gameengine')}
                                     isLoading={isSubmitting}
+                                    isDisabled={!dirty || isSubmitting}
                                     onClick={fSubmit}
                                 />
                             </div>
