@@ -46,3 +46,7 @@ phpstan.neon.dist
 phpstan.bootstrap.php
 .codex
 AGENTS.md
+tailwind.config.js
+skills-lock.json
+postcss.config.cjs
+build_log.txt
