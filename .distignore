@@ -50,3 +50,9 @@ tailwind.config.js
 skills-lock.json
 postcss.config.cjs
 build_log.txt
+
+# Development-only build tooling. The integration manifest is a generated
+# artifact; installed sites read the live TriggerRegistry instead.
+assets/json
+includes/classes/json-generator.php
+includes/classes/cli.php

@@ -38,9 +38,25 @@ class TriggersController extends BaseController
     {
         $scope = $request->get_param('scope');
 
-        // The registry only ever returns integrations whose addon is active and
-        // whose host plugin is present, so it is the single source of truth.
+        // The registry decides which integrations are live: it only returns those
+        // whose addon is active and whose host plugin is present. It is always the
+        // authority on the key set, so nothing can be dropped here.
         $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
+
+        // assets/json/integrations.json is a build artifact used during development
+        // and is not part of the release build. When it is present, overlay its
+        // definitions onto the live set; entries it does not know about are kept.
+        $file = GAMEENGINE_PATH . 'assets/json/integrations.json';
+
+        if (file_exists($file)) {
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local build artifact, not a remote request.
+            $manifest = json_decode(file_get_contents($file), true);
+            $cached   = isset($manifest['integrations']) && is_array($manifest['integrations'])
+                ? $manifest['integrations']
+                : array();
+
+            $data = array_replace($data, array_intersect_key($cached, $data));
+        }
 
         if (! empty($scope)) {
             $filtered_data = [];
