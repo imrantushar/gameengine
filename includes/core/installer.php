@@ -99,11 +99,16 @@ class Installer
     }
 
     /**
-     * This method is intentionally left empty.
-     * We do not drop tables on deactivation to preserve user data.
+     * Runs on deactivation.
+     *
+     * Tables and options are deliberately left in place so user progress
+     * survives a deactivate/reactivate cycle. Only the scheduled events are
+     * cleared, so nothing keeps firing once the plugin is off.
      */
     public function uninstall()
     {
-        // No table drop logic here
+        foreach ( array( 'gameengine_cleanup_logs_cron', 'gameengine_daily_inactivity_cron' ) as $hook ) {
+            wp_clear_scheduled_hook( $hook );
+        }
     }
 }

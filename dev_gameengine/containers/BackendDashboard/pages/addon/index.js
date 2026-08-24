@@ -41,7 +41,7 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/academy-lms.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
@@ -99,7 +99,7 @@ const infoCardsData = [
     ],
     icon: wooCommerce(),
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
@@ -116,7 +116,7 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/restrict_unlock.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: 'admin.php?page=gameengine-achievements&action=new',
   },
   {
@@ -133,7 +133,7 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/restrict_content.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
@@ -150,7 +150,7 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/progress_map.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
@@ -167,7 +167,7 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/wallet.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: 'admin.php?page=gameengine-wallet',
   },
   {

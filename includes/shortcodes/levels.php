@@ -2,6 +2,10 @@
 
 namespace GameEngine\Shortcodes;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 class Levels
 {
     public function __construct()

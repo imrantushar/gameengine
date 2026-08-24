@@ -3,6 +3,7 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
+import { is_pro } from '@GFUtils/helper';
 import GeneralSettings from './Tabs/GeneralSettings';
 import Button from '@GFComponents/Button';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
@@ -126,7 +127,7 @@ const Settings = () => {
                 {tab === "economy" && <Economy />}
                 {tab === "marketplace" && <MarketPlace />}
                 {tab === "payout" && <Payout />}
-                {tab === "license" && <License />}
+                {tab === "license" && is_pro && <License />}
                 {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
                 {tab === "referral" && <ReferralSettings />}
               </div>

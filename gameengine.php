@@ -101,7 +101,6 @@ final class GameEngine
     {
         register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
         register_deactivation_hook(GAMEENGINE_FILE, array(__CLASS__, 'deactivate'));
-        \GameEngine\SeSdk::get_instance();
         add_action('deactivated_plugin', array($this, 'handle_dependency_deactivation'), 10, 2);
 
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
@@ -157,15 +156,6 @@ final class GameEngine
         if (is_admin()) {
             if (class_exists('\GameEngine\Admin')) {
                 \GameEngine\Admin::init();
-            }
-
-            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the current admin screen slug; no form data is processed.
-            $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
-
-            if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
-                if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-                    \GameEngine\Classes\JsonGenerator::generate();
-                }
             }
         }
 

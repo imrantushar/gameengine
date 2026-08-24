@@ -24,23 +24,6 @@ class Assets
     }
 
     /**
-     * Get Google Fonts URL (Roboto).
-     *
-     * @return string
-     */
-    public function get_google_fonts_url()
-    {
-        $font_url = '';
-        /**
-         * We are using Roboto with 400, 500, and 700 weights.
-         * Display=swap is used for better performance.
-         */
-        $font_url = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
-
-        return $font_url;
-    }
-
-    /**
      * Prepares the array of data to be passed to JavaScript.
      *
      * @return array
@@ -118,9 +101,6 @@ class Assets
             return;
         }
 
-        //  Enqueue Google Fonts (Roboto)
-        wp_enqueue_style('gameengine-fonts', $this->get_google_fonts_url(), array(), GAMEENGINE_VERSION);
-
         $versioned_filename = 'backend.' . GAMEENGINE_VERSION;
         $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
 
@@ -163,8 +143,6 @@ class Assets
      */
     public function enqueue_frontend_assets()
     {
-
-        wp_enqueue_style('gameengine-fonts', $this->get_google_fonts_url(), array(), GAMEENGINE_VERSION);
 
         $versioned_filename = 'frontend.' . GAMEENGINE_VERSION;
         $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';

@@ -29,8 +29,21 @@ class JsonGenerator
             wp_mkdir_p($dir);
         }
 
-        $status = file_put_contents($file, wp_json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+        global $wp_filesystem;
 
-        return $status !== false;
+        if (! $wp_filesystem) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+            WP_Filesystem();
+        }
+
+        if (! $wp_filesystem) {
+            return false;
+        }
+
+        return $wp_filesystem->put_contents(
+            $file,
+            wp_json_encode($manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES),
+            FS_CHMOD_FILE
+        );
     }
 }

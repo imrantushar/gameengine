@@ -38,6 +38,10 @@ You can award points for actions like user registration, daily logins, publishin
 == Changelog ==
 
 = 1.2.0 - 2026-06-14 =
+* Changed - Removed the licensing and self-update SDK. Updates for this plugin are delivered by WordPress.org.
+* Changed - Fonts are now served from the visitor's system instead of a third-party CDN. The plugin makes no external requests.
+* Fixed - Scheduled events are now cleared when the plugin is deactivated.
+* Fixed - The integration manifest is no longer rewritten inside the plugin folder on every admin page load.
 * Improved - Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard..
 * Fixed - All buttons dirty and disable issue fixed.
 
@@ -46,7 +50,7 @@ You can award points for actions like user registration, daily logins, publishin
 * Improved - Complete UI updated.
 
 = 1.1.1 - 2026-04-23 =
-* Added - StoreEngine SDK integration ( License Management ).
+* Added - License management for GameEngine Pro (now provided by the Pro add-on itself).
 
 = 1.1.0 - 2026-04-20 =
 * Added Tutor LMS Integration.
