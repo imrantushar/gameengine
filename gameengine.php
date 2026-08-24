@@ -153,26 +153,31 @@ final class GameEngine
             }
         }
 
+        // Development-only tooling; excluded from the release build.
+        if (file_exists(GAMEENGINE_PATH . 'dev-tools/load.php')) {
+            require_once GAMEENGINE_PATH . 'dev-tools/load.php';
+        }
+
         if (is_admin()) {
             if (class_exists('\GameEngine\Admin')) {
                 \GameEngine\Admin::init();
             }
 
-            // Development-only: keep assets/json/integrations.json in step with the
+            // Development-only: keep dev-tools/integrations.json in step with the
             // integration classes while working on them. JsonGenerator is excluded
             // from the release build, so this never runs on an installed site.
-            if (class_exists('\GameEngine\Classes\JsonGenerator')) {
+            if (class_exists('\GameEngine\Dev\JsonGenerator')) {
                 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the current admin screen slug; no form data is processed.
                 $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
 
                 if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
-                    \GameEngine\Classes\JsonGenerator::generate();
+                    \GameEngine\Dev\JsonGenerator::generate();
                 }
             }
         }
 
-        if (defined('WP_CLI') && WP_CLI && class_exists('\GameEngine\Classes\CLI')) {
-            \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
+        if (defined('WP_CLI') && WP_CLI && class_exists('\GameEngine\Dev\CLI')) {
+            \WP_CLI::add_command('gameengine', '\GameEngine\Dev\CLI');
         }
 
         $this->load_optional_modules();
@@ -246,8 +251,8 @@ final class GameEngine
 
         // Development-only: the manifest is not shipped in the release build,
         // so this is a no-op for installed sites.
-        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-            \GameEngine\Classes\JsonGenerator::generate();
+        if (class_exists('\GameEngine\Dev\JsonGenerator')) {
+            \GameEngine\Dev\JsonGenerator::generate();
         }
     }
 }

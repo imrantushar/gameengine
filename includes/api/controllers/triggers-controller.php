@@ -43,10 +43,10 @@ class TriggersController extends BaseController
         // authority on the key set, so nothing can be dropped here.
         $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
 
-        // assets/json/integrations.json is a build artifact used during development
+        // dev-tools/integrations.json is a build artifact used during development
         // and is not part of the release build. When it is present, overlay its
         // definitions onto the live set; entries it does not know about are kept.
-        $file = GAMEENGINE_PATH . 'assets/json/integrations.json';
+        $file = GAMEENGINE_PATH . 'dev-tools/integrations.json';
 
         if (file_exists($file)) {
             // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local build artifact, not a remote request.

@@ -266,8 +266,8 @@ class AddonsController extends BaseController
         }
 
         // Development-only: the manifest is not shipped in the release build.
-        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-            \GameEngine\Classes\JsonGenerator::generate();
+        if (class_exists('\GameEngine\Dev\JsonGenerator')) {
+            \GameEngine\Dev\JsonGenerator::generate();
         }
 
         return new \WP_REST_Response(

@@ -1,6 +1,6 @@
 <?php
 
-namespace GameEngine\Classes;
+namespace GameEngine\Dev;
 
 if (!defined('ABSPATH')) exit;
 
@@ -22,7 +22,7 @@ class JsonGenerator
             'integrations' => $integrations_data
         ];
 
-        $dir  = GAMEENGINE_PATH . 'assets/json';
+        $dir  = GAMEENGINE_PATH . 'dev-tools';
         $file = $dir . '/integrations.json';
 
         if (!file_exists($dir)) {

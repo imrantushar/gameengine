@@ -1,6 +1,6 @@
 <?php
 
-namespace GameEngine\Classes;
+namespace GameEngine\Dev;
 
 if (! defined('ABSPATH')) exit;
 
@@ -23,7 +23,7 @@ class CLI
     {
         \WP_CLI::log('Generating GameEngine integrations.json...');
 
-        $success = \GameEngine\Classes\JsonGenerator::generate();
+        $success = \GameEngine\Dev\JsonGenerator::generate();
 
         if ($success) {
             \WP_CLI::success('Integrations JSON has been rebuilt successfully.');
