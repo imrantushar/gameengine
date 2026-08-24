@@ -103,7 +103,7 @@ class AchievementsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where",
+            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search,
             $like_search
@@ -111,7 +111,7 @@ class AchievementsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d",
+            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search,
             $like_search,

@@ -11,7 +11,6 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
  * Domain Path:       /languages/
- * Tested up to:      7.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  */
@@ -160,6 +159,7 @@ final class GameEngine
                 \GameEngine\Admin::init();
             }
 
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the current admin screen slug; no form data is processed.
             $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
 
             if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {

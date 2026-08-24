@@ -152,7 +152,7 @@ class Setup
         add_filter('wp_resource_hints', function ($urls, $relation_type) {
             if ('dns-prefetch' === $relation_type && is_array($urls)) {
                 foreach ($urls as $key => $url) {
-                    if (strpos($url, 's.w.org/images/core/emoji') !== false) {
+                    if (false !== strpos($url, '/images/core/emoji')) {
                         unset($urls[$key]);
                     }
                 }
@@ -188,7 +188,7 @@ class Setup
             'gameengine-google-fonts',
             'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap',
             array(),
-            null
+            GAMEENGINE_VERSION
         );
 
         // Enqueue Wizard CSS

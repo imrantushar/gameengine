@@ -85,16 +85,38 @@ class SeSdk {
 	protected static function get_count_by_status( $table, bool $count_all = false ) {
 		global $wpdb;
 
-		if ( $count_all ) {
-			return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_{$table};" );
+		// Table names cannot be parameterised, so only known tables are ever interpolated.
+		$allowed = [ 'levels', 'achievements', 'point_types', 'user_achievements' ];
+
+		if ( ! in_array( $table, $allowed, true ) ) {
+			return $count_all ? 0 : [];
 		}
 
-		$counts = $wpdb->get_results( "SELECT status, COUNT(*) total FROM {$wpdb->prefix}gameengine_{$table} GROUP BY status;" );
+		$cache_key = 'gameengine_sdk_count_' . $table . ( $count_all ? '_all' : '_by_status' );
+		$cached    = wp_cache_get( $cache_key, 'gameengine_sdk' );
+
+		if ( false !== $cached ) {
+			return $cached;
+		}
+
+		$table_name = $wpdb->prefix . 'gameengine_' . $table;
+
+		if ( $count_all ) {
+			$total = (int) $wpdb->get_var( "SELECT COUNT(*) FROM `{$table_name}`" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Custom table, name validated against the allow-list above; result cached below.
+
+			wp_cache_set( $cache_key, $total, 'gameengine_sdk', HOUR_IN_SECONDS );
+
+			return $total;
+		}
+
+		$counts = $wpdb->get_results( "SELECT status, COUNT(*) total FROM `{$table_name}` GROUP BY status" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- Custom table, name validated against the allow-list above; result cached below.
 		$data   = [];
 
 		foreach ( $counts as $count ) {
 			$data[ $count->status ] = (int) $count->total;
 		}
+
+		wp_cache_set( $cache_key, $data, 'gameengine_sdk', HOUR_IN_SECONDS );
 
 		return $data;
 	}
