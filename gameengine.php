@@ -159,10 +159,6 @@ final class GameEngine
             }
         }
 
-        if (defined('WP_CLI') && WP_CLI) {
-            \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
-        }
-
         $this->load_optional_modules();
 
         do_action('gameengine_init');
@@ -230,10 +226,6 @@ final class GameEngine
 
         if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
             \GameEngine\Classes\TriggerRegistry::reset();
-        }
-
-        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-            \GameEngine\Classes\JsonGenerator::generate();
         }
     }
 }

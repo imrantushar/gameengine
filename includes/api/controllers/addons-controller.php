@@ -265,10 +265,6 @@ class AddonsController extends BaseController
             \GameEngine\Classes\TriggerRegistry::reset();
         }
 
-        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-            \GameEngine\Classes\JsonGenerator::generate();
-        }
-
         return new \WP_REST_Response(
             array(
                 'message'       => 'Addon status updated.',

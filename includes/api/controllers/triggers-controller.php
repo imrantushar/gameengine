@@ -37,20 +37,10 @@ class TriggersController extends BaseController
     public function get_items($request)
     {
         $scope = $request->get_param('scope');
-        $file  = GAMEENGINE_PATH . 'assets/json/integrations.json';
-        $data  = [];
 
-        if (file_exists($file)) {
-            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-            $manifest = json_decode(file_get_contents($file), true);
-            $all_data = $manifest['integrations'] ?? [];
-
-            // Filter out inactive integrations using the refined TriggerRegistry logic.
-            $active_integrations = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
-            $data = array_intersect_key($all_data, $active_integrations);
-        } else {
-            $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
-        }
+        // The registry only ever returns integrations whose addon is active and
+        // whose host plugin is present, so it is the single source of truth.
+        $data = \GameEngine\Classes\TriggerRegistry::get_all_integrations();
 
         if (! empty($scope)) {
             $filtered_data = [];
