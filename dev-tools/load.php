@@ -7,13 +7,13 @@
  * class_exists() and becomes a no-op once the folder is stripped.
  *
  * Contents:
- *  - json-generator.php  Regenerates dev-tools/integrations.json from the live
- *                        TriggerRegistry, so the integration schemas can be
- *                        inspected while working on them.
+ *  - json-generator.php  Writes assets/json/integrations.json from the live
+ *                        TriggerRegistry.
  *  - cli.php             `wp gameengine build` wrapper around the generator.
- *  - integrations.json   The generated manifest. Overlaid by the triggers
- *                        controller when present; installed sites read the
- *                        registry directly.
+ *
+ * The generated manifest lives in assets/json/ and ships with the plugin — the
+ * triggers controller reads it. Only the generator is development-only, so
+ * regenerate and commit the manifest whenever an integration's triggers change.
  *
  * @package GameEngine
  */

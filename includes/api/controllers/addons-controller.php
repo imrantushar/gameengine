@@ -265,7 +265,8 @@ class AddonsController extends BaseController
             \GameEngine\Classes\TriggerRegistry::reset();
         }
 
-        // Development-only: the manifest is not shipped in the release build.
+        // Refresh the shipped manifest while developing; the generator is not
+        // part of the release build, so this is a no-op on an installed site.
         if (class_exists('\GameEngine\Dev\JsonGenerator')) {
             \GameEngine\Dev\JsonGenerator::generate();
         }

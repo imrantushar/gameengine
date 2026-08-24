@@ -163,9 +163,9 @@ final class GameEngine
                 \GameEngine\Admin::init();
             }
 
-            // Development-only: keep dev-tools/integrations.json in step with the
-            // integration classes while working on them. JsonGenerator is excluded
-            // from the release build, so this never runs on an installed site.
+            // Keep assets/json/integrations.json in step with the integration
+            // classes while working on them. The generator is excluded from the
+            // release build, so this never runs on an installed site.
             if (class_exists('\GameEngine\Dev\JsonGenerator')) {
                 // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the current admin screen slug; no form data is processed.
                 $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
@@ -249,8 +249,8 @@ final class GameEngine
             \GameEngine\Classes\TriggerRegistry::reset();
         }
 
-        // Development-only: the manifest is not shipped in the release build,
-        // so this is a no-op for installed sites.
+        // Refresh the shipped manifest while developing; the generator is not
+        // part of the release build, so this is a no-op on an installed site.
         if (class_exists('\GameEngine\Dev\JsonGenerator')) {
             \GameEngine\Dev\JsonGenerator::generate();
         }

@@ -22,7 +22,7 @@ class JsonGenerator
             'integrations' => $integrations_data
         ];
 
-        $dir  = GAMEENGINE_PATH . 'dev-tools';
+        $dir  = GAMEENGINE_PATH . 'assets/json';
         $file = $dir . '/integrations.json';
 
         if (!file_exists($dir)) {

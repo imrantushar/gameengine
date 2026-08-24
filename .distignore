@@ -51,6 +51,6 @@ skills-lock.json
 postcss.config.cjs
 build_log.txt
 
-# Development-only tooling. The integration manifest is a generated artifact;
-# installed sites read the live TriggerRegistry instead.
+# Development-only tooling. The manifest it generates lives in assets/json/
+# and does ship; only the generator and its CLI command are excluded.
 dev-tools
