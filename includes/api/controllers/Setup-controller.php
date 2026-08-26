@@ -221,7 +221,7 @@ class SetupController extends BaseController
          *  PROCESS ACHIEVEMENTS
          */
         if (! $only_module || 'achievements' === $only_module) {
-            $term = term_exists('General', 'achievement_type') ?: wp_insert_term('General', 'achievement_type');
+            $term = term_exists('General', \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY) ?: wp_insert_term('General', \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
             $tid  = is_array($term) ? $term['term_id'] : $term;
 
             foreach ($data['ach'] as $ach_title) {
@@ -267,7 +267,7 @@ class SetupController extends BaseController
          *  PROCESS LEVELS
          */
         if (! $only_module || 'levels' === $only_module) {
-            $term = term_exists('Main', 'level_type') ?: wp_insert_term('Main', 'level_type');
+            $term = term_exists('Main', \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY) ?: wp_insert_term('Main', \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
             $tid  = is_array($term) ? $term['term_id'] : $term;
 
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared

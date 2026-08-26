@@ -66,11 +66,6 @@ class Helper
         return false;
     }
 
-    public static function is_pro()
-    {
-        return defined('GAMEENGINE_PRO_VERSION');
-    }
-
     /**
      * Get the client IP address.
      *
@@ -172,33 +167,6 @@ class Helper
             'title' => __('Leaderboards', 'gameengine'),
             'capability' => 'manage_options',
         );
-        
-        // Referrals
-        if (self::is_addon_active('referrals')) {
-            $menu[$slug . '-referrals'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Referrals', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
-
-        // Wallet System
-        if (self::is_addon_active('wallet')) {
-            $menu[$slug . '-wallet'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Wallet', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
-
-        // Lucky Wheels
-        if (self::is_addon_active('lucky-wheels')) {
-            $menu[$slug . '-lucky-wheels'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Lucky Wheels', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
 
         // Addons
         $menu[$slug . '-addons'] = array(

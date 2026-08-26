@@ -24,6 +24,8 @@ class Levels
             return '';
         }
 
+        wp_enqueue_style('gameengine-shortcode-levels');
+
         ob_start();
         \GameEngine\Helper::get_template('shortcode/levels.php', array(
             'user_id'       => $atts['user_id'],

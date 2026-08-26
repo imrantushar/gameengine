@@ -4,7 +4,7 @@
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
- * Version:           1.2.0
+ * Version:           1.3.0
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
@@ -62,7 +62,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.2.0');
+        define('GAMEENGINE_VERSION', '1.3.0');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
@@ -105,16 +105,6 @@ final class GameEngine
 
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
         add_action('init', array($this, 'init_modules'), 10);
-        add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
-    }
-
-    /**
-     * Inject default settings data.
-     */
-    public function inject_default_settings($settings)
-    {
-        $settings['config']['is_pro'] = false;
-        return $settings;
     }
 
     /**
@@ -153,31 +143,8 @@ final class GameEngine
             }
         }
 
-        // Development-only tooling; excluded from the release build.
-        if (file_exists(GAMEENGINE_PATH . 'dev-tools/load.php')) {
-            require_once GAMEENGINE_PATH . 'dev-tools/load.php';
-        }
-
-        if (is_admin()) {
-            if (class_exists('\GameEngine\Admin')) {
-                \GameEngine\Admin::init();
-            }
-
-            // Keep assets/json/integrations.json in step with the integration
-            // classes while working on them. The generator is excluded from the
-            // release build, so this never runs on an installed site.
-            if (class_exists('\GameEngine\Dev\JsonGenerator')) {
-                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check of the current admin screen slug; no form data is processed.
-                $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
-
-                if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
-                    \GameEngine\Dev\JsonGenerator::generate();
-                }
-            }
-        }
-
-        if (defined('WP_CLI') && WP_CLI && class_exists('\GameEngine\Dev\CLI')) {
-            \WP_CLI::add_command('gameengine', '\GameEngine\Dev\CLI');
+        if (is_admin() && class_exists('\GameEngine\Admin')) {
+            \GameEngine\Admin::init();
         }
 
         $this->load_optional_modules();
@@ -247,12 +214,6 @@ final class GameEngine
 
         if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
             \GameEngine\Classes\TriggerRegistry::reset();
-        }
-
-        // Refresh the shipped manifest while developing; the generator is not
-        // part of the release build, so this is a no-op on an installed site.
-        if (class_exists('\GameEngine\Dev\JsonGenerator')) {
-            \GameEngine\Dev\JsonGenerator::generate();
         }
     }
 }

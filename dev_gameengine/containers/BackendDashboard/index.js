@@ -10,6 +10,7 @@ import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
+import { getDashboardNotices } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import Types from './pages/Types';
@@ -17,7 +18,6 @@ import Wallet from './pages/walletLists';
 import Referrals from './pages/referrals';
 import LuckyWheels from './pages/lucky-wheels';
 import { useLocationQuery } from '@GFHooks/';
-import LicenseNotice from '@GFComponents/LicenseNotice';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -97,8 +97,10 @@ export default function BackendDashboard() {
 
 	return (
 		<div className="gameengine-admin-content">
-			<LicenseNotice />
 			<Notification />
+			{getDashboardNotices([]).map((Notice, index) => (
+				<Notice key={index} />
+			))}
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }
 			</div>

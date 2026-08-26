@@ -20,6 +20,24 @@ export const CHANGELOG_TYPES = {
 
 export const CHANGELOGS = [
     {
+        version: '1.3.0',
+        changes: [
+            {
+                type: 'added',
+                text: 'Extension points so add-on plugins can register their own settings tabs, add-on cards, menu entries and trigger fields.',
+            },
+            {
+                type: 'improved',
+                text: 'The Add-ons and Settings screens now list only the features this plugin ships, with no placeholder or disabled controls.',
+            },
+            {
+                type: 'improved',
+                text: 'Achievement and level type taxonomies are now prefixed. Existing types are moved over automatically.',
+            },
+        ],
+    },
+
+    {
         version: '1.2.0',
         changes: [
             {

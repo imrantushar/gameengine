@@ -69,7 +69,7 @@ const FormInner = () => {
   const fetchAcheivementTypes = async (searchKey = "") => {
     if (searchKey) searchKey = "&search=" + searchKey;
     try {
-      const url = namespace + 'taxonomies/achievement_type?page=1&per_page=100' + searchKey;
+      const url = namespace + 'taxonomies/gameengine_achievement_type?page=1&per_page=100' + searchKey;
       const response = await API.get(url);
       const selectData = response.data.map(item => {
         return {

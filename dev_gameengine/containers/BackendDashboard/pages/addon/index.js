@@ -14,11 +14,11 @@ import {
   storeEngine,
   wooCommerce,
   tutorLms,
-  referralIcon,
 } from '@GFUtils/icons';
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import { getAddonCards } from '@GFUtils/extend';
 import './addon-tabs.css';
 import WhatsNew from '@GFComponents/WhatsNew';
 
@@ -26,7 +26,6 @@ const infoCardsData = [
   {
     label: __('Academy LMS', 'gameengine'),
     name: 'academylms',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
@@ -47,7 +46,6 @@ const infoCardsData = [
   {
     label: __('Tutor LMS', 'gameengine'),
     name: 'tutorlms',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Reward learners with points, badges, and levels for course completions, lessons, and quizzes.',
@@ -67,7 +65,6 @@ const infoCardsData = [
   {
     label: __('StoreEngine', 'gameengine'),
     name: 'storeengine',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
@@ -85,7 +82,6 @@ const infoCardsData = [
   {
     label: __('WooCommerce', 'gameengine'),
     name: 'woocommerce',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!',
@@ -105,7 +101,6 @@ const infoCardsData = [
   {
     label: __('Restrict Unlock', 'gameengine'),
     name: 'restrict_unlock',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!',
@@ -122,7 +117,6 @@ const infoCardsData = [
   {
     label: __('Restrict Content', 'gameengine'),
     name: 'restrict_content',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled',
@@ -139,7 +133,6 @@ const infoCardsData = [
   {
     label: __('Progress Map', 'gameengine'),
     name: 'progress_map',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!',
@@ -153,61 +146,12 @@ const infoCardsData = [
       'https://gameengine.pro/docs/',
     route: '',
   },
-  {
-    label: __('Wallet', 'gameengine'),
-    name: 'wallet',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: false,
-    image:
-      plugin_root_url + 'assets/images/wallet.svg',
-    docsUrl:
-      'https://gameengine.pro/docs/',
-    route: 'admin.php?page=gameengine-wallet',
-  },
-  {
-    label: __('Referrals & Affiliates', 'gameengine'),
-    name: 'referrals',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: referralIcon(),
-    docsUrl: 'https://kodezen.com/docs/gameengine/referrals/',
-    route: 'admin.php?page=gameengine-referrals',
-  },
-  {
-    label: __('Spin the Wheel', 'gameengine'),
-    name: 'lucky-wheels',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: false,
-    image:
-      plugin_root_url + 'assets/images/wheel.svg',
-    docsUrl: '#',
-    route: 'admin.php?page=gameengine-lucky-wheels',
-  },
 ];
 
 const TABS = [
   { value: 'all',      label: __('All',      'gameengine') },
   { value: 'active',   label: __('Active',   'gameengine') },
   { value: 'inactive', label: __('Inactive', 'gameengine') },
-  { value: 'free',     label: __('Free',     'gameengine') },
-  { value: 'pro',      label: __('Pro',      'gameengine') },
 ];
 
 const Addons = () => {
@@ -233,7 +177,7 @@ const Addons = () => {
   }, []);
 
   const getAddonLists = (values) => {
-    return infoCardsData.filter((item) => {
+    return getAddonCards(infoCardsData).filter((item) => {
       if (
         item.label
           .toLowerCase()
@@ -248,10 +192,6 @@ const Addons = () => {
           filterMenu === 'inactive' &&
           !values[item.name]
         ) {
-          return item;
-        } else if (filterMenu === 'pro' && item.is_pro) {
-          return item;
-        } else if (filterMenu === 'free' && !item.is_pro) {
           return item;
         }
       }

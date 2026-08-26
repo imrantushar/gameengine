@@ -22,7 +22,7 @@ class Menu
     {
         $self = new self();
         add_action('admin_menu', array($self, 'admin_menu'));
-        add_action('admin_head', array($self, 'add_admin_menu_css'));
+        add_action('admin_enqueue_scripts', array($self, 'enqueue_admin_menu_css'));
     }
 
     /**
@@ -35,6 +35,11 @@ class Menu
         $icon_url   = $this->get_toplevel_menu_icon_url();
 
         // Register Main Parent Menu (Dashboard) with custom SVG icon.
+        // Positioned below the core content items rather than among them. The
+        // string keeps the float intact so it does not displace another
+        // plugin that claimed the same integer slot.
+        $position = apply_filters('gameengine/admin/toplevel_menu_position', '58.6');
+
         $main_hook = add_menu_page(
             $page_title,
             'GameEngine',
@@ -42,7 +47,7 @@ class Menu
             $main_slug,
             array($this, 'render_app'),
             $icon_url,
-            20
+            $position
         );
         $this->add_cleanup_hook($main_hook);
 
@@ -107,50 +112,19 @@ class Menu
     }
 
     /**
-     * Admin CSS for menu styling.
+     * Enqueue the stylesheet for the admin menu.
+     *
+     * Loaded on every admin screen because it styles the menu itself, which is
+     * present regardless of the page being viewed.
      */
-    public function add_admin_menu_css()
+    public function enqueue_admin_menu_css()
     {
-        echo '<style>
-			#adminmenu li.toplevel_page_gameengine a.toplevel_page_gameengine > .wp-menu-image { 
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			#adminmenu li.toplevel_page_gameengine a.toplevel_page_gameengine > .wp-menu-image img {
-				max-width: 20px; height: auto; padding: 0 !important;
-			}
-			#adminmenu li.toplevel_page_gameengine ul li a, #adminmenu li.toplevel_page_gameengine .wp-submenu > li > a {
-				padding: 7px 12px;
-			}
-			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li a[href*="admin.php?page=gameengine-addons"] {
-				color: #FDB022;
-			}
-			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li.wp-first-item a[href^="admin.php?page=gameengine"]:after,
-			#adminmenu li.toplevel_page_gameengine ul.wp-submenu li a[href*="admin.php?page=gameengine-tools"]:after {
-				border-bottom: 1px solid hsla(0,0%,100%,.2);
-				display: block; float: left; margin: -30px 0 0 -36px;
-				content: ""; width: calc(100% + 26px);
-			}
-
-            .gameengine-notice-bar {
-                background: #fff;
-                border: 1px solid #ccd0d4;
-                border-left: 4px solid #ffb900;
-                padding: 15px;
-                margin: 20px 0;
-                border-radius: 4px;
-                box-shadow: 0 1px 1px rgba(0,0,0,.04);
-            }
-            .gameengine-notice-bar p {
-                margin: 0;
-                font-size: 14px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                color: #3c434a;
-            }
-		</style>';
+        wp_enqueue_style(
+            'gameengine-admin-menu',
+            GAMEENGINE_URL . 'assets/css/admin-menu.css',
+            array(),
+            GAMEENGINE_VERSION
+        );
     }
 
     private function add_cleanup_hook($hook)

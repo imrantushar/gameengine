@@ -61,8 +61,6 @@ class TutorLMS extends BaseIntegration
                         'width' => '50%',
                         'dynamic' => array('integration' => 'tutorlms', 'query' => 'courses'),
                     ),
-                    array('key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'tutorlms', 'query' => 'course_categories')),
-                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'tutorlms', 'query' => 'course_categories')),
                 )),
             ),
 
@@ -190,8 +188,6 @@ class TutorLMS extends BaseIntegration
                         'width' => '50%',
                         'dynamic' => array('integration' => 'tutorlms', 'query' => 'courses'),
                     ),
-                    array('key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'tutorlms', 'query' => 'course_categories')),
-                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'tutorlms', 'query' => 'course_categories')),
                 )),
             ),
         );

@@ -116,7 +116,7 @@ class LevelsController extends BaseController
 
                 // Resolve Category Name.
                 $term_id            = absint($lvl['category']);
-                $term               = get_term($term_id, 'level_type');
+                $term               = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
                 $lvl['category_id']   = $term_id;
                 $lvl['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -224,7 +224,7 @@ class LevelsController extends BaseController
                 $item['is_restricted'] = (bool) $item['is_restricted'];
 
                 $term_id = absint($item['category']);
-                $term = get_term($term_id, 'level_type');
+                $term = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
                 $item['category_id'] = $term_id;
                 $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 

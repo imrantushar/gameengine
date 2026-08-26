@@ -3,22 +3,13 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import LeftBar from './LeftBar';
 import { useLocation } from 'react-router-dom';
-import { is_pro } from '@GFUtils/helper';
-import GeneralSettings from './Tabs/GeneralSettings';
 import Button from '@GFComponents/Button';
 import { fetchSettings, saveSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import GetHelp from '@GFComponents/GetHelp';
 import SettingsLoader from '@GFComponents/GameEngineLoader/SettingsLoader';
-import GFLabel from '@GFComponents/Labels/GFLabel';
-import Economy from './Tabs/Economy';
-import MarketPlace from './Tabs/MarketPlace';
-import Payout from './Tabs/Payout';
-import Dashboard from './Tabs/Dashboard';
-import License from './Tabs/License';
-import EmailTemplates from './Tabs/EmailTemplates';
-import ReferralSettings from './Tabs/ReferralSettings';
+import { DEFAULT_TAB, findTab } from './tabs-config';
 
 const EMAIL_STRING_FIELDS = [
   'sender_name', 'sender_email',
@@ -40,14 +31,15 @@ const normalizeEmailTemplates = (data) => {
 const Settings = () => {
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-  const tab = tabMatch ? tabMatch[1] : 'dashboard';
+  const tab = tabMatch ? tabMatch[1] : DEFAULT_TAB;
   const {
     data: settingsData
   } = useSelector(state => state.settings);
   const normalizedSettings = useMemo(() => normalizeEmailTemplates(settingsData), [settingsData]);
   const [settingsLoading, setSettingsLoading] = useState(!settingsData);
   const dispatch = useDispatch();
-  const isEmailTab = tab === 'email_templates';
+
+  const activeTab = findTab(tab) || findTab(DEFAULT_TAB);
 
   useEffect(() => {
     if (!settingsData) {
@@ -60,31 +52,9 @@ const Settings = () => {
 
   const onSubmitHandle = async (values, actions) => {
     try {
-      switch (tab) {
-        case "general-settings":
-        case "log":
-          await dispatch(saveSettings({ key: 'logs', payloadData: values.logs }));
-          break;
-        case "economy":
-          await dispatch(saveSettings({ key: 'economy', payloadData: values.economy }));
-          break;
-        case "marketplace":
-          await dispatch(saveSettings({ key: 'marketplace', payloadData: values.marketplace }));
-          break;
-        case "payout":
-          await dispatch(saveSettings({ key: 'payout', payloadData: values.payout }));
-          break;
-        case "dashboard":
-          await dispatch(saveSettings({ key: 'dashboard', payloadData: values.dashboard }));
-          break;
-        case "email_templates":
-          await dispatch(saveSettings({ key: 'email_templates', payloadData: values.email_templates }));
-          break;
-        case "referral":
-          await dispatch(saveSettings({ key: 'referral', payloadData: values.referral }));
-          break;
-        default:
-          break;
+      const saveKey = activeTab?.saveKey;
+      if (saveKey) {
+        await dispatch(saveSettings({ key: saveKey, payloadData: values[saveKey] }));
       }
     } catch (error) {
       console.warn({ error });
@@ -96,10 +66,11 @@ const Settings = () => {
 
   return <>
     {settingsLoading ? <SettingsLoader /> : <Formik enableReinitialize initialValues={normalizedSettings} onSubmit={onSubmitHandle}>
-      {({ handleSubmit, isSubmitting, dirty }) => {
+      {(formik) => {
+        const { handleSubmit, isSubmitting, dirty } = formik;
         return <>
           <TopBar path={__("Settings", "gameengine")} rightContent={<>
-            {isEmailTab ?
+            {activeTab?.selfSubmitting ?
               null : (
                 <Button
                   label={__('Save Changes', 'gameengine')}
@@ -122,14 +93,7 @@ const Settings = () => {
               <LeftBar />
 
               <div className="gameengine-fade-in w-full" key={tab}>
-                {tab === "dashboard" && <Dashboard />}
-                {tab === "log" && <GeneralSettings />}
-                {tab === "economy" && <Economy />}
-                {tab === "marketplace" && <MarketPlace />}
-                {tab === "payout" && <Payout />}
-                {tab === "license" && is_pro && <License />}
-                {tab === "email_templates" && <EmailTemplates handleSubmit={handleSubmit} isSubmitting={isSubmitting} dirty={dirty} />}
-                {tab === "referral" && <ReferralSettings />}
+                {activeTab?.render(formik)}
               </div>
             </div>
           </div>

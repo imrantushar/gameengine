@@ -205,7 +205,6 @@ class Setup
             'rest_url'              => rest_url('gameengine/v1'),
             'nonce'                 => wp_create_nonce('wp_rest'),
             'admin_url'             => admin_url(),
-            'is_pro'                => \GameEngine\Helper::is_pro(),
             'gameengine_nonce'      => wp_create_nonce('gameengine_nonce'),
             'namespace'             => 'gameengine/v1/',
             'plugin_root_url'       => GAMEENGINE_URL,

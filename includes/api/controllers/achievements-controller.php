@@ -126,7 +126,7 @@ class AchievementsController extends BaseController
 
                 // Resolve Category Name from Taxonomy.
                 $term_id             = absint($ach['category']);
-                $term                = get_term($term_id, 'achievement_type');
+                $term                = get_term($term_id, \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
                 $ach['category_id']   = $term_id;
                 $ach['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -234,7 +234,7 @@ class AchievementsController extends BaseController
 
                 // Resolve Category Name.
                 $term_id                = absint($item['category']);
-                $term                   = get_term($term_id, 'achievement_type');
+                $term                   = get_term($term_id, \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
                 $item['category_id']   = $term_id;
                 $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 

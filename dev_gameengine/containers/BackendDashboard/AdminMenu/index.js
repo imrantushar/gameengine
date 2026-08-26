@@ -4,10 +4,10 @@ import { __ } from '@wordpress/i18n';
 import {
 	route_path,
 	toplevel_menu_icon_url,
-	is_pro,
 	plugin_root_url,
 	useQuery,
 } from '@GFUtils/helper';
+import { getAdminMenuItems } from '@GFUtils/extend';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
 import { LiaAngleRightSolid } from "react-icons/lia";
@@ -86,30 +86,20 @@ const AdminMenu = () => {
 						</MenuItem>
 					);
 				})}
-				<>
-					{is_pro ? (
-						<li
-							className={
-								(page === 'gameengine-settings' && location.get('tab') === 'license') || page === 'gameengine-license' ? 'current' : ''
-							}
-						>
-							<a href="admin.php?page=gameengine-settings&settings=1&tab=license">
-								{__('License', 'gameengine')}
-							</a>
-						</li>
-					) : (
-						<li
-							className={
-								page === 'gameengine-get-pro' ? 'current' : ''
-							}
-						>
-							<a href="https://gameengine.pro/" target='_blank'>
-								<span className="dashicons dashicons-awards gameengine-blue-color"></span>{' '}
-								{__('Get Pro', 'gameengine')}
-							</a>
-						</li>
-					)}
-				</>
+				{getAdminMenuItems([]).map((item, index) => (
+					<li
+						key={item.key || index}
+						className={page === item.page ? 'current' : ''}
+					>
+						<a href={item.href}>{item.label}</a>
+					</li>
+				))}
+				<li className={page === 'gameengine-get-pro' ? 'current' : ''}>
+					<a href="https://gameengine.pro/" target="_blank" rel="noreferrer">
+						<span className="dashicons dashicons-awards gameengine-blue-color"></span>{' '}
+						{__('Get Pro', 'gameengine')}
+					</a>
+				</li>
 			</ul>
 		</React.Fragment>
 	);

@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,6 +22,37 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 *   **Customizable Point Types:** Create multiple types of points like Coins, Gems, or XP.
 *   **Achievements & Badges:** Define achievements that users can unlock by completing specific tasks.
 *   **Rank System:** Create ranks (e.g., Bronze, Silver, Gold) that users can earn over time.
+*   **Integrations:** Award points for activity in WooCommerce, StoreEngine, Academy LMS and Tutor LMS.
+*   **Add-ons:** Restrict Unlock, Progress Map and Content Restriction, all included and enabled from the Add-ons screen.
+*   **Shortcodes:** Drop points balances, achievement lists, level roadmaps, progress maps and profile dashboards anywhere on your site.
+
+Every feature listed above is included and fully functional. Nothing in this plugin is limited by a key, a trial, a quota or a time limit.
+
+== External services ==
+
+This plugin does not connect to any external service. It makes no HTTP requests to any third party, sends no data off your site, and loads no remote fonts, scripts, stylesheets or images. Everything it needs is bundled with the plugin and served from your own site.
+
+The plugin's admin screens contain ordinary links to documentation on gameengine.pro and to kodezen.com. These are links a person can choose to click; nothing is requested from those sites unless the user opens them.
+
+== Source code and build process ==
+
+All of the plugin's source code ships inside this plugin. Nothing is obfuscated, and every compiled file can be regenerated from the sources included here.
+
+The files under `assets/build/` are generated. Their sources are:
+
+*   `dev_gameengine/` — the React source for the admin app, the setup wizard and the frontend script.
+*   `assets/scss/` — the Sass source for the compiled stylesheets.
+
+The build is driven by [@wordpress/scripts](https://www.npmjs.com/package/@wordpress/scripts) with webpack, Tailwind CSS and PostCSS. The configuration ships alongside the sources: `webpack.config.js`, `tailwind.config.js`, `postcss.config.cjs`, `jsconfig.json` and `package.json` (with `package-lock.json` for an exact, reproducible dependency tree).
+
+To rebuild the compiled assets from the included sources, run the following from the plugin directory with Node.js 18 or newer:
+
+`npm install`
+`npm run build`
+
+That regenerates everything in `assets/build/`. Use `npm run start` for a watching development build.
+
+The PHP dependency manifest is `composer.json`, with `composer.lock` pinning exact versions. Run `composer install` to install them.
 
 == Installation ==
 
@@ -33,9 +64,29 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 
 = What kind of activities can I award points for? =
 
-You can award points for actions like user registration, daily logins, publishing posts, and leaving comments.
+You can award points for actions like user registration, daily logins, publishing posts, and leaving comments. Activating an integration from the Add-ons screen adds triggers for that platform, such as completing a course or placing an order.
+
+= Does the plugin send any data to an external server? =
+
+No. The plugin makes no external requests at all. See the "External services" section above.
+
+= Can I extend the plugin from my own code? =
+
+Yes. Integrations, add-on cards, admin menu entries and trigger fields are all registered through filters, so another plugin can add its own without modifying this one. On the PHP side see `gameengine_integrations`, `gameengine_addons_list`, `gameengine_addon_slugs`, `gameengine_trigger_schema_fields`, `gameengine_settings_data` and `gameengine/admin_menu_list`. In the admin app, `gameengine.settings.tabs`, `gameengine.addons.cards`, `gameengine.adminMenu.items` and `gameengine.tools.shortcodes` are available through `wp.hooks`.
 
 == Changelog ==
+
+= 1.3.0 - 2026-08-26 =
+* Added - Extension points so a separate plugin can register its own settings tabs, add-on cards, admin menu entries, trigger fields and shortcodes.
+* Changed - The Add-ons and Settings screens now list only the features this plugin ships. All placeholder and disabled controls have been removed.
+* Changed - The achievement and level type taxonomies are now registered as `gameengine_achievement_type` and `gameengine_level_type`. Existing types are moved to the new names automatically on upgrade.
+* Changed - The admin menu is now registered below the core content items instead of alongside them.
+* Changed - Admin menu styles, level shortcode styles and the content restriction script are now enqueued instead of printed inline.
+* Changed - Trigger fields are now read from the live registry instead of a generated manifest, so the options shown always match the code that acts on them.
+* Removed - The generated `assets/json/integrations.json` manifest and the development-only tooling that produced it.
+* Changed - The uncompiled sources and the build configuration now ship with the plugin.
+* Fixed - The content restriction meta box no longer depends on jQuery.
+* Security - The taxonomy endpoint now only accepts this plugin's own taxonomies.
 
 = 1.2.0 - 2026-06-14 =
 * Changed - Removed the licensing and self-update SDK. Updates for this plugin are delivered by WordPress.org.
@@ -63,5 +114,5 @@ You can award points for actions like user registration, daily logins, publishin
 
 == Upgrade Notice ==
 
-= 1.0.0 =
-Initial version launch.
+= 1.3.0 =
+Achievement and level types now use prefixed taxonomy names. Existing types are moved over automatically when you upgrade.

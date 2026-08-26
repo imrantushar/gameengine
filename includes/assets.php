@@ -35,20 +35,22 @@ class Assets
         $active_addons = get_option('gameengine_active_addons', []);
 
         // Define all possible addons and map their status
-        $all_addons = [
-            'storeengine',
-            'woocommerce',
-            'academylms',
-            'tutorlms',
-            'restrict_unlock',
-            'progress_map',
-            'restrict_content',
-            'wallet'
-        ];
+        $all_addons = apply_filters(
+            'gameengine_addon_slugs',
+            [
+                'storeengine',
+                'woocommerce',
+                'academylms',
+                'tutorlms',
+                'restrict_unlock',
+                'progress_map',
+                'restrict_content',
+            ]
+        );
         $addons_status = [];
 
         foreach ($all_addons as $slug) {
-            $addons_status[$slug] = in_array($slug, $active_addons);
+            $addons_status[$slug] = in_array($slug, $active_addons, true);
         }
 
         return array(
@@ -60,7 +62,6 @@ class Assets
             'plugin_root_url'    => GAMEENGINE_URL,
             'plugin_root_path'   => GAMEENGINE_PATH,
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
-            'is_pro'             => false,
             'site_url'           => site_url(),
             'admin_url'          => admin_url(),
             'route_path'         => wp_parse_url(admin_url(), PHP_URL_PATH),
@@ -70,7 +71,6 @@ class Assets
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
             'is_storeengine_active' => defined('STOREENGINE_VERSION'),
-            'is_pro' => (bool) \GameEngine\Helper::is_pro(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),
                 'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),
@@ -143,6 +143,15 @@ class Assets
      */
     public function enqueue_frontend_assets()
     {
+        // Registered here and enqueued by the shortcode that needs it, so the
+        // stylesheet only loads on pages that actually render the markup.
+        wp_register_style(
+            'gameengine-shortcode-levels',
+            GAMEENGINE_URL . 'assets/css/shortcode-levels.css',
+            array(),
+            GAMEENGINE_VERSION
+        );
+
 
         $versioned_filename = 'frontend.' . GAMEENGINE_VERSION;
         $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';

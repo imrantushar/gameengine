@@ -4,14 +4,12 @@ import { __, sprintf } from '@wordpress/i18n';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon, } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
-import { admin_url, is_pro, } from '@GFUtils/helper';
+import { admin_url } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { LuSettings } from 'react-icons/lu';
-import { FaLock } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
-import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
 import { TbExternalLink } from 'react-icons/tb';
 
 const AddonCard = ({ item, value }) => {
@@ -73,8 +71,7 @@ const AddonCard = ({ item, value }) => {
     });
   };
 
-  const isShowProTag = !is_pro && item.is_pro;
-  const showSwitch = !item.is_coming_soon && !isShowProTag;
+  const showSwitch = !item.is_coming_soon;
   const showSettings =
     item?.route &&
     !item.is_coming_soon &&
@@ -135,20 +132,6 @@ const AddonCard = ({ item, value }) => {
             >
               {__('Coming Soon', 'gameengine')}
             </span>
-          ) : isShowProTag ? (
-            <KodezenTooltip
-              openerContent={
-                <FaLock size="20px" color="orange" />
-              }
-              contentWidth="fit-content"
-            >
-              <p
-                className="font-normal m-0"
-                style={{ fontSize: '13px' }}
-              >
-                {__('Available in pro', 'gameengine')}
-              </p>
-            </KodezenTooltip>
           ) : (
             <div
               style={{

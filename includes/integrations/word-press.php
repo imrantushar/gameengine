@@ -56,11 +56,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'post_types', 'label' => __('Post Types (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'options' => [['label' => 'Post', 'value' => 'post'], ['label' => 'Page', 'value' => 'page']]],
-                    ['key' => 'min_words', 'label' => __('Min Word Count (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true],
-                    ['key' => 'daily_limit', 'label' => __('Daily Post Limit (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
 
             ],
             'publish_page' => [
@@ -72,9 +68,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'min_media', 'label' => __('Min Media Count (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'comment_post' => [
                 'label' => __('Post Comment', 'gameengine'),
@@ -86,10 +80,7 @@ class WordPress extends BaseIntegration
                     $c = get_comment($id);
                     return $c ? $c->user_id : 0;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'min_chars', 'label' => __('Min Character Count (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true],
-                    ['key' => 'daily_cap', 'label' => __('Daily Max Comments (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'delete_post' => [
                 'label' => __('Delete Post', 'gameengine'),
@@ -101,9 +92,7 @@ class WordPress extends BaseIntegration
                     $post = get_post($post_id);
                     return $post ? $post->post_author : 0;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'age_check', 'label' => __('Only if Post < X days old (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true],
-                ], 'deduct')
+                'schema' => self::merge_schema([], 'deduct')
             ],
             'user_role_change' => [
                 'label' => __('Role Change', 'gameengine'),
@@ -114,9 +103,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'role', 'label' => __('Target Roles', 'gameengine'), 'type' => 'select', 'width' => '100%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'roles']]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'profile_update' => [
                 'label' => __('Profile Update', 'gameengine'),
@@ -127,9 +114,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'field_specific', 'label' => __('Field-specific Rewards (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_pro' => true, 'options' => [['label' => 'Bio', 'value' => 'description'], ['label' => 'Profile Picture', 'value' => 'avatar']]]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'post_updated' => [
                 'label' => __('Post Updated', 'gameengine'),
@@ -140,9 +125,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id, $post) {
                     return $post->post_author;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'min_change', 'label' => __('Min Content Change % (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'after_password_reset' => [
                 'label' => __('Password Reset', 'gameengine'),
@@ -153,9 +136,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($u) {
                     return $u->ID;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'cooldown', 'label' => __('Cooldown in Days (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'daily_visit_website' => [
                 'label' => __('Daily Visit', 'gameengine'),
@@ -166,10 +147,7 @@ class WordPress extends BaseIntegration
                 'get_user_id' => function ($id) {
                     return $id;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'multiplier', 'label' => __('Points Multiplier (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true, 'placeholder' => '2'],
-                    ['key' => 'min_stay', 'label' => __('Min Stay Time in Mins (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ],
             'visit_specific_post' => [
                 'label' => __('Visit Specific Post', 'gameengine'),
@@ -182,7 +160,6 @@ class WordPress extends BaseIntegration
                 },
                 'schema' => self::merge_schema([
                     ['key' => 'post_id', 'label' => __('Select Post', 'gameengine'), 'type' => 'select', 'width' => '50%', 'dynamic' => ['integration' => 'wordpress', 'query' => 'posts']],
-                    ['key' => 'categories', 'label' => __('Select Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'wordpress', 'query' => 'categories']]
                 ])
             ],
             'author_comment_reply' => [
@@ -198,9 +175,7 @@ class WordPress extends BaseIntegration
                     $p = get_post($c->comment_post_ID);
                     return ($p && (int) $p->post_author === (int) $c->user_id) ? $c->user_id : 0;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'min_reply_len', 'label' => __('Min Reply Length (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true]
-                ])
+                'schema' => self::merge_schema([])
             ]
         ];
     }

@@ -16,7 +16,6 @@ export const {
 	gameengine_nonce,
 	user_id,
 	is_plain_permalink,
-	is_pro,
 	is_woocommerce_active,
 	is_academylms_active,
 	is_tutorlms_active,
@@ -82,11 +81,7 @@ export const sliceString = (text, length = 20, more = '...') => {
 	return text.slice(0, length).replace(/(^[\s]+|[\s]+$)/g, '') + more;
 };
 
-export const getAddonActiveStatus = (allAddons, addonName, isPro = false) => {
-	// if pro is inactive
-	if (isPro && !is_pro) {
-		return false;
-	}
+export const getAddonActiveStatus = (allAddons, addonName) => {
 	if (allAddons[addonName]) {
 		return allAddons[addonName] === true;
 	}

@@ -42,13 +42,7 @@ class StoreEngine extends BaseIntegration
                 'get_user_id' => function ($order, $payload) {
                     return method_exists($order, 'get_user_id') ? $order->get_user_id() : 0;
                 },
-                'schema' => self::merge_schema(array(
-                    array('key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true),
-                    array('key' => 'include_products', 'label' => __('Include Specific Products', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'products')),
-                    array('key' => 'include_categories', 'label' => __('Include Specific Categories', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'product_cats')),
-                    array('key' => 'exclude_products', 'label' => __('Exclude Specific Products', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'products')),
-                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'storeengine', 'query' => 'product_cats')),
-                )),
+                'schema' => self::merge_schema(array()),
             ),
 
             // First purchase only.
@@ -107,23 +101,6 @@ class StoreEngine extends BaseIntegration
                         'width' => '50%',
                         'dynamic' => array('integration' => 'storeengine', 'query' => 'products'),
                     ),
-                    array(
-                        'key' => 'categories',
-                        'label' => __('Select Entire Category ', 'gameengine'),
-                        'type' => 'select',
-                        'width' => '50%',
-                        'is_multi' => true,
-                        'is_pro' => true,
-                        'dynamic' => array('integration' => 'storeengine', 'query' => 'product_cats'),
-                    ),
-                    // array(
-                    //     'key' => 'qty_multiplier',
-                    //     'label' => __('Quantity Based Multiplier (Pro)', 'gameengine'),
-                    //     'type' => 'switch',
-                    //     'width' => '50%',
-                    //     'is_pro' => true,
-                    // ),
-                    array('key' => 'min_spend', 'label' => __('Minimum Spend (Pro)', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true),
                 )),
             ),
 

@@ -85,7 +85,6 @@ class AddonsController extends BaseController
     public function get_detailed_addons_list()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
         $addons = array(
             array(
                 'slug'   => 'academylms',
@@ -93,8 +92,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Reward users for course completions and quiz attempts.', 'gameengine'),
                 'icon'   => 'dashicons-welcome-learn-more',
                 'active' => in_array('academylms', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'tutorlms',
@@ -102,8 +99,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Reward users for course completions, lessons, and quizzes.', 'gameengine'),
                 'icon'   => 'dashicons-welcome-learn-more',
                 'active' => in_array('tutorlms', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'woocommerce',
@@ -111,8 +106,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Integrate gamification with your e-commerce store activities.', 'gameengine'),
                 'icon'   => 'dashicons-cart',
                 'active' => in_array('woocommerce', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'storeengine',
@@ -120,8 +113,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Advanced WooCommerce features and rewards integration.', 'gameengine'),
                 'icon'   => 'dashicons-store',
                 'active' => in_array('storeengine', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'restrict_unlock',
@@ -129,8 +120,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Set dependencies between achievements and levels.', 'gameengine'),
                 'icon'   => 'dashicons-lock',
                 'active' => in_array('restrict_unlock', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'progress_map',
@@ -138,8 +127,6 @@ class AddonsController extends BaseController
                 'desc'   => __('Display a visual roadmap of user progress on frontend.', 'gameengine'),
                 'icon'   => 'dashicons-location-alt',
                 'active' => in_array('progress_map', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
             ),
             array(
                 'slug'   => 'restrict_content',
@@ -147,40 +134,21 @@ class AddonsController extends BaseController
                 'desc'   => __('Lock specific posts, pages, images or links based on points and badges.', 'gameengine'),
                 'icon'   => 'dashicons-visibility',
                 'active' => in_array('restrict_content', $active_addons, true),
-                'is_pro' => false,
-                'is_locked' => false,
-            ),
-
-            array(
-                'slug'      => 'wallet',
-                'name'      => __('Wallet & Payouts', 'gameengine'),
-                'desc'      => __('Manage withdrawal requests and user wallet balance from a dedicated menu.', 'gameengine'),
-                'icon'      => 'dashicons-wallet',
-                'active'    => $is_pro_installed && in_array('wallet', (array) $active_addons, true),
-                'is_pro'    => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-            array(
-                'slug'      => 'referrals',
-                'name'      => __('Referrals & Affiliates', 'gameengine'),
-                'desc'      => __('Manage referral links, clicks, and affiliate earnings.', 'gameengine'),
-                'icon'      => 'dashicons-groups',
-                'active'    => $is_pro_installed && in_array('referrals', (array) $active_addons, true),
-                'is_pro'    => true,
-                'is_locked' => ! $is_pro_installed,
-            ),
-            array(
-                'slug'      => 'lucky-wheels',
-                'name'      => __('Spin the Wheel', 'gameengine'),
-                'desc'      => __('Allow users to spin a lucky wheel to win points and rewards.', 'gameengine'),
-                'icon'      => 'dashicons-update',
-                'active'    => $is_pro_installed && in_array('lucky-wheels', (array) $active_addons, true),
-                'is_pro'    => true,
-                'is_locked' => ! $is_pro_installed,
             ),
         );
 
-        return new \WP_REST_Response($addons, 200);
+        /**
+         * Filters the addon cards shown on the Addons screen.
+         *
+         * Extensions register their own addons here so that this plugin only
+         * ever describes the features it ships itself.
+         *
+         * @param array $addons        Addon definitions.
+         * @param array $active_addons Currently enabled addon slugs.
+         */
+        $addons = apply_filters('gameengine_addons_list', $addons, $active_addons);
+
+        return new \WP_REST_Response(array_values($addons), 200);
     }
 
     /**
@@ -197,18 +165,7 @@ class AddonsController extends BaseController
         }
 
 
-        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
-
         if (true === $status) {
-            // Referrals (Pro only)
-            if ('referrals' === $addon_name && ! $is_pro_installed) {
-                return new \WP_Error(
-                    'pro_required',
-                    __('Referrals addon requires GameEngine Pro.', 'gameengine'),
-                    array('status' => 403)
-                );
-            }
-
             // Academy LMS Check
             if ('academylms' === $addon_name) {
                 if (! \GameEngine\Helper::is_academylms_active()) {
@@ -260,15 +217,9 @@ class AddonsController extends BaseController
 
         update_option('gameengine_active_addons', array_values($active_addons));
 
-        // Reset Triggers and Regenerate JSON
+        // The trigger set depends on which addons are active.
         if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
             \GameEngine\Classes\TriggerRegistry::reset();
-        }
-
-        // Refresh the shipped manifest while developing; the generator is not
-        // part of the release build, so this is a no-op on an installed site.
-        if (class_exists('\GameEngine\Dev\JsonGenerator')) {
-            \GameEngine\Dev\JsonGenerator::generate();
         }
 
         return new \WP_REST_Response(
@@ -286,26 +237,21 @@ class AddonsController extends BaseController
     private function get_addons_status_mapped()
     {
         $active_addons = get_option('gameengine_active_addons', array());
-        $is_pro_installed = class_exists('\GameEngine\Pro\Pro_Init');
-        $all_addons    = array(
-            'storeengine',
-            'woocommerce',
-            'academylms',
-            'tutorlms',
-            'restrict_unlock',
-            'progress_map',
-            'restrict_content',
-            'wallet',
-            'referrals',
-            'lucky-wheels'
+        $all_addons    = apply_filters(
+            'gameengine_addon_slugs',
+            array(
+                'storeengine',
+                'woocommerce',
+                'academylms',
+                'tutorlms',
+                'restrict_unlock',
+                'progress_map',
+                'restrict_content',
+            )
         );
 
         $mapped = array();
         foreach ($all_addons as $slug) {
-            if (! $is_pro_installed && in_array($slug, array('wallet', 'referrals', 'lucky-wheels'), true)) {
-                $mapped[$slug] = false;
-                continue;
-            }
             $mapped[$slug] = in_array($slug, $active_addons, true);
         }
 
