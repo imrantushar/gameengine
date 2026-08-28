@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,7 +87,7 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 
 == Changelog ==
 
-= 1.3.1 - 2026-08-28 =
+= 1.3.2 - 2026-08-28 =
 * Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
 * Fixed - The Achievement Types and Level Types screens requested the pre-1.3.0 taxonomy names and returned nothing.
 * Fixed - The "nothing here yet, import some defaults?" prompt flashed on the Points, Achievements and Levels screens before their data had loaded. It now waits for the list to come back.
@@ -143,7 +143,7 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 
 == Upgrade Notice ==
 
-= 1.3.1 =
+= 1.3.2 =
 Fixes data not loading on sites that use plain permalinks.
 
 = 1.3.0 =

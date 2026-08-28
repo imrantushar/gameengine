@@ -52,7 +52,7 @@ class Installer
     /**
      * Restore point types blanked by a partial update.
      *
-     * Until 1.3.1 the update endpoint wrote every column on every request, so a
+     * Earlier releases had the update endpoint write every column on every request, so a
      * call that carried only a status — trashing a row from its action menu —
      * emptied the name, plural name and status alongside it. Rows damaged that
      * way render as a blank line in the list and match no status tab.

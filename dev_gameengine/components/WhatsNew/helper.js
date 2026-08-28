@@ -20,7 +20,7 @@ export const CHANGELOG_TYPES = {
 
 export const CHANGELOGS = [
     {
-        version: '1.3.1',
+        version: '1.3.2',
         changes: [
             {
                 type: 'fixed',
