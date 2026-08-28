@@ -1,8 +1,6 @@
 const defaultConfig = require('@wordpress/scripts/config/webpack.config');
 const path = require('path');
 
-const GAMEENGINE_VERSION = '1.3.1';
-
 module.exports = {
     ...defaultConfig,
     entry: {
@@ -10,8 +8,12 @@ module.exports = {
         frontend: path.resolve(__dirname, 'dev_gameengine/frontend.js'),
         setup: path.resolve(__dirname, 'dev_gameengine/setup.js')
     },
+    // Each entry in `entry` above writes assets/build/<name>.js, so every
+    // generated file is named after the source file it is built from. Cache
+    // busting is the content hash in the generated .asset.php, which is what
+    // the plugin passes to wp_enqueue_script().
     output: {
-        filename: `[name].${GAMEENGINE_VERSION}.js`,
+        filename: '[name].js',
         path: path.resolve(__dirname, 'assets/build'),
     },
     resolve: {

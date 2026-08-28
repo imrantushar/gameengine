@@ -166,16 +166,7 @@ class Setup
      */
     private function enqueue_setup_assets()
     {
-        // Handle JS Versioning (setup.1.0.0.js)
-        $version = defined('GAMEENGINE_VERSION') ? GAMEENGINE_VERSION : '1.0.0';
-        $js_file = 'setup.' . $version . '.js';
-
         $asset_file = GAMEENGINE_PATH . 'assets/build/setup.asset.php';
-
-        if (! file_exists($asset_file)) {
-            // Fallback for asset file
-            $asset_file = GAMEENGINE_PATH . 'assets/build/setup.' . $version . '.asset.php';
-        }
 
         if (! file_exists($asset_file)) {
             return;
@@ -194,7 +185,7 @@ class Setup
         // Enqueue Wizard JS with full versioned filename
         wp_enqueue_script(
             'gameengine-setup-script',
-            GAMEENGINE_URL . 'assets/build/' . $js_file,
+            GAMEENGINE_URL . 'assets/build/setup.js',
             $asset_data['dependencies'],
             $asset_data['version'],
             true

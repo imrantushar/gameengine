@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-28T13:26:48+00:00\n"
+"POT-Creation-Date: 2026-08-28T15:26:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -230,7 +230,7 @@ msgid "Advanced WooCommerce features and rewards integration."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:119
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/addon/index.js:102
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:26
 msgid "Restrict Unlock"
@@ -242,7 +242,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:126
 #: templates/shortcode/profile.php:20
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/addon/index.js:134
 #: dev_gameengine/containers/BackendDashboard/pages/tools/Shortcode/index.js:60
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:12
@@ -254,7 +254,7 @@ msgid "Display a visual roadmap of user progress on frontend."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:133
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/addon/index.js:118
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:19
 msgid "Restrict Content"
@@ -462,7 +462,7 @@ msgstr ""
 
 #: includes/helper.php:149
 #: templates/shortcode/profile.php:26
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/dashboard/TopUsers.js:26
 #: dev_gameengine/containers/BackendDashboard/pages/levels/index.js:11
 #: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:447
@@ -980,31 +980,31 @@ msgstr ""
 msgid "Your Progression"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/utils/helper.js:169
 msgid "Publish"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/components/StatusOptions/index.js:29
 #: dev_gameengine/utils/helper.js:173
 msgid "Draft"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/components/StatusOptions/index.js:28
 #: dev_gameengine/utils/helper.js:177
 msgid "Pending"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/components/Requirements/index.js:71
 #: dev_gameengine/containers/BackendDashboard/pages/addon/index.js:152
 #: dev_gameengine/utils/helper.js:199
 msgid "All"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/components/StatusOptions/index.js:30
 #: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:186
 #: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:184
@@ -1013,164 +1013,164 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:14
 msgid "I'll Configure Manually"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:15
 msgid "Create your own gamification setup from scratch with full control"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:19
 msgid "Jumpstart with Demo Data"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:20
 msgid "This demo gamification is for preview only no real rewards applied"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:33
 msgid "Welcome to GameEngine 👋"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:34
 msgid "You are just a few clicks away from transforming your website into a powerful e-commerce platform."
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:61
 msgid "Process to Next"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Welcome/index.js:77
 msgid "Skip This Step"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Congratulation/index.js:22
 msgid "Congratulations"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Congratulation/index.js:23
 msgid "Your GameEngine is ready to launch"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Congratulation/index.js:33
 msgid "Go To Dashboard"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Congratulation/index.js:36
 msgid "Visit Website"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js:27
 msgid "Back"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js:31
 #: dev_gameengine/containers/Setup/Pages/Settings/components/SettingsFooter.js:32
 msgid "Continue"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:9
 msgid "Author"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:10
 msgid "For authors active"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:14
 msgid "Blogger"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:15
 msgid "For blog activity"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:19
 msgid "eCommerce"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:20
 msgid "For shop customers"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:24
 msgid "Performance"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:25
 msgid "For task results"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:29
 msgid "Community"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:30
 msgid "For community help"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:34
 msgid "Growth"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:35
 msgid "For growth actions"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementTypesEditor/index.js:106
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:78
 msgid "Achievement"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:87
 msgid "Setup Your GameEngine"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:87
 msgid "Choose your preferred gamification setup"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:114
 msgid "Levels & Achievements Preview"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:14
 msgid "Keep users loyal to your brand"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:21
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:28
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:36
@@ -1179,52 +1179,52 @@ msgstr ""
 msgid "Boost interactions with content"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:34
 msgid "Academy LMS Integration"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:41
 msgid "StoreEngine Integration"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:48
 msgid "WooCommerce Integration"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:55
 msgid "Tutor LMS Integration"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:57
 msgid "Award points for course activity"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/Addons/index.js:62
 msgid "I’ll decide later"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/index.js:20
 msgid "Close setup wizard"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/index.js:45
 msgid "Continue without setup?"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/index.js:48
 msgid "You can always run the setup wizard again later from the GameEngine Tools."
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/components/BulkAction/SnackbarAction.js:52
 #: dev_gameengine/components/Modal/ReactModalFormik.js:27
 #: dev_gameengine/components/StatusOptions/index.js:34
@@ -1234,7 +1234,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: assets/build/setup.1.3.1.js:1
+#: assets/build/setup.js:1
 #: dev_gameengine/containers/Setup/index.js:63
 msgid "Go to dashboard"
 msgstr ""

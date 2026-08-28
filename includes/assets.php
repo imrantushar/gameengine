@@ -100,8 +100,7 @@ class Assets
             return;
         }
 
-        $versioned_filename = 'backend.' . GAMEENGINE_VERSION;
-        $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
+        $script_asset_path = GAMEENGINE_PATH . 'assets/build/backend.asset.php';
 
         if (! file_exists($script_asset_path)) {
             return;
@@ -127,7 +126,7 @@ class Assets
         // Enqueue JS
         wp_enqueue_script(
             'gameengine-admin-script',
-            GAMEENGINE_URL . 'assets/build/' . $versioned_filename . '.js',
+            GAMEENGINE_URL . 'assets/build/backend.js',
             $script_asset['dependencies'],
             $script_asset['version'],
             true
@@ -152,8 +151,7 @@ class Assets
         );
 
 
-        $versioned_filename = 'frontend.' . GAMEENGINE_VERSION;
-        $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
+        $script_asset_path = GAMEENGINE_PATH . 'assets/build/frontend.asset.php';
 
         if (file_exists($script_asset_path)) {
             $script_asset = require $script_asset_path;
@@ -168,7 +166,7 @@ class Assets
             // build js
             wp_enqueue_script(
                 'gameengine-frontend-script',
-                GAMEENGINE_URL . 'assets/build/' . $versioned_filename . '.js',
+                GAMEENGINE_URL . 'assets/build/frontend.js',
                 $script_asset['dependencies'],
                 $script_asset['version'],
                 true

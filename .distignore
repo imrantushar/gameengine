@@ -48,7 +48,7 @@ build_log.txt
 #   package-lock.json        exact dependency tree for a reproducible build
 #   webpack.config.js        bundler configuration
 #   tailwind.config.js       Tailwind configuration
-#   postcss.config.cjs       PostCSS configuration
+#   postcss.config.js        PostCSS configuration
 #   jsconfig.json            path aliases used by the bundler config
 #   composer.json            PHP dependency manifest
 #   composer.lock            exact PHP dependency versions
