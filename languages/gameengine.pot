@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-28T12:45:30+00:00\n"
+"POT-Creation-Date: 2026-08-28T13:03:28+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -165,7 +165,7 @@ msgstr ""
 #: includes/admin/user-profile.php:117
 #: includes/helper.php:138
 #: templates/shortcode/profile.php:23
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:445
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:447
 #: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementTypesEditor/index.js:90
 #: dev_gameengine/containers/BackendDashboard/pages/achievements/index.js:12
 #: dev_gameengine/containers/BackendDashboard/pages/dashboard/TopUsers.js:23
@@ -465,7 +465,7 @@ msgstr ""
 #: assets/build/setup.1.3.1.js:1
 #: dev_gameengine/containers/BackendDashboard/pages/dashboard/TopUsers.js:26
 #: dev_gameengine/containers/BackendDashboard/pages/levels/index.js:11
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:417
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:419
 #: dev_gameengine/containers/BackendDashboard/pages/levels/levelTypes/index.js:94
 #: dev_gameengine/containers/Setup/Pages/Settings/Steps/DataPreview/index.js:81
 msgid "Levels"
@@ -1501,7 +1501,7 @@ msgid "Published"
 msgstr ""
 
 #: dev_gameengine/components/StatusOptions/index.js:30
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:183
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:184
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:198
 msgid "Trash"
 msgstr ""
@@ -1552,15 +1552,15 @@ msgstr ""
 msgid "Get Pro"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:90
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:194
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:91
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:195
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:78
 #: dev_gameengine/containers/BackendDashboard/pages/Types/TypesTable.js:51
 msgid "Are you sure?"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:97
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:91
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:98
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:92
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:98
 #: dev_gameengine/containers/BackendDashboard/pages/settings/Tabs/EmailTemplates.js:93
 #: dev_gameengine/containers/BackendDashboard/pages/Types/TypesForm/index.js:87
@@ -1568,95 +1568,95 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:120
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:113
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:121
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:114
 msgid "Category"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:142
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:142
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:143
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:143
 #: dev_gameengine/containers/BackendDashboard/pages/logs/LogsTable.js:100
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:158
 msgid "Date"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:148
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:148
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:149
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:149
 #: dev_gameengine/containers/BackendDashboard/pages/logs/LogsTable.js:107
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:165
 msgid "Status"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:175
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:176
 #: dev_gameengine/containers/BackendDashboard/pages/logs/LogsTable.js:114
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:190
 #: dev_gameengine/containers/BackendDashboard/pages/Types/TypesTable.js:101
 msgid "Action"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:201
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:191
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:202
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:192
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:214
 #: dev_gameengine/containers/BackendDashboard/pages/Types/TypesTable.js:112
 msgid "Delete"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:212
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:180
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:213
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:181
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:225
 #: dev_gameengine/containers/BackendDashboard/pages/Types/TypesTable.js:105
 msgid "Edit"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:305
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:281
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:306
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:282
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:294
 msgid "Restore"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:309
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:285
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:310
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:286
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:298
 msgid "Delete Permanently"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:315
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:291
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:316
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:292
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:304
 msgid "Move to Trash"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:325
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:301
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:326
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:302
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:314
 msgid "Move selected items to trash?"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:342
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:318
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:343
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:319
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:331
 msgid "Restore selected items?"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:344
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:320
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:345
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:321
 #: dev_gameengine/containers/BackendDashboard/pages/points/PointsTypeTable.js:333
 msgid "Delete permanently? This cannot be undone."
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:436
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:438
 msgid "No achievements found."
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:437
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:439
 msgid "Want to quickly get started by importing a default achievements currency and login rewards?"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:449
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:451
 msgid "Add new achievement"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:463
+#: dev_gameengine/containers/BackendDashboard/pages/achievements/AchievementsTable.js:465
 msgid "No data found for Achievements"
 msgstr ""
 
@@ -1846,23 +1846,23 @@ msgstr ""
 msgid "All Points"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:135
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:136
 msgid "Unlock Criteria"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:408
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:410
 msgid "No levels found."
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:409
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:411
 msgid "Want to quickly get started by importing a default levels currency and login rewards?"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:421
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:423
 msgid "Add new level"
 msgstr ""
 
-#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:430
+#: dev_gameengine/containers/BackendDashboard/pages/levels/LevelTable.js:432
 msgid "No data found for levels"
 msgstr ""
 

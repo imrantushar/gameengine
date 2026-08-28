@@ -36,7 +36,8 @@ const AchievementsTable = () => {
     page,
     perPage,
     total,
-    search
+    search,
+    listLoaded
   } = useSelector(state => state.achievements);
 
   const [loading, setLoading] = useState(achievements.length === 0);
@@ -429,7 +430,8 @@ const AchievementsTable = () => {
 
   return (
     <div className='gameengine-page-content'>
-      {achievements.length === 0 &&
+      {listLoaded &&
+        achievements.length === 0 &&
         banners?.achievements !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner

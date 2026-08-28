@@ -30,6 +30,10 @@ export const CHANGELOGS = [
                 type: 'fixed',
                 text: 'The Achievement Types and Level Types screens asked for the old taxonomy names and came back empty.',
             },
+            {
+                type: 'fixed',
+                text: 'The "import some defaults?" prompt no longer flashes on screen before the list has finished loading.',
+            },
         ],
     },
 

@@ -35,7 +35,8 @@ const LevelTable = () => {
     page,
     perPage,
     total,
-    search
+    search,
+    listLoaded
   } = useSelector(state => state.levels || {});
 
   const [loading, setLoading] = useState(levels.length === 0);
@@ -401,7 +402,8 @@ const LevelTable = () => {
 
   return (
     <div className="gameengine-page-content">
-      {levels.length === 0 &&
+      {listLoaded &&
+        levels.length === 0 &&
         banners?.levels !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner

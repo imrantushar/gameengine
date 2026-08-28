@@ -79,6 +79,7 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 = 1.3.1 - 2026-08-28 =
 * Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
 * Fixed - The Achievement Types and Level Types screens requested the pre-1.3.0 taxonomy names and returned nothing.
+* Fixed - The "nothing here yet, import some defaults?" prompt flashed on the Points, Achievements and Levels screens before their data had loaded. It now waits for the list to come back.
 * Removed - The "Pretty Permalinks are required for the REST API" warnings. The REST API works on plain permalinks, so there was nothing to warn about.
 * Changed - Screens can now be registered by another plugin (`gameengine.dashboard.routes`), with `injectReducer` for their state.
 
