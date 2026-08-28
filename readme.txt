@@ -85,6 +85,8 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Fixed - Row actions did not change when switching tabs, so the trash view still offered "Trash" instead of "Delete". The list table was rendering the actions it was given on first load.
 * Fixed - A trashed item stayed in the list until the page was reloaded.
 * Fixed - Lists could serve stale results for up to a minute after an edit or delete on sites with a persistent object cache. The cached lists are keyed per query, and the code cleared a key that was never written.
+* Fixed - `gameengine_add_points()`, `gameengine_deduct_points()` and `gameengine_get_total_points()` referenced a class that does not exist, so calling any of them was a fatal error.
+* Fixed - The plugin's four global functions are now declared behind `function_exists()`, so a name already taken by other code no longer causes a fatal error on load.
 * Removed - The "Pretty Permalinks are required for the REST API" warnings. The REST API works on plain permalinks, so there was nothing to warn about.
 * Changed - Screens can now be registered by another plugin (`gameengine.dashboard.routes`), with `injectReducer` for their state.
 

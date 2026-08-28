@@ -219,12 +219,14 @@ final class GameEngine
     }
 }
 
-/**
- * Global accessor.
- */
-function gameengine()
-{
-    return GameEngine::instance();
+if (! function_exists('gameengine')) {
+    /**
+     * Global accessor.
+     */
+    function gameengine()
+    {
+        return GameEngine::instance();
+    }
 }
 
 GameEngine::instance();
