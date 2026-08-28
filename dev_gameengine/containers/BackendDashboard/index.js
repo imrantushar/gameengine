@@ -10,13 +10,10 @@ import Settings from './pages/settings';
 import Logs from './pages/logs';
 import Points from './pages/points';
 import Addons from './pages/addon';
-import { getDashboardNotices } from '@GFUtils/extend';
+import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import Types from './pages/Types';
-import Wallet from './pages/walletLists';
-import Referrals from './pages/referrals';
-import LuckyWheels from './pages/lucky-wheels';
 import { useLocationQuery } from '@GFHooks/';
 
 const renderSwitch = (page, id, action, path) => {
@@ -67,17 +64,12 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-addons':
 			return <Addons />;
 
-		case 'gameengine-wallet':
-			return <Wallet />;
+		default: {
+			// Screens registered by another plugin for the features it ships.
+			const Registered = getDashboardRoutes({})[page];
 
-		case 'gameengine-referrals':
-			return <Referrals />;
-
-		case 'gameengine-lucky-wheels':
-			return <LuckyWheels action={action} id={id} />;
-
-		default:
-			return <Dashboard />;
+			return Registered ? <Registered action={action} id={id} path={path} /> : <Dashboard />;
+		}
 	}
 };
 

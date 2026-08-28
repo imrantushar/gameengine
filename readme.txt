@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -76,6 +76,12 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 
 == Changelog ==
 
+= 1.3.1 - 2026-08-28 =
+* Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
+* Fixed - The Achievement Types and Level Types screens requested the pre-1.3.0 taxonomy names and returned nothing.
+* Removed - The "Pretty Permalinks are required for the REST API" warnings. The REST API works on plain permalinks, so there was nothing to warn about.
+* Changed - Screens can now be registered by another plugin (`gameengine.dashboard.routes`), with `injectReducer` for their state.
+
 = 1.3.0 - 2026-08-26 =
 * Added - Extension points so a separate plugin can register its own settings tabs, add-on cards, admin menu entries, trigger fields and shortcodes.
 * Changed - The Add-ons and Settings screens now list only the features this plugin ships. All placeholder and disabled controls have been removed.
@@ -113,6 +119,9 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Fixed coding standards and security guidelines for WordPress.org submission.
 
 == Upgrade Notice ==
+
+= 1.3.1 =
+Fixes data not loading on sites that use plain permalinks.
 
 = 1.3.0 =
 Achievement and level types now use prefixed taxonomy names. Existing types are moved over automatically when you upgrade.

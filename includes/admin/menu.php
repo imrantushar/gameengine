@@ -136,19 +136,6 @@ class Menu
 
     public function render_app()
     {
-        if (empty(get_option('permalink_structure'))) {
-?>
-            <div class="gameengine-notice-bar">
-                <p>
-                    <strong><?php esc_html_e('GameEngine Warning:', 'gameengine'); ?></strong>
-                    <?php esc_html_e('Pretty Permalinks are required for the REST API to function correctly.', 'gameengine'); ?>
-                    <a href="<?php echo esc_url(admin_url('options-permalink.php')); ?>" class="button button-primary">
-                        <?php esc_html_e('Update Permalinks', 'gameengine'); ?>
-                    </a>
-                </p>
-            </div>
-<?php
-        }
         echo '<div id="gameengine-admin-app" class="gameengine-admin-app"></div>';
     }
 

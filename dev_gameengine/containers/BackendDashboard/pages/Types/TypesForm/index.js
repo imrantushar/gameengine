@@ -21,7 +21,7 @@ const TypesForm = ({
   const fetchTypes = async (searchKey = "") => {
     if (searchKey) searchKey = "&search=" + searchKey;
     try {
-      const url = namespace + 'taxonomies/' + type + '_type?page=1&per_page=100' + searchKey;
+      const url = namespace + 'taxonomies/gameengine_' + type + '_type?page=1&per_page=100' + searchKey;
       const response = await API.get(url);
       const selectData = response.data.map(item => {
         return {

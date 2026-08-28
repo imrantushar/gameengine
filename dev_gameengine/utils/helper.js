@@ -15,7 +15,6 @@ export const {
 	namespace,
 	gameengine_nonce,
 	user_id,
-	is_plain_permalink,
 	is_woocommerce_active,
 	is_academylms_active,
 	is_tutorlms_active,
@@ -88,6 +87,31 @@ export const getAddonActiveStatus = (allAddons, addonName) => {
 	return false;
 };
 
+/**
+ * Whether the site's REST root already carries a query string.
+ *
+ * With plain permalinks `rest_url()` is `index.php?rest_route=/` rather than
+ * `/wp-json/`.
+ */
+const REST_ROOT_HAS_QUERY = -1 !== String(rest_url).indexOf('?');
+
+/**
+ * Join a REST path's own query string onto the REST root.
+ *
+ * A path such as `triggers?scope=point_type` appended to a root that already
+ * has a query emits a second `?`. WordPress reads everything after the first
+ * one as the route name, so the request comes back as `rest_no_route` even
+ * though the route is registered. Sites with pretty permalinks never hit this,
+ * which is why it is easy to ship.
+ *
+ * @param {string} path REST path, with or without its own query string.
+ * @return {string} The path, safe to append to the REST root.
+ */
+export const restPath = (path) =>
+	REST_ROOT_HAS_QUERY && typeof path === 'string'
+		? path.replace('?', '&')
+		: path;
+
 export const API = axios.create({
 	baseURL: rest_url,
 	headers: {
@@ -95,6 +119,20 @@ export const API = axios.create({
 		'X-WP-Nonce': nonce,
 		'Cache-Control': 'no-cache', // Prevent caching
 	},
+});
+
+/**
+ * Apply the query-string join to every relative request.
+ *
+ * Absolute URLs are left alone: they carry their own root, so the caller has
+ * already decided how the query is joined. The `params` option needs no help —
+ * axios picks `&` itself once the base URL contains a `?`.
+ */
+API.interceptors.request.use((config) => {
+	if (typeof config.url === 'string' && ! /^https?:\/\//i.test(config.url)) {
+		config.url = restPath(config.url);
+	}
+	return config;
 });
 export const makeRequest = async (
 	action,

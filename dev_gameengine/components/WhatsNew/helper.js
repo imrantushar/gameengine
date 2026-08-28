@@ -20,6 +20,20 @@ export const CHANGELOG_TYPES = {
 
 export const CHANGELOGS = [
     {
+        version: '1.3.1',
+        changes: [
+            {
+                type: 'fixed',
+                text: 'Data now loads on sites using plain permalinks. Requests that carried a query string were producing a second "?" and coming back as "no route was found".',
+            },
+            {
+                type: 'fixed',
+                text: 'The Achievement Types and Level Types screens asked for the old taxonomy names and came back empty.',
+            },
+        ],
+    },
+
+    {
         version: '1.3.0',
         changes: [
             {

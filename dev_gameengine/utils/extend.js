@@ -1,7 +1,9 @@
 import * as formik from 'formik';
 import * as reactRedux from 'react-redux';
+import * as reactRouterDom from 'react-router-dom';
+import * as reduxToolkit from '@reduxjs/toolkit';
 import { applyFilters } from '@wordpress/hooks';
-import { store } from '@GFRedux/store';
+import { injectReducer, store } from '@GFRedux/store';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 
 /**
@@ -73,6 +75,19 @@ export const getDashboardNotices = (notices) =>
 	applyFilters('gameengine.dashboard.notices', notices);
 
 /**
+ * Admin screens keyed by their `page` query-string value.
+ *
+ * An extension adds the pages for the features it ships; this plugin routes
+ * whatever is registered, so no screen here belongs to code that lives
+ * elsewhere.
+ *
+ * @param {Object} routes Screens contributed by this plugin.
+ * @return {Object} The full route map.
+ */
+export const getDashboardRoutes = (routes) =>
+	applyFilters('gameengine.dashboard.routes', routes);
+
+/**
  * Show a notice in the app's notification area.
  *
  * Exposed so an extension's own bundle can surface a message without needing
@@ -88,11 +103,16 @@ export const notify = (message, type = 'success') => {
 /**
  * Published for extensions loaded from their own bundle.
  *
- * `formik` and `react-redux` are shared rather than re-bundled, so a screen
- * contributed by another plugin reads the same form and store context as the
- * screen hosting it.
+ * `formik`, `react-redux` and `react-router-dom` are shared rather than
+ * re-bundled: each keeps its own React context, and a second copy would give an
+ * extension's screen an empty one instead of the form, store and router the
+ * host created. `@reduxjs/toolkit` is shared to keep the extension's bundle
+ * small.
  */
 window.gameengine = window.gameengine || {};
 window.gameengine.notify = notify;
 window.gameengine.formik = formik;
 window.gameengine.reactRedux = reactRedux;
+window.gameengine.injectReducer = injectReducer;
+window.gameengine.reactRouterDom = reactRouterDom;
+window.gameengine.reduxToolkit = reduxToolkit;

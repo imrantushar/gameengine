@@ -22,21 +22,3 @@
     display: block; float: left; margin: -30px 0 0 -36px;
     content: ""; width: calc(100% + 26px);
 }
-
-.gameengine-notice-bar {
-    background: #fff;
-    border: 1px solid #ccd0d4;
-    border-left: 4px solid #ffb900;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 4px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.04);
-}
-.gameengine-notice-bar p {
-    margin: 0;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #3c434a;
-}
