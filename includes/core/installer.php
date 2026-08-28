@@ -69,15 +69,18 @@ class Installer
         }
 
         global $wpdb;
-        $table = $wpdb->prefix . 'gameengine_point_types';
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'gameengine_point_types')
+        );
+
+        if ($table_exists) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $wpdb->query("UPDATE {$table} SET name = slug WHERE name = '' AND slug <> ''");
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET name = slug WHERE name = '' AND slug <> ''");
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $wpdb->query("UPDATE {$table} SET status = 'publish' WHERE status NOT IN ('publish', 'draft', 'pending', 'trash')");
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET status = 'publish' WHERE status NOT IN ('publish', 'draft', 'pending', 'trash')");
         }
 
         update_option(self::POINT_TYPE_REPAIR_OPTION, 1, true);
