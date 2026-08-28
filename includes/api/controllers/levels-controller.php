@@ -23,6 +23,34 @@ class LevelsController extends BaseController
     protected $rest_base = 'levels';
 
     /**
+     * Version stamp mixed into every list cache key.
+     *
+     * The list is cached per query, so there is no single key to delete when
+     * the data changes. Bumping this stamp retires every cached list at once.
+     *
+     * @return string
+     */
+    private function list_cache_version()
+    {
+        $version = wp_cache_get('gameengine_levels_list_version', 'gameengine_levels');
+
+        if (! $version) {
+            $version = (string) time();
+            wp_cache_set('gameengine_levels_list_version', $version, 'gameengine_levels');
+        }
+
+        return $version;
+    }
+
+    /**
+     * Retire the cached levels lists after a write.
+     */
+    private function flush_list_cache()
+    {
+        wp_cache_set('gameengine_levels_list_version', (string) microtime(true), 'gameengine_levels');
+    }
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -83,7 +111,7 @@ class LevelsController extends BaseController
             $status_where = "status != 'trash'";
         }
 
-        $cache_key   = 'gameengine_lvl_list_' . md5($per_page . $page . $search . $status);
+        $cache_key   = 'gameengine_lvl_list_' . md5($this->list_cache_version() . $per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_levels');
 
         if (false !== $cached_data) {
@@ -200,7 +228,7 @@ class LevelsController extends BaseController
             $this->save_requirements($level_id, $params['requirements'] ?? array());
         }
 
-        wp_cache_delete('gameengine_levels_list', 'gameengine_levels');
+        $this->flush_list_cache();
 
         return $this->get_full_item_response($level_id);
     }
@@ -291,6 +319,7 @@ class LevelsController extends BaseController
         $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'level', 'reward_id' => $id));
 
         wp_cache_delete('gameengine_level_full_' . $id, 'gameengine_levels');
+        $this->flush_list_cache();
 
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }

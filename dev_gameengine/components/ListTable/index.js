@@ -49,10 +49,29 @@ const ListTable = (props) => {
 	);
 
 	const shouldRerender = _.isEqual(data, copyDataArr);
-	const [visibleColumn, setVisibleColumn] = useState(
-		copyColumns?.filter((copyColumn) => copyColumn.visible)
-	);
 	const [tempCopyColumns, setTempCopyColumns] = useState([...copyColumns]);
+
+	/*
+	 * `copyColumns` holds the reader's own choices — which columns are shown and
+	 * in what order — but its render functions are the ones the parent passed on
+	 * first mount. A `cell` that closes over parent state would keep rendering
+	 * that first version forever: the row actions on a list screen switch when
+	 * the trash tab is open, and without this they never would. So the stored
+	 * order and visibility are kept, and everything else is taken from the
+	 * columns the parent is passing right now.
+	 */
+	const currentColumnsById = new Map(
+		(columns || []).map((column, index) => [`column-${index}`, column])
+	);
+
+	const visibleColumn = (copyColumns || [])
+		.map((column) => ({
+			...column,
+			...(currentColumnsById.get(column.id) || {}),
+			id: column.id,
+			visible: column.visible,
+		}))
+		.filter((column) => column.visible);
 	const [showSlider, setShowSlider] = useState(false);
 
 	const isCheckboxColumnVisible = visibleColumn.length > 0 && isRowSelectable;
@@ -140,7 +159,6 @@ const ListTable = (props) => {
 	}, [window.innerWidth, copyColumns]);
 
 	useEffect(() => {
-		setVisibleColumn(copyColumns?.filter((copyColumn) => copyColumn.visible));
 		setLoadingHeight(false);
 	}, [copyColumns]);
 

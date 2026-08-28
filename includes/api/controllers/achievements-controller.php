@@ -23,6 +23,34 @@ class AchievementsController extends BaseController
     protected $rest_base = 'achievements';
 
     /**
+     * Version stamp mixed into every list cache key.
+     *
+     * The list is cached per query, so there is no single key to delete when
+     * the data changes. Bumping this stamp retires every cached list at once.
+     *
+     * @return string
+     */
+    private function list_cache_version()
+    {
+        $version = wp_cache_get('gameengine_achievements_list_version', 'gameengine_achievements');
+
+        if (! $version) {
+            $version = (string) time();
+            wp_cache_set('gameengine_achievements_list_version', $version, 'gameengine_achievements');
+        }
+
+        return $version;
+    }
+
+    /**
+     * Retire the cached achievements lists after a write.
+     */
+    private function flush_list_cache()
+    {
+        wp_cache_set('gameengine_achievements_list_version', (string) microtime(true), 'gameengine_achievements');
+    }
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -91,7 +119,7 @@ class AchievementsController extends BaseController
             $status_where = "status != 'trash'";
         }
 
-        $cache_key   = 'gameengine_ach_list_' . md5($per_page . $page . $search . $status);
+        $cache_key   = 'gameengine_ach_list_' . md5($this->list_cache_version() . $per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_achievements');
 
         if (false !== $cached_data) {
@@ -209,7 +237,7 @@ class AchievementsController extends BaseController
         }
 
         $this->save_requirements($achievement_id, $params['requirements'] ?? array());
-        wp_cache_delete('gameengine_achievements_list', 'gameengine_achievements');
+        $this->flush_list_cache();
 
         return $this->get_full_item_response($achievement_id);
     }
@@ -301,6 +329,7 @@ class AchievementsController extends BaseController
         $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'achievement', 'reward_id' => $id));
 
         wp_cache_delete('gameengine_achievement_full_' . $id, 'gameengine_achievements');
+        $this->flush_list_cache();
 
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }

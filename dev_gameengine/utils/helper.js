@@ -191,12 +191,19 @@ export const statusArray = [
 	// },
 ];
 
+// Tabs for the list screens. Trash is a view, not a status a person picks for
+// an item, so it belongs here rather than in `statusArray` above — that one
+// fills the per-row status dropdown.
 export const tableStatusArray = [
 	{
 		label: __('All', 'gameengine'),
 		value: 'all',
 	},
-	...statusArray
+	...statusArray,
+	{
+		label: __('Trash', 'gameengine'),
+		value: 'trash',
+	},
 ];
 
 export function decodeHtmlEntity(entity) {

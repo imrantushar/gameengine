@@ -23,6 +23,34 @@ class PointTypesController extends BaseController
     protected $rest_base = 'point-types';
 
     /**
+     * Version stamp mixed into every list cache key.
+     *
+     * The list is cached per query, so there is no single key to delete when
+     * the data changes. Bumping this stamp retires every cached list at once.
+     *
+     * @return string
+     */
+    private function list_cache_version()
+    {
+        $version = wp_cache_get('gameengine_point_types_list_version', 'gameengine_point_types');
+
+        if (! $version) {
+            $version = (string) time();
+            wp_cache_set('gameengine_point_types_list_version', $version, 'gameengine_point_types');
+        }
+
+        return $version;
+    }
+
+    /**
+     * Retire the cached point types lists after a write.
+     */
+    private function flush_list_cache()
+    {
+        wp_cache_set('gameengine_point_types_list_version', (string) microtime(true), 'gameengine_point_types');
+    }
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -91,7 +119,7 @@ class PointTypesController extends BaseController
             $status_where = "status != 'trash'";
         }
 
-        $cache_key   = 'gameengine_point_types_' . md5($per_page . $page . $search . $status);
+        $cache_key   = 'gameengine_point_types_' . md5($this->list_cache_version() . $per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_point_types');
 
         if (false !== $cached_data) {
@@ -183,7 +211,7 @@ class PointTypesController extends BaseController
         $point_type_id = $wpdb->insert_id;
         $this->save_requirements($point_type_id, $params['requirements'] ?? array());
 
-        wp_cache_delete('gameengine_point_types_list', 'gameengine_point_types');
+        $this->flush_list_cache();
 
         return new \WP_REST_Response(array('message' => 'Point Type saved.', 'id' => $point_type_id), 201);
     }
@@ -195,24 +223,41 @@ class PointTypesController extends BaseController
     {
         global $wpdb;
         $id     = absint($request->get_param('id'));
-        $params = $request->get_json_params();
+        $params = (array) $request->get_json_params();
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $wpdb->update(
-            "{$wpdb->prefix}gameengine_point_types",
-            array(
-                'name'        => sanitize_text_field($params['name']),
-                'plural_name' => sanitize_text_field($params['plural_name']),
-                'status'      => sanitize_text_field($params['status']),
-            ),
-            array('id' => absint($id)),
-            array('%s', '%s', '%s'),
-            array('%d')
-        );
+        // Write only the fields the request actually carries. Moving an item to
+        // the trash sends nothing but a status, and writing every column
+        // regardless would blank the name and plural name along with it.
+        $fields  = array();
+        $formats = array();
 
-        $this->save_requirements($id, $params['requirements'] ?? array());
+        foreach (array('name', 'plural_name', 'status') as $field) {
+            if (array_key_exists($field, $params)) {
+                $fields[$field] = sanitize_text_field($params[$field]);
+                $formats[]      = '%s';
+            }
+        }
+
+        if (! empty($fields)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $wpdb->update(
+                "{$wpdb->prefix}gameengine_point_types",
+                $fields,
+                array('id' => absint($id)),
+                $formats,
+                array('%d')
+            );
+        }
+
+        // Same reasoning: an absent key means "leave these alone". Rewriting
+        // them from an empty array would drop every award and deduct action.
+        if (array_key_exists('requirements', $params)) {
+            $this->save_requirements($id, $params['requirements']);
+        }
 
         wp_cache_delete('gameengine_point_type_full_' . $id, 'gameengine_point_types');
+        $this->flush_list_cache();
+
         return new \WP_REST_Response(array('message' => 'Updated successfully.'), 200);
     }
 
@@ -285,6 +330,8 @@ class PointTypesController extends BaseController
         $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'point_type', 'reward_id' => absint($id)), array('%s', '%d'));
 
         wp_cache_delete('gameengine_point_type_full_' . $id, 'gameengine_point_types');
+        $this->flush_list_cache();
+
         return new \WP_REST_Response(array('message' => 'Deleted successfully.'), 200);
     }
 

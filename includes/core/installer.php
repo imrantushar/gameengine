@@ -45,6 +45,45 @@ class Installer
     }
 
     /**
+     * Option flagging that the blanked point type repair has run.
+     */
+    const POINT_TYPE_REPAIR_OPTION = 'gameengine_point_types_repaired';
+
+    /**
+     * Restore point types blanked by a partial update.
+     *
+     * Until 1.3.1 the update endpoint wrote every column on every request, so a
+     * call that carried only a status — trashing a row from its action menu —
+     * emptied the name, plural name and status alongside it. Rows damaged that
+     * way render as a blank line in the list and match no status tab.
+     *
+     * The slug is derived from the name when a point type is created and is
+     * never rewritten, so it is the closest thing to the original left on the
+     * record. Statuses that survived as an empty string go back to the column
+     * default rather than staying invisible.
+     */
+    public static function maybe_repair_blanked_point_types()
+    {
+        if (get_option(self::POINT_TYPE_REPAIR_OPTION)) {
+            return;
+        }
+
+        global $wpdb;
+        $table = $wpdb->prefix . 'gameengine_point_types';
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $table)) === $table) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$table} SET name = slug WHERE name = '' AND slug <> ''");
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$table} SET status = 'publish' WHERE status NOT IN ('publish', 'draft', 'pending', 'trash')");
+        }
+
+        update_option(self::POINT_TYPE_REPAIR_OPTION, 1, true);
+    }
+
+    /**
      * Re-runs the installer when the table definitions change.
      *
      * Hooked early on `init`; cheap because it only reads one autoloaded option

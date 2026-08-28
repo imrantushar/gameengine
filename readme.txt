@@ -80,6 +80,11 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
 * Fixed - The Achievement Types and Level Types screens requested the pre-1.3.0 taxonomy names and returned nothing.
 * Fixed - The "nothing here yet, import some defaults?" prompt flashed on the Points, Achievements and Levels screens before their data had loaded. It now waits for the list to come back.
+* Fixed - Trashing a point system from its row menu wiped its name, plural name and award/deduct actions. The update endpoint wrote every column on every request, so a change that carried only a status blanked the rest. Damaged point systems have their name restored from their slug on upgrade.
+* Added - A Trash tab on the Points, Achievements and Levels screens. Trashed items were unreachable before, so they could be neither restored nor deleted for good.
+* Fixed - Row actions did not change when switching tabs, so the trash view still offered "Trash" instead of "Delete". The list table was rendering the actions it was given on first load.
+* Fixed - A trashed item stayed in the list until the page was reloaded.
+* Fixed - Lists could serve stale results for up to a minute after an edit or delete on sites with a persistent object cache. The cached lists are keyed per query, and the code cleared a key that was never written.
 * Removed - The "Pretty Permalinks are required for the REST API" warnings. The REST API works on plain permalinks, so there was nothing to warn about.
 * Changed - Screens can now be registered by another plugin (`gameengine.dashboard.routes`), with `injectReducer` for their state.
 

@@ -34,6 +34,14 @@ export const CHANGELOGS = [
                 type: 'fixed',
                 text: 'The "import some defaults?" prompt no longer flashes on screen before the list has finished loading.',
             },
+            {
+                type: 'fixed',
+                text: 'Trashing a point system no longer wipes its name and actions. Damaged records are repaired on upgrade.',
+            },
+            {
+                type: 'added',
+                text: 'A Trash tab on the Points, Achievements and Levels screens, so trashed items can be restored or deleted for good.',
+            },
         ],
     },
 

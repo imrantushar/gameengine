@@ -88,8 +88,10 @@ const AchievementsTable = () => {
   }, []);
 
   const handleDelete = id => {
-    if (window.confirm(__('Are you sure?', 'gameengine'))) {
-      dispatch(deleteAchievement(id));
+    if (window.confirm(__('Delete permanently? This cannot be undone.', 'gameengine'))) {
+      dispatch(deleteAchievement(id)).then(() =>
+        fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
+      );
     }
   };
 
@@ -192,6 +194,11 @@ const AchievementsTable = () => {
                           status: 'trash'
                         }
                       })
+                    )
+                    // The row has left the current view, so pull the list the
+                    // server would give us now rather than leaving it behind.
+                    .then(() =>
+                      fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
                     )
                 }
               ]
