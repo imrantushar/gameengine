@@ -101,6 +101,7 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Changed - Generated assets are now named after the source file they are built from (`assets/build/backend.js` from `dev_gameengine/backend.js`, and so on) instead of carrying the plugin version. Cache busting uses the build's content hash, which the plugin already passed to WordPress.
 * Changed - The PostCSS configuration is now `postcss.config.js`.
 * Changed - The readme spells out which source file produces each generated file, and documents the two addresses the admin screens link to.
+* Fixed - Saving a level or an achievement without every optional field filled in raised PHP warnings with WP_DEBUG on.
 * Removed - The "Pretty Permalinks are required for the REST API" warnings. The REST API works on plain permalinks, so there was nothing to warn about.
 * Changed - Screens can now be registered by another plugin (`gameengine.dashboard.routes`), with `injectReducer` for their state.
 
