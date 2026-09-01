@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, ranks, rewards
 Requires at least: 5.8
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.3.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,11 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 You can award points for actions like user registration, daily logins, publishing posts, and leaving comments.
 
 == Changelog ==
+
+= 1.3.0 - 2026-09-01 =
+* Added - New "Assignment Submitted" trigger for the Academy LMS integration (fires when a student submits an assignment, independent of the existing "Assignment Evaluated" trigger).
+* Added - The Restrict Content addon's points/achievement/level lock now also covers Academy course landing pages (previously `post`/`page` only), with an admin-facing note clarifying it restricts the description only, not enrollment.
+* Fixed - The `academy_courses` category filters on Academy LMS triggers used a taxonomy slug (`course_category`) that doesn't match Academy's actual course-category taxonomy (`academy_courses_category`), so Pro's include/exclude-category rules on Academy triggers never matched. Corrected to the real taxonomy slug.
 
 = 1.2.0 - 2026-06-14 =
 * Improved - Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard..

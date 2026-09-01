@@ -20,7 +20,9 @@ class Content_Filter
 
     public static function apply_restriction($content)
     {
-        if (! is_singular(array('post', 'page'))) {
+        $restrictable_post_types = apply_filters('gameengine_restrict_content_post_types', array('post', 'page', 'academy_courses'));
+
+        if (! is_singular($restrictable_post_types)) {
             return $content;
         }
 
