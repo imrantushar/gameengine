@@ -3,15 +3,6 @@
 .gitattributes
 .distignore
 .editorconfig
-dev_gameengine
-dev_gameengine-pro
-assets/scss
-composer.json
-composer.lock
-package.json
-package-lock.json
-webpack.config.js
-.fantasticonrc.js
 node_modules
 .npmrc
 .nvmrc
@@ -27,7 +18,6 @@ prepros.config
 .DS_Store
 .eslintignore
 .eslintrc.js
-jsconfig.json
 .vscode
 .idea
 /bin/
@@ -46,7 +36,19 @@ phpstan.neon.dist
 phpstan.bootstrap.php
 .codex
 AGENTS.md
-tailwind.config.js
 skills-lock.json
-postcss.config.cjs
 build_log.txt
+
+# NOTE: the uncompiled sources and the files needed to rebuild them ship with
+# the plugin on purpose, so the compiled assets in assets/build/ can be
+# regenerated and audited. Do not exclude any of the following:
+#   dev_gameengine/          React source for the admin app and the frontend
+#   assets/scss/             Sass source for the compiled stylesheets
+#   package.json             npm dependencies and build scripts
+#   package-lock.json        exact dependency tree for a reproducible build
+#   webpack.config.js        bundler configuration
+#   tailwind.config.js       Tailwind configuration
+#   postcss.config.js        PostCSS configuration
+#   jsconfig.json            path aliases used by the bundler config
+#   composer.json            PHP dependency manifest
+#   composer.lock            exact PHP dependency versions

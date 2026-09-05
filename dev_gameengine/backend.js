@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'; // Import the Provider
 
 import './../assets/scss/backend.scss';
 import { store } from '@GFRedux/store';
+import '@GFUtils/extend';
 
 import AdminMenu from '@GFContainers/BackendDashboard/AdminMenu';
 import { createPortal } from '@wordpress/element';

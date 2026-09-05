@@ -32,7 +32,7 @@ class Installer
         update_option( self::SCHEMA_HASH_OPTION, self::compute_schema_hash(), true );
 
 		if ( ! get_option( 'gameengine_first_install_time' ) ) {
-			add_option( 'gameengine_first_install_time', time(), false );
+			add_option( 'gameengine_first_install_time', time(), '', false );
 		}
     }
 
@@ -42,6 +42,48 @@ class Installer
     public static function compute_schema_hash()
     {
         return md5( implode( '', Schema::get_tables() ) );
+    }
+
+    /**
+     * Option flagging that the blanked point type repair has run.
+     */
+    const POINT_TYPE_REPAIR_OPTION = 'gameengine_point_types_repaired';
+
+    /**
+     * Restore point types blanked by a partial update.
+     *
+     * Earlier releases had the update endpoint write every column on every request, so a
+     * call that carried only a status — trashing a row from its action menu —
+     * emptied the name, plural name and status alongside it. Rows damaged that
+     * way render as a blank line in the list and match no status tab.
+     *
+     * The slug is derived from the name when a point type is created and is
+     * never rewritten, so it is the closest thing to the original left on the
+     * record. Statuses that survived as an empty string go back to the column
+     * default rather than staying invisible.
+     */
+    public static function maybe_repair_blanked_point_types()
+    {
+        if (get_option(self::POINT_TYPE_REPAIR_OPTION)) {
+            return;
+        }
+
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'gameengine_point_types')
+        );
+
+        if ($table_exists) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET name = slug WHERE name = '' AND slug <> ''");
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET status = 'publish' WHERE status NOT IN ('publish', 'draft', 'pending', 'trash')");
+        }
+
+        update_option(self::POINT_TYPE_REPAIR_OPTION, 1, true);
     }
 
     /**
@@ -99,11 +141,16 @@ class Installer
     }
 
     /**
-     * This method is intentionally left empty.
-     * We do not drop tables on deactivation to preserve user data.
+     * Runs on deactivation.
+     *
+     * Tables and options are deliberately left in place so user progress
+     * survives a deactivate/reactivate cycle. Only the scheduled events are
+     * cleared, so nothing keeps firing once the plugin is off.
      */
     public function uninstall()
     {
-        // No table drop logic here
+        foreach ( array( 'gameengine_cleanup_logs_cron', 'gameengine_daily_inactivity_cron' ) as $hook ) {
+            wp_clear_scheduled_hook( $hook );
+        }
     }
 }

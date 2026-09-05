@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { Spinner } from '@wordpress/components';
-import { __ } from '@wordpress/i18n';
 
 const Button = ({
 	className = '',
@@ -21,7 +20,6 @@ const Button = ({
 	link = '#',
 	suffix = '',
 	target = undefined,
-	isPro = true,
 	ariaLabel = '',
 	ariaHidden = false,
 	id,
@@ -86,11 +84,6 @@ const Button = ({
 				label && <span className="gameengine-btn--label">{label}</span>
 			)}
 			{iconPosition === 'right' && !isLoading && icon}
-			{!isPro && (
-				<span className="gameengine-pro-badge">
-					{__('PRO', 'gameengine')}
-				</span>
-			)}
 		</Component>
 	);
 };

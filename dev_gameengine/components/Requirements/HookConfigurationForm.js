@@ -6,7 +6,6 @@ import { useFormikContext } from 'formik';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import Select from 'react-select';
 import { commonInput } from '../../../assets/scss/chakra/recipe';
-import { is_pro } from '@GFUtils/helper';
 import GameEngineInput from '@GFComponents/GameEngineInput';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 
@@ -22,16 +21,15 @@ const DynamicField = ({
   const dispatch = useDispatch();
   const [dynamicOptions, setDynamicOptions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const isDisabled = !is_pro && config?.is_pro;
   useEffect(() => {
-    if (config.dynamic && !isDisabled) {
+    if (config.dynamic) {
       setLoading(true);
       dispatch(fetchDynamicOptions({
         integration: config.dynamic.integration || integrationSlug,
         query: config.dynamic.query
       })).unwrap().then(res => setDynamicOptions(res)).finally(() => setLoading(false));
     }
-  }, [config.dynamic, isDisabled, integrationSlug]);
+  }, [config.dynamic, integrationSlug]);
   let displayLabel = config.label;
   if (fieldKey === 'points') {
     displayLabel = type === 'award' ? __('Points to Award', 'gameengine') : __('Points to Deduct', 'gameengine');
@@ -39,7 +37,7 @@ const DynamicField = ({
     displayLabel = type === 'award' ? __('Award Log Description', 'gameengine') : __('Deduction Log Description', 'gameengine');
   }
   const labelElement = <div className="mb-2">
-    <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} isPro={config.is_pro} fontSize="sm" fontWeight="500" margin="0" />
+    <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} fontSize="sm" fontWeight="500" margin="0" />
   </div>;
   if (config.type === 'select' || config.type === 'dynamic_select') {
     const optionsSource = config.options ? Array.isArray(config.options) ? config.options : Object.entries(config.options).map(([val, lbl]) => ({
@@ -47,12 +45,11 @@ const DynamicField = ({
       label: lbl
     })) : dynamicOptions;
     return <div style={{
-      "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
-      "opacity": isDisabled ? 0.7 : 1
+      "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`
     }}>
       {labelElement}
 
-      <Select isMulti={config?.is_multi} isDisabled={isDisabled} isLoading={loading} placeholder={isDisabled ? __('Upgrade to Pro', 'gameengine') : __('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
+      <Select isMulti={config?.is_multi} isLoading={loading} placeholder={__('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
         if (config?.is_multi) {
           onChange(val ? val.map(v => v.value) : []);
         } else {
@@ -63,11 +60,10 @@ const DynamicField = ({
   }
   if (config.type === 'switch') {
     return <div className="flex items-center justify-between p-2 border border-dashed border-gray-200 rounded-md" style={{
-      "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
-      "opacity": isDisabled ? 0.6 : 1
+      "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`
     }}>
       <div>
-        <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
+        <GFLabel label={displayLabel} fontWeight="600" fontSize="sm" />
         {config.description && <p className="text-xs text-gray-500 mt-0.5">{config.description}</p>}
       </div>
       <button onClick={() => onChange(!value)}>
@@ -76,11 +72,10 @@ const DynamicField = ({
     </div>;
   }
   return <div style={{
-    "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`,
-    "opacity": isDisabled ? 0.7 : 1
+    "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`
   }}>
-    <GameEngineInput label={displayLabel} isPro={config.is_pro}>
-      <input style={commonInput} label={displayLabel} placeholder={isDisabled ? __('Locked Feature', 'gameengine') : config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
+    <GameEngineInput label={displayLabel}>
+      <input style={commonInput} label={displayLabel} placeholder={config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} />
     </GameEngineInput>
   </div>;
 };

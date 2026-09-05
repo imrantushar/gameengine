@@ -23,6 +23,34 @@ class AchievementsController extends BaseController
     protected $rest_base = 'achievements';
 
     /**
+     * Version stamp mixed into every list cache key.
+     *
+     * The list is cached per query, so there is no single key to delete when
+     * the data changes. Bumping this stamp retires every cached list at once.
+     *
+     * @return string
+     */
+    private function list_cache_version()
+    {
+        $version = wp_cache_get('gameengine_achievements_list_version', 'gameengine_achievements');
+
+        if (! $version) {
+            $version = (string) time();
+            wp_cache_set('gameengine_achievements_list_version', $version, 'gameengine_achievements');
+        }
+
+        return $version;
+    }
+
+    /**
+     * Retire the cached achievements lists after a write.
+     */
+    private function flush_list_cache()
+    {
+        wp_cache_set('gameengine_achievements_list_version', (string) microtime(true), 'gameengine_achievements');
+    }
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -91,7 +119,7 @@ class AchievementsController extends BaseController
             $status_where = "status != 'trash'";
         }
 
-        $cache_key   = 'gameengine_ach_list_' . md5($per_page . $page . $search . $status);
+        $cache_key   = 'gameengine_ach_list_' . md5($this->list_cache_version() . $per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_achievements');
 
         if (false !== $cached_data) {
@@ -103,7 +131,7 @@ class AchievementsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where",
+            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search,
             $like_search
@@ -111,7 +139,7 @@ class AchievementsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d",
+            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s OR plural_name LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search,
             $like_search,
@@ -126,7 +154,7 @@ class AchievementsController extends BaseController
 
                 // Resolve Category Name from Taxonomy.
                 $term_id             = absint($ach['category']);
-                $term                = get_term($term_id, 'achievement_type');
+                $term                = get_term($term_id, \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
                 $ach['category_id']   = $term_id;
                 $ach['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -181,15 +209,15 @@ class AchievementsController extends BaseController
 
         $data = array(
             'title'                      => sanitize_text_field($params['title']),
-            'plural_name'                => sanitize_text_field($params['plural_name']),
+            'plural_name'                => sanitize_text_field($params['plural_name'] ?? ''),
             'status'                     => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
-            'max_earnings_per_user'      => intval($params['max_earnings_per_user']),
+            'max_earnings_per_user'      => intval($params['max_earnings_per_user'] ?? 0),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'is_restricted'              => ! empty($params['is_restricted']) ? 1 : 0,
-            'required_points_amount'     => intval($params['required_points_amount']),
+            'required_points_amount'     => intval($params['required_points_amount'] ?? 0),
             'category'                   => absint($params['category_id'] ?? 0),
-            'required_point_type_id'     => intval($params['required_point_type_id']),
-            'congratulations_message'    => wp_kses_post($params['congratulations_message']),
+            'required_point_type_id'     => intval($params['required_point_type_id'] ?? 0),
+            'congratulations_message'    => wp_kses_post($params['congratulations_message'] ?? ''),
             'required_achievement_id'    => ! empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
             'required_level_id'          => ! empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
             'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
@@ -209,7 +237,7 @@ class AchievementsController extends BaseController
         }
 
         $this->save_requirements($achievement_id, $params['requirements'] ?? array());
-        wp_cache_delete('gameengine_achievements_list', 'gameengine_achievements');
+        $this->flush_list_cache();
 
         return $this->get_full_item_response($achievement_id);
     }
@@ -234,7 +262,7 @@ class AchievementsController extends BaseController
 
                 // Resolve Category Name.
                 $term_id                = absint($item['category']);
-                $term                   = get_term($term_id, 'achievement_type');
+                $term                   = get_term($term_id, \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
                 $item['category_id']   = $term_id;
                 $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -301,6 +329,7 @@ class AchievementsController extends BaseController
         $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'achievement', 'reward_id' => $id));
 
         wp_cache_delete('gameengine_achievement_full_' . $id, 'gameengine_achievements');
+        $this->flush_list_cache();
 
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }

@@ -16,7 +16,7 @@ const Points = () => {
   const [banners, setBanners] = useState(window.GameEngineGlobal.banners);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { pointTypes } = useSelector(state => state.pointType);
+  const { pointTypes, listLoaded } = useSelector(state => state.pointType);
 
   const importHandler = async () => {
     await API.post(namespace + 'setup/import-module', {
@@ -48,7 +48,7 @@ const Points = () => {
       />
 
       <div className='gameengine-page-content'>
-        {pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
+        {listLoaded && pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
         <div className="flex justify-between items-center py-6 px-1">
           <h2 className="gameengine-page-heading">
             {__("Point System", "gameengine")}

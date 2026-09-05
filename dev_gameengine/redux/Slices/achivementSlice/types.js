@@ -6,7 +6,7 @@ import { __ } from '@wordpress/i18n';
 // --- Async Thunks ---
 export const fetchAchievementTypes = createAsyncThunk('gameengine/fetchAchievementTypes', async (_, thunkAPI) => {
   try {
-    const response = await API.get(namespace + 'taxonomies/achievement_type');
+    const response = await API.get(namespace + 'taxonomies/gameengine_achievement_type');
     return response.data;
   } catch (error) {
     return handleSliceError(thunkAPI, error)
@@ -16,7 +16,7 @@ export const fetchAchievementTypes = createAsyncThunk('gameengine/fetchAchieveme
 
 export const fetchAchievementTypeById = createAsyncThunk('gameengine/fetchAchievementTypeById', async (id) => {
   try{
-    const response =  await API.get(namespace + 'taxonomies/achievement_type/' + id);
+    const response =  await API.get(namespace + 'taxonomies/gameengine_achievement_type/' + id);
     return response.data;
   } catch (error) {
     return handleSliceError(thunkAPI, error)
@@ -25,7 +25,7 @@ export const fetchAchievementTypeById = createAsyncThunk('gameengine/fetchAchiev
 
 export const createAchievementType = createAsyncThunk('gameengine/createAchievementType', async (data, thunkAPI) => {
   try {
-    const response =  await API.post(namespace + 'taxonomies/achievement_type', {
+    const response =  await API.post(namespace + 'taxonomies/gameengine_achievement_type', {
         ...data
     });
     thunkAPI.dispatch(showNotification({
@@ -41,7 +41,7 @@ export const createAchievementType = createAsyncThunk('gameengine/createAchievem
 
 export const updateAchievementType = createAsyncThunk('gameengine/updateAchievementType', async ({ id, data }, thunkAPI) => {
   try{
-    const response =  await API.post(namespace + 'taxonomies/achievement_type/' + id, {
+    const response =  await API.post(namespace + 'taxonomies/gameengine_achievement_type/' + id, {
         ...data
     });
     thunkAPI.dispatch(showNotification({
@@ -57,7 +57,7 @@ export const updateAchievementType = createAsyncThunk('gameengine/updateAchievem
 
 export const deleteAchievementType = createAsyncThunk('gameengine/deleteAchievementType', async (id, thunkAPI) => {
   try{
-    await API.post(namespace + 'taxonomies/achievement_type/' + id,
+    await API.post(namespace + 'taxonomies/gameengine_achievement_type/' + id,
       { force: true },
       {
         headers: {

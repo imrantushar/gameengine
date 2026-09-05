@@ -6,10 +6,6 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitGameEngine
 {
-    public static $files = array (
-        'f1ae818e1da44f578bbc5ae74a90afde' => __DIR__ . '/..' . '/storeengine/wordpress-sdk/init.php',
-    );
-
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );

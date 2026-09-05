@@ -35,7 +35,8 @@ const LevelTable = () => {
     page,
     perPage,
     total,
-    search
+    search,
+    listLoaded
   } = useSelector(state => state.levels || {});
 
   const [loading, setLoading] = useState(levels.length === 0);
@@ -172,33 +173,61 @@ const LevelTable = () => {
       width: "15%"
     },
     {
-      cell: row => (
-        <OptionMenu
-          options={[
-            {
-              type: "button",
-              label: __('Edit', 'gameengine'),
-              icon: <FiEdit />,
-              onClick: () =>
-                navigate(
-                  `${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`
-                ),
-              hasBorder: true
-            },
-            {
-              type: "button",
-              suffix: "trash",
-              label: __('Delete', 'gameengine'),
-              icon: <FiTrash2 />,
-              onClick: () => {
-                if (window.confirm(__('Are you sure?', 'gameengine'))) {
-                  dispatch(deleteLevel(row.id));
-                }
+      cell: row => {
+        // Outside the trash view a row is trashed, not destroyed; inside it,
+        // the only thing left to do is delete it for good.
+        const trashAction =
+          tableStats !== 'trash'
+            ? {
+                type: "button",
+                suffix: "trash",
+                label: __('Trash', 'gameengine'),
+                icon: <FiTrash2 />,
+                onClick: () =>
+                  dispatch(
+                    updateLevel({
+                      id: row.id,
+                      payload: {
+                        ...row,
+                        status: 'trash'
+                      }
+                    })
+                  ).then(() =>
+                    fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
+                  )
               }
-            }
-          ]}
-        />
-      )
+            : {
+                type: "button",
+                suffix: "trash",
+                label: __('Delete', 'gameengine'),
+                icon: <FiTrash2 />,
+                onClick: () => {
+                  if (window.confirm(__('Delete permanently? This cannot be undone.', 'gameengine'))) {
+                    dispatch(deleteLevel(row.id)).then(() =>
+                      fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
+                    );
+                  }
+                }
+              };
+
+        return (
+          <OptionMenu
+            options={[
+              {
+                type: "button",
+                label: __('Edit', 'gameengine'),
+                icon: <FiEdit />,
+                onClick: () =>
+                  navigate(
+                    `${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`
+                  ),
+                hasBorder: true
+              },
+              trashAction
+            ]}
+          />
+        );
+      }
     }
   ];
 
@@ -401,7 +430,8 @@ const LevelTable = () => {
 
   return (
     <div className="gameengine-page-content">
-      {levels.length === 0 &&
+      {listLoaded &&
+        levels.length === 0 &&
         banners?.levels !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner

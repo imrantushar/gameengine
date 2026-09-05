@@ -152,7 +152,7 @@ class Setup
         add_filter('wp_resource_hints', function ($urls, $relation_type) {
             if ('dns-prefetch' === $relation_type && is_array($urls)) {
                 foreach ($urls as $key => $url) {
-                    if (strpos($url, 's.w.org/images/core/emoji') !== false) {
+                    if (false !== strpos($url, '/images/core/emoji')) {
                         unset($urls[$key]);
                     }
                 }
@@ -166,30 +166,13 @@ class Setup
      */
     private function enqueue_setup_assets()
     {
-        // Handle JS Versioning (setup.1.0.0.js)
-        $version = defined('GAMEENGINE_VERSION') ? GAMEENGINE_VERSION : '1.0.0';
-        $js_file = 'setup.' . $version . '.js';
-
         $asset_file = GAMEENGINE_PATH . 'assets/build/setup.asset.php';
-
-        if (! file_exists($asset_file)) {
-            // Fallback for asset file
-            $asset_file = GAMEENGINE_PATH . 'assets/build/setup.' . $version . '.asset.php';
-        }
 
         if (! file_exists($asset_file)) {
             return;
         }
 
         $asset_data = require $asset_file;
-
-        // Load Roboto font — declared in _global.scss but never fetched without this
-        wp_enqueue_style(
-            'gameengine-google-fonts',
-            'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap',
-            array(),
-            null
-        );
 
         // Enqueue Wizard CSS
         wp_enqueue_style(
@@ -202,7 +185,7 @@ class Setup
         // Enqueue Wizard JS with full versioned filename
         wp_enqueue_script(
             'gameengine-setup-script',
-            GAMEENGINE_URL . 'assets/build/' . $js_file,
+            GAMEENGINE_URL . 'assets/build/setup.js',
             $asset_data['dependencies'],
             $asset_data['version'],
             true
@@ -213,7 +196,6 @@ class Setup
             'rest_url'              => rest_url('gameengine/v1'),
             'nonce'                 => wp_create_nonce('wp_rest'),
             'admin_url'             => admin_url(),
-            'is_pro'                => \GameEngine\Helper::is_pro(),
             'gameengine_nonce'      => wp_create_nonce('gameengine_nonce'),
             'namespace'             => 'gameengine/v1/',
             'plugin_root_url'       => GAMEENGINE_URL,

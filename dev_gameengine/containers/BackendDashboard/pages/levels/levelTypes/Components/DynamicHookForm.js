@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import LabeledInput from '@GFComponents/LabeledInput';
-import { is_pro as isProActive } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 
 const DynamicLevelField = ({
@@ -17,34 +16,31 @@ const DynamicLevelField = ({
   const dispatch = useDispatch();
   const [dynamicOptions, setDynamicOptions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const isDisabled = config.is_pro && !isProActive;
   useEffect(() => {
-    if (config.dynamic && !isDisabled) {
+    if (config.dynamic) {
       setLoading(true);
       dispatch(fetchDynamicOptions({
         integration: config.dynamic.integration || integrationSlug,
         query: config.dynamic.query
       })).unwrap().then(res => setDynamicOptions(res)).finally(() => setLoading(false));
     }
-  }, [config.dynamic, isDisabled, dispatch, integrationSlug]);
+  }, [config.dynamic, dispatch, integrationSlug]);
   const labelElement = <div style={{
     "marginBottom": "2"
   }}>
-            <GFLabel label={`${config.label}${config.required ? ' *' : ''}`} isPro={config.is_pro} fontSize="sm" fontWeight="500" margin="0" />
+            <GFLabel label={`${config.label}${config.required ? ' *' : ''}`} fontSize="sm" fontWeight="500" margin="0" />
         </div>;
   if (config.type === 'select' || config.type === 'dynamic_select') {
     const optionsSource = config.options ? Array.isArray(config.options) ? config.options : Object.entries(config.options).map(([v, l]) => ({
       value: v,
       label: l
     })) : dynamicOptions;
-    return <div className="w-full" style={{
-      "opacity": isDisabled ? 0.7 : 1
-    }}>
+    return <div className="w-full">
                 {labelElement}
-                <Select className="gameengine-select" classNamePrefix="gameengine-select" isDisabled={isDisabled} isLoading={loading} options={optionsSource} value={optionsSource.find(opt => String(opt.value) === String(value)) || null} onChange={sel => onChange(sel ? sel.value : '')} />
+                <Select className="gameengine-select" classNamePrefix="gameengine-select" isLoading={loading} options={optionsSource} value={optionsSource.find(opt => String(opt.value) === String(value)) || null} onChange={sel => onChange(sel ? sel.value : '')} />
             </div>;
   }
-  return <LabeledInput label={config.label} isPro={config.is_pro} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(e.target.value)} disabled={isDisabled} />;
+  return <LabeledInput label={config.label} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(e.target.value)} />;
 };
 const DynamicHookForm = ({
   hookId,

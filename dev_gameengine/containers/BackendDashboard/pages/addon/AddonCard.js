@@ -4,14 +4,12 @@ import { __, sprintf } from '@wordpress/i18n';
 import CustomSwitch from '@GFComponents/CustomSwitch';
 import { fetchAddons, saveAddon, } from '@GFRedux//Slices/addonsSlice/addonsSlice';
 import { useFormikContext } from 'formik';
-import { admin_url, is_pro, } from '@GFUtils/helper';
+import { admin_url } from '@GFUtils/helper';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { fetchSettings } from '@GFRedux/Slices/settingsSlice/settingsSlice';
 import { LuSettings } from 'react-icons/lu';
-import { FaLock } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { fetchAdminMenuItems } from '@GFRedux/Slices/menuSlice/menuSlice';
-import KodezenTooltip from '@GFComponents/Tooltip/KodezenTooltip';
 import { TbExternalLink } from 'react-icons/tb';
 
 const AddonCard = ({ item, value }) => {
@@ -73,27 +71,26 @@ const AddonCard = ({ item, value }) => {
     });
   };
 
-  const isShowProTag = !is_pro && item.is_pro;
-  const showSwitch = !item.is_coming_soon && !isShowProTag;
+  const showSwitch = !item.is_coming_soon;
   const showSettings =
     item?.route &&
     !item.is_coming_soon &&
     values[item.name] === true;
 
-  const getIconBorderColor = () => {
-    if (item.name === 'certificates') return '#7b68ee';
-    if (item.name === 'academylms') return '#7B68EE';
-    if (item.name === 'tutorlms') return '#0049F8';
-    if (item.name === 'storeengine') return '#008dff';
-    if (item.name === 'woocommerce') return '#873eff';
-    if (item.name === 'restrict_unlock') return '#8270DB';
-    if (item.name === 'restrict_content') return '#4F46E5';
-    if (item.name === 'progress_map') return '#10B981';
-    if (item.name === 'referrals') return '#10B981';
-    if (item.name === 'wallet') return '#10B981';
-    if (item.name === 'lucky-wheels') return '#F97316';
-    return '#e2e8f0';
+  // Colours for the addons this plugin ships. An addon registered elsewhere
+  // carries its own `iconColor`, so this list only names what lives here.
+  const ICON_COLORS = {
+    academylms: '#7B68EE',
+    tutorlms: '#0049F8',
+    storeengine: '#008dff',
+    woocommerce: '#873eff',
+    restrict_unlock: '#8270DB',
+    restrict_content: '#4F46E5',
+    progress_map: '#10B981',
   };
+
+  const getIconBorderColor = () =>
+    item.iconColor || ICON_COLORS[item.name] || '#e2e8f0';
 
   return (
     <div className="flex flex-col bg-white p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc((100%/3)_-_11px)]">
@@ -135,20 +132,6 @@ const AddonCard = ({ item, value }) => {
             >
               {__('Coming Soon', 'gameengine')}
             </span>
-          ) : isShowProTag ? (
-            <KodezenTooltip
-              openerContent={
-                <FaLock size="20px" color="orange" />
-              }
-              contentWidth="fit-content"
-            >
-              <p
-                className="font-normal m-0"
-                style={{ fontSize: '13px' }}
-              >
-                {__('Available in pro', 'gameengine')}
-              </p>
-            </KodezenTooltip>
           ) : (
             <div
               style={{

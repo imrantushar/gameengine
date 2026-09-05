@@ -3,7 +3,7 @@
  */
 
 :root {
-    --gameengine-font: "Roboto", sans-serif;
+    --gameengine-font: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
     --gameengine-primary: #006BFF;
     --gameengine-primary-soft: #edf5ff;
     --gameengine-success: #10b981;
@@ -27,7 +27,7 @@
     background: var(--gameengine-bg-main);
     border-radius: var(--gameengine-radius);
     box-shadow: var(--gameengine-shadow-md);
-    font-family: 'Roboto', sans-serif;
+    font-family: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
     overflow: hidden;
 }
 

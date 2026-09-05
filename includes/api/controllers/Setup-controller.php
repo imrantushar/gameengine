@@ -181,7 +181,7 @@ class SetupController extends BaseController
         if (! $only_module || 'points' === $only_module) {
             $slug = sanitize_title($data['point']);
             
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off lookup during the setup wizard; caching would serve stale rows while seeding.
             $existing_point = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_point_types WHERE slug = %s", $slug));
 
             if ($existing_point) {
@@ -221,11 +221,11 @@ class SetupController extends BaseController
          *  PROCESS ACHIEVEMENTS
          */
         if (! $only_module || 'achievements' === $only_module) {
-            $term = term_exists('General', 'achievement_type') ?: wp_insert_term('General', 'achievement_type');
+            $term = term_exists('General', \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY) ?: wp_insert_term('General', \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY);
             $tid  = is_array($term) ? $term['term_id'] : $term;
 
             foreach ($data['ach'] as $ach_title) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off lookup during the setup wizard; caching would serve stale rows while seeding.
                 $existing_ach = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_achievements WHERE title = %s", $ach_title));
 
                 if ($existing_ach) {
@@ -267,7 +267,7 @@ class SetupController extends BaseController
          *  PROCESS LEVELS
          */
         if (! $only_module || 'levels' === $only_module) {
-            $term = term_exists('Main', 'level_type') ?: wp_insert_term('Main', 'level_type');
+            $term = term_exists('Main', \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY) ?: wp_insert_term('Main', \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
             $tid  = is_array($term) ? $term['term_id'] : $term;
 
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared
@@ -276,7 +276,7 @@ class SetupController extends BaseController
             $ranges = array(array(0, 100), array(101, 500), array(501, 1000), array(1001, 5000));
 
             foreach ($data['lvl'] as $i => $lvl_title) {
-                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- One-off lookup during the setup wizard; caching would serve stale rows while seeding.
                 $existing_lvl = $wpdb->get_row($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_levels WHERE title = %s", $lvl_title));
 
                 if ($existing_lvl) continue;

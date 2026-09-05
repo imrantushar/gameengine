@@ -4,14 +4,13 @@
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
- * Version:           1.2.0
+ * Version:           1.3.2
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
  * Domain Path:       /languages/
- * Tested up to:      7.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  */
@@ -63,7 +62,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.2.0');
+        define('GAMEENGINE_VERSION', '1.3.2');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
@@ -102,21 +101,11 @@ final class GameEngine
     {
         register_activation_hook(GAMEENGINE_FILE, array(__CLASS__, 'activate'));
         register_deactivation_hook(GAMEENGINE_FILE, array(__CLASS__, 'deactivate'));
-        \GameEngine\SeSdk::get_instance();
         add_action('deactivated_plugin', array($this, 'handle_dependency_deactivation'), 10, 2);
 
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
+        add_action('init', array('\GameEngine\Core\Installer', 'maybe_repair_blanked_point_types'), 5);
         add_action('init', array($this, 'init_modules'), 10);
-        add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
-    }
-
-    /**
-     * Inject default settings data.
-     */
-    public function inject_default_settings($settings)
-    {
-        $settings['config']['is_pro'] = false;
-        return $settings;
     }
 
     /**
@@ -155,22 +144,8 @@ final class GameEngine
             }
         }
 
-        if (is_admin()) {
-            if (class_exists('\GameEngine\Admin')) {
-                \GameEngine\Admin::init();
-            }
-
-            $current_page = isset($_GET['page']) ? sanitize_key(wp_unslash($_GET['page'])) : '';
-
-            if (0 === strpos($current_page, 'gameengine') && current_user_can('manage_options')) {
-                if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-                    \GameEngine\Classes\JsonGenerator::generate();
-                }
-            }
-        }
-
-        if (defined('WP_CLI') && WP_CLI) {
-            \WP_CLI::add_command('gameengine', '\GameEngine\Classes\CLI');
+        if (is_admin() && class_exists('\GameEngine\Admin')) {
+            \GameEngine\Admin::init();
         }
 
         $this->load_optional_modules();
@@ -241,19 +216,17 @@ final class GameEngine
         if (class_exists('\GameEngine\Classes\TriggerRegistry')) {
             \GameEngine\Classes\TriggerRegistry::reset();
         }
-
-        if (class_exists('\GameEngine\Classes\JsonGenerator')) {
-            \GameEngine\Classes\JsonGenerator::generate();
-        }
     }
 }
 
-/**
- * Global accessor.
- */
-function gameengine()
-{
-    return GameEngine::instance();
+if (! function_exists('gameengine')) {
+    /**
+     * Global accessor.
+     */
+    function gameengine()
+    {
+        return GameEngine::instance();
+    }
 }
 
 GameEngine::instance();

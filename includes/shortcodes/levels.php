@@ -2,6 +2,10 @@
 
 namespace GameEngine\Shortcodes;
 
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 class Levels
 {
     public function __construct()
@@ -19,6 +23,8 @@ class Levels
         if (empty($atts['user_id'])) {
             return '';
         }
+
+        wp_enqueue_style('gameengine-shortcode-levels');
 
         ob_start();
         \GameEngine\Helper::get_template('shortcode/levels.php', array(

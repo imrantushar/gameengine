@@ -101,6 +101,10 @@ export const fetchPointTypes = createAsyncThunk('gameengine/achivementsfetchPoin
 
 const initialState = {
     achievements: [],
+    // Whether a list request has come back. An empty list only means "there is
+    // nothing here" once this is true; before that it is just the initial state,
+    // and screens must not read it as an empty result.
+    listLoaded: false,
     types: {
         data: [],
     },
@@ -132,6 +136,7 @@ const achievementsSlice = createSlice({
         builder
             .addCase(fetchAchievements.fulfilled, (state, action) => {
                 const {data, page, per_page, total, search} = action.payload;
+                state.listLoaded = true;
                 state.achievements = data;
                 state.page = page;
                 state.perPage = per_page;
