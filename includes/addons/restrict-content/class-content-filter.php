@@ -41,6 +41,16 @@ class Content_Filter
             return $content;
         }
 
+        // A student already enrolled in the course has, by definition, cleared
+        // whatever gate the site put on it — keep showing them the overview
+        // instead of a lock box. (Academy courses only; other post types have
+        // no enrollment concept.)
+        if ('academy_courses' === get_post_type($post_id)
+            && is_callable(array('\Academy\Helper', 'is_enrolled'))
+            && \Academy\Helper::is_enrolled($post_id, get_current_user_id())) {
+            return $content;
+        }
+
         $has_access = Restriction_Helper::can_access($type, $required_v);
 
         if (false === $has_access) {
