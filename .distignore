@@ -27,7 +27,6 @@ prepros.config
 phpcs.log
 phpcs.xml
 phpcs.xml.dist
-README.md
 license
 pnpm-lock.yaml
 tsconfig.json
@@ -42,8 +41,9 @@ build_log.txt
 # NOTE: the uncompiled sources and the files needed to rebuild them ship with
 # the plugin on purpose, so the compiled assets in assets/build/ can be
 # regenerated and audited. Do not exclude any of the following:
-#   dev_gameengine/          React source for the admin app and the frontend
+#   src/                     React source for the admin app and the frontend
 #   assets/scss/             Sass source for the compiled stylesheets
+#   README.md                where the source lives and how to rebuild it
 #   package.json             npm dependencies and build scripts
 #   package-lock.json        exact dependency tree for a reproducible build
 #   webpack.config.js        bundler configuration
