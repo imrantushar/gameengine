@@ -56,7 +56,7 @@ class Progress_API extends BaseController
 
         // Use the Logic class we created earlier to calculate the journey data
         if (class_exists(__NAMESPACE__ . '\Progress_Map_Logic')) {
-            $journey_data = Progress_Map_Logic::get_progress_data($user_id);
+            $journey_data = Progress_Map_Logic::get_combined_journey($user_id);
 
             return new \WP_REST_Response(
                 array(
