@@ -30,6 +30,18 @@ class Restriction_Helper
             return false;
         }
 
+        // A type picked with no threshold configured (points left blank, no
+        // achievement/level chosen in the admin UI) isn't a stricter
+        // restriction — it's an incomplete one. Treat it the same as 'none'
+        // explicitly, rather than falling through to `(int) '' === 0` /
+        // `absint('') === 0` comparisons that happen to also resolve to
+        // "let everyone through" — that behavior was previously implicit
+        // (and looked, from the admin's side, like the setting silently did
+        // nothing once saved with no value).
+        if (in_array($type, array('points', 'achievement', 'level'), true) && empty($value)) {
+            return true;
+        }
+
         switch ($type) {
             case 'points':
                 if (class_exists('\GameEngine\Classes\PointsManager')) {
