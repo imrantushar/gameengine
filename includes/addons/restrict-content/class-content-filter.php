@@ -68,7 +68,7 @@ class Content_Filter
             }
 
             // Fully lock the post content.
-            return Restriction_Helper::get_locked_ui($lock_msg);
+            return Restriction_Helper::get_locked_ui($lock_msg, $type, $required_v);
         }
 
         return $content;
