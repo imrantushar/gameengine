@@ -1,8 +1,9 @@
 /*!
  * GameEngine - generated file, do not edit.
  *
- * Built from assets/scss/backend.scss (plus the Tailwind classes used in src/).
- * The complete uncompiled source ships with this plugin in src/ and
+ * Built from assets/scss/backend.scss (plus the Tailwind classes used in dev_gameengine/).
+ * dev_gameengine/ is this plugin's source directory. The complete
+ * uncompiled source ships with the plugin, in dev_gameengine/ and
  * assets/scss/, and is also at https://github.com/imrantushar/gameengine
  *
  * To rebuild this file, run the following in the plugin directory:

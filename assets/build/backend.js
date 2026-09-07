@@ -1,8 +1,9 @@
 /*!
  * GameEngine - generated file, do not edit.
  *
- * Built from src/backend.js.
- * The complete uncompiled source ships with this plugin in src/ and
+ * Built from dev_gameengine/backend.js.
+ * dev_gameengine/ is this plugin's source directory. The complete
+ * uncompiled source ships with the plugin, in dev_gameengine/ and
  * assets/scss/, and is also at https://github.com/imrantushar/gameengine
  *
  * To rebuild this file, run the following in the plugin directory:

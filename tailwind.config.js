@@ -3,7 +3,7 @@ module.exports = {
     preflight: false,
   },
   content: [
-    "./src/**/*.{js,jsx,ts,tsx,scss}",
+    "./dev_gameengine/**/*.{js,jsx,ts,tsx,scss}",
     "./node_modules/react-advance-datepicker/dist/index.esm.js",
   ],
   theme: {

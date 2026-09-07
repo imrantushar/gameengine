@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "baseUrl": "src",
+      "baseUrl": "dev_gameengine",
       "paths": {
         "@GFComponents/*": ["components/*"],
         "@GFContainers/*": ["containers/*"],
@@ -12,5 +12,5 @@
         "@GFUtils/*": ["utils/*"],
       }
     },
-    "include": ["src"]
+    "include": ["dev_gameengine"]
   }
