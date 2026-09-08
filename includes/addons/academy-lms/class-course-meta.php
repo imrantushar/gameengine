@@ -37,6 +37,23 @@ class Course_Meta
         // --- GameEngine "Unlock" course type -----------------------------
         $fields[self::RULES_META_KEY] = array(
             'type'         => 'array',
+            'sanitize_callback' => function ($value) {
+                if (! is_array($value)) {
+                    return array();
+                }
+                $sanitized = array();
+                foreach ($value as $rule) {
+                    if (! is_array($rule)) {
+                        continue;
+                    }
+                    $type  = isset($rule['type']) ? sanitize_text_field($rule['type']) : '';
+                    $value = isset($rule['value']) ? intval($rule['value']) : 0;
+                    if ('' !== $type && 0 < $value) {
+                        $sanitized[] = compact('type', 'value');
+                    }
+                }
+                return $sanitized;
+            },
             'show_in_rest' => array(
                 'schema' => array(
                     'items' => array(
