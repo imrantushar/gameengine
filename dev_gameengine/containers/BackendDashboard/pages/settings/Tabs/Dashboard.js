@@ -113,6 +113,44 @@ export default function Dashboard() {
             onChange={(val) => setFieldValue('dashboard.menu_marketplace', val)}
           />
         </SettingsInput>
+
+        <SettingsInput
+          isPro={!is_pro}
+          label={__('Add Leaderboard Menu', 'gameengine')}
+          subtitle={__(
+            'Show a points leaderboard inside the WooCommerce/Academy dashboard.',
+            'gameengine'
+          )}
+        >
+          <Switch
+            disabled={!is_pro}
+            checked={Boolean(values?.dashboard?.menu_leaderboard)}
+            onChange={(val) => setFieldValue('dashboard.menu_leaderboard', val)}
+          />
+        </SettingsInput>
+
+        {is_pro && Boolean(values?.dashboard?.menu_leaderboard) && (
+          <SettingsInput
+            label={__('Leaderboard Point Type', 'gameengine')}
+            subtitle={__(
+              'Point Type ID to rank by, or 0 to rank by total points across all types.',
+              'gameengine'
+            )}
+          >
+            <input
+              type="number"
+              min="0"
+              className="gameengine-input"
+              value={values?.dashboard?.leaderboard_point_type ?? 0}
+              onChange={(e) =>
+                setFieldValue(
+                  'dashboard.leaderboard_point_type',
+                  parseInt(e.target.value, 10) || 0
+                )
+              }
+            />
+          </SettingsInput>
+        )}
       </div>
     </SettingsInner>
   );

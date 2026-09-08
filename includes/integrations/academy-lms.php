@@ -134,6 +134,29 @@ class AcademyLMS extends BaseIntegration
                 'schema' => self::merge_schema(array()),
             ),
 
+            // Assignment Submitted
+            'academy_assignment_submitted' => array(
+                'label' => __('Assignment Submitted', 'gameengine'),
+                'hook' => 'academy_pro_assignment/after_submit_assignment',
+                'args_count' => 3,
+                'description' => __('Awarded when a student submits an assignment, before it is evaluated.', 'gameengine'),
+                'supports' => array('point_type', 'achievement', 'level'),
+                'get_user_id' => function ($assignment_id, $user_id, $course_id) {
+                    return absint($user_id);
+                },
+                'schema' => self::merge_schema(array(
+                    array(
+                        'key' => 'course_id',
+                        'label' => __('Select Course', 'gameengine'),
+                        'type' => 'select',
+                        'width' => '50%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'courses'),
+                    ),
+                    array('key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'academylms', 'query' => 'course_categories')),
+                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'academylms', 'query' => 'course_categories')),
+                )),
+            ),
+
             // New Enrollment
             'academy_new_enrollment' => array(
                 'label' => __('New Enrollment', 'gameengine'),
@@ -221,7 +244,7 @@ class AcademyLMS extends BaseIntegration
                 return array_values($data);
             },
             'course_categories' => function () {
-                $terms = get_terms(array('taxonomy' => 'course_category', 'hide_empty' => false));
+                $terms = get_terms(array('taxonomy' => 'academy_courses_category', 'hide_empty' => false));
                 if (is_wp_error($terms))
                     return array();
                 return array_map(fn($t) => array('label' => $t->name, 'value' => $t->term_id), $terms);

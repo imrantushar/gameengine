@@ -888,6 +888,31 @@
     }
 }
 
+/* Restrict Content addon — locked box. Renders on any post/page/course
+   whose description didn't meet its points/achievement/level condition. */
+.gameengine-restriction-box {
+    padding: 32px;
+    background: var(--gameengine-bg-alt);
+    border: 1px solid var(--gameengine-border);
+    border-radius: var(--gameengine-radius);
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: var(--gameengine-shadow-sm);
+}
+
+.gameengine-restriction-box .gf-lock-icon {
+    font-size: 36px;
+    line-height: 1;
+    margin-bottom: 12px;
+}
+
+.gameengine-restriction-box .gf-lock-msg {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--gameengine-text-header);
+    margin: 0;
+}
+
 @import "./common/global";
 @import "./common/classesLibrary";
 @import "./common/button";

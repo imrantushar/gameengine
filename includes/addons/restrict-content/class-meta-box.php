@@ -15,15 +15,33 @@ class Meta_Box
         add_action('save_post', array(__CLASS__, 'save_restriction_data'));
     }
 
+    /**
+     * NOTE: the `academy_courses` REST registration of `_gameengine_restrict_*`
+     * used to live here. It moved to the Academy LMS integration addon
+     * (`includes/addons/academy-lms/class-course-meta.php`), which contributes
+     * every course meta key through Academy's
+     * `academy/course/register_meta_fields` filter so Academy's own PHP never
+     * names a GameEngine key. This class now only owns the classic metabox for
+     * `post` / `page` (and the course screen's read-only view of the same
+     * fields).
+     */
     public static function add_restriction_metabox()
     {
-        add_meta_box('gameengine_content_restrict', __('GameEngine Content Restriction', 'gameengine'), array(__CLASS__, 'render_metabox'), array('post', 'page'), 'side');
+        $screens = array('post', 'page');
+        if (post_type_exists('academy_courses')) {
+            $screens[] = 'academy_courses';
+        }
+        add_meta_box('gameengine_content_restrict', __('GameEngine Content Restriction', 'gameengine'), array(__CLASS__, 'render_metabox'), $screens, 'side');
     }
 
     public static function render_metabox($post)
     {
         global $wpdb;
         wp_nonce_field('gameengine_restriction_save', 'gameengine_restriction_nonce');
+
+        if ('academy_courses' === $post->post_type) {
+            echo '<p class="description" style="margin-top:0;">' . esc_html__('This restricts the course description shown on this page only — it does not block enrollment or curriculum access. For a full points/achievement/level enrollment gate, set the course type to "GameEngine Unlock" in the course builder.', 'gameengine') . '</p>';
+        }
 
         $type       = get_post_meta($post->ID, '_gameengine_restrict_type', true);
         $saved_val  = get_post_meta($post->ID, '_gameengine_restrict_value', true);
