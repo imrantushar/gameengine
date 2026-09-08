@@ -13,60 +13,18 @@ class Meta_Box
     {
         add_action('add_meta_boxes', array(__CLASS__, 'add_restriction_metabox'));
         add_action('save_post', array(__CLASS__, 'save_restriction_data'));
-        add_action('init', array(__CLASS__, 'register_academy_courses_meta'), 20);
     }
 
     /**
-     * Academy's course edit screen has no classic post.php submit form
-     * (courses are edited exclusively through Academy's React course
-     * builder over REST), so `save_restriction_data()`'s $_POST-based save
-     * never fires for `academy_courses` — these fields must also be
-     * REST-writable so Academy's own UI (or any REST client) can set them.
+     * NOTE: the `academy_courses` REST registration of `_gameengine_restrict_*`
+     * used to live here. It moved to the Academy LMS integration addon
+     * (`includes/addons/academy-lms/class-course-meta.php`), which contributes
+     * every course meta key through Academy's
+     * `academy/course/register_meta_fields` filter so Academy's own PHP never
+     * names a GameEngine key. This class now only owns the classic metabox for
+     * `post` / `page` (and the course screen's read-only view of the same
+     * fields).
      */
-    public static function register_academy_courses_meta()
-    {
-        if (! post_type_exists('academy_courses')) {
-            return;
-        }
-
-        register_meta('post', '_gameengine_restrict_type', array(
-            'object_subtype' => 'academy_courses',
-            'type'           => 'string',
-            'single'         => true,
-            'show_in_rest'   => true,
-            'auth_callback'  => function () {
-                return current_user_can('edit_academy_courses');
-            },
-        ));
-        register_meta('post', '_gameengine_restrict_value', array(
-            'object_subtype' => 'academy_courses',
-            'type'           => 'string',
-            'single'         => true,
-            'show_in_rest'   => true,
-            'auth_callback'  => function () {
-                return current_user_can('edit_academy_courses');
-            },
-        ));
-        register_meta('post', '_gameengine_restrict_message', array(
-            'object_subtype' => 'academy_courses',
-            'type'           => 'string',
-            'single'         => true,
-            'show_in_rest'   => true,
-            'auth_callback'  => function () {
-                return current_user_can('edit_academy_courses');
-            },
-        ));
-        register_meta('post', '_gameengine_lock_media', array(
-            'object_subtype' => 'academy_courses',
-            'type'           => 'boolean',
-            'single'         => true,
-            'show_in_rest'   => true,
-            'auth_callback'  => function () {
-                return current_user_can('edit_academy_courses');
-            },
-        ));
-    }
-
     public static function add_restriction_metabox()
     {
         $screens = array('post', 'page');
@@ -82,7 +40,7 @@ class Meta_Box
         wp_nonce_field('gameengine_restriction_save', 'gameengine_restriction_nonce');
 
         if ('academy_courses' === $post->post_type) {
-            echo '<p class="description" style="margin-top:0;">' . esc_html__('This restricts the course description shown on this page only — it does not block enrollment or curriculum access. For a full points/achievement/level enrollment gate, use the GameEngine Pro Academy addon.', 'gameengine') . '</p>';
+            echo '<p class="description" style="margin-top:0;">' . esc_html__('This restricts the course description shown on this page only — it does not block enrollment or curriculum access. For a full points/achievement/level enrollment gate, set the course type to "GameEngine Unlock" in the course builder.', 'gameengine') . '</p>';
         }
 
         $type       = get_post_meta($post->ID, '_gameengine_restrict_type', true);
