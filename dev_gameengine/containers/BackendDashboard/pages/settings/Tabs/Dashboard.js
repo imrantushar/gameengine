@@ -28,6 +28,11 @@ export default function Dashboard() {
       label: __('Tutor LMS', 'gameengine'),
       isDisabled: !addons?.tutorlms,
     },
+    {
+      value: 'storeengine',
+      label: __('StoreEngine', 'gameengine'),
+      isDisabled: !addons?.storeengine,
+    },
   ];
 
   return (
