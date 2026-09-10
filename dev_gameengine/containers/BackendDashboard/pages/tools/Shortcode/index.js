@@ -1,18 +1,7 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 import ShortCodeItem from './ShortCodeItem';
-import { is_pro } from '@GFUtils/helper';
-
-// const proShortCode = is_pro
-// 	? [
-// 			{
-// 				title: __('Certificate Verification', 'gameengine'),
-// 				shortCode: '[academy_pro_certificate_verification]',
-// 				description: `[academy_pro_certificate_verification]`,
-// 				url: 'https://academylms.net/Docs/how-to-use-the-certificate-verification-shortcode/',
-// 			},
-// 		]
-// 	: [];
+import { getShortcodes } from '@GFUtils/extend';
 
 const shortCodeData = [
   {
@@ -27,7 +16,6 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/',
-    isPro: false,
   },
   {
     title: __('Points Balance', 'gameengine'),
@@ -41,7 +29,6 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/',
-    isPro: false,
   },
   {
     title: __('Achievements List', 'gameengine'),
@@ -55,7 +42,6 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/',
-    isPro: false,
   },
   {
     title: __('Profile Dashboard', 'gameengine'),
@@ -69,7 +55,6 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/',
-    isPro: false,
   },
   {
     title: __('Progress Map', 'gameengine'),
@@ -83,7 +68,6 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/how-to-work-gameengine-progress-map-addon/',
-    isPro: false,
   },
   {
     title: __('Content Restriction', 'gameengine'),
@@ -97,56 +81,13 @@ const shortCodeData = [
       'gameengine'
     ),
     url: 'https://gameengine.pro/docs/restrict-content-using-points-gameengine/',
-    isPro: false,
-  },
-  {
-    title: __('Coupon Marketplace', 'gameengine'),
-    shortCode: '[gameengine_marketplace]',
-    subtitle: __(
-      'Allows users to exchange their points for real WooCommerce discount coupons.',
-      'gameengine'
-    ),
-    description: __(
-      'Renders the dynamic reward store with offers set in your admin settings.',
-      'gameengine'
-    ),
-    url: 'https://gameengine.pro/docs/coupon-generate/',
-    isPro: is_pro === '1' ? false : true,
-  },
-  {
-    title: __('Payout Form', 'gameengine'),
-    shortCode: '[gameengine_payout]',
-    subtitle: __(
-      'Displays a secure withdrawal request form for converting points into currency.',
-      'gameengine'
-    ),
-    description: __(
-      'Users can select payout methods like bKash or PayPal and provide their account details.',
-      'gameengine'
-    ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
-    isPro: is_pro === '1' ? false : true,
-  },
-  {
-    title: __('Referral Dashboard', 'gameengine'),
-    shortCode: '[gameengine_referral_dashboard]',
-    subtitle: __(
-      'View your referral stats and earned rewards at a glance.',
-      'gameengine'
-    ),
-    description: __(
-      'Users can select payout methods like bKash or PayPal and provide their account details.',
-      'gameengine'
-    ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
-    isPro: is_pro === '1' ? false : true,
   },
 ];
 
 const ShortCode = () => {
   return (
     <div className="gameengine-tools-page__short-code border-0 border-t border-solid border-[var(--gameengine-border-color)] pt-6">
-      {shortCodeData.map((item, index) => (
+      {getShortcodes(shortCodeData).map((item, index) => (
         <ShortCodeItem shortCodeItem={item} key={index} />
       ))}
     </div>

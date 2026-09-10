@@ -12,6 +12,7 @@ import {
 import { __ } from "@wordpress/i18n";
 import { Line } from "react-chartjs-2";
 import BoxView from "@GFComponents/BoxView/BoxView";
+import { useThemeMode } from "@GFUtils/theme";
 
 ChartJS.register(
     LineElement,
@@ -24,6 +25,12 @@ ChartJS.register(
 );
 
 function Distribution({ chartData }) {
+    // Chart.js paints to a canvas, so it cannot inherit the CSS tokens — the
+    // grid and tick colours have to be handed to it per mode.
+    const { isDark } = useThemeMode();
+    const gridColor = isDark ? "#232A35" : "#E8EDF2";
+    const tickColor = isDark ? "#A7B3C2" : "#575E6C";
+
     // Fallback if data not ready
     const labels = chartData?.labels || [];
     const points = chartData?.points || [];
@@ -91,6 +98,7 @@ function Distribution({ chartData }) {
                     padding: 20,
                     boxWidth: 8,
                     boxHeight: 8,
+                    color: tickColor,
                     font: {
                         size: 12,
                     },
@@ -107,6 +115,7 @@ function Distribution({ chartData }) {
                     display: false,
                 },
                 ticks: {
+                    color: tickColor,
                     font: {
                         size: 11,
                     },
@@ -116,10 +125,11 @@ function Distribution({ chartData }) {
             y: {
                 beginAtZero: true,
                 grid: {
-                    color: "#E8EDF2",
+                    color: gridColor,
                     drawBorder: false,
                 },
                 ticks: {
+                    color: tickColor,
                     padding: 10,
                     font: {
                         size: 11,

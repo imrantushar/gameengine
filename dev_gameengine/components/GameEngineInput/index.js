@@ -6,7 +6,6 @@ const GameEngineInput = ({
   children,
   width = "100%",
   labelType = 'input',
-  isPro = false,
   flexdirection = 'column',
   ...props
 }) => {
@@ -14,7 +13,7 @@ const GameEngineInput = ({
     "width": width,
     "flexDirection": flexdirection
   }} {...props}>
-            <GFLabel type={labelType} label={label} isPro={isPro} />
+            <GFLabel type={labelType} label={label} />
             {children}
             {desc ? <GFLabel type="simple" label={desc} /> : null}
         </div>;

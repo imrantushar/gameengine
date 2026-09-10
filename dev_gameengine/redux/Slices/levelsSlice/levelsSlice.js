@@ -119,6 +119,10 @@ export const fetchPointTypes = createAsyncThunk('gameengine/levelFetchPointTypes
 
 const initialState = {
     levels: [],
+    // Whether a list request has come back. An empty list only means "there is
+    // nothing here" once this is true; before that it is just the initial state,
+    // and screens must not read it as an empty result.
+    listLoaded: false,
     types: {
         data: [],
     },
@@ -147,6 +151,7 @@ const levelsSlice = createSlice({
         builder
             .addCase(fetchLevels.fulfilled, (state, action) => {
                 const {data, page, per_page, total, search} = action.payload;
+                state.listLoaded = true;
                 state.levels = data;
                 state.page = page;
                 state.perPage = per_page;
@@ -165,6 +170,9 @@ const levelsSlice = createSlice({
                         flattened.push({
                             id: triggerKey,
                             integrationSlug: slug,
+                            // The integration's own display name; deriving
+                            // one from the slug produced "Gameengine".
+                            integrationName: integration.name,
                             ...integration.triggers[triggerKey]
                         });
                     });

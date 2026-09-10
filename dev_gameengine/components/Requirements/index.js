@@ -1,43 +1,35 @@
 import React, { useRef } from 'react';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import HookConfigurationForm from './HookConfigurationForm';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { useDndContext, useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableHook } from './SortableHook';
 import { useDispatch } from 'react-redux';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import EmptyState from './EmptyState';
 
-// # DRAGGABLE
-const DraggableItem = ({ id, children }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    isDragging
-  } = useDraggable({ id });
-
-  const style = {
-    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-    opacity: isDragging ? 0.85 : 1,
-    cursor: "grab",
-    zIndex: isDragging ? 999 : 1
-  };
-
-  return (
-    <div style={style} ref={setNodeRef} {...listeners} {...attributes} marginBottom="24px">
-      {children}
-    </div>
-  );
-};
-
 // # DROPPABLE
-const DroppableArea = ({ id, children }) => {
-  const { setNodeRef } = useDroppable({ id });
+// Highlights while a card is headed for it, so the target column is obvious
+// before the pointer is released.
+//
+// `isOver` alone is not enough once the column's cards are droppables of their
+// own: the nearest card wins the collision, so the column's own `isOver` goes
+// false the moment the pointer crosses a card and the highlight flickers off
+// exactly when it is most useful. `ownedIds` lets the column also claim its
+// own cards as "still me".
+const DroppableArea = ({ id, children, ownedIds = [] }) => {
+  const { setNodeRef, isOver } = useDroppable({ id });
+  const { over } = useDndContext();
+
+  const isTarget = isOver || (over ? ownedIds.includes(over.id) : false);
 
   return (
-    <div className="rounded h-full transition-all duration-200" ref={setNodeRef}>
+    <div
+      ref={setNodeRef}
+      className={`gameengine-hook-dropzone${isTarget ? ' is-over' : ''}`}
+    >
       {children}
     </div>
   );
@@ -64,6 +56,9 @@ const Requirements = props => {
     actionName,
     scope,
     externalClasses,
+    // How a hook id becomes a drag id. Defaults to the prefixed form the
+    // points and achievements editors use; levels drags by bare hook id.
+    itemId = (hookId) => `${actionName}_${hookId}`,
   } = props;
   const dispatch = useDispatch();
 
@@ -73,6 +68,14 @@ const Requirements = props => {
   }, ...hookTypeOptions];
 
   const tabContainerRef = useRef(null);
+
+  const activeHooks = (selectedHookIds || [])
+    .map(id => allHooks?.find(h => h.id === id))
+    .filter(Boolean);
+  const activeHookIds = activeHooks.map(h => itemId(h.id));
+
+  const { active } = useDndContext();
+  const isIncomingDrag = active ? !activeHookIds.includes(active.id) : false;
 
   const scrollLeft = () => {
     tabContainerRef.current?.scrollBy({
@@ -91,7 +94,7 @@ const Requirements = props => {
   return (
     <CollapsibleItem
       // translators: %s: label
-      label={sprintf(__('%s', 'gemboards'), label)}
+      label={label}
       onClick={onClick}
       open={open}
       dynamicClasses={`${parent} ${externalClasses}`}
@@ -105,7 +108,7 @@ const Requirements = props => {
             </div>
 
             <div className="flex items-center relative gameengine-border-bottom">
-              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
+              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-[var(--gameengine-background)] p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
                 <RiArrowLeftSLine />
               </button>}
 
@@ -114,7 +117,7 @@ const Requirements = props => {
                   const isActive = selectedFilterType === item.value || selectedFilterType === '' && item.value === 'all';
                   return <button
                     key={index}
-                    className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[#1a73e8] border-0 border-b-2 border-solid border-[#1a73e8]' : 'text-gray-600 border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+                    className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[var(--gameengine-primary)] border-0 border-b-2 border-solid border-[var(--gameengine-primary)]' : 'text-[var(--gameengine-warn-muted)] border-0 border-b-2 border-solid border-transparent hover:text-[var(--gameengine-font-color)] hover:border-[var(--gameengine-border-color)]'}`}
                     style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
                     onClick={() => filterHookType(item.value)}>
                     {item.label}
@@ -122,7 +125,7 @@ const Requirements = props => {
                 })}
               </div>
 
-              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] right-0 z-[2] text-[16px] leading-4" onClick={scrollRight}>
+              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-[var(--gameengine-background)] p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] right-0 z-[2] text-[16px] leading-4" onClick={scrollRight}>
                 <RiArrowRightSLine />
               </button>}
             </div>
@@ -131,7 +134,7 @@ const Requirements = props => {
               <div className="gameengine-fade-in" key={selectedFilterType}>
                 {allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all').map(h => <div key={h.id}>
                   {renderHookCard(h, actionName)}
-                  <p className="mt-1 text-xs text-gray-500">{h.subTitle}</p>
+                  <p className="mt-1 text-xs text-[var(--gameengine-warn-muted)]">{h.subTitle}</p>
                 </div>)}
               </div>
             </DroppableArea>
@@ -143,13 +146,15 @@ const Requirements = props => {
               <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("The following hooks are used for all users", "gameengine")} />
             </div>
 
-            <DroppableArea id={`${actionName}s-sidebar`}>
+            <DroppableArea id={`${actionName}s-sidebar`} ownedIds={activeHookIds}>
               {!selectedHookIds || selectedHookIds.length === 0 ? (
                 <EmptyState />
               ) : (
-                selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
-                  <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
-                </DraggableItem>)
+                <SortableContext items={activeHookIds} strategy={verticalListSortingStrategy}>
+                  {activeHooks.map(h => <SortableHook key={itemId(h.id)} id={itemId(h.id)} isIncoming={isIncomingDrag}>
+                    <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
+                  </SortableHook>)}
+                </SortableContext>
               )}
             </DroppableArea>
           </div>

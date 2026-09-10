@@ -16,7 +16,7 @@
     transition: background 0.3s ease;
 
     &:hover {
-        background: #fff;
+        background: var(--gameengine-background);
     }
 
     &:hover .gameengine-get-help-text__label {
@@ -229,7 +229,7 @@
     bottom: 114px;
     max-height: 100%;
     border-radius: 0;
-    background: #fff;
+    background: var(--gameengine-background);
 
     .components-modal {
         &__header {
@@ -269,7 +269,7 @@
                 width: calc(100% - 35px);
                 z-index: 99;
                 left: 16px;
-                background: #fff;
+                background: var(--gameengine-background);
                 border-radius: 4px;
                 .gameengine-search-component__input {
                     max-width: 100% !important;
@@ -297,7 +297,7 @@
                 right: 24px;
                 width: 24px;
                 height: 24px;
-                background: #fff;
+                background: var(--gameengine-background);
                 border-radius: 50%;
                 transition: all .3s ease;
                 z-index: 99;
@@ -318,15 +318,15 @@
                 overflow-y: auto;
                 z-index: 9999;
                 transition: all 0.5s ease-out;
-                background: #fff;
+                background: var(--gameengine-background);
 
                 &__title {
                     font-size: 14px;
                     font-weight: 400;
                     line-height: 20px;
                     padding: 16px 0;
-                    background: #fff;
-                    color: #595959;
+                    background: var(--gameengine-background);
+                    color: var(--gameengine-warn-muted);
                 }
 
                 &__list-items {
@@ -350,7 +350,7 @@
                             padding: 12px;
                             margin: 0;
                             text-decoration: none;
-                            color: #181413;
+                            color: var(--gameengine-font-color);
 
                             span {
                                 font-size: 14px;
@@ -429,7 +429,7 @@
                             display: flex;
                             align-items: center;
                             justify-content: center;
-                            background: #fff;
+                            background: var(--gameengine-background);
                             border: 1px solid var(--gameengine-border-color);
                             height: 32px;
                             width: 32px;
@@ -446,7 +446,7 @@
             }
 
             .academy-wp-modal__content {
-                background: #fff;
+                background: var(--gameengine-background);
                 height: 100vh;
             }
         }

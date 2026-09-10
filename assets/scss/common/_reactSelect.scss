@@ -50,8 +50,8 @@
 
     .gameengine-select {
         &__control {
-            border: 1px solid #CBD1D7;
-            background: #FFF;
+            border: 1px solid var(--gameengine-border-color);
+            background: var(--gameengine-background);
             border-radius: 4px;
             box-shadow: none;
 
@@ -65,11 +65,50 @@
         }
 
         &__control:hover {
-            border: 1px solid #CBD1D7;
+            border: 1px solid var(--gameengine-border-color);
         }
 
         &__indicator-separator {
             display: none;
+        }
+
+        // react-select paints its own white menu/value colours inline, which
+        // survive a theme switch — restate them from the tokens.
+        &__single-value,
+        &__input-container {
+            color: var(--gameengine-font-color);
+        }
+
+        &__placeholder {
+            color: var(--gameengine-placeholder);
+        }
+
+        &__menu {
+            background: var(--gameengine-background);
+            border: 1px solid var(--gameengine-border-color);
+            color: var(--gameengine-font-color);
+        }
+
+        &__option {
+            background: transparent;
+            color: var(--gameengine-font-color);
+
+            &--is-focused {
+                background: var(--gameengine-secondary-color);
+            }
+
+            &--is-selected {
+                background: var(--gameengine-primary-strong);
+                color: #fff;
+            }
+        }
+
+        &__multi-value {
+            background: var(--gameengine-secondary-color);
+
+            &__label {
+                color: var(--gameengine-font-color);
+            }
         }
     }
 

@@ -80,13 +80,13 @@ const Tools = () => {
 
         <div className="items-start flex gap-6 overflow-visible">
           <div className="w-[20%]">
-            <div className="w-full bg-white rounded-md shadow-sm border border-gray-100 p-2">
+            <div className="w-full gameengine-surface p-2">
               {tabs.map((tabItem, tabIndex) => {
                 const isActive = path === tabItem?.name;
                 const baseClasses = "flex items-center gap-3  px-3 py-2 rounded-md text-sm font-medium transition-colors";
                 const activeClasses = isActive
-                  ? "bg-gray-100 text-[var(--gameengine-primary-color)]"
-                  : "text-gray-700 hover:bg-gray-50";
+                  ? "bg-[var(--gameengine-secondary-color)] text-[var(--gameengine-primary-color)]"
+                  : "text-[var(--gameengine-font-color)] hover:bg-[var(--gameengine-secondary-color)]";
 
                 return (
                   <div key={tabIndex} className="mb-1 last:mb-0">

@@ -340,6 +340,7 @@ class Triggers
 
             if ($attempt_id > 0) {
                 global $wpdb;
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Third-party LMS table has no API accessor; the value is read once per trigger evaluation and must be current.
                 $quiz_id = $wpdb->get_var($wpdb->prepare("SELECT quiz_id FROM {$wpdb->prefix}tutor_quiz_attempts WHERE attempt_id = %d", $attempt_id));
                 return (absint($quiz_id) === $target_quiz_id);
             }

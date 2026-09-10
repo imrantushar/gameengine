@@ -10,7 +10,7 @@ const ImportDemoBanner = ({
   handleImport,
   handleClose
 }) => {
-  return <div className="w-full bg-white p-6 [border-left:2px_solid_#006BFF]" style={{
+  return <div className="w-full bg-[var(--gameengine-background)] p-6 [border-left:2px_solid_var(--gameengine-primary)]" style={{
     "boxShadow": "0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10)"
   }}>
       <GFLabel type='simpleHeading' label={title} margin={'0 0 6px 0'} fontSize={'20px'} lineHeight={'30px'} />

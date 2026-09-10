@@ -70,9 +70,9 @@ class SettingsController extends BaseController
             'buy_points' => array(
                 'mappings' => get_option('gameengine_buy_points_mappings', array()),
             ),
-            'config' => array(
-                'is_pro' => false, // Default is false
-            )
+            // `is_pro` is gone: the free plugin no longer tracks whether Pro is
+            // present, and Pro contributes its own config through the filter.
+            'config' => array()
         );
 
         /**

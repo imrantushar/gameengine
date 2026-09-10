@@ -3,7 +3,7 @@
  */
 
 :root {
-    --gameengine-font: "Roboto", sans-serif;
+    --gameengine-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     --gameengine-primary: #006BFF;
     --gameengine-primary-soft: #edf5ff;
     --gameengine-success: #10b981;
@@ -27,7 +27,7 @@
     background: var(--gameengine-bg-main);
     border-radius: var(--gameengine-radius);
     box-shadow: var(--gameengine-shadow-md);
-    font-family: 'Roboto', sans-serif;
+    font-family: var(--gameengine-font);
     overflow: hidden;
 }
 
@@ -888,6 +888,12 @@
     }
 }
 
+@import "./common/global";
+@import "./common/classesLibrary";
+@import "./common/button";
+@import "./addons/payout.scss";
+@import "./addons/marketplace.scss";
+
 /* Restrict Content addon — locked box. Renders on any post/page/course
    whose description didn't meet its points/achievement/level condition. */
 .gameengine-restriction-box {
@@ -912,9 +918,3 @@
     color: var(--gameengine-text-header);
     margin: 0;
 }
-
-@import "./common/global";
-@import "./common/classesLibrary";
-@import "./common/button";
-@import "./addons/payout.scss";
-@import "./addons/marketplace.scss";

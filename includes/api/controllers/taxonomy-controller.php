@@ -64,19 +64,54 @@ class TaxonomyController extends BaseController
     }
 
     /**
+     * Resolve the taxonomy for a request, rejecting anything this plugin does
+     * not own so the endpoint cannot be used to edit unrelated taxonomies.
+     *
+     * @param \WP_REST_Request $request Request object.
+     * @return string|\WP_Error Taxonomy name, or an error.
+     */
+    private function resolve_taxonomy($request)
+    {
+        $tax = sanitize_key($request['tax']);
+
+        $allowed = array(
+            \GameEngine\Classes\TaxonomyManager::ACHIEVEMENT_TAXONOMY,
+            \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY,
+        );
+
+        /**
+         * Filters the taxonomies this endpoint may read and write.
+         *
+         * @param array $allowed Taxonomy names.
+         */
+        $allowed = apply_filters('gameengine_rest_taxonomies', $allowed);
+
+        if (! in_array($tax, $allowed, true) || ! taxonomy_exists($tax)) {
+            return new \WP_Error(
+                'invalid_taxonomy',
+                __('Invalid taxonomy.', 'gameengine'),
+                array('status' => 404)
+            );
+        }
+
+        return $tax;
+    }
+
+    /**
      * Retrieve terms for a given taxonomy.
      */
     public function get_terms($request)
     {
-        $tax      = sanitize_text_field($request['tax']);
+        $tax = $this->resolve_taxonomy($request);
+
+        if (is_wp_error($tax)) {
+            return $tax;
+        }
+
         $search   = $request->get_param('search');
         $per_page = min(100, max(1, $request->get_param('per_page') ? absint($request->get_param('per_page')) : 20));
         $page     = $request->get_param('page') ? absint($request->get_param('page')) : 1;
         $offset   = ($page - 1) * $per_page;
-
-        if (! taxonomy_exists($tax)) {
-            return new \WP_Error('invalid_taxonomy', 'Taxonomy not found', array('status' => 404));
-        }
 
         // Base arguments for both fetching and counting
         $base_args = array(
@@ -129,10 +164,10 @@ class TaxonomyController extends BaseController
     public function create_term($request)
     {
         $params = $request->get_json_params();
-        $tax    = sanitize_text_field($request['tax']);
+        $tax    = $this->resolve_taxonomy($request);
 
-        if (! taxonomy_exists($tax)) {
-            return new \WP_Error('invalid_taxonomy', __('Invalid taxonomy.', 'gameengine'), array('status' => 400));
+        if (is_wp_error($tax)) {
+            return $tax;
         }
 
         $term_name = isset($params['name']) ? sanitize_text_field($params['name']) : '';
@@ -164,8 +199,12 @@ class TaxonomyController extends BaseController
     public function update_term($request)
     {
         $id     = absint($request['id']);
-        $tax    = sanitize_text_field($request['tax']);
+        $tax    = $this->resolve_taxonomy($request);
         $params = $request->get_json_params();
+
+        if (is_wp_error($tax)) {
+            return $tax;
+        }
 
         $updated = wp_update_term(
             $id,
@@ -190,7 +229,11 @@ class TaxonomyController extends BaseController
     public function delete_term($request)
     {
         $id  = absint($request['id']);
-        $tax = sanitize_text_field($request['tax']);
+        $tax = $this->resolve_taxonomy($request);
+
+        if (is_wp_error($tax)) {
+            return $tax;
+        }
 
         $deleted = wp_delete_term($id, $tax);
 

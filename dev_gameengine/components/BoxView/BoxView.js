@@ -1,5 +1,11 @@
 import React from 'react';
 
+/**
+ * A titled white panel.
+ *
+ * The panel is a `.gameengine-surface`: hairline border, 8px radius, no drop
+ * shadow — so it reads as a card against the grey admin background.
+ */
 const BoxView = ({
   title,
   subtitle,
@@ -9,38 +15,38 @@ const BoxView = ({
   rightContent,
   minWidth,
 }) => {
+  // Title and subtitle share one block so the subtitle sits under the title
+  // instead of being pushed out of it (a <p> cannot nest inside a <p>).
+  const heading = title ? (
+    <div>
+      <p className="text-xl font-semibold m-0 text-[var(--gameengine-font-color)] leading-[30px]">
+        {title}
+      </p>
+      {subtitle ? (
+        <p className="text-sm font-normal leading-5 m-0 text-[var(--gameengine-warn-muted)]">
+          {subtitle}
+        </p>
+      ) : null}
+    </div>
+  ) : null;
+
   return (
     <div
-      className="rounded bg-white [box-shadow:var(--gameengine-shadow)]"
+      className="gameengine-surface"
       style={{
         minWidth: minWidth,
         width: width,
       }}
     >
       {rightContent ? (
-        <div className="flex justify-between items-center p-4 [border-bottom:1px_solid_var(--gameengine-border-color)]">
-          {title && (
-            <p className="text-xl font-semibold m-0 text-[var(--gamity-font-color)] leading-[30px]">
-              {title}
-              {subtitle ? (
-                <p className="text-sm font-normal leading-5 m-0 text-[var(--gamity-font-color)]">
-                  {subtitle}
-                </p>
-              ) : null}
-            </p>
-          )}
-
+        <div className="flex justify-between items-center gap-4 p-4 [border-bottom:1px_solid_var(--gameengine-border-color)]">
+          {heading}
           {rightContent}
         </div>
-      ) : title ? (
-        <p className="text-xl font-semibold p-4 m-0 text-[var(--gamity-font-color)] [border-bottom:1px_solid_var(--gameengine-border-color)] leading-[30px]">
-          {title}
-          {subtitle ? (
-            <p className="text-sm font-normal leading-5 m-0 text-[var(--gamity-font-color)]">
-              {subtitle}
-            </p>
-          ) : null}
-        </p>
+      ) : heading ? (
+        <div className="p-4 [border-bottom:1px_solid_var(--gameengine-border-color)]">
+          {heading}
+        </div>
       ) : null}
 
       <div

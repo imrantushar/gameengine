@@ -48,10 +48,10 @@ const SnackbarAction = ({
             <strong>{isActionSelected?.message}</strong>
           </div>
           <div className="gameengine-snackbar-action__right">
-            <button onClick={resetHandler}>
+            <button className="gameengine-btn gameengine-btn--preset-gray" onClick={resetHandler}>
               {__('Cancel', 'gameengine')}
             </button>
-            <button onClick={() => confirmHandler(true)}>
+            <button className="gameengine-btn gameengine-btn--confirm" onClick={() => confirmHandler(true)}>
               {__('Confirm', 'gameengine')}
             </button>
           </div>
@@ -63,7 +63,7 @@ const SnackbarAction = ({
             </div>
           </div>
           <div className="gameengine-snackbar-action__right">
-            {actionButtons.map((actionButton, index) => <button key={index} {...actionButton} onClick={e => {
+            {actionButtons.map((actionButton, index) => <button key={index} {...actionButton} className={`gameengine-btn ${actionButton.className || ''}`} onClick={e => {
           e.stopPropagation();
           actionButton.onClick();
         }}>
