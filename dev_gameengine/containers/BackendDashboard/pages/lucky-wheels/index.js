@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react';
 import ListTable from '@GFComponents/ListTable';
 import { __ } from '@wordpress/i18n';
 import { FiEdit, FiTrash2, FiPlus, FiActivity } from "react-icons/fi";
+import { FaRegCopy } from "react-icons/fa6";
 import TopBar from '@GFComponents/TopBar';
 import OptionMenu from '@GFComponents/OptionMenu';
 import Button from '@GFComponents/Button';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { route_path } from '@GFUtils/helper';
+import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import WheelEditor from './WheelEditor';
 import WheelAnalytics from './WheelAnalytics';
 import GetHelp from '@GFComponents/GetHelp';
@@ -17,6 +20,20 @@ export default function LuckyWheels({ action, id }) {
     const [dataFetchingStatus, setDataFetchingStatus] = useState(false);
     const [analyticsId, setAnalyticsId] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const copyShortcode = async (shortcode) => {
+        try {
+            await navigator.clipboard.writeText(shortcode);
+            dispatch(showNotification({
+                message: __('Copied', 'gameengine'),
+                isShow: true,
+                type: 'success',
+            }));
+        } catch (error) {
+            console.error('Error copying shortcode:', error);
+        }
+    };
 
     useEffect(() => {
         if (!action) {
@@ -71,11 +88,24 @@ export default function LuckyWheels({ action, id }) {
         },
         {
             name: __('Shortcode', 'gameengine'),
-            cell: row => (
-                <code style={{ background: '#f0f0f0', padding: '2px 5px', borderRadius: '4px', fontSize: '12px' }}>
-                    [gameengine_wheel id="{row.id}"]
-                </code>
-            ),
+            cell: row => {
+                const shortcode = `[gameengine_wheel id="${row.id}"]`;
+                return (
+                    <div className="flex items-center gap-2">
+                        <code style={{ background: '#f0f0f0', padding: '2px 5px', borderRadius: '4px', fontSize: '12px' }}>
+                            {shortcode}
+                        </code>
+                        <button
+                            type="button"
+                            className="gameengine-btn--copy flex items-center justify-center w-[26px] h-[26px] p-0 border-0 bg-transparent cursor-pointer"
+                            onClick={() => copyShortcode(shortcode)}
+                            title={__('Copy shortcode', 'gameengine')}
+                        >
+                            <FaRegCopy size={14} />
+                        </button>
+                    </div>
+                );
+            },
             columnWidth: "30%",
         },
         {
