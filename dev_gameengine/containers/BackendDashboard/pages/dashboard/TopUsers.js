@@ -1,9 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import BoxView from '@GFComponents/BoxView/BoxView';
+import Button from '@GFComponents/Button';
+import { FiDownload } from 'react-icons/fi';
+import { API, namespace } from '@GFUtils/helper';
 
-const TopUsers = ({ users }) => {
-    return <BoxView width='100%' title={__('Top 5 Users', 'gameengine')}>
+const TopUsers = ({ users, startDate, endDate }) => {
+    const [exporting, setExporting] = useState(false);
+
+    const handleExport = async () => {
+        setExporting(true);
+        try {
+            const params = {};
+            if (startDate) params.start_date = startDate;
+            if (endDate) params.end_date = endDate;
+
+            const res = await API.get(namespace + 'dashboard/export', {
+                params,
+                responseType: 'blob',
+            });
+
+            const contentDisposition = res.headers['content-disposition'] || '';
+            const match = contentDisposition.match(/filename="?([^";\s]+)"?/);
+            const filename = match ? match[1] : `gameengine-users-${new Date().toISOString().slice(0, 10)}.csv`;
+
+            const url = URL.createObjectURL(new Blob([res.data]));
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        } catch (e) {
+            alert(__('Export failed. Please try again.', 'gameengine'));
+        } finally {
+            setExporting(false);
+        }
+    };
+
+    return <BoxView
+        width='100%'
+        title={__('Top 5 Users', 'gameengine')}
+        rightContent={
+            <Button
+                label={__('Export CSV', 'gameengine')}
+                icon={<FiDownload size="14px" />}
+                preset="secondary"
+                border="gray"
+                isLoading={exporting}
+                onClick={handleExport}
+            />
+        }
+    >
         {!users || users.length === 0 ? (
             <p>{__("No data available yet.", "gameengine")}</p>
         ) : (

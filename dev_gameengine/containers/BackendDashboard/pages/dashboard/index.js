@@ -58,7 +58,7 @@ const Dashboard = () => {
 
       <Distribution chartData={chart} />
 
-      <TopUsers users={topUsers} />
+      <TopUsers users={topUsers} startDate={startDate} endDate={endDate} />
     </div>
   </>;
 };
