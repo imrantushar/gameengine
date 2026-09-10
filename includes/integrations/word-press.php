@@ -184,13 +184,15 @@ class WordPress extends BaseIntegration
     {
         return [
             'roles' => function () {
-                // get_editable_roles() keys by role slug and values are the role
-                // definition arrays, so mapping over the values alone produced
-                // an array in both label and value.
+                // Not get_editable_roles(): that lives in wp-admin/includes and
+                // is undefined during the REST request this runs in. It also
+                // keys by role slug with the role definition as the value, so
+                // mapping over the values alone put an array in both label and
+                // value.
                 $roles = array();
-                foreach (get_editable_roles() as $slug => $role) {
+                foreach (wp_roles()->get_names() as $slug => $name) {
                     $roles[] = array(
-                        'label' => translate_user_role($role['name']),
+                        'label' => translate_user_role($name),
                         'value' => $slug,
                     );
                 }

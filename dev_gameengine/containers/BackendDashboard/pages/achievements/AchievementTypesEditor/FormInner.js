@@ -430,7 +430,6 @@ const FormInner = () => {
         flexdirection={'row'}
         label={requireLabel}
         width="100%"
-        direction='row'
         gap={isRestrictContentActive ? "16px" : "4px"}
         alignItems='center'
       >

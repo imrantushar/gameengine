@@ -332,7 +332,7 @@ const FormInner = () => {
 
       <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-      <GameEngineInput label={reqLabel} width="100%" direction='row' gap="10px" alignItems='center'>
+      <GameEngineInput label={reqLabel} width="100%">
         <div className="flex items-center gap-2">
           <Switch
             checked={values.is_restricted}
@@ -407,9 +407,19 @@ const FormInner = () => {
       <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
         <div className="flex flex-col gap-3">
           {isDashicon ? (
-            <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
               <span className={`dashicons ${values.icon}`} style={{ fontSize: "36px", width: "36px", height: "36px", color: values.color || "var(--gameengine-primary)" }} />
-              <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
+              <label className="flex items-center gap-2 text-xs text-[var(--gameengine-warn-muted)]">
+                {__("Color", "gameengine")}
+                <input
+                  type="color"
+                  className="gameengine-color-input"
+                  style={{ width: "48px" }}
+                  value={values.color || '#6c5ce7'}
+                  onChange={(e) => setFieldValue('color', e.target.value)}
+                />
+              </label>
+              <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)] ml-auto" style={{
                 "padding": "6px 8px"
               }} onClick={() => setFieldValue('icon', '')}>
                 {__("Remove Icon", "gameengine")}
@@ -427,27 +437,28 @@ const FormInner = () => {
               </button>
             </div>
           ) : (
-            <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)] self-start" style={{
-              "padding": "6px 8px"
-            }} onClick={handleImageUpload}>
-              {__("Set Level Logo", "gameengine")}
-            </button>
+            <div className="flex items-center gap-3">
+              <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
+                "padding": "6px 8px"
+              }} onClick={handleImageUpload}>
+                {__("Set Level Logo", "gameengine")}
+              </button>
+              <label className="flex items-center gap-2 text-xs text-[var(--gameengine-warn-muted)]">
+                {__("Color", "gameengine")}
+                <input
+                  type="color"
+                  className="gameengine-color-input"
+                  style={{ width: "48px" }}
+                  value={values.color || '#6c5ce7'}
+                  onChange={(e) => setFieldValue('color', e.target.value)}
+                />
+              </label>
+            </div>
           )}
 
-          <div className="flex gap-3">
-            <GameEngineInput label={__("Or pick an icon", "gameengine")} width="calc(100% - 90px)" desc={__("A dashicon replaces the uploaded logo.", "gameengine")}>
-              <DashiconPicker value={isDashicon ? values.icon : ''} onChange={(val) => setFieldValue('icon', val)} />
-            </GameEngineInput>
-
-            <GameEngineInput label={__("Color", "gameengine")} width="78px" desc={__("Tints the icon.", "gameengine")}>
-              <input
-                type="color"
-                className="gameengine-color-input"
-                value={values.color || '#6c5ce7'}
-                onChange={(e) => setFieldValue('color', e.target.value)}
-              />
-            </GameEngineInput>
-          </div>
+          <GameEngineInput label={__("Or pick an icon", "gameengine")} width="100%" desc={__("A dashicon replaces the uploaded logo.", "gameengine")}>
+            <DashiconPicker value={isDashicon ? values.icon : ''} onChange={(val) => setFieldValue('icon', val)} />
+          </GameEngineInput>
         </div>
       </BoxView>
 
