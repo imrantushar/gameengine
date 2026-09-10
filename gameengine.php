@@ -4,14 +4,14 @@
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
  * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
- * Version:           1.1.2
+ * Version:           1.3.0
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       gameengine
  * Domain Path:       /languages/
- * Tested up to:      6.9
+ * Tested up to:      7.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  */
@@ -63,7 +63,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.1.2');
+        define('GAMEENGINE_VERSION', '1.3.0');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));
@@ -105,6 +105,7 @@ final class GameEngine
         \GameEngine\SeSdk::get_instance();
         add_action('deactivated_plugin', array($this, 'handle_dependency_deactivation'), 10, 2);
 
+        add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
         add_action('init', array($this, 'init_modules'), 10);
         add_filter('gameengine_settings_data', array($this, 'inject_default_settings'), 10);
     }
@@ -188,7 +189,8 @@ final class GameEngine
         $paths = array(
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
-            'addons/restrict-content/init.php'
+            'addons/restrict-content/init.php',
+            'addons/academy-lms/init.php'
         );
 
         foreach ($paths as $path) {

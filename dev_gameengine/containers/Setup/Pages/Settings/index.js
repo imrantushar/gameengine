@@ -27,7 +27,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex w-full justify-center pb-12">
+    <div className="flex w-full justify-center pb-12 pt-[120px]">
       <Formik 
         enableReinitialize={true} 
         initialValues={{

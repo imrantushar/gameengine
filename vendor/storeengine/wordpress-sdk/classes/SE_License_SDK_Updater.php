@@ -70,6 +70,30 @@ final class SE_License_SDK_Updater {
 		}
 
 		add_action( 'init', [ $this, 'clear_package_cache' ], - 1 );
+
+		// Capture upgrades performed by WP itself (cron, plugins.php "update
+		// now" link, our own Install_Job) so the SDK can offer a one-click
+		// rollback to the previous version.
+		add_action( 'upgrader_process_complete', [ $this, 'record_previous_version' ], 10, 2 );
+	}
+
+	/**
+	 * Load a sibling SDK class file. The SDK ships its own spl_autoload
+	 * but in setups where multiple SDK copies coexist (Strauss-prefixed
+	 * vendor folders, classmap-authoritative composer dumps, etc.) the
+	 * autoloader's `$sdk_init_file` can end up pointing at a different
+	 * vendor folder than the one this Updater was loaded from. Falling
+	 * back to a relative require_once guarantees the new 1.5.0 classes
+	 * load from the same wordpress-sdk/ that contains this Updater.
+	 */
+	private static function require_sibling( string $class ): void {
+		if ( class_exists( $class, false ) ) {
+			return;
+		}
+		$path = __DIR__ . DIRECTORY_SEPARATOR . $class . '.php';
+		if ( is_readable( $path ) ) {
+			require_once $path;
+		}
 	}
 
 	/**
@@ -81,8 +105,153 @@ final class SE_License_SDK_Updater {
 		add_filter( 'pre_set_site_transient_update_plugins', [ $this, 'check_plugin_update' ], 1, 1 );
 		add_filter( 'plugins_api', [ $this, 'plugins_api_filter' ], 10, 3 );
 
+		// Abort an incomplete update BEFORE WP swaps the live plugin folder.
+		// Priority 20 so it runs AFTER the Install_Job folder-normalizer
+		// (priority 10) and therefore inspects the final source directory.
+		// Covers both the native "Update now" path and the SDK REST installer.
+		add_filter( 'upgrader_source_selection', [ $this, 'validate_package_source' ], 20, 4 );
+
 		register_activation_hook( $this->client->getPackageFile(), [ $this, 'delete_cached_version_info' ] );
 		register_deactivation_hook( $this->client->getPackageFile(), [ $this, 'delete_cached_version_info' ] );
+	}
+
+	/**
+	 * Validate the extracted update package before WordPress deletes/swaps the
+	 * live plugin folder. If the package is missing its main file or any
+	 * declared critical path, return a WP_Error to abort: WP keeps the old
+	 * folder (it never reaches `clear_destination`) and, on WP 6.3+, restores
+	 * the temp_backup. Net effect — a failed/incomplete update is dismissed and
+	 * the user keeps a working plugin instead of a fatal/white-screen.
+	 *
+	 * Hooked on the core `upgrader_source_selection` filter:
+	 *   ($source, $remote_source, $upgrader, $hook_extra)
+	 *
+	 * @param string|WP_Error $source        Extracted (possibly normalized) source dir.
+	 * @param string          $remote_source Working dir the package was unpacked into.
+	 * @param WP_Upgrader     $upgrader      The upgrader instance.
+	 * @param array           $hook_extra    Context (plugin basename / SDK slug).
+	 *
+	 * @return string|WP_Error $source unchanged, or WP_Error to abort the install.
+	 */
+	public function validate_package_source( $source, $remote_source, $upgrader, $hook_extra = [] ) {
+		// An upstream filter already errored (e.g. the normalizer) — pass through.
+		if ( is_wp_error( $source ) ) {
+			return $source;
+		}
+
+		// Only ever inspect packages we can prove belong to this plugin.
+		if ( ! $this->source_belongs_to_this_plugin( $hook_extra ) ) {
+			return $source;
+		}
+
+		global $wp_filesystem;
+
+		// Without a usable filesystem we can't validate; don't block the update.
+		if ( ! $wp_filesystem || ! is_string( $source ) ) {
+			return $source;
+		}
+
+		$dir  = trailingslashit( $source );
+		$slug = $this->client->getSlug();
+
+		// 1) Main plugin file must be present in the package root.
+		$main_file = basename( $this->client->getBasename() );
+		if ( $main_file && ! $wp_filesystem->exists( $dir . $main_file ) ) {
+			return new WP_Error(
+				'sdk-package-incomplete',
+				sprintf(
+				/* translators: 1: plugin slug, 2: missing main file name. */
+					__( 'Update aborted: the downloaded %1$s package is missing its main file (%2$s). Your current version was kept.', 'storeengine-sdk' ),
+					$slug,
+					$main_file
+				)
+			);
+		}
+
+		// 2) Every declared critical path must exist.
+		foreach ( $this->get_critical_paths() as $rel ) {
+			if ( ! is_string( $rel ) ) {
+				continue;
+			}
+			$rel = ltrim( $rel, '/' );
+			if ( '' === $rel ) {
+				continue;
+			}
+			if ( ! $wp_filesystem->exists( $dir . $rel ) ) {
+				return new WP_Error(
+					'sdk-package-incomplete',
+					sprintf(
+					/* translators: 1: plugin slug, 2: missing package-relative path. */
+						__( 'Update aborted: the downloaded %1$s package is incomplete (missing %2$s). Your current version was kept.', 'storeengine-sdk' ),
+						$slug,
+						$rel
+					)
+				);
+			}
+		}
+
+		return $source;
+	}
+
+	/**
+	 * Whether $hook_extra unambiguously identifies the package this Updater
+	 * instance manages. `upgrader_source_selection` is a global (non-prefixed)
+	 * core hook, so every SDK consumer's callback fires for every install — we
+	 * MUST self-scope here and default to false on any ambiguity so we never
+	 * validate (or block) a package that isn't provably ours.
+	 *
+	 * @param array $hook_extra
+	 *
+	 * @return bool
+	 */
+	private function source_belongs_to_this_plugin( $hook_extra ): bool {
+		if ( empty( $hook_extra ) || ! is_array( $hook_extra ) ) {
+			return false;
+		}
+
+		// SDK REST Install_Job path — explicit slug tag.
+		if ( ! empty( $hook_extra['storeengine_sdk']['slug'] ) ) {
+			return $hook_extra['storeengine_sdk']['slug'] === $this->client->getSlug();
+		}
+
+		// Native single update (plugins.php "Update now").
+		if ( ! empty( $hook_extra['plugin'] ) ) {
+			return $hook_extra['plugin'] === $this->client->getBasename();
+		}
+
+		// Native bulk update (update-core.php).
+		if ( ! empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+			return in_array( $this->client->getBasename(), $hook_extra['plugins'], true );
+		}
+
+		return false;
+	}
+
+	/**
+	 * Effective list of package-relative paths that must exist for an update to
+	 * be accepted. Uses the consumer's declared `critical_paths`, or a
+	 * conservative default. Filterable so a site can trim/extend without
+	 * re-vendoring the SDK.
+	 *
+	 * @return array
+	 */
+	private function get_critical_paths(): array {
+		$paths = $this->client->getCriticalPaths();
+
+		if ( null === $paths ) {
+			// Conservative default: the autoloader almost every consumer ships
+			// and hard-requires. Kept minimal to avoid false-positive blocks.
+			$paths = [ 'vendor/autoload.php' ];
+		}
+
+		/**
+		 * Filter the critical paths checked before an update is applied.
+		 *
+		 * @param array $paths Package-relative paths that must exist.
+		 */
+		$paths = apply_filters( $this->client->getHookName( 'critical_paths' ), $paths );
+
+		return is_array( $paths ) ? $paths : [];
 	}
 
 	/**
@@ -263,6 +432,11 @@ final class SE_License_SDK_Updater {
 		$response = $this->client->request( [ 'body'  => $data, 'route' => 'check-update' ] );
 
 		if ( isset( $response['success'] ) && $response['success'] ) {
+			// Stamp the local "last checked" timestamp so the UI can render
+			// "checked 2 minutes ago" without polling the server.
+			self::require_sibling( 'SE_License_SDK_Update_State' );
+			( new SE_License_SDK_Update_State( $this->client ) )->record_check();
+
 			$data = $response['data'];
 
 			if ( 'plugin_update' !== $action ) {
@@ -339,6 +513,85 @@ final class SE_License_SDK_Updater {
 	public function clear_package_cache() {
 		add_action( $this->client->getHookName( 'license-activate' ), [ $this, 'delete_cached_version_info' ] );
 		add_action( $this->client->getHookName( 'license-deactivate' ), [ $this, 'delete_cached_version_info' ] );
+	}
+
+	/**
+	 * Force a fresh update check by clearing the local transient and
+	 * re-querying the server with the `force` flag. Returns the same
+	 * structure as get_information() so callers can use it interchangeably.
+	 *
+	 * @return object|bool
+	 */
+	public function force_check() {
+		$this->delete_cached_version_info();
+
+		// Tell get_updates() to send `force=true` to the server via the
+		// before_client_request_check-update hook. Channel-aware (server
+		// also honours the per-installation beta_enabled flag).
+		add_filter( $this->client->getHookName( 'before_client_request_check-update' ), [ $this, 'inject_force_param' ], 10, 2 );
+
+		$info = $this->get_information( $this->client->isPlugin() ? 'plugin_update' : 'theme_update', true );
+
+		remove_filter( $this->client->getHookName( 'before_client_request_check-update' ), [ $this, 'inject_force_param' ], 10 );
+
+		return $info;
+	}
+
+	/**
+	 * Hook callback used by force_check() to flag the outgoing /check-update
+	 * request body as a forced refresh. Not used outside force_check().
+	 *
+	 * @param array $args
+	 *
+	 * @return array
+	 */
+	public function inject_force_param( $args ) {
+		if ( ! isset( $args['body'] ) || ! is_array( $args['body'] ) ) {
+			$args['body'] = [];
+		}
+
+		$args['body']['force'] = true;
+
+		return $args;
+	}
+
+	/**
+	 * Record `previous_version` after WP / our installer upgrades the host
+	 * plugin. Powers the "Roll back to v1.9.1" shortcut in the UI.
+	 *
+	 * @param WP_Upgrader $upgrader
+	 * @param array $hook_extra
+	 */
+	public function record_previous_version( $upgrader, $hook_extra ) {
+		if ( empty( $hook_extra['type'] ) || 'plugin' !== $hook_extra['type'] ) {
+			return;
+		}
+
+		if ( empty( $hook_extra['plugins'] ) && empty( $hook_extra['plugin'] ) ) {
+			return;
+		}
+
+		$updated = [];
+		if ( ! empty( $hook_extra['plugins'] ) && is_array( $hook_extra['plugins'] ) ) {
+			$updated = $hook_extra['plugins'];
+		} elseif ( ! empty( $hook_extra['plugin'] ) ) {
+			$updated = [ $hook_extra['plugin'] ];
+		}
+
+		if ( ! in_array( $this->client->getBasename(), $updated, true ) ) {
+			return;
+		}
+
+		// At this point the new code is already on disk, so reading the
+		// header here would return the *new* version. The pre-install
+		// version is whatever the SDK booted with on this request.
+		$previous = $this->client->getProjectVersion();
+
+		self::require_sibling( 'SE_License_SDK_Update_State' );
+		( new SE_License_SDK_Update_State( $this->client ) )->set( [
+			'previous_version' => $previous,
+			'last_install_at'  => time(),
+		] );
 	}
 
 	/**

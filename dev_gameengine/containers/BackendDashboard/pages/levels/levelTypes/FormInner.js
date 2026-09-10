@@ -358,14 +358,14 @@ const FormInner = () => {
             <img style={{
               "width": "100px"
             }} src={values?.icon} objectFit="cover" />
-            <button className="text-white text-xs font-medium leading-4 h-auto bg-[var(--gameengine-primary)]" style={{
+            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
               "padding": "6px 8px"
             }} onClick={handleImageUpload}>
               {__("Change Level Logo", "gameengine")}
             </button>
           </div>
         ) : (
-          <button className="text-white text-xs font-medium leading-4 h-auto bg-[var(--gameengine-primary)]" style={{
+          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
             "padding": "6px 8px"
           }} onClick={handleImageUpload}>
             {__("Set Level Logo", "gameengine")}

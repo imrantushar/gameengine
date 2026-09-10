@@ -103,7 +103,7 @@ class AcademyLMS extends BaseIntegration
             // Quiz Passed
             'academy_quiz_passed' => array(
                 'label' => __('Quiz Passed', 'gameengine'),
-                'hook' => 'academy_quiz_attempt_status_passed',
+                'hook' => 'academy/frontend/quiz_attempt_status_passed',
                 'args_count' => 1,
                 'description' => __('Awarded when a student passes a quiz.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
@@ -134,14 +134,37 @@ class AcademyLMS extends BaseIntegration
                 'schema' => self::merge_schema(array()),
             ),
 
+            // Assignment Submitted
+            'academy_assignment_submitted' => array(
+                'label' => __('Assignment Submitted', 'gameengine'),
+                'hook' => 'academy_pro_assignment/after_submit_assignment',
+                'args_count' => 3,
+                'description' => __('Awarded when a student submits an assignment, before it is evaluated.', 'gameengine'),
+                'supports' => array('point_type', 'achievement', 'level'),
+                'get_user_id' => function ($assignment_id, $user_id, $course_id) {
+                    return absint($user_id);
+                },
+                'schema' => self::merge_schema(array(
+                    array(
+                        'key' => 'course_id',
+                        'label' => __('Select Course', 'gameengine'),
+                        'type' => 'select',
+                        'width' => '50%',
+                        'dynamic' => array('integration' => 'academylms', 'query' => 'courses'),
+                    ),
+                    array('key' => 'include_categories', 'label' => __('Include Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'academylms', 'query' => 'course_categories')),
+                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => array('integration' => 'academylms', 'query' => 'course_categories')),
+                )),
+            ),
+
             // New Enrollment
             'academy_new_enrollment' => array(
                 'label' => __('New Enrollment', 'gameengine'),
-                'hook' => 'academy_new_enroll',
+                'hook' => 'academy/course/after_enroll',
                 'args_count' => 3,
                 'description' => __('Awarded when a student joins a new course.', 'gameengine'),
                 'supports' => array('point_type', 'achievement', 'level'),
-                'get_user_id' => function ($user_id, $course_id, $enrollment_id) {
+                'get_user_id' => function ( $course_id, $enrolled_id, $user_id ) {
                     return absint($user_id);
                 },
                 'schema' => self::merge_schema(array(
@@ -221,7 +244,7 @@ class AcademyLMS extends BaseIntegration
                 return array_values($data);
             },
             'course_categories' => function () {
-                $terms = get_terms(array('taxonomy' => 'course_category', 'hide_empty' => false));
+                $terms = get_terms(array('taxonomy' => 'academy_courses_category', 'hide_empty' => false));
                 if (is_wp_error($terms))
                     return array();
                 return array_map(fn($t) => array('label' => $t->name, 'value' => $t->term_id), $terms);

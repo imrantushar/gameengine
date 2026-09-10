@@ -41,25 +41,25 @@ export default function WheelAnalytics({ wheelId, isOpen, onClose }) {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <GameEngineBox>
                             <div className="text-center">
-                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Spins Today', 'gameengine')}</p>
+                                <p className="text-sm text-gray-500 font-medium capitalize m-0">{__('Spins Today', 'gameengine')}</p>
                                 <p className="text-2xl font-black text-blue-600 m-0">{data.spins_today}</p>
                             </div>
                         </GameEngineBox>
                         <GameEngineBox>
                             <div className="text-center">
-                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Total Spins', 'gameengine')}</p>
+                                <p className="text-sm text-gray-500 font-medium capitalize m-0">{__('Total Spins', 'gameengine')}</p>
                                 <p className="text-2xl font-black text-purple-600 m-0">{data.total_spins}</p>
                             </div>
                         </GameEngineBox>
                         <GameEngineBox>
                             <div className="text-center">
-                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Points Awarded', 'gameengine')}</p>
+                                <p className="text-sm text-gray-500 font-medium capitalize m-0">{__('Points Awarded', 'gameengine')}</p>
                                 <p className="text-2xl font-black text-green-600 m-0">{data.total_points_awarded}</p>
                             </div>
                         </GameEngineBox>
                         <GameEngineBox>
                             <div className="text-center">
-                                <p className="text-xs text-gray-500 font-bold uppercase m-0">{__('Unique Players', 'gameengine')}</p>
+                                <p className="text-sm text-gray-500 font-medium capitalize m-0">{__('Unique Players', 'gameengine')}</p>
                                 <p className="text-2xl font-black text-orange-500 m-0">{data.unique_users}</p>
                             </div>
                         </GameEngineBox>

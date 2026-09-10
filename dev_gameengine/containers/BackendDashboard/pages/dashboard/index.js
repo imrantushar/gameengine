@@ -8,6 +8,7 @@ import Distribution from "./Distribution";
 import Overview from "./Overview";
 import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,16 @@ const Dashboard = () => {
   };
   
   return <>
-    <TopBar path={__("Dashboard", "gameengine")} rightContent={<GetHelp />} />
+    <TopBar 
+      path={__("Dashboard", "gameengine")} 
+      rightContent={
+          <div className="flex items-center gap-2">
+              <WhatsNew />
+
+              <GetHelp filterText={['achievements']} />
+          </div>
+      }
+    />
 
     <div className="gameengine-page-content flex flex-col gap-6">
       <Overview data={overview} onFilterChange={handleFilterChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />

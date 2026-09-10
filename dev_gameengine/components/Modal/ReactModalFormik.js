@@ -8,8 +8,9 @@ import {
   MdLaptopMac,
   MdViewColumn
 } from 'react-icons/md';
-import { outlineBtn, xCloseBtn } from '../../../assets/scss/chakra/recipe';
+import { outlineBtn } from '../../../assets/scss/chakra/recipe';
 import Button from '@GFComponents/Button';
+import { IoClose } from 'react-icons/io5';
 
 const ReactModalFormik = ({
   children,
@@ -294,7 +295,7 @@ const ReactModalFormik = ({
         role="document"
       >
         <Formik {...formik}>
-          {({ isSubmitting }) => (
+          {({ isSubmitting, dirty }) => (
             <Form>
               <div className="gameengine-modal__head">
                 {title && (
@@ -331,8 +332,9 @@ const ReactModalFormik = ({
                   <button
                     onClick={onRequestClose}
                     disabled={isSubmitting}
-                    style={xCloseBtn}
-                  />
+                  >
+                    <IoClose />
+                  </button>
                 </div>
               </div>
 
@@ -352,7 +354,7 @@ const ReactModalFormik = ({
                     label={submitButtonLabel}
                     loadingLabel={submitButtonLabel}
                     isLoading={isSubmitting}
-                    isDisabled={isSubmitting}
+                    isDisabled={!dirty || isSubmitting}
                   />
                 </div>
               )}

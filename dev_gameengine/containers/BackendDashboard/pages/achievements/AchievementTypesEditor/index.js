@@ -5,7 +5,7 @@ import { __ } from "@wordpress/i18n";
 import TopBar from "@GFComponents/TopBar";
 import Select from 'react-select';
 import { fetchAchievementById, createAchievement, updateAchievement, fetchTriggers, fetchPointTypes } from "@GFRedux/Slices/achivementSlice/achievementsSlice";
-import { primaryBtn } from "../../../../../../assets/scss/chakra/recipe";
+import Button from "@GFComponents/Button";
 import GameEngineBox from "@GFComponents/GameEngineBox";
 import { getAchivementsInitialValues } from "./helper";
 import { Formik } from "formik";
@@ -85,13 +85,20 @@ const AchievementTypesEditor = () => {
           return (
             <>
               <TopBar
-                path={__("Achievement Types", "gameengine")}
+                hasBreadCrumb={true}
+                items={[
+                  { label: __('Achievements', 'gameengine'), href: `${route_path}admin.php?page=gameengine-achievements` },
+                  { label: values?.title ?? __('N/A', 'gameengine') }
+                ]}
                 rightContent={
                   <div className="flex gap-2.5">
                     <Select className="gameengine-select gameengine-select--120" classNamePrefix="gameengine-select" options={statusArray} value={statusArray.find(item => item.value === values.status)} onChange={option => setFieldValue('status', option.value)} />
-                    <button style={primaryBtn} onClick={submitForm} disabled={!dirty}>
-                      {editId ? __("Update", "gameengine") : __("Create", "gameengine")}
-                    </button>
+                    <Button
+                      label={editId ? __("Update", "gameengine") : __("Create", "gameengine")}
+                      isLoading={isSubmitting}
+                      isDisabled={!dirty || isSubmitting}
+                      onClick={submitForm}
+                    />
                   </div>
                 }
               />

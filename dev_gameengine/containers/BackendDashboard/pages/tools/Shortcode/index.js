@@ -26,7 +26,7 @@ const shortCodeData = [
       'Perfect for user headers, bio sections, or profile sidebar widgets.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/',
     isPro: false,
   },
   {
@@ -40,7 +40,7 @@ const shortCodeData = [
       'Ideal for menus, headers, or any place where you want to show the users wallet balance.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/',
     isPro: false,
   },
   {
@@ -54,7 +54,7 @@ const shortCodeData = [
       'Shows badge images, titles, and unlock hints for any locked achievements.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/',
     isPro: false,
   },
   {
@@ -68,7 +68,7 @@ const shortCodeData = [
       'A complete hub where users can see their points, badges, and roadmap in one place.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/',
     isPro: false,
   },
   {
@@ -82,7 +82,7 @@ const shortCodeData = [
       'Provides an interactive journey timeline without the full dashboard layout.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/how-to-work-gameengine-progress-map-addon/',
     isPro: false,
   },
   {
@@ -96,7 +96,7 @@ const shortCodeData = [
       'Usage: type (points/achievement/level), value (amount or ID), and optional custom message.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/restrict-content-using-points-gameengine/',
     isPro: false,
   },
   {
@@ -110,7 +110,7 @@ const shortCodeData = [
       'Renders the dynamic reward store with offers set in your admin settings.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/shortcodes/',
+    url: 'https://gameengine.pro/docs/coupon-generate/',
     isPro: is_pro === '1' ? false : true,
   },
   {
@@ -145,7 +145,7 @@ const shortCodeData = [
 
 const ShortCode = () => {
   return (
-    <div className="gameengine-tools-page__short-code">
+    <div className="gameengine-tools-page__short-code border-0 border-t border-solid border-[var(--gameengine-border-color)] pt-6">
       {shortCodeData.map((item, index) => (
         <ShortCodeItem shortCodeItem={item} key={index} />
       ))}

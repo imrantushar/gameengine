@@ -131,6 +131,7 @@ class CustomImage extends Image {
     const [customHTML, setCustomHTML] = useState('');
     const [showCustomInserter, isShowCustomInserter] = useState(false);
     const isInitialized = useRef(false);
+    const isFirstValueEffect = useRef(true);
     const showCustomHTML = isCustomHTML ? [['customHTML']] : [];
 
     useEffect(() => {
@@ -218,6 +219,10 @@ class CustomImage extends Image {
     }, [suffix]);
 
     useEffect(() => {
+        if (isFirstValueEffect.current) {
+            isFirstValueEffect.current = false;
+            return;
+        }
         if (!isInitialized.current || !quillRef.current) return;
 
         const quill = quillRef.current;

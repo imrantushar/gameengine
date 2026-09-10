@@ -15,15 +15,49 @@ class Installer
 {
 
     /**
+     * Option storing the hash of the current table definitions.
+     * When Schema::get_tables() changes, the hash changes and maybe_sync_schema()
+     * re-runs dbDelta automatically — so a schema edit no longer needs a manual
+     * reactivation or a scratch update script.
+     */
+    const SCHEMA_HASH_OPTION = 'gameengine_schema_hash';
+
+    /**
      * Run the installer process on plugin activation.
      */
     public function run()
     {
         $this->create_tables();
 
+        update_option( self::SCHEMA_HASH_OPTION, self::compute_schema_hash(), true );
+
 		if ( ! get_option( 'gameengine_first_install_time' ) ) {
 			add_option( 'gameengine_first_install_time', time(), false );
 		}
+    }
+
+    /**
+     * Hash of the current table definitions, used to detect schema changes.
+     */
+    public static function compute_schema_hash()
+    {
+        return md5( implode( '', Schema::get_tables() ) );
+    }
+
+    /**
+     * Re-runs the installer when the table definitions change.
+     *
+     * Hooked early on `init`; cheap because it only reads one autoloaded option
+     * and md5s the schema strings. dbDelta runs only when the hash differs.
+     */
+    public static function maybe_sync_schema()
+    {
+        $hash = self::compute_schema_hash();
+        if ( ! $hash || $hash === get_option( self::SCHEMA_HASH_OPTION ) ) {
+            return;
+        }
+
+        ( new self() )->run();
     }
 
     /**

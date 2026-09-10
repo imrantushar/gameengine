@@ -6,6 +6,7 @@ import { GoPlus } from 'react-icons/go';
 import LogsTable from './LogsTable';
 import LogsModal from './LogsModal';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Logs = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,7 +27,15 @@ const Logs = () => {
 
   return (
     <>
-      <TopBar path={__("Logs", "gameengine")} rightContent={<GetHelp filterText={['logs']} />} />
+      <TopBar path={__("Logs", "gameengine")}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+
+                <GetHelp filterText={['logs']} />
+            </div>
+        }
+      />
 
       <div className='gameengine-page-content'>
         <div className="flex justify-between items-center py-6 px-1">

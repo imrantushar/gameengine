@@ -241,7 +241,7 @@ const LevelTable = () => {
 
         <div className="gameengine-table-subheader-right pb-2">
           <Search
-            placeholder="Search question"
+            placeholder="Search levels"
             onSearchHandler={searchHandler}
             defaultValue={search ? search : ''}
           />

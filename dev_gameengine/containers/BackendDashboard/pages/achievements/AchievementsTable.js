@@ -265,7 +265,7 @@ const AchievementsTable = () => {
 
         <div className="gameengine-table-subheader-right pb-2">
           <Search
-            placeholder="Search question"
+            placeholder="Search achievements"
             onSearchHandler={searchHandler}
             defaultValue={search ? search : ''}
           />

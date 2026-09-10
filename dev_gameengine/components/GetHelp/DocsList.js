@@ -12,7 +12,7 @@ const DocList = ({ title, data, notDocsFound }) => (
 			<ul className="gameengine-get-help-list__list-items">
 				{data.map((item, index) => (
 					<li key={index}>
-						<a href={item.link} target="_blank" rel="noreferrer">
+						<a href={item.link || 'https://gameengine.pro/docs/'} target="_blank" rel="noreferrer">
 							<span className="gameengine-docs-title">
 								{/* {sliceString(item.title, 40)} */}
                 {item.title}

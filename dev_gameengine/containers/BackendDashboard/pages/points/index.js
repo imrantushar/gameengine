@@ -10,6 +10,7 @@ import { fetchPointTypes } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice'
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import WhatsNew from '@GFComponents/WhatsNew';
 
 const Points = () => {
   const [banners, setBanners] = useState(window.GameEngineGlobal.banners);
@@ -36,7 +37,15 @@ const Points = () => {
 
   return (
     <>
-      <TopBar path={__("Points System", "gameengine")} rightContent={<GetHelp filterText={['points']} />} />
+      <TopBar path={__("Points System", "gameengine")}
+        rightContent={
+            <div className="flex items-center gap-2">
+                <WhatsNew />
+
+                <GetHelp filterText={['points']} />
+            </div>
+        }
+      />
 
       <div className='gameengine-page-content'>
         {pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}

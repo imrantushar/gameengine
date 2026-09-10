@@ -5,21 +5,24 @@ $gameengine_user_data      = get_userdata($gameengine_user_id);
 $gameengine_points_manager = new \GameEngine\Classes\PointsManager();
 $gameengine_points_total   = $gameengine_points_manager->get_grand_total($gameengine_user_id);
 
-// Rank display (task 5.4).
 $gameengine_user_rank  = null;
 if (class_exists('\GameEngine\Classes\RanksManager')) {
     $gameengine_user_rank = \GameEngine\Classes\RanksManager::get_user_rank($gameengine_user_id);
 }
 
-// User streaks (task 11.5).
 $gameengine_user_streaks = array();
 if (class_exists('\GameEngine\Classes\StreaksManager')) {
     $gameengine_user_streaks = \GameEngine\Classes\StreaksManager::get_user_streaks($gameengine_user_id);
 }
 
-// Social sharing toggle (task 18.3).
 $gameengine_general_settings = get_option('gameengine_general_settings', array());
 $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_sharing']) || ! empty($gameengine_general_settings['social_sharing']);
+
+// The Progress Map tab only works when its addon is active (that is what loads
+// Progress_Map_Logic). When it is off, skip the tab entirely instead of
+// rendering an empty pane, and let the next tab be the default.
+$gameengine_has_progress_map = class_exists('\GameEngine\Addons\ProgressMap\Progress_Map_Logic');
+$gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : 'achievements';
 ?>
 <div class="gameengine-dashboard">
     <div class="gameengine-header">
@@ -50,10 +53,12 @@ $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_shar
         </div>
         <div class="gameengine-header-actions">
             <div class="gameengine-header-tabs">
+                <?php if ($gameengine_has_progress_map) : ?>
                 <button class="gameengine-tab-btn gameengine-active" data-tab="progress-map">
                     <span class="gameengine-icon">🗺️</span> <?php esc_html_e('Progress Map', 'gameengine'); ?>
                 </button>
-                <button class="gameengine-tab-btn" data-tab="achievements">
+                <?php endif; ?>
+                <button class="gameengine-tab-btn <?php echo ('achievements' === $gameengine_default_tab) ? 'gameengine-active' : ''; ?>" data-tab="achievements">
                     <span class="gameengine-icon">🏅</span> <?php esc_html_e('Achievements', 'gameengine'); ?>
                 </button>
                 <button class="gameengine-tab-btn" data-tab="levels">
@@ -72,14 +77,14 @@ $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_shar
     <div class="gameengine-main-layout">
 
         <div class="gameengine-content-area">
+            <?php if ($gameengine_has_progress_map) : ?>
             <div class="gameengine-tab-content gameengine-active" id="progress-map">
                 <?php
-                if (class_exists('\GameEngine\Addons\ProgressMap\Progress_Map_Logic')) {
-                    echo \GameEngine\Addons\ProgressMap\Progress_Map_Logic::render_html($gameengine_user_id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-                }
+                echo \GameEngine\Addons\ProgressMap\Progress_Map_Logic::render_html($gameengine_user_id); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 ?>
             </div>
-            <div class="gameengine-tab-content" id="achievements">
+            <?php endif; ?>
+            <div class="gameengine-tab-content <?php echo ('achievements' === $gameengine_default_tab) ? 'gameengine-active' : ''; ?>" id="achievements">
                 <h4><?php esc_html_e('Badges & Achievements', 'gameengine'); ?></h4>
                 <?php \GameEngine\Helper::get_template('shortcode/achievements.php'); ?>
             </div>
