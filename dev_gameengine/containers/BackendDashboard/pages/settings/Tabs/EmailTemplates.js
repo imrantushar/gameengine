@@ -199,7 +199,12 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                                         </p>
 
                                                         <div className="rounded-lg border border-solid border-[var(--gameengine-border-color)] bg-[var(--gameengine-secondary-color)] p-8">
-                                                            <div className="bg-[var(--gameengine-background)] rounded-lg" style={{
+                                                            {/* Deliberately white in both modes: this is a preview of the
+                                                                mail as it will arrive in someone's inbox, and its type colours
+                                                                below are the email's own. Theming the sheet but not the text
+                                                                left the preview dark-on-dark. */}
+                                                            <div className="rounded-lg" style={{
+                                                                "background": "#fff",
                                                                 "padding": "30px",
                                                                 "boxShadow": "0 4px 12px rgba(0,0,0,0.06)"
                                                             }}>

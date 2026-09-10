@@ -138,7 +138,17 @@ h1, h2, h3, h4, h5, h6, p, span, label, div, th {
 // not set its own colour inherits it, which reads as near-black on the dark
 // ground. Anchor a themed base on the app root so those elements (table cells
 // especially) follow the mode.
-.gameengine-admin-content {
+//
+// Modals, drawers, menus and toasts render through a portal onto <body>, so
+// they sit OUTSIDE the app root and never saw that anchor: their surfaces were
+// correctly dark while every label inside them stayed near-black. Each portal
+// root has to carry the base colour itself.
+.gameengine-admin-content,
+.gameengine-modal-overlay,
+.gameengine-drawer,
+.gameengine-more-options,
+.gameengine-snackbar-action,
+.gameengine-notification {
     color: var(--gameengine-font-color);
 }
 

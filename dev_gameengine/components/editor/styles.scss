@@ -53,9 +53,10 @@ $editor-font: 'sans-serif';
     .ql-formats:nth-last-child(3),
     .ql-formats:nth-last-child(2),
     .ql-formats:nth-last-child(1) {
-        // Soft amber that works on both grounds; the flat cream read as a
-        // bright tan slab once the admin went dark.
-        background: var(--gameengine-warning-light);
+        // Neutral inset rather than the old flat cream: the tint only exists
+        // to group these toolbar buttons, and any hue here turns muddy against
+        // the dark ground.
+        background: var(--gameengine-secondary-color);
     }
 
     .ql-formats:nth-last-child(1) {
