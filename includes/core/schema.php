@@ -184,7 +184,7 @@ final class Schema
             level_id BIGINT(20) UNSIGNED NOT NULL,
             achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_id (user_id),
+            UNIQUE KEY user_level (user_id, level_id),
             KEY level_id (level_id)
         ) $charset_collate;";
     }

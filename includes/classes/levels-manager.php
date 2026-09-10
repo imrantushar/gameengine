@@ -59,17 +59,17 @@ class LevelsManager
             return false;
         }
 
-        // Insert into User Levels Table
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $result = $wpdb->insert(
-            $wpdb->prefix . 'gameengine_user_levels',
-            [
-                'user_id' => $safe_user_id,
-                'level_id' => $safe_level_id,
-                'achieved_at' => current_time('mysql'),
-            ],
-            ['%d', '%d', '%s']
-        );
+        // Insert into User Levels Table.
+        // INSERT IGNORE leans on the UNIQUE (user_id, level_id) key so two
+        // concurrent point awards cannot both pass the has_level() check above
+        // and grant the same level twice; the loser affects no rows.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $result = $wpdb->query($wpdb->prepare(
+            "INSERT IGNORE INTO {$wpdb->prefix}gameengine_user_levels (user_id, level_id, achieved_at) VALUES (%d, %d, %s)",
+            $safe_user_id,
+            $safe_level_id,
+            current_time('mysql')
+        ));
 
         if (!$result) {
             return false;
@@ -117,7 +117,7 @@ class LevelsManager
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $levels = $wpdb->get_results($wpdb->prepare(
             "SELECT id, min_points, priority FROM {$wpdb->prefix}gameengine_levels 
-             WHERE point_type_id = %d AND unlock_with_points_enabled = 1 
+             WHERE point_type_id = %d AND unlock_with_points_enabled = 1 AND status = 'publish'
              ORDER BY priority ASC, min_points ASC",
             $safe_pt_id
         ));

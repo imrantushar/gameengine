@@ -308,6 +308,7 @@ class AchievementsController extends BaseController
                     'trigger_key' => sanitize_text_field($req['trigger_key']),
                     'action_type' => 'award',
                     'parameters'  => wp_json_encode($req['parameters']),
+                    'priority'    => isset($req['parameters']['priority']) ? intval($req['parameters']['priority']) : 0,
                     'is_active'   => 1,
                     'created_at'  => current_time('mysql')
                 ));
