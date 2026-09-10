@@ -6,10 +6,24 @@ if (!defined('ABSPATH'))
 $gameengine_levels_manager = new \GameEngine\Classes\LevelsManager();
 
 $gameengine_user_id = isset($user_id) ? absint($user_id) : get_current_user_id();
-$gameengine_pt_id = isset($point_type_id) ? absint($point_type_id) : 1;
+// 0 = "no specific currency". Only filter to one point type when the caller
+// actually asked for it via the shortcode attribute — otherwise every level is
+// shown, whatever point type it belongs to.
+$gameengine_pt_id = isset($point_type_id) ? absint($point_type_id) : 0;
 
-$gameengine_next_lvl_data = $gameengine_levels_manager->get_next_level($gameengine_user_id, $gameengine_pt_id);
-$gameengine_all_lvls = $gameengine_levels_manager->get_all_levels_with_status($gameengine_user_id, $gameengine_pt_id);
+// "Next milestone" progress is per-currency, so it still needs one point type;
+// fall back to the first defined one instead of assuming ID 1.
+$gameengine_next_pt_id = $gameengine_pt_id;
+if (! $gameengine_next_pt_id) {
+	global $wpdb;
+	// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+	$gameengine_next_pt_id = (int) $wpdb->get_var("SELECT id FROM {$wpdb->prefix}gameengine_point_types ORDER BY id ASC LIMIT 1");
+}
+
+$gameengine_next_lvl_data = $gameengine_next_pt_id
+	? $gameengine_levels_manager->get_next_level($gameengine_user_id, $gameengine_next_pt_id)
+	: null;
+$gameengine_all_lvls = $gameengine_levels_manager->get_all_levels_with_status($gameengine_user_id, $gameengine_pt_id ?: null);
 
 ?>
 <div class="gameengine-level-container">

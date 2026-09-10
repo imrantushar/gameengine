@@ -98,6 +98,9 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 == Changelog ==
 
 = 1.3.3 - 2026-09-07 =
+* Added - New "Assignment Submitted" trigger for the Academy LMS integration (fires when a student submits an assignment, independent of the existing "Assignment Evaluated" trigger).
+* Added - The Restrict Content addon's points/achievement/level lock now also covers Academy course landing pages (previously `post`/`page` only), with an admin-facing note clarifying it restricts the description only, not enrollment.
+* Fixed - The `academy_courses` category filters on Academy LMS triggers used a taxonomy slug (`course_category`) that doesn't match Academy's actual course-category taxonomy (`academy_courses_category`), so Pro's include/exclude-category rules on Academy triggers never matched. Corrected to the real taxonomy slug.
 * Added - Every generated file in `assets/build/` now begins with a comment naming the source file it was built from, that `dev_gameengine/` is this plugin's source directory, and the command that rebuilds it.
 * Added - A `README.md` in the plugin directory listing which source file produces which generated file, how to build, and how the directories are laid out.
 * Changed - The readme now says outright that `dev_gameengine/` is this plugin's source directory, since the name does not say so on its own.

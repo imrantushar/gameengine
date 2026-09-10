@@ -20,7 +20,9 @@ class Content_Filter
 
     public static function apply_restriction($content)
     {
-        if (! is_singular(array('post', 'page'))) {
+        $restrictable_post_types = apply_filters('gameengine_restrict_content_post_types', array('post', 'page', 'academy_courses'));
+
+        if (! is_singular($restrictable_post_types)) {
             return $content;
         }
 
@@ -36,6 +38,16 @@ class Content_Filter
         $only_media = get_post_meta($post_id, '_gameengine_lock_media', true);
 
         if (empty($type) || 'none' === $type) {
+            return $content;
+        }
+
+        // A student already enrolled in the course has, by definition, cleared
+        // whatever gate the site put on it — keep showing them the overview
+        // instead of a lock box. (Academy courses only; other post types have
+        // no enrollment concept.)
+        if ('academy_courses' === get_post_type($post_id)
+            && is_callable(array('\Academy\Helper', 'is_enrolled'))
+            && \Academy\Helper::is_enrolled($post_id, get_current_user_id())) {
             return $content;
         }
 
@@ -56,7 +68,7 @@ class Content_Filter
             }
 
             // Fully lock the post content.
-            return Restriction_Helper::get_locked_ui($lock_msg);
+            return Restriction_Helper::get_locked_ui($lock_msg, $type, $required_v);
         }
 
         return $content;

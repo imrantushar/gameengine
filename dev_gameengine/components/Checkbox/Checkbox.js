@@ -1,7 +1,9 @@
 import React from 'react';
 
 const Checkbox = ({ checked = false, onChange, disabled = false, className = '' }) => {
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!disabled) onChange?.(!checked);
   };
 

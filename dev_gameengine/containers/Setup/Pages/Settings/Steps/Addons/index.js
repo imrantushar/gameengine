@@ -120,7 +120,7 @@ const Addons = () => {
               </div>
 
               <span className='ml-auto'>
-                <Checkbox checked={isChecked} disabled={isDisabled} />
+                <Checkbox checked={isChecked} disabled={isDisabled} onChange={() => handleToggle(item?.name)} />
               </span>
             </div>
           );
