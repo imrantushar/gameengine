@@ -223,6 +223,8 @@ class AchievementsController extends BaseController
             'required_level_id'          => ! empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
             'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
             'badge_id'                   => ! empty($params['badge_id']) ? absint($params['badge_id']) : null,
+            // Null means always available; a season id limits it to that run.
+            'season_id'                  => ! empty($params['season_id']) ? absint($params['season_id']) : null,
             'created_at'                 => current_time('mysql'),
         );
 

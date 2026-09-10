@@ -126,6 +126,27 @@ const FormInner = () => {
     }
   }, [isRestrictContentActive]);
 
+  // Seasons are a Pro feature. An empty list — because Pro is inactive or
+  // nobody has made one — leaves the field out entirely rather than showing a
+  // control that cannot do anything.
+  const [seasons, setSeasons] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    API.get(namespace + 'pro/seasons')
+      .then(res => { if (!cancelled) setSeasons(Array.isArray(res.data) ? res.data : []); })
+      .catch(() => { if (!cancelled) setSeasons([]); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const seasonOptions = useMemo(() => ([
+    { label: __('Always available', 'gameengine'), value: 0 },
+    ...seasons.map(s => ({
+      label: `${s.name} (${s.start_date} → ${s.end_date})`,
+      value: Number(s.id),
+    })),
+  ]), [seasons]);
+
   const {
     allHooks,
     hookSettings,
@@ -364,6 +385,23 @@ const FormInner = () => {
           />
         </GameEngineInput>
       </div>
+
+      {seasons.length > 0 && (
+        <GameEngineInput
+          label={__('Season', 'gameengine')}
+          width="100%"
+          desc={__('A season-limited achievement can only be earned while that season is running.', 'gameengine')}
+        >
+          <Select
+            className="gameengine-select"
+            classNamePrefix="gameengine-select"
+            options={seasonOptions}
+            value={seasonOptions.find(o => Number(o.value) === Number(values.season_id || 0))}
+            onChange={option => setFieldValue('season_id', option.value || null)}
+            menuPlacement="bottom"
+          />
+        </GameEngineInput>
+      )}
 
       {badges.length > 0 && (
         <div className="flex flex-col gap-2">

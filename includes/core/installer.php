@@ -166,6 +166,14 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER plural_name");
         }
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $season_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'season_id'));
+
+        if (empty($season_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN season_id BIGINT(20) UNSIGNED DEFAULT NULL");
+        }
+
         $this->backfill_slugs($ach_table, 'achievement');
         $this->backfill_slugs("{$wpdb->prefix}gameengine_levels", 'level');
     }

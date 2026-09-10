@@ -17,6 +17,10 @@ export const getAchivementsInitialValues = (id=null, data) => {
       required_achievement_id: filteredData?.required_achievement_id,
       restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
+      // Both were missing, so opening an achievement and saving it cleared
+      // whatever badge it had.
+      badge_id: filteredData?.badge_id ?? null,
+      season_id: filteredData?.season_id ?? null,
       status: filteredData?.status,
     }
   }
@@ -34,6 +38,8 @@ export const getAchivementsInitialValues = (id=null, data) => {
     required_level_id: 0,
     restriction_message: "",
     congratulations_message: "",
+    badge_id: null,
+    season_id: null,
     status: "publish",
     requirements: []
   }

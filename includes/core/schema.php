@@ -74,6 +74,7 @@ final class Schema
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
             restriction_message TEXT DEFAULT NULL,
+            season_id BIGINT(20) UNSIGNED DEFAULT NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             UNIQUE KEY slug (slug),

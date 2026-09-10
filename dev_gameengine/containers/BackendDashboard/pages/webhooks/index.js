@@ -15,6 +15,7 @@ const EVENTS = [
     { key: 'achievement_unlocked', label: __('Achievement Unlocked', 'gameengine') },
     { key: 'streak_milestone', label: __('Streak Milestone', 'gameengine') },
     { key: 'streak_broken', label: __('Streak Broken', 'gameengine') },
+    { key: 'season_completed', label: __('Season Completed', 'gameengine') },
 ];
 
 const EMPTY_FORM = { name: '', url: '', events: [], secret: '', active: true };
