@@ -15,9 +15,6 @@ import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
-import Analytics from './pages/analytics';
-import Seasons from './pages/seasons';
-import Webhooks from './pages/webhooks';
 import Types from './pages/Types';
 import { useLocationQuery } from '@GFHooks/';
 
@@ -73,16 +70,6 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-badge-editor':
 			return <Badges />;
 
-
-		case 'gameengine-analytics':
-			return <Analytics />;
-
-
-		case 'gameengine-seasons':
-			return <Seasons />;
-
-		case 'gameengine-webhooks':
-			return <Webhooks />;
 
 		default: {
 			// Screens registered by another plugin for the features it ships.
