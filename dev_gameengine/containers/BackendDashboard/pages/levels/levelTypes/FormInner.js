@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
+import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaStore } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
@@ -45,11 +45,19 @@ const FormInner = () => {
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
   const isTutorLmsActive = getAddonActiveStatus(addons, 'tutorlms');
+  const isStoreEngineActive = getAddonActiveStatus(addons, 'storeengine');
 
   const wooIcon = isWoocommerceActive ? {
     woocommerce: {
       icon: SiWoocommerce,
       bg: "#96588a"
+    }
+  } : {};
+
+  const storeEngineIcon = isStoreEngineActive ? {
+    storeengine: {
+      icon: FaStore,
+      bg: "#008DFF"
     }
   } : {};
 
@@ -165,6 +173,7 @@ const FormInner = () => {
     },
     ...wooIcon,
     ...academy,
+    ...storeEngineIcon,
     gameengine: {
       icon: FaGamepad,
       bg: "#006BFF"
