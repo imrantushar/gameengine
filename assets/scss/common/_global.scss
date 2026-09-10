@@ -242,6 +242,9 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
 .gameengine-sortable-hook.is-dragging {
     opacity: 1;
     position: relative;
+    // A collapsed card leaves a slot too shallow to read as a target. Floor it
+    // at a card's height so the gap always looks like somewhere a card goes.
+    min-height: 45px;
 
     > * {
         opacity: 0;
