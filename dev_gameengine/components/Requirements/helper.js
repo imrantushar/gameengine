@@ -31,3 +31,28 @@ export const DraggableItem = ({ id, children }) => {
 		</div>
 	);
 };
+
+/**
+ * Index a card dropped on `overId` should take in the active list.
+ *
+ * `overId` is either another card in the column — drop before it — or the
+ * column itself, which means the pointer was over empty space below the last
+ * card, so it goes on the end.
+ *
+ * @param {string|number} overId      What the pointer was released over.
+ * @param {Array}         sortableIds The active column's card ids, in order.
+ * @return {number} Insertion index.
+ */
+export const dropIndex = (overId, sortableIds) => {
+	const index = sortableIds.indexOf(overId);
+	return index === -1 ? sortableIds.length : index;
+};
+
+/**
+ * A copy of `list` with `item` spliced in at `index`.
+ */
+export const insertAt = (list, item, index) => {
+	const next = [ ...list ];
+	next.splice(index, 0, item);
+	return next;
+};

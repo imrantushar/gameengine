@@ -5,7 +5,7 @@ import { __, } from "@wordpress/i18n";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
@@ -201,35 +201,63 @@ const FormInner = () => {
     return [];
   }, [values?.requirements, allHooks]);
 
+  /**
+   * Position in `requirements` for a card released over `overId`: another
+   * card's slot, or the end of the list when released over the column itself.
+   */
+  const dropPositionFor = (overId, list) => {
+    if (typeof overId === "string" && overId.startsWith("award_")) {
+      const key = overId.slice("award_".length);
+      const index = list.findIndex(r => r.trigger_key === key && r.action_type === "award");
+      if (index !== -1) return index;
+    }
+    return list.length;
+  };
+
   const handleDragEnd = ({
     active,
     over
   }) => {
     if (!over) return;
     const draggedId = active.id;
-    const requirements = values.requirements || [];
+    if (!String(draggedId).startsWith("award_")) return;
 
-    if (draggedId.startsWith("award_")) {
-      const pureId = draggedId.replace("award_", "");
-      const exists = requirements.some(r => r.trigger_key === pureId && r.action_type === "award");
-      if (over.id === "awards-sidebar" && !exists) {
-        const hook = allHooks.find(h => h.id === pureId);
-        if (!hook) return;
-        const newRequirement = {
-          trigger_key: pureId,
-          action_type: "award",
-          parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[`award_${pureId}`]?.[f.key] ?? f.default]))
-        };
-        setFieldValue("requirements", [...requirements, newRequirement]);
-        setOpenedHooks([pureId]);
-        return;
-      }
-      if (over.id === "awards-available" && exists) {
-        setFieldValue("requirements", requirements.filter(r => !(r.trigger_key === pureId && r.action_type === "award")));
-        setOpenedHooks(prev => prev.filter(id => id !== pureId));
-        return;
-      }
+    const requirements = values.requirements || [];
+    const pureId = draggedId.replace("award_", "");
+    const from = requirements.findIndex(r => r.trigger_key === pureId && r.action_type === "award");
+    const exists = from !== -1;
+
+    if (over.id === "awards-available") {
+      if (!exists) return;
+      setFieldValue("requirements", requirements.filter((_, i) => i !== from));
+      setOpenedHooks(prev => prev.filter(id => id !== pureId));
+      return;
     }
+
+    if (over.id !== "awards-sidebar" && !String(over.id).startsWith("award_")) return;
+
+    // Insert and reorder are the same move — pull the card out, put it back at
+    // the drop index measured against the list without it.
+    const without = exists ? requirements.filter((_, i) => i !== from) : requirements;
+
+    let entry;
+    if (exists) {
+      entry = requirements[from];
+    } else {
+      const hook = allHooks.find(h => h.id === pureId);
+      if (!hook) return;
+      entry = {
+        trigger_key: pureId,
+        action_type: "award",
+        parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[`award_${pureId}`]?.[f.key] ?? f.default]))
+      };
+    }
+
+    const to = dropPositionFor(over.id, without);
+    if (exists && to === from) return;
+
+    setFieldValue("requirements", insertAt(without, entry, to));
+    if (!exists) setOpenedHooks([pureId]);
   };
 
   const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({
@@ -425,6 +453,7 @@ const FormInner = () => {
       ) : (
         <DndContext
           sensors={sensors}
+          collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >

@@ -205,6 +205,30 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     }
 }
 
+// In the Active column the card's own slot IS the drop target, so it is drawn
+// as an outlined placeholder rather than just faded: the gap that opens up
+// reads as "it lands here" instead of looking like a rendering gap. The card's
+// content is hidden rather than unmounted so the slot keeps its exact height
+// and the list does not jump.
+.gameengine-sortable-hook.is-dragging {
+    opacity: 1;
+    position: relative;
+
+    > * {
+        opacity: 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 2px dashed var(--gameengine-primary);
+        border-radius: var(--gameengine-surface-radius);
+        background: var(--gameengine-primary-light);
+        pointer-events: none;
+    }
+}
+
 .gameengine-hook-dropzone {
     height: 100%;
     border-radius: var(--gameengine-surface-radius);

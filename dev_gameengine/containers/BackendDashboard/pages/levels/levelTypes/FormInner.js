@@ -4,7 +4,7 @@ import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
-import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
@@ -212,29 +212,53 @@ const FormInner = () => {
     }
   }, [values?.requirements]);
 
+  /**
+   * Position in `requirements` for a card released over `overId`: another
+   * card's slot, or the end of the list when released over the column itself.
+   */
+  const dropPositionFor = (overId, list) => {
+    const index = list.findIndex(r => r.trigger_key === overId);
+    return index === -1 ? list.length : index;
+  };
+
   const handleDragEnd = ({ active, over }) => {
     if (!over) return;
     const draggedId = active.id;
     const requirements = values.requirements || [];
-    const exists = requirements.some(r => r.trigger_key === draggedId);
+    const from = requirements.findIndex(r => r.trigger_key === draggedId);
+    const exists = from !== -1;
 
-    if (over.id === "awards-sidebar" && !exists) {
-      const hook = allHooks.find(h => h.id === draggedId);
-      if (!hook) return;
-      const newRequirement = {
-        trigger_key: draggedId,
-        parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[draggedId]?.[f.key] ?? f.default]))
-      };
-      setFieldValue("requirements", [...requirements, newRequirement]);
-      setOpenedHooks([draggedId]);
-      return;
-    }
-
-    if (over.id === "awards-available" && exists) {
-      setFieldValue("requirements", requirements.filter(r => r.trigger_key !== draggedId));
+    if (over.id === "awards-available") {
+      if (!exists) return;
+      setFieldValue("requirements", requirements.filter((_, i) => i !== from));
       setOpenedHooks(prev => prev.filter(id => id !== draggedId));
       return;
     }
+
+    const overIsCard = requirements.some(r => r.trigger_key === over.id);
+    if (over.id !== "awards-sidebar" && !overIsCard) return;
+
+    // Insert and reorder are the same move — pull the card out, put it back at
+    // the drop index measured against the list without it.
+    const without = exists ? requirements.filter((_, i) => i !== from) : requirements;
+
+    let entry;
+    if (exists) {
+      entry = requirements[from];
+    } else {
+      const hook = allHooks.find(h => h.id === draggedId);
+      if (!hook) return;
+      entry = {
+        trigger_key: draggedId,
+        parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[draggedId]?.[f.key] ?? f.default]))
+      };
+    }
+
+    const to = dropPositionFor(over.id, without);
+    if (exists && to === from) return;
+
+    setFieldValue("requirements", insertAt(without, entry, to));
+    if (!exists) setOpenedHooks([draggedId]);
   };
 
   const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
@@ -399,6 +423,7 @@ const FormInner = () => {
       ) : (
         <DndContext
           sensors={sensors}
+          collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >
@@ -427,6 +452,7 @@ const FormInner = () => {
             allHooks={allHooks}
             hookSettings={hookSettings}
             actionName="award"
+            itemId={id => id}
             selectedFilterType={selectedFilterHookType}
             scope="level"
           />

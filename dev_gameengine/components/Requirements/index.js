@@ -4,7 +4,8 @@ import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import HookConfigurationForm from './HookConfigurationForm';
 import { useDroppable } from '@dnd-kit/core';
-import { DraggableItem } from './helper';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { SortableHook } from './SortableHook';
 import { useDispatch } from 'react-redux';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import EmptyState from './EmptyState';
@@ -46,6 +47,9 @@ const Requirements = props => {
     actionName,
     scope,
     externalClasses,
+    // How a hook id becomes a drag id. Defaults to the prefixed form the
+    // points and achievements editors use; levels drags by bare hook id.
+    itemId = (hookId) => `${actionName}_${hookId}`,
   } = props;
   const dispatch = useDispatch();
 
@@ -55,6 +59,11 @@ const Requirements = props => {
   }, ...hookTypeOptions];
 
   const tabContainerRef = useRef(null);
+
+  const activeHooks = (selectedHookIds || [])
+    .map(id => allHooks?.find(h => h.id === id))
+    .filter(Boolean);
+  const activeHookIds = activeHooks.map(h => itemId(h.id));
 
   const scrollLeft = () => {
     tabContainerRef.current?.scrollBy({
@@ -129,9 +138,11 @@ const Requirements = props => {
               {!selectedHookIds || selectedHookIds.length === 0 ? (
                 <EmptyState />
               ) : (
-                selectedHookIds.map(id => allHooks?.find(h => h.id === id)).filter(Boolean).map(h => <DraggableItem key={`${actionName}_${h.id}`} id={`${actionName}_${h.id}`}>
-                  <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
-                </DraggableItem>)
+                <SortableContext items={activeHookIds} strategy={verticalListSortingStrategy}>
+                  {activeHooks.map(h => <SortableHook key={itemId(h.id)} id={itemId(h.id)}>
+                    <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
+                  </SortableHook>)}
+                </SortableContext>
               )}
             </DroppableArea>
           </div>

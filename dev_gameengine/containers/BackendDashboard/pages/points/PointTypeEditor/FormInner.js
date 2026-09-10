@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
-import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { SiWoocommerce } from "react-icons/si";
@@ -12,6 +12,7 @@ import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoade
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
 import DragPreview from '@GFComponents/Requirements/DragPreview';
+import { insertAt } from '@GFComponents/Requirements/helper';
 import { arrowForward } from '@GFUtils/icons';
 import { getAddonActiveStatus } from '@GFUtils/helper';
 
@@ -92,56 +93,75 @@ const FormInner = ({ hooksLoading }) => {
     return params;
   };
 
+  /**
+   * Position in `requirements` for a card released over `overId`.
+   *
+   * Released over another card in the column, it takes that card's slot and
+   * pushes it down. Released over the column itself — the empty space below
+   * the last card — it goes on the end.
+   */
+  const dropPositionFor = (overId, type, list) => {
+    const prefix = `${type}_`;
+    if (typeof overId === "string" && overId.startsWith(prefix)) {
+      const key = overId.slice(prefix.length);
+      const index = list.findIndex(r => r.trigger_key === key && r.action_type === type);
+      if (index !== -1) return index;
+    }
+    return list.length;
+  };
+
   const handleDragEnd = ({ active, over }) => {
     if (!over) return;
     const draggedId = active.id;
-    const requirements = values?.requirements;
+    const requirements = values?.requirements || [];
 
-    // AWARD
-    if (draggedId.startsWith("award_")) {
-      const pureId = draggedId.replace("award_", "");
-      const exists = requirements.some(r => r.trigger_key === pureId && r.action_type === "award");
-      if (over.id === "awards-sidebar") {
-        if (exists) return;
-        const hook = allHooks.find(h => h.id === pureId);
-        if (!hook) return;
-        const newHook = {
-          trigger_key: hook.id,
-          action_type: "award",
-          parameters: getParamsFromSchema(hook, "award")
-        };
-        setFieldValue("requirements", [...requirements, newHook]);
-        setOpenedAwardHooks([pureId]);
-        return;
+    const type = draggedId.startsWith("award_") ? "award"
+      : draggedId.startsWith("deduct_") ? "deduct"
+        : null;
+    if (!type) return;
+
+    const pureId = draggedId.replace(`${type}_`, "");
+    const from = requirements.findIndex(r => r.trigger_key === pureId && r.action_type === type);
+    const exists = from !== -1;
+
+    // Dragged back to the Available column: deactivate it.
+    if (over.id === `${type}s-available`) {
+      if (!exists) return;
+      setFieldValue("requirements", requirements.filter((_, i) => i !== from));
+      if (type === "award") {
+        setOpenedAwardHooks(prev => prev.filter(id => id !== pureId));
       }
-      if (over.id === "awards-available") {
-        if (!exists) return;
-        setFieldValue("requirements", requirements.filter(r => !(r.trigger_key === pureId && r.action_type === "award")));
-        return;
-      }
+      return;
     }
 
-    // DEDUCT
-    if (draggedId.startsWith("deduct_")) {
-      const pureId = draggedId.replace("deduct_", "");
-      const exists = requirements.some(r => r.trigger_key === pureId && r.action_type === "deduct");
-      if (over.id === "deducts-sidebar") {
-        if (exists) return;
-        const hook = allHooks.find(h => h.id === pureId);
-        if (!hook) return;
-        const newHook = {
-          trigger_key: hook.id,
-          action_type: "deduct",
-          parameters: getParamsFromSchema(hook, "deduct")
-        };
-        setFieldValue("requirements", [...requirements, newHook]);
-        return;
-      }
-      if (over.id === "deducts-available") {
-        if (!exists) return;
-        setFieldValue("requirements", requirements.filter(r => !(r.trigger_key === pureId && r.action_type === "deduct")));
-        return;
-      }
+    if (over.id !== `${type}s-sidebar` && !String(over.id).startsWith(`${type}_`)) {
+      return;
+    }
+
+    // Insert and reorder are the same move: take the card out (a no-op for a
+    // card that was not in the list yet) and put it back at the drop index,
+    // measured against the list without it so the maths cannot be off by one.
+    const without = exists ? requirements.filter((_, i) => i !== from) : requirements;
+
+    let entry;
+    if (exists) {
+      entry = requirements[from];
+    } else {
+      const hook = allHooks.find(h => h.id === pureId);
+      if (!hook) return;
+      entry = {
+        trigger_key: hook.id,
+        action_type: type,
+        parameters: getParamsFromSchema(hook, type)
+      };
+    }
+
+    const to = dropPositionFor(over.id, type, without);
+    if (exists && to === from) return;
+
+    setFieldValue("requirements", insertAt(without, entry, to));
+    if (!exists && type === "award") {
+      setOpenedAwardHooks([pureId]);
     }
   };
 
@@ -201,6 +221,7 @@ const FormInner = ({ hooksLoading }) => {
       ) : (
         <DndContext
           sensors={sensors}
+          collisionDetection={closestCenter}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >
