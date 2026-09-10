@@ -105,7 +105,7 @@ const Requirements = props => {
             </div>
 
             <div className="flex items-center relative gameengine-border-bottom">
-              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
+              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-[var(--gameengine-background)] p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] left-0 z-[2] text-[16px] leading-4" onClick={scrollLeft}>
                 <RiArrowLeftSLine />
               </button>}
 
@@ -114,7 +114,7 @@ const Requirements = props => {
                   const isActive = selectedFilterType === item.value || selectedFilterType === '' && item.value === 'all';
                   return <button
                     key={index}
-                    className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[#1a73e8] border-0 border-b-2 border-solid border-[#1a73e8]' : 'text-gray-600 border-0 border-b-2 border-solid border-transparent hover:text-gray-900 hover:border-gray-300'}`}
+                    className={`bg-transparent outline-none cursor-pointer h-auto text-[13px] font-[500] pb-2.5 -mb-[1px] shadow-none whitespace-nowrap ${isActive ? 'text-[var(--gameengine-primary)] border-0 border-b-2 border-solid border-[var(--gameengine-primary)]' : 'text-[var(--gameengine-warn-muted)] border-0 border-b-2 border-solid border-transparent hover:text-[var(--gameengine-font-color)] hover:border-[var(--gameengine-border-color)]'}`}
                     style={{ minWidth: 'auto', paddingInline: '0', background: 'transparent' }}
                     onClick={() => filterHookType(item.value)}>
                     {item.label}
@@ -122,7 +122,7 @@ const Requirements = props => {
                 })}
               </div>
 
-              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-white p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] right-0 z-[2] text-[16px] leading-4" onClick={scrollRight}>
+              {tabArray.length > 4 && <button className="absolute top-[-4px] bg-[var(--gameengine-background)] p-1 rounded-full text-[var(--gameengine-font-color)] [border:1px_solid_var(--gameengine-border-color)] right-0 z-[2] text-[16px] leading-4" onClick={scrollRight}>
                 <RiArrowRightSLine />
               </button>}
             </div>
@@ -131,7 +131,7 @@ const Requirements = props => {
               <div className="gameengine-fade-in" key={selectedFilterType}>
                 {allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all').map(h => <div key={h.id}>
                   {renderHookCard(h, actionName)}
-                  <p className="mt-1 text-xs text-gray-500">{h.subTitle}</p>
+                  <p className="mt-1 text-xs text-[var(--gameengine-warn-muted)]">{h.subTitle}</p>
                 </div>)}
               </div>
             </DroppableArea>

@@ -158,7 +158,9 @@ export const makeRequest = async (
 	} = response;
 
 	if (!success) {
-		processAjaxError(data, response);
+		throw new Error(
+			data?.message ?? __('Request failed.', 'gameengine')
+		);
 	}
 
 	return data;

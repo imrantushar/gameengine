@@ -25,7 +25,7 @@ const CustomCollapsible = ({
                                 {!singleIcon ? (
                                         <>{isOpen ? <LuChevronUp size="20px" /> : <LuChevronDown size="20px" />}</>
                                 ) : (
-                                        <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[#FF3E2F]">
+                                        <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[var(--gameengine-error-strong)]">
                                                 {arrowBackward()}
                                         </div>
                                 )}

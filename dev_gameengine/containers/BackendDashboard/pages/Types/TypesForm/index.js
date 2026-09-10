@@ -77,7 +77,7 @@ const TypesForm = ({
   };
 
   return (
-    <div className="sticky rounded bg-white p-6 [border:1px_solid_var(--gemboards-border-color)]" style={{ "top": "132px", "alignSelf": "flex-start", "width": "30%" }}>
+    <div className="sticky gameengine-surface p-6" style={{ "top": "132px", "alignSelf": "flex-start", "width": "30%" }}>
       <p className='gameengine-heading'>{!formData?.id ? __("Add New", "gameengine") : __("Update", "gameengine") + " " + capitalizeFirstLetter(type) + " " + __("Types", "gameengine")}</p>
       
       <Formik enableReinitialize={true} initialValues={getTermInitalValues(formData)} onSubmit={onSubmitHandler}>
@@ -139,7 +139,7 @@ const TypesForm = ({
                 />
               </GameEngineInput>
 
-              <div className="flex gap-2.5" marginLeft={'auto'}>
+              <div className="flex gap-2.5 ml-auto">
                 {formData?.id && <button className='gameengine-close-btn' onClick={resetForm}>
                   {__("Cancel", "gameengine")}
                 </button>}

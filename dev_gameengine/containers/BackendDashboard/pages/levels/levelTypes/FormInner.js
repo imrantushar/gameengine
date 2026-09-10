@@ -355,17 +355,17 @@ const FormInner = () => {
       <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
         {values?.icon ? (
           <div className="flex items-center justify-between">
-            <img style={{
+            <img className="object-cover" style={{
               "width": "100px"
-            }} src={values?.icon} objectFit="cover" />
-            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
+            }} src={values?.icon} alt="" />
+            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
               "padding": "6px 8px"
             }} onClick={handleImageUpload}>
               {__("Change Level Logo", "gameengine")}
             </button>
           </div>
         ) : (
-          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
+          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
             "padding": "6px 8px"
           }} onClick={handleImageUpload}>
             {__("Set Level Logo", "gameengine")}

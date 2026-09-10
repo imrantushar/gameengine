@@ -12,7 +12,7 @@ const LeftBar = () => {
   const menuList = getTabs();
 
   return (
-    <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)] min-w-[284px]">
+    <div className="flex flex-col sticky top-0 self-start bg-[var(--gameengine-background)] rounded-lg [box-shadow:var(--gameengine-shadow)] min-w-[284px]">
       <div className="flex flex-col gap-1 items-stretch p-2">
         {menuList.map((item, i) => {
           const isActive = currentTab === item.key;
@@ -29,7 +29,7 @@ const LeftBar = () => {
                 </p>
 
                 <p
-                  className={`text-xs font-normal leading-4 m-0 mt-1 ${isActive ? "text-[var(--gameengine-primary)]" : "text-[#738496]"
+                  className={`text-xs font-normal leading-4 m-0 mt-1 ${isActive ? "text-[var(--gameengine-primary)]" : "text-[var(--gameengine-warn-muted)]"
                     }`}
                 >
                   {item.desc}
