@@ -64,10 +64,6 @@ class BuyPointsManager
      */
     public function process_wc_order(int $order_id): void
     {
-        if (!function_exists('wc_get_order')) {
-            return;
-        }
-
         $order = wc_get_order($order_id);
         if (!$order) {
             return;
@@ -84,7 +80,7 @@ class BuyPointsManager
             return;
         }
 
-        $awarded = false;
+        $awarded_items = array();
         foreach ($order->get_items() as $item) {
             $product_id = $item->get_product_id();
             if (!isset($mappings[$product_id])) {
@@ -103,11 +99,18 @@ class BuyPointsManager
                     $order_id
                 ),
             ));
-            $awarded = true;
+
+            // Record exactly what was awarded so a later refund reverses this,
+            // not whatever the product's mapping happens to be at refund time.
+            $awarded_items[] = array(
+                'point_type_id' => (int) $map['point_type_id'],
+                'amount'        => $amount,
+            );
         }
 
-        if ($awarded) {
+        if (!empty($awarded_items)) {
             update_post_meta($order_id, '_gameengine_points_awarded', 1);
+            update_post_meta($order_id, '_gameengine_points_awarded_items', $awarded_items);
         }
     }
 
@@ -116,38 +119,52 @@ class BuyPointsManager
      */
     public function refund_wc_order(int $order_id): void
     {
-        if (!function_exists('wc_get_order')) {
-            return;
-        }
-
         if (!get_post_meta($order_id, '_gameengine_points_awarded', true)) {
             return;
         }
 
-        $order    = wc_get_order($order_id);
-        $user_id  = $order ? $order->get_user_id() : 0;
-        $mappings = self::get_mappings();
+        $order   = wc_get_order($order_id);
+        $user_id = $order ? $order->get_user_id() : 0;
 
-        if (!$user_id || !$order || empty($mappings)) {
+        if (!$user_id || !$order) {
             return;
         }
 
-        foreach ($order->get_items() as $item) {
-            $product_id = $item->get_product_id();
-            if (!isset($mappings[$product_id])) {
-                continue;
+        $awarded_items = get_post_meta($order_id, '_gameengine_points_awarded_items', true);
+
+        if (empty($awarded_items) || !is_array($awarded_items)) {
+            // Order was awarded before this fix shipped and has no recorded
+            // amount; fall back to the current mapping so the refund still
+            // happens (best effort — may not match the original award if the
+            // mapping has since changed).
+            $awarded_items = array();
+            $mappings      = self::get_mappings();
+            if (!empty($mappings)) {
+                foreach ($order->get_items() as $item) {
+                    $product_id = $item->get_product_id();
+                    if (!isset($mappings[$product_id])) {
+                        continue;
+                    }
+                    $map              = $mappings[$product_id];
+                    $awarded_items[] = array(
+                        'point_type_id' => (int) $map['point_type_id'],
+                        'amount'        => absint($map['amount']) * $item->get_quantity(),
+                    );
+                }
             }
+        }
 
-            $map    = $mappings[$product_id];
-            $amount = absint($map['amount']) * $item->get_quantity();
+        foreach ($awarded_items as $awarded) {
+            $point_type_id = (int) $awarded['point_type_id'];
+            $amount        = absint($awarded['amount']);
 
-            $pm    = new PointsManager();
-            $total = $pm->get_total($user_id, (int) $map['point_type_id']);
+            $pm     = new PointsManager();
+            $total  = $pm->get_total($user_id, $point_type_id);
             $deduct = min($amount, $total);
 
             if ($deduct > 0) {
                 $pm->deduct($user_id, $deduct, 'buy_points_refund', array(
-                    'point_type_id' => (int) $map['point_type_id'],
+                    'point_type_id' => $point_type_id,
                     'description'   => sprintf(
                         /* translators: %d: order ID */
                         __('Points refunded for order #%d', 'gameengine'),
@@ -158,6 +175,7 @@ class BuyPointsManager
         }
 
         delete_post_meta($order_id, '_gameengine_points_awarded');
+        delete_post_meta($order_id, '_gameengine_points_awarded_items');
     }
 
     /**

@@ -17,7 +17,6 @@ class RanksManager
         $self = new self();
         add_action('gameengine_points_added', array($self, 'on_points_changed'), 10, 5);
         add_action('gameengine_points_deducted', array($self, 'on_points_changed'), 10, 5);
-        add_action('gameengine_rank_achieved', array($self, 'create_rank_notification'), 10, 2);
     }
 
     /**
@@ -79,35 +78,39 @@ class RanksManager
      */
     public function assign_rank(int $user_id): void
     {
+        global $wpdb;
+
         $points_manager = new PointsManager();
         $grand_total    = $points_manager->get_grand_total($user_id);
 
         $ranks = self::get_all();
+        if (empty($ranks)) {
+            return;
+        }
+
+        // One query for all ranks the user already owns, instead of one
+        // existence check per eligible rank.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $owned = $wpdb->get_col($wpdb->prepare(
+            "SELECT rank_id FROM {$wpdb->prefix}gameengine_user_ranks WHERE user_id = %d",
+            $user_id
+        ));
+        $owned = array_map('intval', $owned);
 
         foreach ($ranks as $rank) {
-            if ($grand_total >= (int) $rank['points_required']) {
-                $this->maybe_award_rank($user_id, (int) $rank['id']);
+            $rank_id = (int) $rank['id'];
+            if ($grand_total >= (int) $rank['points_required'] && !in_array($rank_id, $owned, true)) {
+                $this->award_rank($user_id, $rank_id);
             }
         }
     }
 
     /**
-     * Award rank if not already earned.
+     * Insert an earned rank (caller has already confirmed it isn't owned yet).
      */
-    private function maybe_award_rank(int $user_id, int $rank_id): void
+    private function award_rank(int $user_id, int $rank_id): void
     {
         global $wpdb;
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $exists = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM {$wpdb->prefix}gameengine_user_ranks WHERE user_id = %d AND rank_id = %d",
-            $user_id,
-            $rank_id
-        ));
-
-        if ($exists) {
-            return;
-        }
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $wpdb->insert(
@@ -121,26 +124,6 @@ class RanksManager
         );
 
         do_action('gameengine_rank_achieved', $user_id, $rank_id);
-    }
-
-    /**
-     * Create a notification when a rank is achieved.
-     */
-    public function create_rank_notification(int $user_id, int $rank_id): void
-    {
-        $rank = self::get_by_id($rank_id);
-        if (!$rank) {
-            return;
-        }
-
-        if (class_exists('\GameEngine\Classes\NotificationManager')) {
-            $message = sprintf(
-                /* translators: %s: rank title */
-                __('You achieved the rank: %s', 'gameengine'),
-                $rank['title']
-            );
-            NotificationManager::add($user_id, 'rank', $message);
-        }
     }
 
     /**

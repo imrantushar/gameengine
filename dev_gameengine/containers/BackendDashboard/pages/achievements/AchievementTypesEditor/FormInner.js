@@ -260,6 +260,23 @@ const FormInner = () => {
         </GameEngineInput>
       </div>
 
+      <div className="flex gap-3">
+        <GameEngineInput
+          label={__("Description", "gameengine")}
+          desc={__("Shown when this achievement is shared (social preview text).", "gameengine")}
+        >
+          <input
+            placeholder={__("Enter a short description", "gameengine")}
+            type="textarea"
+            value={values.description}
+            onChange={e => {
+              setFieldValue('description', e.target.value);
+            }}
+            className="gameengine-input"
+          />
+        </GameEngineInput>
+      </div>
+
       <div className="gameengine-add-achievement-type flex gap-3">
         <GameEngineInput
           label={__("Maximum earnings per user", "gameengine")}

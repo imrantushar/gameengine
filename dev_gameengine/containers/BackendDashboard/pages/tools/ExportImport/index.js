@@ -198,8 +198,8 @@ const ExportImport = () => {
                                 {importResult.skipped > 0 && (
                                     <>{' '}{__('Skipped:', 'gameengine')} <strong>{importResult.skipped}</strong></>
                                 )}
-                                {importResult.errors > 0 && (
-                                    <>{' '}{__('Errors:', 'gameengine')} <strong>{importResult.errors}</strong></>
+                                {importResult.errors?.length > 0 && (
+                                    <>{' '}{__('Errors:', 'gameengine')} <strong>{importResult.errors.length}</strong></>
                                 )}
                                 {importResult.truncated && (
                                     <>{' '}<em>({__('File was truncated to 1,000 rows.', 'gameengine')})</em></>

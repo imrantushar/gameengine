@@ -20,25 +20,39 @@ class StreaksManager
 
     /**
      * Dynamically register WordPress hooks for each active streak.
+     *
+     * `trigger_hook` stores a TriggerRegistry trigger key (e.g. `wp_login`),
+     * not a raw WordPress hook name — resolve it through the registry so we
+     * attach to the real hook and identify the acting user the same way
+     * `Triggers::execute()` does for every other reward type, instead of
+     * assuming a logged-in browser session user (`get_current_user_id()`
+     * is meaningless in cron/REST/webhook contexts).
      */
     public function register_hooks(): void
     {
         $streaks = self::get_active_streaks();
 
         foreach ($streaks as $streak) {
-            $hook     = sanitize_key($streak['trigger_hook']);
-            $streak_id = (int) $streak['id'];
+            $trigger_key = sanitize_key($streak['trigger_hook']);
+            $streak_id   = (int) $streak['id'];
 
-            if (empty($hook)) {
+            if (empty($trigger_key)) {
                 continue;
             }
 
-            add_action($hook, function () use ($streak_id) {
-                $user_id = get_current_user_id();
+            $config = TriggerRegistry::get($trigger_key);
+            if (!$config || empty($config['hook']) || !is_callable($config['get_user_id'] ?? null)) {
+                continue;
+            }
+
+            $args_count = isset($config['args_count']) ? (int) $config['args_count'] : 1;
+
+            add_action($config['hook'], function (...$args) use ($streak_id, $config) {
+                $user_id = absint(call_user_func_array($config['get_user_id'], $args));
                 if ($user_id > 0) {
                     ( new self() )->track_action($user_id, $streak_id);
                 }
-            }, 10, 0);
+            }, 10, $args_count);
         }
     }
 
@@ -72,7 +86,10 @@ class StreaksManager
                 return;
             }
 
-            if ($elapsed < $interval_seconds * 2) {
+            // Grace window: a single missed calendar boundary (timezone/clock
+            // jitter) should not break the streak, but skipping a whole extra
+            // interval should. See design.md Open Questions for the exact value.
+            if ($elapsed < $interval_seconds * 1.5) {
                 $new_count = (int) $user_streak['current_count'] + 1;
                 $longest   = max($new_count, (int) $user_streak['longest_count']);
             } else {
@@ -153,7 +170,9 @@ class StreaksManager
 
     /**
      * Reset broken streaks (called by daily cron).
-     * Marks any streak where last_action_at is older than 2 intervals as broken.
+     * Marks any streak where last_action_at is older than the grace window
+     * (see track_action()) as broken, so the cron sweep agrees with the
+     * in-request continuation check.
      */
     public static function reset_broken_streaks(): void
     {
@@ -163,7 +182,7 @@ class StreaksManager
 
         foreach ($streaks as $streak) {
             $interval_seconds = $streak['interval_type'] === 'weekly' ? WEEK_IN_SECONDS : DAY_IN_SECONDS;
-            $threshold_dt     = gmdate('Y-m-d H:i:s', time() - ($interval_seconds * 2));
+            $threshold_dt     = gmdate('Y-m-d H:i:s', time() - ($interval_seconds * 1.5));
 
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $broken_users = $wpdb->get_results($wpdb->prepare(

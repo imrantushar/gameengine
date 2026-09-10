@@ -18,16 +18,21 @@ class NotificationManager
         add_action('gameengine_points_added', array($self, 'on_points_added'), 20, 5);
         add_action('gameengine_points_deducted', array($self, 'on_points_deducted'), 20, 5);
         add_action('gameengine_achievement_unlocked', array($self, 'on_achievement_unlocked'), 10, 2);
-        add_action('gameengine_level_up', array($self, 'on_level_up'), 10, 2);
+        add_action('gameengine_level_awarded', array($self, 'on_level_awarded'), 10, 2);
         add_action('gameengine_rank_achieved', array($self, 'on_rank_achieved'), 20, 2);
     }
 
     /**
      * Insert a notification record.
+     *
+     * @param string|null $settings_key The `gameengine_notification_settings` key that
+     *                                  gates this notification type, or null if this
+     *                                  type has no dedicated admin toggle (only the
+     *                                  global `enabled` flag applies).
      */
-    public static function add(int $user_id, string $type, string $message): bool
+    public static function add(int $user_id, string $type, string $message, ?string $settings_key = null): bool
     {
-        if (!self::is_enabled($type)) {
+        if (!self::is_enabled($settings_key)) {
             return false;
         }
 
@@ -143,7 +148,7 @@ class NotificationManager
             __('You earned %d points!', 'gameengine'),
             $points
         );
-        self::add((int) $user_id, 'points', $message);
+        self::add((int) $user_id, 'points', $message, 'notify_points_added');
     }
 
     public function on_points_deducted($user_id, $points, $context, $log_id, $point_type_id): void
@@ -153,7 +158,7 @@ class NotificationManager
             __('%d points were deducted from your balance.', 'gameengine'),
             $points
         );
-        self::add((int) $user_id, 'points', $message);
+        self::add((int) $user_id, 'points', $message, 'notify_points_deducted');
     }
 
     public function on_achievement_unlocked($user_id, $achievement_id): void
@@ -172,10 +177,10 @@ class NotificationManager
             __('Achievement unlocked: %s', 'gameengine'),
             $title
         );
-        self::add((int) $user_id, 'achievement', $message);
+        self::add((int) $user_id, 'achievement', $message, 'notify_achievement');
     }
 
-    public function on_level_up($user_id, $level_id): void
+    public function on_level_awarded($user_id, $level_id): void
     {
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
@@ -191,7 +196,7 @@ class NotificationManager
             __('You reached a new level: %s', 'gameengine'),
             $title
         );
-        self::add((int) $user_id, 'level', $message);
+        self::add((int) $user_id, 'level', $message, 'notify_level_up');
     }
 
     public function on_rank_achieved($user_id, $rank_id): void
@@ -205,16 +210,26 @@ class NotificationManager
             __('You achieved the rank: %s', 'gameengine'),
             $rank['title']
         );
-        self::add((int) $user_id, 'rank', $message);
+        self::add((int) $user_id, 'rank', $message, 'notify_rank');
     }
 
     /**
-     * Check if notifications of this type are enabled in settings.
+     * Check if notifications are enabled: the global toggle must be on, and
+     * (if this type has a dedicated toggle) that toggle must also be on.
      */
-    private static function is_enabled(string $type): bool
+    private static function is_enabled(?string $settings_key): bool
     {
         $settings = get_option('gameengine_notification_settings', array());
-        $key      = 'enable_' . $type . '_notifications';
-        return isset($settings[$key]) ? (bool) $settings[$key] : true;
+
+        $globally_enabled = !isset($settings['enabled']) || !empty($settings['enabled']);
+        if (!$globally_enabled) {
+            return false;
+        }
+
+        if (null === $settings_key) {
+            return true;
+        }
+
+        return isset($settings[$settings_key]) ? (bool) $settings[$settings_key] : true;
     }
 }

@@ -61,6 +61,7 @@ class Leaderboard
                      FROM {$wpdb->prefix}gameengine_pro_season_rankings sr
                      INNER JOIN {$wpdb->users} u ON sr.user_id = u.ID
                      WHERE sr.season_id = %d
+                     AND sr.total_points > 0
                      ORDER BY sr.position ASC
                      LIMIT %d",
                     $season_id,

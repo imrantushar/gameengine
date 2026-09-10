@@ -92,9 +92,10 @@ class LeaderboardController extends BaseController
                     /* 1. Calculate and Filter Points first to define the rank */
                     SELECT user_id, SUM(points) as total_points
                     FROM {$wpdb->prefix}gameengine_points_log
-                    WHERE ( point_type_id = %d OR 0 = %d ) 
+                    WHERE ( point_type_id = %d OR 0 = %d )
                     AND created_at >= %s
                     GROUP BY user_id
+                    HAVING SUM(points) > 0
                 ) p ON u.ID = p.user_id
                 LEFT JOIN (
                     /* 2. Count achievements in one pass per user */

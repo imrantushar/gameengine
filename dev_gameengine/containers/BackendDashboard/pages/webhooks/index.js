@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import { FiEdit, FiTrash2, FiSend } from 'react-icons/fi';
 import TopBar from '@GFComponents/TopBar';
 import Button from '@GFComponents/Button';
+import ListTable from '@GFComponents/ListTable';
+import Modal from '@GFComponents/Modal/Modal';
+import OptionMenu from '@GFComponents/OptionMenu';
+import GameEngineInput from '@GFComponents/GameEngineInput';
 import { API, namespace } from '@GFUtils/helper';
 
 const EVENTS = [
@@ -88,6 +93,80 @@ const Webhooks = () => {
 
     const truncate = (str, n) => str && str.length > n ? str.slice(0, n) + '…' : str;
 
+    const columns = [
+        {
+            name: __('Name', 'gameengine'),
+            cell: (row) => <span className="font-medium">{row.name}</span>,
+        },
+        {
+            name: __('URL', 'gameengine'),
+            cell: (row) => <span className="text-xs text-gray-500" style={{ fontFamily: 'monospace' }}>{truncate(row.url, 48)}</span>,
+        },
+        {
+            name: __('Events', 'gameengine'),
+            cell: (row) => (
+                <span className="text-sm text-gray-500">
+                    {(row.events || []).map(e => EVENTS.find(ev => ev.key === e)?.label || e).join(', ') || __('None', 'gameengine')}
+                </span>
+            ),
+        },
+        {
+            name: __('Active', 'gameengine'),
+            cell: (row) => (
+                <button onClick={() => toggleActive(row)}
+                    style={{ background: row.active ? '#10b981' : '#e2e8f0', color: row.active ? '#fff' : '#64748b', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}>
+                    {row.active ? __('On', 'gameengine') : __('Off', 'gameengine')}
+                </button>
+            ),
+        },
+        {
+            name: __('Last Test', 'gameengine'),
+            cell: (row) => {
+                const result = testResults[row.id];
+                if (!result) {
+                    return <span className="text-xs text-gray-400">—</span>;
+                }
+                return (
+                    <span className="text-xs" style={{ color: result.success ? '#166534' : '#991b1b' }}>
+                        {result.success
+                            ? `✓ ${__('Success', 'gameengine')} (${result.response_code})`
+                            : `✗ ${result.error || __('Failed', 'gameengine')}${result.response_code ? ' (' + result.response_code + ')' : ''}`}
+                    </span>
+                );
+            },
+        },
+        {
+            name: __('Actions', 'gameengine'),
+            cell: (row) => (
+                <OptionMenu
+                    options={[
+                        {
+                            type: 'button',
+                            label: testing === row.id ? __('Testing…', 'gameengine') : __('Test', 'gameengine'),
+                            icon: <FiSend />,
+                            onClick: () => testWebhook(row.id),
+                            hasBorder: true,
+                        },
+                        {
+                            type: 'button',
+                            label: __('Edit', 'gameengine'),
+                            icon: <FiEdit />,
+                            onClick: () => openEdit(row),
+                            hasBorder: true,
+                        },
+                        {
+                            type: 'button',
+                            suffix: 'trash',
+                            label: __('Delete', 'gameengine'),
+                            icon: <FiTrash2 />,
+                            onClick: () => deleteWebhook(row.id),
+                        },
+                    ]}
+                />
+            ),
+        },
+    ];
+
     return (
         <>
             <TopBar path={__('Webhooks', 'gameengine')} rightContent={
@@ -99,112 +178,68 @@ const Webhooks = () => {
                     {__('Send signed JSON payloads to external URLs when gamification events occur. Verify requests using the HMAC-SHA256 signature in the X-GameEngine-Signature header.', 'gameengine')}
                 </p>
 
-                {loading ? (
-                    <p style={{ color: '#94a3b8' }}>{__('Loading…', 'gameengine')}</p>
-                ) : (
-                    <div style={{ background: '#fff', borderRadius: '10px', boxShadow: '0 1px 4px rgba(0,0,0,.07)', overflow: 'hidden' }}>
-                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '13px' }}>
-                            <thead>
-                                <tr style={{ background: '#f8fafc', borderBottom: '1px solid #e2e8f0' }}>
-                                    <th style={{ padding: '10px 16px', textAlign: 'left' }}>{__('Name', 'gameengine')}</th>
-                                    <th style={{ padding: '10px 16px', textAlign: 'left' }}>{__('URL', 'gameengine')}</th>
-                                    <th style={{ padding: '10px 16px', textAlign: 'left' }}>{__('Events', 'gameengine')}</th>
-                                    <th style={{ padding: '10px 16px', textAlign: 'left' }}>{__('Active', 'gameengine')}</th>
-                                    <th style={{ padding: '10px 16px' }}></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {webhooks.map(wh => (
-                                    <React.Fragment key={wh.id}>
-                                        <tr style={{ borderBottom: '1px solid #f1f5f9' }}>
-                                            <td style={{ padding: '10px 16px', fontWeight: '500' }}>{wh.name}</td>
-                                            <td style={{ padding: '10px 16px', color: '#64748b', fontFamily: 'monospace', fontSize: '12px' }}>{truncate(wh.url, 48)}</td>
-                                            <td style={{ padding: '10px 16px', color: '#64748b' }}>
-                                                {(wh.events || []).map(e => EVENTS.find(ev => ev.key === e)?.label || e).join(', ') || __('None', 'gameengine')}
-                                            </td>
-                                            <td style={{ padding: '10px 16px' }}>
-                                                <button onClick={() => toggleActive(wh)}
-                                                    style={{ background: wh.active ? '#10b981' : '#e2e8f0', color: wh.active ? '#fff' : '#64748b', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}>
-                                                    {wh.active ? __('On', 'gameengine') : __('Off', 'gameengine')}
-                                                </button>
-                                            </td>
-                                            <td style={{ padding: '10px 16px', textAlign: 'right', whiteSpace: 'nowrap' }}>
-                                                <button onClick={() => testWebhook(wh.id)} disabled={testing === wh.id}
-                                                    style={{ marginRight: '8px', cursor: 'pointer', background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: '6px', padding: '4px 10px', fontSize: '12px' }}>
-                                                    {testing === wh.id ? '…' : __('Test', 'gameengine')}
-                                                </button>
-                                                <button onClick={() => openEdit(wh)} style={{ marginRight: '8px', cursor: 'pointer', background: 'none', border: 'none', color: '#6c5ce7', fontWeight: '500' }}>{__('Edit', 'gameengine')}</button>
-                                                <button onClick={() => deleteWebhook(wh.id)} style={{ cursor: 'pointer', background: 'none', border: 'none', color: '#ef4444', fontWeight: '500' }}>{__('Delete', 'gameengine')}</button>
-                                            </td>
-                                        </tr>
-                                        {testResults[wh.id] && (
-                                            <tr>
-                                                <td colSpan={5} style={{ padding: '8px 16px', background: testResults[wh.id].success ? '#f0fdf4' : '#fef2f2', fontSize: '12px', color: testResults[wh.id].success ? '#166534' : '#991b1b' }}>
-                                                    {testResults[wh.id].success
-                                                        ? `✓ ${__('Success', 'gameengine')} (HTTP ${testResults[wh.id].response_code})`
-                                                        : `✗ ${testResults[wh.id].error || __('Failed', 'gameengine')} ${testResults[wh.id].response_code ? '(HTTP ' + testResults[wh.id].response_code + ')' : ''}`
-                                                    }
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </React.Fragment>
-                                ))}
-                                {webhooks.length === 0 && (
-                                    <tr><td colSpan={5} style={{ padding: '24px', textAlign: 'center', color: '#94a3b8' }}>{__('No webhooks yet.', 'gameengine')}</td></tr>
-                                )}
-                            </tbody>
-                        </table>
-                    </div>
-                )}
+                <ListTable
+                    columns={columns}
+                    data={webhooks}
+                    dataFetchingStatus={loading}
+                    noDataText={__('No webhooks yet.', 'gameengine')}
+                    showSubHeader={false}
+                    showColumnFilter={false}
+                    showPagination={false}
+                    isRowSelectable={false}
+                />
             </div>
 
-            {modal && (
-                <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-                    <div style={{ background: '#fff', borderRadius: '12px', width: '480px', maxHeight: '90vh', overflowY: 'auto', padding: '24px', boxShadow: '0 8px 32px rgba(0,0,0,.15)' }}>
-                        <h3 style={{ margin: '0 0 20px', fontSize: '17px' }}>
-                            {modal === 'create' ? __('New Webhook', 'gameengine') : __('Edit Webhook', 'gameengine')}
-                        </h3>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-                            <label style={{ fontSize: '13px', fontWeight: '500' }}>
-                                {__('Name', 'gameengine')}
-                                <input className="gameengine-input" style={{ marginTop: '4px', width: '100%' }} value={form.name}
-                                    onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
-                            </label>
-                            <label style={{ fontSize: '13px', fontWeight: '500' }}>
-                                {__('URL', 'gameengine')}
-                                <input className="gameengine-input" style={{ marginTop: '4px', width: '100%' }} type="url" value={form.url}
-                                    onChange={e => setForm(f => ({ ...f, url: e.target.value }))} placeholder="https://example.com/webhook" />
-                            </label>
-                            <fieldset style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px' }}>
-                                <legend style={{ fontSize: '13px', fontWeight: '600', padding: '0 6px' }}>{__('Events', 'gameengine')}</legend>
-                                {EVENTS.map(ev => (
-                                    <label key={ev.key} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', marginBottom: '6px' }}>
-                                        <input type="checkbox"
-                                            checked={(form.events || []).includes(ev.key)}
-                                            onChange={() => toggleEvent(ev.key)} />
-                                        {ev.label}
-                                    </label>
-                                ))}
-                            </fieldset>
-                            <label style={{ fontSize: '13px', fontWeight: '500' }}>
-                                {__('Secret (for HMAC signature verification)', 'gameengine')}
-                                <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
-                                    <input className="gameengine-input" style={{ flex: 1 }} type="text" value={form.secret}
-                                        onChange={e => setForm(f => ({ ...f, secret: e.target.value }))} placeholder={__('optional', 'gameengine')} />
-                                    <button type="button" onClick={() => setForm(f => ({ ...f, secret: generateSecret() }))}
-                                        style={{ padding: '0 14px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: '12px', whiteSpace: 'nowrap' }}>
-                                        {__('Generate', 'gameengine')}
-                                    </button>
-                                </div>
-                            </label>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '8px', marginTop: '20px' }}>
-                            <button onClick={closeModal} style={{ padding: '8px 18px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#fff', cursor: 'pointer' }}>{__('Cancel', 'gameengine')}</button>
-                            <Button label={modal === 'create' ? __('Create Webhook', 'gameengine') : __('Save Changes', 'gameengine')} isLoading={saving} onClick={save} />
-                        </div>
+            <Modal
+                isOpen={!!modal}
+                title={modal === 'create' ? __('New Webhook', 'gameengine') : __('Edit Webhook', 'gameengine')}
+                onRequestClose={closeModal}
+                size="medium"
+                isFooter={true}
+                isFooterContent={
+                    <div className="flex justify-end gap-3">
+                        <Button label={__('Cancel', 'gameengine')} preset="secondary" onClick={closeModal} />
+                        <Button
+                            label={modal === 'create' ? __('Create Webhook', 'gameengine') : __('Save Changes', 'gameengine')}
+                            isLoading={saving}
+                            onClick={save}
+                            type="button"
+                        />
                     </div>
+                }
+            >
+                <div className="flex flex-col gap-4 p-4">
+                    <GameEngineInput label={__('Name', 'gameengine')}>
+                        <input className="gameengine-input" value={form.name}
+                            onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
+                    </GameEngineInput>
+                    <GameEngineInput label={__('URL', 'gameengine')}>
+                        <input className="gameengine-input" type="url" value={form.url}
+                            onChange={e => setForm(f => ({ ...f, url: e.target.value }))} placeholder="https://example.com/webhook" />
+                    </GameEngineInput>
+                    <fieldset style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px' }}>
+                        <legend style={{ fontSize: '13px', fontWeight: '600', padding: '0 6px' }}>{__('Events', 'gameengine')}</legend>
+                        {EVENTS.map(ev => (
+                            <label key={ev.key} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', marginBottom: '6px' }}>
+                                <input type="checkbox"
+                                    checked={(form.events || []).includes(ev.key)}
+                                    onChange={() => toggleEvent(ev.key)} />
+                                {ev.label}
+                            </label>
+                        ))}
+                    </fieldset>
+                    <GameEngineInput label={__('Secret (for HMAC signature verification)', 'gameengine')}>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <input className="gameengine-input" style={{ flex: 1 }} type="text" value={form.secret}
+                                onChange={e => setForm(f => ({ ...f, secret: e.target.value }))} placeholder={__('optional', 'gameengine')} />
+                            <button type="button" onClick={() => setForm(f => ({ ...f, secret: generateSecret() }))}
+                                style={{ padding: '0 14px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: '12px', whiteSpace: 'nowrap' }}>
+                                {__('Generate', 'gameengine')}
+                            </button>
+                        </div>
+                    </GameEngineInput>
                 </div>
-            )}
+            </Modal>
         </>
     );
 };

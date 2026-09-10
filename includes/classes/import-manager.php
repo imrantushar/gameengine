@@ -74,8 +74,14 @@ class ImportManager
 
         $rows = array_slice($rows, 0, self::ROW_LIMIT);
 
+        // Pre-fetch existing slug => id pairs once, instead of one SELECT per
+        // row; the map is updated in place as rows are imported so duplicate
+        // slugs within the same file are still caught.
+        $table       = self::table_for_type($type);
+        $slug_to_id  = self::get_existing_slugs($table);
+
         foreach ($rows as $row) {
-            $res = self::import_row($type, $row, $overwrite);
+            $res = self::import_row($type, $table, $row, $overwrite, $slug_to_id);
             if ($res === 'imported') {
                 $result['imported']++;
             } elseif ($res === 'skipped') {
@@ -88,7 +94,7 @@ class ImportManager
         return $result;
     }
 
-    private static function import_row(string $type, array $row, bool $overwrite): string
+    private static function table_for_type(string $type): string
     {
         global $wpdb;
 
@@ -100,6 +106,31 @@ class ImportManager
             'streaks'      => "{$wpdb->prefix}gameengine_streaks",
         );
 
+        return $table_map[$type];
+    }
+
+    /**
+     * One query for every existing slug in the target table, instead of a
+     * per-row existence lookup.
+     */
+    private static function get_existing_slugs(string $table): array
+    {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $rows = $wpdb->get_results("SELECT id, slug FROM {$table}", ARRAY_A) ?: array();
+
+        $map = array();
+        foreach ($rows as $row) {
+            $map[$row['slug']] = (int) $row['id'];
+        }
+        return $map;
+    }
+
+    private static function import_row(string $type, string $table, array $row, bool $overwrite, array &$slug_to_id): string
+    {
+        global $wpdb;
+
         $required_map = array(
             'achievements' => array('title', 'slug'),
             'levels'       => array('title', 'slug'),
@@ -108,7 +139,6 @@ class ImportManager
             'streaks'      => array('title', 'slug'),
         );
 
-        $table    = $table_map[$type];
         $required = $required_map[$type];
 
         foreach ($required as $field) {
@@ -121,10 +151,8 @@ class ImportManager
             }
         }
 
-        $slug = sanitize_title($row['slug']);
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $existing_id = $wpdb->get_var($wpdb->prepare("SELECT id FROM {$table} WHERE slug = %s", $slug));
+        $slug        = sanitize_title($row['slug']);
+        $existing_id = $slug_to_id[$slug] ?? 0;
 
         if ($existing_id && !$overwrite) {
             return 'skipped';
@@ -142,10 +170,11 @@ class ImportManager
         if ($existing_id && $overwrite) {
             unset($clean['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update($table, $clean, array('id' => (int) $existing_id));
+            $wpdb->update($table, $clean, array('id' => $existing_id));
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->insert($table, $clean);
+            $slug_to_id[$slug] = $wpdb->insert_id;
         }
 
         return 'imported';

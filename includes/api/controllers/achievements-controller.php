@@ -190,23 +190,30 @@ class AchievementsController extends BaseController
             'category'                   => absint($params['category_id'] ?? 0),
             'required_point_type_id'     => intval($params['required_point_type_id']),
             'congratulations_message'    => wp_kses_post($params['congratulations_message']),
+            'description'                => sanitize_textarea_field($params['description'] ?? ''),
             'required_achievement_id'    => ! empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
             'required_level_id'          => ! empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
             'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
             'badge_id'                   => ! empty($params['badge_id']) ? absint($params['badge_id']) : null,
-            'prerequisite_id'            => ! empty($params['prerequisite_id']) ? absint($params['prerequisite_id']) : null,
             'created_at'                 => current_time('mysql'),
         );
 
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update("{$wpdb->prefix}gameengine_achievements", $data, array('id' => absint($id)));
+            $updated = $wpdb->update("{$wpdb->prefix}gameengine_achievements", $data, array('id' => absint($id)));
+            if (false === $updated) {
+                return new \WP_Error('save_failed', __('Could not update achievement.', 'gameengine'), array('status' => 500));
+            }
             $achievement_id = absint($id);
             wp_cache_delete('gameengine_achievement_full_' . $achievement_id, 'gameengine_achievements');
         } else {
+            $data['slug'] = $this->unique_slug(sanitize_title($data['title']));
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert("{$wpdb->prefix}gameengine_achievements", $data);
+            $inserted = $wpdb->insert("{$wpdb->prefix}gameengine_achievements", $data);
+            if (false === $inserted) {
+                return new \WP_Error('save_failed', __('Could not create achievement.', 'gameengine'), array('status' => 500));
+            }
             $achievement_id = $wpdb->insert_id;
         }
 
@@ -286,6 +293,21 @@ class AchievementsController extends BaseController
     public function get_item($request)
     {
         return $this->get_full_item_response(absint($request->get_param('id')));
+    }
+
+    /**
+     * Generate a unique slug for a new achievement.
+     */
+    private function unique_slug(string $base): string
+    {
+        global $wpdb;
+        $slug = $base;
+        $i    = 1;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_achievements WHERE slug = %s", $slug))) {
+            $slug = $base . '-' . $i++;
+        }
+        return $slug;
     }
 
     /**

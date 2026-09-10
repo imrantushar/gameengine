@@ -41,6 +41,11 @@ class StreaksController extends BaseController
             '/' . $this->rest_base . '/(?P<id>[\d]+)',
             array(
                 array(
+                    'methods'             => \WP_REST_Server::READABLE,
+                    'callback'            => array($this, 'get_item'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                ),
+                array(
                     'methods'             => \WP_REST_Server::EDITABLE,
                     'callback'            => array($this, 'update_item'),
                     'permission_callback' => array($this, 'admin_permission_check'),
@@ -90,10 +95,26 @@ class StreaksController extends BaseController
         return new \WP_REST_Response(StreaksManager::get_by_id($id), 201);
     }
 
+    public function get_item(\WP_REST_Request $request)
+    {
+        $id     = absint($request->get_param('id'));
+        $streak = StreaksManager::get_by_id($id);
+
+        if (!$streak) {
+            return new \WP_Error('not_found', __('Streak not found.', 'gameengine'), array('status' => 404));
+        }
+
+        return new \WP_REST_Response($streak, 200);
+    }
+
     public function update_item(\WP_REST_Request $request)
     {
         $id     = absint($request->get_param('id'));
         $params = $request->get_json_params();
+
+        if (!StreaksManager::get_by_id($id)) {
+            return new \WP_Error('not_found', __('Streak not found.', 'gameengine'), array('status' => 404));
+        }
 
         StreaksManager::update($id, $params);
         return new \WP_REST_Response(StreaksManager::get_by_id($id), 200);
@@ -102,6 +123,11 @@ class StreaksController extends BaseController
     public function delete_item(\WP_REST_Request $request)
     {
         $id = absint($request->get_param('id'));
+
+        if (!StreaksManager::get_by_id($id)) {
+            return new \WP_Error('not_found', __('Streak not found.', 'gameengine'), array('status' => 404));
+        }
+
         StreaksManager::delete($id);
         return new \WP_REST_Response(array('deleted' => true, 'id' => $id), 200);
     }
