@@ -3,7 +3,7 @@ import { __ } from '@wordpress/i18n';
 import TopBar from '@GFComponents/TopBar';
 import { API, namespace } from '@GFUtils/helper';
 
-const CSSBarChart = ({ data, labelKey, valueKey, color = '#6c5ce7' }) => {
+const CSSBarChart = ({ data, labelKey, valueKey, color = 'var(--gameengine-primary)' }) => {
     const max = Math.max(...data.map(d => Number(d[valueKey]) || 0), 1);
     return (
         <div style={{ display: 'flex', alignItems: 'flex-end', gap: '3px', height: '120px', overflowX: 'auto' }}>
@@ -27,7 +27,7 @@ const CSSBarChart = ({ data, labelKey, valueKey, color = '#6c5ce7' }) => {
 };
 
 const Card = ({ title, children }) => (
-    <div style={{ background: '#fff', borderRadius: '10px', padding: '20px', boxShadow: '0 1px 4px rgba(0,0,0,.07)' }}>
+    <div style={{ background: 'var(--gameengine-background)', borderRadius: '10px', padding: '20px', boxShadow: '0 1px 4px rgba(0,0,0,.07)' }}>
         <h4 style={{ margin: '0 0 16px', fontSize: '15px', fontWeight: '600' }}>{title}</h4>
         {children}
     </div>
@@ -51,17 +51,17 @@ const Analytics = () => {
             <div className="gameengine-page-content">
                 <h2 className="gameengine-page-heading py-6">{__('Analytics', 'gameengine')}</h2>
 
-                {loading && <p style={{ color: '#64748b' }}>{__('Loading…', 'gameengine')}</p>}
-                {error && <p style={{ color: '#dc2626' }}>{error}</p>}
+                {loading && <p style={{ color: 'var(--gameengine-warn-muted)' }}>{__('Loading…', 'gameengine')}</p>}
+                {error && <p style={{ color: 'var(--gameengine-placing)' }}>{error}</p>}
 
                 {data && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
                             <Card title={__('Active Streaks', 'gameengine')}>
-                                <div style={{ fontSize: '36px', fontWeight: '700', color: '#6c5ce7' }}>
+                                <div style={{ fontSize: '36px', fontWeight: '700', color: 'var(--gameengine-primary)' }}>
                                     {data.active_streaks_count}
                                 </div>
-                                <p style={{ margin: '4px 0 0', fontSize: '13px', color: '#64748b' }}>
+                                <p style={{ margin: '4px 0 0', fontSize: '13px', color: 'var(--gameengine-warn-muted)' }}>
                                     {__('users currently on a streak', 'gameengine')}
                                 </p>
                             </Card>
@@ -69,7 +69,7 @@ const Analytics = () => {
 
                         <Card title={__('Points Awarded (Last 30 Days)', 'gameengine')}>
                             <CSSBarChart data={data.points_by_day} labelKey="date" valueKey="total" />
-                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#94a3b8', marginTop: '4px' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: 'var(--gameengine-placeholder)', marginTop: '4px' }}>
                                 <span>{data.points_by_day[0]?.date}</span>
                                 <span>{data.points_by_day[data.points_by_day.length - 1]?.date}</span>
                             </div>
@@ -79,33 +79,33 @@ const Analytics = () => {
                             <Card title={__('Top 10 Earners', 'gameengine')}>
                                 <ol style={{ margin: 0, padding: '0 0 0 20px', fontSize: '13px' }}>
                                     {data.top_earners.map((u, i) => (
-                                        <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between' }}>
+                                        <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid var(--gameengine-secondary-color)', display: 'flex', justifyContent: 'space-between' }}>
                                             <span>{u.display_name}</span>
                                             <strong>{Number(u.total_points).toLocaleString()}</strong>
                                         </li>
                                     ))}
-                                    {data.top_earners.length === 0 && <li style={{ color: '#94a3b8' }}>{__('No data yet.', 'gameengine')}</li>}
+                                    {data.top_earners.length === 0 && <li style={{ color: 'var(--gameengine-placeholder)' }}>{__('No data yet.', 'gameengine')}</li>}
                                 </ol>
                             </Card>
 
                             <Card title={__('Most Unlocked Achievements', 'gameengine')}>
                                 <ol style={{ margin: 0, padding: '0 0 0 20px', fontSize: '13px' }}>
                                     {data.achievement_counts.map((a, i) => (
-                                        <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid #f1f5f9', display: 'flex', justifyContent: 'space-between' }}>
+                                        <li key={i} style={{ padding: '4px 0', borderBottom: '1px solid var(--gameengine-secondary-color)', display: 'flex', justifyContent: 'space-between' }}>
                                             <span>{a.title}</span>
                                             <strong>{a.unlock_count}</strong>
                                         </li>
                                     ))}
-                                    {data.achievement_counts.length === 0 && <li style={{ color: '#94a3b8' }}>{__('No data yet.', 'gameengine')}</li>}
+                                    {data.achievement_counts.length === 0 && <li style={{ color: 'var(--gameengine-placeholder)' }}>{__('No data yet.', 'gameengine')}</li>}
                                 </ol>
                             </Card>
                         </div>
 
                         <Card title={__('Rank Distribution', 'gameengine')}>
-                            <CSSBarChart data={data.rank_distribution} labelKey="title" valueKey="user_count" color="#10b981" />
+                            <CSSBarChart data={data.rank_distribution} labelKey="title" valueKey="user_count" color="var(--gameengine-success)" />
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
                                 {data.rank_distribution.map((r, i) => (
-                                    <span key={i} style={{ fontSize: '12px', color: '#64748b' }}>
+                                    <span key={i} style={{ fontSize: '12px', color: 'var(--gameengine-warn-muted)' }}>
                                         {r.title}: <strong>{r.user_count}</strong>
                                     </span>
                                 ))}

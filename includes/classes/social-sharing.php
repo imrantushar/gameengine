@@ -29,7 +29,8 @@ class SocialSharing
      */
     public static function handle_achievement_permalink()
     {
-        $slug = isset($_GET['gameengine_achievement']) ? sanitize_key($_GET['gameengine_achievement']) : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- a public share link, not a form submission.
+        $slug = isset($_GET['gameengine_achievement']) ? sanitize_key(wp_unslash($_GET['gameengine_achievement'])) : '';
         if (empty($slug)) {
             return;
         }
@@ -49,28 +50,26 @@ class SocialSharing
             return;
         }
 
-        $title       = esc_html($achievement['title'] ?? __('Achievement', 'gameengine'));
-        $description = esc_html($achievement['description'] ?? '');
-        $image       = esc_url($achievement['badge_image'] ?? '');
-        $site_name   = esc_html(get_bloginfo('name'));
-        $permalink   = esc_url(add_query_arg('gameengine_achievement', $slug, home_url('/')));
+        $title       = $achievement['title'] ?? __('Achievement', 'gameengine');
+        $description = $achievement['description'] ?? '';
+        $image       = $achievement['badge_image'] ?? '';
+        $site_name   = get_bloginfo('name');
+        $permalink   = add_query_arg('gameengine_achievement', $slug, home_url('/'));
 
         header('Content-Type: text/html; charset=UTF-8');
-        // phpcs:disable
         echo '<!DOCTYPE html><html><head>';
         echo '<meta charset="UTF-8">';
-        echo '<title>' . $title . ' - ' . $site_name . '</title>';
+        echo '<title>' . esc_html($title) . ' - ' . esc_html($site_name) . '</title>';
         echo '<meta property="og:type" content="website">';
-        echo '<meta property="og:title" content="' . $title . '">';
-        echo '<meta property="og:description" content="' . $description . '">';
-        echo '<meta property="og:url" content="' . $permalink . '">';
-        echo '<meta property="og:site_name" content="' . $site_name . '">';
+        echo '<meta property="og:title" content="' . esc_attr($title) . '">';
+        echo '<meta property="og:description" content="' . esc_attr($description) . '">';
+        echo '<meta property="og:url" content="' . esc_url($permalink) . '">';
+        echo '<meta property="og:site_name" content="' . esc_attr($site_name) . '">';
         if ($image) {
-            echo '<meta property="og:image" content="' . $image . '">';
+            echo '<meta property="og:image" content="' . esc_url($image) . '">';
         }
         echo '<meta http-equiv="refresh" content="0;url=' . esc_url(home_url('/')) . '">';
         echo '</head><body></body></html>';
-        // phpcs:enable
         exit;
     }
 }

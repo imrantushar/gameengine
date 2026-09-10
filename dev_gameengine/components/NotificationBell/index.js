@@ -85,7 +85,7 @@ const NotificationBell = () => {
                             position: 'absolute',
                             top: '2px',
                             right: '2px',
-                            background: '#e53e3e',
+                            background: 'var(--gameengine-placing)',
                             color: '#fff',
                             borderRadius: '9999px',
                             fontSize: '10px',
@@ -111,11 +111,11 @@ const NotificationBell = () => {
                         top: 'calc(100% + 8px)',
                         right: 0,
                         width: '340px',
-                        background: '#fff',
+                        background: 'var(--gameengine-background)',
                         borderRadius: '8px',
                         boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
                         zIndex: 9999,
-                        border: '1px solid #e2e8f0',
+                        border: '1px solid var(--gameengine-border-color)',
                         overflow: 'hidden',
                     }}
                 >
@@ -125,7 +125,7 @@ const NotificationBell = () => {
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             padding: '12px 16px',
-                            borderBottom: '1px solid #e2e8f0',
+                            borderBottom: '1px solid var(--gameengine-border-color)',
                         }}
                     >
                         <span style={{ fontWeight: '600', fontSize: '14px' }}>
@@ -134,7 +134,7 @@ const NotificationBell = () => {
                                 <span
                                     style={{
                                         marginLeft: '6px',
-                                        background: '#e53e3e',
+                                        background: 'var(--gameengine-placing)',
                                         color: '#fff',
                                         borderRadius: '9999px',
                                         fontSize: '11px',
@@ -153,7 +153,7 @@ const NotificationBell = () => {
                                     border: 'none',
                                     cursor: 'pointer',
                                     fontSize: '12px',
-                                    color: 'var(--gameengine-primary-color, #6c5ce7)',
+                                    color: 'var(--gameengine-primary-color, var(--gameengine-primary))',
                                     display: 'flex',
                                     alignItems: 'center',
                                     gap: '4px',
@@ -168,7 +168,7 @@ const NotificationBell = () => {
 
                     <div style={{ maxHeight: '360px', overflowY: 'auto' }}>
                         {items.length === 0 ? (
-                            <div style={{ padding: '24px 16px', textAlign: 'center', color: '#a0aec0', fontSize: '13px' }}>
+                            <div style={{ padding: '24px 16px', textAlign: 'center', color: 'var(--gameengine-placeholder)', fontSize: '13px' }}>
                                 {__('No notifications yet.', 'gameengine')}
                             </div>
                         ) : (
@@ -181,8 +181,8 @@ const NotificationBell = () => {
                                         gap: '10px',
                                         padding: '12px 16px',
                                         cursor: 'pointer',
-                                        borderBottom: '1px solid #f7f7f7',
-                                        background: item.is_read === '1' ? '#fff' : '#f0f4ff',
+                                        borderBottom: '1px solid var(--gameengine-secondary-color)',
+                                        background: item.is_read === '1' ? '#fff' : 'var(--gameengine-primary-light)',
                                         transition: 'background 0.15s',
                                     }}
                                 >
@@ -190,10 +190,10 @@ const NotificationBell = () => {
                                         {typeIcon(item.type)}
                                     </span>
                                     <div style={{ flex: 1, minWidth: 0 }}>
-                                        <p style={{ margin: 0, fontSize: '13px', color: '#2d3748', lineHeight: '1.5', wordBreak: 'break-word' }}>
+                                        <p style={{ margin: 0, fontSize: '13px', color: 'var(--gameengine-font-color)', lineHeight: '1.5', wordBreak: 'break-word' }}>
                                             {item.message}
                                         </p>
-                                        <span style={{ fontSize: '11px', color: '#a0aec0', marginTop: '2px', display: 'block' }}>
+                                        <span style={{ fontSize: '11px', color: 'var(--gameengine-placeholder)', marginTop: '2px', display: 'block' }}>
                                             {relativeTime(item.created_at)}
                                         </span>
                                     </div>
@@ -203,7 +203,7 @@ const NotificationBell = () => {
                                                 width: '8px',
                                                 height: '8px',
                                                 borderRadius: '9999px',
-                                                background: 'var(--gameengine-primary-color, #6c5ce7)',
+                                                background: 'var(--gameengine-primary-color, var(--gameengine-primary))',
                                                 flexShrink: 0,
                                                 marginTop: '6px',
                                             }}

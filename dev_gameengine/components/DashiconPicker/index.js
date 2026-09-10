@@ -43,9 +43,9 @@ const DashiconPicker = ({ value, onChange }) => {
                         padding: '4px 10px',
                         fontSize: '12px',
                         borderRadius: '4px',
-                        border: '1px solid #cbd5e0',
-                        background: mode === 'url' ? '#6c5ce7' : '#fff',
-                        color: mode === 'url' ? '#fff' : '#4a5568',
+                        border: '1px solid var(--gameengine-border-color)',
+                        background: mode === 'url' ? 'var(--gameengine-primary)' : '#fff',
+                        color: mode === 'url' ? '#fff' : 'var(--gameengine-warn-muted)',
                         cursor: 'pointer',
                     }}
                 >
@@ -58,9 +58,9 @@ const DashiconPicker = ({ value, onChange }) => {
                         padding: '4px 10px',
                         fontSize: '12px',
                         borderRadius: '4px',
-                        border: '1px solid #cbd5e0',
-                        background: mode === 'dashicon' ? '#6c5ce7' : '#fff',
-                        color: mode === 'dashicon' ? '#fff' : '#4a5568',
+                        border: '1px solid var(--gameengine-border-color)',
+                        background: mode === 'dashicon' ? 'var(--gameengine-primary)' : '#fff',
+                        color: mode === 'dashicon' ? '#fff' : 'var(--gameengine-warn-muted)',
                         cursor: 'pointer',
                     }}
                 >
@@ -86,9 +86,9 @@ const DashiconPicker = ({ value, onChange }) => {
                     maxHeight: '180px',
                     overflowY: 'auto',
                     padding: '8px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid var(--gameengine-border-color)',
                     borderRadius: '6px',
-                    background: '#f7fafc',
+                    background: 'var(--gameengine-secondary-color)',
                 }}>
                     {DASHICONS.map(slug => (
                         <button
@@ -102,15 +102,15 @@ const DashiconPicker = ({ value, onChange }) => {
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                border: value === slug ? '2px solid #6c5ce7' : '1px solid #e2e8f0',
+                                border: value === slug ? '2px solid var(--gameengine-primary)' : '1px solid var(--gameengine-border-color)',
                                 borderRadius: '4px',
-                                background: value === slug ? '#ede9fe' : '#fff',
+                                background: value === slug ? 'var(--gameengine-primary-light)' : '#fff',
                                 cursor: 'pointer',
                                 padding: 0,
-                                boxShadow: value === slug ? '0 0 0 2px #c4b5fd' : 'none',
+                                boxShadow: value === slug ? '0 0 0 2px var(--gameengine-primary-light)' : 'none',
                             }}
                         >
-                            <span className={slug} style={{ fontSize: '18px', color: value === slug ? '#6c5ce7' : '#4a5568' }} />
+                            <span className={slug} style={{ fontSize: '18px', color: value === slug ? 'var(--gameengine-primary)' : 'var(--gameengine-warn-muted)' }} />
                         </button>
                     ))}
                 </div>

@@ -20,7 +20,7 @@ const defaultForm = {
     title: '',
     points_required: '',
     icon: '',
-    color: '#6c5ce7',
+    color: 'var(--gameengine-primary)',
 };
 
 const RanksTable = () => {
@@ -50,7 +50,7 @@ const RanksTable = () => {
             title: rank.title || '',
             points_required: rank.points_required || '',
             icon: rank.icon || '',
-            color: rank.color || '#6c5ce7',
+            color: rank.color || 'var(--gameengine-primary)',
         });
         setIsModalOpen(true);
     };
@@ -98,13 +98,13 @@ const RanksTable = () => {
             cell: (row) => (
                 <div className="flex items-center gap-2">
                     {row.icon && row.icon.startsWith('dashicons-') ? (
-                        <span className={row.icon} style={{ fontSize: '22px', color: row.color || '#6c5ce7' }} />
+                        <span className={row.icon} style={{ fontSize: '22px', color: row.color || 'var(--gameengine-primary)' }} />
                     ) : row.icon ? (
                         <img src={row.icon} alt="" className="w-7 h-7 object-contain" />
                     ) : (
                         <span
                             className="w-7 h-7 rounded-full inline-flex items-center justify-center text-white text-xs font-bold"
-                            style={{ backgroundColor: row.color || '#6c5ce7' }}
+                            style={{ backgroundColor: row.color || 'var(--gameengine-primary)' }}
                         >
                             {(row.title || '?').charAt(0).toUpperCase()}
                         </span>
@@ -122,7 +122,7 @@ const RanksTable = () => {
         {
             name: __('Users', 'gameengine'),
             cell: (row) => (
-                <span className="text-sm text-gray-600">{row.user_count || 0}</span>
+                <span className="text-sm text-[var(--gameengine-warn-muted)]">{row.user_count || 0}</span>
             ),
         },
         {
@@ -225,7 +225,7 @@ const RanksTable = () => {
                             </div>
                             {form.icon && (
                                 form.icon.startsWith('dashicons-') ? (
-                                    <span className={form.icon} style={{ fontSize: '28px', color: form.color || '#6c5ce7', marginTop: '6px' }} />
+                                    <span className={form.icon} style={{ fontSize: '28px', color: form.color || 'var(--gameengine-primary)', marginTop: '6px' }} />
                                 ) : (
                                     <img src={form.icon} alt="" style={{ width: '36px', height: '36px', objectFit: 'contain', marginTop: '6px' }} />
                                 )

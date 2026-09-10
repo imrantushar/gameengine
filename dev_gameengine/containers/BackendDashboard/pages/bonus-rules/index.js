@@ -95,11 +95,11 @@ const BonusRules = () => {
         },
         {
             name: __('Hook / Trigger', 'gameengine'),
-            cell: (row) => <span className="text-sm text-gray-500">{row.hook_key || __('All', 'gameengine')}</span>,
+            cell: (row) => <span className="text-sm text-[var(--gameengine-warn-muted)]">{row.hook_key || __('All', 'gameengine')}</span>,
         },
         {
             name: __('Conditions', 'gameengine'),
-            cell: (row) => <span className="text-sm text-gray-500">{conditionsLabel(row.conditions)}</span>,
+            cell: (row) => <span className="text-sm text-[var(--gameengine-warn-muted)]">{conditionsLabel(row.conditions)}</span>,
         },
         {
             name: __('Bonus', 'gameengine'),
@@ -112,7 +112,7 @@ const BonusRules = () => {
             cell: (row) => (
                 <button
                     onClick={() => toggleActive(row)}
-                    style={{ background: row.active ? '#10b981' : '#e2e8f0', color: row.active ? '#fff' : '#64748b', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}
+                    style={{ background: row.active ? 'var(--gameengine-success)' : 'var(--gameengine-border-color)', color: row.active ? '#fff' : 'var(--gameengine-warn-muted)', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}
                 >
                     {row.active ? __('On', 'gameengine') : __('Off', 'gameengine')}
                 </button>
@@ -150,7 +150,7 @@ const BonusRules = () => {
             } />
             <div className="gameengine-page-content">
                 <h2 className="gameengine-page-heading py-6">{__('Conditional Bonus Rules', 'gameengine')}</h2>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--gameengine-warn-muted)', marginBottom: '16px' }}>
                     {__('Add point multipliers or bonuses based on conditions like user role, day of week, or first-time action.', 'gameengine')}
                 </p>
 
@@ -215,7 +215,7 @@ const BonusRules = () => {
                         </select>
                     </GameEngineInput>
 
-                    <fieldset style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px' }}>
+                    <fieldset style={{ border: '1px solid var(--gameengine-border-color)', borderRadius: '8px', padding: '12px' }}>
                         <legend style={{ fontSize: '13px', fontWeight: '600', padding: '0 6px' }}>{__('Conditions', 'gameengine')}</legend>
 
                         <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', marginBottom: '10px' }}>

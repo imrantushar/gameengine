@@ -24,9 +24,13 @@ class ImportManager
      * @param string $type      Entity type.
      * @param string $file_path Temp file path.
      * @param bool   $overwrite Whether to overwrite existing slugs.
+     * @param string $format    'json' or 'csv'. Taken from the uploaded file's
+     *                          name by the caller: $file_path is PHP's upload
+     *                          temp file, which has no extension, so sniffing
+     *                          it here read every upload as CSV.
      * @return array{imported: int, skipped: int, errors: array}
      */
-    public static function import(string $type, string $file_path, bool $overwrite = false): array
+    public static function import(string $type, string $file_path, bool $overwrite = false, string $format = ''): array
     {
         $result = array('imported' => 0, 'skipped' => 0, 'errors' => array());
 
@@ -40,7 +44,9 @@ class ImportManager
             return $result;
         }
 
-        $ext  = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+        $ext  = $format !== ''
+            ? strtolower($format)
+            : strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
         $rows = array();
 
         if ($ext === 'json') {

@@ -9,7 +9,7 @@ import GameEngineInput from '@GFComponents/GameEngineInput';
 import { FiEye, FiCamera, FiTrash2, FiPlay, FiCheck } from 'react-icons/fi';
 import { API, namespace } from '@GFUtils/helper';
 
-const STATUS_COLORS = { draft: '#94a3b8', active: '#10b981', completed: '#6c5ce7' };
+const STATUS_COLORS = { draft: 'var(--gameengine-placeholder)', active: 'var(--gameengine-success)', completed: 'var(--gameengine-primary)' };
 
 const Seasons = () => {
     const [seasons, setSeasons] = useState([]);
@@ -85,7 +85,7 @@ const Seasons = () => {
         },
         {
             name: __('Dates', 'gameengine'),
-            cell: (row) => <span className="text-sm text-gray-500">{row.start_date} → {row.end_date}</span>,
+            cell: (row) => <span className="text-sm text-[var(--gameengine-warn-muted)]">{row.start_date} → {row.end_date}</span>,
         },
         {
             name: __('Status', 'gameengine'),
@@ -148,7 +148,7 @@ const Seasons = () => {
             } />
             <div className="gameengine-page-content">
                 <h2 className="gameengine-page-heading py-6">{__('Leaderboard Seasons', 'gameengine')}</h2>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--gameengine-warn-muted)', marginBottom: '16px' }}>
                     {__('Create named seasons and capture point rankings snapshots. Use [gameengine_leaderboard season_id=1] to show a season\'s leaderboard.', 'gameengine')}
                 </p>
 
@@ -202,7 +202,7 @@ const Seasons = () => {
                 <div className="p-4">
                     <table style={{ width: '100%', fontSize: '13px', borderCollapse: 'collapse' }}>
                         <thead>
-                            <tr style={{ color: '#64748b', fontSize: '12px' }}>
+                            <tr style={{ color: 'var(--gameengine-warn-muted)', fontSize: '12px' }}>
                                 <th style={{ textAlign: 'left', padding: '4px 0' }}>#</th>
                                 <th style={{ textAlign: 'left', padding: '4px 0' }}>{__('User', 'gameengine')}</th>
                                 <th style={{ textAlign: 'right', padding: '4px 0' }}>{__('Points', 'gameengine')}</th>
@@ -210,14 +210,14 @@ const Seasons = () => {
                         </thead>
                         <tbody>
                             {(rankingsSeason && rankings[rankingsSeason.id] || []).map(r => (
-                                <tr key={r.position} style={{ borderBottom: '1px solid #f8fafc' }}>
+                                <tr key={r.position} style={{ borderBottom: '1px solid var(--gameengine-secondary-color)' }}>
                                     <td style={{ padding: '5px 0', width: '40px' }}>{r.position}</td>
                                     <td style={{ padding: '5px 0' }}>{r.display_name}</td>
                                     <td style={{ padding: '5px 0', textAlign: 'right', fontWeight: '600' }}>{Number(r.total_points).toLocaleString()}</td>
                                 </tr>
                             ))}
                             {rankingsSeason && (rankings[rankingsSeason.id] || []).length === 0 && (
-                                <tr><td colSpan={3} style={{ padding: '10px 0', color: '#94a3b8', textAlign: 'center' }}>{__('No rankings captured yet.', 'gameengine')}</td></tr>
+                                <tr><td colSpan={3} style={{ padding: '10px 0', color: 'var(--gameengine-placeholder)', textAlign: 'center' }}>{__('No rankings captured yet.', 'gameengine')}</td></tr>
                             )}
                         </tbody>
                     </table>

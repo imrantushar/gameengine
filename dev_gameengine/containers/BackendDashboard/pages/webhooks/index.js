@@ -100,12 +100,12 @@ const Webhooks = () => {
         },
         {
             name: __('URL', 'gameengine'),
-            cell: (row) => <span className="text-xs text-gray-500" style={{ fontFamily: 'monospace' }}>{truncate(row.url, 48)}</span>,
+            cell: (row) => <span className="text-xs text-[var(--gameengine-warn-muted)]" style={{ fontFamily: 'monospace' }}>{truncate(row.url, 48)}</span>,
         },
         {
             name: __('Events', 'gameengine'),
             cell: (row) => (
-                <span className="text-sm text-gray-500">
+                <span className="text-sm text-[var(--gameengine-warn-muted)]">
                     {(row.events || []).map(e => EVENTS.find(ev => ev.key === e)?.label || e).join(', ') || __('None', 'gameengine')}
                 </span>
             ),
@@ -114,7 +114,7 @@ const Webhooks = () => {
             name: __('Active', 'gameengine'),
             cell: (row) => (
                 <button onClick={() => toggleActive(row)}
-                    style={{ background: row.active ? '#10b981' : '#e2e8f0', color: row.active ? '#fff' : '#64748b', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}>
+                    style={{ background: row.active ? 'var(--gameengine-success)' : 'var(--gameengine-border-color)', color: row.active ? '#fff' : 'var(--gameengine-warn-muted)', border: 'none', borderRadius: '20px', padding: '3px 10px', cursor: 'pointer', fontSize: '12px' }}>
                     {row.active ? __('On', 'gameengine') : __('Off', 'gameengine')}
                 </button>
             ),
@@ -124,10 +124,10 @@ const Webhooks = () => {
             cell: (row) => {
                 const result = testResults[row.id];
                 if (!result) {
-                    return <span className="text-xs text-gray-400">—</span>;
+                    return <span className="text-xs text-[var(--gameengine-placeholder)]">—</span>;
                 }
                 return (
-                    <span className="text-xs" style={{ color: result.success ? '#166534' : '#991b1b' }}>
+                    <span className="text-xs" style={{ color: result.success ? 'var(--gameengine-success)' : 'var(--gameengine-placing)' }}>
                         {result.success
                             ? `✓ ${__('Success', 'gameengine')} (${result.response_code})`
                             : `✗ ${result.error || __('Failed', 'gameengine')}${result.response_code ? ' (' + result.response_code + ')' : ''}`}
@@ -174,7 +174,7 @@ const Webhooks = () => {
             } />
             <div className="gameengine-page-content">
                 <h2 className="gameengine-page-heading py-6">{__('Webhooks', 'gameengine')}</h2>
-                <p style={{ fontSize: '13px', color: '#64748b', marginBottom: '16px' }}>
+                <p style={{ fontSize: '13px', color: 'var(--gameengine-warn-muted)', marginBottom: '16px' }}>
                     {__('Send signed JSON payloads to external URLs when gamification events occur. Verify requests using the HMAC-SHA256 signature in the X-GameEngine-Signature header.', 'gameengine')}
                 </p>
 
@@ -217,7 +217,7 @@ const Webhooks = () => {
                         <input className="gameengine-input" type="url" value={form.url}
                             onChange={e => setForm(f => ({ ...f, url: e.target.value }))} placeholder="https://example.com/webhook" />
                     </GameEngineInput>
-                    <fieldset style={{ border: '1px solid #e2e8f0', borderRadius: '8px', padding: '12px' }}>
+                    <fieldset style={{ border: '1px solid var(--gameengine-border-color)', borderRadius: '8px', padding: '12px' }}>
                         <legend style={{ fontSize: '13px', fontWeight: '600', padding: '0 6px' }}>{__('Events', 'gameengine')}</legend>
                         {EVENTS.map(ev => (
                             <label key={ev.key} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', marginBottom: '6px' }}>
@@ -233,7 +233,7 @@ const Webhooks = () => {
                             <input className="gameengine-input" style={{ flex: 1 }} type="text" value={form.secret}
                                 onChange={e => setForm(f => ({ ...f, secret: e.target.value }))} placeholder={__('optional', 'gameengine')} />
                             <button type="button" onClick={() => setForm(f => ({ ...f, secret: generateSecret() }))}
-                                style={{ padding: '0 14px', borderRadius: '6px', border: '1px solid #e2e8f0', background: '#f8fafc', cursor: 'pointer', fontSize: '12px', whiteSpace: 'nowrap' }}>
+                                style={{ padding: '0 14px', borderRadius: '6px', border: '1px solid var(--gameengine-border-color)', background: 'var(--gameengine-secondary-color)', cursor: 'pointer', fontSize: '12px', whiteSpace: 'nowrap' }}>
                                 {__('Generate', 'gameengine')}
                             </button>
                         </div>

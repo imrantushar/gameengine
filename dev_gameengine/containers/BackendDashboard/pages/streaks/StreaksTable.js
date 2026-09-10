@@ -124,7 +124,7 @@ const StreaksTable = () => {
         {
             name: __('Trigger Hook', 'gameengine'),
             cell: (row) => (
-                <code className="text-xs bg-gray-100 px-2 py-1 rounded">{row.trigger_hook}</code>
+                <code className="text-xs bg-[var(--gameengine-secondary-color)] px-2 py-1 rounded">{row.trigger_hook}</code>
             ),
         },
         {

@@ -64,7 +64,7 @@ const AvailableHooks = () => {
 
     return (
         <div className="flex flex-col gap-4">
-            <p style={{ margin: 0, fontSize: '13px', color: '#4a5568', background: '#ebf8ff', border: '1px solid #bee3f8', borderRadius: '6px', padding: '10px 14px', lineHeight: '1.6' }}>
+            <p style={{ margin: 0, fontSize: '13px', color: 'var(--gameengine-warn-muted)', background: 'var(--gameengine-primary-light)', border: '1px solid var(--gameengine-primary-light)', borderRadius: '6px', padding: '10px 14px', lineHeight: '1.6' }}>
                 {__('These are all WordPress action hooks that GameEngine listens to. Developers can copy a hook key and use it as a trigger in Points, Achievements, or Streaks rules to award points when that action fires.', 'gameengine')}
             </p>
             <div className="flex gap-3 items-center flex-wrap">
@@ -90,11 +90,11 @@ const AvailableHooks = () => {
             </div>
 
             {loading && (
-                <p className="text-sm text-gray-400">{__('Loading hooks…', 'gameengine')}</p>
+                <p className="text-sm text-[var(--gameengine-placeholder)]">{__('Loading hooks…', 'gameengine')}</p>
             )}
 
             {!loading && filtered.length === 0 && (
-                <p className="text-sm text-gray-400">{__('No hooks found.', 'gameengine')}</p>
+                <p className="text-sm text-[var(--gameengine-placeholder)]">{__('No hooks found.', 'gameengine')}</p>
             )}
 
             {Object.entries(grouped).map(([integration, items]) => (
@@ -105,8 +105,8 @@ const AvailableHooks = () => {
                             padding: '6px 0',
                             fontSize: '13px',
                             fontWeight: '600',
-                            color: '#4a5568',
-                            borderBottom: '1px solid #e2e8f0',
+                            color: 'var(--gameengine-warn-muted)',
+                            borderBottom: '1px solid var(--gameengine-border-color)',
                             textTransform: 'uppercase',
                             letterSpacing: '0.04em',
                         }}
@@ -121,22 +121,22 @@ const AvailableHooks = () => {
                                 alignItems: 'center',
                                 gap: '12px',
                                 padding: '8px 12px',
-                                background: '#f7fafc',
+                                background: 'var(--gameengine-secondary-color)',
                                 borderRadius: '6px',
-                                border: '1px solid #edf2f7',
+                                border: '1px solid var(--gameengine-secondary-color)',
                             }}
                         >
                             <div style={{ flex: 1, minWidth: 0 }}>
                                 {hook.label && (
-                                    <p style={{ margin: 0, fontSize: '13px', fontWeight: '500', color: '#2d3748' }}>
+                                    <p style={{ margin: 0, fontSize: '13px', fontWeight: '500', color: 'var(--gameengine-font-color)' }}>
                                         {hook.label}
                                     </p>
                                 )}
-                                <code style={{ fontSize: '12px', color: '#6b46c1', background: 'none' }}>
+                                <code style={{ fontSize: '12px', color: 'var(--gameengine-primary)', background: 'none' }}>
                                     {hook.hook_key}
                                 </code>
                                 {hook.description && (
-                                    <p style={{ margin: '2px 0 0', fontSize: '12px', color: '#718096' }}>
+                                    <p style={{ margin: '2px 0 0', fontSize: '12px', color: 'var(--gameengine-warn-muted)' }}>
                                         {hook.description}
                                     </p>
                                 )}
@@ -148,7 +148,7 @@ const AvailableHooks = () => {
                                     background: 'none',
                                     border: 'none',
                                     cursor: 'pointer',
-                                    color: copiedKey === hook.hook_key ? '#38a169' : '#718096',
+                                    color: copiedKey === hook.hook_key ? 'var(--gameengine-success)' : 'var(--gameengine-warn-muted)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     padding: '4px',

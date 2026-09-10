@@ -19,7 +19,7 @@ import {
 const defaultForm = {
     title: '',
     icon: '',
-    color: '#6c5ce7',
+    color: 'var(--gameengine-primary)',
     icon_type: 'url',
     shape: 'circle',
     border_color: '#ffffff',
@@ -36,7 +36,7 @@ const shieldClipPath = 'polygon(50% 0%, 100% 20%, 100% 70%, 50% 100%, 0% 70%, 0%
 
 function getBadgeStyle(shape, color, borderColor) {
     const base = {
-        backgroundColor: color || '#6c5ce7',
+        backgroundColor: color || 'var(--gameengine-primary)',
         border: `2px solid ${borderColor || '#ffffff'}`,
         display: 'flex',
         alignItems: 'center',
@@ -73,7 +73,7 @@ const BadgesPage = () => {
         setForm({
             title: badge.title || '',
             icon: badge.icon || '',
-            color: badge.color || '#6c5ce7',
+            color: badge.color || 'var(--gameengine-primary)',
             icon_type: badge.icon_type || 'url',
             shape: badge.shape || 'circle',
             border_color: badge.border_color || '#ffffff',
@@ -163,11 +163,11 @@ const BadgesPage = () => {
                 </div>
 
                 {status === 'loading' && (
-                    <p className="text-sm text-gray-500 px-1">{__('Loading badges…', 'gameengine')}</p>
+                    <p className="text-sm text-[var(--gameengine-warn-muted)] px-1">{__('Loading badges…', 'gameengine')}</p>
                 )}
 
                 {status !== 'loading' && items.length === 0 && (
-                    <div className="text-center py-12 text-gray-400">
+                    <div className="text-center py-12 text-[var(--gameengine-placeholder)]">
                         <p>{__('No badges yet. Create your first badge!', 'gameengine')}</p>
                     </div>
                 )}
@@ -176,20 +176,20 @@ const BadgesPage = () => {
                     {items.map((badge) => (
                         <div
                             key={badge.id}
-                            className="bg-white rounded-lg border border-gray-100 shadow-sm p-4 flex flex-col items-center gap-3 relative group"
+                            className="bg-[var(--gameengine-background)] rounded-lg border border-[var(--gameengine-border-color)] shadow-sm p-4 flex flex-col items-center gap-3 relative group"
                         >
                             {renderBadgeIcon(badge, 64, 28)}
-                            <span className="text-sm font-medium text-gray-800 text-center">{badge.title}</span>
+                            <span className="text-sm font-medium text-[var(--gameengine-font-color)] text-center">{badge.title}</span>
                             <div className="flex gap-2">
                                 <button
-                                    className="text-gray-400 hover:text-blue-500 transition-colors"
+                                    className="text-[var(--gameengine-placeholder)] hover:text-blue-500 transition-colors"
                                     onClick={() => openEdit(badge)}
                                     title={__('Edit', 'gameengine')}
                                 >
                                     <FiEdit size={15} />
                                 </button>
                                 <button
-                                    className="text-gray-400 hover:text-red-500 transition-colors"
+                                    className="text-[var(--gameengine-placeholder)] hover:text-red-500 transition-colors"
                                     onClick={() => handleDelete(badge.id)}
                                     title={__('Delete', 'gameengine')}
                                 >
@@ -247,7 +247,7 @@ const BadgesPage = () => {
                                 onChange={(e) => handleChange('color', e.target.value)}
                                 style={{ width: '48px', height: '36px', cursor: 'pointer', border: 'none', padding: 0 }}
                             />
-                            <span className="text-sm text-gray-500">{form.color}</span>
+                            <span className="text-sm text-[var(--gameengine-warn-muted)]">{form.color}</span>
                         </div>
                     </GameEngineInput>
 
@@ -276,7 +276,7 @@ const BadgesPage = () => {
                                 onChange={(e) => handleChange('border_color', e.target.value)}
                                 style={{ width: '48px', height: '36px', cursor: 'pointer', border: 'none', padding: 0 }}
                             />
-                            <span className="text-sm text-gray-500">{form.border_color}</span>
+                            <span className="text-sm text-[var(--gameengine-warn-muted)]">{form.border_color}</span>
                         </div>
                     </GameEngineInput>
 
@@ -288,17 +288,17 @@ const BadgesPage = () => {
                                 onChange={(e) => handleChange('text_color', e.target.value)}
                                 style={{ width: '48px', height: '36px', cursor: 'pointer', border: 'none', padding: 0 }}
                             />
-                            <span className="text-sm text-gray-500">{form.text_color}</span>
+                            <span className="text-sm text-[var(--gameengine-warn-muted)]">{form.text_color}</span>
                         </div>
                     </GameEngineInput>
 
                     <div className="flex flex-col gap-1">
-                        <span className="text-xs text-gray-500">{__('Preview', 'gameengine')}</span>
+                        <span className="text-xs text-[var(--gameengine-warn-muted)]">{__('Preview', 'gameengine')}</span>
                         <div className="flex items-center gap-3">
                             {renderBadgeIcon({ ...form, title: form.title || '?' }, 64, 28)}
-                            <div className="text-sm text-gray-600">
+                            <div className="text-sm text-[var(--gameengine-warn-muted)]">
                                 <div className="font-medium">{form.title || __('Badge Name', 'gameengine')}</div>
-                                <div className="text-xs text-gray-400 capitalize">{form.shape}</div>
+                                <div className="text-xs text-[var(--gameengine-placeholder)] capitalize">{form.shape}</div>
                             </div>
                         </div>
                     </div>
