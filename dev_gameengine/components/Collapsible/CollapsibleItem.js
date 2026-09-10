@@ -1,7 +1,7 @@
 import React from 'react';
 import { LuChevronDown, LuChevronUp } from 'react-icons/lu';
 import GFLabel from '@GFComponents/Labels/GFLabel';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 
 const CollapsibleItem = ({
   label,
@@ -21,7 +21,7 @@ const CollapsibleItem = ({
       <div className="flex justify-between items-center w-full cursor-pointer" onClick={onClick}>
         <GFLabel type="plainHeading" margin={0} padding={0}
           // translators: %s: label
-          label={sprintf(__('%s', 'gemboards'), label)} />
+          label={label} />
 
         {open ? <LuChevronUp size="20px" /> : <LuChevronDown size="20px" />}
       </div>

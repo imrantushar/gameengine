@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
+import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GFLabel from "@GFComponents/Labels/GFLabel";
@@ -19,6 +19,8 @@ import DragPreview from "@GFComponents/Requirements/DragPreview";
 import { arrowForward } from "@GFUtils/icons";
 import { LuExternalLink } from "react-icons/lu";
 import { Link } from "react-router-dom";
+
+const UNKNOWN_INTEGRATION_ICON = { icon: FaPuzzlePiece, bg: '#64748b' };
 
 const FormInner = () => {
   const [message, setMessage] = useState("");
@@ -179,7 +181,9 @@ const FormInner = () => {
 
   const renderHookCard = item => {
     const slug = item.integrationSlug || 'wordpress';
-    const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
+    // An integration with no icon of its own must not borrow WordPress's —
+    // that says something untrue about where the hook came from.
+    const config = hookCategoryIconMap[slug] || UNKNOWN_INTEGRATION_ICON;
 
     return (
       <DraggableItem key={item.id} id={item.id}>

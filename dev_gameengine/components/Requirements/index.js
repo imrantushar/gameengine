@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import HookConfigurationForm from './HookConfigurationForm';
@@ -94,7 +94,7 @@ const Requirements = props => {
   return (
     <CollapsibleItem
       // translators: %s: label
-      label={sprintf(__('%s', 'gemboards'), label)}
+      label={label}
       onClick={onClick}
       open={open}
       dynamicClasses={`${parent} ${externalClasses}`}
