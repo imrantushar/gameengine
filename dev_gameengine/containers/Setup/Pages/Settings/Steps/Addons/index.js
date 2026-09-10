@@ -84,8 +84,8 @@ const Addons = () => {
   return (
     <>
       <SettingsHeader
-        title={__('Gamification Category', 'gemboards')}
-        subTitle={__('What best describes your Needs?', 'gemboards')}
+        title={__('Gamification Category', 'gameengine')}
+        subTitle={__('What best describes your Needs?', 'gameengine')}
       />
 
       <div className="w-full h-px" style={{ "background": "#E0E4E8" }} />

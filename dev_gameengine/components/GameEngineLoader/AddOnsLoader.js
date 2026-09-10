@@ -4,7 +4,7 @@ const AddOnsLoader = ({ count = 5 }) => {
   return (
     <div className="gameengine-dashboard-addon-cards flex w-full flex-wrap gap-5">
       {Array.from({ length: count }).map((_, i) => <div
-        className="rounded-md bg-white [border:1px_solid_var(--academy-border-color)] py-4"
+        className="rounded-md bg-[var(--gameengine-background)] [border:1px_solid_var(--gameengine-border-color)] py-4"
         style={{
           "width": "calc((100% / 3) - 16px)"
         }}

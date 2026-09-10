@@ -11,8 +11,8 @@ const Setup = () => {
   const [showConfirm, setShowConfirm] = useState(false);
 
   return (
-    <div className="bg-white min-h-screen flex flex-col">
-      <div className="sticky top-0 z-50 bg-white flex-shrink-0 flex items-center justify-between px-6 py-5 border-0 border-b border-solid border-[var(--gameengine-border-color)]">
+    <div className="bg-[var(--gameengine-background)] min-h-screen flex flex-col">
+      <div className="sticky top-0 z-50 bg-[var(--gameengine-background)] flex-shrink-0 flex items-center justify-between px-6 py-5 border-0 border-b border-solid border-[var(--gameengine-border-color)]">
         <img className="h-auto max-w-[120px]" src={plugin_root_url + 'assets/images/logo-text.svg'} />
         <button
           onClick={() => setShowConfirm(true)}
@@ -39,7 +39,7 @@ const Setup = () => {
 
       {showConfirm && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50">
-          <div className="bg-white rounded p-6 max-w-[400px] w-full mx-4 flex flex-col gap-5 shadow-[0_20px_60px_0_rgba(0,0,0,0.15)]">
+          <div className="bg-[var(--gameengine-background)] rounded p-6 max-w-[400px] w-full mx-4 flex flex-col gap-5 shadow-[0_20px_60px_0_rgba(0,0,0,0.15)]">
             <div className="flex flex-col gap-2">
               <h3 className="text-lg font-medium text-[var(--gameengine-heading-color)] m-0">
                 {__('Continue without setup?', 'gameengine')}

@@ -24,23 +24,6 @@ class Assets
     }
 
     /**
-     * Get Google Fonts URL (Roboto).
-     *
-     * @return string
-     */
-    public function get_google_fonts_url()
-    {
-        $font_url = '';
-        /**
-         * We are using Roboto with 400, 500, and 700 weights.
-         * Display=swap is used for better performance.
-         */
-        $font_url = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
-
-        return $font_url;
-    }
-
-    /**
      * Prepares the array of data to be passed to JavaScript.
      *
      * @return array
@@ -52,20 +35,22 @@ class Assets
         $active_addons = get_option('gameengine_active_addons', []);
 
         // Define all possible addons and map their status
-        $all_addons = [
-            'storeengine',
-            'woocommerce',
-            'academylms',
-            'tutorlms',
-            'restrict_unlock',
-            'progress_map',
-            'restrict_content',
-            'wallet'
-        ];
+        $all_addons = apply_filters(
+            'gameengine_addon_slugs',
+            [
+                'storeengine',
+                'woocommerce',
+                'academylms',
+                'tutorlms',
+                'restrict_unlock',
+                'progress_map',
+                'restrict_content',
+            ]
+        );
         $addons_status = [];
 
         foreach ($all_addons as $slug) {
-            $addons_status[$slug] = in_array($slug, $active_addons);
+            $addons_status[$slug] = in_array($slug, $active_addons, true);
         }
 
         return array(
@@ -77,17 +62,14 @@ class Assets
             'plugin_root_url'    => GAMEENGINE_URL,
             'plugin_root_path'   => GAMEENGINE_PATH,
             'ajaxurl'            => esc_url(admin_url('admin-ajax.php')),
-            'is_pro'             => false,
             'site_url'           => site_url(),
             'admin_url'          => admin_url(),
             'route_path'         => wp_parse_url(admin_url(), PHP_URL_PATH),
             'menu'               => wp_json_encode(Helper::get_admin_menu_list()),
-            'is_plain_permalink' => (bool) empty(get_option('permalink_structure')),
             'is_woocommerce_active' => \GameEngine\Helper::is_plugin_active('WooCommerce'),
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
             'is_storeengine_active' => defined('STOREENGINE_VERSION'),
-            'is_pro' => (bool) \GameEngine\Helper::is_pro(),
             'banners'               => array(
                 'points'       => get_option('gameengine_hide_banner_points', 'no'),
                 'achievements' => get_option('gameengine_hide_banner_achievements', 'no'),
@@ -118,11 +100,7 @@ class Assets
             return;
         }
 
-        //  Enqueue Google Fonts (Roboto)
-        wp_enqueue_style('gameengine-fonts', $this->get_google_fonts_url(), array(), GAMEENGINE_VERSION);
-
-        $versioned_filename = 'backend.' . GAMEENGINE_VERSION;
-        $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
+        $script_asset_path = GAMEENGINE_PATH . 'assets/build/backend.asset.php';
 
         if (! file_exists($script_asset_path)) {
             return;
@@ -148,7 +126,7 @@ class Assets
         // Enqueue JS
         wp_enqueue_script(
             'gameengine-admin-script',
-            GAMEENGINE_URL . 'assets/build/' . $versioned_filename . '.js',
+            GAMEENGINE_URL . 'assets/build/backend.js',
             $script_asset['dependencies'],
             $script_asset['version'],
             true
@@ -163,11 +141,17 @@ class Assets
      */
     public function enqueue_frontend_assets()
     {
+        // Registered here and enqueued by the shortcode that needs it, so the
+        // stylesheet only loads on pages that actually render the markup.
+        wp_register_style(
+            'gameengine-shortcode-levels',
+            GAMEENGINE_URL . 'assets/css/shortcode-levels.css',
+            array(),
+            GAMEENGINE_VERSION
+        );
 
-        wp_enqueue_style('gameengine-fonts', $this->get_google_fonts_url(), array(), GAMEENGINE_VERSION);
 
-        $versioned_filename = 'frontend.' . GAMEENGINE_VERSION;
-        $script_asset_path  = GAMEENGINE_PATH . 'assets/build/' . $versioned_filename . '.asset.php';
+        $script_asset_path = GAMEENGINE_PATH . 'assets/build/frontend.asset.php';
 
         if (file_exists($script_asset_path)) {
             $script_asset = require $script_asset_path;
@@ -182,7 +166,7 @@ class Assets
             // build js
             wp_enqueue_script(
                 'gameengine-frontend-script',
-                GAMEENGINE_URL . 'assets/build/' . $versioned_filename . '.js',
+                GAMEENGINE_URL . 'assets/build/frontend.js',
                 $script_asset['dependencies'],
                 $script_asset['version'],
                 true

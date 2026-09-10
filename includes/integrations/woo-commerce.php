@@ -35,14 +35,7 @@ class WooCommerce extends BaseIntegration
                     $o = wc_get_order($id);
                     return $o ? $o->get_user_id() : 0;
                 },
-                'schema' => self::merge_schema([
-                    ['key' => 'calc_type', 'label' => __('Points Calculation', 'gameengine'), 'type' => 'select', 'width' => '50%', 'options' => [['label' => 'Fixed', 'value' => 'fixed'], ['label' => 'Percent of Order Total (Pro)', 'value' => 'percent', 'is_pro' => true]]],
-                    ['key' => 'min_spend', 'label' => __('Minimum Spend', 'gameengine'), 'type' => 'number', 'width' => '50%', 'is_pro' => true],
-                    ['key' => 'include_products', 'label' => __('Include Specific Products', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
-                    ['key' => 'include_categories', 'label' => __('Include Specific Categories', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']],
-                    ['key' => 'exclude_products', 'label' => __('Exclude Specific Products', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
-                    array('key' => 'exclude_categories', 'label' => __('Exclude Specific Categories', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']),
-                ])
+                'schema' => self::merge_schema([])
             ],
             'woocommerce_purchase_specific_product' => [
                 'label' => __('Purchase Specific Product', 'gameengine'),
@@ -56,7 +49,6 @@ class WooCommerce extends BaseIntegration
                 },
                 'schema' => self::merge_schema([
                     ['key' => 'product_id', 'label' => __('Select Product', 'gameengine'), 'type' => 'select', 'width' => '50%', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
-                    ['key' => 'categories', 'label' => __('Select Entire Category (Pro)', 'gameengine'), 'type' => 'select', 'width' => '50%', 'is_multi' => true, 'is_pro' => true, 'dynamic' => ['integration' => 'woocommerce', 'query' => 'product_cats']],
                 ])
             ],
             'woocommerce_publish_product' => [

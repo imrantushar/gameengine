@@ -47,7 +47,7 @@ const TableFooter = ({
 					<select
 						value={currentValue}
 						onChange={handleChange}
-						className="text-sm border border-gray-300 rounded px-2 py-1 bg-white cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
+						className="text-sm border border-[var(--gameengine-border-color)] rounded px-2 py-1 bg-[var(--gameengine-background)] cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
 					>
 						{options.map((option) => (
 							<option key={option.value} value={option.value}>

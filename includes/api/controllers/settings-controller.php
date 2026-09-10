@@ -55,9 +55,7 @@ class SettingsController extends BaseController
                 'inactivity_subject'=> '',
                 'inactivity_body'   => '',
             )),
-            'config' => array(
-                'is_pro' => false, // Default is false
-            )
+            'config' => array()
         );
 
         /**

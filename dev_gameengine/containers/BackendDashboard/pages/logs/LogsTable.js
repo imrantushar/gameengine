@@ -70,7 +70,7 @@ const LogsTable = ({
 
           {congratsMsg && (
             <div
-              className="[&>p]:m-0 mt-6 px-[6px] py-[8px] rounded bg-[#f0fff4] color-[#2f855a]"
+              className="[&>p]:m-0 mt-6 px-[6px] py-[8px] rounded bg-[var(--gameengine-success-light)] color-[#2f855a]"
               dangerouslySetInnerHTML={{
                 __html: congratsMsg
               }}

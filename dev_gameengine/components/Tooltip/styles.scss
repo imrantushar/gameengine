@@ -297,12 +297,12 @@
     }
     &__drawer-date {
         .kodezen-tooltip__content {
-            background: #fff;
+            background: var(--gameengine-background);
         }
     }
     &__status-overview-more {
         .kodezen-tooltip__content {
-            background: #fff;
+            background: var(--gameengine-background);
             color: var(--gameengine-font-color);
             box-shadow: var(--gameengine-box-shadow);
         }

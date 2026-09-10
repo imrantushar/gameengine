@@ -43,7 +43,6 @@ const GeneralSettings = () => {
     <>
       <GameEngineBox
         dynamicClasses="gameengine-settings overflow-visible"
-        boxShadow="var(--gameengine-shadow)"
       >
         <p className="gameengine-settings-heading">
           {__('Log', 'gameengine')}
@@ -102,7 +101,6 @@ const GeneralSettings = () => {
 
       <GameEngineBox
         dynamicClasses="gameengine-settings mt-6"
-        boxShadow="var(--gameengine-shadow)"
       >
         <p
           className="gameengine-settings-heading"

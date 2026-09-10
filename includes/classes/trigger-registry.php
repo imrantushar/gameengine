@@ -25,10 +25,6 @@ final class TriggerRegistry
         self::$integrations['gameengine']      = GameEngine::class;
         $active_addons = get_option('gameengine_active_addons', []);
 
-        if (in_array('referrals', $active_addons, true)) {
-            self::$integrations['referral'] = \GameEngine\Integrations\Referral::class;
-        }
-
         if (in_array('woocommerce', $active_addons)) {
             if (class_exists('\GameEngine\Integrations\WooCommerce') && class_exists('WooCommerce')) {
                 self::$integrations['woocommerce'] = WooCommerce::class;

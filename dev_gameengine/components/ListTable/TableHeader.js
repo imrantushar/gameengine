@@ -22,7 +22,7 @@ const TableHeader = ({
 							aria-label="Select all rows"
 							checked={isCheckboxChecked}
 							onChange={(e) => selectAllRow({ checked: e.target.checked })}
-							className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-current"
+							className="w-4 h-4 rounded border-[var(--gameengine-border-color)] cursor-pointer accent-current"
 						/>
 					</th>
 				)}

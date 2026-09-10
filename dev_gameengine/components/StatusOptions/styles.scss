@@ -16,22 +16,22 @@
         line-height: 18px;
     }
     &--completed, &--publish, &--approved, &--pass, &--future {
-        color: #00AD6B;
+        color: var(--gameengine-success);
         border: none;
         background: rgba(36, 161, 72, 0.1);
     }
     &--processing, &--pending, &--submitted {
-        color: #FDB022;
+        color: var(--gameengine-warning);
         border: none;
         background: rgba(236, 152, 20, 0.12);
     }
     &--draft, &--private {
-        color: #0F0E16;
+        color: var(--gameengine-font-color);
         border: none;
         background: rgba(114, 114, 114, .12);   
     }
     &--cancel,&--trash, &--failed, &--rejected {
-        color: #FF4D4D;
+        color: var(--gameengine-placing);
         border: none;
         background: rgba(244, 72, 63, 0.12);
     }
@@ -50,7 +50,7 @@
             min-width: 175px;
             z-index: 99999;
             border-radius: 4px;
-            background: #fff;
+            background: var(--gameengine-background);
             margin: 0;
             padding: 5px;
             border-width: 1px;
@@ -61,7 +61,7 @@
             &__item{
                 display: flex;
                 color: var(--gameengine-font-color);
-                background: #fff;
+                background: var(--gameengine-background);
                 font-size: 12px;
                 font-weight: 500;
                 border: none;
@@ -73,8 +73,8 @@
                     margin-bottom: 0;
                 }
                 &:hover, &.active {
-                    color: #0F0E16;
-                    background:  #F5F5F5;
+                    color: var(--gameengine-font-color);
+                    background:  var(--gameengine-secondary-color);
                 }
             }
         }
