@@ -169,16 +169,52 @@ class ImportManager
         }
         $clean['created_at'] = current_time('mysql');
 
+        // Only write columns the table actually has. A file carrying a heading
+        // this entity does not know about used to fail the whole row with an
+        // "Unknown column" error that was then reported as a success.
+        $clean = array_intersect_key($clean, array_flip(self::columns_for($table)));
+
         if ($existing_id && $overwrite) {
             unset($clean['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update($table, $clean, array('id' => $existing_id));
+            $written = $wpdb->update($table, $clean, array('id' => $existing_id));
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert($table, $clean);
-            $slug_to_id[$slug] = $wpdb->insert_id;
+            $written = $wpdb->insert($table, $clean);
+            if (false !== $written) {
+                $slug_to_id[$slug] = $wpdb->insert_id;
+            }
+        }
+
+        // $wpdb returns false on a database error; an update that changed
+        // nothing returns 0, which is not a failure.
+        if (false === $written) {
+            return sprintf(
+                /* translators: %s: row slug */
+                __('Could not save row: %s', 'gameengine'),
+                $slug
+            );
         }
 
         return 'imported';
+    }
+
+    /**
+     * Column names of a table, read once per request.
+     */
+    private static function columns_for(string $table): array
+    {
+        static $cache = array();
+
+        if (isset($cache[$table])) {
+            return $cache[$table];
+        }
+
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $cache[$table] = $wpdb->get_col("SHOW COLUMNS FROM {$table}") ?: array();
+
+        return $cache[$table];
     }
 }

@@ -166,17 +166,24 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER plural_name");
         }
 
-        $this->backfill_achievement_slugs();
+        $this->backfill_slugs($ach_table, 'achievement');
+        $this->backfill_slugs("{$wpdb->prefix}gameengine_levels", 'level');
     }
 
     /**
      * Generate a unique slug for any pre-existing achievement row left over
      * from before the `slug` column existed.
      */
-    private function backfill_achievement_slugs()
+    /**
+     * Give every row in a table a unique slug, then add the unique index.
+     *
+     * @param string $table  Fully-prefixed table name.
+     * @param string $prefix Fallback slug stem for a row with no usable title.
+     */
+    private function backfill_slugs($table, $prefix)
     {
         global $wpdb;
-        $ach_table = "{$wpdb->prefix}gameengine_achievements";
+        $ach_table = $table;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $rows = $wpdb->get_results("SELECT id, title FROM {$ach_table} WHERE slug IS NULL OR slug = ''", ARRAY_A);
@@ -195,7 +202,7 @@ class Installer
         foreach ($rows as $row) {
             $base = sanitize_title($row['title']);
             if ('' === $base) {
-                $base = 'achievement-' . $row['id'];
+                $base = $prefix . '-' . $row['id'];
             }
 
             $slug = $base;

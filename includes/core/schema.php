@@ -89,6 +89,7 @@ final class Schema
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255),
+            slug VARCHAR(255) DEFAULT NULL,
             status VARCHAR(20) DEFAULT 'publish',
             description TEXT,
             icon VARCHAR(255),

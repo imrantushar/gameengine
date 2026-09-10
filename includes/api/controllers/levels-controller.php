@@ -217,12 +217,19 @@ class LevelsController extends BaseController
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            $updated = $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            if (false === $updated) {
+                return new \WP_Error('save_failed', __('Could not update level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = absint($id);
             wp_cache_delete('gameengine_level_full_' . $level_id, 'gameengine_levels');
         } else {
+            $data['slug'] = $this->unique_slug(sanitize_title($params['title']));
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            $inserted = $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            if (false === $inserted) {
+                return new \WP_Error('save_failed', __('Could not create level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = $wpdb->insert_id;
         }
 
@@ -270,6 +277,25 @@ class LevelsController extends BaseController
         }
 
         return new \WP_REST_Response($item, 200);
+    }
+
+    /**
+     * Generate a unique slug for a new level.
+     */
+    private function unique_slug(string $base): string
+    {
+        global $wpdb;
+
+        $base = '' !== $base ? $base : 'level';
+        $slug = $base;
+        $i    = 1;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_levels WHERE slug = %s", $slug))) {
+            $slug = $base . '-' . $i++;
+        }
+
+        return $slug;
     }
 
     /**

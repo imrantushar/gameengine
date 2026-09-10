@@ -204,6 +204,9 @@ class WordPress extends BaseIntegration
             },
             'categories' => function () {
                 $terms = get_terms(['taxonomy' => 'category', 'hide_empty' => false]);
+                if (is_wp_error($terms)) {
+                    return [];
+                }
                 return array_map(fn($t) => ['label' => $t->name, 'value' => $t->term_id], $terms);
             }
         ];
