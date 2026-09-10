@@ -16,7 +16,6 @@ import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
 import Analytics from './pages/analytics';
-import BonusRules from './pages/bonus-rules';
 import Seasons from './pages/seasons';
 import Webhooks from './pages/webhooks';
 import Types from './pages/Types';
@@ -78,8 +77,6 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-analytics':
 			return <Analytics />;
 
-		case 'gameengine-bonus-rules':
-			return <BonusRules />;
 
 		case 'gameengine-seasons':
 			return <Seasons />;

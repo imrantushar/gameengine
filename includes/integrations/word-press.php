@@ -184,7 +184,17 @@ class WordPress extends BaseIntegration
     {
         return [
             'roles' => function () {
-                return array_map(fn($n) => ['label' => $n, 'value' => $n], get_editable_roles());
+                // get_editable_roles() keys by role slug and values are the role
+                // definition arrays, so mapping over the values alone produced
+                // an array in both label and value.
+                $roles = array();
+                foreach (get_editable_roles() as $slug => $role) {
+                    $roles[] = array(
+                        'label' => translate_user_role($role['name']),
+                        'value' => $slug,
+                    );
+                }
+                return $roles;
             },
             'posts' => function () {
                 $posts = get_posts(['posts_per_page' => 20]);
