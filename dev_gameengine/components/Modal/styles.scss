@@ -83,7 +83,9 @@ body.ReactModal__Body--open {
                      button {
                             padding: 8px;
                             background: var(--gameengine-background);
-                            color: #111;
+                            // Was a hardcoded #111, which is invisible against
+                            // the dark surface this button sits on.
+                            color: var(--gameengine-font-color);
                             border: 1px solid var(--gameengine-border-color) !important;
                             border-radius: 4px;
                             display: flex;
