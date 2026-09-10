@@ -100,11 +100,18 @@ const LevelTable = () => {
           }
         >
           {row.icon && (
-            <img
-              src={row.icon}
-              alt=""
-              className="w-6 h-6 object-contain"
-            />
+            String(row.icon).startsWith('dashicons-') ? (
+              <span
+                className={`dashicons ${row.icon}`}
+                style={{ fontSize: '20px', width: '20px', height: '20px', color: row.color || 'var(--gameengine-primary)' }}
+              />
+            ) : (
+              <img
+                src={row.icon}
+                alt=""
+                className="w-6 h-6 object-contain"
+              />
+            )
           )}
           <span className="font-medium">{row.title}</span>
         </div>
@@ -138,6 +145,12 @@ const LevelTable = () => {
         parseInt(row.unlock_with_points_enabled)
           ? `${row.min_points} - ${row.max_points} Points`
           : 'Triggers'
+    },
+    {
+      name: __('Members', 'gameengine'),
+      cell: row => (
+        <span className="text-sm">{Number(row?.user_count || 0)}</span>
+      )
     },
     {
       name: __('Date', 'gameengine'),

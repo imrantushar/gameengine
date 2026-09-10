@@ -43,7 +43,7 @@ abstract class BaseIntegration implements IntegrationInterface
      */
     private static function get_common_free_schema($type): array
     {
-        return array(
+        $fields = array(
             array(
                 'key' => 'points',
                 'label' => ('award' === $type) ? __('Points to Award', 'gameengine') : __('Points to Deduct', 'gameengine'),
@@ -75,6 +75,15 @@ abstract class BaseIntegration implements IntegrationInterface
                 'default' => 'unlimited',
                 'scope' => array('point_type', 'achievement', 'level'),
             ),
+        );
+
+        // A streak pays a bonus on top of an award, so it has nothing to say
+        // about a deduction.
+        if ('award' !== $type) {
+            return $fields;
+        }
+
+        return array_merge($fields, array(
             array(
                 'key' => 'streak_interval',
                 'label' => __('Streak Interval', 'gameengine'),
@@ -109,7 +118,7 @@ abstract class BaseIntegration implements IntegrationInterface
                 'description' => __('Logged separately from the points this trigger already awards.', 'gameengine'),
                 'scope' => array('point_type'),
             ),
-        );
+        ));
     }
 
     /**

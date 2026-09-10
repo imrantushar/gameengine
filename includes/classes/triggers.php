@@ -124,20 +124,24 @@ class Triggers
                 continue;
             }
 
-            // Calculate potential points if it's a point type reward
-            $potential_points = 0;
+            // Calculate potential points if it's a point type reward.
+            // Stays null for anything else, so process_single_rule reads the
+            // amount off the rule itself — passing 0 as an "override" made
+            // every deduction deduct nothing.
+            $potential_points = null;
             if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
                 $base_points = isset($params['points']) ? intval($params['points']) : 0;
                 $potential_points = apply_filters('gameengine_pro_point_amount', $base_points, $rule, $params, $hook_args);
             }
 
-            // Process the actual Reward or Deduction
-            // We pass the potentially capped points to the processor via a temporary filter or modified params
-            if ($potential_points > 0 || $rule->reward_type !== 'point_type' || $rule->action_type === 'deduct') {
+            // Process the actual Reward or Deduction.
+            // An award worth nothing after filtering is skipped; deductions and
+            // achievement/level rewards always run.
+            if (null === $potential_points || $potential_points > 0) {
                 $rule_success = $this->process_single_rule($rule, $safe_user_id, $config, $hook_args, $potential_points);
                 if ($rule_success) {
                     $first_rule_processed = true;
-                    if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
+                    if (null !== $potential_points) {
                         $total_points_awarded += $potential_points;
                     }
                 }
@@ -187,8 +191,11 @@ class Triggers
         if ($rule->reward_type === 'point_type') {
             $points = ($points_override !== null) ? $points_override : (isset($params['points']) ? intval($params['points']) : 0);
 
-            // Only apply filters if no override was provided (override already includes filtered/capped points)
-            if ($points_override === null) {
+            // Only apply filters if no override was provided (override already
+            // includes filtered/capped points). gameengine_pro_point_amount
+            // shapes what a trigger pays out — multipliers, percentages,
+            // bonuses — so a deduction takes exactly the amount configured.
+            if ($points_override === null && 'award' === $rule->action_type) {
                 $points = apply_filters('gameengine_pro_point_amount', $points, $rule, $params, $hook_args);
             }
 
@@ -488,13 +495,40 @@ class Triggers
     }
 
     /**
+     * The calendar bucket a moment falls in, counted from the epoch.
+     *
+     * Streaks are counted in calendar days and weeks, not in elapsed hours:
+     * acting at 09:00 on Monday and 08:00 on Tuesday is two days in a row to
+     * anyone looking at a calendar, but only 23 hours to a clock. Measuring
+     * elapsed time meant a member who drifted a little earlier each day never
+     * advanced, and eventually had the run broken while never missing a day.
+     * This is also the unit the "Once Per Day" limit already uses, so the two
+     * options sitting side by side now agree.
+     *
+     * @param int    $timestamp Site-local timestamp.
+     * @param string $interval  'daily' or 'weekly'.
+     * @return int
+     */
+    private static function streak_bucket($timestamp, $interval)
+    {
+        if ('weekly' !== $interval) {
+            return (int) floor($timestamp / DAY_IN_SECONDS);
+        }
+
+        // The epoch was a Thursday (day 4), so shift the boundary onto the
+        // site's own first day of the week before bucketing.
+        $start_of_week = (int) get_option('start_of_week', 1);
+        $offset        = (4 - $start_of_week) * DAY_IN_SECONDS;
+
+        return (int) floor(($timestamp + $offset) / WEEK_IN_SECONDS);
+    }
+
+    /**
      * Work out where a run of consecutive intervals stands after this firing.
      *
-     * A trigger that fires twice inside one interval only counts once, a
-     * firing in the next interval extends the run, and a gap wide enough to
-     * skip an interval outright breaks it. The half-interval slack absorbs
-     * clock and timezone jitter around a calendar boundary without letting a
-     * genuinely missed day through.
+     * A trigger that fires twice inside one calendar interval only counts
+     * once, a firing in the very next one extends the run, and skipping an
+     * interval outright breaks it.
      *
      * @return array{count:int,last_at:string|null,advanced:bool}
      */
@@ -511,7 +545,6 @@ class Triggers
         }
 
         $now      = current_time('timestamp');
-        $seconds  = ('weekly' === $interval) ? WEEK_IN_SECONDS : DAY_IN_SECONDS;
         $last_at  = ($progress && ! empty($progress->streak_last_at)) ? strtotime($progress->streak_last_at) : 0;
         $previous = $progress ? (int) $progress->streak_count : 0;
 
@@ -519,14 +552,14 @@ class Triggers
             return array('count' => 1, 'last_at' => current_time('mysql'), 'advanced' => true);
         }
 
-        $elapsed = $now - $last_at;
+        $gap = self::streak_bucket($now, $interval) - self::streak_bucket($last_at, $interval);
 
-        // Already counted for this interval.
-        if ($elapsed < $seconds) {
+        // Already counted for this day or week.
+        if ($gap < 1) {
             return array('count' => $previous, 'last_at' => $progress->streak_last_at, 'advanced' => false);
         }
 
-        if ($elapsed < $seconds * 1.5) {
+        if (1 === $gap) {
             return array('count' => $previous + 1, 'last_at' => current_time('mysql'), 'advanced' => true);
         }
 
@@ -630,10 +663,16 @@ class Triggers
 
             // A run the user has already let lapse is not a live streak, even
             // though the row still holds its last count.
-            $seconds = ('weekly' === $interval) ? WEEK_IN_SECONDS : DAY_IN_SECONDS;
             $last_at = ! empty($row['streak_last_at']) ? strtotime($row['streak_last_at']) : 0;
 
-            if (! $last_at || (current_time('timestamp') - $last_at) >= $seconds * 1.5) {
+            if (! $last_at) {
+                continue;
+            }
+
+            $gap = self::streak_bucket(current_time('timestamp'), $interval)
+                 - self::streak_bucket($last_at, $interval);
+
+            if ($gap > 1) {
                 continue;
             }
 
@@ -707,10 +746,9 @@ class Triggers
                 continue;
             }
 
-            $seconds = ('weekly' === $interval) ? WEEK_IN_SECONDS : DAY_IN_SECONDS;
             $last_at = ! empty($row['streak_last_at']) ? strtotime($row['streak_last_at']) : 0;
 
-            if ($last_at && ($now - $last_at) < $seconds * 1.5) {
+            if ($last_at && (self::streak_bucket($now, $interval) - self::streak_bucket($last_at, $interval)) <= 1) {
                 continue;
             }
 
