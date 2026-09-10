@@ -202,6 +202,13 @@ const FormInner = () => {
   }, [values?.requirements, allHooks]);
 
   /**
+   * An expanded hook is several hundred pixels tall, which turns the column
+   * into a scroll during a drag and hides the slot the card is aimed at.
+   * Collapse everything while the drag is in flight.
+   */
+  const handleDragStart = () => setOpenedHooks([]);
+
+  /**
    * Position in `requirements` for a card released over `overId`: another
    * card's slot, or the end of the list when released over the column itself.
    */
@@ -454,6 +461,7 @@ const FormInner = () => {
         <DndContext
           sensors={sensors}
           collisionDetection={hookCollisionDetection}
+          onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >

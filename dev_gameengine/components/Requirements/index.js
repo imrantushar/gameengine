@@ -74,6 +74,9 @@ const Requirements = props => {
     .filter(Boolean);
   const activeHookIds = activeHooks.map(h => itemId(h.id));
 
+  const { active } = useDndContext();
+  const isIncomingDrag = active ? !activeHookIds.includes(active.id) : false;
+
   const scrollLeft = () => {
     tabContainerRef.current?.scrollBy({
       left: -150,
@@ -148,7 +151,7 @@ const Requirements = props => {
                 <EmptyState />
               ) : (
                 <SortableContext items={activeHookIds} strategy={verticalListSortingStrategy}>
-                  {activeHooks.map(h => <SortableHook key={itemId(h.id)} id={itemId(h.id)}>
+                  {activeHooks.map(h => <SortableHook key={itemId(h.id)} id={itemId(h.id)} isIncoming={isIncomingDrag}>
                     <HookConfigurationForm hookId={h.id} type={actionName} hookInfo={h} dispatch={dispatch} currentSettings={hookSettings[`${actionName}_${h.id}`]} isOpen={openHookType.includes(h.id)} setIsOpen={v => setOpenHookType(v ? [...openHookType, h.id] : openHookType.filter(i => i !== h.id))} scope={scope} />
                   </SortableHook>)}
                 </SortableContext>

@@ -213,6 +213,7 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
 // card itself out from the ones around it.
 .gameengine-sortable-hook.is-drop-target {
     position: relative;
+    transition: padding-top 0.15s ease;
 
     > * {
         border-radius: var(--gameengine-surface-radius);
@@ -231,6 +232,25 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
         background: var(--gameengine-primary);
         box-shadow: 0 0 0 4px var(--gameengine-primary-glow);
         pointer-events: none;
+        transition: height 0.15s ease, top 0.15s ease;
+    }
+
+    // A card coming from the other column has no slot of its own here, so the
+    // insertion bar grows into a full-size one and the padding pushes this card
+    // down to make the room real rather than drawn over the top of it.
+    &.opens-slot {
+        padding-top: 53px; // 45px slot + the 8px the list gaps by
+
+        &::before {
+            top: 0;
+            height: 45px;
+            border-radius: var(--gameengine-surface-radius);
+            border: 2px dashed var(--gameengine-primary);
+            background: var(--gameengine-primary-light);
+            box-shadow:
+                0 0 0 4px var(--gameengine-primary-glow),
+                inset 0 2px 10px var(--gameengine-primary-glow);
+        }
     }
 }
 

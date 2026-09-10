@@ -10,7 +10,7 @@ import { useSortable } from '@dnd-kit/sortable';
  * card being dragged fades out of its old slot while the <DragPreview />
  * follows the pointer.
  */
-export const SortableHook = ({ id, children }) => {
+export const SortableHook = ({ id, children, isIncoming = false }) => {
 	const {
 		attributes,
 		listeners,
@@ -24,6 +24,10 @@ export const SortableHook = ({ id, children }) => {
 	// The card the pointer is actually on — the one the dragged card will push
 	// down. Lighting the column alone says which list; this says which slot.
 	const isDropTarget = isOver && !isDragging;
+	// Reordering within the column already opens a gap, because every card
+	// shifts. A card arriving from the other column belongs to no sortable
+	// here, so this one has to make the room itself.
+	const opensSlot = isDropTarget && isIncoming;
 
 	const style = {
 		transform: transform
@@ -39,7 +43,8 @@ export const SortableHook = ({ id, children }) => {
 			className={
 				'gameengine-draggable-hook gameengine-sortable-hook' +
 				(isDragging ? ' is-dragging' : '') +
-				(isDropTarget ? ' is-drop-target' : '')
+				(isDropTarget ? ' is-drop-target' : '') +
+				(opensSlot ? ' opens-slot' : '')
 			}
 			{...listeners}
 			{...attributes}
