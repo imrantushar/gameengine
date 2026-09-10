@@ -6,12 +6,21 @@ import ListTable from '@GFComponents/ListTable';
 import Modal from '@GFComponents/Modal/Modal';
 import OptionMenu from '@GFComponents/OptionMenu';
 import GameEngineInput from '@GFComponents/GameEngineInput';
-import { FiEye, FiCamera, FiTrash2, FiPlay, FiCheck } from 'react-icons/fi';
+import { FiEye, FiCamera, FiTrash2, FiPlay, FiCheck, FiEdit2 } from 'react-icons/fi';
+import { useDispatch } from 'react-redux';
+import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
 import { API, namespace } from '@GFUtils/helper';
 
 const STATUS_COLORS = { draft: 'var(--gameengine-placeholder)', active: 'var(--gameengine-success)', completed: 'var(--gameengine-primary)' };
 
+// A REST rejection carries its reason; the screen used to swallow it, so a
+// refused save looked like a button that did nothing.
+const errorMessage = (e, fallback) =>
+    e?.response?.data?.message || e?.message || fallback;
+
 const Seasons = () => {
+    const dispatch = useDispatch();
+    const [editing, setEditing] = useState(null);
     const [seasons, setSeasons] = useState([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
@@ -21,26 +30,39 @@ const Seasons = () => {
     const [rankingsSeason, setRankingsSeason] = useState(null);
     const [snapshotting, setSnapshotting] = useState(null);
 
+    const notifyError = (e, fallback) =>
+        dispatch(showNotification({ type: 'error', message: errorMessage(e, fallback) }));
+
     const fetchAll = () => {
         setLoading(true);
         API.get(namespace + 'pro/seasons')
             .then(res => setSeasons(res.data || []))
+            .catch(e => notifyError(e, __('Could not load seasons.', 'gameengine')))
             .finally(() => setLoading(false));
     };
 
     useEffect(() => { fetchAll(); }, []);
 
-    const openCreate = () => { setForm({ name: '', start_date: '', end_date: '' }); setModal('create'); };
-    const closeModal = () => { setModal(null); };
+    const openCreate = () => { setEditing(null); setForm({ name: '', start_date: '', end_date: '' }); setModal('create'); };
+    const openEdit = (season) => {
+        setEditing(season.id);
+        setForm({ name: season.name, start_date: season.start_date, end_date: season.end_date });
+        setModal('create');
+    };
+    const closeModal = () => { setModal(null); setEditing(null); };
 
     const save = async () => {
         setSaving(true);
         try {
-            await API.post(namespace + 'pro/seasons', form);
+            if (editing) {
+                await API.put(namespace + 'pro/seasons/' + editing, form);
+            } else {
+                await API.post(namespace + 'pro/seasons', form);
+            }
             fetchAll();
             closeModal();
         } catch (e) {
-            console.warn(e);
+            notifyError(e, __('Could not save the season.', 'gameengine'));
         } finally {
             setSaving(false);
         }
@@ -48,8 +70,12 @@ const Seasons = () => {
 
     const deleteSeason = async (id) => {
         if (!window.confirm(__('Delete this draft season?', 'gameengine'))) return;
-        await API.delete(namespace + 'pro/seasons/' + id);
-        fetchAll();
+        try {
+            await API.delete(namespace + 'pro/seasons/' + id);
+            fetchAll();
+        } catch (e) {
+            notifyError(e, __('Could not delete the season.', 'gameengine'));
+        }
     };
 
     const captureSnapshot = async (id) => {
@@ -58,24 +84,33 @@ const Seasons = () => {
             await API.post(namespace + 'pro/seasons/' + id + '/snapshot', {});
             const res = await API.get(namespace + 'pro/seasons/' + id + '/rankings');
             setRankings(r => ({ ...r, [id]: res.data }));
+            dispatch(showNotification({ type: 'success', message: __('Rankings captured.', 'gameengine') }));
         } catch (e) {
-            console.warn(e);
+            notifyError(e, __('Could not capture rankings.', 'gameengine'));
         } finally {
             setSnapshotting(null);
         }
     };
 
+    // Always re-fetch: a running season is scored live, so cached rows go stale
+    // the moment anybody earns a point.
     const viewRankings = async (season) => {
-        if (!rankings[season.id]) {
+        try {
             const res = await API.get(namespace + 'pro/seasons/' + season.id + '/rankings');
             setRankings(r => ({ ...r, [season.id]: res.data }));
+            setRankingsSeason(season);
+        } catch (e) {
+            notifyError(e, __('Could not load rankings.', 'gameengine'));
         }
-        setRankingsSeason(season);
     };
 
     const setStatus = async (season, status) => {
-        await API.put(namespace + 'pro/seasons/' + season.id, { ...season, status });
-        fetchAll();
+        try {
+            await API.put(namespace + 'pro/seasons/' + season.id, { status });
+            fetchAll();
+        } catch (e) {
+            notifyError(e, __('Could not update the season.', 'gameengine'));
+        }
     };
 
     const columns = [
@@ -100,13 +135,13 @@ const Seasons = () => {
             cell: (row) => (
                 <OptionMenu
                     options={[
-                        {
+                        ...(row.status !== 'completed' ? [{
                             type: 'button',
                             label: snapshotting === row.id ? __('Capturing…', 'gameengine') : __('Capture Rankings', 'gameengine'),
                             icon: <FiCamera />,
                             onClick: () => captureSnapshot(row.id),
                             hasBorder: true,
-                        },
+                        }] : []),
                         {
                             type: 'button',
                             label: __('View Rankings', 'gameengine'),
@@ -114,6 +149,13 @@ const Seasons = () => {
                             onClick: () => viewRankings(row),
                             hasBorder: true,
                         },
+                        ...(row.status === 'draft' ? [{
+                            type: 'button',
+                            label: __('Edit', 'gameengine'),
+                            icon: <FiEdit2 />,
+                            onClick: () => openEdit(row),
+                            hasBorder: true,
+                        }] : []),
                         ...(row.status === 'draft' ? [{
                             type: 'button',
                             label: __('Activate', 'gameengine'),
@@ -149,7 +191,7 @@ const Seasons = () => {
             <div className="gameengine-page-content">
                 <h2 className="gameengine-page-heading py-6">{__('Leaderboard Seasons', 'gameengine')}</h2>
                 <p style={{ fontSize: '13px', color: 'var(--gameengine-warn-muted)', marginBottom: '16px' }}>
-                    {__('Create named seasons and capture point rankings snapshots. Use [gameengine_leaderboard season_id=1] to show a season\'s leaderboard.', 'gameengine')}
+                    {__('A season ranks members by the points they earn between its start and end dates. While it runs the standings are live; once it completes they are frozen as a permanent record. Use [gameengine_leaderboard season_id=1] to show one.', 'gameengine')}
                 </p>
 
                 <ListTable
@@ -166,14 +208,14 @@ const Seasons = () => {
 
             <Modal
                 isOpen={modal === 'create'}
-                title={__('New Season', 'gameengine')}
+                title={editing ? __('Edit Season', 'gameengine') : __('New Season', 'gameengine')}
                 onRequestClose={closeModal}
                 size="small"
                 isFooter={true}
                 isFooterContent={
                     <div className="flex justify-end gap-3">
                         <Button label={__('Cancel', 'gameengine')} preset="secondary" onClick={closeModal} />
-                        <Button label={__('Create Season', 'gameengine')} isLoading={saving} onClick={save} type="button" />
+                        <Button label={editing ? __('Save Season', 'gameengine') : __('Create Season', 'gameengine')} isLoading={saving} onClick={save} type="button" />
                     </div>
                 }
             >

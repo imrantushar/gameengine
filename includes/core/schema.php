@@ -160,7 +160,8 @@ final class Schema
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY user_id (user_id),
-            KEY point_type_id (point_type_id)
+            KEY point_type_id (point_type_id),
+            KEY type_date (point_type_id, created_at)
         ) $charset_collate;";
     }
 
