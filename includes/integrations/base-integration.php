@@ -75,6 +75,40 @@ abstract class BaseIntegration implements IntegrationInterface
                 'default' => 'unlimited',
                 'scope' => array('point_type', 'achievement', 'level'),
             ),
+            array(
+                'key' => 'streak_interval',
+                'label' => __('Streak Interval', 'gameengine'),
+                'type' => 'select',
+                'width' => '50%',
+                'options' => array(
+                    array('label' => __('Off', 'gameengine'), 'value' => 'off'),
+                    array('label' => __('Daily', 'gameengine'), 'value' => 'daily'),
+                    array('label' => __('Weekly', 'gameengine'), 'value' => 'weekly'),
+                ),
+                'default' => 'off',
+                'description' => __('Count how many intervals in a row this trigger fires.', 'gameengine'),
+                'scope' => array('point_type'),
+            ),
+            array(
+                'key' => 'streak_milestone',
+                'label' => __('Streak Milestone', 'gameengine'),
+                'type' => 'number',
+                'width' => '50%',
+                'default' => 7,
+                'placeholder' => '7',
+                'description' => __('Pay the bonus every time the run reaches a multiple of this.', 'gameengine'),
+                'scope' => array('point_type'),
+            ),
+            array(
+                'key' => 'streak_bonus_points',
+                'label' => __('Streak Bonus Points', 'gameengine'),
+                'type' => 'number',
+                'width' => '50%',
+                'default' => 0,
+                'placeholder' => '0',
+                'description' => __('Logged separately from the points this trigger already awards.', 'gameengine'),
+                'scope' => array('point_type'),
+            ),
         );
     }
 

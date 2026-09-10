@@ -15,7 +15,7 @@ class ImportManager
     private const ROW_LIMIT = 1000;
 
     private static $allowed_types = array(
-        'achievements', 'levels', 'point_types', 'streaks',
+        'achievements', 'levels', 'point_types',
     );
 
     /**
@@ -108,7 +108,6 @@ class ImportManager
             'achievements' => "{$wpdb->prefix}gameengine_achievements",
             'levels'       => "{$wpdb->prefix}gameengine_levels",
             'point_types'  => "{$wpdb->prefix}gameengine_point_types",
-            'streaks'      => "{$wpdb->prefix}gameengine_streaks",
         );
 
         return $table_map[$type];
@@ -140,7 +139,6 @@ class ImportManager
             'achievements' => array('title', 'slug'),
             'levels'       => array('title', 'slug'),
             'point_types'  => array('name', 'slug'),
-            'streaks'      => array('title', 'slug'),
         );
 
         $required = $required_map[$type];

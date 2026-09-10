@@ -136,8 +136,8 @@ class Scheduler
      */
     public function handle_streak_reset()
     {
-        if (class_exists('\GameEngine\Classes\StreaksManager')) {
-            \GameEngine\Classes\StreaksManager::reset_broken_streaks();
+        if (class_exists('\GameEngine\Classes\Triggers')) {
+            \GameEngine\Classes\Triggers::sweep_broken_streaks();
         }
     }
 

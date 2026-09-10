@@ -158,20 +158,26 @@ class UserProfile
                         <?php if (!empty($streaks)) : ?>
                             <?php foreach ($streaks as $streak) : ?>
                                 <div class="gameengine-streak-card">
-                                    <div class="gameengine-streak-title"><?php echo esc_html($streak->title); ?></div>
+                                    <div class="gameengine-streak-title"><?php echo esc_html($streak['label']); ?></div>
                                     <div class="gameengine-streak-count">
                                         🔥 <?php
-                                        /* translators: %d: streak count */
-                                        printf(esc_html(_n('%d day', '%d days', (int) $streak->current_count, 'gameengine')), (int) $streak->current_count);
+                                        $streak_count = (int) $streak['count'];
+                                        if ('weekly' === $streak['interval']) {
+                                            /* translators: %d: streak count */
+                                            printf(esc_html(_n('%d week', '%d weeks', $streak_count, 'gameengine')), $streak_count);
+                                        } else {
+                                            /* translators: %d: streak count */
+                                            printf(esc_html(_n('%d day', '%d days', $streak_count, 'gameengine')), $streak_count);
+                                        }
                                         ?>
                                     </div>
                                     <div class="gameengine-streak-best">
                                         <?php
                                         /* translators: %d: longest streak count */
-                                        printf(esc_html__('Best: %d', 'gameengine'), (int) $streak->longest_count);
+                                        printf(esc_html__('Best: %d', 'gameengine'), (int) $streak['best']);
                                         ?>
                                     </div>
-                                    <div class="gameengine-streak-interval"><?php echo esc_html($streak->interval_type); ?></div>
+                                    <div class="gameengine-streak-interval"><?php echo esc_html($streak['interval']); ?></div>
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
@@ -245,17 +251,11 @@ class UserProfile
         ));
     }
 
+    /**
+     * Live runs for this member, from the trigger rules that carry a streak.
+     */
     private function get_user_streaks($user_id): array
     {
-        global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        return $wpdb->get_results($wpdb->prepare(
-            "SELECT s.title, s.interval_type, us.current_count, us.longest_count
-             FROM {$wpdb->prefix}gameengine_user_streaks us
-             JOIN {$wpdb->prefix}gameengine_streaks s ON us.streak_id = s.id
-             WHERE us.user_id = %d AND s.status = 'publish'
-             ORDER BY us.current_count DESC",
-            (int) $user_id
-        )) ?: array();
+        return \GameEngine\Classes\Triggers::get_user_streaks((int) $user_id);
     }
 }

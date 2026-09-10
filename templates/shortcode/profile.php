@@ -9,10 +9,9 @@ $gameengine_points_total   = $gameengine_points_manager->get_grand_total($gameen
 $gameengine_levels_manager = new \GameEngine\Classes\LevelsManager();
 $gameengine_user_level     = $gameengine_levels_manager->get_current_level($gameengine_user_id);
 
-$gameengine_user_streaks = array();
-if (class_exists('\GameEngine\Classes\StreaksManager')) {
-    $gameengine_user_streaks = \GameEngine\Classes\StreaksManager::get_user_streaks($gameengine_user_id);
-}
+// Streaks are a per-trigger option now, so the runs come from the rules the
+// member is actually working on rather than a separate streak record.
+$gameengine_user_streaks = \GameEngine\Classes\Triggers::get_user_streaks($gameengine_user_id);
 
 $gameengine_general_settings = get_option('gameengine_general_settings', array());
 $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_sharing']) || ! empty($gameengine_general_settings['social_sharing']);
@@ -105,14 +104,23 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
                     <div class="gameengine-streak-item" style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;">
                         <span style="font-size:24px;">🔥</span>
                         <div>
-                            <strong><?php echo esc_html($gameengine_streak['title'] ?? ''); ?></strong>
+                            <strong><?php echo esc_html($gameengine_streak['label'] ?? ''); ?></strong>
                             <div style="font-size:13px;color:#666;">
                                 <?php
-                                printf(
-                                    /* translators: %s: streak count number */
-                                    esc_html__('%s day streak', 'gameengine'),
-                                    esc_html(number_format_i18n($gameengine_streak['current_count'] ?? 0))
-                                );
+                                $gameengine_streak_count = (int) ($gameengine_streak['count'] ?? 0);
+                                if ('weekly' === ($gameengine_streak['interval'] ?? 'daily')) {
+                                    printf(
+                                        /* translators: %s: streak count number */
+                                        esc_html(_n('%s week streak', '%s week streak', $gameengine_streak_count, 'gameengine')),
+                                        esc_html(number_format_i18n($gameengine_streak_count))
+                                    );
+                                } else {
+                                    printf(
+                                        /* translators: %s: streak count number */
+                                        esc_html(_n('%s day streak', '%s day streak', $gameengine_streak_count, 'gameengine')),
+                                        esc_html(number_format_i18n($gameengine_streak_count))
+                                    );
+                                }
                                 ?>
                             </div>
                         </div>

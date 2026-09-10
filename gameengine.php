@@ -138,7 +138,6 @@ final class GameEngine
             '\GameEngine\Classes\Triggers',
             '\GameEngine\Classes\BadgeManager',
             '\GameEngine\Classes\NotificationManager',
-            '\GameEngine\Classes\StreaksManager',
             '\GameEngine\Classes\BuyPointsManager',
             '\GameEngine\Classes\SocialSharing',
         );

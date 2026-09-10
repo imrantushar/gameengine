@@ -161,13 +161,6 @@ class Helper
             'capability' => 'manage_options',
         );
 
-        // Streaks
-        $menu[$slug . '-streaks'] = array(
-            'parent_slug' => $slug,
-            'title' => __('Streaks', 'gameengine'),
-            'capability' => 'manage_options',
-        );
-
         // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,

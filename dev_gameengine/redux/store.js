@@ -14,7 +14,6 @@ import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 import badgesReducer from './Slices/badgesSlice/badgesSlice';
 import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
-import streaksReducer from './Slices/streaksSlice/streaksSlice';
 
 import logger from 'redux-logger';
 
@@ -41,7 +40,6 @@ const staticReducers = {
     notification: notificationReducer,
     badges: badgesReducer,
     notificationCenter: notificationCenterReducer,
-    streaks: streaksReducer,
 };
 
 /**

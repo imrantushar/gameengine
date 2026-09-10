@@ -15,7 +15,6 @@ import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
-import Streaks from './pages/streaks';
 import Analytics from './pages/analytics';
 import BonusRules from './pages/bonus-rules';
 import Seasons from './pages/seasons';
@@ -75,8 +74,6 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-badge-editor':
 			return <Badges />;
 
-		case 'gameengine-streaks':
-			return <Streaks />;
 
 		case 'gameengine-analytics':
 			return <Analytics />;

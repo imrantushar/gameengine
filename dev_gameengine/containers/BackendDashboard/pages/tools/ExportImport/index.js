@@ -9,7 +9,6 @@ const exportTypeOptions = [
     { value: 'achievements', label: __('Achievements', 'gameengine') },
     { value: 'levels', label: __('Levels', 'gameengine') },
     { value: 'point_types', label: __('Point Types', 'gameengine') },
-    { value: 'streaks', label: __('Streaks', 'gameengine') },
     { value: 'user_points', label: __('User Points', 'gameengine') },
     { value: 'user_achievements', label: __('User Achievements', 'gameengine') },
     { value: 'user_levels', label: __('User Levels', 'gameengine') },
