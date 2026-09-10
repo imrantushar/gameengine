@@ -128,7 +128,7 @@ export default function BackendDashboard() {
 		<div className="gameengine-admin-content">
 			<LicenseNotice />
 			<Notification />
-			<div style={{ position: 'fixed', top: '36px', right: '16px', zIndex: 4000 }}>
+			<div style={{ position: 'fixed', top: '58px', right: '16px', zIndex: 4000 }}>
 				<AdminActivityFeed />
 			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>

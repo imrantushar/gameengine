@@ -1470,6 +1470,18 @@ input.gameengine-checkbox:checked::before {
 .mt-\[24px\] {
   margin-top: 24px;
 }
+.mr-2 {
+  margin-right: 0.5rem;
+}
+.mr-\[20\] {
+  margin-right: 20;
+}
+.mr-\[20px\] {
+  margin-right: 20px;
+}
+.mr-\[30px\] {
+  margin-right: 30px;
+}
 .block {
   display: block;
 }
