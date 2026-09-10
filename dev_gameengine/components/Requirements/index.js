@@ -3,41 +3,23 @@ import { __, sprintf } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import HookConfigurationForm from './HookConfigurationForm';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
+import { useDroppable } from '@dnd-kit/core';
+import { DraggableItem } from './helper';
 import { useDispatch } from 'react-redux';
 import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import EmptyState from './EmptyState';
 
-// # DRAGGABLE
-const DraggableItem = ({ id, children }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    isDragging
-  } = useDraggable({ id });
-
-  const style = {
-    transform: transform ? `translate3d(${transform.x}px, ${transform.y}px, 0)` : undefined,
-    opacity: isDragging ? 0.85 : 1,
-    cursor: "grab",
-    zIndex: isDragging ? 999 : 1
-  };
-
-  return (
-    <div style={style} ref={setNodeRef} {...listeners} {...attributes} marginBottom="24px">
-      {children}
-    </div>
-  );
-};
-
 // # DROPPABLE
+// Highlights while a card is held over it, so the target column is obvious
+// before the pointer is released.
 const DroppableArea = ({ id, children }) => {
-  const { setNodeRef } = useDroppable({ id });
+  const { setNodeRef, isOver } = useDroppable({ id });
 
   return (
-    <div className="rounded h-full transition-all duration-200" ref={setNodeRef}>
+    <div
+      ref={setNodeRef}
+      className={`gameengine-hook-dropzone${isOver ? ' is-over' : ''}`}
+    >
       {children}
     </div>
   );

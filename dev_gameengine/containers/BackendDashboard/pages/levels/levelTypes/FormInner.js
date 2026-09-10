@@ -5,6 +5,7 @@ import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
@@ -396,7 +397,13 @@ const FormInner = () => {
           </GameEngineInput>
         </div>
       ) : (
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToWindowEdges]}
+        >
+          <DragPreview />
+
           <Requirements
             label={__("Level Requirements", "gameengine")}
             onClick={e => {

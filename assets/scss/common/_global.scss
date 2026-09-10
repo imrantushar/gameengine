@@ -185,6 +185,50 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     color: var(--gameengine-font-color);
 }
 
+// ── Hook drag & drop ────────────────────────────────────────────────────────
+// A card being dragged keeps its slot in the list, dimmed — the moving copy is
+// the DragOverlay. Both columns therefore hold their layout for the whole drag
+// instead of collapsing and reflowing under the pointer.
+.gameengine-draggable-hook {
+    cursor: grab;
+    // Stops the browser claiming the gesture for scrolling on touch devices,
+    // which otherwise cancels the drag as soon as it starts moving.
+    touch-action: none;
+    transition: opacity 0.15s ease;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &.is-dragging {
+        opacity: 0.35;
+    }
+}
+
+.gameengine-hook-dropzone {
+    height: 100%;
+    border-radius: var(--gameengine-surface-radius);
+    // Transparent rather than absent, so gaining the highlight does not change
+    // the box and nudge the cards inside it.
+    border: 1px dashed transparent;
+    transition: background 0.15s ease, border-color 0.15s ease;
+
+    &.is-over {
+        border-color: var(--gameengine-primary);
+        background: var(--gameengine-primary-light);
+    }
+}
+
+.gameengine-hook-drag-preview {
+    cursor: grabbing;
+    // Lifted off the page: slightly larger, with a shadow that reads as
+    // elevation in both modes.
+    transform: scale(1.02);
+    box-shadow: 0 12px 28px -6px rgba(16, 24, 40, 0.28);
+    border-radius: var(--gameengine-surface-radius);
+    background: var(--gameengine-background);
+}
+
 // Top-bar sun/moon button.
 .gameengine-theme-toggle {
     display: inline-flex;

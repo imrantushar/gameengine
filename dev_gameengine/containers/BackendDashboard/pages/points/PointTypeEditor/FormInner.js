@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { SiWoocommerce } from "react-icons/si";
 import { useFormikContext } from 'formik';
@@ -10,6 +11,7 @@ import GameEngineInput from '@GFComponents/GameEngineInput';
 import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoader';
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
+import DragPreview from '@GFComponents/Requirements/DragPreview';
 import { arrowForward } from '@GFUtils/icons';
 import { getAddonActiveStatus } from '@GFUtils/helper';
 
@@ -197,7 +199,13 @@ const FormInner = ({ hooksLoading }) => {
       {hooksLoading ? (
         <RequirementsLoader />
       ) : (
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToWindowEdges]}
+        >
+          <DragPreview />
+
           <Requirements
             label={__("Automatic Point Awards", "gameengine")}
             onClick={e => {

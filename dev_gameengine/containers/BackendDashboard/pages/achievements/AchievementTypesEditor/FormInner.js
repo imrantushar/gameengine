@@ -6,6 +6,7 @@ import GFLabel from "@GFComponents/Labels/GFLabel";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
@@ -422,7 +423,13 @@ const FormInner = () => {
           </GameEngineInput>
         </div>
       ) : (
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToWindowEdges]}
+        >
+          <DragPreview />
+
           <Requirements
             label={__("Achievement Requirements", "gameengine")}
             onClick={e => {
