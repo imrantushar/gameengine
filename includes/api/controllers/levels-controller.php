@@ -141,6 +141,7 @@ class LevelsController extends BaseController
             foreach ($results as &$lvl) {
                 $lvl['unlock_with_points_enabled'] = (bool) $lvl['unlock_with_points_enabled'];
                 $lvl['is_restricted']             = (bool) ($lvl['is_restricted'] ?? false);
+                $lvl['user_count']                = \GameEngine\Classes\LevelsManager::get_user_count((int) $lvl['id']);
 
                 // Resolve Category Name.
                 $term_id            = absint($lvl['category']);
@@ -198,6 +199,7 @@ class LevelsController extends BaseController
             'description'                => wp_kses_post($params['description'] ?? ''),
             'status'                     => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
             'icon'                       => sanitize_text_field($params['icon'] ?? ''),
+            'color'                      => $this->normalize_color($params['color'] ?? ''),
             'category'                   => absint($params['category_id'] ?? 0),
             'congratulations_message'    => wp_kses_post($params['congratulations_message'] ?? ''),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
@@ -250,6 +252,7 @@ class LevelsController extends BaseController
             if ($item) {
                 $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
                 $item['is_restricted'] = (bool) $item['is_restricted'];
+                $item['user_count'] = \GameEngine\Classes\LevelsManager::get_user_count($id);
 
                 $term_id = absint($item['category']);
                 $term = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
@@ -267,6 +270,22 @@ class LevelsController extends BaseController
         }
 
         return new \WP_REST_Response($item, 200);
+    }
+
+    /**
+     * Normalise a level colour to a #rrggbb literal.
+     *
+     * sanitize_hex_color() returns null for anything malformed, which would
+     * write a NULL into a NOT NULL column, so fall back to the schema default.
+     *
+     * @param string $color Raw colour from the request.
+     * @return string
+     */
+    private function normalize_color($color)
+    {
+        $clean = sanitize_hex_color(is_string($color) ? $color : '');
+
+        return $clean ? $clean : '#6c5ce7';
     }
 
     /**

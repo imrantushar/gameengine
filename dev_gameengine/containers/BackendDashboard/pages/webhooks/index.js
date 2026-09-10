@@ -11,7 +11,7 @@ import { API, namespace } from '@GFUtils/helper';
 
 const EVENTS = [
     { key: 'points_added', label: __('Points Added', 'gameengine') },
-    { key: 'rank_achieved', label: __('Rank Achieved', 'gameengine') },
+    { key: 'level_awarded', label: __('Level Awarded', 'gameengine') },
     { key: 'achievement_unlocked', label: __('Achievement Unlocked', 'gameengine') },
     { key: 'streak_milestone', label: __('Streak Milestone', 'gameengine') },
     { key: 'streak_broken', label: __('Streak Broken', 'gameengine') },

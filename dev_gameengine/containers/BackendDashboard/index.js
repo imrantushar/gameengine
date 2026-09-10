@@ -14,7 +14,6 @@ import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
-import Ranks from './pages/ranks';
 import Badges from './pages/badges';
 import Streaks from './pages/streaks';
 import Analytics from './pages/analytics';
@@ -72,8 +71,6 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-addons':
 			return <Addons />;
 
-		case 'gameengine-ranks':
-			return <Ranks />;
 
 		case 'gameengine-badge-editor':
 			return <Badges />;

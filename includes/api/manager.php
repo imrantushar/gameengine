@@ -21,7 +21,6 @@ use GameEngine\API\Controllers\TaxonomyController;
 use GameEngine\API\Controllers\ToolsController;
 use GameEngine\API\Controllers\SetupController;
 use GameEngine\API\Controllers\BadgesController;
-use GameEngine\API\Controllers\RanksController;
 use GameEngine\API\Controllers\NotificationsController;
 use GameEngine\API\Controllers\StreaksController;
 use GameEngine\API\Controllers\ToolsExportController;
@@ -60,7 +59,6 @@ final class Manager
             ToolsController::class,
             SetupController::class,
             BadgesController::class,
-            RanksController::class,
             NotificationsController::class,
             StreaksController::class,
             ToolsExportController::class,

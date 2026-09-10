@@ -101,10 +101,10 @@ const Analytics = () => {
                             </Card>
                         </div>
 
-                        <Card title={__('Rank Distribution', 'gameengine')}>
-                            <CSSBarChart data={data.rank_distribution} labelKey="title" valueKey="user_count" color="var(--gameengine-success)" />
+                        <Card title={__('Level Distribution', 'gameengine')}>
+                            <CSSBarChart data={data.level_distribution} labelKey="title" valueKey="user_count" color="var(--gameengine-success)" />
                             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
-                                {data.rank_distribution.map((r, i) => (
+                                {(data.level_distribution || []).map((r, i) => (
                                     <span key={i} style={{ fontSize: '12px', color: 'var(--gameengine-warn-muted)' }}>
                                         {r.title}: <strong>{r.user_count}</strong>
                                     </span>

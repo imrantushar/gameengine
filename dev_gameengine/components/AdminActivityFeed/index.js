@@ -8,7 +8,6 @@ const TYPE_ICONS = {
     points_deducted: '📉',
     achievement:     '🏆',
     level_up:        '⬆️',
-    rank:            '🎖️',
 };
 
 function relativeTime(dateStr) {

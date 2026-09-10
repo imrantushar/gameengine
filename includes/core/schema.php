@@ -34,8 +34,6 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
-            self::get_ranks_table_schema($prefix, $charset_collate),
-            self::get_user_ranks_table_schema($prefix, $charset_collate),
             self::get_notifications_table_schema($prefix, $charset_collate),
             self::get_streaks_table_schema($prefix, $charset_collate),
             self::get_user_streaks_table_schema($prefix, $charset_collate),
@@ -96,6 +94,7 @@ final class Schema
             status VARCHAR(20) DEFAULT 'publish',
             description TEXT,
             icon VARCHAR(255),
+            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
             category VARCHAR(255) DEFAULT NULL,
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
@@ -203,38 +202,6 @@ final class Schema
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY trigger_key (trigger_key)
-        ) $charset_collate;";
-    }
-
-    private static function get_ranks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_ranks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            title VARCHAR(255) NOT NULL,
-            slug VARCHAR(255) NOT NULL,
-            description TEXT DEFAULT NULL,
-            icon VARCHAR(255) DEFAULT NULL,
-            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
-            points_required INT(11) NOT NULL DEFAULT 0,
-            status VARCHAR(20) DEFAULT 'publish',
-            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            UNIQUE KEY slug (slug),
-            KEY points_required (points_required)
-        ) $charset_collate;";
-    }
-
-    private static function get_user_ranks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_user_ranks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            user_id BIGINT(20) UNSIGNED NOT NULL,
-            rank_id BIGINT(20) UNSIGNED NOT NULL,
-            achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            KEY user_id (user_id),
-            KEY rank_id (rank_id),
-            UNIQUE KEY user_rank (user_id, rank_id)
         ) $charset_collate;";
     }
 

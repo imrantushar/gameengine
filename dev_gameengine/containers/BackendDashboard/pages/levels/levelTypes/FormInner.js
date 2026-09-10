@@ -11,6 +11,7 @@ import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
+import DashiconPicker from "@GFComponents/DashiconPicker";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
@@ -145,6 +146,18 @@ const FormInner = () => {
   }, [isRestrictContentActive]);
 
   const { hookSettings, allHooks, availablePointTypes } = useSelector(state => state.levels);
+
+  // Point type 0 means "any currency": the level is measured against the
+  // member's grand total across every point type rather than one balance.
+  const pointTypeOptions = useMemo(
+    () => [
+      { label: __("All Point Types", "gameengine"), value: "0" },
+      ...(availablePointTypes || []),
+    ],
+    [availablePointTypes]
+  );
+
+  const isDashicon = typeof values?.icon === 'string' && values.icon.startsWith('dashicons-');
 
   const handleImageUpload = () => {
     if (typeof wp !== 'undefined' && wp.media) {
@@ -392,24 +405,50 @@ const FormInner = () => {
       )}
 
       <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
-        {values?.icon ? (
-          <div className="flex items-center justify-between">
-            <img className="object-cover" style={{
-              "width": "100px"
-            }} src={values?.icon} alt="" />
-            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
+        <div className="flex flex-col gap-3">
+          {isDashicon ? (
+            <div className="flex items-center justify-between">
+              <span className={`dashicons ${values.icon}`} style={{ fontSize: "36px", width: "36px", height: "36px", color: values.color || "var(--gameengine-primary)" }} />
+              <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
+                "padding": "6px 8px"
+              }} onClick={() => setFieldValue('icon', '')}>
+                {__("Remove Icon", "gameengine")}
+              </button>
+            </div>
+          ) : values?.icon ? (
+            <div className="flex items-center justify-between">
+              <img className="object-cover" style={{
+                "width": "100px"
+              }} src={values?.icon} alt="" />
+              <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
+                "padding": "6px 8px"
+              }} onClick={handleImageUpload}>
+                {__("Change Level Logo", "gameengine")}
+              </button>
+            </div>
+          ) : (
+            <button type="button" className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)] self-start" style={{
               "padding": "6px 8px"
             }} onClick={handleImageUpload}>
-              {__("Change Level Logo", "gameengine")}
+              {__("Set Level Logo", "gameengine")}
             </button>
+          )}
+
+          <div className="flex gap-3">
+            <GameEngineInput label={__("Or pick an icon", "gameengine")} width="calc(100% - 90px)" desc={__("A dashicon replaces the uploaded logo.", "gameengine")}>
+              <DashiconPicker value={isDashicon ? values.icon : ''} onChange={(val) => setFieldValue('icon', val)} />
+            </GameEngineInput>
+
+            <GameEngineInput label={__("Color", "gameengine")} width="78px" desc={__("Tints the icon.", "gameengine")}>
+              <input
+                type="color"
+                className="gameengine-color-input"
+                value={values.color || '#6c5ce7'}
+                onChange={(e) => setFieldValue('color', e.target.value)}
+              />
+            </GameEngineInput>
           </div>
-        ) : (
-          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
-            "padding": "6px 8px"
-          }} onClick={handleImageUpload}>
-            {__("Set Level Logo", "gameengine")}
-          </button>
-        )}
+        </div>
       </BoxView>
 
       <div className="flex items-center gap-3">
@@ -431,7 +470,7 @@ const FormInner = () => {
           </GameEngineInput>
 
           <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc((100% / 3) - 6px)">
-            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={availablePointTypes} value={availablePointTypes?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
+            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={pointTypeOptions} value={pointTypeOptions?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
           </GameEngineInput>
         </div>
       ) : (

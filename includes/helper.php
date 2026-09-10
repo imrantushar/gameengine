@@ -161,13 +161,6 @@ class Helper
             'capability' => 'manage_options',
         );
 
-        // Ranks
-        $menu[$slug . '-ranks'] = array(
-            'parent_slug' => $slug,
-            'title' => __('Ranks', 'gameengine'),
-            'capability' => 'manage_options',
-        );
-
         // Streaks
         $menu[$slug . '-streaks'] = array(
             'parent_slug' => $slug,

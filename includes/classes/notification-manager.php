@@ -19,7 +19,6 @@ class NotificationManager
         add_action('gameengine_points_deducted', array($self, 'on_points_deducted'), 20, 5);
         add_action('gameengine_achievement_unlocked', array($self, 'on_achievement_unlocked'), 10, 2);
         add_action('gameengine_level_awarded', array($self, 'on_level_awarded'), 10, 2);
-        add_action('gameengine_rank_achieved', array($self, 'on_rank_achieved'), 20, 2);
     }
 
     /**
@@ -197,20 +196,6 @@ class NotificationManager
             $title
         );
         self::add((int) $user_id, 'level', $message, 'notify_level_up');
-    }
-
-    public function on_rank_achieved($user_id, $rank_id): void
-    {
-        $rank = RanksManager::get_by_id((int) $rank_id);
-        if (!$rank) {
-            return;
-        }
-        $message = sprintf(
-            /* translators: %s: rank title */
-            __('You achieved the rank: %s', 'gameengine'),
-            $rank['title']
-        );
-        self::add((int) $user_id, 'rank', $message, 'notify_rank');
     }
 
     /**

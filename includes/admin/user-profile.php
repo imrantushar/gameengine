@@ -46,7 +46,7 @@ class UserProfile
             .gameengine-input-box { background: #fff; padding: 20px; border: 1px solid #ccd0d4; border-radius: 4px; max-width: 600px; }
             .gameengine-label-bold { font-weight: 600; display: block; margin-bottom: 5px; }
             .gameengine-readonly-points { font-size: 18px; font-weight: bold; color: #2271b1; }
-            .gameengine-rank-icon { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 22px; color: #fff; font-weight: bold; }
+            .gameengine-level-icon { width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 6px; font-size: 22px; color: #fff; font-weight: bold; }
             .gameengine-streak-card { background: #fff8f0; border: 1px solid #f0d9b5; border-radius: 6px; padding: 10px 14px; min-width: 140px; }
             .gameengine-streak-title { font-weight: 600; font-size: 13px; margin-bottom: 4px; }
             .gameengine-streak-count { font-size: 20px; font-weight: bold; color: #e65c00; }
@@ -67,7 +67,6 @@ class UserProfile
         $points       = $this->get_user_points($user_id);
         $achievements = $this->get_user_achievements($user_id);
         $levels       = $this->get_user_levels($user_id);
-        $ranks        = $this->get_user_ranks($user_id);
         $streaks      = $this->get_user_streaks($user_id);
 
         $is_admin = current_user_can('manage_options');
@@ -85,12 +84,21 @@ class UserProfile
                         <?php if (!empty($levels)) : ?>
                             <?php foreach ($levels as $level) : ?>
                                 <div class="gameengine-item-box">
-                                    <?php if (!empty($level->icon)) : ?>
+                                    <?php
+                                    $level_color = !empty($level->color) ? $level->color : '#6c5ce7';
+                                    if (!empty($level->icon) && strpos($level->icon, 'dashicons-') === 0) : ?>
+                                        <div class="gameengine-level-icon" style="background-color: <?php echo esc_attr($level_color); ?>;">
+                                            <span class="dashicons <?php echo esc_attr($level->icon); ?>" style="font-size:22px;color:#fff;"></span>
+                                        </div>
+                                    <?php elseif (!empty($level->icon)) : ?>
                                         <img src="<?php echo esc_url($level->icon); ?>" class="gameengine-item-img" alt="">
                                     <?php else : ?>
                                         <div class="gameengine-item-placeholder">🏆</div>
                                     <?php endif; ?>
                                     <span class="gameengine-item-title"><?php echo esc_html($level->title); ?></span>
+                                    <?php if ((int) $level->min_points > 0) : ?>
+                                        <span class="gameengine-item-sub"><?php echo esc_html(number_format_i18n((int) $level->min_points)); ?> pts</span>
+                                    <?php endif; ?>
                                 </div>
                             <?php endforeach; ?>
                         <?php else : ?>
@@ -137,38 +145,6 @@ class UserProfile
                             <?php endforeach; ?>
                         <?php else : ?>
                             <p class="description"><?php esc_html_e('No achievements earned yet.', 'gameengine'); ?></p>
-                        <?php endif; ?>
-                    </div>
-                </td>
-            </tr>
-
-            <!-- Ranks Section -->
-            <tr>
-                <th><label><?php esc_html_e('Ranks', 'gameengine'); ?></label></th>
-                <td>
-                    <div class="gameengine-items-grid">
-                        <?php if (!empty($ranks)) : ?>
-                            <?php foreach ($ranks as $rank) : ?>
-                                <div class="gameengine-item-box">
-                                    <?php
-                                    $rank_color = !empty($rank->color) ? $rank->color : '#6c5ce7';
-                                    if (!empty($rank->icon) && strpos($rank->icon, 'dashicons-') === 0) : ?>
-                                        <div class="gameengine-rank-icon" style="background-color: <?php echo esc_attr($rank_color); ?>;">
-                                            <span class="<?php echo esc_attr($rank->icon); ?>" style="font-size:22px;color:#fff;"></span>
-                                        </div>
-                                    <?php elseif (!empty($rank->icon)) : ?>
-                                        <img src="<?php echo esc_url($rank->icon); ?>" class="gameengine-item-img" alt="">
-                                    <?php else : ?>
-                                        <div class="gameengine-rank-icon" style="background-color: <?php echo esc_attr($rank_color); ?>;">
-                                            <?php echo esc_html(mb_strtoupper(mb_substr($rank->title, 0, 1))); ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <span class="gameengine-item-title"><?php echo esc_html($rank->title); ?></span>
-                                    <span class="gameengine-item-sub"><?php echo esc_html(number_format_i18n((int) $rank->points_required)); ?> pts</span>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else : ?>
-                            <p class="description"><?php esc_html_e('No ranks earned yet.', 'gameengine'); ?></p>
                         <?php endif; ?>
                     </div>
                 </td>
@@ -262,25 +238,11 @@ class UserProfile
         global $wpdb;
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         return $wpdb->get_results($wpdb->prepare(
-            "SELECT l.title, l.icon FROM {$wpdb->prefix}gameengine_user_levels ul
+            "SELECT l.title, l.icon, l.color, l.min_points FROM {$wpdb->prefix}gameengine_user_levels ul
              JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id
              WHERE ul.user_id = %d ORDER BY ul.achieved_at DESC",
             (int) $user_id
         ));
-    }
-
-    private function get_user_ranks($user_id): array
-    {
-        global $wpdb;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        return $wpdb->get_results($wpdb->prepare(
-            "SELECT r.title, r.icon, r.color, r.points_required
-             FROM {$wpdb->prefix}gameengine_user_ranks ur
-             JOIN {$wpdb->prefix}gameengine_ranks r ON ur.rank_id = r.id
-             WHERE ur.user_id = %d
-             ORDER BY r.points_required DESC",
-            (int) $user_id
-        )) ?: array();
     }
 
     private function get_user_streaks($user_id): array

@@ -16,7 +16,6 @@ const typeIcon = (type) => {
         points_deducted: '📉',
         achievement: '🏆',
         level_up: '⬆️',
-        rank: '🎖️',
     };
     return map[type] || '🔔';
 };

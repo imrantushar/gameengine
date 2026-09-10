@@ -8,7 +8,7 @@ const shortCodeData = [
     title: __('Highest Level', 'gameengine'),
     shortCode: '[gameengine_level]',
     subtitle: __(
-      'Displays the current users highest achieved level rank with a trophy icon.',
+      'Displays the current users highest achieved level with a trophy icon.',
       'gameengine'
     ),
     description: __(

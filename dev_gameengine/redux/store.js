@@ -13,7 +13,6 @@ import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 import badgesReducer from './Slices/badgesSlice/badgesSlice';
-import ranksReducer from './Slices/ranksSlice/ranksSlice';
 import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
 import streaksReducer from './Slices/streaksSlice/streaksSlice';
 
@@ -41,7 +40,6 @@ const staticReducers = {
     addons: addonsReducer,
     notification: notificationReducer,
     badges: badgesReducer,
-    ranks: ranksReducer,
     notificationCenter: notificationCenterReducer,
     streaks: streaksReducer,
 };
