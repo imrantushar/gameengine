@@ -14,7 +14,8 @@ import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
-import { DraggableItem } from "@GFComponents/Requirements/helper";
+import { DraggableItem, hookCollisionDetection, insertAt } from "@GFComponents/Requirements/helper";
+import DragPreview from "@GFComponents/Requirements/DragPreview";
 import { arrowForward } from "@GFUtils/icons";
 import { LuExternalLink } from "react-icons/lu";
 import { Link } from "react-router-dom";
@@ -184,7 +185,9 @@ const FormInner = () => {
             </div>
           </div>
 
-          <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+          <div className="gameengine-hook-desc">
+            <GFLabel type="subtitle" color="var(--gameengine-warn-muted)" label={item?.description} />
+          </div>
         </div>
       </DraggableItem>
     );

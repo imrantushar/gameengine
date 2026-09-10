@@ -199,7 +199,9 @@ const FormInner = ({ hooksLoading }) => {
             </div>
           </div>
 
-          <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+          <div className="gameengine-hook-desc">
+            <GFLabel type="subtitle" color="var(--gameengine-warn-muted)" label={item?.description} />
+          </div>
         </div>
       </DraggableItem>
     );
