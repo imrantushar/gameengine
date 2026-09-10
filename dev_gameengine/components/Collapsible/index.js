@@ -32,7 +32,7 @@ const CustomCollapsible = ({
                         </div>
 
                         {isOpen && children && (
-                                <div className="flex flex-col pt-6" borderBottomLeftRadius="4px" borderBottomRightRadius="4px">
+                                <div className="flex flex-col pt-6 rounded-b">
                                         {children}
                                 </div>
                         )}

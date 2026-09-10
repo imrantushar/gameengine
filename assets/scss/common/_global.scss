@@ -207,6 +207,33 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     }
 }
 
+// The single card the pointer is over. The column highlight says which list
+// the card is headed for; this says which slot within it — the insertion bar
+// sits on the edge the dragged card will arrive at, and the ring picks the
+// card itself out from the ones around it.
+.gameengine-sortable-hook.is-drop-target {
+    position: relative;
+
+    > * {
+        border-radius: var(--gameengine-surface-radius);
+        box-shadow: 0 0 0 2px var(--gameengine-primary-glow);
+        transition: box-shadow 0.15s ease;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--gameengine-primary);
+        box-shadow: 0 0 0 4px var(--gameengine-primary-glow);
+        pointer-events: none;
+    }
+}
+
 // In the Active column the card's own slot IS the drop target, so it is drawn
 // as an outlined placeholder rather than just faded: the gap that opens up
 // reads as "it lands here" instead of looking like a rendering gap. The card's

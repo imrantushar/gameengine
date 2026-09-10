@@ -4,7 +4,7 @@ import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
-import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
@@ -423,7 +423,7 @@ const FormInner = () => {
       ) : (
         <DndContext
           sensors={sensors}
-          collisionDetection={closestCenter}
+          collisionDetection={hookCollisionDetection}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >

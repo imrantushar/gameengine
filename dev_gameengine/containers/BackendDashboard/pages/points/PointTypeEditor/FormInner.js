@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { FaWordpressSimple, FaGraduationCap, FaGamepad } from 'react-icons/fa6';
-import { closestCenter, DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
+import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { SiWoocommerce } from "react-icons/si";
@@ -12,7 +12,7 @@ import RequirementsLoader from '@GFComponents/GameEngineLoader/RequirementsLoade
 import Requirements from '@GFComponents/Requirements';
 import { DraggableItem } from '@GFComponents/Requirements/helper';
 import DragPreview from '@GFComponents/Requirements/DragPreview';
-import { insertAt } from '@GFComponents/Requirements/helper';
+import { hookCollisionDetection, insertAt } from '@GFComponents/Requirements/helper';
 import { arrowForward } from '@GFUtils/icons';
 import { getAddonActiveStatus } from '@GFUtils/helper';
 
@@ -221,7 +221,7 @@ const FormInner = ({ hooksLoading }) => {
       ) : (
         <DndContext
           sensors={sensors}
-          collisionDetection={closestCenter}
+          collisionDetection={hookCollisionDetection}
           onDragEnd={handleDragEnd}
           modifiers={[restrictToWindowEdges]}
         >

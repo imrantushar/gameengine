@@ -18,7 +18,12 @@ export const SortableHook = ({ id, children }) => {
 		transform,
 		transition,
 		isDragging,
+		isOver,
 	} = useSortable({ id, data: { preview: children } });
+
+	// The card the pointer is actually on — the one the dragged card will push
+	// down. Lighting the column alone says which list; this says which slot.
+	const isDropTarget = isOver && !isDragging;
 
 	const style = {
 		transform: transform
@@ -31,7 +36,11 @@ export const SortableHook = ({ id, children }) => {
 		<div
 			ref={setNodeRef}
 			style={style}
-			className={`gameengine-draggable-hook gameengine-sortable-hook${isDragging ? ' is-dragging' : ''}`}
+			className={
+				'gameengine-draggable-hook gameengine-sortable-hook' +
+				(isDragging ? ' is-dragging' : '') +
+				(isDropTarget ? ' is-drop-target' : '')
+			}
 			{...listeners}
 			{...attributes}
 		>
