@@ -1482,6 +1482,9 @@ input.gameengine-checkbox:checked::before {
 .mr-\[30px\] {
   margin-left: 30px;
 }
+.mb-\[10px\] {
+  margin-bottom: 10px;
+}
 .block {
   display: block;
 }
@@ -1837,6 +1840,9 @@ input.gameengine-checkbox:checked::before {
 }
 .gap-\[5px\] {
   gap: 5px;
+}
+.gap-\[4px\] {
+  gap: 4px;
 }
 .gap-y-0\.5 {
   row-gap: 0.125rem;

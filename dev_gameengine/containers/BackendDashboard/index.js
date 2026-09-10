@@ -24,6 +24,7 @@ import Analytics from './pages/analytics';
 import BonusRules from './pages/bonus-rules';
 import Seasons from './pages/seasons';
 import Webhooks from './pages/webhooks';
+import RewardsStore from './pages/rewards-store';
 import { useLocationQuery } from '@GFHooks/';
 import LicenseNotice from '@GFComponents/LicenseNotice';
 
@@ -104,6 +105,9 @@ const renderSwitch = (page, id, action, path) => {
 
 		case 'gameengine-webhooks':
 			return <Webhooks />;
+
+		case 'gameengine-rewards-store':
+			return <RewardsStore />;
 
 		default:
 			return <Dashboard />;

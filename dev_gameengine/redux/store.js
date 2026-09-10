@@ -18,6 +18,7 @@ import badgesReducer from './Slices/badgesSlice/badgesSlice';
 import ranksReducer from './Slices/ranksSlice/ranksSlice';
 import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
 import streaksReducer from './Slices/streaksSlice/streaksSlice';
+import rewardsReducer from './Slices/rewardsSlice/rewardsSlice';
 
 import logger from 'redux-logger';
 
@@ -53,6 +54,7 @@ export const store = configureStore({
         ranks: ranksReducer,
         notificationCenter: notificationCenterReducer,
         streaks: streaksReducer,
+        rewards: rewardsReducer,
     },
     middleware: ( getDefaultMiddleware ) =>
         getDefaultMiddleware().concat( ...middleware ),

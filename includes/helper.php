@@ -193,7 +193,16 @@ class Helper
             'title' => __('Leaderboards', 'gameengine'),
             'capability' => 'manage_options',
         );
-        
+
+        // Rewards Store
+        if (self::is_addon_active('rewards_store')) {
+            $menu[$slug . '-rewards-store'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Rewards Store', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
         // Referrals
         if (self::is_addon_active('referrals')) {
             $menu[$slug . '-referrals'] = array(

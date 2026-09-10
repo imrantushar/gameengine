@@ -521,6 +521,132 @@
     filter: grayscale(1);
 }
 
+/* --- Rewards Store Catalog --- */
+.gameengine-rewards-catalog {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.gameengine-rewards-balance {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--gameengine-text-header);
+    background: var(--gameengine-bg-alt);
+    border: 1px solid var(--gameengine-border);
+    border-radius: var(--gameengine-radius);
+    padding: 12px 18px;
+}
+
+.gameengine-rewards-notice {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.gameengine-rewards-notice--success {
+    background: #ecfdf5;
+    color: var(--gameengine-success);
+    border: 1px solid #a7f3d0;
+}
+
+.gameengine-rewards-notice--error {
+    background: #fef2f2;
+    color: var(--gameengine-danger);
+    border: 1px solid #fecaca;
+}
+
+.gameengine-rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.gameengine-reward-card {
+    background: #fff;
+    border: 1px solid var(--gameengine-border);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.gameengine-reward-card:hover {
+    transform: scale(1.03);
+    border-color: var(--gameengine-primary);
+}
+
+.gameengine-reward-icon-box {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 12px auto;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+}
+
+.gameengine-reward-icon-box img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.gameengine-reward-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.gameengine-reward-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--gameengine-text-header);
+}
+
+.gameengine-reward-desc {
+    font-size: 12px;
+    color: var(--gameengine-text-body);
+    margin: 0;
+}
+
+.gameengine-reward-cost {
+    font-weight: 600;
+    color: var(--gameengine-primary);
+    font-size: 14px;
+}
+
+.gameengine-reward-stock {
+    font-size: 12px;
+    color: var(--gameengine-locked);
+}
+
+.gameengine-reward-redeem-btn {
+    margin-top: 10px;
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: var(--gameengine-primary);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.gameengine-reward-redeem-btn:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.gameengine-reward-redeem-btn:disabled {
+    background: var(--gameengine-locked);
+    cursor: not-allowed;
+}
+
 /* --- Levels List --- */
 .gameengine-level-list {
     display: flex;

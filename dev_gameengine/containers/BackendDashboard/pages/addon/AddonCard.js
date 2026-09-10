@@ -89,6 +89,7 @@ const AddonCard = ({ item, value }) => {
     if (item.name === 'restrict_unlock') return '#8270DB';
     if (item.name === 'restrict_content') return '#4F46E5';
     if (item.name === 'progress_map') return '#10B981';
+    if (item.name === 'rewards_store') return '#D97706';
     if (item.name === 'referrals') return '#10B981';
     if (item.name === 'wallet') return '#10B981';
     if (item.name === 'lucky-wheels') return '#F97316';

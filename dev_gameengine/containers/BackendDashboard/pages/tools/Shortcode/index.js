@@ -100,6 +100,20 @@ const shortCodeData = [
     isPro: false,
   },
   {
+    title: __('Rewards Store', 'gameengine'),
+    shortCode: '[gameengine_rewards]',
+    subtitle: __(
+      'Displays a catalog of rewards users can redeem with their earned points.',
+      'gameengine'
+    ),
+    description: __(
+      'Shows each reward\'s cost, stock, and a Redeem button; requires the Rewards Store addon to be active.',
+      'gameengine'
+    ),
+    url: 'https://gameengine.pro/docs/',
+    isPro: false,
+  },
+  {
     title: __('Coupon Marketplace', 'gameengine'),
     shortCode: '[gameengine_marketplace]',
     subtitle: __(

@@ -150,6 +150,15 @@ class AddonsController extends BaseController
                 'is_pro' => false,
                 'is_locked' => false,
             ),
+            array(
+                'slug'   => 'rewards_store',
+                'name'   => __('Rewards Store', 'gameengine'),
+                'desc'   => __('Let users redeem their earned points for rewards from a catalog you manage.', 'gameengine'),
+                'icon'   => 'dashicons-tickets-alt',
+                'active' => in_array('rewards_store', $active_addons, true),
+                'is_pro' => false,
+                'is_locked' => false,
+            ),
 
             array(
                 'slug'      => 'wallet',
@@ -293,6 +302,7 @@ class AddonsController extends BaseController
             'restrict_unlock',
             'progress_map',
             'restrict_content',
+            'rewards_store',
             'wallet',
             'referrals',
             'lucky-wheels'

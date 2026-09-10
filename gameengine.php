@@ -190,7 +190,8 @@ final class GameEngine
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
             'addons/restrict-content/init.php',
-            'addons/academy-lms/init.php'
+            'addons/academy-lms/init.php',
+            'addons/rewards-store/init.php'
         );
 
         foreach ($paths as $path) {

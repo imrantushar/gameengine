@@ -16,6 +16,7 @@ import {
   tutorLms,
   referralIcon,
 } from '@GFUtils/icons';
+import { GoGift } from 'react-icons/go';
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
@@ -152,6 +153,20 @@ const infoCardsData = [
     docsUrl:
       'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
     route: '',
+  },
+  {
+    label: __('Rewards Store', 'gameengine'),
+    name: 'rewards_store',
+    is_pro: false,
+    is_coming_soon: false,
+    details: __(
+      'Let users redeem their earned points for rewards from a catalog you manage.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <GoGift size={20} color="#D97706" />,
+    docsUrl: '',
+    route: 'admin.php?page=gameengine-rewards-store',
   },
   {
     label: __('Wallet', 'gameengine'),
