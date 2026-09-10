@@ -13,7 +13,6 @@ import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
 import badgesReducer from './Slices/badgesSlice/badgesSlice';
-import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
 
 import logger from 'redux-logger';
 
@@ -39,7 +38,6 @@ const staticReducers = {
     addons: addonsReducer,
     notification: notificationReducer,
     badges: badgesReducer,
-    notificationCenter: notificationCenterReducer,
 };
 
 /**
