@@ -10,6 +10,8 @@ import { route_path, statusArray } from '@GFUtils/helper';
 import { Formik } from 'formik';
 import { getPointTypesInitialValues } from './helper';
 import FormInner from './FormInner';
+import BonusMultipliers from './BonusMultipliers';
+import StreakBonuses from './StreakBonuses';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import { PointsSystemLoader } from '@GFComponents/GameEngineLoader/PointsSystemLoader';
 
@@ -121,6 +123,17 @@ const PointTypeEditor = () => {
 
             <GameEngineBox dynamicClasses="gameengine-points-system p-6" heading={__("Points System", "gameengine")}>
               <FormInner hooksLoading={hooksLoading} />
+
+              {editId ? (
+                <>
+                  <BonusMultipliers pointTypeId={editId} />
+                  <StreakBonuses pointTypeId={editId} />
+                </>
+              ) : (
+                <p className="mt-6 text-sm text-[#738496]">
+                  {__("Save this point system first to add bonus multipliers and streak bonuses.", "gameengine")}
+                </p>
+              )}
             </GameEngineBox>
           </>;
         }}

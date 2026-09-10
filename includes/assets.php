@@ -70,6 +70,7 @@ class Assets
             'is_academylms_active' => \GameEngine\Helper::is_academylms_active(),
             'is_tutorlms_active' => \GameEngine\Helper::is_tutorlms_active(),
             'is_storeengine_active' => defined('STOREENGINE_VERSION'),
+            'is_pro' => defined('GAMEENGINE_PRO_VERSION'),
             'is_buddypress_active' => function_exists('bp_is_active') || class_exists('BuddyPress'),
             'is_learndash_active' => defined('LEARNDASH_VERSION') || class_exists('SFWD_LMS'),
             'is_gemboards_active' => defined('GEMBOARDS_VERSION') || class_exists('GemBoards'),

@@ -168,12 +168,10 @@ class Helper
             'capability' => 'manage_options',
         );
 
-        // Streaks
-        $menu[$slug . '-streaks'] = array(
-            'parent_slug' => $slug,
-            'title' => __('Streaks', 'gameengine'),
-            'capability' => 'manage_options',
-        );
+        // Streaks & Bonus Rules are no longer top-level menu items — they are
+        // managed from the Points System screen (a tab there, and a per-point-type
+        // section inside the Point Type editor). The routes still resolve for
+        // deep links.
 
         // Logs
         $menu[$slug . '-logs'] = array(
