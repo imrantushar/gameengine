@@ -6,9 +6,6 @@ import GeneralSettings from './Tabs/GeneralSettings';
 import EmailTemplates from './Tabs/EmailTemplates';
 import NotificationsSettings from './Tabs/NotificationsSettings';
 import BuyPointsSettings from './Tabs/BuyPointsSettings';
-import ProEmailSettings from './Tabs/ProEmailSettings';
-import ProTransferSettings from './Tabs/ProTransferSettings';
-import ProExpirySettings from './Tabs/ProExpirySettings';
 
 /**
  * Tabs for the settings this plugin stores itself.
@@ -50,30 +47,6 @@ const ownTabs = [
 		saveKey: 'buy_points',
 		selfSubmitting: true,
 		render: (formProps) => <BuyPointsSettings {...formProps} />,
-	},
-	{
-		key: 'email_notifications',
-		label: __('Email Notifications', 'gameengine'),
-		desc: __('Email notification settings', 'gameengine'),
-		icon: mail(),
-		saveKey: 'email_notifications',
-		render: () => <ProEmailSettings />,
-	},
-	{
-		key: 'transfer',
-		label: __('Transfer', 'gameengine'),
-		desc: __('Point transfer settings', 'gameengine'),
-		icon: general(),
-		saveKey: 'transfer',
-		render: () => <ProTransferSettings />,
-	},
-	{
-		key: 'expiry',
-		label: __('Expiry', 'gameengine'),
-		desc: __('Point expiry settings', 'gameengine'),
-		icon: general(),
-		saveKey: 'expiry',
-		render: () => <ProExpirySettings />,
 	},
 ];
 
