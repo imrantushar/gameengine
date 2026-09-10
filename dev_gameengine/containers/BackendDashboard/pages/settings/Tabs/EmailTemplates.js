@@ -74,7 +74,7 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
     return (
         <div className="w-full">
             {/* General Settings */}
-            <GameEngineBox dynamicClasses='gameengine-settings-email mb-[30px] shadow-[var(--gameengine-shadow)]'>
+            <GameEngineBox dynamicClasses='gameengine-settings-email mb-[30px] [box-shadow:var(--gameengine-shadow)]'>
                 <div className="flex items-center justify-between gap-4 gameengine-border-bottom mb-6 pb-4">
                     <p className="text-[20px] font-medium text-[var(--gameengine-font-color)] gameengine-border-bottom leading-[30px] m-0">
                         {__("General", "gameengine")}
@@ -93,20 +93,20 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                         label={__("Name", "gameengine")}
                         subtitle={__("The common name for all outgoing emails.", "gameengine")}
                     >
-                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_name" value={values?.email_templates?.sender_name || 'GameEngine LMS'} onChange={handleChange} />
+                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_name" value={values?.email_templates?.sender_name || 'GameEngine LMS'} onChange={handleChange} />
                     </SettingsInput>
 
                     <SettingsInput
                         label={__("E-Mail Address", "gameengine")}
                         subtitle={__("All emails will be sent from this email address.", "gameengine")}
                     >
-                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_email" value={values?.email_templates?.sender_email || 'admin@yoursite.com'} onChange={handleChange} />
+                        <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]" name="email_templates.sender_email" value={values?.email_templates?.sender_email || 'admin@yoursite.com'} onChange={handleChange} />
                     </SettingsInput>
                 </div>
             </GameEngineBox>
 
             {/* Templates List */}
-            <GameEngineBox dynamicClasses='gameengine-settings-email shadow-[var(--gameengine-shadow)]'>
+            <GameEngineBox dynamicClasses='gameengine-settings-email [box-shadow:var(--gameengine-shadow)]'>
                 <p className="gameengine-settings-heading">
                     {__("Email Template", "gameengine")}
                 </p>
@@ -114,7 +114,7 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                 <div className="flex flex-col gap-4">
                     {Object.entries(emailConfigs).map(([key, config]) => {
                         return (
-                            <div className="flex items-center justify-between rounded-md bg-white border border-solid border-[var(--gameengine-border-color)] px-5 py-4" key={key}>
+                            <div className="flex items-center justify-between rounded-md bg-[var(--gameengine-background)] border border-solid border-[var(--gameengine-border-color)] px-5 py-4" key={key}>
                                 <SettingsInput
                                     label={config?.title}
                                     subtitle={config?.desc}
@@ -166,17 +166,17 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                                                 </p>
 
                                                                 <div className="flex flex-wrap gap-2 mb-3">
-                                                                    {config?.tags.map(tag => <button key={tag} className="bg-[#f3f4f6] border-none bg-transparent text-xs text-[var(--gameengine-font-color)] border border-solid border-[var(--gameengine-border-color)] px-2 py-0.5 leading-4 cursor-pointer" onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
+                                                                    {config?.tags.map(tag => <button key={tag} className="bg-[var(--gameengine-secondary-color)] border-none bg-transparent text-xs text-[var(--gameengine-font-color)] border border-solid border-[var(--gameengine-border-color)] px-2 py-0.5 leading-4 cursor-pointer" onClick={() => handleCopyTag(tag)} title={__("Click to copy", "gameengine")}>
                                                                         {tag}
                                                                     </button>)}
                                                                 </div>
                                                             </div>
 
-                                                            <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" name={config?.subjectField} value={values?.email_templates?.[editingKey + '_subject'] || ''} onChange={handleChange} placeholder={config?.defaultSubject} />
+                                                            <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]" name={config?.subjectField} value={values?.email_templates?.[editingKey + '_subject'] || ''} onChange={handleChange} placeholder={config?.defaultSubject} />
 
                                                             {editingKey === 'inactivity' && <div className="mt-5">
                                                                 <SettingsInput label={__("Inactivity Days", "gameengine")}>
-                                                                    <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]" type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} />
+                                                                    <input className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]" type="number" name="email_templates.inactivity_days" value={values?.email_templates?.inactivity_days || '7'} onChange={handleChange} />
                                                                 </SettingsInput>
                                                             </div>}
 
@@ -186,20 +186,27 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                                                 {__("Additional Content", "gameengine")}
                                                             </p>
 
-                                                            <GameEngineEditor name={config?.bodyField} defaultValue={values?.email_templates?.[editingKey + '_body'] || config?.defaultBody} saveValueHandler={(name, content) => setFieldValue(name, content)} suffix={`email-template-${editingKey}`} />
+                                                            {/* Composed on a light sheet, like the preview beside it: the
+                                                                body being written IS the email, and an email is not dark. */}
+                                                            <div className="gameengine-email-compose">
+                                                                <GameEngineEditor name={config?.bodyField} defaultValue={values?.email_templates?.[editingKey + '_body'] || config?.defaultBody} saveValueHandler={(name, content) => setFieldValue(name, content)} suffix={`email-template-${editingKey}`} />
+                                                            </div>
                                                         </GameEngineBox>
                                                     </div>
 
                                                     {/* Right Column: Live Preview */}
                                                     <div className="flex-1 min-w-0 sticky top-[130px]">
-                                                        <p className="justify-between text-base font-semibold mb-2 flex" style={{
-                                                            "color": "#738496"
-                                                        }}>
+                                                        <p className="justify-between text-base font-semibold mb-2 flex text-[var(--gameengine-warn-muted)]">
                                                             {__("Template Preview", "gameengine")}
                                                         </p>
 
-                                                        <div className="rounded-lg border border-solid border-[var(--gameengine-border-color)] bg-[#f8f9fa] p-8">
-                                                            <div className="bg-white rounded-lg" style={{
+                                                        <div className="rounded-lg border border-solid border-[var(--gameengine-border-color)] bg-[var(--gameengine-secondary-color)] p-8">
+                                                            {/* Deliberately white in both modes: this is a preview of the
+                                                                mail as it will arrive in someone's inbox, and its type colours
+                                                                below are the email's own. Theming the sheet but not the text
+                                                                left the preview dark-on-dark. */}
+                                                            <div className="rounded-lg" style={{
+                                                                "background": "#fff",
                                                                 "padding": "30px",
                                                                 "boxShadow": "0 4px 12px rgba(0,0,0,0.06)"
                                                             }}>

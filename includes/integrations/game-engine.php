@@ -14,7 +14,7 @@ class GameEngine extends BaseIntegration
     }
     public static function get_name(): string
     {
-        return __('GameEngine Logic', 'gameengine');
+        return __('GameEngine', 'gameengine');
     }
     public static function get_icon(): string
     {

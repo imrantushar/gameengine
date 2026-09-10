@@ -219,7 +219,7 @@ const ListTable = (props) => {
 	const tableRootClasses = [
 		'w-full border border-[var(--gameengine-border-color)] border-collapse',
 		showColumnBorder ? '[&_td]:border-x [&_th]:border-x [&_td]:border-[var(--gameengine-border-color)] [&_th]:border-[var(--gameengine-border-color)]' : '',
-		striped ? '[&_tbody_tr:nth-child(even)]:bg-gray-50' : '',
+		striped ? '[&_tbody_tr:nth-child(even)]:bg-[var(--gameengine-secondary-color)]' : '',
 		interactive ? '[&_tbody_tr]:cursor-pointer' : '',
 	]
 		.filter(Boolean)

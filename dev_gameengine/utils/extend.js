@@ -57,6 +57,17 @@ export const getAdminMenuItems = (items) =>
 	applyFilters('gameengine.adminMenu.items', items);
 
 /**
+ * Whether the "Get Pro" upsell shows in the admin menu.
+ *
+ * Pro turns this off, so the link disappears once it is installed rather than
+ * pointing an existing customer at a purchase page.
+ *
+ * @return {boolean} True while the upsell is relevant.
+ */
+export const showAdminMenuUpsell = () =>
+	applyFilters('gameengine.adminMenu.showUpsell', true);
+
+/**
  * Shortcodes listed on the Tools screen.
  *
  * @param {Array} shortcodes Shortcodes contributed by this plugin.

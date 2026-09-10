@@ -59,12 +59,12 @@ const DynamicField = ({
     </div>;
   }
   if (config.type === 'switch') {
-    return <div className="flex items-center justify-between p-2 border border-dashed border-gray-200 rounded-md" style={{
+    return <div className="flex items-center justify-between p-2 border border-dashed border-[var(--gameengine-border-color)] rounded-md" style={{
       "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`
     }}>
       <div>
         <GFLabel label={displayLabel} fontWeight="600" fontSize="sm" />
-        {config.description && <p className="text-xs text-gray-500 mt-0.5">{config.description}</p>}
+        {config.description && <p className="text-xs text-[var(--gameengine-warn-muted)] mt-0.5">{config.description}</p>}
       </div>
       <button onClick={() => onChange(!value)}>
         {value ? __('Enabled', 'gameengine') : __('Disabled', 'gameengine')}
@@ -138,7 +138,7 @@ const HookConfigurationForm = ({
     setFieldValue('requirements', updatedFieldValue);
   };
   return (
-    <div className="gameengine-active-hooks bg-white rounded-lg mb-2 border border-solid border-[var(--gameengine-border-color)]">
+    <div className="gameengine-active-hooks bg-[var(--gameengine-background)] rounded-lg mb-2 border border-solid border-[var(--gameengine-border-color)]">
       <DynamicHookForm hookId={hookId} hookInfo={hookInfo} type={type} settings={currentSettings || {}} handleChange={handleChange} isOpen={isOpen} setIsOpen={setIsOpen} scope={scope} />
     </div>
   );

@@ -1,15 +1,118 @@
 :root {
-    --gameengine-font: Roboto,-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    // Native system stack — crisp at UI sizes and no webfont request. Roboto is
+    // kept as a later fallback only: leading with it made the admin silently
+    // borrow a font some *other* plugin had loaded, so the same screen rendered
+    // differently from site to site.
+    --gameengine-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     --gameengine-primary: #006BFF;
-    --gameengine-border-color: #CBD1D7;
-    --gameengine-font-color: #141A24;
-    --gameengine-shadow: 0 0 1px 0 rgba(20, 26, 36, 0.20), 0 1px 2px 0 rgba(20, 26, 36, 0.10);
+    // Alias. A lot of the UI (radio checked state, breadcrumb hover, focus
+    // rings) already referenced --gameengine-primary-color, which was never
+    // defined — those rules silently fell back to the browser default.
+    --gameengine-primary-color: var(--gameengine-primary);
+    --gameengine-primary-light: #E3E7FF;
+    --gameengine-primary-glow: rgba(0, 107, 255, 0.18);
+    --gameengine-border-color: #DFE1E5;
+    --gameengine-font-color: #131D2B;
+    // Surfaces are defined by a hairline border instead of a drop shadow.
+    // Written as a 1px spread ring so every element already carrying
+    // `box-shadow: var(--gameengine-shadow)` picks the border up without any
+    // change to its box metrics; surfaces styled from scratch below use a real
+    // `border` instead.
+    --gameengine-shadow: 0 0 0 1px var(--gameengine-border-color);
+    // Alias — TopBar and TopbarLoader reference --gameengine-box-shadow, which
+    // was never defined, so the sticky top bar rendered with no edge at all.
+    --gameengine-box-shadow: var(--gameengine-shadow);
+    // Named for the surface it belongs to, not just "radius": frontend.scss
+    // imports this file last and already defines its own --gameengine-radius
+    // (12px) for the member dashboard, which a shared name would silently
+    // override.
+    --gameengine-surface-radius: 8px;
     --gameengine-secondary-color: #F6F7F8;
     --gameengine-background: #FFFFFF;
-    --gameengine-warn-muted: #738496;
+    // The ground behind the cards. Equal to the inset grey in light mode, but a
+    // step *darker* than the card in dark mode, so panels stay legible as panels.
+    --gameengine-app-bg: #F6F7F8;
+    --gameengine-warn-muted: #575E6C;
     --gameengine-placing: #F15B50;
     --gameengine-warning: #FDB022;
     --gameengine-placeholder: #A2ADB9;
+    --gameengine-success: #00AD6B;
+    --gameengine-success-light: rgba(0, 173, 107, 0.10);
+    // Fills that carry a white label. In light mode the accent doubles as the
+    // fill; in dark mode it cannot — the accent is lightened to be readable AS
+    // text on a dark ground, which leaves it far too pale to sit under white.
+    --gameengine-success-strong: var(--gameengine-success);
+    --gameengine-error-strong: var(--gameengine-placing);
+    --gameengine-warning-light: rgba(253, 176, 34, 0.12);
+    --gameengine-error-light: rgba(241, 91, 80, 0.10);
+    // Fill behind a white label. In light mode the accent already carries white;
+    // in dark mode it cannot, so the two jobs get separate tokens.
+    --gameengine-primary-strong: var(--gameengine-primary);
+
+    // Aliases for names the UI already references but that were never defined.
+    // An unresolvable var() makes the whole declaration invalid, so these were
+    // silently inheriting wp-admin's colours instead of the palette. Kept as
+    // aliases rather than new hexes so the palette stays single-sourced.
+    --gameengine-body-background: var(--gameengine-secondary-color);
+    --gameengine-secondary: var(--gameengine-secondary-color);
+    --gameengine-font-black: var(--gameengine-font-color);
+    --gameengine-heading-color: var(--gameengine-font-color);
+    --gameengine-text-color: var(--gameengine-font-color);
+    --gameengine-subtitle-color: var(--gameengine-warn-muted);
+    --gameengine-text-muted: var(--gameengine-warn-muted);
+    --gameengine-gray: var(--gameengine-secondary-color);
+    --gameengine-gray-color: var(--gameengine-warn-muted);
+    --gameengine-secondary-gray-color: var(--gameengine-placeholder);
+    --gameengine-text-disable: var(--gameengine-placeholder);
+    --gameengine-disabled-bg: #E5E5E6;
+
+    font-family: var(--gameengine-font);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+// ── Dark mode ───────────────────────────────────────────────────────────────
+// Toggled at runtime by dev_gameengine/utils/theme.js, which stamps data-theme
+// on <html>. Only the tokens change: every surface, border and text colour in
+// the admin already reads through them, so there is no second set of rules.
+//
+// Values follow GemBooking's dark palette so the two admins read as one family.
+// Contrast is quoted against --gameengine-background.
+html[data-theme="dark"] {
+    color-scheme: dark;
+
+    // One blue cannot do both jobs on this ground: reading as accent text needs
+    // a high enough luminance, carrying a white label needs a low enough one.
+    --gameengine-primary: #4C8DFF;          // 5.45:1 as accent text
+    --gameengine-primary-strong: #2563EB;   // 5.17:1 under a white label
+    --gameengine-primary-light: #16263C;
+    --gameengine-primary-glow: rgba(76, 141, 255, 0.28);
+
+    // Grounds: the page behind cards, the card surface, and the inset rows
+    // (table headers, shortcode strips) that sit on top of a card.
+    --gameengine-app-bg: #0E1116;
+    --gameengine-background: #161A21;
+    --gameengine-secondary-color: #1A1F27;
+    // A border doing separation work has to be visible on this ground.
+    --gameengine-border-color: #303845;
+
+    // Text ramp, held off pure white — 14:1 on a ground this dark halates.
+    --gameengine-font-color: #DCE3EC;
+    --gameengine-warn-muted: #A7B3C2;
+    --gameengine-placeholder: #7C8899;
+
+    // Status. Each light value is too deep to read here.
+    --gameengine-success: #3DD68C;
+    --gameengine-success-light: rgba(61, 214, 140, 0.14);
+    --gameengine-warning: #F5B544;
+    --gameengine-warning-light: rgba(245, 181, 68, 0.14);
+    --gameengine-placing: #FB7185;
+    --gameengine-error-light: rgba(251, 113, 133, 0.14);
+    --gameengine-success-strong: #15803D;   // 4.99:1 under a white label
+    --gameengine-error-strong: #DC2626;     // 4.83:1 under a white label
+
+    --gameengine-disabled-bg: #232A35;
 }
 
 h1, h2, h3, h4, h5, h6, p, span, label, div, th {
@@ -22,9 +125,281 @@ h1, h2, h3, h4, h5, h6, p, span, label, div, th {
 
 .gameengine-admin-content {
     margin-left: -20px;
-    background: var(--gameengine-secondary-color);
+    background: var(--gameengine-app-bg);
     min-height: 100vh;
     padding-bottom: 100px;
+}
+
+// ── Dark mode plumbing ──────────────────────────────────────────────────────
+// The app mounts inside wp-admin, whose chrome and form controls are light by
+// default. Anything that does not set its own colour inherits those, so tint
+// the surrounding chrome and theme the native controls.
+// wp-admin's default text colour is #3c434a — anything in our tree that does
+// not set its own colour inherits it, which reads as near-black on the dark
+// ground. Anchor a themed base on the app root so those elements (table cells
+// especially) follow the mode.
+//
+// Modals, drawers, menus and toasts render through a portal onto <body>, so
+// they sit OUTSIDE the app root and never saw that anchor: their surfaces were
+// correctly dark while every label inside them stayed near-black. Each portal
+// root has to carry the base colour itself.
+.gameengine-admin-content,
+.gameengine-modal-overlay,
+.gameengine-drawer,
+.gameengine-more-options,
+.gameengine-snackbar-action,
+.gameengine-notification {
+    color: var(--gameengine-font-color);
+}
+
+html[data-theme="dark"] {
+    #wpcontent,
+    #wpbody-content {
+        background: var(--gameengine-app-bg);
+    }
+
+    // Our notices are rendered with WP core's .notice classes, so their
+    // background comes from core's light-only stylesheet.
+    .gameengine-admin-notice {
+        background: var(--gameengine-background);
+        color: var(--gameengine-font-color);
+    }
+
+    // Native controls have no themable surface of their own; accent-color is
+    // the one hook that themes the check/fill without rebuilding them.
+    input[type="checkbox"],
+    input[type="radio"] {
+        accent-color: var(--gameengine-primary);
+        background: var(--gameengine-secondary-color);
+        border-color: var(--gameengine-border-color);
+    }
+
+    input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="submit"]),
+    textarea,
+    select {
+        background: var(--gameengine-background);
+        border-color: var(--gameengine-border-color);
+        color: var(--gameengine-font-color);
+
+        &::placeholder {
+            color: var(--gameengine-placeholder);
+        }
+    }
+}
+
+// wp-admin ships a bare h1-h6 colour (a near-black meant for a white page) at
+// the same specificity as ours, so it wins on source order unless restated —
+// otherwise headings go dark-on-dark. Guarded on <body> rather than
+// #wpbody-content because modals and react-select menus portal onto <body>,
+// escaping that container; #gameengine-admin-app only ever mounts on our own
+// screens, so the guard still means "our pages only".
+body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
+    color: var(--gameengine-font-color);
+}
+
+// ── Hook drag & drop ────────────────────────────────────────────────────────
+// A card being dragged keeps its slot in the list, dimmed — the moving copy is
+// the DragOverlay. Both columns therefore hold their layout for the whole drag
+// instead of collapsing and reflowing under the pointer.
+.gameengine-draggable-hook {
+    cursor: grab;
+    // Stops the browser claiming the gesture for scrolling on touch devices,
+    // which otherwise cancels the drag as soon as it starts moving.
+    touch-action: none;
+    transition: opacity 0.15s ease;
+
+    &:active {
+        cursor: grabbing;
+    }
+
+    &.is-dragging {
+        opacity: 0.35;
+    }
+}
+
+// The single card the pointer is over. The column highlight says which list
+// the card is headed for; this says which slot within it — the insertion bar
+// sits on the edge the dragged card will arrive at, and the ring picks the
+// card itself out from the ones around it.
+.gameengine-sortable-hook.is-drop-target {
+    position: relative;
+    transition: padding-top 0.15s ease;
+
+    > * {
+        border-radius: var(--gameengine-surface-radius);
+        box-shadow: 0 0 0 1px color-mix(in srgb, var(--gameengine-primary) 45%, transparent);
+        transition: box-shadow 0.15s ease;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -7px;
+        left: 0;
+        right: 0;
+        height: 3px;
+        border-radius: 999px;
+        background: var(--gameengine-primary);
+        box-shadow: 0 0 0 4px var(--gameengine-primary-glow);
+        pointer-events: none;
+        transition: height 0.15s ease, top 0.15s ease;
+    }
+
+    // A card coming from the other column has no slot of its own here, so the
+    // insertion bar grows into a full-size one and the padding pushes this card
+    // down to make the room real rather than drawn over the top of it.
+    &.opens-slot {
+        padding-top: 53px; // 45px slot + the 8px the list gaps by
+
+        &::before {
+            top: 0;
+            height: 45px;
+            border-radius: var(--gameengine-surface-radius);
+            border: 2px dashed var(--gameengine-primary);
+            background: var(--gameengine-primary-light);
+            box-shadow:
+                0 0 0 4px var(--gameengine-primary-glow),
+                inset 0 2px 10px var(--gameengine-primary-glow);
+        }
+    }
+}
+
+// In the Active column the card's own slot IS the drop target, so it is drawn
+// as an outlined placeholder rather than just faded: the gap that opens up
+// reads as "it lands here" instead of looking like a rendering gap. The card's
+// content is hidden rather than unmounted so the slot keeps its exact height
+// and the list does not jump.
+.gameengine-sortable-hook.is-dragging {
+    opacity: 1;
+    position: relative;
+    // A collapsed card leaves a slot too shallow to read as a target. Floor it
+    // at a card's height so the gap always looks like somewhere a card goes.
+    min-height: 45px;
+
+    > * {
+        opacity: 0;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 2px dashed var(--gameengine-primary);
+        border-radius: var(--gameengine-surface-radius);
+        background: var(--gameengine-primary-light);
+        // Ringed and recessed: the halo separates the slot from whatever card
+        // sits next to it, and the inset shadow makes it read as a well the
+        // card drops into rather than a flat outline.
+        box-shadow:
+            0 0 0 4px var(--gameengine-primary-glow),
+            inset 0 2px 10px var(--gameengine-primary-glow);
+        pointer-events: none;
+    }
+}
+
+.gameengine-hook-dropzone {
+    height: 100%;
+    border-radius: var(--gameengine-surface-radius);
+    // Transparent rather than absent, so gaining the highlight does not change
+    // the box and nudge the cards inside it.
+    border: 1px dashed transparent;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &.is-over {
+        // Three blues are on screen at once during a drag — column, slot and
+        // the card being displaced. They are graded so they cannot compete:
+        // the column is context and steps back the furthest.
+        border-color: color-mix(in srgb, var(--gameengine-primary) 55%, transparent);
+        background: color-mix(in srgb, var(--gameengine-primary) 3.5%, transparent);
+        box-shadow: 0 0 0 2px color-mix(in srgb, var(--gameengine-primary-glow) 55%, transparent);
+    }
+}
+
+.gameengine-hook-drag-preview {
+    cursor: grabbing;
+    // The card carries its description in the list, where there is room to
+    // read it. Under the pointer it just trails outside the lifted card and
+    // makes the thing being dragged harder to read, so drop it.
+    .gameengine-hook-desc {
+        display: none;
+    }
+
+    // Lifted off the page: slightly larger, with a shadow that reads as
+    // elevation in both modes.
+    transform: scale(1.02);
+    box-shadow:
+        0 12px 28px -6px rgba(16, 24, 40, 0.28),
+        0 0 0 2px var(--gameengine-primary-glow);
+    border-radius: var(--gameengine-surface-radius);
+    background: var(--gameengine-background);
+}
+
+// ── Light islands ───────────────────────────────────────────────────────────
+// A few surfaces are previews of something that is not the admin: an email
+// lands in someone's inbox on a white sheet, so composing it on the dark
+// ground would be a preview of a mail that never ships.
+//
+// The tokens are re-declared on the subtree rather than each element being
+// overridden, so everything inside — the editor chrome, its toolbar, any
+// component dropped in later — resolves light on its own.
+.gameengine-email-compose {
+    --gameengine-background: #FFFFFF;
+    --gameengine-secondary-color: #F6F7F8;
+    --gameengine-app-bg: #F6F7F8;
+    --gameengine-border-color: #DFE1E5;
+    --gameengine-font-color: #131D2B;
+    --gameengine-warn-muted: #575E6C;
+    --gameengine-placeholder: #A2ADB9;
+
+    color: var(--gameengine-font-color);
+
+    // wp-admin forces its own colours on native controls, and the editor's
+    // body is a contenteditable rather than an input, so state it directly.
+    .ql-editor,
+    .ql-container,
+    .ql-toolbar {
+        background: var(--gameengine-background);
+        color: var(--gameengine-font-color);
+    }
+
+    .ql-editor.ql-blank::before {
+        color: var(--gameengine-placeholder);
+    }
+
+    // Quill draws its toolbar icons with stroke/fill on inline SVG, which does
+    // not inherit `color`.
+    .ql-snow .ql-stroke {
+        stroke: var(--gameengine-font-color);
+    }
+
+    .ql-snow .ql-fill {
+        fill: var(--gameengine-font-color);
+    }
+
+    .ql-snow .ql-picker {
+        color: var(--gameengine-font-color);
+    }
+}
+
+// Top-bar sun/moon button.
+.gameengine-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: 4px;
+    background: var(--gameengine-background);
+    color: var(--gameengine-font-color);
+    cursor: pointer;
+    transition: border-color 0.15s ease, color 0.15s ease;
+
+    &:hover {
+        border-color: var(--gameengine-primary-color);
+        color: var(--gameengine-primary-color);
+    }
 }
 
 .gameengine-inner-page-content {
@@ -32,11 +407,11 @@ h1, h2, h3, h4, h5, h6, p, span, label, div, th {
     width: 100%;
     margin: 0 auto;
     padding: 24px;
-    border-radius: 4px;
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: var(--gameengine-surface-radius);
     box-sizing: border-box;
     overflow: hidden;
     background: var(--gameengine-background);
-    box-shadow: var(--gameengine-shadow);
 }
 
 .gameengine-page-content {
@@ -46,6 +421,42 @@ h1, h2, h3, h4, h5, h6, p, span, label, div, th {
     padding: 0 24px;
     box-sizing: border-box;
     overflow: hidden;
+}
+
+// ── Surfaces ────────────────────────────────────────────────────────────────
+// A white panel that reads as a card: hairline border, 8px radius, no shadow.
+// Every boxed area of the admin should be one of these so panels line up
+// against the grey page background instead of dissolving into it.
+.gameengine-surface {
+    background: var(--gameengine-background);
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: var(--gameengine-surface-radius);
+    box-sizing: border-box;
+}
+
+// Dashboard metric card — "Points Given", "Levels Given", … Its own class
+// rather than a plain .gameengine-surface so the metric row keeps a single
+// definition of its padding and inner spacing.
+.gameengine-count-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px;
+    background: var(--gameengine-background);
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: var(--gameengine-surface-radius);
+    box-sizing: border-box;
+
+    &__icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+    }
 }
 
 // Custom radio button
@@ -138,7 +549,7 @@ h1, h2, h3, h4, h5, h6, p, span, label, div, th {
 
 .gameengine-primary-btn {
     cursor: pointer;
-    background: var(--gameengine-primary);
+    background: var(--gameengine-primary-strong);
     color: #fff;
     font-size: 14px;
     font-weight: 600;

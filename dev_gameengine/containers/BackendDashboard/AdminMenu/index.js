@@ -7,7 +7,7 @@ import {
 	plugin_root_url,
 	useQuery,
 } from '@GFUtils/helper';
-import { getAdminMenuItems } from '@GFUtils/extend';
+import { getAdminMenuItems, showAdminMenuUpsell } from '@GFUtils/extend';
 import { useSelector } from 'react-redux';
 import MenuItem from './MenuItem';
 import { LiaAngleRightSolid } from "react-icons/lia";
@@ -94,12 +94,14 @@ const AdminMenu = () => {
 						<a href={item.href}>{item.label}</a>
 					</li>
 				))}
-				<li className={page === 'gameengine-get-pro' ? 'current' : ''}>
-					<a href="https://gameengine.pro/" target="_blank" rel="noreferrer">
-						<span className="dashicons dashicons-awards gameengine-blue-color"></span>{' '}
-						{__('Get Pro', 'gameengine')}
-					</a>
-				</li>
+				{showAdminMenuUpsell() && (
+					<li className={page === 'gameengine-get-pro' ? 'current' : ''}>
+						<a href="https://gameengine.pro/" target="_blank" rel="noreferrer">
+							<span className="dashicons dashicons-awards gameengine-blue-color"></span>{' '}
+							{__('Get Pro', 'gameengine')}
+						</a>
+					</li>
+				)}
 			</ul>
 		</React.Fragment>
 	);

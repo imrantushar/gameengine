@@ -11,7 +11,7 @@ const LabeledInput = ({
   textAreaSize,
   onBlur
 }) => {
-  const InputComponent = type === 'textarea' ? Textarea : Input;
+  const InputComponent = type === 'textarea' ? 'textarea' : 'input';
   return <div className="flex flex-col gap-2" style={{
     ...{
       ...style

@@ -1,8 +1,11 @@
 import React from 'react';
 
-const PlainBox = ({children}) => {
+/**
+ * An untitled white panel — same surface as `BoxView`, without the header row.
+ */
+const PlainBox = ({ children }) => {
     return (
-        <div className='bg-white px-6 py-[32px]'>
+        <div className='gameengine-surface px-6 py-[32px]'>
             {children}
         </div>
     );

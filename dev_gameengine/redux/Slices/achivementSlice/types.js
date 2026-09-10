@@ -14,7 +14,7 @@ export const fetchAchievementTypes = createAsyncThunk('gameengine/fetchAchieveme
 });
 
 
-export const fetchAchievementTypeById = createAsyncThunk('gameengine/fetchAchievementTypeById', async (id) => {
+export const fetchAchievementTypeById = createAsyncThunk('gameengine/fetchAchievementTypeById', async (id, thunkAPI) => {
   try{
     const response =  await API.get(namespace + 'taxonomies/gameengine_achievement_type/' + id);
     return response.data;

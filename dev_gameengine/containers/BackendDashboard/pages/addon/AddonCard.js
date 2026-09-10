@@ -93,7 +93,7 @@ const AddonCard = ({ item, value }) => {
     item.iconColor || ICON_COLORS[item.name] || '#e2e8f0';
 
   return (
-    <div className="flex flex-col bg-white p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc((100%/3)_-_11px)]">
+    <div className="flex flex-col bg-[var(--gameengine-background)] p-4 rounded-md [border:1px_solid_var(--gameengine-border-color)] w-full md:w-[calc(50%_-_42px)] lg:w-[calc((100%/3)_-_11px)]">
       <div className="flex justify-between items-start mb-4">
         <div
           className="items-center justify-center p-2 rounded-md flex w-10 h-10"
@@ -105,9 +105,9 @@ const AddonCard = ({ item, value }) => {
             item.icon
           ) : (
             <img
-              className="w-6 h-6"
+              className="w-6 h-6 object-contain"
               src={item.image}
-              objectFit="contain"
+              alt=""
             />
           )}
         </div>
@@ -175,7 +175,7 @@ const AddonCard = ({ item, value }) => {
       </div>
 
       <p
-        className="text-xs font-normal leading-5 m-0 text-[#738496]"
+        className="text-xs font-normal leading-5 m-0 text-[var(--gameengine-warn-muted)]"
       >
         {item.details}
       </p>

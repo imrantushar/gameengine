@@ -170,6 +170,9 @@ const levelsSlice = createSlice({
                         flattened.push({
                             id: triggerKey,
                             integrationSlug: slug,
+                            // The integration's own display name; deriving
+                            // one from the slug produced "Gameengine".
+                            integrationName: integration.name,
                             ...integration.triggers[triggerKey]
                         });
                     });

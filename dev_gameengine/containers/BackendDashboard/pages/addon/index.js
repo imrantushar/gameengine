@@ -167,7 +167,7 @@ const Addons = () => {
     (async () => {
       setLoading(true);
       try {
-        dispatch(fetchAddons());
+        await dispatch(fetchAddons());
       } catch (error) {
         console.warn(error);
       } finally {
@@ -184,7 +184,6 @@ const Addons = () => {
           .includes(filterText.toLowerCase())
       ) {
         if (filterMenu === 'all') {
-          setLoading(false);
           return item;
         } else if (filterMenu === 'active' && values[item.name]) {
           return item;
@@ -196,7 +195,6 @@ const Addons = () => {
         }
       }
 
-      setLoading(false);
       return false;
     });
   };
@@ -220,7 +218,7 @@ const Addons = () => {
           </h2>
 
           <Search
-            className="gameengine-search bg-white"
+            className="gameengine-search bg-[var(--gameengine-background)]"
             placeholder={__('Search...', 'gameengine')}
             onSearchHandler={(keyword) =>
               setFilterText(keyword.trim())

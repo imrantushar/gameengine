@@ -39,10 +39,10 @@ $editor-font: 'sans-serif';
     margin: 0 !important;
     border-radius: 4px 4px 0 0;
     position: relative;
-    background: #fff;
+    background: var(--gameengine-background);
     .ql-formats{
         margin: 2px !important;
-        background: #F5F5F5;
+        background: var(--gameengine-secondary-color);
         border-radius: 4px;
         padding: 4px 8px;
         height: 30px;
@@ -53,7 +53,10 @@ $editor-font: 'sans-serif';
     .ql-formats:nth-last-child(3),
     .ql-formats:nth-last-child(2),
     .ql-formats:nth-last-child(1) {
-        background: #FFECCA;
+        // Neutral inset rather than the old flat cream: the tint only exists
+        // to group these toolbar buttons, and any hue here turns muddy against
+        // the dark ground.
+        background: var(--gameengine-secondary-color);
     }
 
     .ql-formats:nth-last-child(1) {

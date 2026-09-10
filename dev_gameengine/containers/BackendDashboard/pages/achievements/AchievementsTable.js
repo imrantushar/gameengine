@@ -244,7 +244,7 @@ const AchievementsTable = () => {
     };
 
     return (
-      <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
+      <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-[var(--gameengine-border-color)] mb-4">
         <div className="gameengine-filter-toolbar__tabs flex">
           {tableStatusArray.map((item, index) => {
             const isActive = tableStats === item.value;

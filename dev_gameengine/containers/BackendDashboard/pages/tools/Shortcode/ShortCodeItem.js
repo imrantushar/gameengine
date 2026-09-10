@@ -29,7 +29,7 @@ const ShortCodeItem = ({ shortCodeItem }) => {
       <div className="gameengine-short-code-item__info w-full">
         <p className='text-sm leading-5 font-semibold m-0 text-[var(--gameengine-font-color)]'>{title}</p>
 
-        <p className='text-xs font-normal leading-4 m-0 mt-1 text-[#738496]'>{subtitle}</p>
+        <p className='text-xs font-normal leading-4 m-0 mt-1 text-[var(--gameengine-warn-muted)]'>{subtitle}</p>
       </div>
 
       <div className="gameengine-short-code-item__body flex flex-col w-full">

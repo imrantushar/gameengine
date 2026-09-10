@@ -14,7 +14,7 @@ export const fetchLevelTypes = createAsyncThunk('gameengine/fetchLevelTypes', as
 });
 
 
-export const fetchLevelTypeById = createAsyncThunk('gameengine/fetchLevelTypeById', async (id) => {
+export const fetchLevelTypeById = createAsyncThunk('gameengine/fetchLevelTypeById', async (id, thunkAPI) => {
   try{
     const response =  await API.get(namespace + 'taxonomies/gameengine_level_type/' + id);
     return response.data;
