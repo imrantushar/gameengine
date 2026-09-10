@@ -334,6 +334,53 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     background: var(--gameengine-background);
 }
 
+// ── Light islands ───────────────────────────────────────────────────────────
+// A few surfaces are previews of something that is not the admin: an email
+// lands in someone's inbox on a white sheet, so composing it on the dark
+// ground would be a preview of a mail that never ships.
+//
+// The tokens are re-declared on the subtree rather than each element being
+// overridden, so everything inside — the editor chrome, its toolbar, any
+// component dropped in later — resolves light on its own.
+.gameengine-email-compose {
+    --gameengine-background: #FFFFFF;
+    --gameengine-secondary-color: #F6F7F8;
+    --gameengine-app-bg: #F6F7F8;
+    --gameengine-border-color: #DFE1E5;
+    --gameengine-font-color: #131D2B;
+    --gameengine-warn-muted: #575E6C;
+    --gameengine-placeholder: #A2ADB9;
+
+    color: var(--gameengine-font-color);
+
+    // wp-admin forces its own colours on native controls, and the editor's
+    // body is a contenteditable rather than an input, so state it directly.
+    .ql-editor,
+    .ql-container,
+    .ql-toolbar {
+        background: var(--gameengine-background);
+        color: var(--gameengine-font-color);
+    }
+
+    .ql-editor.ql-blank::before {
+        color: var(--gameengine-placeholder);
+    }
+
+    // Quill draws its toolbar icons with stroke/fill on inline SVG, which does
+    // not inherit `color`.
+    .ql-snow .ql-stroke {
+        stroke: var(--gameengine-font-color);
+    }
+
+    .ql-snow .ql-fill {
+        fill: var(--gameengine-font-color);
+    }
+
+    .ql-snow .ql-picker {
+        color: var(--gameengine-font-color);
+    }
+}
+
 // Top-bar sun/moon button.
 .gameengine-theme-toggle {
     display: inline-flex;

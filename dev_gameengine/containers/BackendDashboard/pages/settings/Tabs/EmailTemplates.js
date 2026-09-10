@@ -186,15 +186,17 @@ const EmailTemplates = ({ handleSubmit, isSubmitting, dirty }) => {
                                                                 {__("Additional Content", "gameengine")}
                                                             </p>
 
-                                                            <GameEngineEditor name={config?.bodyField} defaultValue={values?.email_templates?.[editingKey + '_body'] || config?.defaultBody} saveValueHandler={(name, content) => setFieldValue(name, content)} suffix={`email-template-${editingKey}`} />
+                                                            {/* Composed on a light sheet, like the preview beside it: the
+                                                                body being written IS the email, and an email is not dark. */}
+                                                            <div className="gameengine-email-compose">
+                                                                <GameEngineEditor name={config?.bodyField} defaultValue={values?.email_templates?.[editingKey + '_body'] || config?.defaultBody} saveValueHandler={(name, content) => setFieldValue(name, content)} suffix={`email-template-${editingKey}`} />
+                                                            </div>
                                                         </GameEngineBox>
                                                     </div>
 
                                                     {/* Right Column: Live Preview */}
                                                     <div className="flex-1 min-w-0 sticky top-[130px]">
-                                                        <p className="justify-between text-base font-semibold mb-2 flex" style={{
-                                                            "color": "#738496"
-                                                        }}>
+                                                        <p className="justify-between text-base font-semibold mb-2 flex text-[var(--gameengine-warn-muted)]">
                                                             {__("Template Preview", "gameengine")}
                                                         </p>
 
