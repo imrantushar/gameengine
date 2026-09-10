@@ -3,7 +3,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import CollapsibleItem from '@GFComponents/Collapsible/CollapsibleItem';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import HookConfigurationForm from './HookConfigurationForm';
-import { useDroppable } from '@dnd-kit/core';
+import { useDndContext, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { SortableHook } from './SortableHook';
 import { useDispatch } from 'react-redux';
@@ -11,15 +11,24 @@ import { RiArrowLeftSLine, RiArrowRightSLine } from 'react-icons/ri';
 import EmptyState from './EmptyState';
 
 // # DROPPABLE
-// Highlights while a card is held over it, so the target column is obvious
+// Highlights while a card is headed for it, so the target column is obvious
 // before the pointer is released.
-const DroppableArea = ({ id, children }) => {
+//
+// `isOver` alone is not enough once the column's cards are droppables of their
+// own: the nearest card wins the collision, so the column's own `isOver` goes
+// false the moment the pointer crosses a card and the highlight flickers off
+// exactly when it is most useful. `ownedIds` lets the column also claim its
+// own cards as "still me".
+const DroppableArea = ({ id, children, ownedIds = [] }) => {
   const { setNodeRef, isOver } = useDroppable({ id });
+  const { over } = useDndContext();
+
+  const isTarget = isOver || (over ? ownedIds.includes(over.id) : false);
 
   return (
     <div
       ref={setNodeRef}
-      className={`gameengine-hook-dropzone${isOver ? ' is-over' : ''}`}
+      className={`gameengine-hook-dropzone${isTarget ? ' is-over' : ''}`}
     >
       {children}
     </div>
@@ -134,7 +143,7 @@ const Requirements = props => {
               <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("The following hooks are used for all users", "gameengine")} />
             </div>
 
-            <DroppableArea id={`${actionName}s-sidebar`}>
+            <DroppableArea id={`${actionName}s-sidebar`} ownedIds={activeHookIds}>
               {!selectedHookIds || selectedHookIds.length === 0 ? (
                 <EmptyState />
               ) : (

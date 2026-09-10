@@ -10,6 +10,7 @@
     // defined — those rules silently fell back to the browser default.
     --gameengine-primary-color: var(--gameengine-primary);
     --gameengine-primary-light: #E3E7FF;
+    --gameengine-primary-glow: rgba(0, 107, 255, 0.18);
     --gameengine-border-color: #DFE1E5;
     --gameengine-font-color: #131D2B;
     // Surfaces are defined by a hairline border instead of a drop shadow.
@@ -86,6 +87,7 @@ html[data-theme="dark"] {
     --gameengine-primary: #4C8DFF;          // 5.45:1 as accent text
     --gameengine-primary-strong: #2563EB;   // 5.17:1 under a white label
     --gameengine-primary-light: #16263C;
+    --gameengine-primary-glow: rgba(76, 141, 255, 0.28);
 
     // Grounds: the page behind cards, the card surface, and the inset rows
     // (table headers, shortcode strips) that sit on top of a card.
@@ -225,6 +227,12 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
         border: 2px dashed var(--gameengine-primary);
         border-radius: var(--gameengine-surface-radius);
         background: var(--gameengine-primary-light);
+        // Ringed and recessed: the halo separates the slot from whatever card
+        // sits next to it, and the inset shadow makes it read as a well the
+        // card drops into rather than a flat outline.
+        box-shadow:
+            0 0 0 4px var(--gameengine-primary-glow),
+            inset 0 2px 10px var(--gameengine-primary-glow);
         pointer-events: none;
     }
 }
@@ -235,11 +243,14 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     // Transparent rather than absent, so gaining the highlight does not change
     // the box and nudge the cards inside it.
     border: 1px dashed transparent;
-    transition: background 0.15s ease, border-color 0.15s ease;
+    transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 
     &.is-over {
         border-color: var(--gameengine-primary);
-        background: var(--gameengine-primary-light);
+        // A wash rather than the full tint: the cards sitting on top of it
+        // still have to be readable while the column is lit.
+        background: color-mix(in srgb, var(--gameengine-primary) 6%, transparent);
+        box-shadow: 0 0 0 3px var(--gameengine-primary-glow);
     }
 }
 
@@ -248,7 +259,9 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
     // Lifted off the page: slightly larger, with a shadow that reads as
     // elevation in both modes.
     transform: scale(1.02);
-    box-shadow: 0 12px 28px -6px rgba(16, 24, 40, 0.28);
+    box-shadow:
+        0 12px 28px -6px rgba(16, 24, 40, 0.28),
+        0 0 0 2px var(--gameengine-primary-glow);
     border-radius: var(--gameengine-surface-radius);
     background: var(--gameengine-background);
 }
