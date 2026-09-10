@@ -76,7 +76,7 @@ const LogsTable = ({
   const columns = useMemo(() => [
     {
       name: __('User', 'gameengine'),
-      cell: row => <div className='gameengine-table-flex-col'>
+      cell: row => <div className='flex flex-col gap-[4px]'>
         <span className="font-semibold">{row.user_name || 'Guest'}</span>
         <span className="text-xs" style={{
           color: '#666'
