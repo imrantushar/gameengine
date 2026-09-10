@@ -12,7 +12,7 @@ import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
 import { useFormikContext } from "formik";
-import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem, hookCollisionDetection, insertAt } from "@GFComponents/Requirements/helper";
 import DragPreview from "@GFComponents/Requirements/DragPreview";
@@ -451,10 +451,11 @@ const FormInner = () => {
             child="gameengine-level-requirements-wrap"
             childLeft="gameengine-level-requirements-available-hooks"
             childRight="gameengine-level-requirements-active-hooks"
-            hookTypeOptions={Object.keys(hookCategoryIconMap).map(k => ({
-              label: k,
-              value: k
-            }))}
+            hookTypeOptions={[...new Set((allHooks || []).map(h => h?.integrationSlug).filter(Boolean))]
+              .map(slug => ({
+                label: integrationLabel(slug, allHooks),
+                value: slug
+              }))}
             filterHookType={v => setSelectedFilterHookType(v)}
             renderHookCard={renderHookCard}
             selectedHookIds={activeHooks?.map(h => h?.id)}

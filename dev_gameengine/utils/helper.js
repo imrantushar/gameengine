@@ -213,3 +213,18 @@ export function decodeHtmlEntity(entity) {
 	txt.innerHTML = entity;
 	return txt.value;
 }
+/**
+ * The label for an integration's tab.
+ *
+ * Each integration declares its own name and the API sends it; deriving one
+ * from the slug instead turned "gameengine" into "Gameengine" and "wordpress"
+ * into "Wordpress". The slug is only a fallback, for a category that has no
+ * hooks and so no name to read.
+ */
+export const integrationLabel = (slug, hooks = []) => {
+  if (!slug) return '';
+
+  const named = hooks.find(h => h?.integrationSlug === slug && h?.integrationName);
+
+  return named ? named.integrationName : slug.charAt(0).toUpperCase() + slug.slice(1);
+};

@@ -14,6 +14,7 @@ import { DraggableItem } from '@GFComponents/Requirements/helper';
 import DragPreview from '@GFComponents/Requirements/DragPreview';
 import { hookCollisionDetection, insertAt } from '@GFComponents/Requirements/helper';
 import { arrowForward } from '@GFUtils/icons';
+import { integrationLabel } from '@GFUtils/helper';
 import { getAddonActiveStatus } from '@GFUtils/helper';
 
 const FormInner = ({ hooksLoading }) => {
@@ -207,10 +208,15 @@ const FormInner = ({ hooksLoading }) => {
     );
   };
 
-  const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({
-    label: slug.charAt(0).toUpperCase() + slug.slice(1),
-    value: slug
-  }));
+  // Built from the integrations that actually registered hooks, not from the
+  // icon map: anything missing from that map — ZenCommunity, for one — had
+  // hooks on this screen and no tab to filter them by, while an integration in
+  // the map with nothing to show got a tab leading nowhere.
+  const hookTypeOptions = [...new Set((allHooks || []).map(h => h?.integrationSlug).filter(Boolean))]
+    .map(slug => ({
+      label: integrationLabel(slug, allHooks),
+      value: slug
+    }));
 
   return (
     <>

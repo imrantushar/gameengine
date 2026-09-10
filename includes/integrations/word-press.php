@@ -14,7 +14,7 @@ class WordPress extends BaseIntegration
 
     public static function get_name(): string
     {
-        return __('Core', 'gameengine');
+        return __('WordPress', 'gameengine');
     }
 
     public static function get_icon(): string

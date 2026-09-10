@@ -12,7 +12,7 @@ import { SiWoocommerce } from "react-icons/si";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import { useFormikContext } from "formik";
-import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem, hookCollisionDetection, insertAt } from "@GFComponents/Requirements/helper";
 import DragPreview from "@GFComponents/Requirements/DragPreview";
@@ -270,10 +270,15 @@ const FormInner = () => {
     if (!exists) setOpenedHooks([pureId]);
   };
 
-  const hookTypeOptions = Object.keys(hookCategoryIconMap).map(slug => ({
-    label: slug.charAt(0).toUpperCase() + slug.slice(1),
-    value: slug
-  }));
+  // Built from the integrations that actually registered hooks, not from the
+  // icon map: anything missing from that map — ZenCommunity, for one — had
+  // hooks on this screen and no tab to filter them by, while an integration in
+  // the map with nothing to show got a tab leading nowhere.
+  const hookTypeOptions = [...new Set((allHooks || []).map(h => h?.integrationSlug).filter(Boolean))]
+    .map(slug => ({
+      label: integrationLabel(slug, allHooks),
+      value: slug
+    }));
 
   const requireLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
 
