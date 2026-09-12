@@ -144,19 +144,12 @@ const BadgeEditor = ({ id: propId }) => {
                     { label: form.title || (editId ? __('Untitled', 'gameengine') : __('New Badge', 'gameengine')) },
                 ]}
                 rightContent={
-                    <div className="flex gap-2.5">
-                        <Button
-                            label={__('Cancel', 'gameengine')}
-                            preset="secondary"
-                            onClick={() => navigate(LIST_URL)}
-                        />
-                        <Button
-                            label={editId ? __('Update Badge', 'gameengine') : __('Create Badge', 'gameengine')}
-                            isLoading={saving}
-                            isDisabled={saving || !dirty}
-                            onClick={save}
-                        />
-                    </div>
+                    <Button
+                        label={editId ? __('Update Badge', 'gameengine') : __('Create Badge', 'gameengine')}
+                        isLoading={saving}
+                        isDisabled={saving || !dirty}
+                        onClick={save}
+                    />
                 }
             />
 

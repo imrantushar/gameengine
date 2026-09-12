@@ -164,3 +164,35 @@ export const ColorField = ({ value, onChange, id }) => {
         </div>
     );
 };
+
+/**
+ * A compact icon button for card actions.
+ *
+ * A bare <button> in wp-admin keeps the user agent's own chrome — the card
+ * actions were rendering as 19x22px grey boxes with an `outset` border and a
+ * default cursor, because Tailwind's preflight does not reset button
+ * appearance here. Every value that decides how it looks is therefore set
+ * explicitly rather than left to be inherited.
+ */
+export const IconButton = ({ tone = 'default', label, onClick, children }) => {
+    const hover = tone === 'danger'
+        ? 'hover:bg-[var(--gameengine-error-light)] hover:text-[var(--gameengine-error-strong)]'
+        : 'hover:bg-[var(--gameengine-primary-light)] hover:text-[var(--gameengine-primary)]';
+
+    return (
+        <button
+            type="button"
+            onClick={onClick}
+            title={label}
+            aria-label={label}
+            className={[
+                'inline-flex items-center justify-center w-8 h-8 p-0 shrink-0',
+                'rounded-md border-0 bg-transparent shadow-none cursor-pointer',
+                'transition-colors text-[var(--gameengine-placeholder)]',
+                hover,
+            ].join(' ')}
+        >
+            {children}
+        </button>
+    );
+};

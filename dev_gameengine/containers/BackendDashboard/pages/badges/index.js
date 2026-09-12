@@ -9,7 +9,7 @@ import GetHelp from '@GFComponents/GetHelp';
 import Button from '@GFComponents/Button';
 import { route_path } from '@GFUtils/helper';
 import { fetchBadges, deleteBadge } from '@GFRedux/Slices/badgesSlice/badgesSlice';
-import { BadgeGlyph } from './helper';
+import { BadgeGlyph, IconButton } from './helper';
 
 const LIST_URL = `${route_path}admin.php?page=gameengine-badge-editor`;
 
@@ -87,25 +87,27 @@ const BadgesPage = () => {
                                 {badge.title || __('Untitled', 'gameengine')}
                             </span>
 
-                            <div className="flex gap-2">
-                                <button
-                                    className="text-[var(--gameengine-placeholder)] hover:text-blue-500 transition-colors"
+                            <div
+                                className="flex gap-1 pt-3 mt-auto w-full justify-center"
+                                style={{ borderTop: '1px solid var(--gameengine-border-color)' }}
+                            >
+                                <IconButton
+                                    label={__('Edit badge', 'gameengine')}
                                     onClick={(e) => {
                                         e.stopPropagation();
                                         navigate(`${LIST_URL}&action=edit&id=${badge.id}`);
                                     }}
-                                    title={__('Edit', 'gameengine')}
                                 >
                                     <FiEdit size={15} />
-                                </button>
+                                </IconButton>
 
-                                <button
-                                    className="text-[var(--gameengine-placeholder)] hover:text-red-500 transition-colors"
+                                <IconButton
+                                    tone="danger"
+                                    label={__('Delete badge', 'gameengine')}
                                     onClick={(e) => { e.stopPropagation(); handleDelete(badge); }}
-                                    title={__('Delete', 'gameengine')}
                                 >
                                     <FiTrash2 size={15} />
-                                </button>
+                                </IconButton>
                             </div>
                         </div>
                     ))}
