@@ -151,8 +151,13 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
                 <?php esc_html_e('Point Type', 'gameengine'); ?>
                 <select id="ge-transfer-type" class="gameengine-input" style="margin-top:4px;width:100%;">
                     <?php foreach ((array) $gameengine_point_types as $gameengine_pt) : ?>
-                    <option value="<?php echo esc_attr($gameengine_pt->id ?? $gameengine_pt['id'] ?? 1); ?>">
-                        <?php echo esc_html($gameengine_pt->title ?? $gameengine_pt['title'] ?? ''); ?>
+                    <?php
+                    // The column is `name`; `title` would have rendered every
+                    // option blank even once the list existed.
+                    $gameengine_pt = (array) $gameengine_pt;
+                    ?>
+                    <option value="<?php echo esc_attr($gameengine_pt['id'] ?? 1); ?>">
+                        <?php echo esc_html($gameengine_pt['name'] ?? ''); ?>
                     </option>
                     <?php endforeach; ?>
                 </select>
