@@ -1,6 +1,6 @@
 # GameEngine
 
-Gamification for WordPress — points, achievements, ranks and leaderboards.
+Gamification for WordPress — points, achievements, levels and leaderboards.
 
 Public repository: <https://github.com/imrantushar/gameengine>
 Licensed GPL-2.0-or-later. Everything in this plugin is free; nothing is gated

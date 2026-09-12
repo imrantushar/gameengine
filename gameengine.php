@@ -3,7 +3,7 @@
 /**
  * Plugin Name:       GameEngine - Gamification for Website
  * Plugin URI:        https://kodezen.com/products/gameengine
- * Description:       Award points, achievements, and ranks to boost user engagement and build a loyal community.
+ * Description:       Award points, achievements, and levels to boost user engagement and build a loyal community.
  * Version:           1.3.3
  * Author:            kodezen
  * Author URI:        https://kodezen.com
@@ -136,6 +136,10 @@ final class GameEngine
             '\GameEngine\Classes\EmailManager',
             '\GameEngine\Shortcode',
             '\GameEngine\Classes\Triggers',
+            '\GameEngine\Classes\BadgeManager',
+            '\GameEngine\Classes\NotificationManager',
+            '\GameEngine\Classes\BuyPointsManager',
+            '\GameEngine\Classes\SocialSharing',
         );
 
         foreach ($services as $service) {

@@ -34,6 +34,7 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
+            self::get_notifications_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -57,10 +58,13 @@ final class Schema
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255) DEFAULT NULL,
+            slug VARCHAR(255) DEFAULT NULL,
             status VARCHAR(20) DEFAULT 'publish',
             badge_image VARCHAR(255),
+            badge_id BIGINT(20) UNSIGNED DEFAULT NULL,
             category VARCHAR(255) DEFAULT NULL,
             congratulations_message TEXT DEFAULT NULL,
+            description TEXT DEFAULT NULL,
             secret_achievement TINYINT(1) DEFAULT 0,
             max_earnings_per_user INT(11) DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
@@ -70,8 +74,10 @@ final class Schema
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
             restriction_message TEXT DEFAULT NULL,
+            season_id BIGINT(20) UNSIGNED DEFAULT NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
+            UNIQUE KEY slug (slug),
             KEY required_point_type_id (required_point_type_id),
             KEY required_achievement_id (required_achievement_id),
             KEY required_level_id (required_level_id)
@@ -84,9 +90,11 @@ final class Schema
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255),
+            slug VARCHAR(255) DEFAULT NULL,
             status VARCHAR(20) DEFAULT 'publish',
             description TEXT,
             icon VARCHAR(255),
+            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
             category VARCHAR(255) DEFAULT NULL,
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
@@ -131,9 +139,12 @@ final class Schema
             user_id BIGINT(20) UNSIGNED NOT NULL,
             requirement_id BIGINT(20) UNSIGNED NOT NULL,
             progress_count INT(11) NOT NULL DEFAULT 0,
+            streak_count INT(11) NOT NULL DEFAULT 0,
+            streak_best INT(11) NOT NULL DEFAULT 0,
+            streak_last_at DATETIME DEFAULT NULL,
             last_updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_requirement (user_id, requirement_id)
+            UNIQUE KEY user_requirement (user_id, requirement_id)
         ) $charset_collate;";
     }
 
@@ -150,7 +161,8 @@ final class Schema
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY user_id (user_id),
-            KEY point_type_id (point_type_id)
+            KEY point_type_id (point_type_id),
+            KEY type_date (point_type_id, created_at)
         ) $charset_collate;";
     }
 
@@ -175,7 +187,7 @@ final class Schema
             level_id BIGINT(20) UNSIGNED NOT NULL,
             achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_id (user_id),
+            UNIQUE KEY user_level (user_id, level_id),
             KEY level_id (level_id)
         ) $charset_collate;";
     }
@@ -196,4 +208,20 @@ final class Schema
             KEY trigger_key (trigger_key)
         ) $charset_collate;";
     }
+
+    private static function get_notifications_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_notifications (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            type VARCHAR(50) NOT NULL DEFAULT 'points',
+            message TEXT NOT NULL,
+            is_read TINYINT(1) NOT NULL DEFAULT 0,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY is_read (is_read)
+        ) $charset_collate;";
+    }
+
 }

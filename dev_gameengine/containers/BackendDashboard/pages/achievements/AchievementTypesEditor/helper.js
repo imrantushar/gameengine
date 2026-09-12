@@ -5,6 +5,8 @@ export const getAchivementsInitialValues = (id=null, data) => {
     return {
       id: filteredData?.id,
       title: filteredData?.title,
+      // Missing, so saving an achievement cleared its plural name.
+      plural_name: filteredData?.plural_name ?? "",
       description: filteredData?.description,
       category_id: filteredData?.category_id,
       max_earnings_per_user: filteredData?.max_earnings_per_user,
@@ -17,12 +19,17 @@ export const getAchivementsInitialValues = (id=null, data) => {
       required_achievement_id: filteredData?.required_achievement_id,
       restriction_message: filteredData?.restriction_message,
       required_level_id: filteredData?.required_level_id,
+      // Both were missing, so opening an achievement and saving it cleared
+      // whatever badge it had.
+      badge_id: filteredData?.badge_id ?? null,
+      season_id: filteredData?.season_id ?? null,
       status: filteredData?.status,
     }
   }
 
   return {
     title: "",
+    plural_name: "",
     description: "",
     category_id: 0,
     max_earnings_per_user: 0,
@@ -34,6 +41,8 @@ export const getAchivementsInitialValues = (id=null, data) => {
     required_level_id: 0,
     restriction_message: "",
     congratulations_message: "",
+    badge_id: null,
+    season_id: null,
     status: "publish",
     requirements: []
   }

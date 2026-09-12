@@ -77,9 +77,14 @@ class ActionsController extends BaseController
             'number' => 20, // Limit results for performance
         );
 
-        // Apply search filters if the parameter is provided
+        // Apply search filters if the parameter is provided.
+        // No esc_like() here: WP_User_Query::get_search_sql() already applies it
+        // (wp-includes/class-wp-user-query.php), so doing it again escaped the
+        // escapes and a term containing _ or % matched nothing. It also used
+        // $wpdb without declaring it global, so any non-empty search was a
+        // fatal rather than a bad result.
         if (! empty($search)) {
-            $query_args['search']         = '*' . $wpdb->esc_like($search) . '*';
+            $query_args['search']         = '*' . $search . '*';
             $query_args['search_columns'] = array('user_login', 'display_name', 'user_email');
         }
 

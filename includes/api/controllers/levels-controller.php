@@ -141,6 +141,7 @@ class LevelsController extends BaseController
             foreach ($results as &$lvl) {
                 $lvl['unlock_with_points_enabled'] = (bool) $lvl['unlock_with_points_enabled'];
                 $lvl['is_restricted']             = (bool) ($lvl['is_restricted'] ?? false);
+                $lvl['user_count']                = \GameEngine\Classes\LevelsManager::get_user_count((int) $lvl['id']);
 
                 // Resolve Category Name.
                 $term_id            = absint($lvl['category']);
@@ -198,6 +199,7 @@ class LevelsController extends BaseController
             'description'                => wp_kses_post($params['description'] ?? ''),
             'status'                     => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
             'icon'                       => sanitize_text_field($params['icon'] ?? ''),
+            'color'                      => $this->normalize_color($params['color'] ?? ''),
             'category'                   => absint($params['category_id'] ?? 0),
             'congratulations_message'    => wp_kses_post($params['congratulations_message'] ?? ''),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
@@ -215,12 +217,19 @@ class LevelsController extends BaseController
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            $updated = $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            if (false === $updated) {
+                return new \WP_Error('save_failed', __('Could not update level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = absint($id);
             wp_cache_delete('gameengine_level_full_' . $level_id, 'gameengine_levels');
         } else {
+            $data['slug'] = $this->unique_slug(sanitize_title($params['title']));
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            $inserted = $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            if (false === $inserted) {
+                return new \WP_Error('save_failed', __('Could not create level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = $wpdb->insert_id;
         }
 
@@ -250,6 +259,7 @@ class LevelsController extends BaseController
             if ($item) {
                 $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
                 $item['is_restricted'] = (bool) $item['is_restricted'];
+                $item['user_count'] = \GameEngine\Classes\LevelsManager::get_user_count($id);
 
                 $term_id = absint($item['category']);
                 $term = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
@@ -267,6 +277,41 @@ class LevelsController extends BaseController
         }
 
         return new \WP_REST_Response($item, 200);
+    }
+
+    /**
+     * Generate a unique slug for a new level.
+     */
+    private function unique_slug(string $base): string
+    {
+        global $wpdb;
+
+        $base = '' !== $base ? $base : 'level';
+        $slug = $base;
+        $i    = 1;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_levels WHERE slug = %s", $slug))) {
+            $slug = $base . '-' . $i++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Normalise a level colour to a #rrggbb literal.
+     *
+     * sanitize_hex_color() returns null for anything malformed, which would
+     * write a NULL into a NOT NULL column, so fall back to the schema default.
+     *
+     * @param string $color Raw colour from the request.
+     * @return string
+     */
+    private function normalize_color($color)
+    {
+        $clean = sanitize_hex_color(is_string($color) ? $color : '');
+
+        return $clean ? $clean : '#6c5ce7';
     }
 
     /**
@@ -289,6 +334,7 @@ class LevelsController extends BaseController
                     'trigger_key' => sanitize_text_field($req['trigger_key']),
                     'action_type' => 'award',
                     'parameters'  => wp_json_encode($req['parameters']),
+                    'priority'    => isset($req['parameters']['priority']) ? intval($req['parameters']['priority']) : 0,
                     'is_active'   => 1,
                     'created_at'  => current_time('mysql')
                 ));

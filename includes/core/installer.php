@@ -129,14 +129,99 @@ class Installer
     private function ensure_columns_exist()
     {
         global $wpdb;
-        $table_name = "{$wpdb->prefix}gameengine_levels";
+
+        $levels_table = "{$wpdb->prefix}gameengine_levels";
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $column = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$table_name} LIKE %s", 'description'));
+        $column = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$levels_table} LIKE %s", 'description'));
 
         if (empty($column)) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $wpdb->query("ALTER TABLE {$table_name} ADD COLUMN description TEXT AFTER status");
+            $wpdb->query("ALTER TABLE {$levels_table} ADD COLUMN description TEXT AFTER status");
+        }
+
+        $ach_table = "{$wpdb->prefix}gameengine_achievements";
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $badge_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'badge_id'));
+
+        if (empty($badge_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN badge_id BIGINT(20) UNSIGNED DEFAULT NULL AFTER badge_image");
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $desc_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'description'));
+
+        if (empty($desc_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN description TEXT DEFAULT NULL AFTER congratulations_message");
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $slug_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'slug'));
+
+        if (empty($slug_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER plural_name");
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $season_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'season_id'));
+
+        if (empty($season_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN season_id BIGINT(20) UNSIGNED DEFAULT NULL");
+        }
+
+        $this->backfill_slugs($ach_table, 'achievement');
+        $this->backfill_slugs("{$wpdb->prefix}gameengine_levels", 'level');
+    }
+
+    /**
+     * Generate a unique slug for any pre-existing achievement row left over
+     * from before the `slug` column existed.
+     */
+    /**
+     * Give every row in a table a unique slug, then add the unique index.
+     *
+     * @param string $table  Fully-prefixed table name.
+     * @param string $prefix Fallback slug stem for a row with no usable title.
+     */
+    private function backfill_slugs($table, $prefix)
+    {
+        global $wpdb;
+        $ach_table = $table;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $rows = $wpdb->get_results("SELECT id, title FROM {$ach_table} WHERE slug IS NULL OR slug = ''", ARRAY_A);
+
+        if (empty($rows)) {
+            // Add the unique index now that every row has a slug (no-op if it already exists).
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $index = $wpdb->get_results($wpdb->prepare("SHOW INDEX FROM {$ach_table} WHERE Key_name = %s", 'slug'));
+            if (empty($index)) {
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange
+                $wpdb->query("ALTER TABLE {$ach_table} ADD UNIQUE KEY slug (slug)");
+            }
+            return;
+        }
+
+        foreach ($rows as $row) {
+            $base = sanitize_title($row['title']);
+            if ('' === $base) {
+                $base = $prefix . '-' . $row['id'];
+            }
+
+            $slug = $base;
+            $i    = 1;
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$ach_table} WHERE slug = %s", $slug))) {
+                $slug = $base . '-' . $i++;
+            }
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $wpdb->update($ach_table, array('slug' => $slug), array('id' => $row['id']));
         }
     }
 

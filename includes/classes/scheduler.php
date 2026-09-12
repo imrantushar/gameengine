@@ -29,6 +29,12 @@ class Scheduler
         // Hook for Daily Inactivity Checker Cron.
         add_action('gameengine_daily_inactivity_cron', array($self, 'check_user_inactivity'));
 
+        // Hook for notification cleanup cron.
+        add_action('gameengine_cleanup_notifications_cron', array($self, 'handle_notifications_cleanup'));
+
+        // Hook for streak reset cron.
+        add_action('gameengine_reset_streaks_cron', array($self, 'handle_streak_reset'));
+
         // Schedule the daily cleanup event if not already scheduled.
         if (!wp_next_scheduled('gameengine_cleanup_logs_cron')) {
             wp_schedule_event(time(), 'daily', 'gameengine_cleanup_logs_cron');
@@ -37,6 +43,16 @@ class Scheduler
         // Schedule the daily inactivity checker if not already scheduled.
         if (!wp_next_scheduled('gameengine_daily_inactivity_cron')) {
             wp_schedule_event(time(), 'daily', 'gameengine_daily_inactivity_cron');
+        }
+
+        // Schedule daily notification cleanup.
+        if (!wp_next_scheduled('gameengine_cleanup_notifications_cron')) {
+            wp_schedule_event(time(), 'daily', 'gameengine_cleanup_notifications_cron');
+        }
+
+        // Schedule daily streak reset check.
+        if (!wp_next_scheduled('gameengine_reset_streaks_cron')) {
+            wp_schedule_event(time(), 'daily', 'gameengine_reset_streaks_cron');
         }
     }
 
@@ -103,6 +119,29 @@ class Scheduler
     }
 
     /**
+     * Deletes old notification records based on retention setting.
+     */
+    public function handle_notifications_cleanup()
+    {
+        $settings = get_option('gameengine_notification_settings', array());
+        $days     = isset($settings['retention_days']) ? absint($settings['retention_days']) : 90;
+
+        if (class_exists('\GameEngine\Classes\NotificationManager')) {
+            \GameEngine\Classes\NotificationManager::cleanup($days);
+        }
+    }
+
+    /**
+     * Resets broken streaks for all users.
+     */
+    public function handle_streak_reset()
+    {
+        if (class_exists('\GameEngine\Classes\Triggers')) {
+            \GameEngine\Classes\Triggers::sweep_broken_streaks();
+        }
+    }
+
+    /**
      * Checks for user inactivity and triggers nudge emails.
      */
     public function check_user_inactivity()
@@ -129,7 +168,11 @@ class Scheduler
         if (!empty($inactive_users)) {
             $points_manager = new PointsManager();
             foreach ($inactive_users as $user_id) {
-                $points_balance = $points_manager->get_points($user_id);
+                // PointsManager has no get_points(); the balance across every
+                // currency is get_grand_total(). Calling the name that does not
+                // exist made this cron fatal as soon as it found one inactive
+                // member, so the nudge email has never been sent.
+                $points_balance = $points_manager->get_grand_total((int) $user_id);
                 // Trigger the email hook for EmailManager to pick up
                 do_action('gameengine_user_inactivity_detected', $user_id, $points_balance);
             }

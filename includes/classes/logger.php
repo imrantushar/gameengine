@@ -66,8 +66,21 @@ class Logger
     public static function log($trigger_key, $message, $user_id = 0, $points_awarded = 0, $meta = [], $status = 'success')
     {
 
+        // The settings screen calls the failure level "error"; the status
+        // column is ENUM('success','failed','skipped'). Left as they were, an
+        // admin could only enable a level the column rejects, while the only
+        // status any caller emits was filtered out — so nothing ever recorded a
+        // failure. Fold the two names onto the column's value.
+        $status = ('error' === $status) ? 'failed' : $status;
+
         $settings = get_option('gameengine_log_settings', []);
         $allowed_levels = isset($settings['log_levels']) ? (array) $settings['log_levels'] : ['success', 'error'];
+        $allowed_levels = array_map(
+            static function ($level) {
+                return ('error' === $level) ? 'failed' : $level;
+            },
+            $allowed_levels
+        );
 
         if (!in_array($status, $allowed_levels, true)) {
             return; // Stop if admin disabled this log level

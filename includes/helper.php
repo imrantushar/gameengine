@@ -154,6 +154,20 @@ class Helper
             )
         );
 
+        // Badge Editor (standalone page)
+        $menu[$slug . '-badge-editor'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Badge Editor', 'gameengine'),
+            'capability' => 'manage_options',
+        );
+
+        // Activity
+        $menu[$slug . '-activity'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Activity', 'gameengine'),
+            'capability' => 'manage_options',
+        );
+
         // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,
@@ -179,7 +193,6 @@ class Helper
             'parent_slug' => $slug,
             'title' => __('Tools', 'gameengine'),
             'capability' => 'manage_options',
-            'slug' => 'tools',
         );
 
         //  Settings

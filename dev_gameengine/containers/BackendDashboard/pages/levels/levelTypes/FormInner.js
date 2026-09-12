@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece } from "react-icons/fa6";
@@ -11,6 +10,8 @@ import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
+import DashiconPicker from "@GFComponents/DashiconPicker";
+import ToggleField from "@GFComponents/ToggleField";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
@@ -146,21 +147,17 @@ const FormInner = () => {
 
   const { hookSettings, allHooks, availablePointTypes } = useSelector(state => state.levels);
 
-  const handleImageUpload = () => {
-    if (typeof wp !== 'undefined' && wp.media) {
-      const frame = wp.media({
-        title: 'Select Level Icon',
-        button: {
-          text: 'Use this Icon'
-        },
-        multiple: false
-      });
-      frame.on('select', () => {
-        setFieldValue('icon', frame.state().get('selection').first().toJSON().url);
-      });
-      frame.open();
-    }
-  };
+  // Point type 0 means "any currency": the level is measured against the
+  // member's grand total across every point type rather than one balance.
+  const pointTypeOptions = useMemo(
+    () => [
+      { label: __("All Point Types", "gameengine"), value: "0" },
+      ...(availablePointTypes || []),
+    ],
+    [availablePointTypes]
+  );
+
+  const isDashicon = typeof values?.icon === 'string' && values.icon.startsWith('dashicons-');
 
   const hookCategoryIconMap = {
     wordpress: {
@@ -275,7 +272,22 @@ const FormInner = () => {
     if (!exists) setOpenedHooks([draggedId]);
   };
 
-  const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+  const restrictHint = isRestrictContentActive
+    ? __("Members must earn the chosen achievement or level before this one unlocks.", "gameengine")
+    : (
+      <>
+        {__("Needs the Restrict Unlock add-on.", "gameengine")}{' '}
+        <Link
+          to={admin_url + 'admin.php?page=gameengine-addons'}
+          target="_blank"
+          className="inline-flex items-center gap-1"
+          style={{ color: 'var(--gameengine-primary)' }}
+        >
+          {__("Turn it on", "gameengine")}
+          <LuExternalLink size="12px" />
+        </Link>
+      </>
+    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -319,21 +331,13 @@ const FormInner = () => {
 
       <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-      <GameEngineInput label={reqLabel} width="100%" direction='row' gap="10px" alignItems='center'>
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={values.is_restricted}
-            onChange={(val) => setFieldValue('is_restricted', val)}
-            disabled={!isRestrictContentActive}
-          />
-
-          {!isRestrictContentActive && (
-            <Link to={admin_url + 'admin.php?page=gameengine-addons'} target='_blank'>
-              <LuExternalLink size="20px" />
-            </Link>
-          )}
-        </div>
-      </GameEngineInput>
+      <ToggleField
+        checked={values.is_restricted}
+        onChange={(val) => setFieldValue('is_restricted', val)}
+        disabled={!isRestrictContentActive}
+        label={__("Require an achievement or level first", "gameengine")}
+        hint={restrictHint}
+      />
 
       {values?.is_restricted && isRestrictContentActive && (
         <div className="flex flex-col gap-3">
@@ -391,34 +395,44 @@ const FormInner = () => {
         </div>
       )}
 
-      <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
-        {values?.icon ? (
-          <div className="flex items-center justify-between">
-            <img className="object-cover" style={{
-              "width": "100px"
-            }} src={values?.icon} alt="" />
-            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
-              "padding": "6px 8px"
-            }} onClick={handleImageUpload}>
-              {__("Change Level Logo", "gameengine")}
-            </button>
-          </div>
-        ) : (
-          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary-strong)]" style={{
-            "padding": "6px 8px"
-          }} onClick={handleImageUpload}>
-            {__("Set Level Logo", "gameengine")}
-          </button>
-        )}
+      <BoxView title={__(`Level Logo`, "gameengine")} width="100%">
+        <div className="flex flex-wrap items-start gap-6">
+          <GameEngineInput
+            label={__("Icon", "gameengine")}
+            width="auto"
+            desc={__("Upload an image, or pick one of the built-in icons.", "gameengine")}
+          >
+            <DashiconPicker
+              value={values.icon}
+              color={values.color}
+              title={__("Select Level Logo", "gameengine")}
+              onChange={(val) => setFieldValue('icon', val)}
+            />
+          </GameEngineInput>
+
+          {isDashicon && (
+            <GameEngineInput
+              label={__("Icon Color", "gameengine")}
+              width="96px"
+              desc={__("Tints the icon.", "gameengine")}
+            >
+              <input
+                type="color"
+                className="gameengine-color-input"
+                value={values.color || '#6c5ce7'}
+                onChange={(e) => setFieldValue('color', e.target.value)}
+              />
+            </GameEngineInput>
+          )}
+        </div>
       </BoxView>
 
-      <div className="flex items-center gap-3">
-        <Switch
-          checked={values.unlock_with_points_enabled}
-          onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
-        />
-        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px' }}>{__("Allow unlock with points", "gameengine")}</span>
-      </div>
+      <ToggleField
+        checked={values.unlock_with_points_enabled}
+        onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
+        label={__("Allow unlock with points", "gameengine")}
+        hint={__("Award this level automatically once a member's balance reaches the range below.", "gameengine")}
+      />
 
       {values?.unlock_with_points_enabled ? (
         <div className="flex gap-3">
@@ -431,7 +445,7 @@ const FormInner = () => {
           </GameEngineInput>
 
           <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc((100% / 3) - 6px)">
-            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={availablePointTypes} value={availablePointTypes?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
+            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={pointTypeOptions} value={pointTypeOptions?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
           </GameEngineInput>
         </div>
       ) : (

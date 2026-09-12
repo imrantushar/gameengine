@@ -1,9 +1,11 @@
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { logIcon, mail } from '@GFUtils/icons';
+import { general, logIcon, mail } from '@GFUtils/icons';
 import { getSettingsTabs } from '@GFUtils/extend';
 import GeneralSettings from './Tabs/GeneralSettings';
 import EmailTemplates from './Tabs/EmailTemplates';
+import NotificationsSettings from './Tabs/NotificationsSettings';
+import BuyPointsSettings from './Tabs/BuyPointsSettings';
 
 /**
  * Tabs for the settings this plugin stores itself.
@@ -28,6 +30,23 @@ const ownTabs = [
 		saveKey: 'email_templates',
 		selfSubmitting: true,
 		render: (formProps) => <EmailTemplates {...formProps} />,
+	},
+	{
+		key: 'notifications',
+		label: __('Notifications', 'gameengine'),
+		desc: __('Notification settings', 'gameengine'),
+		icon: mail(),
+		saveKey: 'notifications',
+		render: () => <NotificationsSettings />,
+	},
+	{
+		key: 'buy_points',
+		label: __('Buy Points', 'gameengine'),
+		desc: __('Buy Points settings', 'gameengine'),
+		icon: general(),
+		saveKey: 'buy_points',
+		selfSubmitting: true,
+		render: (formProps) => <BuyPointsSettings {...formProps} />,
 	},
 ];
 

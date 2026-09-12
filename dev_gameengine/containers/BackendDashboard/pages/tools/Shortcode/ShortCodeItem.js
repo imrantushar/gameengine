@@ -6,7 +6,16 @@ import { FaRegCopy } from 'react-icons/fa6';
 import { AiOutlineQuestion } from 'react-icons/ai';
 
 const ShortCodeItem = ({ shortCodeItem }) => {
-  const { title, subtitle, shortCode, description, url } = shortCodeItem;
+  const {
+    title,
+    subtitle,
+    shortCode,
+    description,
+    url,
+    attributes = [],
+    example,
+    requires,
+  } = shortCodeItem;
   const shortCodeRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -63,19 +72,75 @@ const ShortCodeItem = ({ shortCodeItem }) => {
         </div>
 
         <div className="gameengine-short-code-description flex pt-1">
-          <div className="flex break-all">
+          {/* break-words, not break-all: prose should wrap at spaces. */}
+          <div className="flex break-words">
             <p
               className="font-normal text-xs m-0 italic"
-              style={{
-                lineHeight: '22px',
-                color: '#707070',
-              }}
+              style={{ lineHeight: '22px', color: 'var(--gameengine-warn-muted)' }}
             >
-              {__('You can use: ', 'gameengine') + shortCode} <br />{' '}
               {description}
             </p>
           </div>
         </div>
+
+        {requires && (
+          <p className="text-xs m-0 mt-1 text-[var(--gameengine-warn-muted)]">
+            <strong>{__('Requires:', 'gameengine')}</strong> {requires}
+          </p>
+        )}
+
+        {attributes.length > 0 && (
+          <div className="gameengine-short-code-attrs mt-3">
+            <p className="text-xs font-semibold m-0 mb-1 text-[var(--gameengine-font-color)]">
+              {__('Attributes', 'gameengine')}
+            </p>
+
+            <div className="flex flex-col gap-1">
+              {attributes.map((attr) => (
+                <div key={attr.name} className="flex gap-2 items-baseline text-xs leading-5">
+                  <code
+                    className="shrink-0"
+                    style={{
+                      color: 'var(--gameengine-primary)',
+                      background: 'var(--gameengine-primary-light)',
+                      padding: '1px 6px',
+                      borderRadius: '3px',
+                    }}
+                  >
+                    {attr.name}
+                  </code>
+
+                  <span className="shrink-0 text-[var(--gameengine-placeholder)]">
+                    {attr.default === '' ? __('required', 'gameengine') : attr.default}
+                  </span>
+
+                  <span className="text-[var(--gameengine-warn-muted)]">{attr.desc}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {example && (
+          <div className="gameengine-short-code-example mt-2">
+            <p className="text-xs font-semibold m-0 mb-1 text-[var(--gameengine-font-color)]">
+              {__('Example', 'gameengine')}
+            </p>
+            <code
+              className="block text-xs"
+              style={{
+                background: 'var(--gameengine-secondary-color)',
+                border: '1px solid var(--gameengine-border-color)',
+                borderRadius: '4px',
+                padding: '6px 8px',
+                color: 'var(--gameengine-font-color)',
+                whiteSpace: 'pre-wrap',
+              }}
+            >
+              {example}
+            </code>
+          </div>
+        )}
       </div>
     </div>
   );

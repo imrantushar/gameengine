@@ -7,11 +7,15 @@ const GameEngineInput = ({
   width = "100%",
   labelType = 'input',
   flexdirection = 'column',
+  gap,
+  alignItems,
   ...props
 }) => {
   return <div className="gameengine-input-box flex flex-col gap-1.5" style={{
     "width": width,
-    "flexDirection": flexdirection
+    "flexDirection": flexdirection,
+    ...(gap ? { gap } : {}),
+    ...(alignItems ? { alignItems } : {})
   }} {...props}>
             <GFLabel type={labelType} label={label} />
             {children}

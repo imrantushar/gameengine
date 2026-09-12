@@ -71,6 +71,37 @@ class AchievementsManager
     }
 
     /**
+     * Whether an achievement tied to a season can currently be earned.
+     *
+     * An achievement with no season is always available. One that names a
+     * season is only earnable while that season is running — that is what
+     * makes a season-exclusive badge worth chasing.
+     *
+     * Seasons live in the Pro plugin, so this asks rather than looks. Nothing
+     * answering means nothing can vouch for the window, and a limited-time
+     * award should fail closed rather than leak outside its season.
+     *
+     * @param int $season_id Season the achievement belongs to, or 0.
+     * @return bool
+     */
+    public static function season_is_open($season_id)
+    {
+        $season_id = absint($season_id);
+
+        if ($season_id <= 0) {
+            return true;
+        }
+
+        /**
+         * Filters whether a season is currently accepting awards.
+         *
+         * @param bool $is_open   Defaults to false: unanswered means closed.
+         * @param int  $season_id Season being checked.
+         */
+        return (bool) apply_filters('gameengine_season_is_open', false, $season_id);
+    }
+
+    /**
      * Unlock an achievement for a user.
      */
     public function award(int $user_id, int $achievement_id, string $context = 'system', array $args = [])
@@ -84,13 +115,22 @@ class AchievementsManager
             return false;
         }
 
+        $allowed = (bool) apply_filters('pre_gameengine_achievement_unlock', true, $safe_user_id, $safe_ach_id);
+        if (! $allowed) {
+            return false;
+        }
+
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $achievement = $wpdb->get_row($wpdb->prepare(
-            "SELECT title, congratulations_message, max_earnings_per_user FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d",
+            "SELECT title, congratulations_message, max_earnings_per_user, season_id FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d",
             $safe_ach_id
         ));
 
         if (!$achievement) {
+            return false;
+        }
+
+        if (! self::season_is_open((int) $achievement->season_id)) {
             return false;
         }
 

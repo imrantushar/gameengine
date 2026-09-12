@@ -12,6 +12,7 @@ import leaderboardReducer from './Slices/leaderboardSlice/leaderboardSlice';
 import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
+import badgesReducer from './Slices/badgesSlice/badgesSlice';
 
 import logger from 'redux-logger';
 
@@ -36,6 +37,7 @@ const staticReducers = {
     settings: settingsReducer,
     addons: addonsReducer,
     notification: notificationReducer,
+    badges: badgesReducer,
 };
 
 /**

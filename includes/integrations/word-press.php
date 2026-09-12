@@ -184,7 +184,19 @@ class WordPress extends BaseIntegration
     {
         return [
             'roles' => function () {
-                return array_map(fn($n) => ['label' => $n, 'value' => $n], get_editable_roles());
+                // Not get_editable_roles(): that lives in wp-admin/includes and
+                // is undefined during the REST request this runs in. It also
+                // keys by role slug with the role definition as the value, so
+                // mapping over the values alone put an array in both label and
+                // value.
+                $roles = array();
+                foreach (wp_roles()->get_names() as $slug => $name) {
+                    $roles[] = array(
+                        'label' => translate_user_role($name),
+                        'value' => $slug,
+                    );
+                }
+                return $roles;
             },
             'posts' => function () {
                 $posts = get_posts(['posts_per_page' => 20]);
@@ -192,6 +204,9 @@ class WordPress extends BaseIntegration
             },
             'categories' => function () {
                 $terms = get_terms(['taxonomy' => 'category', 'hide_empty' => false]);
+                if (is_wp_error($terms)) {
+                    return [];
+                }
                 return array_map(fn($t) => ['label' => $t->name, 'value' => $t->term_id], $terms);
             }
         ];
