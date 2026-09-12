@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { __ } from '@wordpress/i18n';
-import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece } from 'react-icons/fa6';
+import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece, FaStore } from 'react-icons/fa6';
 import { DndContext, PointerSensor, useSensor, useSensors } from '@dnd-kit/core';
 import { restrictToWindowEdges } from '@dnd-kit/modifiers';
 import GFLabel from '@GFComponents/Labels/GFLabel';
@@ -31,11 +31,19 @@ const FormInner = ({ hooksLoading }) => {
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
   const isTutorLmsActive = getAddonActiveStatus(addons, 'tutorlms');
+  const isStoreEngineActive = getAddonActiveStatus(addons, 'storeengine');
 
   const wooIcon = isWoocommerceActive ? {
     woocommerce: {
       icon: SiWoocommerce,
       bg: "#96588a"
+    }
+  } : {};
+
+  const storeEngineIcon = isStoreEngineActive ? {
+    storeengine: {
+      icon: FaStore,
+      bg: "#008DFF"
     }
   } : {};
 
@@ -80,6 +88,7 @@ const FormInner = ({ hooksLoading }) => {
     },
     ...wooIcon,
     ...academy,
+    ...storeEngineIcon,
     ...tutorIcon,
     gameengine: {
       icon: FaGamepad,
