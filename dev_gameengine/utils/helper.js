@@ -228,3 +228,26 @@ export const integrationLabel = (slug, hooks = []) => {
 
   return named ? named.integrationName : slug.charAt(0).toUpperCase() + slug.slice(1);
 };
+
+/**
+ * A short "how long ago" label for an activity timestamp.
+ *
+ * Lives here because the admin bell and the Activity screen both render the
+ * same feed; two copies had already drifted apart on where they stop counting
+ * days. Falls back to a real date past a month, where "43d ago" stops meaning
+ * anything to a reader.
+ */
+export const relativeTime = (dateStr) => {
+	const then = new Date(dateStr).getTime();
+
+	if (Number.isNaN(then)) return '';
+
+	const diff = Math.floor((Date.now() - then) / 1000);
+
+	if (diff < 60) return __('Just now', 'gameengine');
+	if (diff < 3600) return Math.floor(diff / 60) + __('m ago', 'gameengine');
+	if (diff < 86400) return Math.floor(diff / 3600) + __('h ago', 'gameengine');
+	if (diff < 2592000) return Math.floor(diff / 86400) + __('d ago', 'gameengine');
+
+	return new Date(dateStr).toLocaleDateString();
+};

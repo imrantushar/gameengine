@@ -100,6 +100,9 @@ class WooCommerce extends BaseIntegration
             },
             'product_cats' => function () {
                 $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true]);
+                if (is_wp_error($terms)) {
+                    return [];
+                }
                 return array_map(fn($t) => ['label' => $t->name, 'value' => $t->term_id], $terms);
             }
         ];

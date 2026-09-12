@@ -11,6 +11,7 @@ import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
 import { commonInput } from "../../../../../../assets/scss/chakra/recipe";
 import GameEngineInput from "@GFComponents/GameEngineInput";
+import ToggleField from "@GFComponents/ToggleField";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import { fetchBadges } from '@GFRedux/Slices/badgesSlice/badgesSlice';
@@ -125,6 +126,27 @@ const FormInner = () => {
       dispatch(fetchBadges());
     }
   }, [isRestrictContentActive]);
+
+  // Seasons are a Pro feature. An empty list — because Pro is inactive or
+  // nobody has made one — leaves the field out entirely rather than showing a
+  // control that cannot do anything.
+  const [seasons, setSeasons] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    API.get(namespace + 'pro/seasons')
+      .then(res => { if (!cancelled) setSeasons(Array.isArray(res.data) ? res.data : []); })
+      .catch(() => { if (!cancelled) setSeasons([]); });
+    return () => { cancelled = true; };
+  }, []);
+
+  const seasonOptions = useMemo(() => ([
+    { label: __('Always available', 'gameengine'), value: 0 },
+    ...seasons.map(s => ({
+      label: `${s.name} (${s.start_date} → ${s.end_date})`,
+      value: Number(s.id),
+    })),
+  ]), [seasons]);
 
   const {
     allHooks,
@@ -289,7 +311,22 @@ const FormInner = () => {
       value: slug
     }));
 
-  const requireLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+  const restrictHint = isRestrictContentActive
+    ? __("Members must earn the chosen achievement or level before this one unlocks.", "gameengine")
+    : (
+      <>
+        {__("Needs the Restrict Unlock add-on.", "gameengine")}{' '}
+        <Link
+          to={admin_url + 'admin.php?page=gameengine-addons'}
+          target="_blank"
+          className="inline-flex items-center gap-1"
+          style={{ color: 'var(--gameengine-primary)' }}
+        >
+          {__("Turn it on", "gameengine")}
+          <LuExternalLink size="12px" />
+        </Link>
+      </>
+    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -365,6 +402,23 @@ const FormInner = () => {
         </GameEngineInput>
       </div>
 
+      {seasons.length > 0 && (
+        <GameEngineInput
+          label={__('Season', 'gameengine')}
+          width="100%"
+          desc={__('A season-limited achievement can only be earned while that season is running.', 'gameengine')}
+        >
+          <Select
+            className="gameengine-select"
+            classNamePrefix="gameengine-select"
+            options={seasonOptions}
+            value={seasonOptions.find(o => Number(o.value) === Number(values.season_id || 0))}
+            onChange={option => setFieldValue('season_id', option.value || null)}
+            menuPlacement="bottom"
+          />
+        </GameEngineInput>
+      )}
+
       {badges.length > 0 && (
         <div className="flex flex-col gap-2">
           <GFLabel type="input" label={__("Badge (optional)", "gameengine")} />
@@ -426,33 +480,13 @@ const FormInner = () => {
         <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'acivements-message'} />
       </GameEngineInput>
 
-      <GameEngineInput
-        flexdirection={'row'}
-        label={requireLabel}
-        width="100%"
-        direction='row'
-        gap={isRestrictContentActive ? "16px" : "4px"}
-        alignItems='center'
-      >
-        {isRestrictContentActive ? (
-          <Switch
-            checked={values.is_restricted}
-            onChange={(val) => setFieldValue('is_restricted', val)}
-            disabled={!isRestrictContentActive}
-          />
-        ) : (
-          <div className="flex items-center gap-4">
-            <Link to={admin_url + 'admin.php?page=gameengine-addons'} target='_blank'>
-              <LuExternalLink size="20px" />
-            </Link>
-            <Switch
-              checked={values.is_restricted}
-              onChange={(val) => setFieldValue('is_restricted', val)}
-              disabled={!isRestrictContentActive}
-            />
-          </div>
-        )}
-      </GameEngineInput>
+      <ToggleField
+        checked={values.is_restricted}
+        onChange={(val) => setFieldValue('is_restricted', val)}
+        disabled={!isRestrictContentActive}
+        label={__("Require an achievement or level first", "gameengine")}
+        hint={restrictHint}
+      />
 
       {values?.is_restricted && isRestrictContentActive && <div className="flex flex-col gap-3">
         <div className="flex gap-3">

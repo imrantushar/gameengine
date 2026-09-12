@@ -359,7 +359,8 @@ input.gameengine-checkbox {
 // Input & Textarea
 .gameengine {
 
-    // Will remove the important
+    // The !important here beat the dark-mode input rule on specificity, so a
+    // transparent value left every field with no surface of its own.
     &-input {
         border: 1px solid var(--gameengine-border-color) !important;
         height: 36px;
@@ -367,7 +368,7 @@ input.gameengine-checkbox {
         padding: 0 8px;
         border-radius: 4px;
         margin: 0;
-        background: transparent !important;
+        background: var(--gameengine-background) !important;
         color: var(--gameengine-font-color) !important;
 
         &:hover,
@@ -414,7 +415,7 @@ input.gameengine-checkbox {
         padding: 12px;
         border-radius: 4px;
         margin: 0;
-        background: transparent !important;
+        background: var(--gameengine-background) !important;
         color: var(--gameengine-font-color) !important;
 
         &:hover,

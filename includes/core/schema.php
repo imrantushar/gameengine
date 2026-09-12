@@ -34,11 +34,7 @@ final class Schema
             self::get_user_achievements_table_schema($prefix, $charset_collate),
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
-            self::get_ranks_table_schema($prefix, $charset_collate),
-            self::get_user_ranks_table_schema($prefix, $charset_collate),
             self::get_notifications_table_schema($prefix, $charset_collate),
-            self::get_streaks_table_schema($prefix, $charset_collate),
-            self::get_user_streaks_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -78,6 +74,7 @@ final class Schema
             required_achievement_id BIGINT(20) UNSIGNED DEFAULT NULL,
             required_level_id BIGINT(20) UNSIGNED DEFAULT NULL,
             restriction_message TEXT DEFAULT NULL,
+            season_id BIGINT(20) UNSIGNED DEFAULT NULL,
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             UNIQUE KEY slug (slug),
@@ -93,9 +90,11 @@ final class Schema
             id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             title VARCHAR(255) NOT NULL,
             plural_name VARCHAR(255),
+            slug VARCHAR(255) DEFAULT NULL,
             status VARCHAR(20) DEFAULT 'publish',
             description TEXT,
             icon VARCHAR(255),
+            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
             category VARCHAR(255) DEFAULT NULL,
             priority INT(11) NOT NULL DEFAULT 0,
             unlock_with_points_enabled TINYINT(1) DEFAULT 0,
@@ -140,9 +139,12 @@ final class Schema
             user_id BIGINT(20) UNSIGNED NOT NULL,
             requirement_id BIGINT(20) UNSIGNED NOT NULL,
             progress_count INT(11) NOT NULL DEFAULT 0,
+            streak_count INT(11) NOT NULL DEFAULT 0,
+            streak_best INT(11) NOT NULL DEFAULT 0,
+            streak_last_at DATETIME DEFAULT NULL,
             last_updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_requirement (user_id, requirement_id)
+            UNIQUE KEY user_requirement (user_id, requirement_id)
         ) $charset_collate;";
     }
 
@@ -159,7 +161,8 @@ final class Schema
             created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
             KEY user_id (user_id),
-            KEY point_type_id (point_type_id)
+            KEY point_type_id (point_type_id),
+            KEY type_date (point_type_id, created_at)
         ) $charset_collate;";
     }
 
@@ -184,7 +187,7 @@ final class Schema
             level_id BIGINT(20) UNSIGNED NOT NULL,
             achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
             PRIMARY KEY (id),
-            KEY user_id (user_id),
+            UNIQUE KEY user_level (user_id, level_id),
             KEY level_id (level_id)
         ) $charset_collate;";
     }
@@ -206,38 +209,6 @@ final class Schema
         ) $charset_collate;";
     }
 
-    private static function get_ranks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_ranks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            title VARCHAR(255) NOT NULL,
-            slug VARCHAR(255) NOT NULL,
-            description TEXT DEFAULT NULL,
-            icon VARCHAR(255) DEFAULT NULL,
-            color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7',
-            points_required INT(11) NOT NULL DEFAULT 0,
-            status VARCHAR(20) DEFAULT 'publish',
-            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            UNIQUE KEY slug (slug),
-            KEY points_required (points_required)
-        ) $charset_collate;";
-    }
-
-    private static function get_user_ranks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_user_ranks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            user_id BIGINT(20) UNSIGNED NOT NULL,
-            rank_id BIGINT(20) UNSIGNED NOT NULL,
-            achieved_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            KEY user_id (user_id),
-            KEY rank_id (rank_id),
-            UNIQUE KEY user_rank (user_id, rank_id)
-        ) $charset_collate;";
-    }
-
     private static function get_notifications_table_schema($prefix, $charset_collate)
     {
         return "CREATE TABLE {$prefix}gameengine_notifications (
@@ -253,37 +224,4 @@ final class Schema
         ) $charset_collate;";
     }
 
-    private static function get_streaks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_streaks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            title VARCHAR(255) NOT NULL,
-            slug VARCHAR(255) NOT NULL,
-            trigger_hook VARCHAR(255) NOT NULL,
-            interval_type ENUM('daily','weekly') NOT NULL DEFAULT 'daily',
-            bonus_points INT(11) NOT NULL DEFAULT 0,
-            bonus_point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
-            milestone_at INT(11) NOT NULL DEFAULT 7,
-            status VARCHAR(20) DEFAULT 'publish',
-            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            UNIQUE KEY slug (slug)
-        ) $charset_collate;";
-    }
-
-    private static function get_user_streaks_table_schema($prefix, $charset_collate)
-    {
-        return "CREATE TABLE {$prefix}gameengine_user_streaks (
-            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-            user_id BIGINT(20) UNSIGNED NOT NULL,
-            streak_id BIGINT(20) UNSIGNED NOT NULL,
-            current_count INT(11) NOT NULL DEFAULT 0,
-            longest_count INT(11) NOT NULL DEFAULT 0,
-            last_action_at DATETIME DEFAULT NULL,
-            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (id),
-            UNIQUE KEY user_streak (user_id, streak_id),
-            KEY user_id (user_id)
-        ) $charset_collate;";
-    }
 }

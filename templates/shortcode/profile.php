@@ -5,15 +5,13 @@ $gameengine_user_data      = get_userdata($gameengine_user_id);
 $gameengine_points_manager = new \GameEngine\Classes\PointsManager();
 $gameengine_points_total   = $gameengine_points_manager->get_grand_total($gameengine_user_id);
 
-$gameengine_user_rank  = null;
-if (class_exists('\GameEngine\Classes\RanksManager')) {
-    $gameengine_user_rank = \GameEngine\Classes\RanksManager::get_user_rank($gameengine_user_id);
-}
+// The header chip shows the highest level the member currently holds.
+$gameengine_levels_manager = new \GameEngine\Classes\LevelsManager();
+$gameengine_user_level     = $gameengine_levels_manager->get_current_level($gameengine_user_id);
 
-$gameengine_user_streaks = array();
-if (class_exists('\GameEngine\Classes\StreaksManager')) {
-    $gameengine_user_streaks = \GameEngine\Classes\StreaksManager::get_user_streaks($gameengine_user_id);
-}
+// Streaks are a per-trigger option now, so the runs come from the rules the
+// member is actually working on rather than a separate streak record.
+$gameengine_user_streaks = \GameEngine\Classes\Triggers::get_user_streaks($gameengine_user_id);
 
 $gameengine_general_settings = get_option('gameengine_general_settings', array());
 $gameengine_social_sharing   = ! isset($gameengine_general_settings['social_sharing']) || ! empty($gameengine_general_settings['social_sharing']);
@@ -31,22 +29,28 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
             <div class="gameengine-user-details">
                 <h3><?php echo esc_html($gameengine_user_data->display_name); ?></h3>
                 <span class="gameengine-points-tag">🪙 <?php echo esc_html(number_format_i18n($gameengine_points_total)); ?> <?php esc_html_e('Points', 'gameengine'); ?></span>
-                <?php if ($gameengine_user_rank) : ?>
+                <?php if ($gameengine_user_level) : ?>
                 <?php
-                $gameengine_rank_icon = $gameengine_user_rank['icon'] ?? '';
-                if (! empty($gameengine_rank_icon) && strpos($gameengine_rank_icon, 'dashicons-') === 0) {
+                $gameengine_level_icon  = $gameengine_user_level->icon ?? '';
+                $gameengine_level_color = $gameengine_user_level->color ?? '';
+                $gameengine_is_dashicon = ! empty($gameengine_level_icon) && strpos($gameengine_level_icon, 'dashicons-') === 0;
+                if ($gameengine_is_dashicon) {
                     wp_enqueue_style('dashicons');
                 }
+                $gameengine_level_style = 'display:inline-flex;align-items:center;gap:4px;margin-top:4px;';
+                if ($gameengine_level_color) {
+                    $gameengine_level_style .= 'color:' . $gameengine_level_color . ';';
+                }
                 ?>
-                <span class="gameengine-rank-tag" style="display:inline-flex;align-items:center;gap:4px;margin-top:4px;">
-                    <?php if (! empty($gameengine_rank_icon) && strpos($gameengine_rank_icon, 'dashicons-') === 0) : ?>
-                        <span class="dashicons <?php echo esc_attr($gameengine_rank_icon); ?>" style="font-size:16px;width:16px;height:16px;"></span>
-                    <?php elseif (! empty($gameengine_rank_icon)) : ?>
-                        <img src="<?php echo esc_url($gameengine_rank_icon); ?>" alt="" style="width:16px;height:16px;object-fit:contain;">
+                <span class="gameengine-level-tag" style="<?php echo esc_attr($gameengine_level_style); ?>">
+                    <?php if ($gameengine_is_dashicon) : ?>
+                        <span class="dashicons <?php echo esc_attr($gameengine_level_icon); ?>" style="font-size:16px;width:16px;height:16px;"></span>
+                    <?php elseif (! empty($gameengine_level_icon)) : ?>
+                        <img src="<?php echo esc_url($gameengine_level_icon); ?>" alt="" style="width:16px;height:16px;object-fit:contain;">
                     <?php else : ?>
                         🎖️
                     <?php endif; ?>
-                    <?php echo esc_html($gameengine_user_rank['title']); ?>
+                    <?php echo esc_html($gameengine_user_level->title); ?>
                 </span>
                 <?php endif; ?>
             </div>
@@ -100,14 +104,23 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
                     <div class="gameengine-streak-item" style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;">
                         <span style="font-size:24px;">🔥</span>
                         <div>
-                            <strong><?php echo esc_html($gameengine_streak['title'] ?? ''); ?></strong>
+                            <strong><?php echo esc_html($gameengine_streak['label'] ?? ''); ?></strong>
                             <div style="font-size:13px;color:#666;">
                                 <?php
-                                printf(
-                                    /* translators: %s: streak count number */
-                                    esc_html__('%s day streak', 'gameengine'),
-                                    esc_html(number_format_i18n($gameengine_streak['current_count'] ?? 0))
-                                );
+                                $gameengine_streak_count = (int) ($gameengine_streak['count'] ?? 0);
+                                if ('weekly' === ($gameengine_streak['interval'] ?? 'daily')) {
+                                    printf(
+                                        /* translators: %s: streak count number */
+                                        esc_html(_n('%s week streak', '%s week streak', $gameengine_streak_count, 'gameengine')),
+                                        esc_html(number_format_i18n($gameengine_streak_count))
+                                    );
+                                } else {
+                                    printf(
+                                        /* translators: %s: streak count number */
+                                        esc_html(_n('%s day streak', '%s day streak', $gameengine_streak_count, 'gameengine')),
+                                        esc_html(number_format_i18n($gameengine_streak_count))
+                                    );
+                                }
                                 ?>
                             </div>
                         </div>
@@ -138,8 +151,13 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
                 <?php esc_html_e('Point Type', 'gameengine'); ?>
                 <select id="ge-transfer-type" class="gameengine-input" style="margin-top:4px;width:100%;">
                     <?php foreach ((array) $gameengine_point_types as $gameengine_pt) : ?>
-                    <option value="<?php echo esc_attr($gameengine_pt->id ?? $gameengine_pt['id'] ?? 1); ?>">
-                        <?php echo esc_html($gameengine_pt->title ?? $gameengine_pt['title'] ?? ''); ?>
+                    <?php
+                    // The column is `name`; `title` would have rendered every
+                    // option blank even once the list existed.
+                    $gameengine_pt = (array) $gameengine_pt;
+                    ?>
+                    <option value="<?php echo esc_attr($gameengine_pt['id'] ?? 1); ?>">
+                        <?php echo esc_html($gameengine_pt['name'] ?? ''); ?>
                     </option>
                     <?php endforeach; ?>
                 </select>

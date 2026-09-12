@@ -75,16 +75,6 @@ const NotificationsSettings = () => {
                 </SettingsInput>
 
                 <SettingsInput
-                    label={__('New Rank Earned', 'gameengine')}
-                    subtitle={__('Notify users when they earn a new rank.', 'gameengine')}
-                >
-                    <Switch
-                        checked={!!n.notify_rank}
-                        onChange={(val) => set('notify_rank', val)}
-                    />
-                </SettingsInput>
-
-                <SettingsInput
                     label={__('Auto Cleanup After', 'gameengine')}
                     subtitle={__('Automatically delete old notifications to keep the database lean.', 'gameengine')}
                 >

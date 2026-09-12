@@ -150,16 +150,6 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN badge_id BIGINT(20) UNSIGNED DEFAULT NULL AFTER badge_image");
         }
 
-        $ranks_table = "{$wpdb->prefix}gameengine_ranks";
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $color_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ranks_table} LIKE %s", 'color'));
-
-        if (empty($color_col)) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $wpdb->query("ALTER TABLE {$ranks_table} ADD COLUMN color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7' AFTER icon");
-        }
-
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $desc_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'description'));
 
@@ -176,17 +166,32 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER plural_name");
         }
 
-        $this->backfill_achievement_slugs();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $season_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'season_id'));
+
+        if (empty($season_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN season_id BIGINT(20) UNSIGNED DEFAULT NULL");
+        }
+
+        $this->backfill_slugs($ach_table, 'achievement');
+        $this->backfill_slugs("{$wpdb->prefix}gameengine_levels", 'level');
     }
 
     /**
      * Generate a unique slug for any pre-existing achievement row left over
      * from before the `slug` column existed.
      */
-    private function backfill_achievement_slugs()
+    /**
+     * Give every row in a table a unique slug, then add the unique index.
+     *
+     * @param string $table  Fully-prefixed table name.
+     * @param string $prefix Fallback slug stem for a row with no usable title.
+     */
+    private function backfill_slugs($table, $prefix)
     {
         global $wpdb;
-        $ach_table = "{$wpdb->prefix}gameengine_achievements";
+        $ach_table = $table;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $rows = $wpdb->get_results("SELECT id, title FROM {$ach_table} WHERE slug IS NULL OR slug = ''", ARRAY_A);
@@ -205,7 +210,7 @@ class Installer
         foreach ($rows as $row) {
             $base = sanitize_title($row['title']);
             if ('' === $base) {
-                $base = 'achievement-' . $row['id'];
+                $base = $prefix . '-' . $row['id'];
             }
 
             $slug = $base;

@@ -75,7 +75,7 @@ const DynamicField = ({
     "width": config?.width === '100%' ? '100%' : `calc(${config?.width} - 8px)`
   }}>
     <GameEngineInput label={displayLabel}>
-      <input style={commonInput} label={displayLabel} placeholder={config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} />
+      <input style={commonInput} placeholder={config.placeholder || ''} type={config.type} value={parameters[fieldKey]} onChange={e => onChange(e.target.value)} required={config.required} />
     </GameEngineInput>
   </div>;
 };

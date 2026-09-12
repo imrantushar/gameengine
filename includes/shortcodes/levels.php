@@ -17,7 +17,9 @@ class Levels
     {
         $atts = shortcode_atts(array(
             'user_id'       => get_current_user_id(),
-            'point_type_id' => 1,
+            // 0 means "every level, whatever its currency", which is what the
+            // template reads. Naming a point type narrows it.
+            'point_type_id' => 0,
         ), $atts, 'gameengine_level');
 
         if (empty($atts['user_id'])) {

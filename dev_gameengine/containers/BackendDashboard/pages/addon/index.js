@@ -84,7 +84,7 @@ const infoCardsData = [
     name: 'woocommerce',
     is_coming_soon: false,
     details: __(
-      'Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!',
+      'Add points, achievements, and levels to WooCommerce actions like buying, reviews, and refunds. perks!',
       'gameengine'
     ),
     required_plugin: [
@@ -119,7 +119,7 @@ const infoCardsData = [
     name: 'restrict_content',
     is_coming_soon: false,
     details: __(
-      'Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled',
+      'Control access by restricting posts, pages, or sections based on points, levels, or badges. controlled',
       'gameengine'
     ),
     required_plugin: false,

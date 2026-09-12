@@ -8,17 +8,15 @@ import Achievements from './pages/achievements';
 import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
+import Activity from './pages/activity';
 import Points from './pages/points';
 import Addons from './pages/addon';
 import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
-import Ranks from './pages/ranks';
 import Badges from './pages/badges';
-import Analytics from './pages/analytics';
-import Seasons from './pages/seasons';
-import Webhooks from './pages/webhooks';
+import BadgeEditor from './pages/badges/BadgeEditor';
 import Types from './pages/Types';
 import { useLocationQuery } from '@GFHooks/';
 
@@ -37,6 +35,9 @@ const renderSwitch = (page, id, action, path) => {
 			return <Points />;
 		case 'gameengine-logs':
 			return <Logs />;
+
+		case 'gameengine-activity':
+			return <Activity />;
 
 		case 'gameengine-settings':
 			return <Settings />;
@@ -70,20 +71,13 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-addons':
 			return <Addons />;
 
-		case 'gameengine-ranks':
-			return <Ranks />;
 
 		case 'gameengine-badge-editor':
+			if (action || id) {
+				return <BadgeEditor action={action} id={id} />;
+			}
 			return <Badges />;
 
-		case 'gameengine-analytics':
-			return <Analytics />;
-
-		case 'gameengine-seasons':
-			return <Seasons />;
-
-		case 'gameengine-webhooks':
-			return <Webhooks />;
 
 		default: {
 			// Screens registered by another plugin for the features it ships.

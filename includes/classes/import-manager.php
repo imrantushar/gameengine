@@ -15,7 +15,7 @@ class ImportManager
     private const ROW_LIMIT = 1000;
 
     private static $allowed_types = array(
-        'achievements', 'levels', 'point_types', 'ranks', 'streaks',
+        'achievements', 'levels', 'point_types',
     );
 
     /**
@@ -24,9 +24,13 @@ class ImportManager
      * @param string $type      Entity type.
      * @param string $file_path Temp file path.
      * @param bool   $overwrite Whether to overwrite existing slugs.
+     * @param string $format    'json' or 'csv'. Taken from the uploaded file's
+     *                          name by the caller: $file_path is PHP's upload
+     *                          temp file, which has no extension, so sniffing
+     *                          it here read every upload as CSV.
      * @return array{imported: int, skipped: int, errors: array}
      */
-    public static function import(string $type, string $file_path, bool $overwrite = false): array
+    public static function import(string $type, string $file_path, bool $overwrite = false, string $format = ''): array
     {
         $result = array('imported' => 0, 'skipped' => 0, 'errors' => array());
 
@@ -40,7 +44,9 @@ class ImportManager
             return $result;
         }
 
-        $ext  = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
+        $ext  = $format !== ''
+            ? strtolower($format)
+            : strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
         $rows = array();
 
         if ($ext === 'json') {
@@ -102,8 +108,6 @@ class ImportManager
             'achievements' => "{$wpdb->prefix}gameengine_achievements",
             'levels'       => "{$wpdb->prefix}gameengine_levels",
             'point_types'  => "{$wpdb->prefix}gameengine_point_types",
-            'ranks'        => "{$wpdb->prefix}gameengine_ranks",
-            'streaks'      => "{$wpdb->prefix}gameengine_streaks",
         );
 
         return $table_map[$type];
@@ -135,8 +139,6 @@ class ImportManager
             'achievements' => array('title', 'slug'),
             'levels'       => array('title', 'slug'),
             'point_types'  => array('name', 'slug'),
-            'ranks'        => array('title', 'slug'),
-            'streaks'      => array('title', 'slug'),
         );
 
         $required = $required_map[$type];
@@ -167,16 +169,52 @@ class ImportManager
         }
         $clean['created_at'] = current_time('mysql');
 
+        // Only write columns the table actually has. A file carrying a heading
+        // this entity does not know about used to fail the whole row with an
+        // "Unknown column" error that was then reported as a success.
+        $clean = array_intersect_key($clean, array_flip(self::columns_for($table)));
+
         if ($existing_id && $overwrite) {
             unset($clean['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update($table, $clean, array('id' => $existing_id));
+            $written = $wpdb->update($table, $clean, array('id' => $existing_id));
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert($table, $clean);
-            $slug_to_id[$slug] = $wpdb->insert_id;
+            $written = $wpdb->insert($table, $clean);
+            if (false !== $written) {
+                $slug_to_id[$slug] = $wpdb->insert_id;
+            }
+        }
+
+        // $wpdb returns false on a database error; an update that changed
+        // nothing returns 0, which is not a failure.
+        if (false === $written) {
+            return sprintf(
+                /* translators: %s: row slug */
+                __('Could not save row: %s', 'gameengine'),
+                $slug
+            );
         }
 
         return 'imported';
+    }
+
+    /**
+     * Column names of a table, read once per request.
+     */
+    private static function columns_for(string $table): array
+    {
+        static $cache = array();
+
+        if (isset($cache[$table])) {
+            return $cache[$table];
+        }
+
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $cache[$table] = $wpdb->get_col("SHOW COLUMNS FROM {$table}") ?: array();
+
+        return $cache[$table];
     }
 }

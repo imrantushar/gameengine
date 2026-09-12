@@ -9,12 +9,9 @@ const exportTypeOptions = [
     { value: 'achievements', label: __('Achievements', 'gameengine') },
     { value: 'levels', label: __('Levels', 'gameengine') },
     { value: 'point_types', label: __('Point Types', 'gameengine') },
-    { value: 'ranks', label: __('Ranks', 'gameengine') },
-    { value: 'streaks', label: __('Streaks', 'gameengine') },
     { value: 'user_points', label: __('User Points', 'gameengine') },
     { value: 'user_achievements', label: __('User Achievements', 'gameengine') },
     { value: 'user_levels', label: __('User Levels', 'gameengine') },
-    { value: 'user_ranks', label: __('User Ranks', 'gameengine') },
     { value: 'logs', label: __('Point Logs', 'gameengine') },
 ];
 
@@ -96,7 +93,7 @@ const ExportImport = () => {
         <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
                 <h3 className="text-base font-semibold m-0">{__('Export Data', 'gameengine')}</h3>
-                <p className="text-sm text-gray-500 m-0">
+                <p className="text-sm text-[var(--gameengine-warn-muted)] m-0">
                     {__('Download your data as CSV or JSON. Exports are capped at 10,000 rows.', 'gameengine')}
                 </p>
 
@@ -131,9 +128,9 @@ const ExportImport = () => {
                 </div>
             </div>
 
-            <div className="border-t border-gray-100 pt-6 flex flex-col gap-4">
+            <div className="border-t border-[var(--gameengine-border-color)] pt-6 flex flex-col gap-4">
                 <h3 className="text-base font-semibold m-0">{__('Import Data', 'gameengine')}</h3>
-                <p className="text-sm text-gray-500 m-0">
+                <p className="text-sm text-[var(--gameengine-warn-muted)] m-0">
                     {__('Upload a CSV or JSON file exported from GameEngine. Limited to 1,000 rows per import.', 'gameengine')}
                 </p>
 
@@ -182,10 +179,10 @@ const ExportImport = () => {
                         style={{
                             padding: '12px 16px',
                             borderRadius: '6px',
-                            background: importResult.error ? '#fff5f5' : '#f0fff4',
-                            border: `1px solid ${importResult.error ? '#fc8181' : '#68d391'}`,
+                            background: importResult.error ? 'var(--gameengine-error-light)' : 'var(--gameengine-success-light)',
+                            border: `1px solid ${importResult.error ? 'var(--gameengine-placing)' : 'var(--gameengine-success)'}`,
                             fontSize: '13px',
-                            color: importResult.error ? '#c53030' : '#276749',
+                            color: importResult.error ? 'var(--gameengine-placing)' : 'var(--gameengine-success)',
                         }}
                     >
                         {importResult.error ? (

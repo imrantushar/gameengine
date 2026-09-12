@@ -1,6 +1,6 @@
 === GameEngine - Gamification for Website ===
 Contributors: kodezen, academylms, tusharimran
-Tags: gamification, points, achievements, ranks, rewards
+Tags: gamification, points, achievements, levels, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,11 +8,11 @@ Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Award points, achievements, and ranks to boost user engagement and build a loyal community with a powerful gamification system.
+Award points, achievements, and levels to boost user engagement and build a loyal community with a powerful gamification system.
 
 == Description ==
 
-**GameEngine** is a complete gamification engine designed to boost user engagement. It allows you to create a fun, interactive experience by rewarding users with points, achievements, and ranks for participating on your site.
+**GameEngine** is a complete gamification engine designed to boost user engagement. It allows you to create a fun, interactive experience by rewarding users with points, achievements, and levels for participating on your site.
 
 Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngine helps you motivate your users by turning site interactions into a rewarding game.
 
@@ -21,7 +21,7 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 *   **Powerful Points System:** Award points for registration, daily visits, post publishing, and more.
 *   **Customizable Point Types:** Create multiple types of points like Coins, Gems, or XP.
 *   **Achievements & Badges:** Define achievements that users can unlock by completing specific tasks.
-*   **Rank System:** Create ranks (e.g., Bronze, Silver, Gold) that users can earn over time.
+*   **Level System:** Create levels (e.g., Bronze, Silver, Gold) that users earn from a points threshold or from any trigger.
 *   **Integrations:** Award points for activity in WooCommerce, StoreEngine, Academy LMS and Tutor LMS.
 *   **Add-ons:** Restrict Unlock, Progress Map and Content Restriction, all included and enabled from the Add-ons screen.
 *   **Shortcodes:** Drop points balances, achievement lists, level roadmaps, progress maps and profile dashboards anywhere on your site.

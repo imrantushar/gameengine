@@ -56,12 +56,12 @@ const BuyPointsSettings = () => {
     return (
         <GameEngineBox dynamicClasses="gameengine-settings overflow-visible" boxShadow="var(--gameengine-shadow)">
             <p className="gameengine-settings-heading">{__('Buy Points', 'gameengine')}</p>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-[var(--gameengine-warn-muted)] mb-4">
                 {__('Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer.', 'gameengine')}
             </p>
 
             <div className="flex flex-col gap-2">
-                <div className="flex gap-3 items-center text-xs font-semibold text-gray-500 px-2">
+                <div className="flex gap-3 items-center text-xs font-semibold text-[var(--gameengine-warn-muted)] px-2">
                     <span style={{ flex: '0 0 140px' }}>{__('Product ID', 'gameengine')}</span>
                     <span style={{ flex: 1 }}>{__('Point Type', 'gameengine')}</span>
                     <span style={{ flex: '0 0 100px' }}>{__('Amount', 'gameengine')}</span>
@@ -109,7 +109,7 @@ const BuyPointsSettings = () => {
                                 background: 'none',
                                 border: 'none',
                                 cursor: 'pointer',
-                                color: '#e53e3e',
+                                color: 'var(--gameengine-placing)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
