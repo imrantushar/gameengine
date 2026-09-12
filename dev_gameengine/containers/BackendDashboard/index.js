@@ -17,6 +17,7 @@ import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
 import BadgeEditor from './pages/badges/BadgeEditor';
+import RewardsStore from './pages/rewards-store';
 import Types from './pages/Types';
 import { useLocationQuery } from '@GFHooks/';
 
@@ -72,6 +73,9 @@ const renderSwitch = (page, id, action, path) => {
 			return <Addons />;
 
 
+		case 'gameengine-rewards-store':
+			return <RewardsStore />;
+
 		case 'gameengine-badge-editor':
 			if (action || id) {
 				return <BadgeEditor action={action} id={id} />;
@@ -108,7 +112,7 @@ export default function BackendDashboard() {
 			{getDashboardNotices([]).map((Notice, index) => (
 				<Notice key={index} />
 			))}
-			<div style={{ position: 'fixed', top: '36px', right: '16px', zIndex: 4000 }}>
+			<div style={{ position: 'fixed', top: '58px', right: '16px', zIndex: 4000 }}>
 				<AdminActivityFeed />
 			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>

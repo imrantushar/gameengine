@@ -10,6 +10,7 @@ use GameEngine\Integrations\AcademyLMS;
 use GameEngine\Integrations\TutorLMS;
 use GameEngine\Integrations\BuddyPress;
 use GameEngine\Integrations\LearnDash;
+use GameEngine\Integrations\LifterLMS;
 use GameEngine\Integrations\GemBoards;
 use GameEngine\Integrations\bbPress;
 
@@ -58,6 +59,10 @@ final class TriggerRegistry
 
         if (defined('LEARNDASH_VERSION') || class_exists('SFWD_LMS')) {
             self::$integrations['learndash'] = LearnDash::class;
+        }
+
+        if (class_exists('LLMS_Site') || defined('LLMS_PLUGIN_FILE')) {
+            self::$integrations['lifterlms'] = LifterLMS::class;
         }
 
         if (defined('GEMBOARDS_VERSION') || class_exists('GemBoards')) {

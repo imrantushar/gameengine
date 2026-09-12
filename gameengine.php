@@ -162,7 +162,11 @@ final class GameEngine
         $paths = array(
             'addons/restrict-unlock/init.php',
             'addons/progress-map/init.php',
-            'addons/restrict-content/init.php'
+            'addons/restrict-content/init.php',
+            // Only ever loaded here — the course-unlock gate registers nothing
+            // otherwise. next-release lost this line; see the init.php docblock.
+            'addons/academy-lms/init.php',
+            'addons/rewards-store/init.php'
         );
 
         foreach ($paths as $path) {

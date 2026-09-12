@@ -18,6 +18,7 @@ import {
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import { GoGift } from 'react-icons/go';
 import { getAddonCards } from '@GFUtils/extend';
 import './addon-tabs.css';
 import WhatsNew from '@GFComponents/WhatsNew';
@@ -146,7 +147,19 @@ const infoCardsData = [
       'https://gameengine.pro/docs/',
     route: '',
   },
-];
+  {
+    label: __('Rewards Store', 'gameengine'),
+    name: 'rewards_store',
+    is_coming_soon: false,
+    details: __(
+      'Let users redeem their earned points for rewards from a catalog you manage.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <GoGift size={20} color="#D97706" />,
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine-rewards-store',
+  },];
 
 const TABS = [
   { value: 'all',      label: __('All',      'gameengine') },

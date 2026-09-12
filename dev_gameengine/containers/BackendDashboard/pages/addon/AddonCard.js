@@ -87,6 +87,7 @@ const AddonCard = ({ item, value }) => {
     restrict_unlock: '#8270DB',
     restrict_content: '#4F46E5',
     progress_map: '#10B981',
+    rewards_store: '#D97706',
   };
 
   const getIconBorderColor = () =>

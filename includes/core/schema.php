@@ -35,6 +35,8 @@ final class Schema
             self::get_user_levels_table_schema($prefix, $charset_collate),
             self::get_logs_table_schema($prefix, $charset_collate),
             self::get_notifications_table_schema($prefix, $charset_collate),
+            self::get_rewards_table_schema($prefix, $charset_collate),
+            self::get_reward_redemptions_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -224,4 +226,38 @@ final class Schema
         ) $charset_collate;";
     }
 
+    private static function get_rewards_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_rewards (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            title VARCHAR(255) NOT NULL,
+            slug VARCHAR(255) NOT NULL,
+            description TEXT DEFAULT NULL,
+            image VARCHAR(255) DEFAULT NULL,
+            cost_points INT(11) NOT NULL DEFAULT 0,
+            point_type_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            stock INT(11) NOT NULL DEFAULT -1,
+            limit_per_user INT(11) NOT NULL DEFAULT 0,
+            status VARCHAR(20) DEFAULT 'publish',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY slug (slug),
+            KEY point_type_id (point_type_id)
+        ) $charset_collate;";
+    }
+
+    private static function get_reward_redemptions_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_reward_redemptions (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            user_id BIGINT(20) UNSIGNED NOT NULL,
+            reward_id BIGINT(20) UNSIGNED NOT NULL,
+            points_spent INT(11) NOT NULL DEFAULT 0,
+            status VARCHAR(20) NOT NULL DEFAULT 'completed',
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            KEY user_id (user_id),
+            KEY reward_id (reward_id)
+        ) $charset_collate;";
+    }
 }

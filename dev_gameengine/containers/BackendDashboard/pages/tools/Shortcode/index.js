@@ -160,7 +160,22 @@ const shortCodeData = [
       '[gameengine_restrict type="points" value="50" message="Earn 50 points to read this."]\n    Your members-only content\n[/gameengine_restrict]',
     url: 'https://gameengine.pro/docs/',
   },
-];
+  {
+    title: __('Rewards Store', 'gameengine'),
+    shortCode: '[gameengine_rewards]',
+    subtitle: __(
+      'Catalog of rewards members can redeem with their points.',
+      'gameengine'
+    ),
+    description: __(
+      "Shows each reward's cost, stock and a Redeem button. Takes no attributes — the catalog is managed under Rewards Store.",
+      'gameengine'
+    ),
+    attributes: [],
+    example: '[gameengine_rewards]',
+    requires: __('Rewards Store add-on', 'gameengine'),
+    url: 'https://gameengine.pro/docs/',
+  },];
 
 const ShortCode = () => {
   return (

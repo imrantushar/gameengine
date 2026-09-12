@@ -135,6 +135,13 @@ class AddonsController extends BaseController
                 'icon'   => 'dashicons-visibility',
                 'active' => in_array('restrict_content', $active_addons, true),
             ),
+            array(
+                'slug'   => 'rewards_store',
+                'name'   => __('Rewards Store', 'gameengine'),
+                'desc'   => __('Let users redeem their earned points for rewards from a catalog you manage.', 'gameengine'),
+                'icon'   => 'dashicons-tickets-alt',
+                'active' => in_array('rewards_store', $active_addons, true),
+            ),
         );
 
         /**
@@ -247,6 +254,7 @@ class AddonsController extends BaseController
                 'restrict_unlock',
                 'progress_map',
                 'restrict_content',
+                'rewards_store',
             )
         );
 

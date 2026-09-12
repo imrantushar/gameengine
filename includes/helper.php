@@ -182,6 +182,15 @@ class Helper
             'capability' => 'manage_options',
         );
 
+        // Rewards Store
+        if (self::is_addon_active('rewards_store')) {
+            $menu[$slug . '-rewards-store'] = array(
+                'parent_slug' => $slug,
+                'title' => __('Rewards Store', 'gameengine'),
+                'capability' => 'manage_options',
+            );
+        }
+
         // Addons
         $menu[$slug . '-addons'] = array(
             'parent_slug' => $slug,
@@ -284,5 +293,104 @@ class Helper
         wp_cache_set('gameengine_v_' . $group, $version + 1, 'gameengine');
 
         do_action('gameengine_cache_flushed', $group);
+    }
+
+    /**
+     * Convert an array of associative rows into a CSV string.
+     * Cell values are guarded against CSV/formula injection.
+     *
+     * @param array $rows Rows to convert, each an associative array of column => value.
+     * @return string
+     */
+    public static function array_to_csv(array $rows)
+    {
+        if (empty($rows)) {
+            return '';
+        }
+
+        $output = fopen('php://temp', 'r+');
+
+        fputcsv($output, array_map(array(__CLASS__, 'escape_csv_cell'), array_keys($rows[0])));
+
+        foreach ($rows as $row) {
+            fputcsv($output, array_map(array(__CLASS__, 'escape_csv_cell'), array_values($row)));
+        }
+
+        rewind($output);
+        $csv = stream_get_contents($output);
+        fclose($output);
+
+        return $csv;
+    }
+
+    /**
+     * Prefix a CSV cell value if it begins with a formula-triggering character,
+     * so spreadsheet applications treat it as plain text instead of a formula.
+     *
+     * @param mixed $value Cell value.
+     * @return mixed
+     */
+    private static function escape_csv_cell($value)
+    {
+        if (is_string($value) && isset($value[0]) && in_array($value[0], array('=', '+', '-', '@'), true)) {
+            return "'" . $value;
+        }
+
+        return $value;
+    }
+
+    /**
+     * Build a WP_REST_Response that streams a CSV file as a download.
+     *
+     * @param string $csv        CSV content.
+     * @param string $filename   Download filename.
+     * @param int    $row_count  Number of data rows included.
+     * @param bool   $truncated  Whether the result set was capped.
+     * @return \WP_REST_Response
+     */
+    public static function send_csv_response($csv, $filename, $row_count, $truncated)
+    {
+        self::register_csv_response_passthrough();
+
+        $response = new \WP_REST_Response($csv, 200);
+        $response->header('Content-Type', 'text/csv');
+        $response->header('Content-Disposition', 'attachment; filename="' . $filename . '"');
+        $response->header('X-GE-Rows', $row_count);
+        $response->header('X-GE-Truncated', $truncated ? '1' : '0');
+
+        return $response;
+    }
+
+    /**
+     * WP_REST_Server always JSON-encodes the response body by default, which would
+     * wrap our raw CSV string in quotes and escape its newlines. Register a
+     * one-time filter that outputs the raw body as-is for any response whose
+     * Content-Type is text/csv, bypassing the default JSON serialization.
+     */
+    private static function register_csv_response_passthrough()
+    {
+        static $registered = false;
+
+        if ($registered) {
+            return;
+        }
+
+        $registered = true;
+
+        add_filter('rest_pre_serve_request', function ($served, $result, $request, $server) {
+            if ($served || ! ($result instanceof \WP_REST_Response)) {
+                return $served;
+            }
+
+            $headers = $result->get_headers();
+
+            if (empty($headers['Content-Type']) || false === strpos($headers['Content-Type'], 'text/csv')) {
+                return $served;
+            }
+
+            echo $result->get_data(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+            return true;
+        }, 10, 4);
     }
 }

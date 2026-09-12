@@ -23,6 +23,13 @@ class DashboardController extends BaseController
     protected $rest_base = 'dashboard';
 
     /**
+     * Hard cap on rows returned by the CSV export (matches ExportManager::ROW_LIMIT).
+     *
+     * @var int
+     */
+    const EXPORT_ROW_LIMIT = 10000;
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -34,6 +41,18 @@ class DashboardController extends BaseController
                 array(
                     'methods' => \WP_REST_Server::READABLE,
                     'callback' => array($this, 'get_stats'),
+                    'permission_callback' => array($this, 'admin_permission_check'),
+                ),
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/' . $this->rest_base . '/export',
+            array(
+                array(
+                    'methods' => \WP_REST_Server::READABLE,
+                    'callback' => array($this, 'export_top_users'),
                     'permission_callback' => array($this, 'admin_permission_check'),
                 ),
             )
@@ -84,9 +103,7 @@ class DashboardController extends BaseController
 
         if (false === $stats) {
 
-            // Set default broad date range if not provided.
-            $s = !empty($start_date) ? $start_date . ' 00:00:00' : '1000-01-01 00:00:00';
-            $e = !empty($end_date) ? $end_date . ' 23:59:59' : '9999-12-31 23:59:59';
+            list($s, $e) = $this->get_date_range_bounds($start_date, $end_date);
 
             // ---  Overview Counts ---
 
@@ -150,30 +167,7 @@ class DashboardController extends BaseController
             $chart_data = $this->get_chart_data($start_date, $end_date);
 
             // ---  Top Users (Leaderboard) ---
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $top_users = $wpdb->get_results(
-                $wpdb->prepare(
-                    "SELECT 
-						u.ID, 
-						u.display_name as name, 
-						IFNULL(SUM(p.points), 0) as total_points,
-						(SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = u.ID) as achievements_count,
-						(
-							SELECT l.title FROM {$wpdb->prefix}gameengine_user_levels ul 
-							JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id 
-							WHERE ul.user_id = u.ID ORDER BY l.priority DESC LIMIT 1
-						) as top_level
-					FROM {$wpdb->users} u
-					LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
-					WHERE p.created_at BETWEEN %s AND %s
-					GROUP BY u.ID
-					ORDER BY total_points DESC
-					LIMIT 5",
-                    $s,
-                    $e
-                ),
-                ARRAY_A
-            );
+            $top_users = $this->get_top_users_rows($s, $e, 5);
 
             $stats = array(
                 'overview' => array(
@@ -191,6 +185,101 @@ class DashboardController extends BaseController
         }
 
         return new \WP_REST_Response($stats, 200);
+    }
+
+    /**
+     * Export the top-users leaderboard (uncapped, up to the export row limit) as a downloadable CSV.
+     *
+     * @param \WP_REST_Request $request API request object.
+     * @return \WP_REST_Response
+     */
+    public function export_top_users($request)
+    {
+        $raw_start_date = $request->get_param('start_date');
+        $raw_end_date   = $request->get_param('end_date');
+
+        $start_date = !empty($raw_start_date) ? sanitize_text_field($raw_start_date) : '';
+        $end_date   = !empty($raw_end_date) ? sanitize_text_field($raw_end_date) : '';
+
+        list($s, $e) = $this->get_date_range_bounds($start_date, $end_date);
+
+        $top_users = $this->get_top_users_rows($s, $e, self::EXPORT_ROW_LIMIT);
+        $truncated = count($top_users) >= self::EXPORT_ROW_LIMIT;
+
+        $csv_rows = array();
+        foreach ($top_users as $row) {
+            $csv_rows[] = array(
+                'user_name'          => $row['name'],
+                'total_points'       => $row['total_points'],
+                'achievements_count' => $row['achievements_count'],
+                'top_level'          => $row['top_level'] ? $row['top_level'] : '-',
+            );
+        }
+
+        $csv = \GameEngine\Helper::array_to_csv($csv_rows);
+
+        return \GameEngine\Helper::send_csv_response(
+            $csv,
+            'gameengine-users-' . gmdate('Y-m-d') . '.csv',
+            count($csv_rows),
+            $truncated
+        );
+    }
+
+    /**
+     * Resolve the effective start/end datetime bounds for a stats/export query,
+     * defaulting to an all-time range when dates aren't provided.
+     *
+     * @param string $start_date Sanitized start date (Y-m-d) or empty.
+     * @param string $end_date   Sanitized end date (Y-m-d) or empty.
+     * @return array{0: string, 1: string}
+     */
+    private function get_date_range_bounds($start_date, $end_date)
+    {
+        $s = !empty($start_date) ? $start_date . ' 00:00:00' : '1000-01-01 00:00:00';
+        $e = !empty($end_date) ? $end_date . ' 23:59:59' : '9999-12-31 23:59:59';
+
+        return array($s, $e);
+    }
+
+    /**
+     * Fetch the top-users leaderboard rows for a date range.
+     * Shared by the on-screen dashboard stats endpoint and the CSV export endpoint.
+     *
+     * @param string $s     Range start (Y-m-d H:i:s).
+     * @param string $e     Range end (Y-m-d H:i:s).
+     * @param int    $limit Max rows to return.
+     * @return array
+     */
+    private function get_top_users_rows($s, $e, $limit)
+    {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        return $wpdb->get_results(
+            $wpdb->prepare(
+                "SELECT
+					u.ID,
+					u.display_name as name,
+					IFNULL(SUM(p.points), 0) as total_points,
+					(SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_achievements WHERE user_id = u.ID) as achievements_count,
+					(
+						SELECT l.title FROM {$wpdb->prefix}gameengine_user_levels ul
+						JOIN {$wpdb->prefix}gameengine_levels l ON ul.level_id = l.id
+						WHERE ul.user_id = u.ID ORDER BY l.priority DESC LIMIT 1
+					) as top_level
+				FROM {$wpdb->users} u
+				LEFT JOIN {$wpdb->prefix}gameengine_points_log p ON u.ID = p.user_id
+				WHERE p.created_at BETWEEN %s AND %s
+				GROUP BY u.ID
+				ORDER BY total_points DESC
+				LIMIT %d",
+                $s,
+                $e,
+                $limit
+            ),
+            ARRAY_A
+        ) ?: array();
     }
 
     /**
