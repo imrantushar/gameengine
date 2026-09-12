@@ -1,3 +1,15 @@
+import { __ } from "@wordpress/i18n";
+
+export const DEFAULT_CONGRATULATIONS = __(
+  "Congratulations! You have reached a new level. Keep going to unlock the next one.",
+  "gameengine"
+);
+
+export const DEFAULT_DESCRIPTION = __(
+  "Describe what members get at this level and what they need to do to reach it.",
+  "gameengine"
+);
+
 export const getLevelsInitialValues = (id=null, data = []) => {
   if (id && data && data.length > 0) {
     const filteredData = data.find(item => Number(item.id) === Number(id))
@@ -31,8 +43,11 @@ export const getLevelsInitialValues = (id=null, data = []) => {
     title: "",
     plural_name: "",
     priority: 0,
-    congratulations_message: "",
-    description: "",
+    // A new level starts with something sensible to show rather than two empty
+    // editors. Both are plain text on purpose: nothing substitutes tokens in
+    // these fields, so a {placeholder} would reach members verbatim.
+    congratulations_message: DEFAULT_CONGRATULATIONS,
+    description: DEFAULT_DESCRIPTION,
     unlock_with_points_enabled: true,
     min_points: 0,
     max_points: 0,

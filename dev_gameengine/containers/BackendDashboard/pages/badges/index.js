@@ -128,7 +128,8 @@ const BadgesPage = () => {
         if (badge.icon && badge.icon.startsWith('dashicons-')) {
             return (
                 <div style={style}>
-                    <span className={badge.icon} style={{ fontSize, color: iconColor }} />
+                    {/* Needs the base `dashicons` class, not just the modifier. */}
+                    <span className={`dashicons ${badge.icon}`} style={{ fontSize, color: iconColor }} />
                 </div>
             );
         }
