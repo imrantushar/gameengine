@@ -5,6 +5,10 @@ export const getLevelsInitialValues = (id=null, data = []) => {
     return {
       id: filteredData?.id,
       title: filteredData?.title,
+      // Both were missing, so opening a level and saving it cleared its plural
+      // name and reset priority to 0 — which is what orders the whole ladder.
+      plural_name: filteredData?.plural_name ?? "",
+      priority: filteredData?.priority ?? 0,
       congratulations_message: filteredData?.congratulations_message,
       unlock_with_points_enabled: filteredData?.unlock_with_points_enabled,
       min_points: filteredData?.min_points,
@@ -25,6 +29,8 @@ export const getLevelsInitialValues = (id=null, data = []) => {
 
   return {
     title: "",
+    plural_name: "",
+    priority: 0,
     congratulations_message: "",
     description: "",
     unlock_with_points_enabled: true,

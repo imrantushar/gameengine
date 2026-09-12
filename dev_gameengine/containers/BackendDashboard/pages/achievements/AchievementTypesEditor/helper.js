@@ -5,6 +5,8 @@ export const getAchivementsInitialValues = (id=null, data) => {
     return {
       id: filteredData?.id,
       title: filteredData?.title,
+      // Missing, so saving an achievement cleared its plural name.
+      plural_name: filteredData?.plural_name ?? "",
       description: filteredData?.description,
       category_id: filteredData?.category_id,
       max_earnings_per_user: filteredData?.max_earnings_per_user,
@@ -27,6 +29,7 @@ export const getAchivementsInitialValues = (id=null, data) => {
 
   return {
     title: "",
+    plural_name: "",
     description: "",
     category_id: 0,
     max_earnings_per_user: 0,
