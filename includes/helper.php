@@ -161,6 +161,13 @@ class Helper
             'capability' => 'manage_options',
         );
 
+        // Activity
+        $menu[$slug . '-activity'] = array(
+            'parent_slug' => $slug,
+            'title' => __('Activity', 'gameengine'),
+            'capability' => 'manage_options',
+        );
+
         // Logs
         $menu[$slug . '-logs'] = array(
             'parent_slug' => $slug,

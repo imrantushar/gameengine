@@ -8,6 +8,7 @@ import Achievements from './pages/achievements';
 import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
+import Activity from './pages/activity';
 import Points from './pages/points';
 import Addons from './pages/addon';
 import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
@@ -33,6 +34,9 @@ const renderSwitch = (page, id, action, path) => {
 			return <Points />;
 		case 'gameengine-logs':
 			return <Logs />;
+
+		case 'gameengine-activity':
+			return <Activity />;
 
 		case 'gameengine-settings':
 			return <Settings />;

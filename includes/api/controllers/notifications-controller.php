@@ -16,6 +16,11 @@ if (!defined('ABSPATH')) {
 class NotificationsController extends BaseController
 {
 
+    /**
+     * The kinds NotificationManager writes. Anything else is not a real filter.
+     */
+    const TYPES = array('points', 'achievement', 'level');
+
     protected $rest_base = 'notifications';
 
     public function register_routes()
@@ -69,21 +74,67 @@ class NotificationsController extends BaseController
         );
     }
 
+    /**
+     * Platform-wide activity, for the admin bell and its full screen.
+     *
+     * Paged and filterable so the "View All" screen can page through the
+     * history; the bell just asks for the first page.
+     */
     public function get_admin_feed(\WP_REST_Request $request)
     {
         global $wpdb;
 
-        $since_24h = gmdate('Y-m-d H:i:s', strtotime('-24 hours'));
+        $per_page = min(100, max(1, absint($request->get_param('per_page') ?: 20)));
+        $page     = max(1, absint($request->get_param('page') ?: 1));
+        $offset   = ($page - 1) * $per_page;
+        $search   = sanitize_text_field((string) $request->get_param('search'));
+        $type     = sanitize_key((string) $request->get_param('type'));
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $where  = array('1=1');
+        $values = array();
+
+        if (in_array($type, self::TYPES, true)) {
+            $where[]  = 'n.type = %s';
+            $values[] = $type;
+        }
+
+        if ('' !== $search) {
+            $like     = '%' . $wpdb->esc_like($search) . '%';
+            $where[]  = '( n.message LIKE %s OR u.display_name LIKE %s )';
+            $values[] = $like;
+            $values[] = $like;
+        }
+
+        $where_sql = implode(' AND ', $where);
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $items = $wpdb->get_results(
-            "SELECT n.id, n.user_id, u.display_name, n.type, n.message, n.is_read, n.created_at
-             FROM {$wpdb->prefix}gameengine_notifications n
-             INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
-             ORDER BY n.created_at DESC
-             LIMIT 20",
+            $wpdb->prepare(
+                "SELECT n.id, n.user_id, u.display_name, n.type, n.message, n.is_read, n.created_at
+                 FROM {$wpdb->prefix}gameengine_notifications n
+                 INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
+                 WHERE {$where_sql}
+                 ORDER BY n.created_at DESC
+                 LIMIT %d OFFSET %d",
+                array_merge($values, array($per_page, $offset))
+            ),
             ARRAY_A
         );
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $total = (int) $wpdb->get_var(
+            $values
+                ? $wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications n
+                     INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
+                     WHERE {$where_sql}",
+                    $values
+                )
+                : "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications n
+                   INNER JOIN {$wpdb->users} u ON n.user_id = u.ID"
+        );
+
+        $since_24h = gmdate('Y-m-d H:i:s', strtotime('-24 hours'));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $recent_count = (int) $wpdb->get_var(
@@ -95,6 +146,9 @@ class NotificationsController extends BaseController
 
         $response = new \WP_REST_Response($items ?: array(), 200);
         $response->header('X-GE-Recent-Count', $recent_count);
+        $response->header('X-WP-Total', $total);
+        $response->header('X-WP-TotalPages', (int) ceil($total / $per_page));
+
         return $response;
     }
 

@@ -1,22 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { FiBell, FiRefreshCw } from 'react-icons/fi';
-import { API, namespace } from '@GFUtils/helper';
+import { admin_url, API, namespace, relativeTime } from '@GFUtils/helper';
 
+// Keyed on what NotificationManager actually stores. The previous keys —
+// points_added, level_up — matched nothing, so every row but an achievement
+// fell through to the bell.
 const TYPE_ICONS = {
-    points_added:    '🪙',
-    points_deducted: '📉',
-    achievement:     '🏆',
-    level_up:        '⬆️',
+    points:      '🪙',
+    achievement: '🏆',
+    level:       '⬆️',
 };
 
-function relativeTime(dateStr) {
-    const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
-    if (diff < 60)  return __('Just now', 'gameengine');
-    if (diff < 3600) return Math.floor(diff / 60) + __('m ago', 'gameengine');
-    if (diff < 86400) return Math.floor(diff / 3600) + __('h ago', 'gameengine');
-    return Math.floor(diff / 86400) + __('d ago', 'gameengine');
-}
 
 const AdminActivityFeed = () => {
     const [open, setOpen] = useState(false);
@@ -157,7 +152,10 @@ const AdminActivityFeed = () => {
                         ))}
                     </div>
                     <div style={{ padding: '8px 14px', borderTop: '1px solid var(--gameengine-border-color)', textAlign: 'right' }}>
-                        <a href="#" style={{ fontSize: '12px', color: 'var(--gameengine-primary)', textDecoration: 'none' }}>
+                        <a
+                            href={`${admin_url}admin.php?page=gameengine-activity`}
+                            style={{ fontSize: '12px', color: 'var(--gameengine-primary)', textDecoration: 'none' }}
+                        >
                             {__('View All', 'gameengine')}
                         </a>
                     </div>
