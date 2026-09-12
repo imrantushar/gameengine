@@ -5,82 +5,160 @@ import { getShortcodes } from '@GFUtils/extend';
 
 const shortCodeData = [
   {
-    title: __('Highest Level', 'gameengine'),
-    shortCode: '[gameengine_level]',
-    subtitle: __(
-      'Displays the current users highest achieved level with a trophy icon.',
-      'gameengine'
-    ),
-    description: __(
-      'Perfect for user headers, bio sections, or profile sidebar widgets.',
-      'gameengine'
-    ),
-    url: 'https://gameengine.pro/docs/',
-  },
-  {
     title: __('Points Balance', 'gameengine'),
     shortCode: '[gameengine_points]',
     subtitle: __(
-      'Shows the current users total points balance with a coin icon.',
+      "Shows the logged-in member's total points balance.",
       'gameengine'
     ),
     description: __(
-      'Ideal for menus, headers, or any place where you want to show the users wallet balance.',
+      'Ideal for menus, headers, or anywhere you want their balance on show. Renders 0 for logged-out visitors.',
       'gameengine'
     ),
+    attributes: [],
+    example: '[gameengine_points]',
+    url: 'https://gameengine.pro/docs/',
+  },
+  {
+    title: __('Highest Level', 'gameengine'),
+    shortCode: '[gameengine_level]',
+    subtitle: __(
+      'The level roadmap, with the member\'s current position marked.',
+      'gameengine'
+    ),
+    description: __(
+      'Good in a profile sidebar or on a page that explains how levelling works.',
+      'gameengine'
+    ),
+    attributes: [
+      {
+        name: 'user_id',
+        default: __('current user', 'gameengine'),
+        desc: __('Whose progress to show.', 'gameengine'),
+      },
+      {
+        name: 'point_type_id',
+        default: '0',
+        desc: __('Limit to one currency. 0 shows every level, whatever its currency.', 'gameengine'),
+      },
+    ],
+    example: '[gameengine_level point_type_id="2"]',
     url: 'https://gameengine.pro/docs/',
   },
   {
     title: __('Achievements List', 'gameengine'),
     shortCode: '[gameengine_achievements]',
     subtitle: __(
-      'Displays a clean grid of all achievements earned by the user.',
+      'A grid of every achievement, earned and still locked.',
       'gameengine'
     ),
     description: __(
-      'Shows badge images, titles, and unlock hints for any locked achievements.',
+      'Shows badges, titles and the unlock hint for anything not yet earned. Renders nothing for logged-out visitors.',
       'gameengine'
     ),
+    attributes: [],
+    example: '[gameengine_achievements]',
+    url: 'https://gameengine.pro/docs/',
+  },
+  {
+    title: __('Leaderboard', 'gameengine'),
+    shortCode: '[gameengine_leaderboard]',
+    subtitle: __(
+      'Ranks members by points earned, with their level and achievement count.',
+      'gameengine'
+    ),
+    description: __(
+      'Leave time_range off for an all-time board. Point it at a season to show that season\'s standings instead — live while the season runs, frozen once it completes.',
+      'gameengine'
+    ),
+    attributes: [
+      {
+        name: 'count',
+        default: '10',
+        desc: __('How many members to list.', 'gameengine'),
+      },
+      {
+        name: 'point_type',
+        default: '0',
+        desc: __('Limit to one currency. 0 totals every currency together.', 'gameengine'),
+      },
+      {
+        name: 'time_range',
+        default: 'all_time',
+        desc: __('all_time, today, this_week, this_month, this_year or last_30_days.', 'gameengine'),
+      },
+      {
+        name: 'season_id',
+        default: '0',
+        desc: __('Show a season\'s standings instead of the live board. Requires Pro.', 'gameengine'),
+      },
+    ],
+    example: '[gameengine_leaderboard count="5" time_range="this_month"]',
     url: 'https://gameengine.pro/docs/',
   },
   {
     title: __('Profile Dashboard', 'gameengine'),
     shortCode: '[gameengine_profile]',
     subtitle: __(
-      'Displays the full modern gamification dashboard with Tabs and Progress Map.',
+      'The full member dashboard: points, level, achievements and streaks.',
       'gameengine'
     ),
     description: __(
-      'A complete hub where users can see their points, badges, and roadmap in one place.',
+      'One page where a member sees everything they have earned. Shows a prompt to log in for visitors.',
       'gameengine'
     ),
+    attributes: [],
+    example: '[gameengine_profile]',
     url: 'https://gameengine.pro/docs/',
   },
   {
     title: __('Progress Map', 'gameengine'),
     shortCode: '[gameengine_progress_map]',
     subtitle: __(
-      'Shows a visual zig-zag roadmap of levels and achievements progression.',
+      'A visual path of the milestones a member has reached and what comes next.',
       'gameengine'
     ),
     description: __(
-      'Provides an interactive journey timeline without the full dashboard layout.',
+      'Turn the Progress Map add-on on first, or the shortcode says so instead of rendering.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/how-to-work-gameengine-progress-map-addon/',
+    requires: __('Progress Map add-on', 'gameengine'),
+    attributes: [],
+    example: '[gameengine_progress_map]',
+    url: 'https://gameengine.pro/docs/',
   },
   {
-    title: __('Content Restriction', 'gameengine'),
+    title: __('Restrict Content', 'gameengine'),
     shortCode: '[gameengine_restrict type="points" value="50"]',
     subtitle: __(
-      'Lock specific text, images, or links based on points, badges, or levels.',
+      'Hides whatever it wraps until the member qualifies.',
       'gameengine'
     ),
     description: __(
-      'Usage: type (points/achievement/level), value (amount or ID), and optional custom message.',
+      'Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead.',
       'gameengine'
     ),
-    url: 'https://gameengine.pro/docs/restrict-content-using-points-gameengine/',
+    requires: __('Content Restriction add-on', 'gameengine'),
+    attributes: [
+      {
+        name: 'type',
+        default: 'points',
+        desc: __('What to check: points, achievement or level.', 'gameengine'),
+      },
+      {
+        name: 'value',
+        default: '0',
+        desc: __('The points needed, or the ID of the achievement or level.', 'gameengine'),
+      },
+      {
+        name: 'message',
+        default: __('none', 'gameengine'),
+        desc: __('Shown to members who do not qualify yet.', 'gameengine'),
+      },
+    ],
+    example:
+      '[gameengine_restrict type="points" value="50" message="Earn 50 points to read this."]\n    Your members-only content\n[/gameengine_restrict]',
+    url: 'https://gameengine.pro/docs/',
   },
 ];
 
