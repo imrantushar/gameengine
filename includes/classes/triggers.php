@@ -124,20 +124,24 @@ class Triggers
                 continue;
             }
 
-            // Calculate potential points if it's a point type reward
-            $potential_points = 0;
+            // Calculate potential points if it's a point type reward.
+            // Stays null for anything else, so process_single_rule reads the
+            // amount off the rule itself — passing 0 as an "override" made
+            // every deduction deduct nothing.
+            $potential_points = null;
             if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
                 $base_points = isset($params['points']) ? intval($params['points']) : 0;
                 $potential_points = apply_filters('gameengine_pro_point_amount', $base_points, $rule, $params, $hook_args);
             }
 
-            // Process the actual Reward or Deduction
-            // We pass the potentially capped points to the processor via a temporary filter or modified params
-            if ($potential_points > 0 || $rule->reward_type !== 'point_type' || $rule->action_type === 'deduct') {
+            // Process the actual Reward or Deduction.
+            // An award worth nothing after filtering is skipped; deductions and
+            // achievement/level rewards always run.
+            if (null === $potential_points || $potential_points > 0) {
                 $rule_success = $this->process_single_rule($rule, $safe_user_id, $config, $hook_args, $potential_points);
                 if ($rule_success) {
                     $first_rule_processed = true;
-                    if ($rule->reward_type === 'point_type' && $rule->action_type === 'award') {
+                    if (null !== $potential_points) {
                         $total_points_awarded += $potential_points;
                     }
                 }
@@ -187,8 +191,11 @@ class Triggers
         if ($rule->reward_type === 'point_type') {
             $points = ($points_override !== null) ? $points_override : (isset($params['points']) ? intval($params['points']) : 0);
 
-            // Only apply filters if no override was provided (override already includes filtered/capped points)
-            if ($points_override === null) {
+            // Only apply filters if no override was provided (override already
+            // includes filtered/capped points). gameengine_pro_point_amount
+            // shapes what a trigger pays out — multipliers, percentages,
+            // bonuses — so a deduction takes exactly the amount configured.
+            if ($points_override === null && 'award' === $rule->action_type) {
                 $points = apply_filters('gameengine_pro_point_amount', $points, $rule, $params, $hook_args);
             }
 
@@ -220,7 +227,7 @@ class Triggers
 
         // If the transaction was successful, update the user progress record
         if ($success) {
-            $this->update_requirement_progress($safe_user_id, (int) $rule->id);
+            $this->update_requirement_progress($safe_user_id, (int) $rule->id, $rule, $params);
         }
 
         return (bool) $success;
@@ -340,6 +347,7 @@ class Triggers
 
             if ($attempt_id > 0) {
                 global $wpdb;
+                // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Third-party LMS table has no API accessor; the value is read once per trigger evaluation and must be current.
                 $quiz_id = $wpdb->get_var($wpdb->prepare("SELECT quiz_id FROM {$wpdb->prefix}tutor_quiz_attempts WHERE attempt_id = %d", $attempt_id));
                 return (absint($quiz_id) === $target_quiz_id);
             }
@@ -436,8 +444,13 @@ class Triggers
 
     /**
      * Updates or creates the progress record for a specific requirement.
+     *
+     * @param int         $user_id        Acting user.
+     * @param int         $requirement_id Rule the user just satisfied.
+     * @param object|null $rule           The rule row, for the streak bonus.
+     * @param array|null  $params         Decoded rule parameters.
      */
-    private function update_requirement_progress($user_id, $requirement_id)
+    private function update_requirement_progress($user_id, $requirement_id, $rule = null, $params = null)
     {
         global $wpdb;
         $now = current_time('mysql');
@@ -445,18 +458,23 @@ class Triggers
         $safe_rid = absint($requirement_id);
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $exists = $wpdb->get_var($wpdb->prepare(
-            "SELECT id FROM {$wpdb->prefix}gameengine_requirement_progress WHERE user_id = %d AND requirement_id = %d",
+        $progress = $wpdb->get_row($wpdb->prepare(
+            "SELECT id, streak_count, streak_best, streak_last_at FROM {$wpdb->prefix}gameengine_requirement_progress WHERE user_id = %d AND requirement_id = %d",
             $safe_uid,
             $safe_rid
         ));
 
-        if ($exists) {
+        $streak = $this->next_streak_state($safe_uid, $safe_rid, $progress, $params);
+
+        if ($progress) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
             $wpdb->query($wpdb->prepare(
-                "UPDATE {$wpdb->prefix}gameengine_requirement_progress SET progress_count = progress_count + 1, last_updated = %s WHERE id = %d",
+                "UPDATE {$wpdb->prefix}gameengine_requirement_progress SET progress_count = progress_count + 1, streak_count = %d, streak_best = GREATEST(streak_best, %d), streak_last_at = %s, last_updated = %s WHERE id = %d",
+                $streak['count'],
+                $streak['count'],
+                $streak['last_at'],
                 $now,
-                absint($exists)
+                absint($progress->id)
             ));
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery
@@ -464,8 +482,283 @@ class Triggers
                 'user_id' => $safe_uid,
                 'requirement_id' => $safe_rid,
                 'progress_count' => 1,
+                'streak_count' => $streak['count'],
+                'streak_best' => $streak['count'],
+                'streak_last_at' => $streak['last_at'],
                 'last_updated' => $now
-            ], ['%d', '%d', '%d', '%s']);
+            ], ['%d', '%d', '%d', '%d', '%d', '%s', '%s']);
+        }
+
+        if ($streak['advanced']) {
+            $this->maybe_award_streak_bonus($safe_uid, $rule, $params, $streak['count']);
+        }
+    }
+
+    /**
+     * The calendar bucket a moment falls in, counted from the epoch.
+     *
+     * Streaks are counted in calendar days and weeks, not in elapsed hours:
+     * acting at 09:00 on Monday and 08:00 on Tuesday is two days in a row to
+     * anyone looking at a calendar, but only 23 hours to a clock. Measuring
+     * elapsed time meant a member who drifted a little earlier each day never
+     * advanced, and eventually had the run broken while never missing a day.
+     * This is also the unit the "Once Per Day" limit already uses, so the two
+     * options sitting side by side now agree.
+     *
+     * @param int    $timestamp Site-local timestamp.
+     * @param string $interval  'daily' or 'weekly'.
+     * @return int
+     */
+    private static function streak_bucket($timestamp, $interval)
+    {
+        if ('weekly' !== $interval) {
+            return (int) floor($timestamp / DAY_IN_SECONDS);
+        }
+
+        // The epoch was a Thursday (day 4), so shift the boundary onto the
+        // site's own first day of the week before bucketing.
+        $start_of_week = (int) get_option('start_of_week', 1);
+        $offset        = (4 - $start_of_week) * DAY_IN_SECONDS;
+
+        return (int) floor(($timestamp + $offset) / WEEK_IN_SECONDS);
+    }
+
+    /**
+     * Work out where a run of consecutive intervals stands after this firing.
+     *
+     * A trigger that fires twice inside one calendar interval only counts
+     * once, a firing in the very next one extends the run, and skipping an
+     * interval outright breaks it.
+     *
+     * @return array{count:int,last_at:string|null,advanced:bool}
+     */
+    private function next_streak_state($user_id, $requirement_id, $progress, $params)
+    {
+        $interval = isset($params['streak_interval']) ? sanitize_key($params['streak_interval']) : 'off';
+
+        if ('daily' !== $interval && 'weekly' !== $interval) {
+            return array(
+                'count'    => $progress ? (int) $progress->streak_count : 0,
+                'last_at'  => $progress ? $progress->streak_last_at : null,
+                'advanced' => false,
+            );
+        }
+
+        $now      = current_time('timestamp');
+        $last_at  = ($progress && ! empty($progress->streak_last_at)) ? strtotime($progress->streak_last_at) : 0;
+        $previous = $progress ? (int) $progress->streak_count : 0;
+
+        if (! $last_at || $previous < 1) {
+            return array('count' => 1, 'last_at' => current_time('mysql'), 'advanced' => true);
+        }
+
+        $gap = self::streak_bucket($now, $interval) - self::streak_bucket($last_at, $interval);
+
+        // Already counted for this day or week.
+        if ($gap < 1) {
+            return array('count' => $previous, 'last_at' => $progress->streak_last_at, 'advanced' => false);
+        }
+
+        if (1 === $gap) {
+            return array('count' => $previous + 1, 'last_at' => current_time('mysql'), 'advanced' => true);
+        }
+
+        do_action('gameengine_streak_broken', $user_id, $requirement_id, $previous);
+
+        return array('count' => 1, 'last_at' => current_time('mysql'), 'advanced' => true);
+    }
+
+    /**
+     * Pay the streak bonus when the run lands on a multiple of the milestone.
+     *
+     * The bonus is its own points entry rather than an increase to the award
+     * that triggered it, so the log keeps "you earned this" and "you kept it
+     * up" apart.
+     */
+    private function maybe_award_streak_bonus($user_id, $rule, $params, $count)
+    {
+        if (! $rule || 'point_type' !== $rule->reward_type || 'award' !== $rule->action_type) {
+            return;
+        }
+
+        $milestone = isset($params['streak_milestone']) ? absint($params['streak_milestone']) : 0;
+
+        if ($milestone < 1 || $count < 1 || 0 !== $count % $milestone) {
+            return;
+        }
+
+        $bonus = isset($params['streak_bonus_points']) ? intval($params['streak_bonus_points']) : 0;
+
+        /**
+         * Filters the points paid for reaching a streak milestone.
+         *
+         * Deliberately not `gameengine_pro_point_amount`: that filter shapes
+         * the award the trigger itself makes, and running a multiplier over
+         * both would apply it twice.
+         *
+         * @param int    $bonus Bonus points.
+         * @param object $rule  The rule that carries the streak options.
+         * @param array  $params Rule parameters.
+         * @param int    $count Length of the current run.
+         */
+        $bonus = (int) apply_filters('gameengine_streak_bonus_points', $bonus, $rule, $params, $count);
+
+        if ($bonus > 0) {
+            $this->points_manager->add($user_id, $bonus, 'streak_milestone', array(
+                'point_type_id'  => (int) $rule->reward_id,
+                'requirement_id' => (int) $rule->id,
+                'description'    => sprintf(
+                    /* translators: 1: trigger label, 2: streak count */
+                    __('%1$s streak milestone: %2$d in a row', 'gameengine'),
+                    $params['log_label'] ?? $rule->trigger_key,
+                    $count
+                ),
+            ));
+        }
+
+        /**
+         * Fires when a user reaches a streak milestone on a trigger.
+         *
+         * @param int    $user_id        Acting user.
+         * @param int    $requirement_id The rule carrying the streak options.
+         * @param int    $count          Length of the current run.
+         */
+        do_action('gameengine_streak_milestone', $user_id, (int) $rule->id, $count);
+    }
+
+    /**
+     * Every live run a user currently has going, for the profile shortcode.
+     *
+     * @param int $user_id User to report on.
+     * @return array<int, array{label:string,interval:string,count:int,best:int,milestone:int}>
+     */
+    public static function get_user_streaks($user_id)
+    {
+        global $wpdb;
+
+        $safe_uid = absint($user_id);
+
+        if ($safe_uid <= 0) {
+            return array();
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $rows = $wpdb->get_results($wpdb->prepare(
+            "SELECT r.trigger_key, r.parameters, p.streak_count, p.streak_best, p.streak_last_at
+             FROM {$wpdb->prefix}gameengine_requirement_progress p
+             JOIN {$wpdb->prefix}gameengine_requirements r ON r.id = p.requirement_id
+             WHERE p.user_id = %d AND p.streak_count > 0 AND r.is_active = 1",
+            $safe_uid
+        ), ARRAY_A) ?: array();
+
+        $streaks = array();
+
+        foreach ($rows as $row) {
+            $params   = json_decode($row['parameters'], true);
+            $interval = isset($params['streak_interval']) ? sanitize_key($params['streak_interval']) : 'off';
+
+            if ('daily' !== $interval && 'weekly' !== $interval) {
+                continue;
+            }
+
+            // A run the user has already let lapse is not a live streak, even
+            // though the row still holds its last count.
+            $last_at = ! empty($row['streak_last_at']) ? strtotime($row['streak_last_at']) : 0;
+
+            if (! $last_at) {
+                continue;
+            }
+
+            $gap = self::streak_bucket(current_time('timestamp'), $interval)
+                 - self::streak_bucket($last_at, $interval);
+
+            if ($gap > 1) {
+                continue;
+            }
+
+            $streaks[] = array(
+                'label'     => ! empty($params['log_label']) ? $params['log_label'] : $row['trigger_key'],
+                'interval'  => $interval,
+                'count'     => (int) $row['streak_count'],
+                'best'      => (int) $row['streak_best'],
+                'milestone' => isset($params['streak_milestone']) ? absint($params['streak_milestone']) : 0,
+            );
+        }
+
+        return $streaks;
+    }
+
+    /**
+     * Human label for the rule a streak event came from.
+     *
+     * The streak events carry a requirement id; this is what turns that back
+     * into something worth putting in an email.
+     *
+     * @param int $requirement_id Rule id from a streak event.
+     * @return string
+     */
+    public static function get_streak_label($requirement_id)
+    {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $row = $wpdb->get_row($wpdb->prepare(
+            "SELECT trigger_key, parameters FROM {$wpdb->prefix}gameengine_requirements WHERE id = %d",
+            absint($requirement_id)
+        ), ARRAY_A);
+
+        if (! $row) {
+            return '';
+        }
+
+        $params = json_decode($row['parameters'], true);
+
+        return ! empty($params['log_label']) ? $params['log_label'] : $row['trigger_key'];
+    }
+
+    /**
+     * Zero out runs the user has let lapse, announcing each one.
+     *
+     * The break is also detected on the user's next firing, but that could be
+     * weeks away; the daily sweep is what makes `gameengine_streak_broken`
+     * arrive while it still means something to whoever is listening.
+     */
+    public static function sweep_broken_streaks()
+    {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $rows = $wpdb->get_results(
+            "SELECT p.id, p.user_id, p.requirement_id, p.streak_count, p.streak_last_at, r.parameters
+             FROM {$wpdb->prefix}gameengine_requirement_progress p
+             JOIN {$wpdb->prefix}gameengine_requirements r ON r.id = p.requirement_id
+             WHERE p.streak_count > 0",
+            ARRAY_A
+        ) ?: array();
+
+        $now = current_time('timestamp');
+
+        foreach ($rows as $row) {
+            $params   = json_decode($row['parameters'], true);
+            $interval = isset($params['streak_interval']) ? sanitize_key($params['streak_interval']) : 'off';
+
+            if ('daily' !== $interval && 'weekly' !== $interval) {
+                continue;
+            }
+
+            $last_at = ! empty($row['streak_last_at']) ? strtotime($row['streak_last_at']) : 0;
+
+            if ($last_at && (self::streak_bucket($now, $interval) - self::streak_bucket($last_at, $interval)) <= 1) {
+                continue;
+            }
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query($wpdb->prepare(
+                "UPDATE {$wpdb->prefix}gameengine_requirement_progress SET streak_count = 0 WHERE id = %d",
+                absint($row['id'])
+            ));
+
+            do_action('gameengine_streak_broken', (int) $row['user_id'], (int) $row['requirement_id'], (int) $row['streak_count']);
         }
     }
 }

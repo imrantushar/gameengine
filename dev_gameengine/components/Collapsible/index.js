@@ -1,6 +1,6 @@
 import React from "react";
 import { LuChevronDown, LuChevronUp } from "react-icons/lu";
-import { __, sprintf } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import { arrowBackward } from "@GFUtils/icons";
 
@@ -20,19 +20,19 @@ const CustomCollapsible = ({
                         <div className="flex items-center justify-between cursor-pointer" onClick={onClick}>
                                 <GFLabel type="title" margin={0} padding={0}
                                         // translators: %s: label
-                                        label={sprintf(__('%s', 'gemboards'), label)} fontWeight="400" />
+                                        label={label} fontWeight="400" />
 
                                 {!singleIcon ? (
                                         <>{isOpen ? <LuChevronUp size="20px" /> : <LuChevronDown size="20px" />}</>
                                 ) : (
-                                        <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[#FF3E2F]">
+                                        <div className="items-center justify-center rounded-full w-6 h-6 flex text-white bg-[var(--gameengine-error-strong)]">
                                                 {arrowBackward()}
                                         </div>
                                 )}
                         </div>
 
                         {isOpen && children && (
-                                <div className="flex flex-col pt-6" borderBottomLeftRadius="4px" borderBottomRightRadius="4px">
+                                <div className="flex flex-col pt-6 rounded-b">
                                         {children}
                                 </div>
                         )}

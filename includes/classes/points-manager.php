@@ -21,6 +21,12 @@ class PointsManager
             return false;
         }
 
+        $points = (int) apply_filters('gameengine_points_to_award', $points, $context, $user_id, $args);
+
+        if ($points <= 0) {
+            return false;
+        }
+
         return $this->log_transaction($user_id, abs($points), $context, $args);
     }
 
@@ -122,6 +128,35 @@ class PointsManager
     /**
      * Get grand total points (sum of all point types).
      */
+    /**
+     * Every published point type, for a currency picker.
+     *
+     * Static because the front-end templates that need a currency list have no
+     * manager instance to hand.
+     *
+     * @return array List of rows with id, name and slug.
+     */
+    public static function get_point_types(): array
+    {
+        global $wpdb;
+
+        $cached = wp_cache_get('gameengine_published_point_types', 'gameengine');
+
+        if (false !== $cached) {
+            return (array) $cached;
+        }
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $rows = $wpdb->get_results(
+            "SELECT id, name, slug FROM {$wpdb->prefix}gameengine_point_types WHERE status = 'publish' ORDER BY id ASC",
+            ARRAY_A
+        ) ?: array();
+
+        wp_cache_set('gameengine_published_point_types', $rows, 'gameengine', 5 * MINUTE_IN_SECONDS);
+
+        return $rows;
+    }
+
     public function get_grand_total(int $user_id): int
     {
         $safe_user_id = (int) $user_id;

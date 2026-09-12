@@ -27,6 +27,7 @@ const WhatsNew = () => {
                 iconPosition="left"
                 preset="white"
                 border="gray"
+                suffix=' mr-[30px]'
                 onClick={() => setIsDrawerOpen(true)}
             />
 
@@ -46,10 +47,10 @@ const WhatsNew = () => {
                         return (
                             <div
                                 key={release?.version}
-                                className="border-b border-gray-100 last:border-b-0"
+                                className="border-b border-[var(--gameengine-border-color)] last:border-b-0"
                             >
                                 <div className="flex items-center gap-3 mb-4">
-                                    <span className="text-xs font-medium bg-[var(--gameengine-primary)] text-white rounded-full uppercase px-3 py-1.5">
+                                    <span className="text-xs font-medium bg-[var(--gameengine-primary-strong)] text-white rounded-full uppercase px-3 py-1.5">
                                         {release?.version}
                                     </span>
                                 </div>
@@ -82,7 +83,7 @@ const WhatsNew = () => {
                                                     {type?.label}
                                                 </span>
 
-                                                <p className="text-[15px] leading-6 text-[#454F59] m-0">
+                                                <p className="text-[15px] leading-6 text-[var(--gameengine-warn-muted)] m-0">
                                                     {change?.text}
                                                 </p>
                                             </div>
@@ -97,7 +98,7 @@ const WhatsNew = () => {
                                         onClick={() =>
                                             toggleVersion(release?.version)
                                         }
-                                        className="mt-4 text-[14px] font-normal leading-6 bg-transparent border-0 text-[#22A06B] underline cursor-pointer"
+                                        className="mt-4 text-[14px] font-normal leading-6 bg-transparent border-0 text-[var(--gameengine-success)] underline cursor-pointer"
                                     >
                                         {isExpanded
                                             ? __('Show Less', 'gameengine')

@@ -12,8 +12,8 @@
     line-height: 20px;
     font-weight: 500;
     text-decoration: none;
-    background: #fff;
-    color: #444;
+    background: var(--gameengine-background);
+    color: var(--gameengine-font-color);
     cursor: pointer;
     text-align: center;
     padding: 15px;
@@ -91,10 +91,10 @@
     }
     &--bg-purple,
     &--preset-purple {
-        background: var(--gameengine-primary);
+        background: var(--gameengine-primary-strong);
         color: #fff;
         &:hover, &:focus {
-            background: var(--gameengine-primary);
+            background: var(--gameengine-primary-strong);
             color: #fff;
         }
     }
@@ -125,12 +125,14 @@
             background: var(--gameengine-secondary-color);
         }
     }
+    // "white" here means "the plain surface", not literal white — otherwise
+    // the top-bar actions stay a light blob in dark mode.
     &--preset-white {
-        background: #fff;
-        color: #000000;
+        background: var(--gameengine-background);
+        color: var(--gameengine-font-color);
         &:hover, &:focus {
-            background: #fff;
-            color: #000000;
+            background: var(--gameengine-secondary-color);
+            color: var(--gameengine-font-color);
         }
     }
     &--preset-transparent {
@@ -197,7 +199,7 @@
         font-size: 14px;
 	}
     &--disabled {
-        background: #E5E5E6 !important;
+        background: var(--gameengine-disabled-bg) !important;
         color: var(--gameengine-text-disable) !important;
         cursor: not-allowed !important;
         .gameengine-icon {

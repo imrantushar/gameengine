@@ -35,7 +35,8 @@ const LevelTable = () => {
     page,
     perPage,
     total,
-    search
+    search,
+    listLoaded
   } = useSelector(state => state.levels || {});
 
   const [loading, setLoading] = useState(levels.length === 0);
@@ -99,11 +100,18 @@ const LevelTable = () => {
           }
         >
           {row.icon && (
-            <img
-              src={row.icon}
-              alt=""
-              className="w-6 h-6 object-contain"
-            />
+            String(row.icon).startsWith('dashicons-') ? (
+              <span
+                className={`dashicons ${row.icon}`}
+                style={{ fontSize: '20px', width: '20px', height: '20px', color: row.color || 'var(--gameengine-primary)' }}
+              />
+            ) : (
+              <img
+                src={row.icon}
+                alt=""
+                className="w-6 h-6 object-contain"
+              />
+            )
           )}
           <span className="font-medium">{row.title}</span>
         </div>
@@ -139,6 +147,12 @@ const LevelTable = () => {
           : 'Triggers'
     },
     {
+      name: __('Members', 'gameengine'),
+      cell: row => (
+        <span className="text-sm">{Number(row?.user_count || 0)}</span>
+      )
+    },
+    {
       name: __('Date', 'gameengine'),
       cell: row => (
         <span className="text-sm">{moment(row?.created_at).format('MMMM DD, YYYY')}</span>
@@ -172,33 +186,61 @@ const LevelTable = () => {
       width: "15%"
     },
     {
-      cell: row => (
-        <OptionMenu
-          options={[
-            {
-              type: "button",
-              label: __('Edit', 'gameengine'),
-              icon: <FiEdit />,
-              onClick: () =>
-                navigate(
-                  `${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`
-                ),
-              hasBorder: true
-            },
-            {
-              type: "button",
-              suffix: "trash",
-              label: __('Delete', 'gameengine'),
-              icon: <FiTrash2 />,
-              onClick: () => {
-                if (window.confirm(__('Are you sure?', 'gameengine'))) {
-                  dispatch(deleteLevel(row.id));
-                }
+      cell: row => {
+        // Outside the trash view a row is trashed, not destroyed; inside it,
+        // the only thing left to do is delete it for good.
+        const trashAction =
+          tableStats !== 'trash'
+            ? {
+                type: "button",
+                suffix: "trash",
+                label: __('Trash', 'gameengine'),
+                icon: <FiTrash2 />,
+                onClick: () =>
+                  dispatch(
+                    updateLevel({
+                      id: row.id,
+                      payload: {
+                        ...row,
+                        status: 'trash'
+                      }
+                    })
+                  ).then(() =>
+                    fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
+                  )
               }
-            }
-          ]}
-        />
-      )
+            : {
+                type: "button",
+                suffix: "trash",
+                label: __('Delete', 'gameengine'),
+                icon: <FiTrash2 />,
+                onClick: () => {
+                  if (window.confirm(__('Delete permanently? This cannot be undone.', 'gameengine'))) {
+                    dispatch(deleteLevel(row.id)).then(() =>
+                      fetchHandler({ status: tableStats, page, per_page: perPage, searchKey: search || '' })
+                    );
+                  }
+                }
+              };
+
+        return (
+          <OptionMenu
+            options={[
+              {
+                type: "button",
+                label: __('Edit', 'gameengine'),
+                icon: <FiEdit />,
+                onClick: () =>
+                  navigate(
+                    `${route_path}admin.php?page=gameengine-levels&action=edit&id=${row.id}`
+                  ),
+                hasBorder: true
+              },
+              trashAction
+            ]}
+          />
+        );
+      }
     }
   ];
 
@@ -213,7 +255,7 @@ const LevelTable = () => {
     };
 
     return (
-      <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-gray-200 mb-4">
+      <div className="gameengine-filter-toolbar flex justify-between items-center w-full border-0 border-b border-solid border-[var(--gameengine-border-color)] mb-4">
         <div className="gameengine-filter-toolbar__tabs flex">
           {tableStatusArray.map((item, index) => {
             const isActive = tableStats === item.value;
@@ -401,7 +443,8 @@ const LevelTable = () => {
 
   return (
     <div className="gameengine-page-content">
-      {levels.length === 0 &&
+      {listLoaded &&
+        levels.length === 0 &&
         banners?.levels !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner

@@ -53,9 +53,18 @@ $gameengine_rank_index = 1;
                         ? (float) $gameengine_user_row['total_points']
                         : 0;
                     ?>
-                    <tr class="rank-<?php echo esc_attr($gameengine_rank_index); ?>">
+                    <?php
+                    // The row carries its own standing: a season snapshot stores
+                    // the competition position it was captured with, and ties
+                    // share a place. Falling back to the loop index only covers
+                    // a caller that supplies neither.
+                    $gameengine_rank = isset($gameengine_user_row['position'])
+                        ? (int) $gameengine_user_row['position']
+                        : $gameengine_rank_index;
+                    ?>
+                    <tr class="rank-<?php echo esc_attr($gameengine_rank); ?>">
                         <td class="rank-col">
-                            #<?php echo esc_html($gameengine_rank_index); ?>
+                            #<?php echo esc_html($gameengine_rank); ?>
                         </td>
 
                         <td class="user-col">

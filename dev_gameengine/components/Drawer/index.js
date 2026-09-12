@@ -35,7 +35,7 @@ const Drawer = ({ isOpen = false, onClose, title = '', width = '420px', children
             {/* Panel */}
             <div
                 className={[
-                    'fixed top-0 right-0 h-full bg-white z-[100001]',
+                    'fixed top-0 right-0 h-full bg-[var(--gameengine-background)] z-[100001]',
                     'flex flex-col',
                     'shadow-2xl',
                     'transition-transform duration-300 ease-in-out',
@@ -48,10 +48,10 @@ const Drawer = ({ isOpen = false, onClose, title = '', width = '420px', children
             >
                 {/* Header */}
                 <div className="flex items-center justify-between px-6 py-4 border-0 border-b border-solid border-[var(--gameengine-border-color)] shrink-0">
-                    <h2 className="text-base font-semibold m-0 text-[#1a1a2e]">{title}</h2>
+                    <h2 className="text-base font-semibold m-0 text-[var(--gameengine-font-color)]">{title}</h2>
                     <button
                         type="button"
-                        className="flex items-center justify-center w-8 h-8 rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-700 transition-colors bg-transparent border-0 cursor-pointer"
+                        className="flex items-center justify-center w-8 h-8 rounded-md text-[var(--gameengine-warn-muted)] hover:bg-[var(--gameengine-secondary-color)] hover:text-[var(--gameengine-font-color)] transition-colors bg-transparent border-0 cursor-pointer"
                         onClick={onClose}
                         aria-label="Close drawer"
                     >

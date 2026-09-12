@@ -6,6 +6,7 @@ const notificationSlice = createSlice( {
 		message: '',
 		isShow: false,
 		type: '',
+		shareData: null,
 	},
 	reducers: {
 		showNotification: ( state, actions ) => {
@@ -13,6 +14,7 @@ const notificationSlice = createSlice( {
 			state.message = payload.message;
 			state.isShow = payload.isShow;
 			state.type = payload.type;
+			state.shareData = payload.shareData || null;
 		},
 	},
 } );

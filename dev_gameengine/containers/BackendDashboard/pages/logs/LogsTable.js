@@ -4,8 +4,10 @@ import { __ } from '@wordpress/i18n';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import ListTable from '@GFComponents/ListTable';
 import Search from '@GFComponents/Search';
-import { FiEdit, FiClock } from "react-icons/fi";
+import Button from '@GFComponents/Button';
+import { FiEdit, FiClock, FiDownload } from "react-icons/fi";
 import { fetchLogs, } from '@GFRedux/Slices/logsSlice/logsSlice';
+import { API, namespace } from '@GFUtils/helper';
 
 const LogsTable = ({
   modalOpenHandler
@@ -20,6 +22,8 @@ const LogsTable = ({
     status
   } = useSelector(state => state.logs);
   const [loading, setLoading] = useState(items.length === 0);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [exporting, setExporting] = useState(false);
   const handleRefresh = async (page = 1, per_page = 10, serchKey = "") => {
     setLoading(true);
     await dispatch(fetchLogs({
@@ -42,10 +46,37 @@ const LogsTable = ({
     handleRefresh(currentPage, itemsPerPage);
   };
 
+  const handleExport = async () => {
+    setExporting(true);
+    try {
+      const res = await API.get(namespace + 'logs/export', {
+        params: searchTerm ? { search: searchTerm } : {},
+        responseType: 'blob',
+      });
+
+      const contentDisposition = res.headers['content-disposition'] || '';
+      const match = contentDisposition.match(/filename="?([^";\s]+)"?/);
+      const filename = match ? match[1] : `gameengine-logs-${new Date().toISOString().slice(0, 10)}.csv`;
+
+      const url = URL.createObjectURL(new Blob([res.data]));
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      alert(__('Export failed. Please try again.', 'gameengine'));
+    } finally {
+      setExporting(false);
+    }
+  };
+
   const columns = useMemo(() => [
     {
       name: __('User', 'gameengine'),
-      cell: row => <div className='gameengine-table-flex-col'>
+      cell: row => <div className='flex flex-col gap-[4px]'>
         <span className="font-semibold">{row.user_name || 'Guest'}</span>
         <span className="text-xs" style={{
           color: '#666'
@@ -70,7 +101,7 @@ const LogsTable = ({
 
           {congratsMsg && (
             <div
-              className="[&>p]:m-0 mt-6 px-[6px] py-[8px] rounded bg-[#f0fff4] color-[#2f855a]"
+              className="[&>p]:m-0 mt-6 px-[6px] py-[8px] rounded bg-[var(--gameengine-success-light)] color-[#2f855a]"
               dangerouslySetInnerHTML={{
                 __html: congratsMsg
               }}
@@ -143,13 +174,27 @@ const LogsTable = ({
         </button>
       </div>
 
-      <Search placeholder={__('Search Items', 'gameengine')} defaultValue={search} onSearchHandler={val => dispatch(fetchLogs({
-        currentPage,
-        perPage,
-        search: val
-      }))} />
+      <div className='flex items-center gap-2'>
+        <Search placeholder={__('Search Items', 'gameengine')} defaultValue={search} onSearchHandler={val => {
+          setSearchTerm(val);
+          dispatch(fetchLogs({
+            currentPage,
+            perPage,
+            search: val
+          }));
+        }} />
+
+        <Button
+          label={__('Export CSV', 'gameengine')}
+          icon={<FiDownload size="14px" />}
+          preset="secondary"
+          border="gray"
+          isLoading={exporting}
+          onClick={handleExport}
+        />
+      </div>
     </>;
-  }, [status, search]);
+  }, [status, search, searchTerm, exporting]);
 
   return (
     <ListTable

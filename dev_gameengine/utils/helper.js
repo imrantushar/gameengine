@@ -15,8 +15,6 @@ export const {
 	namespace,
 	gameengine_nonce,
 	user_id,
-	is_plain_permalink,
-	is_pro,
 	is_woocommerce_active,
 	is_academylms_active,
 	is_tutorlms_active,
@@ -82,16 +80,37 @@ export const sliceString = (text, length = 20, more = '...') => {
 	return text.slice(0, length).replace(/(^[\s]+|[\s]+$)/g, '') + more;
 };
 
-export const getAddonActiveStatus = (allAddons, addonName, isPro = false) => {
-	// if pro is inactive
-	if (isPro && !is_pro) {
-		return false;
-	}
+export const getAddonActiveStatus = (allAddons, addonName) => {
 	if (allAddons[addonName]) {
 		return allAddons[addonName] === true;
 	}
 	return false;
 };
+
+/**
+ * Whether the site's REST root already carries a query string.
+ *
+ * With plain permalinks `rest_url()` is `index.php?rest_route=/` rather than
+ * `/wp-json/`.
+ */
+const REST_ROOT_HAS_QUERY = -1 !== String(rest_url).indexOf('?');
+
+/**
+ * Join a REST path's own query string onto the REST root.
+ *
+ * A path such as `triggers?scope=point_type` appended to a root that already
+ * has a query emits a second `?`. WordPress reads everything after the first
+ * one as the route name, so the request comes back as `rest_no_route` even
+ * though the route is registered. Sites with pretty permalinks never hit this,
+ * which is why it is easy to ship.
+ *
+ * @param {string} path REST path, with or without its own query string.
+ * @return {string} The path, safe to append to the REST root.
+ */
+export const restPath = (path) =>
+	REST_ROOT_HAS_QUERY && typeof path === 'string'
+		? path.replace('?', '&')
+		: path;
 
 export const API = axios.create({
 	baseURL: rest_url,
@@ -100,6 +119,20 @@ export const API = axios.create({
 		'X-WP-Nonce': nonce,
 		'Cache-Control': 'no-cache', // Prevent caching
 	},
+});
+
+/**
+ * Apply the query-string join to every relative request.
+ *
+ * Absolute URLs are left alone: they carry their own root, so the caller has
+ * already decided how the query is joined. The `params` option needs no help —
+ * axios picks `&` itself once the base URL contains a `?`.
+ */
+API.interceptors.request.use((config) => {
+	if (typeof config.url === 'string' && ! /^https?:\/\//i.test(config.url)) {
+		config.url = restPath(config.url);
+	}
+	return config;
 });
 export const makeRequest = async (
 	action,
@@ -125,7 +158,9 @@ export const makeRequest = async (
 	} = response;
 
 	if (!success) {
-		processAjaxError(data, response);
+		throw new Error(
+			data?.message ?? __('Request failed.', 'gameengine')
+		);
 	}
 
 	return data;
@@ -158,12 +193,19 @@ export const statusArray = [
 	// },
 ];
 
+// Tabs for the list screens. Trash is a view, not a status a person picks for
+// an item, so it belongs here rather than in `statusArray` above — that one
+// fills the per-row status dropdown.
 export const tableStatusArray = [
 	{
 		label: __('All', 'gameengine'),
 		value: 'all',
 	},
-	...statusArray
+	...statusArray,
+	{
+		label: __('Trash', 'gameengine'),
+		value: 'trash',
+	},
 ];
 
 export function decodeHtmlEntity(entity) {
@@ -171,3 +213,41 @@ export function decodeHtmlEntity(entity) {
 	txt.innerHTML = entity;
 	return txt.value;
 }
+/**
+ * The label for an integration's tab.
+ *
+ * Each integration declares its own name and the API sends it; deriving one
+ * from the slug instead turned "gameengine" into "Gameengine" and "wordpress"
+ * into "Wordpress". The slug is only a fallback, for a category that has no
+ * hooks and so no name to read.
+ */
+export const integrationLabel = (slug, hooks = []) => {
+  if (!slug) return '';
+
+  const named = hooks.find(h => h?.integrationSlug === slug && h?.integrationName);
+
+  return named ? named.integrationName : slug.charAt(0).toUpperCase() + slug.slice(1);
+};
+
+/**
+ * A short "how long ago" label for an activity timestamp.
+ *
+ * Lives here because the admin bell and the Activity screen both render the
+ * same feed; two copies had already drifted apart on where they stop counting
+ * days. Falls back to a real date past a month, where "43d ago" stops meaning
+ * anything to a reader.
+ */
+export const relativeTime = (dateStr) => {
+	const then = new Date(dateStr).getTime();
+
+	if (Number.isNaN(then)) return '';
+
+	const diff = Math.floor((Date.now() - then) / 1000);
+
+	if (diff < 60) return __('Just now', 'gameengine');
+	if (diff < 3600) return Math.floor(diff / 60) + __('m ago', 'gameengine');
+	if (diff < 86400) return Math.floor(diff / 3600) + __('h ago', 'gameengine');
+	if (diff < 2592000) return Math.floor(diff / 86400) + __('d ago', 'gameengine');
+
+	return new Date(dateStr).toLocaleDateString();
+};

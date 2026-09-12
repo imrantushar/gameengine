@@ -10,6 +10,7 @@ import { BiErrorCircle } from 'react-icons/bi';
 import { FiInfo } from 'react-icons/fi';
 import { IoCloseOutline } from 'react-icons/io5';
 import { showNotification } from '@GFRedux/Slices/notificationSlice/notificationSlice';
+import ShareButton from '@GFComponents/ShareButton';
 
 const iconType = type => {
   switch (type) {
@@ -30,6 +31,7 @@ const Notification = () => {
   const notificationRef = useRef(null);
   const targetElement = document.querySelector('#gameengine-admin-app');
   const notification = useSelector(state => state.notification);
+  const shareEnabled = window.GameEngineGlobal?.social_sharing !== false;
   const dispatch = useDispatch();
   useEffect(() => {
     if (notification.isShow && targetElement) {
@@ -110,6 +112,14 @@ const Notification = () => {
             </div>
           )}
 
+          {shareEnabled && notification.shareData && (
+            <ShareButton
+              title={notification.shareData.title || ''}
+              text={notification.shareData.text || notification.message || ''}
+              url={notification.shareData.url || window.location.href}
+              size={16}
+            />
+          )}
           <button className="p-0 bg-transparent [min-width:auto] border-0 text-white text-[20px]" onClick={closeHandler} aria-label={__('Close notification', 'gameengine')}>
             <IoCloseOutline />
           </button>

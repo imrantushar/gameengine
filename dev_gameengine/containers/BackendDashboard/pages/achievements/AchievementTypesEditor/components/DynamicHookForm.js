@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { fetchDynamicOptions } from '@GFRedux/Slices/pointTypesSlice/pointTypeSlice';
 import Select from 'react-select';
-import { is_pro as isProActive } from '@GFUtils/helper';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 
 const DynamicField = ({
@@ -18,16 +17,15 @@ const DynamicField = ({
   const dispatch = useDispatch();
   const [dynamicOptions, setDynamicOptions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const isDisabled = config.is_pro && !isProActive;
   useEffect(() => {
-    if (config.dynamic && !isDisabled) {
+    if (config.dynamic) {
       setLoading(true);
       dispatch(fetchDynamicOptions({
         integration: config.dynamic.integration || integrationSlug,
         query: config.dynamic.query
       })).unwrap().then(res => setDynamicOptions(res)).finally(() => setLoading(false));
     }
-  }, [config.dynamic, isDisabled, integrationSlug]);
+  }, [config.dynamic, integrationSlug]);
   let displayLabel = config.label;
   if (fieldKey === 'points') {
     displayLabel = type === 'award' ? __('Points to Award', 'gameengine') : __('Points to Deduct', 'gameengine');
@@ -37,29 +35,26 @@ const DynamicField = ({
   const labelElement = <div style={{
     "marginBottom": "2"
   }}>
-            <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} isPro={config.is_pro} fontSize="sm" fontWeight="500" margin="0" />
+            <GFLabel label={`${displayLabel}${config.required ? ' *' : ''}`} fontSize="sm" fontWeight="500" margin="0" />
         </div>;
   if (config.type === 'select' || config.type === 'dynamic_select') {
     const optionsSource = config.options ? Array.isArray(config.options) ? config.options : Object.entries(config.options).map(([val, lbl]) => ({
       value: val,
       label: lbl
     })) : dynamicOptions;
-    return <div className="w-full" style={{
-      "opacity": isDisabled ? 0.7 : 1
-    }}>
+    return <div className="w-full">
                 {labelElement}
-                <Select isDisabled={isDisabled} isLoading={loading} placeholder={isDisabled ? __('Upgrade to Pro', 'gameengine') : __('Select...', 'gameengine')} className="gameengine-select" classNamePrefix="gameengine-select" options={optionsSource} value={optionsSource.find(opt => opt.value == value) || null} onChange={val => onChange(val ? val.value : '')} />
+                <Select isLoading={loading} placeholder={__('Select...', 'gameengine')} className="gameengine-select" classNamePrefix="gameengine-select" options={optionsSource} value={optionsSource.find(opt => opt.value == value) || null} onChange={val => onChange(val ? val.value : '')} />
             </div>;
   }
   if (config.type === 'switch') {
     return <div className="flex items-center justify-between w-full p-2" style={{
       "border": "1px dashed",
       "borderColor": "gray.200",
-      "borderRadius": "md",
-      "opacity": isDisabled ? 0.6 : 1
+      "borderRadius": "md"
     }}>
                 <div>
-                    <GFLabel label={displayLabel} isPro={config.is_pro} fontWeight="600" fontSize="sm" />
+                    <GFLabel label={displayLabel} fontWeight="600" fontSize="sm" />
                     {config.description && <p style={{
           "fontSize": "xs",
           "color": "gray.500",
@@ -71,10 +66,8 @@ const DynamicField = ({
                 </button>
             </div>;
   }
-  return <div className="w-full" style={{
-    "opacity": isDisabled ? 0.7 : 1
-  }}>
-            <LabeledInput label={displayLabel} isPro={config.is_pro} placeholder={isDisabled ? __('Locked Feature', 'gameengine') : config.placeholder || ''} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(e.target.value)} required={config.required} disabled={isDisabled} />
+  return <div className="w-full">
+            <LabeledInput label={displayLabel} placeholder={config.placeholder || ''} type={config.type === 'number' ? 'number' : 'text'} value={value} onChange={e => onChange(e.target.value)} required={config.required} />
         </div>;
 };
 

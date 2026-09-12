@@ -8,16 +8,18 @@ import Achievements from './pages/achievements';
 import PointTypeEditor from './pages/points/PointTypeEditor';
 import Settings from './pages/settings';
 import Logs from './pages/logs';
+import Activity from './pages/activity';
 import Points from './pages/points';
 import Addons from './pages/addon';
+import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
+import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
+import Badges from './pages/badges';
+import BadgeEditor from './pages/badges/BadgeEditor';
+import RewardsStore from './pages/rewards-store';
 import Types from './pages/Types';
-import Wallet from './pages/walletLists';
-import Referrals from './pages/referrals';
-import LuckyWheels from './pages/lucky-wheels';
 import { useLocationQuery } from '@GFHooks/';
-import LicenseNotice from '@GFComponents/LicenseNotice';
 
 const renderSwitch = (page, id, action, path) => {
 
@@ -34,6 +36,9 @@ const renderSwitch = (page, id, action, path) => {
 			return <Points />;
 		case 'gameengine-logs':
 			return <Logs />;
+
+		case 'gameengine-activity':
+			return <Activity />;
 
 		case 'gameengine-settings':
 			return <Settings />;
@@ -67,17 +72,23 @@ const renderSwitch = (page, id, action, path) => {
 		case 'gameengine-addons':
 			return <Addons />;
 
-		case 'gameengine-wallet':
-			return <Wallet />;
 
-		case 'gameengine-referrals':
-			return <Referrals />;
+		case 'gameengine-rewards-store':
+			return <RewardsStore />;
 
-		case 'gameengine-lucky-wheels':
-			return <LuckyWheels action={action} id={id} />;
+		case 'gameengine-badge-editor':
+			if (action || id) {
+				return <BadgeEditor action={action} id={id} />;
+			}
+			return <Badges />;
 
-		default:
-			return <Dashboard />;
+
+		default: {
+			// Screens registered by another plugin for the features it ships.
+			const Registered = getDashboardRoutes({})[page];
+
+			return Registered ? <Registered action={action} id={id} path={path} /> : <Dashboard />;
+		}
 	}
 };
 
@@ -97,8 +108,13 @@ export default function BackendDashboard() {
 
 	return (
 		<div className="gameengine-admin-content">
-			<LicenseNotice />
 			<Notification />
+			{getDashboardNotices([]).map((Notice, index) => (
+				<Notice key={index} />
+			))}
+			<div style={{ position: 'fixed', top: '58px', right: '16px', zIndex: 4000 }}>
+				<AdminActivityFeed />
+			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }
 			</div>

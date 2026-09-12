@@ -2,88 +2,76 @@
     "name": "kodezen/gameengine",
     "description": "GameEngine is a powerful WordPress plugin that adds advanced gamification features.",
     "type": "project",
-    "license": "GPL-3.0-or-later",
-	"repositories": [
-		{
-			"type": "vcs",
-			"url": "https://github.com/imrantushar/storeengine-sdk-for-wordpress.git"
-		}
-	],
+    "license": "GPL-2.0-or-later",
     "require": {
         "php": "^7.4 || >=8.0",
         "ext-bcmath": "*",
         "ext-intl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
-		"ext-dom": "*",
-		"ext-mysqli": "*",
-        "storeengine/wordpress-sdk": "^1.5"
-	},
-	"config": {
-		"autoloader-suffix": "GameEngine",
-		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"composer/installers": true
-		}
-	},
-	"extra": {
-		"strauss": {
-			"target_directory": "vendor/prefixed",
-			"namespace_prefix": "GameEngine\\",
-			"classmap_prefix": "GameEngine_",
-			"constant_prefix": "GAMEENGINE_",
-			"update_call_sites": true,
-			"delete_vendor_packages": true,
-			"delete_vendor_files": true,
-			"include_modified_date": false,
-			"override_autoload": {},
-			"exclude_from_copy": {
-				"packages": [
-					"storeengine/wordpress-sdk"
-				]
-			}
-		}
-	},
-	"scripts": {
-		"prefix-namespaces": [
-			"@php -r \"is_dir('bin') || mkdir('bin', 0777, true);\"",
-			"@php -r \"file_exists('bin/strauss.phar') || copy('https://github.com/BrianHenryIE/strauss/releases/download/0.19.3/strauss.phar', 'bin/strauss.phar');\"",
-			"@php bin/strauss.phar",
-			"@composer dump-autoload -o"
-		],
-		"format": "phpcbf --colors --extensions=php ./includes ./addons ./templates",
-		"lint": "phpcs --colors --extensions=php ./includes ./addons ./templates",
-		"lint:log": "phpcs --colors --extensions=php --report=full --report-file=./phpcs.log ./includes ./addons ./templates",
-		"test": "vendor/bin/phpunit",
-		"build": [
-			"@composer install --no-dev --optimize-autoloader",
-			"@composer dump-autoload --no-dev --optimize --classmap-authoritative"
-		],
-		"dev": "@composer install",
-		"wp:gen-pot": "@php -d memory_limit=512M \"$(which wp)\" i18n make-pot --allow-root .",
-		"cache:clear": [
-			"@composer clear-cache"
-		],
-		"post-install-cmd": [
-			"@prefix-namespaces"
-		],
-		"post-update-cmd": [
-			"@prefix-namespaces"
-		]
-	},
-	"scripts-descriptions": {
-		"format": "Formate php files (phpcbf) as per WPCS rules.",
-		"lint": "Check the PHP WPCS (phpcs) violations.",
-		"lint:log": "Write lint output to a log file (phpcs.log).",
-		"test": "Runs unit tests.",
-		"build": "Build for release: install runtime deps only (no dev) with an optimized, authoritative classmap autoloader. Runs the strauss prefix step via post-install, then re-dumps authoritative. Use before packaging/release.",
-		"dev": "Install all dependencies including dev-dependencies.",
-		"wp:gen-pot": "Run WP-CLI pot generator with increased php memory limit.",
-		"cache:clear": "Clear Composer caches.",
-		"prefix-namespaces": "Internal use. Will auto-run with composer install/update command. Prefix the namespace of required dependenc with `StoreEngine`.",
-		"post-install-cmd": "Internal use. Runs `prefix-namespaces` after package install.",
-		"post-update-cmd": "Internal use. Runs `prefix-namespaces` after package update."
-	},
+        "ext-dom": "*",
+        "ext-mysqli": "*"
+    },
+    "config": {
+        "autoloader-suffix": "GameEngine",
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true
+        }
+    },
+    "extra": {
+        "strauss": {
+            "target_directory": "vendor/prefixed",
+            "namespace_prefix": "GameEngine\\",
+            "classmap_prefix": "GameEngine_",
+            "constant_prefix": "GAMEENGINE_",
+            "update_call_sites": true,
+            "delete_vendor_packages": true,
+            "delete_vendor_files": true,
+            "include_modified_date": false,
+            "override_autoload": {}
+        }
+    },
+    "scripts": {
+        "prefix-namespaces": [
+            "@php -r \"is_dir('bin') || mkdir('bin', 0777, true);\"",
+            "@php -r \"file_exists('bin/strauss.phar') || copy('https://github.com/BrianHenryIE/strauss/releases/download/0.19.3/strauss.phar', 'bin/strauss.phar');\"",
+            "@php bin/strauss.phar",
+            "@composer dump-autoload -o"
+        ],
+        "format": "phpcbf --colors --extensions=php ./includes ./addons ./templates",
+        "lint": "phpcs --colors --extensions=php ./includes ./addons ./templates",
+        "lint:log": "phpcs --colors --extensions=php --report=full --report-file=./phpcs.log ./includes ./addons ./templates",
+        "test": "vendor/bin/phpunit",
+        "build": [
+            "@composer install --no-dev --optimize-autoloader",
+            "@composer dump-autoload --no-dev --optimize --classmap-authoritative"
+        ],
+        "dev": "@composer install",
+        "wp:gen-pot": "@php -d memory_limit=512M \"$(which wp)\" i18n make-pot --allow-root .",
+        "cache:clear": [
+            "@composer clear-cache"
+        ],
+        "post-install-cmd": [
+            "@prefix-namespaces"
+        ],
+        "post-update-cmd": [
+            "@prefix-namespaces"
+        ]
+    },
+    "scripts-descriptions": {
+        "format": "Formate php files (phpcbf) as per WPCS rules.",
+        "lint": "Check the PHP WPCS (phpcs) violations.",
+        "lint:log": "Write lint output to a log file (phpcs.log).",
+        "test": "Runs unit tests.",
+        "build": "Build for release: install runtime deps only (no dev) with an optimized, authoritative classmap autoloader. Runs the strauss prefix step via post-install, then re-dumps authoritative. Use before packaging/release.",
+        "dev": "Install all dependencies including dev-dependencies.",
+        "wp:gen-pot": "Run WP-CLI pot generator with increased php memory limit.",
+        "cache:clear": "Clear Composer caches.",
+        "prefix-namespaces": "Internal use. Will auto-run with composer install/update command. Prefix the namespace of required dependenc with `StoreEngine`.",
+        "post-install-cmd": "Internal use. Runs `prefix-namespaces` after package install.",
+        "post-update-cmd": "Internal use. Runs `prefix-namespaces` after package update."
+    },
     "require-dev": {
         "php-stubs/wp-cli-stubs": "^2.12"
     }

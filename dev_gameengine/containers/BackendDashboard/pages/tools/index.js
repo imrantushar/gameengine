@@ -3,10 +3,13 @@ import TopBar from '@GFComponents/TopBar';
 import { __ } from '@wordpress/i18n';
 import React from 'react';
 import ShortCode from './Shortcode';
+import ExportImport from './ExportImport';
+import AvailableHooks from './AvailableHooks';
 import { admin_url, route_path, useQuery } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { TfiShortcode } from "react-icons/tfi";
 import { FcDataConfiguration } from "react-icons/fc";
+import { FiDownload, FiAnchor } from 'react-icons/fi';
 import GetHelp from '@GFComponents/GetHelp';
 import WhatsNew from '@GFComponents/WhatsNew';
 
@@ -23,6 +26,20 @@ const Tools = () => {
       route: `&path=shortcodes`
     },
     {
+      icon: FiDownload,
+      title: __('Export / Import', 'gameengine'),
+      name: 'export-import',
+      slug: 'export-import',
+      route: `&path=export-import`
+    },
+    {
+      icon: FiAnchor,
+      title: __('Available Hooks', 'gameengine'),
+      name: 'available-hooks',
+      slug: 'available-hooks',
+      route: `&path=available-hooks`
+    },
+    {
       title: __('Setup Wizard', 'gameengine'),
       icon: FcDataConfiguration,
       name: 'setup',
@@ -35,6 +52,10 @@ const Tools = () => {
     switch (urlPath) {
       case 'shortcodes':
         return <ShortCode />;
+      case 'export-import':
+        return <ExportImport />;
+      case 'available-hooks':
+        return <AvailableHooks />;
       default:
         return <ShortCode />;
     }
@@ -59,13 +80,13 @@ const Tools = () => {
 
         <div className="items-start flex gap-6 overflow-visible">
           <div className="w-[20%]">
-            <div className="w-full bg-white rounded-md shadow-sm border border-gray-100 p-2">
+            <div className="w-full gameengine-surface p-2">
               {tabs.map((tabItem, tabIndex) => {
                 const isActive = path === tabItem?.name;
                 const baseClasses = "flex items-center gap-3  px-3 py-2 rounded-md text-sm font-medium transition-colors";
                 const activeClasses = isActive
-                  ? "bg-gray-100 text-[var(--gameengine-primary-color)]"
-                  : "text-gray-700 hover:bg-gray-50";
+                  ? "bg-[var(--gameengine-secondary-color)] text-[var(--gameengine-primary-color)]"
+                  : "text-[var(--gameengine-font-color)] hover:bg-[var(--gameengine-secondary-color)]";
 
                 return (
                   <div key={tabIndex} className="mb-1 last:mb-0">
@@ -93,7 +114,7 @@ const Tools = () => {
           </div>
 
           <div className="w-[80%]">
-            <GameEngineBox dynamicClasses={'gameengine-tools'} heading={__('Shortcode', 'gameengine')}>
+            <GameEngineBox dynamicClasses={'gameengine-tools'} heading={tabs.find(t => t.name === path)?.title || __('Shortcodes', 'gameengine')}>
               {renderSwitch(path)}
             </GameEngineBox>
           </div>
