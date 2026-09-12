@@ -16,6 +16,7 @@ import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
 import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
+import BadgeEditor from './pages/badges/BadgeEditor';
 import Types from './pages/Types';
 import { useLocationQuery } from '@GFHooks/';
 
@@ -72,6 +73,9 @@ const renderSwitch = (page, id, action, path) => {
 
 
 		case 'gameengine-badge-editor':
+			if (action || id) {
+				return <BadgeEditor action={action} id={id} />;
+			}
 			return <Badges />;
 
 
