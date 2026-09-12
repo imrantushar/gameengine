@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
 import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece } from "react-icons/fa6";
@@ -12,6 +11,7 @@ import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
 import DashiconPicker from "@GFComponents/DashiconPicker";
+import ToggleField from "@GFComponents/ToggleField";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
@@ -272,7 +272,22 @@ const FormInner = () => {
     if (!exists) setOpenedHooks([draggedId]);
   };
 
-  const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+  const restrictHint = isRestrictContentActive
+    ? __("Members must earn the chosen achievement or level before this one unlocks.", "gameengine")
+    : (
+      <>
+        {__("Needs the Restrict Unlock add-on.", "gameengine")}{' '}
+        <Link
+          to={admin_url + 'admin.php?page=gameengine-addons'}
+          target="_blank"
+          className="inline-flex items-center gap-1"
+          style={{ color: 'var(--gameengine-primary)' }}
+        >
+          {__("Turn it on", "gameengine")}
+          <LuExternalLink size="12px" />
+        </Link>
+      </>
+    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -316,21 +331,13 @@ const FormInner = () => {
 
       <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-      <GameEngineInput label={reqLabel} width="100%">
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={values.is_restricted}
-            onChange={(val) => setFieldValue('is_restricted', val)}
-            disabled={!isRestrictContentActive}
-          />
-
-          {!isRestrictContentActive && (
-            <Link to={admin_url + 'admin.php?page=gameengine-addons'} target='_blank'>
-              <LuExternalLink size="20px" />
-            </Link>
-          )}
-        </div>
-      </GameEngineInput>
+      <ToggleField
+        checked={values.is_restricted}
+        onChange={(val) => setFieldValue('is_restricted', val)}
+        disabled={!isRestrictContentActive}
+        label={__("Require an achievement or level first", "gameengine")}
+        hint={restrictHint}
+      />
 
       {values?.is_restricted && isRestrictContentActive && (
         <div className="flex flex-col gap-3">
@@ -420,13 +427,12 @@ const FormInner = () => {
         </div>
       </BoxView>
 
-      <div className="flex items-center gap-3">
-        <Switch
-          checked={values.unlock_with_points_enabled}
-          onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
-        />
-        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px' }}>{__("Allow unlock with points", "gameengine")}</span>
-      </div>
+      <ToggleField
+        checked={values.unlock_with_points_enabled}
+        onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
+        label={__("Allow unlock with points", "gameengine")}
+        hint={__("Award this level automatically once a member's balance reaches the range below.", "gameengine")}
+      />
 
       {values?.unlock_with_points_enabled ? (
         <div className="flex gap-3">
