@@ -174,8 +174,14 @@ class EmailManager
     {
         if (!class_exists('\GameEngine\Classes\PointsManager')) return;
         $pm = new \GameEngine\Classes\PointsManager();
-        $total_points = $pm->get_total($user_id);
-        
+
+        // The balance has to be read for the currency this award belongs to.
+        // get_total() defaults to point type 1, so an award on any other type
+        // was subtracted from an unrelated balance — leaving old_total below
+        // the milestone every time and re-sending the same email on every
+        // award.
+        $total_points = $pm->get_total($user_id, (int) $point_type_id);
+
         $old_total = $total_points - $points;
         $milestone = 500; // e.g. Trigger every 500 points
 

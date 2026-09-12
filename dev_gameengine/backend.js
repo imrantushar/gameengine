@@ -5,10 +5,15 @@ import { Provider } from 'react-redux'; // Import the Provider
 
 import './../assets/scss/backend.scss';
 import { store } from '@GFRedux/store';
+import '@GFUtils/extend';
+import { initThemeMode } from '@GFUtils/theme';
 
 import AdminMenu from '@GFContainers/BackendDashboard/AdminMenu';
 import { createPortal } from '@wordpress/element';
 import BackendDashboard from '@GFContainers/BackendDashboard';
+import ScrollToTop from '@GFComponents/ScrollToTop';
+
+initThemeMode();
 
 document.addEventListener('DOMContentLoaded', () => {
 	const container = document.getElementById('gameengine-admin-app');
@@ -22,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		root.render(
 			<Provider store={store}>
 				<Router>
+					<ScrollToTop />
+
 					<MenuPortal>
 						<AdminMenu />
 					</MenuPortal>

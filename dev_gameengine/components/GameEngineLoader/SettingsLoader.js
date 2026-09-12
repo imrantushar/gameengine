@@ -8,7 +8,7 @@ const SettingsLoader = () => {
             <TopbarLoader />
 
             <div className="gameengine-page-content flex items-start gap-4">
-                <div className="flex flex-col bg-white p-4 rounded-md gap-4 [box-shadow:var(--gameengine-shadow)] min-w-[300px]">
+                <div className="flex flex-col bg-[var(--gameengine-background)] p-4 rounded-md gap-4 [box-shadow:var(--gameengine-shadow)] min-w-[300px]">
                     {[1, 2, 3].map(i => <div className="flex items-start gap-2" key={i}>
                         <Skeleton height="20px" width="20px" />
 

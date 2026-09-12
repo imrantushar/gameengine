@@ -20,6 +20,50 @@ export const CHANGELOG_TYPES = {
 
 export const CHANGELOGS = [
     {
+        version: '1.3.2',
+        changes: [
+            {
+                type: 'fixed',
+                text: 'Data now loads on sites using plain permalinks. Requests that carried a query string were producing a second "?" and coming back as "no route was found".',
+            },
+            {
+                type: 'fixed',
+                text: 'The Achievement Types and Level Types screens asked for the old taxonomy names and came back empty.',
+            },
+            {
+                type: 'fixed',
+                text: 'The "import some defaults?" prompt no longer flashes on screen before the list has finished loading.',
+            },
+            {
+                type: 'fixed',
+                text: 'Trashing a point system no longer wipes its name and actions. Damaged records are repaired on upgrade.',
+            },
+            {
+                type: 'added',
+                text: 'A Trash tab on the Points, Achievements and Levels screens, so trashed items can be restored or deleted for good.',
+            },
+        ],
+    },
+
+    {
+        version: '1.3.0',
+        changes: [
+            {
+                type: 'added',
+                text: 'Extension points so add-on plugins can register their own settings tabs, add-on cards, menu entries and trigger fields.',
+            },
+            {
+                type: 'improved',
+                text: 'The Add-ons and Settings screens now list only the features this plugin ships, with no placeholder or disabled controls.',
+            },
+            {
+                type: 'improved',
+                text: 'Achievement and level type taxonomies are now prefixed. Existing types are moved over automatically.',
+            },
+        ],
+    },
+
+    {
         version: '1.2.0',
         changes: [
             {

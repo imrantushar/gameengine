@@ -69,14 +69,17 @@ class BuyPointsManager
             return;
         }
 
-        if (get_post_meta($order_id, '_gameengine_points_awarded', true)) {
-            return;
-        }
-
         $user_id  = $order->get_user_id();
         $mappings = self::get_mappings();
 
         if (!$user_id || empty($mappings)) {
+            return;
+        }
+
+        // Unique post meta is an atomic claim: the second caller gets false.
+        // Claiming here rather than after the loop means an interrupted run
+        // cannot be replayed into a second payout.
+        if (!add_post_meta($order_id, '_gameengine_points_awarded', 1, true)) {
             return;
         }
 
@@ -108,8 +111,9 @@ class BuyPointsManager
             );
         }
 
+        // A record of what was paid, so a later refund reverses these amounts
+        // rather than whatever the mapping says at refund time.
         if (!empty($awarded_items)) {
-            update_post_meta($order_id, '_gameengine_points_awarded', 1);
             update_post_meta($order_id, '_gameengine_points_awarded_items', $awarded_items);
         }
     }
@@ -198,8 +202,12 @@ class BuyPointsManager
             return;
         }
 
+        // Claim the order before awarding anything. add_option() fails when the
+        // key already exists, so this is a single atomic check-and-set: a retry
+        // after a timeout part-way through the loop below finds the order
+        // already claimed instead of paying out the whole order again.
         $option_key = '_gameengine_se_points_awarded_' . $order_id;
-        if (get_option($option_key)) {
+        if (!add_option($option_key, 1, '', false)) {
             return;
         }
 
@@ -222,7 +230,5 @@ class BuyPointsManager
                 ),
             ));
         }
-
-        update_option($option_key, 1, false);
     }
 }

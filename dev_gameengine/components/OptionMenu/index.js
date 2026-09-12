@@ -131,7 +131,7 @@ const OptionMenu = props => {
                     type="button"
                     className={[
                       buttonBaseClass,
-                      item.suffix === 'trash' ? 'gameengine-btn--trash !text-[#FF4D4D] hover:!text-[#FF4D4D]' : '',
+                      item.suffix === 'trash' ? 'gameengine-btn--trash !text-[var(--gameengine-placing)] hover:!text-[var(--gameengine-placing)]' : '',
                     ].filter(Boolean).join(' ')}
                     onClick={handleItemClick}
                   >

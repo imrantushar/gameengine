@@ -23,6 +23,34 @@ class LevelsController extends BaseController
     protected $rest_base = 'levels';
 
     /**
+     * Version stamp mixed into every list cache key.
+     *
+     * The list is cached per query, so there is no single key to delete when
+     * the data changes. Bumping this stamp retires every cached list at once.
+     *
+     * @return string
+     */
+    private function list_cache_version()
+    {
+        $version = wp_cache_get('gameengine_levels_list_version', 'gameengine_levels');
+
+        if (! $version) {
+            $version = (string) time();
+            wp_cache_set('gameengine_levels_list_version', $version, 'gameengine_levels');
+        }
+
+        return $version;
+    }
+
+    /**
+     * Retire the cached levels lists after a write.
+     */
+    private function flush_list_cache()
+    {
+        wp_cache_set('gameengine_levels_list_version', (string) microtime(true), 'gameengine_levels');
+    }
+
+    /**
      * Register REST API routes.
      */
     public function register_routes()
@@ -83,7 +111,7 @@ class LevelsController extends BaseController
             $status_where = "status != 'trash'";
         }
 
-        $cache_key   = 'gameengine_lvl_list_' . md5($per_page . $page . $search . $status);
+        $cache_key   = 'gameengine_lvl_list_' . md5($this->list_cache_version() . $per_page . $page . $search . $status);
         $cached_data = wp_cache_get($cache_key, 'gameengine_levels');
 
         if (false !== $cached_data) {
@@ -95,14 +123,14 @@ class LevelsController extends BaseController
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $total_items = (int) $wpdb->get_var($wpdb->prepare(
-            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s ) AND $status_where",
+            "SELECT COUNT(id) FROM $table_name WHERE ( %s = '' OR title LIKE %s ) AND $status_where", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search
         ));
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         $results = $wpdb->get_results($wpdb->prepare(
-            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d",
+            "SELECT * FROM $table_name WHERE ( %s = '' OR title LIKE %s ) AND $status_where ORDER BY id DESC LIMIT %d OFFSET %d", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name is built from $wpdb->prefix and $status_where is prepared above; user input uses placeholders.
             $search,
             $like_search,
             $per_page,
@@ -113,10 +141,11 @@ class LevelsController extends BaseController
             foreach ($results as &$lvl) {
                 $lvl['unlock_with_points_enabled'] = (bool) $lvl['unlock_with_points_enabled'];
                 $lvl['is_restricted']             = (bool) ($lvl['is_restricted'] ?? false);
+                $lvl['user_count']                = \GameEngine\Classes\LevelsManager::get_user_count((int) $lvl['id']);
 
                 // Resolve Category Name.
                 $term_id            = absint($lvl['category']);
-                $term               = get_term($term_id, 'level_type');
+                $term               = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
                 $lvl['category_id']   = $term_id;
                 $lvl['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -166,18 +195,19 @@ class LevelsController extends BaseController
 
         $data = array(
             'title'                      => sanitize_text_field($params['title']),
-            'plural_name'                => sanitize_text_field($params['plural_name']),
+            'plural_name'                => sanitize_text_field($params['plural_name'] ?? ''),
             'description'                => wp_kses_post($params['description'] ?? ''),
             'status'                     => !empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
-            'icon'                       => sanitize_text_field($params['icon']),
+            'icon'                       => sanitize_text_field($params['icon'] ?? ''),
+            'color'                      => $this->normalize_color($params['color'] ?? ''),
             'category'                   => absint($params['category_id'] ?? 0),
-            'congratulations_message'    => wp_kses_post($params['congratulations_message']),
+            'congratulations_message'    => wp_kses_post($params['congratulations_message'] ?? ''),
             'unlock_with_points_enabled' => ! empty($params['unlock_with_points_enabled']) ? 1 : 0,
             'is_restricted'              => ! empty($params['is_restricted']) ? 1 : 0,
-            'point_type_id'              => intval($params['point_type_id']),
-            'min_points'                 => intval($params['min_points']),
-            'max_points'                 => intval($params['max_points']),
-            'priority'                   => intval($params['priority']),
+            'point_type_id'              => intval($params['point_type_id'] ?? 0),
+            'min_points'                 => intval($params['min_points'] ?? 0),
+            'max_points'                 => intval($params['max_points'] ?? 0),
+            'priority'                   => intval($params['priority'] ?? 0),
             'required_achievement_id'    => ! empty($params['required_achievement_id']) ? intval($params['required_achievement_id']) : null,
             'required_level_id'          => ! empty($params['required_level_id']) ? intval($params['required_level_id']) : null,
             'restriction_message'        => sanitize_text_field($params['restriction_message'] ?? ''),
@@ -187,12 +217,19 @@ class LevelsController extends BaseController
         if ($id) {
             unset($data['created_at']);
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            $updated = $wpdb->update("{$wpdb->prefix}gameengine_levels", $data, array('id' => absint($id)));
+            if (false === $updated) {
+                return new \WP_Error('save_failed', __('Could not update level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = absint($id);
             wp_cache_delete('gameengine_level_full_' . $level_id, 'gameengine_levels');
         } else {
+            $data['slug'] = $this->unique_slug(sanitize_title($params['title']));
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            $inserted = $wpdb->insert("{$wpdb->prefix}gameengine_levels", $data);
+            if (false === $inserted) {
+                return new \WP_Error('save_failed', __('Could not create level.', 'gameengine'), array('status' => 500));
+            }
             $level_id = $wpdb->insert_id;
         }
 
@@ -200,7 +237,7 @@ class LevelsController extends BaseController
             $this->save_requirements($level_id, $params['requirements'] ?? array());
         }
 
-        wp_cache_delete('gameengine_levels_list', 'gameengine_levels');
+        $this->flush_list_cache();
 
         return $this->get_full_item_response($level_id);
     }
@@ -222,9 +259,10 @@ class LevelsController extends BaseController
             if ($item) {
                 $item['unlock_with_points_enabled'] = (bool) $item['unlock_with_points_enabled'];
                 $item['is_restricted'] = (bool) $item['is_restricted'];
+                $item['user_count'] = \GameEngine\Classes\LevelsManager::get_user_count($id);
 
                 $term_id = absint($item['category']);
-                $term = get_term($term_id, 'level_type');
+                $term = get_term($term_id, \GameEngine\Classes\TaxonomyManager::LEVEL_TAXONOMY);
                 $item['category_id'] = $term_id;
                 $item['category_name'] = (! is_wp_error($term) && $term) ? $term->name : '';
 
@@ -239,6 +277,41 @@ class LevelsController extends BaseController
         }
 
         return new \WP_REST_Response($item, 200);
+    }
+
+    /**
+     * Generate a unique slug for a new level.
+     */
+    private function unique_slug(string $base): string
+    {
+        global $wpdb;
+
+        $base = '' !== $base ? $base : 'level';
+        $slug = $base;
+        $i    = 1;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}gameengine_levels WHERE slug = %s", $slug))) {
+            $slug = $base . '-' . $i++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Normalise a level colour to a #rrggbb literal.
+     *
+     * sanitize_hex_color() returns null for anything malformed, which would
+     * write a NULL into a NOT NULL column, so fall back to the schema default.
+     *
+     * @param string $color Raw colour from the request.
+     * @return string
+     */
+    private function normalize_color($color)
+    {
+        $clean = sanitize_hex_color(is_string($color) ? $color : '');
+
+        return $clean ? $clean : '#6c5ce7';
     }
 
     /**
@@ -261,6 +334,7 @@ class LevelsController extends BaseController
                     'trigger_key' => sanitize_text_field($req['trigger_key']),
                     'action_type' => 'award',
                     'parameters'  => wp_json_encode($req['parameters']),
+                    'priority'    => isset($req['parameters']['priority']) ? intval($req['parameters']['priority']) : 0,
                     'is_active'   => 1,
                     'created_at'  => current_time('mysql')
                 ));
@@ -291,6 +365,7 @@ class LevelsController extends BaseController
         $wpdb->delete("{$wpdb->prefix}gameengine_requirements", array('reward_type' => 'level', 'reward_id' => $id));
 
         wp_cache_delete('gameengine_level_full_' . $id, 'gameengine_levels');
+        $this->flush_list_cache();
 
         return new \WP_REST_Response(array('message' => 'Deleted'), 200);
     }

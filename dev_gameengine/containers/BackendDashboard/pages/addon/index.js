@@ -14,12 +14,12 @@ import {
   storeEngine,
   wooCommerce,
   tutorLms,
-  referralIcon,
 } from '@GFUtils/icons';
-import { GoGift } from 'react-icons/go';
 import { plugin_root_url } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
+import { GoGift } from 'react-icons/go';
+import { getAddonCards } from '@GFUtils/extend';
 import './addon-tabs.css';
 import WhatsNew from '@GFComponents/WhatsNew';
 
@@ -27,7 +27,6 @@ const infoCardsData = [
   {
     label: __('Academy LMS', 'gameengine'),
     name: 'academylms',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!',
@@ -42,13 +41,12 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/academy-lms.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-use-quizpress-certificate-builder/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
     label: __('Tutor LMS', 'gameengine'),
     name: 'tutorlms',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Reward learners with points, badges, and levels for course completions, lessons, and quizzes.',
@@ -68,7 +66,6 @@ const infoCardsData = [
   {
     label: __('StoreEngine', 'gameengine'),
     name: 'storeengine',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement',
@@ -86,10 +83,9 @@ const infoCardsData = [
   {
     label: __('WooCommerce', 'gameengine'),
     name: 'woocommerce',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
-      'Add points, achievements, and ranks to WooCommerce actions like buying, reviews, and refunds. perks!',
+      'Add points, achievements, and levels to WooCommerce actions like buying, reviews, and refunds. perks!',
       'gameengine'
     ),
     required_plugin: [
@@ -100,13 +96,12 @@ const infoCardsData = [
     ],
     icon: wooCommerce(),
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
     label: __('Restrict Unlock', 'gameengine'),
     name: 'restrict_unlock',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!',
@@ -117,16 +112,15 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/restrict_unlock.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: 'admin.php?page=gameengine-achievements&action=new',
   },
   {
     label: __('Restrict Content', 'gameengine'),
     name: 'restrict_content',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
-      'Control access by restricting posts, pages, or sections based on points, ranks, or badges. controlled',
+      'Control access by restricting posts, pages, or sections based on points, levels, or badges. controlled',
       'gameengine'
     ),
     required_plugin: false,
@@ -134,13 +128,12 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/restrict_content.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
     label: __('Progress Map', 'gameengine'),
     name: 'progress_map',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!',
@@ -151,13 +144,12 @@ const infoCardsData = [
     image:
       plugin_root_url + 'assets/images/progress_map.svg',
     docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
+      'https://gameengine.pro/docs/',
     route: '',
   },
   {
     label: __('Rewards Store', 'gameengine'),
     name: 'rewards_store',
-    is_pro: false,
     is_coming_soon: false,
     details: __(
       'Let users redeem their earned points for rewards from a catalog you manage.',
@@ -165,64 +157,14 @@ const infoCardsData = [
     ),
     required_plugin: false,
     icon: <GoGift size={20} color="#D97706" />,
-    docsUrl: '',
+    docsUrl: 'https://gameengine.pro/docs/',
     route: 'admin.php?page=gameengine-rewards-store',
-  },
-  {
-    label: __('Wallet', 'gameengine'),
-    name: 'wallet',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history. Stay organized and in control!',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: false,
-    image:
-      plugin_root_url + 'assets/images/wallet.svg',
-    docsUrl:
-      'https://quizpress.pro/docs/how-to-sell-quiz-with-woocommerce/',
-    route: 'admin.php?page=gameengine-wallet',
-  },
-  {
-    label: __('Referrals & Affiliates', 'gameengine'),
-    name: 'referrals',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: referralIcon(),
-    docsUrl: 'https://kodezen.com/docs/gameengine/referrals/',
-    route: 'admin.php?page=gameengine-referrals',
-  },
-  {
-    label: __('Spin the Wheel', 'gameengine'),
-    name: 'lucky-wheels',
-    is_pro: true,
-    is_coming_soon: false,
-    details: __(
-      'Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.',
-      'gameengine'
-    ),
-    required_plugin: false,
-    icon: false,
-    image:
-      plugin_root_url + 'assets/images/wheel.svg',
-    docsUrl: '#',
-    route: 'admin.php?page=gameengine-lucky-wheels',
-  },
-];
+  },];
 
 const TABS = [
   { value: 'all',      label: __('All',      'gameengine') },
   { value: 'active',   label: __('Active',   'gameengine') },
   { value: 'inactive', label: __('Inactive', 'gameengine') },
-  { value: 'free',     label: __('Free',     'gameengine') },
-  { value: 'pro',      label: __('Pro',      'gameengine') },
 ];
 
 const Addons = () => {
@@ -238,7 +180,7 @@ const Addons = () => {
     (async () => {
       setLoading(true);
       try {
-        dispatch(fetchAddons());
+        await dispatch(fetchAddons());
       } catch (error) {
         console.warn(error);
       } finally {
@@ -248,14 +190,13 @@ const Addons = () => {
   }, []);
 
   const getAddonLists = (values) => {
-    return infoCardsData.filter((item) => {
+    return getAddonCards(infoCardsData).filter((item) => {
       if (
         item.label
           .toLowerCase()
           .includes(filterText.toLowerCase())
       ) {
         if (filterMenu === 'all') {
-          setLoading(false);
           return item;
         } else if (filterMenu === 'active' && values[item.name]) {
           return item;
@@ -264,14 +205,9 @@ const Addons = () => {
           !values[item.name]
         ) {
           return item;
-        } else if (filterMenu === 'pro' && item.is_pro) {
-          return item;
-        } else if (filterMenu === 'free' && !item.is_pro) {
-          return item;
         }
       }
 
-      setLoading(false);
       return false;
     });
   };
@@ -295,7 +231,7 @@ const Addons = () => {
           </h2>
 
           <Search
-            className="gameengine-search bg-white"
+            className="gameengine-search bg-[var(--gameengine-background)]"
             placeholder={__('Search...', 'gameengine')}
             onSearchHandler={(keyword) =>
               setFilterText(keyword.trim())

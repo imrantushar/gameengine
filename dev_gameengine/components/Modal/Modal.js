@@ -123,7 +123,7 @@ const Modal = ({
 		? [
 			{
 				type: 'button',
-				label: <span>{__('Full screen', 'zencommunity')}</span>,
+				label: <span>{__('Full screen', 'gameengine')}</span>,
 				icon: <MdFullscreen />,
 				onClick: () => toggleIcon(0),
 			},
@@ -134,7 +134,7 @@ const Modal = ({
 		? [
 			{
 				type: 'button',
-				label: <span>{__('Small screen', 'zencommunity')}</span>,
+				label: <span>{__('Small screen', 'gameengine')}</span>,
 				icon: <MdPhoneAndroid />,
 				onClick: () => toggleIcon(2),
 			},
@@ -273,7 +273,7 @@ const Modal = ({
 										...showLargeTab,
 										{
 											type: 'button',
-											label: <span>{__('Medium screen', 'zencommunity')}</span>,
+											label: <span>{__('Medium screen', 'gameengine')}</span>,
 											icon: <MdLaptopMac />,
 											onClick: () => toggleIcon(1),
 										},

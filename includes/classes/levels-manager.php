@@ -59,17 +59,17 @@ class LevelsManager
             return false;
         }
 
-        // Insert into User Levels Table
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $result = $wpdb->insert(
-            $wpdb->prefix . 'gameengine_user_levels',
-            [
-                'user_id' => $safe_user_id,
-                'level_id' => $safe_level_id,
-                'achieved_at' => current_time('mysql'),
-            ],
-            ['%d', '%d', '%s']
-        );
+        // Insert into User Levels Table.
+        // INSERT IGNORE leans on the UNIQUE (user_id, level_id) key so two
+        // concurrent point awards cannot both pass the has_level() check above
+        // and grant the same level twice; the loser affects no rows.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $result = $wpdb->query($wpdb->prepare(
+            "INSERT IGNORE INTO {$wpdb->prefix}gameengine_user_levels (user_id, level_id, achieved_at) VALUES (%d, %d, %s)",
+            $safe_user_id,
+            $safe_level_id,
+            current_time('mysql')
+        ));
 
         if (!$result) {
             return false;
@@ -104,20 +104,24 @@ class LevelsManager
 
     /**
      * Check if user should level up based on points.
+     *
+     * A level scoped to a specific point type is measured against that
+     * currency's balance. A level left on point type 0 means "any currency"
+     * and is measured against the grand total across all of them, so a single
+     * ladder can span every point type a site defines.
      */
     public function check_levels_on_point_change($user_id, $points, $context, $log_id, $point_type_id)
     {
         $points_manager = new PointsManager();
         $safe_user_id = absint($user_id);
         $safe_pt_id = absint($point_type_id);
-        $total_points = $points_manager->get_total($safe_user_id, $safe_pt_id);
 
         global $wpdb;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $levels = $wpdb->get_results($wpdb->prepare(
-            "SELECT id, min_points, priority FROM {$wpdb->prefix}gameengine_levels 
-             WHERE point_type_id = %d AND unlock_with_points_enabled = 1 
+            "SELECT id, min_points, priority, point_type_id FROM {$wpdb->prefix}gameengine_levels 
+             WHERE point_type_id IN (%d, 0) AND unlock_with_points_enabled = 1 AND status = 'publish'
              ORDER BY priority ASC, min_points ASC",
             $safe_pt_id
         ));
@@ -126,7 +130,22 @@ class LevelsManager
             return;
         }
 
+        $single_total = null;
+        $grand_total  = null;
+
         foreach ($levels as $level) {
+            if ((int) $level->point_type_id > 0) {
+                if (null === $single_total) {
+                    $single_total = $points_manager->get_total($safe_user_id, $safe_pt_id);
+                }
+                $total_points = $single_total;
+            } else {
+                if (null === $grand_total) {
+                    $grand_total = $points_manager->get_grand_total($safe_user_id);
+                }
+                $total_points = $grand_total;
+            }
+
             if ($total_points >= (int) $level->min_points) {
                 if ($this->has_level($safe_user_id, (int) $level->id)) {
                     continue;
@@ -134,6 +153,20 @@ class LevelsManager
                 $this->award($safe_user_id, (int) $level->id, 'point_milestone');
             }
         }
+    }
+
+    /**
+     * Number of users who have earned a given level.
+     */
+    public static function get_user_count(int $level_id): int
+    {
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        return (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_user_levels WHERE level_id = %d",
+            absint($level_id)
+        ));
     }
 
     /**

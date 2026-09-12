@@ -32,7 +32,7 @@ class Installer
         update_option( self::SCHEMA_HASH_OPTION, self::compute_schema_hash(), true );
 
 		if ( ! get_option( 'gameengine_first_install_time' ) ) {
-			add_option( 'gameengine_first_install_time', time(), false );
+			add_option( 'gameengine_first_install_time', time(), '', false );
 		}
     }
 
@@ -42,6 +42,48 @@ class Installer
     public static function compute_schema_hash()
     {
         return md5( implode( '', Schema::get_tables() ) );
+    }
+
+    /**
+     * Option flagging that the blanked point type repair has run.
+     */
+    const POINT_TYPE_REPAIR_OPTION = 'gameengine_point_types_repaired';
+
+    /**
+     * Restore point types blanked by a partial update.
+     *
+     * Earlier releases had the update endpoint write every column on every request, so a
+     * call that carried only a status — trashing a row from its action menu —
+     * emptied the name, plural name and status alongside it. Rows damaged that
+     * way render as a blank line in the list and match no status tab.
+     *
+     * The slug is derived from the name when a point type is created and is
+     * never rewritten, so it is the closest thing to the original left on the
+     * record. Statuses that survived as an empty string go back to the column
+     * default rather than staying invisible.
+     */
+    public static function maybe_repair_blanked_point_types()
+    {
+        if (get_option(self::POINT_TYPE_REPAIR_OPTION)) {
+            return;
+        }
+
+        global $wpdb;
+
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $table_exists = $wpdb->get_var(
+            $wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->prefix . 'gameengine_point_types')
+        );
+
+        if ($table_exists) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET name = slug WHERE name = '' AND slug <> ''");
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("UPDATE {$wpdb->prefix}gameengine_point_types SET status = 'publish' WHERE status NOT IN ('publish', 'draft', 'pending', 'trash')");
+        }
+
+        update_option(self::POINT_TYPE_REPAIR_OPTION, 1, true);
     }
 
     /**
@@ -108,16 +150,6 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN badge_id BIGINT(20) UNSIGNED DEFAULT NULL AFTER badge_image");
         }
 
-        $ranks_table = "{$wpdb->prefix}gameengine_ranks";
-
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $color_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ranks_table} LIKE %s", 'color'));
-
-        if (empty($color_col)) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-            $wpdb->query("ALTER TABLE {$ranks_table} ADD COLUMN color VARCHAR(7) NOT NULL DEFAULT '#6c5ce7' AFTER icon");
-        }
-
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $desc_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'description'));
 
@@ -134,17 +166,32 @@ class Installer
             $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN slug VARCHAR(255) DEFAULT NULL AFTER plural_name");
         }
 
-        $this->backfill_achievement_slugs();
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+        $season_col = $wpdb->get_results($wpdb->prepare("SHOW COLUMNS FROM {$ach_table} LIKE %s", 'season_id'));
+
+        if (empty($season_col)) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("ALTER TABLE {$ach_table} ADD COLUMN season_id BIGINT(20) UNSIGNED DEFAULT NULL");
+        }
+
+        $this->backfill_slugs($ach_table, 'achievement');
+        $this->backfill_slugs("{$wpdb->prefix}gameengine_levels", 'level');
     }
 
     /**
      * Generate a unique slug for any pre-existing achievement row left over
      * from before the `slug` column existed.
      */
-    private function backfill_achievement_slugs()
+    /**
+     * Give every row in a table a unique slug, then add the unique index.
+     *
+     * @param string $table  Fully-prefixed table name.
+     * @param string $prefix Fallback slug stem for a row with no usable title.
+     */
+    private function backfill_slugs($table, $prefix)
     {
         global $wpdb;
-        $ach_table = "{$wpdb->prefix}gameengine_achievements";
+        $ach_table = $table;
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $rows = $wpdb->get_results("SELECT id, title FROM {$ach_table} WHERE slug IS NULL OR slug = ''", ARRAY_A);
@@ -163,7 +210,7 @@ class Installer
         foreach ($rows as $row) {
             $base = sanitize_title($row['title']);
             if ('' === $base) {
-                $base = 'achievement-' . $row['id'];
+                $base = $prefix . '-' . $row['id'];
             }
 
             $slug = $base;
@@ -179,11 +226,16 @@ class Installer
     }
 
     /**
-     * This method is intentionally left empty.
-     * We do not drop tables on deactivation to preserve user data.
+     * Runs on deactivation.
+     *
+     * Tables and options are deliberately left in place so user progress
+     * survives a deactivate/reactivate cycle. Only the scheduled events are
+     * cleared, so nothing keeps firing once the plugin is off.
      */
     public function uninstall()
     {
-        // No table drop logic here
+        foreach ( array( 'gameengine_cleanup_logs_cron', 'gameengine_daily_inactivity_cron' ) as $hook ) {
+            wp_clear_scheduled_hook( $hook );
+        }
     }
 }

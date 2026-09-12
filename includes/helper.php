@@ -66,11 +66,6 @@ class Helper
         return false;
     }
 
-    public static function is_pro()
-    {
-        return defined('GAMEENGINE_PRO_VERSION');
-    }
-
     /**
      * Get the client IP address.
      *
@@ -166,17 +161,10 @@ class Helper
             'capability' => 'manage_options',
         );
 
-        // Ranks
-        $menu[$slug . '-ranks'] = array(
+        // Activity
+        $menu[$slug . '-activity'] = array(
             'parent_slug' => $slug,
-            'title' => __('Ranks', 'gameengine'),
-            'capability' => 'manage_options',
-        );
-
-        // Streaks
-        $menu[$slug . '-streaks'] = array(
-            'parent_slug' => $slug,
-            'title' => __('Streaks', 'gameengine'),
+            'title' => __('Activity', 'gameengine'),
             'capability' => 'manage_options',
         );
 
@@ -199,33 +187,6 @@ class Helper
             $menu[$slug . '-rewards-store'] = array(
                 'parent_slug' => $slug,
                 'title' => __('Rewards Store', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
-
-        // Referrals
-        if (self::is_addon_active('referrals')) {
-            $menu[$slug . '-referrals'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Referrals', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
-
-        // Wallet System
-        if (self::is_addon_active('wallet')) {
-            $menu[$slug . '-wallet'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Wallet', 'gameengine'),
-                'capability' => 'manage_options',
-            );
-        }
-
-        // Lucky Wheels
-        if (self::is_addon_active('lucky-wheels')) {
-            $menu[$slug . '-lucky-wheels'] = array(
-                'parent_slug' => $slug,
-                'title' => __('Lucky Wheels', 'gameengine'),
                 'capability' => 'manage_options',
             );
         }

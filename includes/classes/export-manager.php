@@ -15,8 +15,8 @@ class ExportManager
     private const ROW_LIMIT = 10000;
 
     private static $allowed_types = array(
-        'achievements', 'levels', 'point_types', 'ranks', 'streaks',
-        'user_points', 'user_achievements', 'user_levels', 'user_ranks', 'logs',
+        'achievements', 'levels', 'point_types',
+        'user_points', 'user_achievements', 'user_levels', 'logs',
     );
 
     /**
@@ -51,11 +51,8 @@ class ExportManager
             'achievements'     => "{$wpdb->prefix}gameengine_achievements",
             'levels'           => "{$wpdb->prefix}gameengine_levels",
             'point_types'      => "{$wpdb->prefix}gameengine_point_types",
-            'ranks'            => "{$wpdb->prefix}gameengine_ranks",
-            'streaks'          => "{$wpdb->prefix}gameengine_streaks",
             'user_achievements' => "{$wpdb->prefix}gameengine_user_achievements",
             'user_levels'      => "{$wpdb->prefix}gameengine_user_levels",
-            'user_ranks'       => "{$wpdb->prefix}gameengine_user_ranks",
             'logs'             => "{$wpdb->prefix}gameengine_logs",
         );
 

@@ -46,7 +46,7 @@ body.ReactModal__Body--open {
 
 .gameengine-modal {
        position: relative;
-       background: #fff;
+       background: var(--gameengine-background);
        border-radius: 8px;
        outline: none;
        animation: gameengine-modal-fade-in 0.3s ease-in-out forwards;
@@ -82,8 +82,10 @@ body.ReactModal__Body--open {
 
                      button {
                             padding: 8px;
-                            background: #fff;
-                            color: #111;
+                            background: var(--gameengine-background);
+                            // Was a hardcoded #111, which is invisible against
+                            // the dark surface this button sits on.
+                            color: var(--gameengine-font-color);
                             border: 1px solid var(--gameengine-border-color) !important;
                             border-radius: 4px;
                             display: flex;
@@ -101,7 +103,7 @@ body.ReactModal__Body--open {
        }
 
        &__content {
-              background: #fff;
+              background: var(--gameengine-background);
               padding: 24px;
        }
 
@@ -112,7 +114,7 @@ body.ReactModal__Body--open {
               margin: 0 24px;
               padding: 20px 0;
               border-top: 1px solid var(--gameengine-border-color);
-              background: #fff;
+              background: var(--gameengine-background);
        }
 }
 

@@ -50,7 +50,7 @@ class ToolsImportController extends BaseController
             return new \WP_Error('invalid_format', __('Only CSV and JSON files are supported.', 'gameengine'), array('status' => 400));
         }
 
-        $result = ImportManager::import($type, $file_path, $overwrite);
+        $result = ImportManager::import($type, $file_path, $overwrite, $ext);
 
         return new \WP_REST_Response($result, 200);
     }

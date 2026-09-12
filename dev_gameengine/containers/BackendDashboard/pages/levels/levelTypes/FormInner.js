@@ -1,22 +1,27 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import Switch from '@GFComponents/Switch/Switch';
 import { __, } from "@wordpress/i18n";
 import Select from "react-select";
-import { FaWordpressSimple, FaGraduationCap, FaGamepad } from "react-icons/fa6";
+import { FaWordpressSimple, FaGraduationCap, FaGamepad, FaPuzzlePiece } from "react-icons/fa6";
 import { DndContext, PointerSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import GFLabel from "@GFComponents/Labels/GFLabel";
 import GameEngineEditor from "@GFComponents/editor";
 import { SiWoocommerce } from "react-icons/si";
 import GameEngineInput from "@GFComponents/GameEngineInput";
 import BoxView from "@GFComponents/BoxView/BoxView";
+import DashiconPicker from "@GFComponents/DashiconPicker";
+import ToggleField from "@GFComponents/ToggleField";
 import { useFormikContext } from "formik";
-import { admin_url, API, getAddonActiveStatus, namespace } from "@GFUtils/helper";
+import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import Requirements from "@GFComponents/Requirements";
-import { DraggableItem } from "@GFComponents/Requirements/helper";
+import { DraggableItem, hookCollisionDetection, insertAt } from "@GFComponents/Requirements/helper";
+import DragPreview from "@GFComponents/Requirements/DragPreview";
 import { arrowForward } from "@GFUtils/icons";
 import { LuExternalLink } from "react-icons/lu";
 import { Link } from "react-router-dom";
+
+const UNKNOWN_INTEGRATION_ICON = { icon: FaPuzzlePiece, bg: '#64748b' };
 
 const FormInner = () => {
   const [message, setMessage] = useState("");
@@ -114,7 +119,7 @@ const FormInner = () => {
   const fetchTypes = async (searchKey = "") => {
     if (searchKey) searchKey = "&search=" + searchKey;
     try {
-      const url = namespace + 'taxonomies/level_type?page=1&per_page=100' + searchKey;
+      const url = namespace + 'taxonomies/gameengine_level_type?page=1&per_page=100' + searchKey;
       const response = await API.get(url);
       const selectData = response.data.map(item => {
         return {
@@ -142,21 +147,17 @@ const FormInner = () => {
 
   const { hookSettings, allHooks, availablePointTypes } = useSelector(state => state.levels);
 
-  const handleImageUpload = () => {
-    if (typeof wp !== 'undefined' && wp.media) {
-      const frame = wp.media({
-        title: 'Select Level Icon',
-        button: {
-          text: 'Use this Icon'
-        },
-        multiple: false
-      });
-      frame.on('select', () => {
-        setFieldValue('icon', frame.state().get('selection').first().toJSON().url);
-      });
-      frame.open();
-    }
-  };
+  // Point type 0 means "any currency": the level is measured against the
+  // member's grand total across every point type rather than one balance.
+  const pointTypeOptions = useMemo(
+    () => [
+      { label: __("All Point Types", "gameengine"), value: "0" },
+      ...(availablePointTypes || []),
+    ],
+    [availablePointTypes]
+  );
+
+  const isDashicon = typeof values?.icon === 'string' && values.icon.startsWith('dashicons-');
 
   const hookCategoryIconMap = {
     wordpress: {
@@ -177,7 +178,9 @@ const FormInner = () => {
 
   const renderHookCard = item => {
     const slug = item.integrationSlug || 'wordpress';
-    const config = hookCategoryIconMap[slug] || hookCategoryIconMap.wordpress;
+    // An integration with no icon of its own must not borrow WordPress's —
+    // that says something untrue about where the hook came from.
+    const config = hookCategoryIconMap[slug] || UNKNOWN_INTEGRATION_ICON;
 
     return (
       <DraggableItem key={item.id} id={item.id}>
@@ -199,7 +202,9 @@ const FormInner = () => {
             </div>
           </div>
 
-          <GFLabel type="subtitle" color="#A2ADB9" label={item?.description} />
+          <div className="gameengine-hook-desc">
+            <GFLabel type="subtitle" color="var(--gameengine-warn-muted)" label={item?.description} />
+          </div>
         </div>
       </DraggableItem>
     );
@@ -211,32 +216,78 @@ const FormInner = () => {
     }
   }, [values?.requirements]);
 
+  /**
+   * An expanded hook is several hundred pixels tall, which turns the column
+   * into a scroll during a drag and hides the slot the card is aimed at.
+   * Collapse everything while the drag is in flight.
+   */
+  const handleDragStart = () => setOpenedHooks([]);
+
+  /**
+   * Position in `requirements` for a card released over `overId`: another
+   * card's slot, or the end of the list when released over the column itself.
+   */
+  const dropPositionFor = (overId, list) => {
+    const index = list.findIndex(r => r.trigger_key === overId);
+    return index === -1 ? list.length : index;
+  };
+
   const handleDragEnd = ({ active, over }) => {
     if (!over) return;
     const draggedId = active.id;
     const requirements = values.requirements || [];
-    const exists = requirements.some(r => r.trigger_key === draggedId);
+    const from = requirements.findIndex(r => r.trigger_key === draggedId);
+    const exists = from !== -1;
 
-    if (over.id === "awards-sidebar" && !exists) {
-      const hook = allHooks.find(h => h.id === draggedId);
-      if (!hook) return;
-      const newRequirement = {
-        trigger_key: draggedId,
-        parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[draggedId]?.[f.key] ?? f.default]))
-      };
-      setFieldValue("requirements", [...requirements, newRequirement]);
-      setOpenedHooks([draggedId]);
-      return;
-    }
-
-    if (over.id === "awards-available" && exists) {
-      setFieldValue("requirements", requirements.filter(r => r.trigger_key !== draggedId));
+    if (over.id === "awards-available") {
+      if (!exists) return;
+      setFieldValue("requirements", requirements.filter((_, i) => i !== from));
       setOpenedHooks(prev => prev.filter(id => id !== draggedId));
       return;
     }
+
+    const overIsCard = requirements.some(r => r.trigger_key === over.id);
+    if (over.id !== "awards-sidebar" && !overIsCard) return;
+
+    // Insert and reorder are the same move — pull the card out, put it back at
+    // the drop index measured against the list without it.
+    const without = exists ? requirements.filter((_, i) => i !== from) : requirements;
+
+    let entry;
+    if (exists) {
+      entry = requirements[from];
+    } else {
+      const hook = allHooks.find(h => h.id === draggedId);
+      if (!hook) return;
+      entry = {
+        trigger_key: draggedId,
+        parameters: Object.fromEntries((hook.schema || []).map(f => [f.key, hookSettings[draggedId]?.[f.key] ?? f.default]))
+      };
+    }
+
+    const to = dropPositionFor(over.id, without);
+    if (exists && to === from) return;
+
+    setFieldValue("requirements", insertAt(without, entry, to));
+    if (!exists) setOpenedHooks([draggedId]);
   };
 
-  const reqLabel = `${__("Enable Require Unlock", "gameengine")}${!isRestrictContentActive ? " " + __('(Restrict Unlock Addon Required)', 'gameengine') : ""}`;
+  const restrictHint = isRestrictContentActive
+    ? __("Members must earn the chosen achievement or level before this one unlocks.", "gameengine")
+    : (
+      <>
+        {__("Needs the Restrict Unlock add-on.", "gameengine")}{' '}
+        <Link
+          to={admin_url + 'admin.php?page=gameengine-addons'}
+          target="_blank"
+          className="inline-flex items-center gap-1"
+          style={{ color: 'var(--gameengine-primary)' }}
+        >
+          {__("Turn it on", "gameengine")}
+          <LuExternalLink size="12px" />
+        </Link>
+      </>
+    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -280,21 +331,13 @@ const FormInner = () => {
 
       <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
 
-      <GameEngineInput label={reqLabel} width="100%" direction='row' gap="10px" alignItems='center'>
-        <div className="flex items-center gap-2">
-          <Switch
-            checked={values.is_restricted}
-            onChange={(val) => setFieldValue('is_restricted', val)}
-            disabled={!isRestrictContentActive}
-          />
-
-          {!isRestrictContentActive && (
-            <Link to={admin_url + 'admin.php?page=gameengine-addons'} target='_blank'>
-              <LuExternalLink size="20px" />
-            </Link>
-          )}
-        </div>
-      </GameEngineInput>
+      <ToggleField
+        checked={values.is_restricted}
+        onChange={(val) => setFieldValue('is_restricted', val)}
+        disabled={!isRestrictContentActive}
+        label={__("Require an achievement or level first", "gameengine")}
+        hint={restrictHint}
+      />
 
       {values?.is_restricted && isRestrictContentActive && (
         <div className="flex flex-col gap-3">
@@ -352,34 +395,44 @@ const FormInner = () => {
         </div>
       )}
 
-      <BoxView title={__(`Levels Logo`, "gameengine")} width="100%">
-        {values?.icon ? (
-          <div className="flex items-center justify-between">
-            <img style={{
-              "width": "100px"
-            }} src={values?.icon} objectFit="cover" />
-            <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
-              "padding": "6px 8px"
-            }} onClick={handleImageUpload}>
-              {__("Change Level Logo", "gameengine")}
-            </button>
-          </div>
-        ) : (
-          <button className="text-white text-xs font-medium leading-4 h-auto border-none rounded bg-[var(--gameengine-primary)]" style={{
-            "padding": "6px 8px"
-          }} onClick={handleImageUpload}>
-            {__("Set Level Logo", "gameengine")}
-          </button>
-        )}
+      <BoxView title={__(`Level Logo`, "gameengine")} width="100%">
+        <div className="flex flex-wrap items-start gap-6">
+          <GameEngineInput
+            label={__("Icon", "gameengine")}
+            width="auto"
+            desc={__("Upload an image, or pick one of the built-in icons.", "gameengine")}
+          >
+            <DashiconPicker
+              value={values.icon}
+              color={values.color}
+              title={__("Select Level Logo", "gameengine")}
+              onChange={(val) => setFieldValue('icon', val)}
+            />
+          </GameEngineInput>
+
+          {isDashicon && (
+            <GameEngineInput
+              label={__("Icon Color", "gameengine")}
+              width="96px"
+              desc={__("Tints the icon.", "gameengine")}
+            >
+              <input
+                type="color"
+                className="gameengine-color-input"
+                value={values.color || '#6c5ce7'}
+                onChange={(e) => setFieldValue('color', e.target.value)}
+              />
+            </GameEngineInput>
+          )}
+        </div>
       </BoxView>
 
-      <div className="flex items-center gap-3">
-        <Switch
-          checked={values.unlock_with_points_enabled}
-          onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
-        />
-        <span style={{ fontSize: '14px', fontWeight: '500', lineHeight: '20px' }}>{__("Allow unlock with points", "gameengine")}</span>
-      </div>
+      <ToggleField
+        checked={values.unlock_with_points_enabled}
+        onChange={(val) => setFieldValue('unlock_with_points_enabled', val)}
+        label={__("Allow unlock with points", "gameengine")}
+        hint={__("Award this level automatically once a member's balance reaches the range below.", "gameengine")}
+      />
 
       {values?.unlock_with_points_enabled ? (
         <div className="flex gap-3">
@@ -392,11 +445,19 @@ const FormInner = () => {
           </GameEngineInput>
 
           <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc((100% / 3) - 6px)">
-            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={availablePointTypes} value={availablePointTypes?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
+            <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={pointTypeOptions} value={pointTypeOptions?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
           </GameEngineInput>
         </div>
       ) : (
-        <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={hookCollisionDetection}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToWindowEdges]}
+        >
+          <DragPreview />
+
           <Requirements
             label={__("Level Requirements", "gameengine")}
             onClick={e => {
@@ -408,10 +469,11 @@ const FormInner = () => {
             child="gameengine-level-requirements-wrap"
             childLeft="gameengine-level-requirements-available-hooks"
             childRight="gameengine-level-requirements-active-hooks"
-            hookTypeOptions={Object.keys(hookCategoryIconMap).map(k => ({
-              label: k,
-              value: k
-            }))}
+            hookTypeOptions={[...new Set((allHooks || []).map(h => h?.integrationSlug).filter(Boolean))]
+              .map(slug => ({
+                label: integrationLabel(slug, allHooks),
+                value: slug
+              }))}
             filterHookType={v => setSelectedFilterHookType(v)}
             renderHookCard={renderHookCard}
             selectedHookIds={activeHooks?.map(h => h?.id)}
@@ -420,6 +482,7 @@ const FormInner = () => {
             allHooks={allHooks}
             hookSettings={hookSettings}
             actionName="award"
+            itemId={id => id}
             selectedFilterType={selectedFilterHookType}
             scope="level"
           />

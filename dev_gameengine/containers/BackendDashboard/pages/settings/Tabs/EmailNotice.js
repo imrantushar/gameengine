@@ -67,7 +67,7 @@ const EmailNotice = () => {
 
         <GameEngineInput label={__('From Name', 'gameengine')}>
           <input
-            className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]"
+            className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]"
             placeholder={__('Enter from name', 'gameengine')}
             value={email?.from_name || ''}
             onChange={(e) =>
@@ -78,7 +78,7 @@ const EmailNotice = () => {
 
         <GameEngineInput label={__('From Address', 'gameengine')}>
           <input
-            className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-white outline-none text-[var(--gameengine-font-color)]"
+            className="w-full border border-solid border-[var(--gameengine-border-color)] rounded-[6px] px-3 py-2 text-sm bg-[var(--gameengine-background)] outline-none text-[var(--gameengine-font-color)]"
             placeholder={__('Enter from address', 'gameengine')}
             value={email?.from_address || ''}
             onChange={(e) =>
@@ -104,7 +104,7 @@ const EmailNotice = () => {
         </GameEngineInput>
 
         <p
-          className="text-xs text-[#718096]"
+          className="text-xs text-[var(--gameengine-warn-muted)]"
           style={{ marginTop: '-10px' }}
         >
           {__(

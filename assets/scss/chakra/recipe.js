@@ -1,11 +1,11 @@
 // CSS-compatible style objects (Tailwind migration — no Chakra props)
 export const primaryBtn = {
-    background: "var(--gameengine-primary)",
+    background: "var(--gameengine-primary-strong)",
     color: "#fff",
     fontSize: "14px",
     fontWeight: "600",
     lineHeight: "20px",
-    border: "1px solid var(--gameengine-primary)",
+    border: "1px solid var(--gameengine-primary-strong)",
     padding: "8px 16px",
     borderRadius: "4px",
 }
@@ -34,7 +34,7 @@ export const outlineBtn = {
 }
 
 export const removeBtn = {
-    background: "var(--gameengine-placing)",
+    background: "var(--gameengine-error-strong)",
     color: "#fff",
 }
 
@@ -64,7 +64,7 @@ export const commonInput = {
     padding: "8px 12px",
     fontSize: "14px",
     lineHeight: "1.5",
-    backgroundColor: "#fff",
+    backgroundColor: "var(--gameengine-background)",
     outline: "none",
     boxSizing: "border-box",
 }

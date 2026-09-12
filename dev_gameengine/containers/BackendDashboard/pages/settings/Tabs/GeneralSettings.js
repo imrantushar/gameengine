@@ -44,7 +44,6 @@ const GeneralSettings = () => {
     <>
       <GameEngineBox
         dynamicClasses="gameengine-settings overflow-visible"
-        boxShadow="var(--gameengine-shadow)"
       >
         <p className="gameengine-settings-heading">
           {__('Log', 'gameengine')}
@@ -103,7 +102,6 @@ const GeneralSettings = () => {
 
       <GameEngineBox
         dynamicClasses="gameengine-settings mt-6"
-        boxShadow="var(--gameengine-shadow)"
       >
         <p className="gameengine-settings-heading">
           {__('General', 'gameengine')}
@@ -112,7 +110,7 @@ const GeneralSettings = () => {
         <div className="flex flex-col gap-4">
           <SettingsInput
             label={__('Social Sharing', 'gameengine')}
-            subtitle={__('Allow users to share their achievements and ranks via the Web Share API or clipboard link copy.', 'gameengine')}
+            subtitle={__('Allow users to share their achievements and levels via the Web Share API or clipboard link copy.', 'gameengine')}
           >
             <Switch
               checked={!!general.social_sharing}

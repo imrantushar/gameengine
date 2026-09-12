@@ -1,101 +1,18 @@
 import React from "react";
-import { __ } from "@wordpress/i18n";
 import { useLocation, useNavigate } from "react-router-dom";
-import { is_pro, route_path } from "@GFUtils/helper";
-import { couponIcon, ecomIcon, general, licenseIcon, logIcon, mail, payoutIcon, refIcon } from "@GFUtils/icons";
+import { route_path } from "@GFUtils/helper";
+import { DEFAULT_TAB, getTabs } from "./tabs-config";
 
 const LeftBar = () => {
   const navigate = useNavigate();
   const locationQuery = useLocation();
   const tabMatch = locationQuery.search.match(/[?&]tab=([^&]+)/);
-  const currentTab = tabMatch ? tabMatch[1] : 'dashboard';
+  const currentTab = tabMatch ? tabMatch[1] : DEFAULT_TAB;
 
-  const menuList = [
-    {
-      label: __("Frontend Dashboard", "gameengine"),
-      key: "dashboard",
-      desc: __("Frontend Dashboard settings", "gameengine"),
-      icon: general()
-    },
-    {
-      label: __("Log", "gameengine"),
-      key: "log",
-      desc: __("Log settings", "gameengine"),
-      icon: logIcon()
-    },
-    {
-      label: __("E-commerce", "gameengine"),
-      key: "economy",
-      desc: __("E-commerce settings", "gameengine"),
-      icon: ecomIcon()
-    },
-    {
-      label: __("Coupon Generate", "gameengine"),
-      key: "marketplace",
-      desc: __("Coupon Generate", "gameengine"),
-      icon: couponIcon()
-    },
-    {
-      label: __("Payout", "gameengine"),
-      key: "payout",
-      desc: __("Payout settings", "gameengine"),
-      icon: payoutIcon()
-    },
-    {
-      label: __("Referral", "gameengine"),
-      key: "referral",
-      desc: __("Referral & Affiliate Systems", "gameengine"),
-      icon: refIcon(),
-      is_pro: true,
-    },
-    {
-      label: __("Notifications", "gameengine"),
-      key: "notifications",
-      desc: __("Notification center settings", "gameengine"),
-      icon: general()
-    },
-    {
-      label: __("Buy Points", "gameengine"),
-      key: "buy_points",
-      desc: __("Product to points mappings", "gameengine"),
-      icon: general()
-    },
-    ...(is_pro ? [
-      {
-        label: __("Email Notifications", "gameengine"),
-        key: "email_notifications",
-        desc: __("Auto-email users on rank/achievement/streak events", "gameengine"),
-        icon: mail()
-      },
-      {
-        label: __("Points Transfer", "gameengine"),
-        key: "transfer",
-        desc: __("Allow users to gift points to each other", "gameengine"),
-        icon: general()
-      },
-      {
-        label: __("Points Expiry", "gameengine"),
-        key: "expiry",
-        desc: __("Configure auto-expiry per point type", "gameengine"),
-        icon: general()
-      },
-    ] : []),
-    {
-      label: __("Email Templates", "gameengine"),
-      key: "email_templates",
-      desc: __("Customize Email Templates & Cron", "gameengine"),
-      icon: mail()
-    },
-    ...(is_pro ? [{
-      label: __("License", "gameengine"),
-      key: "license",
-      desc: __("Manage your license key", "gameengine"),
-      icon: licenseIcon()
-    }] : []),
-  ];
+  const menuList = getTabs();
 
   return (
-    <div className="flex flex-col sticky top-0 self-start bg-white rounded-lg [box-shadow:var(--gameengine-shadow)] min-w-[284px]">
+    <div className="flex flex-col sticky top-0 self-start bg-[var(--gameengine-background)] rounded-lg [box-shadow:var(--gameengine-shadow)] min-w-[284px]">
       <div className="flex flex-col gap-1 items-stretch p-2">
         {menuList.map((item, i) => {
           const isActive = currentTab === item.key;
@@ -112,7 +29,7 @@ const LeftBar = () => {
                 </p>
 
                 <p
-                  className={`text-xs font-normal leading-4 m-0 mt-1 ${isActive ? "text-[var(--gameengine-primary)]" : "text-[#738496]"
+                  className={`text-xs font-normal leading-4 m-0 mt-1 ${isActive ? "text-[var(--gameengine-primary)]" : "text-[var(--gameengine-warn-muted)]"
                     }`}
                 >
                   {item.desc}

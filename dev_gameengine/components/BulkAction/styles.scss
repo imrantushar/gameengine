@@ -6,22 +6,25 @@
     align-items: center;
     gap: 15px;
     box-shadow: 0px 12px 72px -8px rgba(16, 24, 40, 0.25);
-    background: rgba(255, 255, 255, 1);
+    background: var(--gameengine-background);
+    color: var(--gameengine-font-color);
+    border: 1px solid var(--gameengine-border-color);
+    border-radius: var(--gameengine-surface-radius);
     padding: 12px;
     .gameengine-btn {
         padding: 8px 16px;
         &--restore {
             background: rgba(114, 114, 114, 0.12);
-            color: #727272;
+            color: var(--gameengine-warn-muted);
             &:hover {
                 background: rgba(114, 114, 114, 0.12);
             }
         }
         &--delete, &--trash-delete {
-            background: rgba(255, 77, 77, 1);
+            background: var(--gameengine-error-strong);
             color: #FFF;
             &:hover {
-                background: rgba(255, 77, 77, 1);
+                background: var(--gameengine-error-strong);
             }
         }
         &--close {
@@ -36,9 +39,9 @@
         &--publish {
             padding: 8px;
             color: #FFF;
-            background: #00AD6B;
+            background: var(--gameengine-success-strong);
             &:hover, &:focus {
-                background: #00AD6B;
+                background: var(--gameengine-success-strong);
             }
         }
     }
@@ -54,7 +57,8 @@
         .gameengine-snackbar-action__right {
             .gameengine-btn {
                 &--trash {
-                    background: #FF4D4D;
+                    background: var(--gameengine-error-strong);
+                    color: #FFF;
                 }
             }
         }
@@ -86,13 +90,14 @@
                 margin: 0;
             }
         }
-        .gameengine-btn {
-            &--confirm {
-                background: #FF4D4D;
-                &:hover {
-                    background: rgba(255, 77, 77, 1);
-                }
-            }
+    }
+
+    .gameengine-btn--confirm {
+        background: var(--gameengine-error-strong);
+        color: #FFF;
+
+        &:hover {
+            background: var(--gameengine-error-strong);
         }
     }
 }

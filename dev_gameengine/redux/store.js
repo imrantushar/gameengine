@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 // Import all the reducers you have created
 import appReducer from './Slices/appSlice/appSlice';
@@ -11,13 +11,8 @@ import levelsReducer from './Slices/levelsSlice/levelsSlice';
 import leaderboardReducer from './Slices/leaderboardSlice/leaderboardSlice';
 import settingsReducer from './Slices/settingsSlice/settingsSlice';
 import addonsReducer from './Slices/addonsSlice/addonsSlice';
-import payoutReducer from './Slices/payoutSlice/payoutSlice';
 import notificationReducer from './Slices/notificationSlice/notificationSlice';
-import referralReducer from './Slices/referralSlice/referralSlice';
 import badgesReducer from './Slices/badgesSlice/badgesSlice';
-import ranksReducer from './Slices/ranksSlice/ranksSlice';
-import notificationCenterReducer from './Slices/notificationCenterSlice/notificationCenterSlice';
-import streaksReducer from './Slices/streaksSlice/streaksSlice';
 import rewardsReducer from './Slices/rewardsSlice/rewardsSlice';
 
 import logger from 'redux-logger';
@@ -27,6 +22,31 @@ let middleware = [];
 if ( process.env.NODE_ENV !== 'production' ) {
 	middleware = [ logger ];
 }
+
+/**
+ * Reducers for the screens this plugin ships.
+ */
+const staticReducers = {
+    adminmenu: menuReducer,
+    app: appReducer,
+    logs: logsReducer,
+    pointType: pointTypeReducer,
+    achievements: achievementsReducer,
+    levels: levelsReducer,
+    dashboard: dashboardReducer,
+    leaderboard: leaderboardReducer,
+    settings: settingsReducer,
+    addons: addonsReducer,
+    notification: notificationReducer,
+    badges: badgesReducer,
+    rewards: rewardsReducer,
+};
+
+/**
+ * Reducers contributed by another plugin for the screens it ships.
+ */
+const injectedReducers = {};
+
 /**
  * The main Redux store for the GameEngine application.
  *
@@ -35,27 +55,25 @@ if ( process.env.NODE_ENV !== 'production' ) {
  * and enables the Redux DevTools Extension.
  */
 export const store = configureStore({
-    reducer: {
-        // Register the reducer from each slice here
-        adminmenu: menuReducer,
-        app: appReducer,
-        logs: logsReducer,
-        pointType: pointTypeReducer,
-        achievements: achievementsReducer,
-        levels: levelsReducer,
-        dashboard: dashboardReducer,
-        payouts: payoutReducer,
-        leaderboard: leaderboardReducer,
-        settings: settingsReducer,
-        addons: addonsReducer,
-        notification: notificationReducer,
-        referrals: referralReducer,
-        badges: badgesReducer,
-        ranks: ranksReducer,
-        notificationCenter: notificationCenterReducer,
-        streaks: streaksReducer,
-        rewards: rewardsReducer,
-    },
+    reducer: combineReducers(staticReducers),
     middleware: ( getDefaultMiddleware ) =>
         getDefaultMiddleware().concat( ...middleware ),
 });
+
+/**
+ * Add a reducer for a screen this plugin does not ship.
+ *
+ * An extension registering its own pages needs somewhere to keep their state.
+ * Call this before the app mounts; a key that is already taken is left alone.
+ *
+ * @param {string}   key     State key to mount the reducer under.
+ * @param {Function} reducer The reducer.
+ */
+export const injectReducer = (key, reducer) => {
+    if (staticReducers[key] || injectedReducers[key]) {
+        return;
+    }
+
+    injectedReducers[key] = reducer;
+    store.replaceReducer(combineReducers({ ...staticReducers, ...injectedReducers }));
+};

@@ -14,7 +14,7 @@ const TableBody = ({
 					<tr
 						key={rowIndex}
 						role="group"
-						className="border-solid border-t-0 border-l-0 border-r-0 border-b border-[var(--gameengine-border-color)] hover:bg-gray-50 transition-colors duration-150"
+						className="border-solid border-t-0 border-l-0 border-r-0 border-b border-[var(--gameengine-border-color)] hover:bg-[var(--gameengine-secondary-color)] transition-colors duration-150"
 					>
 						{isCheckboxColumnVisible && (
 							<td className="w-10 px-3 py-3 text-center">
@@ -28,7 +28,7 @@ const TableBody = ({
 											select: e.target.checked,
 										})
 									}
-									className="w-4 h-4 rounded border-gray-300 cursor-pointer accent-current"
+									className="w-4 h-4 rounded border-[var(--gameengine-border-color)] cursor-pointer accent-current"
 								/>
 							</td>
 						)}

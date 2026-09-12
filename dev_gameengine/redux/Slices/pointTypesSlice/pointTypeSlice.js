@@ -102,6 +102,10 @@ export const deletePointType = createAsyncThunk(
 
 const initialState = {
     pointTypes: [],
+    // Whether a list request has come back. An empty list only means "there is
+    // nothing here" once this is true; before that it is just the initial state,
+    // and screens must not read it as an empty result.
+    listLoaded: false,
     integrations: {},
     allHooks: [],
     hookSettings: {},
@@ -147,6 +151,9 @@ const pointTypeSlice = createSlice({
                             flattenedHooks.push({
                                 id: triggerKey,
                                 integrationSlug: slug,
+                                // The integration's own display name; deriving
+                                // one from the slug produced "Gameengine".
+                                integrationName: integration.name,
                                 ...triggerData
                             });
                         });
@@ -204,6 +211,7 @@ const pointTypeSlice = createSlice({
             .addCase(fetchPointTypes.fulfilled, (state, action) => {
                 const {data, page, per_page, total, search} = action.payload;
                 state.listStatus = false;
+                state.listLoaded = true;
                 // Replace the entire list with fresh data from server
                 state.pointTypes = data;
                 state.page = page;

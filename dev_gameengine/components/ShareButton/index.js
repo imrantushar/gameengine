@@ -50,7 +50,7 @@ const ShareButton = ({
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '4px',
-                color: copied ? '#38a169' : 'inherit',
+                color: copied ? 'var(--gameengine-success)' : 'inherit',
                 padding: '2px 4px',
                 borderRadius: '4px',
                 fontSize: '13px',

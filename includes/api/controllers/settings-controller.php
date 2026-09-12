@@ -64,15 +64,14 @@ class SettingsController extends BaseController
                 'notify_points_deducted' => true,
                 'notify_achievement'   => true,
                 'notify_level_up'      => true,
-                'notify_rank'          => true,
                 'retention_days'       => 30,
             )),
             'buy_points' => array(
                 'mappings' => get_option('gameengine_buy_points_mappings', array()),
             ),
-            'config' => array(
-                'is_pro' => false, // Default is false
-            )
+            // `is_pro` is gone: the free plugin no longer tracks whether Pro is
+            // present, and Pro contributes its own config through the filter.
+            'config' => array()
         );
 
         /**
@@ -122,7 +121,6 @@ class SettingsController extends BaseController
                 'notify_points_deducted'=> ! empty($notif['notify_points_deducted']),
                 'notify_achievement'    => ! empty($notif['notify_achievement']),
                 'notify_level_up'       => ! empty($notif['notify_level_up']),
-                'notify_rank'           => ! empty($notif['notify_rank']),
                 'retention_days'        => absint($notif['retention_days'] ?? 30),
             );
             update_option('gameengine_notification_settings', $sanitized);
