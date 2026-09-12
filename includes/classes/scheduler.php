@@ -168,7 +168,11 @@ class Scheduler
         if (!empty($inactive_users)) {
             $points_manager = new PointsManager();
             foreach ($inactive_users as $user_id) {
-                $points_balance = $points_manager->get_points($user_id);
+                // PointsManager has no get_points(); the balance across every
+                // currency is get_grand_total(). Calling the name that does not
+                // exist made this cron fatal as soon as it found one inactive
+                // member, so the nudge email has never been sent.
+                $points_balance = $points_manager->get_grand_total((int) $user_id);
                 // Trigger the email hook for EmailManager to pick up
                 do_action('gameengine_user_inactivity_detected', $user_id, $points_balance);
             }
