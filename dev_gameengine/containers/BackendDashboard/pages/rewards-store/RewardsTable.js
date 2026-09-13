@@ -250,7 +250,7 @@ const RewardsTable = () => {
                     </div>
                 }
             >
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
+                <form onSubmit={handleSubmit}>
                     <GameEngineInput label={__('Reward Title', 'gameengine')}>
                         <input
                             type="text"
