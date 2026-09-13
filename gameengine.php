@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name:       GameEngine - Gamification for Website
+ * Plugin Name:       GameEngine - Gamification, Points, Badges & Leaderboards
  * Plugin URI:        https://kodezen.com/products/gameengine
- * Description:       Award points, achievements, and levels to boost user engagement and build a loyal community.
+ * Description:       Gamify your site with points, badges, levels, leaderboards and a rewards store to motivate members and build a loyal community.
  * Version:           1.4.0
  * Author:            kodezen
  * Author URI:        https://kodezen.com

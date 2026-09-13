@@ -1,6 +1,6 @@
-=== GameEngine - Gamification for Website ===
+=== GameEngine - Gamification, Points, Badges & Leaderboards ===
 Contributors: kodezen, academylms, tusharimran
-Tags: gamification, points, achievements, levels, rewards
+Tags: gamification, points, badges, leaderboard, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
@@ -8,100 +8,201 @@ Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Award points, achievements, and levels to boost user engagement and build a loyal community with a powerful gamification system.
+Gamify your site with points, badges, levels, leaderboards and a rewards store. Motivate members, boost engagement and build a loyal community.
 
 == Description ==
 
-**GameEngine** is a complete gamification engine designed to boost user engagement. It allows you to create a fun, interactive experience by rewarding users with points, achievements, and levels for participating on your site.
+**GameEngine is a complete gamification plugin for WordPress.** Reward the things members already do on your site, such as signing up, logging in, commenting, finishing a course or placing an order, with points, badges, levels and a place on the leaderboard. Engaged members come back more often, finish more courses and buy again.
 
-Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngine helps you motivate your users by turning site interactions into a rewarding game.
+Use GameEngine to run an online academy, a membership or community site, an online store or a blog. It connects to the plugins you already use, and a setup wizard gets your first points system, badges and levels running in minutes.
 
-**Key Features:**
+Every feature below is included and fully functional, apart from the separate GameEngine Pro plugin described at the end. Nothing in GameEngine is limited by a license key, a trial, a quota or a time limit.
 
-*   **Powerful Points System:** Award points for registration, daily visits, post publishing, and more.
-*   **Customizable Point Types:** Create multiple types of points like Coins, Gems, or XP.
-*   **Achievements & Badges:** Define achievements that users can unlock by completing specific tasks.
-*   **Level System:** Create levels (e.g., Bronze, Silver, Gold) that users earn from a points threshold or from any trigger.
-*   **Integrations:** Award points for activity in WooCommerce, StoreEngine, Academy LMS and Tutor LMS.
-*   **Activity:** The points, achievement and level-up notifications sent to members, on one screen, searchable and filterable by type.
-*   **Add-ons:** Restrict Unlock, Progress Map, Restrict Content and a Rewards Store where members spend their points, all included and enabled from the Add-ons screen.
-*   **Shortcodes:** Drop points balances, achievement lists, level roadmaps, progress maps, leaderboards, a rewards catalog and profile dashboards anywhere on your site.
+= Points system =
 
-Every feature listed above is included and fully functional. Nothing in this plugin is limited by a key, a trial, a quota or a time limit.
+* **Multiple point types:** create as many currencies as you need, such as Coins, Gems or XP.
+* **Award and deduction rules:** give or take points whenever a trigger fires, with limits on how often a rule pays out.
+* **Streak bonuses:** reward members who keep an activity going for consecutive days or weeks.
+* **Manual adjustments:** add or remove points for any member from the admin.
+* **Sell points:** link a WooCommerce or StoreEngine product to a points amount, and members receive the points when they buy it.
+* **Full history:** every award and deduction is logged, with CSV export.
 
-The complete uncompiled source code is public at https://github.com/imrantushar/gameengine and also ships inside the plugin, in `dev_gameengine/` and `assets/scss/`. See "Source code" below.
+= Achievements and badges =
+
+* **Achievements** unlock from a points total or from any trigger.
+* **Badge Editor:** design badges with a shape, colours and an icon or your own image, with a live preview.
+* **Achievement types** keep large collections organised.
+* **Prerequisites:** with the Restrict Unlock add-on, an achievement or level can wait until a member has earned another achievement or level.
+* **Share links** let members show off the achievements they have earned.
+
+= Levels and ranks =
+
+* **Level ladders** such as Bronze, Silver and Gold, reached from a points threshold or from any trigger.
+* **One currency or all of them:** a level can count a single point type or a member's total across every point type.
+* **Level icons:** a built-in icon in the colour you choose, or your own image from the Media Library.
+* **Level-up emails** that congratulate members when they reach a new level.
+
+= Leaderboards =
+
+* Rank members by points for all time, today, this week, this month, this year or the last 30 days.
+* Show a single point type, or every currency together.
+* Place a leaderboard on any page with the `[gameengine_leaderboard]` shortcode.
+
+= Rewards Store =
+
+* Let members spend their points on rewards you create.
+* Set optional stock and per-member limits for each reward.
+* Show the catalog on any page with `[gameengine_rewards]`.
+
+= Content restriction =
+
+* Lock a post or page until a member reaches a points total, earns an achievement or reaches a level.
+* Wrap any part of a page in `[gameengine_restrict]`, with your own message for members who don't qualify yet.
+* Lock the description on Academy LMS course pages with the same rules.
+
+= Member dashboard and progress map =
+
+* **Profile dashboard:** points, achievements, levels, streaks and a progress map in one place with `[gameengine_profile]`.
+* **Progress map:** a visual path through every level and achievement, showing what's next.
+* **Responsive design** that inherits your theme's fonts and loads its styles only on pages that show GameEngine.
+
+= Notifications and emails =
+
+* **Activity:** an admin bell and an Activity screen list every points, achievement and level-up notification, searchable and filterable by type.
+* **Emails:** templates for level-ups, unlocked achievements, points milestones and inactivity reminders, sent as HTML or plain text.
+
+= Easy setup and management =
+
+* **Setup wizard** with ready-made presets that create starter point types, achievements, levels and rules.
+* **Dashboard** with engagement stats, a points chart, your top members and a Get started checklist.
+* **Import and export** achievements, levels and point types, and export members' history and the logs, as CSV or JSON.
+* **Dark mode** for the admin screens.
+* **Translation-ready**, with right-to-left (RTL) support.
+
+= Integrations =
+
+GameEngine awards points for activity in the plugins you already run. Academy LMS, Tutor LMS, WooCommerce and StoreEngine are switched on from the Add-ons screen; the others connect automatically when their plugin is active.
+
+* **WordPress:** registrations, logins, daily visits, new posts and pages, comments, profile updates and more.
+* **WooCommerce:** purchases, specific products, product reviews and refunds.
+* **StoreEngine:** purchases, first purchases, completed and refunded orders, customer sign-ups and logins, reviews, coupons and subscription changes.
+* **Academy LMS:** completed courses and lessons, passed quizzes, submitted and evaluated assignments, and new enrollments.
+* **Tutor LMS:** completed courses and lessons, quiz attempts, submitted assignments and new enrollments.
+* **LearnDash:** completed courses, lessons, topics and quizzes, and uploaded assignments.
+* **LifterLMS:** completed courses, lessons and quizzes, and new enrollments.
+* **BuddyPress:** activity updates, friendships, group joins, profile updates and private messages.
+* **bbPress:** new topics, replies, and resolved or favourited topics.
+* **GemBoards:** new boards and cards, completed and moved cards, and card comments.
+* **GameEngine:** unlocked achievements, so one reward can lead to the next.
+
+= Shortcodes =
+
+* `[gameengine_profile]` – a member dashboard with points, achievements, levels and a progress map.
+* `[gameengine_points]` – the signed-in member's points balance.
+* `[gameengine_level]` – progress to the next level, and every level with its status.
+* `[gameengine_achievements]` – every achievement, earned and still locked.
+* `[gameengine_leaderboard]` – the top members, for the time range and point type you choose.
+* `[gameengine_progress_map]` – the member's path through levels and achievements.
+* `[gameengine_rewards]` – the rewards catalog, with a Redeem button on each reward.
+* `[gameengine_restrict]` – content that unlocks at a points total, an achievement or a level.
+
+The Shortcodes tab under Tools lists every option with an example.
+
+= Perfect for =
+
+* **Online courses and LMS sites:** reward course, lesson and quiz completion to keep students motivated.
+* **Membership and community sites:** recognise active members with badges, levels and leaderboards.
+* **Online stores:** encourage repeat purchases and reviews, and let customers redeem points for rewards.
+* **Blogs and publishers:** turn comments, visits and contributions into a friendly competition.
+
+= GameEngine Pro =
+
+GameEngine Pro is a separate plugin that adds leaderboard seasons, a spin-the-wheel game, referrals and affiliates, a points wallet with withdrawals, paying with points in WooCommerce and StoreEngine, a coupon marketplace, points transfers and expiry, analytics and webhooks. Everything in GameEngine keeps working without it. Learn more at [gameengine.pro](https://gameengine.pro/).
 
 == External services ==
 
-This plugin does not connect to any external service. It makes no HTTP requests to any third party, sends no data off your site, and loads no remote fonts, scripts, stylesheets or images. Everything it needs is bundled with the plugin and served from your own site. No data about you, your site or your visitors is transmitted anywhere.
+GameEngine does not connect to any external service. It makes no HTTP requests, loads no remote fonts, scripts, stylesheets or images, and sends no data about you, your site or your visitors anywhere.
 
-For completeness, the only external addresses that appear anywhere in the plugin are ordinary hyperlinks in the admin screens:
-
-*   **gameengine.pro** — the plugin's documentation site. The "?" buttons beside each shortcode, the links on the Add-ons screen and the "Get Pro" menu item point here. Operated by Kodezen Limited.
-*   **kodezen.com** — the author's site, linked from the plugin header.
-
-Nothing is requested from either address unless you click one of those links, at which point your browser visits the page exactly as it would any other website. The plugin sends nothing to them, in the background or otherwise, and it works identically with no internet connection at all.
-
-Both sites are operated by Kodezen Limited. Their terms of service are at https://kodezen.com/terms/ and their privacy policy is at https://kodezen.com/privacy-policy/.
-
-== Source code ==
-
-The full, uncompiled source for this plugin is public at https://github.com/imrantushar/gameengine and a copy of it also ships inside the plugin itself, so nothing has to be downloaded to read or rebuild it.
-
-`dev_gameengine/` is this plugin's source directory — the equivalent of `src/` in most projects, under an older name this project has always used. `assets/scss/` holds the Sass.
-
-The only generated files are in `assets/build/`, plus the translation template in `languages/`. Each bundle and stylesheet below is named after the source file it is built from and begins with a comment naming that source and the command that rebuilds it; the other generated files are listed with what generates them:
-
-*   `assets/build/backend.js`  — built from `dev_gameengine/backend.js` (the admin app)
-*   `assets/build/frontend.js` — built from `dev_gameengine/frontend.js` (the frontend script)
-*   `assets/build/setup.js`    — built from `dev_gameengine/setup.js` (the setup wizard)
-*   `assets/build/backend.css` — built from `assets/scss/backend.scss`
-*   `assets/build/frontend.css` — built from `assets/scss/frontend.scss`
-*   `assets/build/setup.css` — built from `assets/scss/setup.scss`
-*   `assets/build/*-rtl.css` — the same Sass, flipped by the build
-*   `assets/build/*.asset.php` — generated by the build; lists that bundle's script dependencies and its content hash
-*   `assets/build/i18n-strings.js` — generated by `build-tools/make-i18n-strings.mjs` from `languages/gameengine.pot`; see below
-
-Those three entry points pull in the rest of `dev_gameengine/`, the complete uncompiled React source: `components/`, `containers/`, `redux/`, `hooks/`, `utils/` and `frontend/`. Nothing in this plugin is obfuscated, and nothing is minified without its source beside it.
-
-The build is [@wordpress/scripts](https://www.npmjs.com/package/@wordpress/scripts) (webpack + Babel + Sass) with Tailwind CSS and PostCSS. Every configuration file ships too: `webpack.config.js` maps the entry points to their output, with `tailwind.config.js`, `postcss.config.js`, `jsconfig.json`, `package.json` and `package-lock.json` for an exact, reproducible dependency tree.
-
-To rebuild everything in `assets/build/` from the sources included here, run the following in the plugin directory with Node.js 18 or newer:
-
-`npm install`
-`npm run build`
-
-`npm run start` gives the same build in watch mode for development.
-
-`npm run makepot` regenerates `languages/gameengine.pot` and `assets/build/i18n-strings.js`, and needs WP-CLI. The string extractor used by WordPress.org cannot parse `assets/build/backend.js`, so `i18n-strings.js` lists the same JavaScript strings as plain `__()` calls it can read. It is never executed; it exists so the admin screens and setup wizard can be translated, and it is loaded as a dependency of both.
-
-PHP dependencies are declared in `composer.json`, with `composer.lock` pinning exact versions; `composer install` installs them.
-
-`README.md` in the plugin directory repeats all of this.
+The only external addresses in the plugin are ordinary links in the admin screens: the documentation site gameengine.pro, linked from the "?" buttons beside each shortcode, the Add-ons screen and the "Get Pro" menu item, and the author's site kodezen.com, linked from the plugin header. Nothing is requested from either address unless you click one of those links. Both sites are operated by Kodezen Limited: see their [terms of service](https://kodezen.com/terms/) and [privacy policy](https://kodezen.com/privacy-policy/).
 
 == Installation ==
 
-1.  Upload the `gameengine` folder to the `/wp-content/plugins/` directory.
-2.  Activate the plugin through the 'Plugins' menu in WordPress.
-3.  Go to the "GameEngine" menu in your WordPress admin dashboard to start.
+= From your WordPress dashboard =
+
+1. Go to **Plugins → Add New Plugin** and search for **GameEngine**.
+2. Click **Install Now**, then **Activate**.
+3. Follow the setup wizard to pick a preset, or open **GameEngine** in the admin menu to build your own points system.
+
+= Manual installation =
+
+1. Upload the `gameengine` folder to the `/wp-content/plugins/` directory.
+2. Activate **GameEngine** from the **Plugins** screen.
+3. Open **GameEngine** in the admin menu to get started.
+
+= After activation =
+
+1. Create a point type and add rules that award points for the actions you want to encourage.
+2. Add achievements and levels, and design their badges in the Badge Editor.
+3. Turn on integrations and add-ons from the **Add-ons** screen.
+4. Add `[gameengine_profile]` or `[gameengine_leaderboard]` to any page to show members their progress.
 
 == Frequently Asked Questions ==
 
-= What kind of activities can I award points for? =
+= What is a gamification plugin? =
 
-You can award points for actions like user registration, daily logins, publishing posts, and leaving comments. Turning on an integration from the Add-ons screen adds triggers for that platform, such as completing a course or placing an order; integrations without an Add-ons card add theirs whenever their plugin is active.
+A gamification plugin adds game mechanics such as points, badges, levels and leaderboards to your website. Members earn rewards for the actions you want to encourage, which keeps them engaged and coming back.
 
-= Does the plugin send any data to an external server? =
+= Is GameEngine free? =
 
-No. The plugin makes no external requests at all. See the "External services" section above.
+Yes. GameEngine is free, and none of its features are limited by a license key, a trial or a usage limit. GameEngine Pro is an optional, separate plugin with more advanced features.
+
+= What can members earn points for? =
+
+Out of the box: registering, logging in, daily visits, publishing posts and pages, commenting and more. Integrations add triggers such as completing a course, passing a quiz, placing an order or joining a group. Academy LMS, Tutor LMS, WooCommerce and StoreEngine are switched on from the Add-ons screen; the other integrations add their triggers whenever their plugin is active.
+
+= Does GameEngine work with WooCommerce? =
+
+Yes. Turn on the WooCommerce add-on, and members can earn points for purchases, for buying specific products and for writing product reviews, and a rule can take points back when an order is refunded. You can also sell points by linking a product to a points amount under Settings → Buy Points. StoreEngine stores get the same kind of triggers through the StoreEngine add-on.
+
+= Does GameEngine work with LearnDash, LifterLMS, Tutor LMS or Academy LMS? =
+
+Yes. Reward completed courses, lessons, topics and quizzes, assignments and new enrollments, depending on what each LMS supports. The Restrict Content add-on can also lock the description on Academy LMS course pages.
+
+= Can I create my own badges? =
+
+Yes. The Badge Editor lets you design a badge with a shape, colours and an icon or your own image, with a live preview, and attach it to an achievement.
+
+= How do I show points, badges and leaderboards to members? =
+
+Add a GameEngine shortcode to any page or post. `[gameengine_profile]` shows a complete member dashboard, and the Shortcodes tab under Tools lists every shortcode with its options and an example.
+
+= Can I restrict content by points, level or achievement? =
+
+Yes. Turn on the Restrict Content add-on, then lock a whole post or page from the GameEngine Content Restriction box in its editor, or wrap any part of a page in `[gameengine_restrict]`.
+
+= Will GameEngine slow down my site? =
+
+GameEngine loads its stylesheet and scripts only on pages that show GameEngine content, so the rest of your site is not affected.
+
+= Is GameEngine translation-ready? =
+
+Yes. The admin screens, the setup wizard and every front-end string can be translated, and right-to-left languages are supported.
+
+= Does GameEngine send any data to external servers? =
+
+No. GameEngine makes no external requests and sends no data off your site. See the "External services" section for the links that appear in the admin screens.
 
 = Does deleting GameEngine remove my data? =
 
 Only if you ask it to. By default, deleting the plugin leaves every point type, achievement, level and log in place, so reinstalling loses nothing. To remove it all when the plugin is deleted, turn on "Delete all data when GameEngine is deleted" in GameEngine's Settings. That removes GameEngine Pro's data as well, but not the WooCommerce coupons Pro has issued to members, which keep working.
 
-= Can I extend the plugin from my own code? =
+= Can developers extend GameEngine? =
 
 Yes. Integrations, add-on cards, admin menu entries and trigger fields are all registered through filters, so another plugin can add its own without modifying this one. On the PHP side see `gameengine_integrations`, `gameengine_addons_list`, `gameengine_addon_slugs`, `gameengine_trigger_schema_fields`, `gameengine_settings_data` and `gameengine/admin_menu_list`. In the admin app, `gameengine.settings.tabs`, `gameengine.addons.cards`, `gameengine.adminMenu.items` and `gameengine.tools.shortcodes` are available through `wp.hooks`.
+
+= Is GameEngine open source? =
+
+Yes. GameEngine is free software licensed under the GPL, and its complete source code is developed in public on GitHub at https://github.com/imrantushar/gameengine.
 
 == Changelog ==
 
@@ -122,7 +223,7 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Added - Share links on the achievements members have earned in `[gameengine_achievements]`, on by default, with a switch in Settings.
 * Added - With GameEngine Pro's Leaderboard Seasons, an achievement can be limited to a season.
 * Added - A "Delete all data when GameEngine is deleted" setting, off by default. When it is on, deleting the plugin removes GameEngine's tables, options, badges and meta, and GameEngine Pro's.
-* Added - Every bundle and stylesheet in `assets/build/` begins with a comment naming its source file and the command that rebuilds it. A `README.md`, now shipped with the plugin, lists which source produces which generated file, and the readme states that `dev_gameengine/` is the source directory and links the public repository at https://github.com/imrantushar/gameengine.
+* Changed - Every bundle and stylesheet in `assets/build/` begins with a comment naming its source file, and the plugin zip now contains only the files WordPress runs. The complete source code and build setup are public at https://github.com/imrantushar/gameengine.
 * Changed - The `[gameengine_leaderboard]` shortcode now subtracts deductions, matching the admin leaderboard, so a member's total there can be lower than before. Both rank members with the same query.
 * Changed - The Shortcodes tab under Tools lists every shortcode, including `[gameengine_leaderboard]`, with its attributes and an example.
 * Changed - A level's logo can be one of the built-in icons as well as an image from the Media Library.
@@ -137,6 +238,8 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Fixed - Switching an add-on off announced "successfully Deactivate".
 * Fixed - The admin screens and setup wizard could not be translated: the string extractor WordPress.org uses cannot read the admin bundle, the setup wizard never loaded its translations, and nine strings were filed under other plugins' text domains. `assets/build/i18n-strings.js` now lists the strings in a form the extractor can read, and `npm run makepot` regenerates it with the translation template.
 * Fixed - Deactivating the plugin left some of its scheduled events running.
+* Fixed - Unlocked `[gameengine_restrict]` content sat outside the content column on block themes.
+* Fixed - Changing a member's points on their user profile, and the `{points_balance}` email tag, used point type #1 even on sites without it.
 
 = 1.3.2 - 2026-08-28 =
 * Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
@@ -173,24 +276,23 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 * Changed - Fonts are now served from the visitor's system instead of a third-party CDN. The plugin makes no external requests.
 * Fixed - Scheduled events are now cleared when the plugin is deactivated.
 * Fixed - The integration manifest is no longer rewritten inside the plugin folder on every admin page load.
-* Improved - Updated all the UI in admin dashboard(Addons, breadcrumbs, no data text, icons and more) and setup wizard..
-* Fixed - All buttons dirty and disable issue fixed.
+* Improved - Refreshed the admin screens, including add-ons, breadcrumbs, empty states and icons, and the setup wizard.
+* Fixed - Button states for unsaved changes and disabled actions.
 
 = 1.1.2 - 2026-05-06 =
-* Improved - Chakra UI removed and migrated to tailwind.
-* Improved - Complete UI updated.
+* Improved - Rebuilt the admin interface on Tailwind CSS, replacing Chakra UI.
+* Improved - Refreshed the complete admin interface.
 
 = 1.1.1 - 2026-04-23 =
 * Added - License management for GameEngine Pro (now provided by the Pro add-on itself).
 
 = 1.1.0 - 2026-04-20 =
-* Added Tutor LMS Integration.
-* New Triggers: Course Completed, Course Published (Instructor), Lesson Completed, Quiz Attempt Ended, Quiz Passed, Assignment Submitted, and New Enrollment.
-* Dynamic schema support for selection of specific Courses, Lessons, Quizzes, and Assignments.
+* Added - Tutor LMS integration, with Course Completed, Course Published (Instructor), Lesson Completed, Quiz Attempt Ended, Quiz Passed, Assignment Submitted and New Enrollment triggers.
+* Added - Rules can target specific courses, lessons, quizzes and assignments.
 
 = 1.0.0 - 2026-01-20 =
-* Initial release of the GameEngine plugin.
-* Fixed coding standards and security guidelines for WordPress.org submission.
+* Initial release.
+* Fixed - Coding standards and security issues for the WordPress.org submission.
 
 == Upgrade Notice ==
 
