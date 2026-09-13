@@ -1,124 +1,19 @@
-$editor-font: 'sans-serif';
-
-
-    // editor modal
-.ql-html-popupContainer {
-    border-radius: 4px !important;
-    margin-top: 40px;
-    .ql-html-textContainer{
-        padding: 20px 30px;
-        .ql-html-popupTitle{
-            display: none;
-        }
-        .ql-html-textArea{ 
-            max-height: unset;
-            min-height: unset;
-            height: calc(100% - 85px) !important;
-            border-radius: 4px;
-            .ql-editor::-webkit-scrollbar {
-                display: none; /* for Chrome, Safari, and Opera */
-            }
-            .ql-code-block-container {
-                height: 100%;
-                overflow-y: scroll;
-            }
-            .ql-code-block-container::-webkit-scrollbar {
-                display: none; /* for Chrome, Safari, and Opera */
-            }
-        }
-        .ql-html-buttonGroup {
-            left: calc(94% - 96px);
-            button {
-                padding: 4px 12px;
-                cursor: pointer;
-            }
-        }
-    }
-}
-.ql-toolbar {
-    margin: 0 !important;
-    border-radius: 4px 4px 0 0;
-    position: relative;
-    background: var(--gameengine-background);
-    .ql-formats{
-        margin: 2px !important;
-        background: var(--gameengine-secondary-color);
-        border-radius: 4px;
-        padding: 4px 8px;
-        height: 30px;
-        margin-top: 4px;
-    }
-    .ql-formats:nth-last-child(5),
-    .ql-formats:nth-last-child(4),
-    .ql-formats:nth-last-child(3),
-    .ql-formats:nth-last-child(2),
-    .ql-formats:nth-last-child(1) {
-        // Neutral inset rather than the old flat cream: the tint only exists
-        // to group these toolbar buttons, and any hue here turns muddy against
-        // the dark ground.
-        background: var(--gameengine-secondary-color);
-    }
-
-    .ql-formats:nth-last-child(1) {
-        position: relative;
-        padding-top: 6px;
-        &::before {
-            content: "HTML <>";
-        }
-        button {
-            font-size: 0;
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 50px;
-            height: 100%;
-            z-index: 1;
-        }
-    }
-
-    button {
-        padding: 4px 6px;
-    }
-}
-.ql-container {
-    min-height: 150px;
-    border-radius: 0 0 4px 4px;
-    overflow-y: scroll;
-    margin-top: -10px;
-    .ql-editor {
-        strong {
-            font-weight: 700;
-        }
-        li[data-list=bullet] .ql-ui {
-            width: 0;
-            height: 0;
-        }
-        
-        .gameengine-custom-video, .gameengine-custom-audio {
-            width: 100%;
-        }
-    }
-    .ql-editor::-webkit-scrollbar {
-        display: none; /* for Chrome, Safari, and Opera */
-    }
-}
-.ql-container::-webkit-scrollbar {
-    display: none; /* for Chrome, Safari, and Opera */
-}
-
-.ql-snow {
-    border: 1px solid var(--gameengine-border-color);
-}
-
-.ql-snow .ql-tooltip.ql-flip {
-    transform: translate(100%, 100%) !important;
-}
-@media all and (max-width: 1440px) {
-    .ql-html-popupContainer {
-        .ql-html-textContainer{
-            .ql-html-buttonGroup {
-                left: calc(90% - 96px);
-            }
-        }
-    }
+// @kodezen/editor renders its own chrome (`.kzeditor-embed-root`) and injects
+// its own stylesheet at runtime — every color reads a `--kzeditor-*` custom
+// property with a light fallback. `suffix="gameengine"` (set in index.js)
+// adds `.kzeditor-embed-root--gameengine`, so mapping the properties here
+// themes the shell border/background to match GameEngine's dark admin UI,
+// the same pattern Zaplane/Academy use for their own suffix.
+.kzeditor-embed-root--gameengine {
+    --kzeditor-shell-bg: var(--gameengine-background);
+    --kzeditor-shell-border: var(--gameengine-border-color);
+    --kzeditor-border: var(--gameengine-border-color);
+    --kzeditor-border-strong: var(--gameengine-border-color);
+    --kzeditor-surface-bg: var(--gameengine-background);
+    --kzeditor-surface-alt-bg: var(--gameengine-secondary-color);
+    --kzeditor-header-bg: var(--gameengine-secondary-color);
+    --kzeditor-text: var(--gameengine-font-color);
+    --kzeditor-text-secondary: var(--gameengine-font-color);
+    --kzeditor-text-muted: var(--gameengine-text-muted);
+    --kzeditor-primary: var(--gameengine-primary);
 }
