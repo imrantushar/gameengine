@@ -34,17 +34,15 @@ const AddonCard = ({ item, value }) => {
 
           dispatch(fetchAddons());
 
+          // Two whole sentences, not "%1$s successfully %2$s" glued from a
+          // translated verb that no language with inflection could translate.
           const statusMessage = payload?.active_addons[item.name]
-            ? __('Activated', 'gameengine')
-            : __('Deactivate', 'gameengine');
+            ? sprintf(/* translators: %s: the add-on's name. */ __('%s activated successfully.', 'gameengine'), item.label)
+            : sprintf(/* translators: %s: the add-on's name. */ __('%s deactivated successfully.', 'gameengine'), item.label);
 
           dispatch(
             showNotification({
-              message: sprintf(
-                __('%1$s successfully %2$s', 'gameengine'),
-                item.label,
-                statusMessage
-              ),
+              message: statusMessage,
               isShow: true,
               type: 'success',
             })

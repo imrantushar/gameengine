@@ -8,7 +8,10 @@
 ( function () {
 	var __ = wp.i18n.__, _x = wp.i18n._x, _n = wp.i18n._n, _nx = wp.i18n._nx;
 	__( "-1 for unlimited.", "gameengine" );
-	__( "%1$s successfully %2$s", "gameengine" );
+	/* translators: %s: the add-on's name. */
+	__( "%s activated successfully.", "gameengine" );
+	/* translators: %s: the add-on's name. */
+	__( "%s deactivated successfully.", "gameengine" );
 	__( "0 for unlimited.", "gameengine" );
 	__( "10", "gameengine" );
 	__( "15", "gameengine" );
@@ -40,7 +43,6 @@
 	__( "Action", "gameengine" );
 	__( "Action Type", "gameengine" );
 	__( "Actions.", "gameengine" );
-	__( "Activated", "gameengine" );
 	__( "Active", "gameengine" );
 	__( "Active Hooks", "gameengine" );
 	__( "Active Users", "gameengine" );
@@ -153,7 +155,6 @@
 	__( "Dashboard", "gameengine" );
 	__( "Data Type", "gameengine" );
 	__( "Date", "gameengine" );
-	__( "Deactivate", "gameengine" );
 	__( "Deduct Actions", "gameengine" );
 	__( "Deduct Points (-)", "gameengine" );
 	__( "Deduct: ", "gameengine" );
