@@ -24,6 +24,38 @@ class Assets
     }
 
     /**
+     * Registers the translation companion for the admin screens and returns
+     * its handle, or '' when the file has not been generated.
+     *
+     * The string extractor that WordPress.org and WP-CLI share cannot parse
+     * assets/build/backend.js — it gives up on the file — so no translation is
+     * ever keyed to the admin bundle. assets/build/i18n-strings.js lists the
+     * same strings in a form it can read (build-tools/make-i18n-strings.mjs).
+     * Translations load per text domain, not per file, so loading them for this
+     * one file translates every script that uses the domain. Add the handle as
+     * a dependency of any script that shows those strings.
+     *
+     * @return string
+     */
+    public static function register_i18n_strings()
+    {
+        $handle = 'gameengine-i18n';
+
+        if (wp_script_is($handle, 'registered')) {
+            return $handle;
+        }
+
+        if (! is_file(GAMEENGINE_PATH . 'assets/build/i18n-strings.js')) {
+            return '';
+        }
+
+        wp_register_script($handle, GAMEENGINE_URL . 'assets/build/i18n-strings.js', array('wp-i18n'), GAMEENGINE_VERSION, true);
+        wp_set_script_translations($handle, 'gameengine', GAMEENGINE_PATH . 'languages/');
+
+        return $handle;
+    }
+
+    /**
      * Prepares the array of data to be passed to JavaScript.
      *
      * @return array
@@ -129,11 +161,19 @@ class Assets
             );
         }
 
-        // Enqueue JS
+        // Enqueue JS. The translation companion comes along as a dependency so
+        // the admin screens translate — see register_i18n_strings().
+        $dependencies = $script_asset['dependencies'];
+        $i18n_handle  = self::register_i18n_strings();
+
+        if ($i18n_handle) {
+            $dependencies[] = $i18n_handle;
+        }
+
         wp_enqueue_script(
             'gameengine-admin-script',
             GAMEENGINE_URL . 'assets/build/backend.js',
-            $script_asset['dependencies'],
+            $dependencies,
             $script_asset['version'],
             true
         );

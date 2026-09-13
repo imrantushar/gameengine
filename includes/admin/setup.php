@@ -182,11 +182,19 @@ class Setup
             $asset_data['version']
         );
 
-        // Enqueue Wizard JS with full versioned filename
+        // Enqueue Wizard JS. It had no translations loaded at all; it now takes
+        // them from the same companion as the admin app.
+        $dependencies = $asset_data['dependencies'];
+        $i18n_handle  = \GameEngine\Assets::register_i18n_strings();
+
+        if ($i18n_handle) {
+            $dependencies[] = $i18n_handle;
+        }
+
         wp_enqueue_script(
             'gameengine-setup-script',
             GAMEENGINE_URL . 'assets/build/setup.js',
-            $asset_data['dependencies'],
+            $dependencies,
             $asset_data['version'],
             true
         );

@@ -42,6 +42,7 @@ build_log.txt
 # the plugin on purpose, so the compiled assets in assets/build/ can be
 # regenerated and audited. Do not exclude any of the following:
 #   dev_gameengine/          React source for the admin app and the frontend
+#   build-tools/             make-i18n-strings.mjs, which writes assets/build/i18n-strings.js
 #   assets/scss/             Sass source for the compiled stylesheets
 #   README.md                where the source lives and how to rebuild it
 #   package.json             npm dependencies and build scripts

@@ -65,7 +65,20 @@ module.exports = {
         path: path.resolve(__dirname, 'assets/build'),
     },
     plugins: [
-        ...defaultConfig.plugins,
+        // CleanWebpackPlugin empties assets/build before each build. The
+        // translation companion kept there, assets/build/i18n-strings.js, is
+        // written by `npm run makepot`, not by webpack — so a plain `npm run
+        // build` would delete it, and nothing would say so: the admin screens
+        // would simply stop loading their translations.
+        ...defaultConfig.plugins.map((plugin) => {
+            if (plugin && plugin.constructor && plugin.constructor.name === 'CleanWebpackPlugin') {
+                plugin.cleanOnceBeforeBuildPatterns = [
+                    ...plugin.cleanOnceBeforeBuildPatterns,
+                    '!i18n-strings.js',
+                ];
+            }
+            return plugin;
+        }),
         // Development builds are left alone so the source maps line up with
         // the generated file exactly.
         ...(isProduction ? [sourceHeader] : []),
