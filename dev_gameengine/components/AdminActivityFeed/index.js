@@ -52,28 +52,22 @@ const AdminActivityFeed = () => {
     const badgeLabel = recentCount > 99 ? '99+' : recentCount;
 
     return (
-        <div ref={panelRef} style={{ position: 'relative', display: 'inline-block' }}>
+        <div ref={panelRef} className="gameengine-activity-feed" style={{ position: 'relative', display: 'inline-flex' }}>
             <button
+                type="button"
                 onClick={() => setOpen(o => !o)}
-                style={{
-                    background: 'none',
-                    border: 'none',
-                    cursor: 'pointer',
-                    padding: '6px',
-                    borderRadius: '6px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    color: 'var(--gameengine-warn-muted)',
-                    position: 'relative',
-                }}
+                className="gameengine-activity-feed__button"
+                style={{ position: 'relative' }}
+                aria-label={__('Platform Activity Feed', 'gameengine')}
+                aria-expanded={open}
                 title={__('Platform Activity Feed', 'gameengine')}
             >
-                <FiBell size={20} />
+                <FiBell size={18} />
                 {recentCount > 0 && (
                     <span style={{
                         position: 'absolute',
-                        top: '0',
-                        right: '0',
+                        top: '-6px',
+                        right: '-6px',
                         background: 'var(--gameengine-placing)',
                         color: '#fff',
                         fontSize: '10px',

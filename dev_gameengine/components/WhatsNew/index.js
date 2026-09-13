@@ -27,7 +27,6 @@ const WhatsNew = () => {
                 iconPosition="left"
                 preset="white"
                 border="gray"
-                suffix=' mr-[30px]'
                 onClick={() => setIsDrawerOpen(true)}
             />
 
