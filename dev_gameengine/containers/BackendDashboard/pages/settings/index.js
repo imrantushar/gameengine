@@ -52,8 +52,10 @@ const Settings = () => {
 
   const onSubmitHandle = async (values, actions) => {
     try {
-      const saveKey = activeTab?.saveKey;
-      if (saveKey) {
+      // A tab can edit more than one branch of the settings: the Log tab also
+      // holds the General and Data switches, which were never saved while it
+      // named only `logs`. Save every branch the tab names.
+      for (const saveKey of [].concat(activeTab?.saveKey || [])) {
         await dispatch(saveSettings({ key: saveKey, payloadData: values[saveKey] }));
       }
     } catch (error) {

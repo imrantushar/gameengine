@@ -10,8 +10,9 @@ import BuyPointsSettings from './Tabs/BuyPointsSettings';
 /**
  * Tabs for the settings this plugin stores itself.
  *
- * `saveKey` names the branch of the settings payload the tab writes to. A tab
- * that submits on its own leaves it undefined and receives the form helpers.
+ * `saveKey` names the branch of the settings payload the tab writes to, or an
+ * array of branches for a tab that edits more than one. A tab that submits on
+ * its own leaves it undefined and receives the form helpers.
  */
 const ownTabs = [
 	{
@@ -19,7 +20,7 @@ const ownTabs = [
 		label: __('Log', 'gameengine'),
 		desc: __('Log settings', 'gameengine'),
 		icon: logIcon(),
-		saveKey: 'logs',
+		saveKey: ['logs', 'general'],
 		render: () => <GeneralSettings />,
 	},
 	{
