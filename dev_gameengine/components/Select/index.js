@@ -34,7 +34,9 @@ const GFSelect = ({
           value: selected ? [selected.value] : []
         });
       }
-    }} className="gameengine-select" classNamePrefix="gameengine-select" />
+    }} className="gameengine-select" classNamePrefix="gameengine-select"
+      menuPortalTarget={typeof document !== 'undefined' ? document.body : null}
+      styles={{ menuPortal: base => ({ ...base, zIndex: 100000 }) }} />
     </div>;
 };
 export default GFSelect;
