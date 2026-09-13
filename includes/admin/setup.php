@@ -40,6 +40,12 @@ class Setup
 
 		delete_transient( 'gameengine_activation_redirect' );
 
+		// Once the wizard has run, reactivating the plugin leaves the admin where
+		// they were; the wizard stays available under Tools.
+		if ( 'yes' === get_option( 'gameengine_setup_completed' ) ) {
+			return;
+		}
+
 		/**
 		 * Page routing via $_GET doesn't require a nonce.
 		 */

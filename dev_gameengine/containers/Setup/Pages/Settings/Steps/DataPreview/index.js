@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import GFLabel from '@GFComponents/Labels/GFLabel';
 import { useFormikContext } from 'formik';
-import { plugin_root_url } from '@GFUtils/helper';
+import { API, plugin_root_url } from '@GFUtils/helper';
 
 const previewCards = [{
   label: __('Author', 'gameengine'),
@@ -37,100 +37,135 @@ const previewCards = [{
   slug: 'growth'
 }];
 
-const pointsData = {
-  author: {
-    use_case: 'Multi-author blogs, magazines, news sites',
-    achievements: ['First Draft', 'Published Author', 'Consistent Writer', 'Trusted Author'],
-    levels: ['New Author', 'Regular Author', 'Senior Author', 'Master Author']
-  },
-  blogger: {
-    use_case: 'Personal blogs, content creators',
-    achievements: ['First Post', 'Active Blogger', 'Growing Blog', 'Blog Authority'],
-    levels: ['Beginner Blogger', 'Active Blogger', 'Pro Blogger', 'Top Blogger']
-  },
-  shop: {
-    use_case: 'WooCommerce, loyalty programs',
-    achievements: ['First Purchase', 'Repeat Buyer', 'Loyal Customer', 'VIP Shopper'],
-    levels: ['Shopper', 'Regular Buyer', 'Loyal Buyer', 'VIP Member']
-  },
-  performance: {
-    use_case: 'Teams, companies, internal dashboards',
-    achievements: ['Onboarded', 'Task Completed', 'Consistent Performer', 'Top Performer'],
-    levels: ['Junior', 'Associate', 'Senior', 'Lead']
-  },
-  community: {
-    use_case: 'Forums, membership communities',
-    achievements: ['Welcome Member', 'First Contribution', 'Active Member', 'Trusted Voice'],
-    levels: ['Newcomer', 'Member', 'Contributor', 'Community Leader']
-  },
-  growth: {
-    use_case: 'Marketing teams, agencies, SaaS growth',
-    achievements: ['Campaign Launched', 'Lead Generator', 'Growth Booster', 'Growth Champion'],
-    levels: ['Marketer', 'Growth Specialist', 'Growth Manager', 'Growth Leader']
-  }
-};
-
+/**
+ * Preset picker and preview.
+ *
+ * Only the cards are defined here. What each preset creates comes from the
+ * server's preset definitions, the same ones the import uses, so the preview
+ * can't promise something the import doesn't do.
+ */
 const DataPreview = () => {
   const { values, setFieldValue } = useFormikContext();
-  const selectedCard = previewCards.find(item => item.slug === values.preset);
+  const [presets, setPresets] = useState(null);
 
-  const previewData = [{
-    title: __("Achievement", "gameengine"),
-    slug: 'achievements'
-  }, {
-    title: __("Levels", "gameengine"),
-    slug: 'levels'
-  }];
+  useEffect(() => {
+    API.get('/setup/presets')
+      .then((response) => setPresets(Array.isArray(response.data) ? response.data : []))
+      .catch(() => setPresets([]));
+  }, []);
+
+  const presetFor = (slug) => (presets || []).find((preset) => preset.slug === slug);
+  const selected = presetFor(values.preset);
 
   return (
     <>
-      <SettingsHeader title={__('Setup Your GameEngine', 'gameengine')} subTitle={__('Choose your preferred gamification setup', 'gameengine')} />
+      <SettingsHeader title={__('Setup Your GameEngine', 'gameengine')} subTitle={__('Choose a starter set that fits your site. You can change all of it later.', 'gameengine')} />
       <div className="w-full">
         <div className="grid grid-cols-3 gap-4 max-w-[900px] mx-auto">
-          {previewCards.map((item, idx) => {
+          {previewCards.map((item) => {
+            const preset = presetFor(item.slug);
+            const unavailable = preset ? !preset.available : false;
             const isSelected = item.slug === values.preset;
-            
+            const choose = () => !unavailable && setFieldValue('preset', item.slug);
+
             return (
               <div
-                className={`flex items-center gap-3 p-4 rounded-lg cursor-pointer transition-all border-[1px] border-solid
+                className={`flex items-center gap-3 p-4 rounded-lg transition-all border-[1px] border-solid
   ${isSelected
                     ? 'border-blue-500 bg-blue-50 shadow-sm'
                     : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                key={idx}
-                onClick={() => setFieldValue('preset', item.slug)}
+                  } ${unavailable ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'}`}
+                key={item.slug}
+                role="button"
+                tabIndex={unavailable ? -1 : 0}
+                aria-pressed={isSelected}
+                aria-disabled={unavailable}
+                onClick={choose}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    choose();
+                  }
+                }}
               >
-                <img className="h-auto max-w-[36px]" src={plugin_root_url + item.icon} alt={item.label} />
+                <img className="h-auto max-w-[36px]" src={plugin_root_url + item.icon} alt="" />
                 <div className="flex flex-col items-start gap-1">
                   <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} lineHeight={'20px'} />
-                  <GFLabel type="simple" margin={0} padding={0} label={item.description} fontSize={'12px'} lineHeight={'16px'} />
+                  <GFLabel type="simple" margin={0} padding={0} label={unavailable ? __('Needs WooCommerce', 'gameengine') : item.description} fontSize={'12px'} lineHeight={'16px'} />
                 </div>
               </div>
             );
           })}
         </div>
 
-        <div className="flex flex-col p-6 gap-6 rounded-lg mt-8 bg-[#F3F5FF]">
-          <GFLabel type="simple" margin={0} padding={0} label={__('Levels & Achievements Preview', 'gameengine')} fontSize="14px" color="#64748B" />
-          <div className="flex gap-6 w-full">
-            {previewData.map((item, idx) => {
-              return (
-                <div className="flex flex-col gap-5 bg-white rounded-lg w-1/2 p-6 shadow-sm border border-white" key={idx}>
-                  <div className="flex items-center gap-1.5 flex-wrap">
-                    <GFLabel type="simpleHeading" margin={0} padding={0} label={item.title} fontSize={'16px'} lineHeight={'24px'} />
-                    {selectedCard && (
-                      <GFLabel type="simple" margin={'2px 0 0 0'} padding={0} label={`( ${selectedCard.label} Points )`} fontSize={'12px'} lineHeight={'24px'} />
-                    )}
-                  </div>
-                  <div className="flex flex-col gap-3">
-                    {values.preset && pointsData[values.preset][item.slug].map((dataItem, index) => (
-                      <GFLabel type="simple" margin={0} padding={0} key={index} label={dataItem} color="#475569" />
-                    ))}
-                  </div>
+        <div className="flex flex-col p-6 gap-4 rounded-lg mt-8 bg-[#F3F5FF]">
+          <GFLabel type="simple" margin={0} padding={0} label={__('What this creates', 'gameengine')} fontSize="14px" color="#64748B" />
+
+          {!presets && (
+            <p className="m-0 text-sm text-[#475569]">{__('Loading the preview…', 'gameengine')}</p>
+          )}
+
+          {presets && !selected && (
+            <p className="m-0 text-sm text-[#475569]">{__('The preview could not be loaded, but setup will still work.', 'gameengine')}</p>
+          )}
+
+          {selected && (
+            <>
+              <div className="flex flex-col gap-1 bg-white rounded-lg p-4 shadow-sm">
+                <GFLabel type="simpleHeading" margin={0} padding={0} label={selected.point} fontSize={'16px'} lineHeight={'24px'} />
+                <p className="m-0 text-sm text-[#475569]">
+                  {sprintf(
+                    /* translators: 1: number of points, 2: an action such as "publishes a post" */
+                    __('+%1$d each time someone %2$s', 'gameengine'),
+                    selected.points,
+                    selected.trigger_label
+                  )}
+                </p>
+              </div>
+
+              <div className="flex gap-6 w-full">
+                <div className="flex flex-col gap-3 bg-white rounded-lg w-1/2 p-6 shadow-sm">
+                  <GFLabel type="simpleHeading" margin={0} padding={0} label={__('Achievements', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
+                  {(selected.achievements || []).map((achievement) => {
+                    const title = typeof achievement === 'string' ? achievement : achievement.title;
+                    const points = typeof achievement === 'object' ? achievement.points : null;
+
+                    return (
+                      <p key={title} className="m-0 text-sm text-[#475569] flex justify-between gap-2">
+                        <span>{title}</span>
+                        {points ? (
+                          <span className="text-[#64748B] whitespace-nowrap">
+                            {sprintf(
+                              /* translators: %s: number of points */
+                              __('at %s points', 'gameengine'),
+                              points
+                            )}
+                          </span>
+                        ) : null}
+                      </p>
+                    );
+                  })}
                 </div>
-              );
-            })}
-          </div>
+
+                <div className="flex flex-col gap-3 bg-white rounded-lg w-1/2 p-6 shadow-sm">
+                  <GFLabel type="simpleHeading" margin={0} padding={0} label={__('Levels', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
+                  {(selected.levels || []).map((level) => (
+                    <p key={level.title} className="m-0 text-sm text-[#475569] flex justify-between gap-2">
+                      <span>{level.title}</span>
+                      <span className="text-[#64748B] whitespace-nowrap">
+                        {sprintf(
+                          /* translators: 1: lowest points, 2: highest points */
+                          __('%1$s–%2$s points', 'gameengine'),
+                          level.min,
+                          level.max
+                        )}
+                      </span>
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>
