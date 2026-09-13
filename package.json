@@ -10,11 +10,16 @@
         "makepot": "npm run i18n:scan && npm run i18n:strings && npm run i18n:rescan",
         "i18n:scan": "php -d memory_limit=-1 \"$(command -v wp)\" i18n make-pot . languages/gameengine.pot --slug=gameengine --domain=gameengine --exclude=node_modules,vendor,assets/build,languages,build-tools --skip-audit",
         "i18n:strings": "node build-tools/make-i18n-strings.mjs --pot=languages/gameengine.pot --out=assets/build/i18n-strings.js --domain=gameengine",
-        "i18n:rescan": "php -d memory_limit=-1 \"$(command -v wp)\" i18n make-pot . languages/gameengine.pot --slug=gameengine --domain=gameengine --exclude=node_modules,vendor,dev_gameengine,languages,build-tools,assets/build/backend.js,assets/build/setup.js,assets/build/frontend.js"
+        "i18n:rescan": "php -d memory_limit=-1 \"$(command -v wp)\" i18n make-pot . languages/gameengine.pot --slug=gameengine --domain=gameengine --exclude=node_modules,vendor,dev_gameengine,languages,build-tools,assets/build/backend.js,assets/build/setup.js,assets/build/frontend.js",
+        "dist": "node build-tools/build.mjs",
+        "dist:zip": "node build-tools/build.mjs --only=zip",
+        "dist:dev": "node build-tools/build.mjs --dev"
     },
     "devDependencies": {
         "@wordpress/scripts": "^27.9.0",
+        "archiver": "^8.0.0",
         "autoprefixer": "^10.4.22",
+        "ignore": "^7.0.9",
         "postcss": "^8.5.6",
         "style-loader": "^4.0.0",
         "tailwindcss": "^3.4.18"

@@ -46,6 +46,7 @@ npm run build     # production build, writes assets/build/
 npm run start     # the same build in watch mode
 npm run lint:js   # ESLint
 npm run makepot   # languages/gameengine.pot and assets/build/i18n-strings.js (needs WP-CLI)
+npm run dist      # the release zip, written to ../gameengine.<version>.zip
 ```
 
 The build is [@wordpress/scripts](https://www.npmjs.com/package/@wordpress/scripts)
@@ -53,6 +54,15 @@ The build is [@wordpress/scripts](https://www.npmjs.com/package/@wordpress/scrip
 too: `webpack.config.js`, `tailwind.config.js`, `postcss.config.js`,
 `jsconfig.json`, and `package.json` with `package-lock.json` pinning an exact,
 reproducible dependency tree.
+
+`npm run dist` makes the release zip in one step, on Linux, macOS or Windows:
+the production build, `composer run build` (no dev dependencies), `npm run
+makepot`, then a zip of everything `.distignore` allows, written next to the
+plugin folder. `npm run dist:zip` repackages the current tree without
+rebuilding. A run rewrites Composer's autoloader for production and re-dates
+the translation template, so discard those changes afterwards unless you mean
+to commit them. The packager, `build-tools/build.mjs`, and its
+`build.config.json` stay in the repository; the zip leaves them out.
 
 PHP dependencies are declared in `composer.json` and pinned in `composer.lock`:
 
@@ -84,7 +94,7 @@ gameengine.php      plugin bootstrap
 includes/           PHP: REST controllers, triggers, integrations, add-ons
 templates/          PHP templates for the shortcodes
 dev_gameengine/     uncompiled React source (admin app, setup wizard, frontend)
-build-tools/        make-i18n-strings.mjs, run by `npm run makepot`
+build-tools/        make-i18n-strings.mjs, run by `npm run makepot` (build.mjs, the release packager, is not shipped)
 assets/scss/        uncompiled Sass
 assets/build/       generated — do not edit, run `npm run build`
 assets/images/      static images

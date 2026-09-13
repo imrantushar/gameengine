@@ -38,11 +38,23 @@ AGENTS.md
 skills-lock.json
 build_log.txt
 
+# The release packager and what it leaves behind (npm run dist).
+build-tools/build.mjs
+build.config.json
+.build-cache
+/dist
+
+# Dev-only Composer packages. npm run dist installs with --no-dev, but a zip
+# built from a dev vendor tree (npm run dist:zip) must not ship them either.
+vendor/bin/
+vendor/php-stubs/
+
 # NOTE: the uncompiled sources and the files needed to rebuild them ship with
 # the plugin on purpose, so the compiled assets in assets/build/ can be
 # regenerated and audited. Do not exclude any of the following:
 #   dev_gameengine/          React source for the admin app and the frontend
 #   build-tools/             make-i18n-strings.mjs, which writes assets/build/i18n-strings.js
+#                            (build.mjs only packages the release zip, so it stays out)
 #   assets/scss/             Sass source for the compiled stylesheets
 #   README.md                where the source lives and how to rebuild it
 #   package.json             npm dependencies and build scripts

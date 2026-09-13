@@ -1,0 +1,23 @@
+{
+  "slug": "gameengine",
+  "textdomain": "gameengine",
+  "mainFile": "gameengine.php",
+  "languages": "languages",
+  "zipName": "{slug}.{version}.zip",
+  "outputDir": "..",
+
+  "steps": { "js": true, "composer": true, "strauss": false, "pot": true, "zip": true },
+
+  "js": { "install": "auto", "buildScript": "build" },
+
+  "composer": {
+    "command": "composer run build"
+  },
+
+  "pot": {
+    "command": "npm run makepot"
+  },
+
+  "autoDownloadTools": true,
+  "toolVersions": { "wpCli": "2.12.0", "strauss": "0.19.3" }
+}

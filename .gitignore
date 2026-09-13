@@ -13,3 +13,5 @@ bin
 openspec/
 .agents/
 .claude/
+.build-cache/
+/dist/
