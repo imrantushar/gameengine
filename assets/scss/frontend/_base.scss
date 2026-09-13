@@ -1,0 +1,137 @@
+// Tokens and a scoped base for every member-facing GameEngine block.
+//
+// Each shortcode's outer element carries `.gameengine-ui`, and every rule in
+// this stylesheet starts from it or from a `gameengine-` class, so the theme and
+// other plugins keep their own styles. A site can restyle GameEngine by setting
+// these tokens on `.gameengine-ui`, or just `--gameengine-primary` anywhere up
+// the tree.
+
+.gameengine-ui {
+    --gameengine-ui-primary: var(--gameengine-primary, #006bff);
+    --gameengine-ui-primary-hover: color-mix(in srgb, var(--gameengine-ui-primary) 86%, #000);
+    --gameengine-ui-primary-soft: color-mix(in srgb, var(--gameengine-ui-primary) 9%, #fff);
+    --gameengine-ui-on-primary: #fff;
+    --gameengine-ui-heading: #131d2b;
+    --gameengine-ui-text: #3b4452;
+    --gameengine-ui-muted: #666e7b;
+    --gameengine-ui-subtle: #98a0ab;
+    --gameengine-ui-surface: #fff;
+    --gameengine-ui-surface-muted: #f6f7f9;
+    --gameengine-ui-border: #e4e7eb;
+    --gameengine-ui-border-strong: #cdd2d9;
+    --gameengine-ui-success: #067647;
+    --gameengine-ui-success-soft: #ecfdf3;
+    --gameengine-ui-warning: #b54708;
+    --gameengine-ui-warning-soft: #fffaeb;
+    --gameengine-ui-danger: #b42318;
+    --gameengine-ui-danger-soft: #fef3f2;
+    --gameengine-ui-points: #b25e09;
+    --gameengine-ui-points-soft: #fef4e2;
+    --gameengine-ui-gold: #dc9a00;
+    --gameengine-ui-silver: #8e99a8;
+    --gameengine-ui-bronze: #b8703d;
+    --gameengine-ui-radius: 12px;
+    --gameengine-ui-radius-sm: 8px;
+    --gameengine-ui-shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+    --gameengine-ui-shadow-raised: 0 10px 28px -12px rgba(16, 24, 40, 0.18);
+    --gameengine-ui-ring: 0 0 0 3px color-mix(in srgb, var(--gameengine-ui-primary) 25%, transparent);
+
+    box-sizing: border-box;
+    color: var(--gameengine-ui-text);
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: normal;
+    line-height: 1.5;
+    text-align: start;
+    -webkit-font-smoothing: antialiased;
+}
+
+.gameengine-ui *,
+.gameengine-ui *::before,
+.gameengine-ui *::after {
+    box-sizing: inherit;
+}
+
+.gameengine-ui :where(h1, h2, h3, h4, h5, h6, p, ol, ul, li, figure, dl, dd) {
+    margin: 0;
+    padding: 0;
+}
+
+.gameengine-ui :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--gameengine-ui-heading);
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: normal;
+    line-height: 1.3;
+    text-transform: none;
+}
+
+.gameengine-ui :where(ol, ul) {
+    list-style: none;
+}
+
+.gameengine-ui :where(a) {
+    color: var(--gameengine-ui-primary);
+    text-decoration: none;
+}
+
+.gameengine-ui :where(img) {
+    height: auto;
+    max-width: 100%;
+}
+
+.gameengine-ui :where(strong, b) {
+    color: var(--gameengine-ui-heading);
+    font-weight: 600;
+}
+
+.gameengine-ui [hidden] {
+    display: none !important;
+}
+
+.gameengine-ui .gameengine-screen-reader-text {
+    border: 0;
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+}
+
+.gameengine-ui .gameengine-icon {
+    display: inline-block;
+    fill: none;
+    flex: none;
+    height: 1em;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+    vertical-align: -0.125em;
+    width: 1em;
+}
+
+@keyframes gameengine-fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gameengine-ui *,
+    .gameengine-ui *::before,
+    .gameengine-ui *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -27,7 +27,6 @@ class Levels
         }
 
         \GameEngine\Assets::enqueue_frontend();
-        wp_enqueue_style('gameengine-shortcode-levels');
 
         ob_start();
         \GameEngine\Helper::get_template('shortcode/levels.php', array(

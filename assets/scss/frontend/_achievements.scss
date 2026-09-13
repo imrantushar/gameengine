@@ -1,0 +1,129 @@
+// [gameengine_achievements]: unlocked count and the badge grid.
+
+.gameengine-ui.gameengine-achievements {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+.gameengine-ui .gameengine-achievements__summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: space-between;
+}
+
+.gameengine-ui .gameengine-achievements__count {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.875rem;
+}
+
+.gameengine-ui .gameengine-achievements__summary .gameengine-progress {
+    flex: 0 1 240px;
+}
+
+.gameengine-ui .gameengine-achievement-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 180px), 1fr));
+}
+
+.gameengine-ui .gameengine-achievement {
+    align-items: center;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    padding: 20px 16px 16px;
+    text-align: center;
+}
+
+.gameengine-ui .gameengine-achievement__media {
+    align-items: center;
+    background: var(--gameengine-ui-points-soft);
+    border-radius: 999px;
+    color: var(--gameengine-ui-points);
+    display: inline-flex;
+    flex: none;
+    font-size: 2rem;
+    height: 72px;
+    justify-content: center;
+    margin-bottom: 6px;
+    position: relative;
+    width: 72px;
+}
+
+.gameengine-ui .gameengine-achievement__media img {
+    height: 52px;
+    object-fit: contain;
+    width: 52px;
+}
+
+.gameengine-ui .gameengine-achievement__media .dashicons {
+    font-size: 32px;
+    height: 32px;
+    line-height: 1;
+    width: 32px;
+}
+
+.gameengine-ui .gameengine-achievement__lock {
+    align-items: center;
+    background: var(--gameengine-ui-heading);
+    border: 2px solid var(--gameengine-ui-surface);
+    border-radius: 999px;
+    bottom: -2px;
+    color: #fff;
+    display: inline-flex;
+    font-size: 0.75rem;
+    height: 24px;
+    inset-inline-end: -2px;
+    justify-content: center;
+    position: absolute;
+    width: 24px;
+}
+
+.gameengine-ui .gameengine-achievement__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-achievement__hint {
+    -webkit-box-orient: vertical;
+    color: var(--gameengine-ui-muted);
+    display: -webkit-box;
+    font-size: 0.8125rem;
+    -webkit-line-clamp: 3;
+    line-height: 1.45;
+    overflow: hidden;
+}
+
+.gameengine-ui .gameengine-achievement__footer {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 6px;
+    justify-content: center;
+    margin-top: auto;
+    padding-top: 6px;
+}
+
+.gameengine-ui .gameengine-achievement--locked .gameengine-achievement__media {
+    background: var(--gameengine-ui-surface-muted);
+    color: var(--gameengine-ui-subtle);
+}
+
+.gameengine-ui .gameengine-achievement--locked .gameengine-achievement__media img,
+.gameengine-ui .gameengine-achievement--locked .gameengine-achievement__media .dashicons {
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+.gameengine-ui .gameengine-achievement--locked .gameengine-achievement__title {
+    color: var(--gameengine-ui-text);
+}

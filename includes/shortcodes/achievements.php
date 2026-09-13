@@ -19,7 +19,8 @@ class Achievements
             return '';
         }
 
-        \GameEngine\Assets::enqueue_frontend();
+        // The share buttons need the frontend script.
+        \GameEngine\Assets::enqueue_frontend(true);
 
         ob_start();
         \GameEngine\Helper::get_template('shortcode/achievements.php');

@@ -32,13 +32,15 @@ class Shortcodes
             $atts
         );
 
-        $can_access = Restriction_Helper::can_access(sanitize_text_field($args['type']), sanitize_text_field($args['value']));
+        $type  = sanitize_text_field($args['type']);
+        $value = sanitize_text_field($args['value']);
 
-        if ($can_access) {
+        if (Restriction_Helper::can_access($type, $value)) {
             return do_shortcode($content);
         }
 
-        return Restriction_Helper::get_locked_ui(sanitize_textarea_field($args['message']));
+        // Without a custom message, the box names what unlocks it.
+        return Restriction_Helper::get_locked_ui(sanitize_textarea_field($args['message']), $type, $value);
     }
 }
 

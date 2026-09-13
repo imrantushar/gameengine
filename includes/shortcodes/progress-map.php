@@ -24,6 +24,10 @@ class ProgressMap
         if (class_exists('\GameEngine\Addons\ProgressMap\Progress_Map_Logic')) {
             return \GameEngine\Addons\ProgressMap\Progress_Map_Logic::render_html(get_current_user_id());
         }
-        return sprintf('<p>%s</p>', esc_html__('Progress Map addon is not active.', 'gameengine'));
+        return sprintf(
+            '<div class="gameengine-ui"><p class="gameengine-notice">%1$s<span>%2$s</span></p></div>',
+            \GameEngine\Icons::get('info'),
+            esc_html__('Progress Map addon is not active.', 'gameengine')
+        );
     }
 }

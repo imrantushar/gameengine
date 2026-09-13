@@ -1,0 +1,559 @@
+// Shared building blocks: card, button, form fields, badge, notice, progress
+// bar, stat tile, table, tabs, avatar and empty state. Pro's member-facing
+// screens use these too, so rename with care.
+
+// Card
+.gameengine-ui .gameengine-card {
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    box-shadow: var(--gameengine-ui-shadow);
+    color: var(--gameengine-ui-text);
+}
+
+.gameengine-ui .gameengine-card__header {
+    align-items: center;
+    border-bottom: 1px solid var(--gameengine-ui-border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: space-between;
+    padding: 16px 20px;
+}
+
+.gameengine-ui .gameengine-card__heading {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-card__icon {
+    align-items: center;
+    background: var(--gameengine-ui-primary-soft);
+    border-radius: 10px;
+    color: var(--gameengine-ui-primary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.25rem;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.gameengine-ui .gameengine-card__title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.gameengine-ui .gameengine-card__subtitle {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    margin-top: 2px;
+}
+
+.gameengine-ui .gameengine-card__body {
+    padding: 20px;
+}
+
+// Section heading inside a block
+.gameengine-ui .gameengine-section-head {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.gameengine-ui .gameengine-section-head__title {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.gameengine-ui .gameengine-section-head__meta {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.875rem;
+}
+
+// Button
+.gameengine-ui .gameengine-button {
+    align-items: center;
+    appearance: none;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border-strong);
+    border-radius: var(--gameengine-ui-radius-sm);
+    box-shadow: none;
+    color: var(--gameengine-ui-heading);
+    cursor: pointer;
+    display: inline-flex;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: 8px;
+    justify-content: center;
+    letter-spacing: normal;
+    line-height: 1.25;
+    margin: 0;
+    min-height: 40px;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-button:hover {
+    background: var(--gameengine-ui-surface-muted);
+    border-color: var(--gameengine-ui-border-strong);
+    color: var(--gameengine-ui-heading);
+    text-decoration: none;
+}
+
+.gameengine-ui .gameengine-button:focus-visible {
+    outline: 2px solid var(--gameengine-ui-primary);
+    outline-offset: 2px;
+}
+
+.gameengine-ui .gameengine-button .gameengine-icon {
+    font-size: 1.125em;
+}
+
+.gameengine-ui .gameengine-button--primary {
+    background: var(--gameengine-ui-primary);
+    border-color: var(--gameengine-ui-primary);
+    color: var(--gameengine-ui-on-primary);
+}
+
+.gameengine-ui .gameengine-button--primary:hover {
+    background: var(--gameengine-ui-primary-hover);
+    border-color: var(--gameengine-ui-primary-hover);
+    color: var(--gameengine-ui-on-primary);
+}
+
+.gameengine-ui .gameengine-button--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-button--ghost:hover {
+    background: var(--gameengine-ui-primary-soft);
+    border-color: transparent;
+    color: var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-button--sm {
+    font-size: 0.8125rem;
+    gap: 6px;
+    min-height: 32px;
+    padding: 5px 10px;
+}
+
+.gameengine-ui .gameengine-button--block {
+    width: 100%;
+}
+
+.gameengine-ui .gameengine-button:disabled,
+.gameengine-ui .gameengine-button[aria-disabled="true"] {
+    background: var(--gameengine-ui-surface-muted);
+    border-color: var(--gameengine-ui-border);
+    color: var(--gameengine-ui-subtle);
+    cursor: not-allowed;
+}
+
+// Form fields
+.gameengine-ui .gameengine-form {
+    display: grid;
+    gap: 16px;
+}
+
+.gameengine-ui .gameengine-form__row {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.gameengine-ui .gameengine-field {
+    align-content: start;
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-label {
+    color: var(--gameengine-ui-heading);
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.gameengine-ui .gameengine-help {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+    line-height: 1.45;
+}
+
+.gameengine-ui .gameengine-input {
+    appearance: none;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border-strong);
+    border-radius: var(--gameengine-ui-radius-sm);
+    box-shadow: none;
+    color: var(--gameengine-ui-heading);
+    display: block;
+    font-family: inherit;
+    font-size: 0.875rem;
+    height: auto;
+    letter-spacing: normal;
+    margin: 0;
+    line-height: 1.4;
+    max-width: 100%;
+    min-height: 40px;
+    outline: none;
+    padding: 9px 12px;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    width: 100%;
+}
+
+.gameengine-ui .gameengine-input::placeholder {
+    color: var(--gameengine-ui-subtle);
+    opacity: 1;
+}
+
+.gameengine-ui .gameengine-input:focus {
+    border-color: var(--gameengine-ui-primary);
+    box-shadow: var(--gameengine-ui-ring);
+}
+
+.gameengine-ui .gameengine-input[readonly] {
+    background: var(--gameengine-ui-surface-muted);
+}
+
+.gameengine-ui textarea.gameengine-input {
+    min-height: 96px;
+    resize: vertical;
+}
+
+.gameengine-ui select.gameengine-input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23666e7b' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 12px 8px;
+    cursor: pointer;
+    padding-inline-end: 36px;
+}
+
+.gameengine-ui .gameengine-input-group {
+    display: flex;
+    gap: 8px;
+}
+
+.gameengine-ui .gameengine-input-group > .gameengine-input {
+    flex: 1;
+    min-width: 0;
+}
+
+// Badge
+.gameengine-ui .gameengine-badge {
+    align-items: center;
+    background: var(--gameengine-ui-surface-muted);
+    border-radius: 999px;
+    color: var(--gameengine-ui-muted);
+    display: inline-flex;
+    font-size: 0.75rem;
+    font-weight: 600;
+    gap: 4px;
+    line-height: 1.5;
+    padding: 2px 8px;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-badge--primary {
+    background: var(--gameengine-ui-primary-soft);
+    color: var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-badge--success {
+    background: var(--gameengine-ui-success-soft);
+    color: var(--gameengine-ui-success);
+}
+
+.gameengine-ui .gameengine-badge--warning {
+    background: var(--gameengine-ui-warning-soft);
+    color: var(--gameengine-ui-warning);
+}
+
+.gameengine-ui .gameengine-badge--danger {
+    background: var(--gameengine-ui-danger-soft);
+    color: var(--gameengine-ui-danger);
+}
+
+.gameengine-ui .gameengine-badge--points {
+    background: var(--gameengine-ui-points-soft);
+    color: var(--gameengine-ui-points);
+}
+
+// Notice
+.gameengine-ui .gameengine-notice {
+    align-items: flex-start;
+    animation: gameengine-fade-in 0.2s ease;
+    background: var(--gameengine-ui-primary-soft);
+    border: 1px solid color-mix(in srgb, var(--gameengine-ui-primary) 20%, #fff);
+    border-radius: var(--gameengine-ui-radius-sm);
+    color: var(--gameengine-ui-heading);
+    display: flex;
+    font-size: 0.875rem;
+    gap: 10px;
+    line-height: 1.5;
+    padding: 11px 14px;
+}
+
+.gameengine-ui .gameengine-notice > .gameengine-icon {
+    color: var(--gameengine-ui-primary);
+    font-size: 1.125rem;
+    margin-top: 1px;
+}
+
+.gameengine-ui .gameengine-notice--success {
+    background: var(--gameengine-ui-success-soft);
+    border-color: color-mix(in srgb, var(--gameengine-ui-success) 24%, #fff);
+}
+
+.gameengine-ui .gameengine-notice--success > .gameengine-icon {
+    color: var(--gameengine-ui-success);
+}
+
+.gameengine-ui .gameengine-notice--error {
+    background: var(--gameengine-ui-danger-soft);
+    border-color: color-mix(in srgb, var(--gameengine-ui-danger) 24%, #fff);
+}
+
+.gameengine-ui .gameengine-notice--error > .gameengine-icon {
+    color: var(--gameengine-ui-danger);
+}
+
+// Progress bar
+.gameengine-ui .gameengine-progress {
+    background: #eceff3;
+    border-radius: 999px;
+    height: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.gameengine-ui .gameengine-progress__bar {
+    background: var(--gameengine-ui-primary);
+    border-radius: inherit;
+    display: block;
+    height: 100%;
+    max-width: 100%;
+    transition: width 0.6s ease;
+}
+
+// Stat tiles
+.gameengine-ui .gameengine-stats {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.gameengine-ui .gameengine-stat {
+    background: var(--gameengine-ui-surface-muted);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius-sm);
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    padding: 12px 14px;
+}
+
+.gameengine-ui .gameengine-stat__label {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.gameengine-ui .gameengine-stat__value {
+    color: var(--gameengine-ui-heading);
+    font-size: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+// Table
+.gameengine-ui .gameengine-table-wrap {
+    overflow-x: auto;
+}
+
+.gameengine-ui .gameengine-table {
+    border: 0;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin: 0;
+    width: 100%;
+}
+
+.gameengine-ui .gameengine-table th,
+.gameengine-ui .gameengine-table td {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--gameengine-ui-border);
+    padding: 12px 16px;
+    text-align: start;
+    vertical-align: middle;
+}
+
+.gameengine-ui .gameengine-table th {
+    background: var(--gameengine-ui-surface-muted);
+    color: var(--gameengine-ui-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-table td {
+    color: var(--gameengine-ui-text);
+}
+
+.gameengine-ui .gameengine-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.gameengine-ui .gameengine-table .gameengine-table__num {
+    font-variant-numeric: tabular-nums;
+    text-align: end;
+    white-space: nowrap;
+}
+
+// Tabs
+.gameengine-ui .gameengine-tabs__list {
+    border-bottom: 1px solid var(--gameengine-ui-border);
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.gameengine-ui .gameengine-tabs__tab {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    box-shadow: none;
+    color: var(--gameengine-ui-muted);
+    cursor: pointer;
+    display: inline-flex;
+    flex: none;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: 8px;
+    letter-spacing: normal;
+    line-height: 1.4;
+    margin: 0;
+    min-height: 44px;
+    padding: 10px 12px;
+    transition: border-color 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-tabs__tab:hover {
+    background: transparent;
+    color: var(--gameengine-ui-heading);
+}
+
+.gameengine-ui .gameengine-tabs__tab:focus-visible {
+    border-radius: 6px 6px 0 0;
+    outline: 2px solid var(--gameengine-ui-primary);
+    outline-offset: -2px;
+}
+
+.gameengine-ui .gameengine-tabs__tab[aria-selected="true"] {
+    border-bottom-color: var(--gameengine-ui-primary);
+    color: var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-tabs__tab .gameengine-icon {
+    font-size: 1rem;
+}
+
+.gameengine-ui .gameengine-tabs__panel {
+    animation: gameengine-fade-in 0.2s ease;
+    padding-top: 20px;
+}
+
+.gameengine-ui .gameengine-tabs__panel:focus-visible {
+    border-radius: var(--gameengine-ui-radius-sm);
+    outline: 2px solid var(--gameengine-ui-primary);
+    outline-offset: 4px;
+}
+
+// Avatar
+.gameengine-ui .gameengine-avatar {
+    border: 0;
+    border-radius: 999px;
+    box-shadow: none;
+    display: block;
+    flex: none;
+    height: 40px;
+    margin: 0;
+    max-width: none;
+    object-fit: cover;
+    padding: 0;
+    width: 40px;
+}
+
+.gameengine-ui .gameengine-avatar--sm {
+    height: 32px;
+    width: 32px;
+}
+
+.gameengine-ui .gameengine-avatar--lg {
+    height: 64px;
+    width: 64px;
+}
+
+// Empty state
+.gameengine-ui .gameengine-empty {
+    align-items: center;
+    color: var(--gameengine-ui-muted);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 32px 16px;
+    text-align: center;
+}
+
+.gameengine-ui .gameengine-empty__icon {
+    align-items: center;
+    background: var(--gameengine-ui-surface-muted);
+    border-radius: 999px;
+    color: var(--gameengine-ui-subtle);
+    display: inline-flex;
+    font-size: 1.375rem;
+    height: 48px;
+    justify-content: center;
+    margin-bottom: 6px;
+    width: 48px;
+}
+
+.gameengine-ui .gameengine-empty__title {
+    color: var(--gameengine-ui-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.gameengine-ui .gameengine-empty__text {
+    font-size: 0.875rem;
+    max-width: 40ch;
+}

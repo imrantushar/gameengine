@@ -199,9 +199,9 @@ class Assets
     /**
      * Data for the frontend script.
      *
-     * Only what member-facing code reads: the REST base and a nonce. Menus,
-     * admin URLs and server paths from the admin data do not belong on a
-     * public page.
+     * Only what member-facing code reads: the REST base, a nonce and the
+     * strings the script shows. Menus, admin URLs and server paths from the
+     * admin data do not belong on a public page.
      *
      * @return array
      */
@@ -211,6 +211,17 @@ class Assets
             'nonce'     => wp_create_nonce('wp_rest'),
             'rest_url'  => rest_url(),
             'namespace' => 'gameengine/v1/',
+            'i18n'      => array(
+                'redeeming'  => __('Redeeming…', 'gameengine'),
+                'redeemed'   => __('Redeemed', 'gameengine'),
+                'outOfStock' => __('Out of Stock', 'gameengine'),
+                /* translators: %d: how many of the reward are left in stock. */
+                'stockLeft'  => __('%d left', 'gameengine'),
+                /* translators: %s: required point amount */
+                'points'     => __('%s points', 'gameengine'),
+                'error'      => __('Something went wrong. Please try again.', 'gameengine'),
+                'linkCopied' => __('Link copied', 'gameengine'),
+            ),
         );
     }
 
@@ -243,13 +254,6 @@ class Assets
         if (wp_style_is('gameengine-frontend-style', 'registered')) {
             return;
         }
-
-        wp_register_style(
-            'gameengine-shortcode-levels',
-            GAMEENGINE_URL . 'assets/css/shortcode-levels.css',
-            array(),
-            GAMEENGINE_VERSION
-        );
 
         $script_asset_path = GAMEENGINE_PATH . 'assets/build/frontend.asset.php';
 

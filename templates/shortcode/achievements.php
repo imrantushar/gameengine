@@ -24,58 +24,93 @@ if (false === $gameengine_earned_ids) {
 }
 
 if (empty($gameengine_all_achievements)) : ?>
-    <p><?php esc_html_e('No achievements created yet.', 'gameengine'); ?></p>
+    <div class="gameengine-ui gameengine-achievements">
+        <div class="gameengine-empty">
+            <span class="gameengine-empty__icon"><?php \GameEngine\Icons::render('medal'); ?></span>
+            <p class="gameengine-empty__title"><?php esc_html_e('No achievements created yet.', 'gameengine'); ?></p>
+        </div>
+    </div>
 <?php else : ?>
-    <div class="gameengine-achievements-grid">
-        <?php
-        foreach ($gameengine_all_achievements as $gameengine_ach) :
-            $gameengine_is_earned    = in_array((string) $gameengine_ach['id'], (array) $gameengine_earned_ids, true);
-            $gameengine_status_class = $gameengine_is_earned ? 'gameengine-is-unlocked' : 'gameengine-is-locked';
-        ?>
-            <div class="gameengine-achievement-card <?php echo esc_attr($gameengine_status_class); ?>">
-                <div class="gameengine-achievement-icon-box">
-                    <?php
-                    $gameengine_badge_icon = '';
-                    if (! empty($gameengine_ach['badge_id'])) {
-                        $gameengine_badge_icon = get_post_meta((int) $gameengine_ach['badge_id'], '_ge_badge_icon', true);
-                    }
-                    if (! empty($gameengine_badge_icon) && strpos($gameengine_badge_icon, 'dashicons-') === 0) {
-                        wp_enqueue_style('dashicons');
-                    }
-                    ?>
-                    <?php if (! empty($gameengine_ach['badge_image'])) : ?>
-                        <img src="<?php echo esc_url($gameengine_ach['badge_image']); ?>" alt="<?php echo esc_attr($gameengine_ach['title']); ?>">
-                    <?php elseif (! empty($gameengine_badge_icon) && strpos($gameengine_badge_icon, 'dashicons-') === 0) : ?>
-                        <span class="dashicons <?php echo esc_attr($gameengine_badge_icon); ?>" style="font-size:32px;width:32px;height:32px;"></span>
-                    <?php elseif (! empty($gameengine_badge_icon)) : ?>
-                        <img src="<?php echo esc_url($gameengine_badge_icon); ?>" alt="<?php echo esc_attr($gameengine_ach['title']); ?>">
-                    <?php else : ?>
-                        <span class="gameengine-default-icon">🏅</span>
+    <?php
+    $gameengine_earned_ids      = array_map('strval', (array) $gameengine_earned_ids);
+    $gameengine_ach_total       = count($gameengine_all_achievements);
+    $gameengine_ach_unlocked    = count(array_intersect(array_map('strval', wp_list_pluck($gameengine_all_achievements, 'id')), $gameengine_earned_ids));
+    $gameengine_ach_unlocked_pc = (int) round(($gameengine_ach_unlocked / $gameengine_ach_total) * 100);
+    ?>
+    <div class="gameengine-ui gameengine-achievements">
+        <div class="gameengine-achievements__summary">
+            <p class="gameengine-achievements__count">
+                <?php
+                printf(
+                    /* translators: 1: achievements the member has unlocked, 2: all achievements */
+                    esc_html__('%1$s of %2$s unlocked', 'gameengine'),
+                    '<strong>' . esc_html(number_format_i18n($gameengine_ach_unlocked)) . '</strong>',
+                    esc_html(number_format_i18n($gameengine_ach_total))
+                );
+                ?>
+            </p>
+            <div class="gameengine-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo esc_attr($gameengine_ach_unlocked_pc); ?>" aria-label="<?php esc_attr_e('Achievements unlocked', 'gameengine'); ?>">
+                <span class="gameengine-progress__bar" style="width: <?php echo esc_attr($gameengine_ach_unlocked_pc); ?>%;"></span>
+            </div>
+        </div>
+
+        <ul class="gameengine-achievement-grid">
+            <?php
+            foreach ($gameengine_all_achievements as $gameengine_ach) :
+                $gameengine_is_earned = in_array((string) $gameengine_ach['id'], $gameengine_earned_ids, true);
+
+                $gameengine_badge_icon = '';
+                if (! empty($gameengine_ach['badge_id'])) {
+                    $gameengine_badge_icon = get_post_meta((int) $gameengine_ach['badge_id'], '_ge_badge_icon', true);
+                }
+                $gameengine_is_dashicon = ! empty($gameengine_badge_icon) && strpos($gameengine_badge_icon, 'dashicons-') === 0;
+                if ($gameengine_is_dashicon) {
+                    wp_enqueue_style('dashicons');
+                }
+            ?>
+                <li class="gameengine-achievement <?php echo $gameengine_is_earned ? 'gameengine-achievement--unlocked' : 'gameengine-achievement--locked'; ?>">
+                    <span class="gameengine-achievement__media">
+                        <?php if (! empty($gameengine_ach['badge_image'])) : ?>
+                            <img src="<?php echo esc_url($gameengine_ach['badge_image']); ?>" alt="" loading="lazy">
+                        <?php elseif ($gameengine_is_dashicon) : ?>
+                            <span class="dashicons <?php echo esc_attr($gameengine_badge_icon); ?>" aria-hidden="true"></span>
+                        <?php elseif (! empty($gameengine_badge_icon)) : ?>
+                            <img src="<?php echo esc_url($gameengine_badge_icon); ?>" alt="" loading="lazy">
+                        <?php else : ?>
+                            <?php \GameEngine\Icons::render('medal'); ?>
+                        <?php endif; ?>
+
+                        <?php if (! $gameengine_is_earned) : ?>
+                            <span class="gameengine-achievement__lock"><?php \GameEngine\Icons::render('lock'); ?></span>
+                        <?php endif; ?>
+                    </span>
+
+                    <h4 class="gameengine-achievement__title"><?php echo esc_html($gameengine_ach['title']); ?></h4>
+
+                    <?php if (! $gameengine_is_earned && ! empty($gameengine_ach['restriction_message'])) : ?>
+                        <p class="gameengine-achievement__hint"><?php echo esc_html($gameengine_ach['restriction_message']); ?></p>
                     <?php endif; ?>
 
-                    <?php if (! $gameengine_is_earned) : ?>
-                        <div class="gameengine-lock-overlay">🔒</div>
-                    <?php endif; ?>
-                </div>
-                <div class="gameengine-achievement-details">
-                    <span class="gameengine-ach-title"><?php echo esc_html($gameengine_ach['title']); ?></span>
-                    <?php if (! $gameengine_is_earned && ! empty($gameengine_ach['restriction_message'])) : ?>
-                        <div class="gameengine-ach-hint" title="<?php echo esc_attr($gameengine_ach['restriction_message']); ?>">
-                            ℹ️ <?php esc_html_e('How to unlock', 'gameengine'); ?>
-                        </div>
-                    <?php endif; ?>
-                    <?php if ($gameengine_is_earned && $gameengine_ach_sharing_enabled && ! empty($gameengine_ach['slug'])) : ?>
-                        <a
-                            href="<?php echo esc_url(add_query_arg('gameengine_achievement', esc_attr($gameengine_ach['slug']), home_url('/'))); ?>"
-                            class="gameengine-share-link"
-                            style="font-size:11px;color:#6c5ce7;text-decoration:none;display:inline-flex;align-items:center;gap:3px;margin-top:4px;"
-                            onclick="event.preventDefault();if(navigator.share){navigator.share({title:<?php echo wp_json_encode($gameengine_ach['title']); ?>,url:this.href});}else{navigator.clipboard&&navigator.clipboard.writeText(this.href);this.textContent='✓ Copied!';}"
-                        >
-                            🔗 <?php esc_html_e('Share', 'gameengine'); ?>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
+                    <div class="gameengine-achievement__footer">
+                        <?php if ($gameengine_is_earned) : ?>
+                            <span class="gameengine-badge gameengine-badge--success"><?php \GameEngine\Icons::render('check'); ?><?php esc_html_e('Unlocked', 'gameengine'); ?></span>
+                        <?php else : ?>
+                            <span class="gameengine-badge"><?php esc_html_e('Locked', 'gameengine'); ?></span>
+                        <?php endif; ?>
+
+                        <?php if ($gameengine_is_earned && $gameengine_ach_sharing_enabled && ! empty($gameengine_ach['slug'])) : ?>
+                            <a
+                                class="gameengine-button gameengine-button--ghost gameengine-button--sm"
+                                href="<?php echo esc_url(add_query_arg('gameengine_achievement', $gameengine_ach['slug'], home_url('/'))); ?>"
+                                data-gameengine-share="<?php echo esc_attr($gameengine_ach['title']); ?>"
+                            >
+                                <?php \GameEngine\Icons::render('share'); ?>
+                                <span data-gameengine-share-label><?php esc_html_e('Share', 'gameengine'); ?></span>
+                            </a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
 <?php endif; ?>

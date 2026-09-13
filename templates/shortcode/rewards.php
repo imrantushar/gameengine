@@ -31,19 +31,31 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
     }
 }
 ?>
-<div class="gameengine-rewards-catalog">
+<div class="gameengine-ui gameengine-rewards" data-gameengine-rewards>
     <?php if ($gameengine_rw_is_logged_in) : ?>
-        <div class="gameengine-rewards-balance">
-            <?php echo esc_html(sprintf(/* translators: %d: the member's points balance. */ __('Your balance: %d points', 'gameengine'), $gameengine_rw_balance)); ?>
+        <div class="gameengine-rewards__bar">
+            <p class="gameengine-rewards__balance">
+                <?php \GameEngine\Icons::render('coin'); ?>
+                <span><?php esc_html_e('Your balance', 'gameengine'); ?></span>
+                <strong data-gameengine-balance>
+                    <?php
+                    /* translators: %s: required point amount */
+                    echo esc_html(sprintf(__('%s points', 'gameengine'), number_format_i18n($gameengine_rw_balance)));
+                    ?>
+                </strong>
+            </p>
         </div>
     <?php endif; ?>
 
-    <div class="gameengine-rewards-notice" style="display:none;"></div>
+    <div class="gameengine-notice" role="status" aria-live="polite" data-gameengine-notice hidden></div>
 
     <?php if (empty($gameengine_rw_rewards)) : ?>
-        <p><?php esc_html_e('No rewards are available right now. Check back soon!', 'gameengine'); ?></p>
+        <div class="gameengine-empty">
+            <span class="gameengine-empty__icon"><?php \GameEngine\Icons::render('gift'); ?></span>
+            <p class="gameengine-empty__title"><?php esc_html_e('No rewards are available right now. Check back soon!', 'gameengine'); ?></p>
+        </div>
     <?php else : ?>
-        <div class="gameengine-rewards-grid">
+        <ul class="gameengine-reward-grid">
             <?php foreach ($gameengine_rw_rewards as $gameengine_rw_reward) :
                 $gameengine_rw_id             = (int) $gameengine_rw_reward['id'];
                 $gameengine_rw_cost           = (int) $gameengine_rw_reward['cost_points'];
@@ -73,38 +85,46 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
                     $gameengine_rw_button_label = __('Redeem', 'gameengine');
                 }
             ?>
-                <div class="gameengine-reward-card" data-reward-card="<?php echo esc_attr($gameengine_rw_id); ?>">
-                    <div class="gameengine-reward-icon-box">
+                <li class="gameengine-reward" data-reward-card="<?php echo esc_attr($gameengine_rw_id); ?>">
+                    <div class="gameengine-reward__media<?php echo empty($gameengine_rw_reward['image']) ? ' gameengine-reward__media--placeholder' : ''; ?>">
                         <?php if (! empty($gameengine_rw_reward['image'])) : ?>
-                            <img src="<?php echo esc_url($gameengine_rw_reward['image']); ?>" alt="<?php echo esc_attr($gameengine_rw_reward['title']); ?>">
+                            <img src="<?php echo esc_url($gameengine_rw_reward['image']); ?>" alt="" loading="lazy">
                         <?php else : ?>
-                            <span class="gameengine-default-icon">🎁</span>
+                            <?php \GameEngine\Icons::render('gift'); ?>
                         <?php endif; ?>
                     </div>
 
-                    <div class="gameengine-reward-details">
-                        <span class="gameengine-reward-title"><?php echo esc_html($gameengine_rw_reward['title']); ?></span>
-
+                    <div class="gameengine-reward__body">
+                        <h3 class="gameengine-reward__title"><?php echo esc_html($gameengine_rw_reward['title']); ?></h3>
                         <?php if (! empty($gameengine_rw_reward['description'])) : ?>
-                            <p class="gameengine-reward-desc"><?php echo esc_html($gameengine_rw_reward['description']); ?></p>
+                            <p class="gameengine-reward__desc"><?php echo esc_html($gameengine_rw_reward['description']); ?></p>
                         <?php endif; ?>
+                    </div>
 
-                        <span class="gameengine-reward-cost"><?php echo esc_html(sprintf(/* translators: %d: how many points the reward costs. */ __('%d points', 'gameengine'), $gameengine_rw_cost)); ?></span>
-
-                        <?php if ($gameengine_rw_stock >= 0) : ?>
-                            <span class="gameengine-reward-stock" data-stock-label>
-                                <?php echo esc_html(sprintf(/* translators: %d: how many of the reward are left in stock. */ __('%d left', 'gameengine'), $gameengine_rw_stock)); ?>
+                    <div class="gameengine-reward__footer">
+                        <div class="gameengine-reward__meta">
+                            <span class="gameengine-reward__cost">
+                                <?php \GameEngine\Icons::render('coin'); ?>
+                                <?php
+                                /* translators: %s: required point amount */
+                                echo esc_html(sprintf(__('%s points', 'gameengine'), number_format_i18n($gameengine_rw_cost)));
+                                ?>
                             </span>
-                        <?php endif; ?>
+                            <?php if ($gameengine_rw_stock > 0) : ?>
+                                <span class="gameengine-reward__stock" data-stock-label>
+                                    <?php echo esc_html(sprintf(/* translators: %d: how many of the reward are left in stock. */ __('%d left', 'gameengine'), $gameengine_rw_stock)); ?>
+                                </span>
+                            <?php endif; ?>
+                        </div>
 
                         <?php if (! $gameengine_rw_is_logged_in) : ?>
-                            <a class="gameengine-reward-redeem-btn" href="<?php echo esc_url(wp_login_url(get_permalink())); ?>">
+                            <a class="gameengine-button gameengine-button--block" href="<?php echo esc_url(wp_login_url(get_permalink())); ?>">
                                 <?php echo esc_html($gameengine_rw_button_label); ?>
                             </a>
                         <?php else : ?>
                             <button
                                 type="button"
-                                class="gameengine-reward-redeem-btn"
+                                class="gameengine-button gameengine-button--primary gameengine-button--block"
                                 data-reward-id="<?php echo esc_attr($gameengine_rw_id); ?>"
                                 <?php disabled($gameengine_rw_disabled); ?>
                             >
@@ -112,90 +132,8 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
                             </button>
                         <?php endif; ?>
                     </div>
-                </div>
+                </li>
             <?php endforeach; ?>
-        </div>
+        </ul>
     <?php endif; ?>
 </div>
-
-<?php if (! defined('GAMEENGINE_REWARDS_SHORTCODE_JS_PRINTED')) :
-    define('GAMEENGINE_REWARDS_SHORTCODE_JS_PRINTED', true);
-?>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('click', function (event) {
-        var button = event.target.closest('.gameengine-reward-redeem-btn[data-reward-id]');
-        if (! button || button.disabled) {
-            return;
-        }
-
-        var rewardId = button.getAttribute('data-reward-id');
-        var card = button.closest('[data-reward-card]');
-        var notice = document.querySelector('.gameengine-rewards-notice');
-        var originalLabel = button.textContent;
-
-        button.disabled = true;
-        button.textContent = '<?php echo esc_js(__('Redeeming…', 'gameengine')); ?>';
-
-        fetch(window.GameEngineGlobal.rest_url + window.GameEngineGlobal.namespace + 'rewards/' + rewardId + '/redeem', {
-            method: 'POST',
-            headers: {
-                'X-WP-Nonce': window.GameEngineGlobal.nonce,
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(function (response) {
-                return response.json().then(function (data) {
-                    return { ok: response.ok, data: data };
-                });
-            })
-            .then(function (result) {
-                if (notice) {
-                    notice.style.display = 'block';
-                    notice.textContent = result.data.message || '';
-                    notice.className = 'gameengine-rewards-notice ' + (result.ok ? 'gameengine-rewards-notice--success' : 'gameengine-rewards-notice--error');
-                }
-
-                if (result.ok) {
-                    button.textContent = '<?php echo esc_js(__('Redeemed', 'gameengine')); ?>';
-
-                    var balanceEl = document.querySelector('.gameengine-rewards-balance');
-                    if (balanceEl && typeof result.data.remaining_points !== 'undefined') {
-                        balanceEl.textContent = '<?php echo esc_js(__('Your balance:', 'gameengine')); ?> ' + result.data.remaining_points + ' <?php echo esc_js(__('points', 'gameengine')); ?>';
-                    }
-
-                    if (card) {
-                        var stockLabel = card.querySelector('[data-stock-label]');
-                        if (stockLabel && typeof result.data.remaining_stock !== 'undefined' && result.data.remaining_stock >= 0) {
-                            stockLabel.textContent = result.data.remaining_stock + ' <?php echo esc_js(__('left', 'gameengine')); ?>';
-                            if (result.data.remaining_stock === 0) {
-                                button.disabled = true;
-                                button.textContent = '<?php echo esc_js(__('Out of Stock', 'gameengine')); ?>';
-                            }
-                        }
-                    }
-
-                    window.setTimeout(function () {
-                        button.textContent = originalLabel;
-                        if (! button.disabled) {
-                            button.disabled = false;
-                        }
-                    }, 2000);
-                } else {
-                    button.disabled = false;
-                    button.textContent = originalLabel;
-                }
-            })
-            .catch(function () {
-                button.disabled = false;
-                button.textContent = originalLabel;
-                if (notice) {
-                    notice.style.display = 'block';
-                    notice.textContent = '<?php echo esc_js(__('Something went wrong. Please try again.', 'gameengine')); ?>';
-                    notice.className = 'gameengine-rewards-notice gameengine-rewards-notice--error';
-                }
-            });
-    });
-});
-</script>
-<?php endif; ?>

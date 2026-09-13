@@ -1,0 +1,141 @@
+// [gameengine_rewards]: balance bar and the reward catalogue.
+
+.gameengine-ui.gameengine-rewards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+.gameengine-ui .gameengine-rewards__bar {
+    align-items: center;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: space-between;
+    padding: 12px 16px;
+}
+
+.gameengine-ui .gameengine-rewards__balance {
+    align-items: center;
+    color: var(--gameengine-ui-muted);
+    display: inline-flex;
+    flex-wrap: wrap;
+    font-size: 0.875rem;
+    gap: 8px;
+}
+
+.gameengine-ui .gameengine-rewards__balance .gameengine-icon {
+    color: var(--gameengine-ui-points);
+    font-size: 1.125rem;
+}
+
+.gameengine-ui .gameengine-rewards__balance strong {
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.gameengine-ui .gameengine-reward-grid {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
+}
+
+.gameengine-ui .gameengine-reward {
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    box-shadow: var(--gameengine-ui-shadow);
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    overflow: hidden;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.gameengine-ui .gameengine-reward:hover {
+    border-color: var(--gameengine-ui-border-strong);
+    box-shadow: var(--gameengine-ui-shadow-raised);
+}
+
+.gameengine-ui .gameengine-reward__media {
+    align-items: center;
+    aspect-ratio: 16 / 9;
+    background: var(--gameengine-ui-primary-soft);
+    border-bottom: 1px solid var(--gameengine-ui-border);
+    color: var(--gameengine-ui-primary);
+    display: flex;
+    font-size: 2.25rem;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.gameengine-ui .gameengine-reward__media img {
+    height: 100%;
+    object-fit: cover;
+    width: 100%;
+}
+
+.gameengine-ui .gameengine-reward__media--placeholder {
+    aspect-ratio: auto;
+    height: 112px;
+}
+
+.gameengine-ui .gameengine-reward__media .gameengine-icon {
+    stroke-width: 1.5;
+}
+
+.gameengine-ui .gameengine-reward__body {
+    display: grid;
+    gap: 4px;
+    padding: 14px 16px 0;
+}
+
+.gameengine-ui .gameengine-reward__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-reward__desc {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.gameengine-ui .gameengine-reward__footer {
+    display: grid;
+    gap: 12px;
+    margin-top: auto;
+    padding: 14px 16px 16px;
+}
+
+.gameengine-ui .gameengine-reward__meta {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    justify-content: space-between;
+}
+
+.gameengine-ui .gameengine-reward__cost {
+    align-items: center;
+    color: var(--gameengine-ui-heading);
+    display: inline-flex;
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    gap: 6px;
+}
+
+.gameengine-ui .gameengine-reward__cost .gameengine-icon {
+    color: var(--gameengine-ui-points);
+}
+
+.gameengine-ui .gameengine-reward__stock {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+}

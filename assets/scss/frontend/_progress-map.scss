@@ -1,0 +1,228 @@
+// [gameengine_progress_map]: the member's path through levels and
+// achievements, as a vertical timeline. Steps past the next few locked ones
+// sit in a <details> so a long journey stays short.
+
+.gameengine-ui.gameengine-progress-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+.gameengine-ui .gameengine-progress-map__summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    justify-content: space-between;
+}
+
+.gameengine-ui .gameengine-progress-map__count {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.875rem;
+}
+
+.gameengine-ui .gameengine-progress-map__summary .gameengine-progress {
+    flex: 0 1 240px;
+}
+
+.gameengine-ui .gameengine-progress-map__step {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 32px minmax(0, 1fr);
+    padding-bottom: 12px;
+    position: relative;
+}
+
+// The rail: each step draws its own segment, so the line runs on across the
+// collapsed part of the list.
+.gameengine-ui .gameengine-progress-map__step::before {
+    background: var(--gameengine-ui-border);
+    bottom: 0;
+    content: "";
+    inset-inline-start: 15px;
+    position: absolute;
+    top: 0;
+    width: 2px;
+}
+
+.gameengine-ui .gameengine-progress-map__step--done::before {
+    background: var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-progress-map__list > .gameengine-progress-map__step:first-child::before {
+    top: 16px;
+}
+
+.gameengine-ui .gameengine-progress-map__list > .gameengine-progress-map__step:last-child {
+    padding-bottom: 0;
+}
+
+.gameengine-ui .gameengine-progress-map__list > .gameengine-progress-map__step:last-child::before {
+    bottom: auto;
+    height: 16px;
+}
+
+.gameengine-ui .gameengine-progress-map__list--continues > .gameengine-progress-map__step:last-child {
+    padding-bottom: 12px;
+}
+
+.gameengine-ui .gameengine-progress-map__list--continues > .gameengine-progress-map__step:last-child::before {
+    bottom: 0;
+    height: auto;
+}
+
+.gameengine-ui .gameengine-progress-map__list--continued > .gameengine-progress-map__step:first-child::before {
+    top: 0;
+}
+
+.gameengine-ui .gameengine-progress-map__marker {
+    align-items: center;
+    background: var(--gameengine-ui-surface);
+    border: 2px solid var(--gameengine-ui-border-strong);
+    border-radius: 999px;
+    color: var(--gameengine-ui-muted);
+    display: inline-flex;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    height: 32px;
+    justify-content: center;
+    position: relative;
+    width: 32px;
+}
+
+.gameengine-ui .gameengine-progress-map__step--done .gameengine-progress-map__marker {
+    background: var(--gameengine-ui-primary);
+    border-color: var(--gameengine-ui-primary);
+    color: var(--gameengine-ui-on-primary);
+    font-size: 1rem;
+}
+
+.gameengine-ui .gameengine-progress-map__card {
+    align-items: flex-start;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+    padding: 12px 14px;
+}
+
+.gameengine-ui .gameengine-progress-map__media {
+    align-items: center;
+    background: var(--gameengine-ui-primary-soft);
+    border-radius: 10px;
+    color: var(--gameengine-ui-primary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.25rem;
+    height: 40px;
+    justify-content: center;
+    overflow: hidden;
+    width: 40px;
+}
+
+.gameengine-ui .gameengine-progress-map__media--achievement {
+    background: var(--gameengine-ui-points-soft);
+    color: var(--gameengine-ui-points);
+}
+
+.gameengine-ui .gameengine-progress-map__media img {
+    height: 28px;
+    object-fit: contain;
+    width: 28px;
+}
+
+.gameengine-ui .gameengine-progress-map__body {
+    display: grid;
+    flex: 1;
+    gap: 2px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-progress-map__head {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 8px;
+}
+
+.gameengine-ui .gameengine-progress-map__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-progress-map__text {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+}
+
+.gameengine-ui .gameengine-progress-map__text > * {
+    margin: 0;
+}
+
+.gameengine-ui .gameengine-progress-map__step--locked .gameengine-progress-map__media {
+    background: var(--gameengine-ui-surface-muted);
+    color: var(--gameengine-ui-subtle);
+}
+
+.gameengine-ui .gameengine-progress-map__step--locked .gameengine-progress-map__media img {
+    filter: grayscale(1);
+    opacity: 0.5;
+}
+
+.gameengine-ui .gameengine-progress-map__step--locked .gameengine-progress-map__title {
+    color: var(--gameengine-ui-text);
+}
+
+.gameengine-ui .gameengine-progress-map__toggle {
+    align-items: center;
+    color: var(--gameengine-ui-primary);
+    cursor: pointer;
+    display: inline-flex;
+    font-size: 0.875rem;
+    font-weight: 600;
+    gap: 6px;
+    list-style: none;
+    margin-inline-start: 46px;
+    padding: 4px 0 12px;
+    position: relative;
+}
+
+// Carry the rail past the toggle.
+.gameengine-ui .gameengine-progress-map__toggle::before {
+    background: var(--gameengine-ui-border);
+    bottom: 0;
+    content: "";
+    inset-inline-start: -31px;
+    position: absolute;
+    top: 0;
+    width: 2px;
+}
+
+.gameengine-ui .gameengine-progress-map__toggle::-webkit-details-marker {
+    display: none;
+}
+
+.gameengine-ui .gameengine-progress-map__toggle:focus-visible {
+    border-radius: 4px;
+    outline: 2px solid var(--gameengine-ui-primary);
+    outline-offset: 2px;
+}
+
+.gameengine-ui .gameengine-progress-map__toggle .gameengine-icon {
+    transition: transform 0.15s ease;
+}
+
+.gameengine-ui .gameengine-progress-map__more[open] .gameengine-progress-map__toggle .gameengine-icon {
+    transform: rotate(180deg);
+}
+
+.gameengine-ui .gameengine-progress-map__more:not([open]) .gameengine-progress-map__toggle-less,
+.gameengine-ui .gameengine-progress-map__more[open] .gameengine-progress-map__toggle-more {
+    display: none;
+}

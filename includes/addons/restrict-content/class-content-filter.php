@@ -59,11 +59,16 @@ class Content_Filter
                 \GameEngine\Assets::enqueue_frontend();
                 // Placeholder for Locked Images (using the main UI helper)
                 $locked_img_ui = Restriction_Helper::get_locked_ui(__('Image Locked', 'gameengine'));
-                $content = preg_replace('/<img[^>]+>/i', $locked_img_ui, $content);
+                // Callbacks, so a "$" in the lock message is not read as a backreference.
+                $content = preg_replace_callback('/<img[^>]+>/i', static function () use ($locked_img_ui) {
+                    return $locked_img_ui;
+                }, $content);
 
                 // Placeholder for Locked Links (Inline badge with icon)
-                $locked_link_html = ' <span class="gameengine-link-lock">🔒 ' . esc_html__('Link Hidden', 'gameengine') . '</span> ';
-                $content = preg_replace('/<a\b[^>]*>(.*?)<\/a>/i', $locked_link_html, $content);
+                $locked_link_html = ' <span class="gameengine-ui gameengine-link-lock">' . \GameEngine\Icons::get('lock') . esc_html__('Link Hidden', 'gameengine') . '</span> ';
+                $content = preg_replace_callback('/<a\b[^>]*>(.*?)<\/a>/i', static function () use ($locked_link_html) {
+                    return $locked_link_html;
+                }, $content);
 
                 return $content;
             }

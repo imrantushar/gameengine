@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T10:58:16+00:00\n"
+"POT-Creation-Date: 2026-09-13T13:41:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -45,20 +45,63 @@ msgstr ""
 msgid "GameEngine Unlock"
 msgstr ""
 
-#: includes/addons/progress-map/class-progress-map-logic.php:135
-#: templates/shortcode/levels.php:81
+#: includes/addons/progress-map/class-progress-map-logic.php:109
+msgid "No milestones yet."
+msgstr ""
+
+#. translators: 1: milestones the member has reached, 2: all milestones
+#: includes/addons/progress-map/class-progress-map-logic.php:141
+#, php-format
+msgid "%1$s of %2$s milestones reached"
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:147
+msgid "Milestones reached"
+msgstr ""
+
+#. translators: %s: number of folded milestones
+#: includes/addons/progress-map/class-progress-map-logic.php:165
+#, php-format
+msgid "Show %s more milestone"
+msgid_plural "Show %s more milestones"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:170
+msgid "Show fewer milestones"
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:200
+msgid "Reached"
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:218
+#: includes/admin/user-profile.php:81
+#: assets/build/i18n-strings.js:321
+msgid "Level"
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:218
+#: includes/classes/social-sharing.php:53
+#: assets/build/i18n-strings.js:44
+msgid "Achievement"
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:221
+#: templates/shortcode/achievements.php:98
+#: templates/shortcode/levels.php:113
 msgid "Locked"
 msgstr ""
 
-#: includes/addons/progress-map/class-progress-map-logic.php:138
+#: includes/addons/progress-map/class-progress-map-logic.php:232
 msgid "Complete pre-requisites to unlock."
 msgstr ""
 
-#: includes/addons/restrict-content/class-content-filter.php:60
+#: includes/addons/restrict-content/class-content-filter.php:61
 msgid "Image Locked"
 msgstr ""
 
-#: includes/addons/restrict-content/class-content-filter.php:64
+#: includes/addons/restrict-content/class-content-filter.php:68
 msgid "Link Hidden"
 msgstr ""
 
@@ -116,25 +159,33 @@ msgstr ""
 msgid "Lock Message:"
 msgstr ""
 
+#: includes/addons/restrict-content/class-restriction-helper.php:177
+msgid "This content is locked"
+msgstr ""
+
+#: includes/addons/restrict-content/class-restriction-helper.php:181
+msgid "Log in"
+msgstr ""
+
 #. translators: %s: required point amount
-#: includes/addons/restrict-content/class-restriction-helper.php:188
+#: includes/addons/restrict-content/class-restriction-helper.php:197
 #, php-format
 msgid "Reach %s points to unlock this content."
 msgstr ""
 
 #. translators: %s: achievement title
-#: includes/addons/restrict-content/class-restriction-helper.php:195
+#: includes/addons/restrict-content/class-restriction-helper.php:204
 #, php-format
 msgid "Earn the \"%s\" achievement to unlock this content."
 msgstr ""
 
 #. translators: %s: level title
-#: includes/addons/restrict-content/class-restriction-helper.php:204
+#: includes/addons/restrict-content/class-restriction-helper.php:213
 #, php-format
 msgid "Reach level \"%s\" to unlock this content."
 msgstr ""
 
-#: includes/addons/restrict-content/class-restriction-helper.php:209
+#: includes/addons/restrict-content/class-restriction-helper.php:218
 msgid "This content is restricted. Complete requirements to unlock."
 msgstr ""
 
@@ -230,20 +281,13 @@ msgstr ""
 msgid "GameEngine Profile"
 msgstr ""
 
-#: includes/admin/user-profile.php:81
-#: templates/shortcode/leaderboard.php:29
-#: assets/build/i18n-strings.js:321
-msgid "Level"
-msgstr ""
-
 #: includes/admin/user-profile.php:105
 msgid "No levels earned yet."
 msgstr ""
 
 #: includes/admin/user-profile.php:113
-#: templates/shortcode/leaderboard.php:31
 #: templates/shortcode/points.php:10
-#: templates/shortcode/profile.php:31
+#: templates/shortcode/profile.php:86
 #: assets/build/i18n-strings.js:446
 msgid "Points"
 msgstr ""
@@ -262,7 +306,8 @@ msgstr ""
 
 #: includes/admin/user-profile.php:132
 #: includes/helper.php:138
-#: templates/shortcode/profile.php:66
+#: templates/shortcode/profile.php:44
+#: templates/shortcode/profile.php:90
 #: assets/build/i18n-strings.js:52
 msgid "Achievements"
 msgstr ""
@@ -272,7 +317,7 @@ msgid "No achievements earned yet."
 msgstr ""
 
 #: includes/admin/user-profile.php:155
-#: templates/shortcode/profile.php:73
+#: templates/shortcode/profile.php:47
 msgid "Streaks"
 msgstr ""
 
@@ -372,7 +417,7 @@ msgid "Set dependencies between achievements and levels."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:126
-#: templates/shortcode/profile.php:62
+#: templates/shortcode/profile.php:42
 #: assets/build/i18n-strings.js:466
 msgid "Progress Map"
 msgstr ""
@@ -873,6 +918,44 @@ msgstr ""
 msgid "Only CSV and JSON files are supported."
 msgstr ""
 
+#: includes/assets.php:215
+msgid "Redeeming…"
+msgstr ""
+
+#: includes/assets.php:216
+msgid "Redeemed"
+msgstr ""
+
+#: includes/assets.php:217
+#: templates/shortcode/rewards.php:79
+msgid "Out of Stock"
+msgstr ""
+
+#. translators: %d: how many of the reward are left in stock.
+#: includes/assets.php:219
+#: templates/shortcode/rewards.php:115
+#, php-format
+msgid "%d left"
+msgstr ""
+
+#. translators: %s: required point amount
+#: includes/assets.php:221
+#: templates/academy/course-locked.php:47
+#: templates/shortcode/levels.php:127
+#: templates/shortcode/rewards.php:43
+#: templates/shortcode/rewards.php:110
+#, php-format
+msgid "%s points"
+msgstr ""
+
+#: includes/assets.php:222
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/assets.php:223
+msgid "Link copied"
+msgstr ""
+
 #: includes/classes/badge-manager.php:27
 #: assets/build/i18n-strings.js:128
 msgid "Badges"
@@ -973,11 +1056,6 @@ msgstr ""
 msgid "You reached a new level: %s"
 msgstr ""
 
-#: includes/classes/social-sharing.php:53
-#: assets/build/i18n-strings.js:44
-msgid "Achievement"
-msgstr ""
-
 #: includes/classes/taxonomy-manager.php:92
 msgid "Achievement Types"
 msgstr ""
@@ -1013,7 +1091,8 @@ msgid "Types"
 msgstr ""
 
 #: includes/helper.php:149
-#: templates/shortcode/profile.php:69
+#: templates/shortcode/profile.php:45
+#: templates/shortcode/profile.php:94
 #: assets/build/i18n-strings.js:335
 msgid "Levels"
 msgstr ""
@@ -1707,110 +1786,120 @@ msgstr ""
 msgid "Author comment successfully  into your website."
 msgstr ""
 
-#: includes/shortcodes/profile.php:19
+#: includes/shortcodes/profile.php:24
 msgid "Please log in to view your progress."
 msgstr ""
 
-#: includes/shortcodes/progress-map.php:24
-#: templates/shortcode/progress-map.php:10
+#: includes/shortcodes/progress-map.php:30
+#: templates/shortcode/progress-map.php:12
 msgid "Progress Map addon is not active."
 msgstr ""
 
-#: templates/academy/course-locked.php:43
+#: templates/academy/course-locked.php:26
 msgid "Log in to check your progress"
 msgstr ""
 
-#: templates/academy/course-locked.php:45
+#: templates/academy/course-locked.php:30
 msgid "Log In to Unlock"
 msgstr ""
 
-#. translators: %s: required point amount
-#: templates/academy/course-locked.php:64
-#, php-format
-msgid "%s points"
-msgstr ""
-
 #. translators: %s: level title
-#: templates/academy/course-locked.php:82
+#: templates/academy/course-locked.php:65
 #, php-format
 msgid "Level: %s"
 msgstr ""
 
-#: templates/academy/course-locked.php:89
+#: templates/academy/course-locked.php:72
 msgid "AND"
 msgstr ""
 
-#: templates/academy/course-locked.php:89
+#: templates/academy/course-locked.php:72
 msgid "OR"
 msgstr ""
 
-#: templates/academy/course-locked.php:97
+#: templates/academy/course-locked.php:80
 msgid "Unlock this course:"
 msgstr ""
 
-#: templates/shortcode/achievements.php:27
+#: templates/shortcode/achievements.php:30
 msgid "No achievements created yet."
 msgstr ""
 
-#: templates/shortcode/achievements.php:64
-msgid "How to unlock"
+#. translators: 1: achievements the member has unlocked, 2: all achievements
+#: templates/shortcode/achievements.php:46
+#, php-format
+msgid "%1$s of %2$s unlocked"
 msgstr ""
 
-#: templates/shortcode/achievements.php:74
+#: templates/shortcode/achievements.php:52
+msgid "Achievements unlocked"
+msgstr ""
+
+#: templates/shortcode/achievements.php:96
+#: templates/shortcode/levels.php:111
+msgid "Unlocked"
+msgstr ""
+
+#: templates/shortcode/achievements.php:108
 #: assets/build/i18n-strings.js:537
 msgid "Share"
 msgstr ""
 
-#: templates/shortcode/leaderboard.php:21
+#: templates/shortcode/leaderboard.php:29
 msgid "Top Performers"
 msgstr ""
 
-#: templates/shortcode/leaderboard.php:27
+#: templates/shortcode/leaderboard.php:61
 #: assets/build/i18n-strings.js:471
 msgid "Rank"
 msgstr ""
 
-#: templates/shortcode/leaderboard.php:28
-#: assets/build/i18n-strings.js:616
-msgid "User"
+#: templates/shortcode/leaderboard.php:69
+msgid "You"
 msgstr ""
 
-#: templates/shortcode/leaderboard.php:92
+#: templates/shortcode/leaderboard.php:77
+msgid "points"
+msgstr ""
+
+#: templates/shortcode/leaderboard.php:86
 msgid "No data found."
 msgstr ""
 
-#: templates/shortcode/levels.php:33
+#: templates/shortcode/leaderboard.php:87
+msgid "Members show up here once they earn points."
+msgstr ""
+
+#: templates/shortcode/levels.php:45
 msgid "Next Milestone"
 msgstr ""
 
+#. translators: %s: level name
+#: templates/shortcode/levels.php:56
+#, php-format
+msgid "Progress to %s"
+msgstr ""
+
 #. translators: 1: points needed, 2: level name
-#: templates/shortcode/levels.php:47
+#: templates/shortcode/levels.php:64
 #, php-format
 msgid "Collect %1$s more points to unlock %2$s"
 msgstr ""
 
-#: templates/shortcode/levels.php:81
-msgid "Unlocked"
+#: templates/shortcode/levels.php:109
+msgid "Current level"
 msgstr ""
 
-#: templates/shortcode/levels.php:108
+#: templates/shortcode/levels.php:142
 msgid "No levels available yet."
 msgstr ""
 
-#: templates/shortcode/profile.php:92
-msgid "Badges & Achievements"
-msgstr ""
-
-#: templates/shortcode/profile.php:96
-msgid "Your Progression"
-msgstr ""
-
 #: templates/shortcode/profile.php:101
-msgid "Your Streaks"
+msgid "Your progress"
 msgstr ""
 
 #. translators: %s: streak count number
-#: templates/shortcode/profile.php:114
+#: templates/shortcode/profile.php:147
 #, php-format
 msgid "%s week streak"
 msgid_plural "%s week streak"
@@ -1818,122 +1907,35 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: streak count number
-#: templates/shortcode/profile.php:120
+#: templates/shortcode/profile.php:153
 #, php-format
 msgid "%s day streak"
 msgid_plural "%s day streak"
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/shortcode/profile.php:142
-#: templates/shortcode/profile.php:182
-msgid "Send Points"
+#: templates/shortcode/rewards.php:39
+msgid "Your balance"
 msgstr ""
 
-#: templates/shortcode/profile.php:146
-msgid "Recipient (username or email)"
-msgstr ""
-
-#: templates/shortcode/profile.php:147
-msgid "Enter username or email"
-msgstr ""
-
-#: templates/shortcode/profile.php:151
-#: assets/build/i18n-strings.js:444
-msgid "Point Type"
-msgstr ""
-
-#: templates/shortcode/profile.php:174
-#: assets/build/i18n-strings.js:448
-msgid "Points Amount"
-msgstr ""
-
-#: templates/shortcode/profile.php:175
-msgid "e.g. 100"
-msgstr ""
-
-#: templates/shortcode/profile.php:178
-msgid "Message (optional)"
-msgstr ""
-
-#: templates/shortcode/profile.php:179
-msgid "A note to the recipient"
-msgstr ""
-
-#: templates/shortcode/profile.php:211
-msgid "Points sent successfully!"
-msgstr ""
-
-#: templates/shortcode/profile.php:216
-#: templates/shortcode/profile.php:222
-msgid "An error occurred."
-msgstr ""
-
-#. translators: %d: the member's points balance.
-#: templates/shortcode/rewards.php:37
-#, php-format
-msgid "Your balance: %d points"
-msgstr ""
-
-#: templates/shortcode/rewards.php:44
+#: templates/shortcode/rewards.php:55
 msgid "No rewards are available right now. Check back soon!"
 msgstr ""
 
-#: templates/shortcode/rewards.php:65
+#: templates/shortcode/rewards.php:77
 msgid "Log in to Redeem"
 msgstr ""
 
-#: templates/shortcode/rewards.php:67
-#: templates/shortcode/rewards.php:173
-msgid "Out of Stock"
-msgstr ""
-
-#: templates/shortcode/rewards.php:69
+#: templates/shortcode/rewards.php:81
 msgid "Already Redeemed"
 msgstr ""
 
-#: templates/shortcode/rewards.php:71
+#: templates/shortcode/rewards.php:83
 msgid "Not Enough Points"
 msgstr ""
 
-#: templates/shortcode/rewards.php:73
+#: templates/shortcode/rewards.php:85
 msgid "Redeem"
-msgstr ""
-
-#. translators: %d: how many points the reward costs.
-#: templates/shortcode/rewards.php:92
-#, php-format
-msgid "%d points"
-msgstr ""
-
-#. translators: %d: how many of the reward are left in stock.
-#: templates/shortcode/rewards.php:96
-#, php-format
-msgid "%d left"
-msgstr ""
-
-#: templates/shortcode/rewards.php:138
-msgid "Redeeming…"
-msgstr ""
-
-#: templates/shortcode/rewards.php:160
-msgid "Redeemed"
-msgstr ""
-
-#: templates/shortcode/rewards.php:164
-msgid "Your balance:"
-msgstr ""
-
-#: templates/shortcode/rewards.php:164
-msgid "points"
-msgstr ""
-
-#: templates/shortcode/rewards.php:170
-msgid "left"
-msgstr ""
-
-#: templates/shortcode/rewards.php:194
-msgid "Something went wrong. Please try again."
 msgstr ""
 
 #: assets/build/i18n-strings.js:10
@@ -3570,12 +3572,20 @@ msgstr ""
 msgid "Point System"
 msgstr ""
 
+#: assets/build/i18n-strings.js:444
+msgid "Point Type"
+msgstr ""
+
 #: assets/build/i18n-strings.js:445
 msgid "Point Types"
 msgstr ""
 
 #: assets/build/i18n-strings.js:447
 msgid "Points add up"
+msgstr ""
+
+#: assets/build/i18n-strings.js:448
+msgid "Points Amount"
 msgstr ""
 
 #: assets/build/i18n-strings.js:449
@@ -4168,6 +4178,10 @@ msgstr ""
 
 #: assets/build/i18n-strings.js:615
 msgid "Use this image"
+msgstr ""
+
+#: assets/build/i18n-strings.js:616
+msgid "User"
 msgstr ""
 
 #: assets/build/i18n-strings.js:617
