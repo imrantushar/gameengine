@@ -164,10 +164,10 @@ class UserProfile
                                         $streak_count = (int) $streak['count'];
                                         if ('weekly' === $streak['interval']) {
                                             /* translators: %d: streak count */
-                                            printf(esc_html(_n('%d week', '%d weeks', $streak_count, 'gameengine')), $streak_count);
+                                            echo esc_html(sprintf(_n('%d week', '%d weeks', $streak_count, 'gameengine'), $streak_count));
                                         } else {
                                             /* translators: %d: streak count */
-                                            printf(esc_html(_n('%d day', '%d days', $streak_count, 'gameengine')), $streak_count);
+                                            echo esc_html(sprintf(_n('%d day', '%d days', $streak_count, 'gameengine'), $streak_count));
                                         }
                                         ?>
                                     </div>

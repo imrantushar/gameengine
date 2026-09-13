@@ -116,25 +116,19 @@ class NotificationsController extends BaseController
                  WHERE {$where_sql}
                  ORDER BY n.created_at DESC
                  LIMIT %d OFFSET %d",
-                array_merge($values, array($per_page, $offset))
+                ...array_merge($values, array($per_page, $offset))
             ),
             ARRAY_A
         );
 
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-        $total = (int) $wpdb->get_var(
-            $values
-                ? $wpdb->prepare(
-                    "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications n
-                     INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
-                     WHERE {$where_sql}",
-                    $values
-                )
-                : "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications n
-                   INNER JOIN {$wpdb->users} u ON n.user_id = u.ID"
-        );
+        $count_sql = "SELECT COUNT(*) FROM {$wpdb->prefix}gameengine_notifications n
+                      INNER JOIN {$wpdb->users} u ON n.user_id = u.ID
+                      WHERE {$where_sql}";
 
-        $since_24h = gmdate('Y-m-d H:i:s', strtotime('-24 hours'));
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.NotPrepared -- $where_sql holds only placeholders, bound here.
+        $total = (int) $wpdb->get_var($values ? $wpdb->prepare($count_sql, ...$values) : $count_sql);
+
+        $since_24h = gmdate('Y-m-d H:i:s', current_time('timestamp') - DAY_IN_SECONDS);
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $recent_count = (int) $wpdb->get_var(

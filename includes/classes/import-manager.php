@@ -59,6 +59,7 @@ class ImportManager
             }
             $rows = $decoded;
         } else {
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- fgetcsv() reads the uploaded file as a stream; WP_Filesystem has no streaming reader.
             $handle = fopen($file_path, 'r');
             if (!$handle) {
                 $result['errors'][] = __('Cannot read file.', 'gameengine');
@@ -66,6 +67,7 @@ class ImportManager
             }
             $headers = fgetcsv($handle);
             if (!$headers) {
+                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
                 fclose($handle);
                 $result['errors'][] = __('Empty or invalid CSV file.', 'gameengine');
                 return $result;
@@ -75,6 +77,7 @@ class ImportManager
                     $rows[] = array_combine($headers, $line);
                 }
             }
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
             fclose($handle);
         }
 

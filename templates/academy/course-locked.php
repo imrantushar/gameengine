@@ -15,13 +15,13 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-$ge_locked_style_printed = false;
+$gameengine_lock_style_printed = false;
 if (! defined('GAMEENGINE_ACADEMY_LOCK_STYLE')) {
     define('GAMEENGINE_ACADEMY_LOCK_STYLE', true);
-    $ge_locked_style_printed = true;
+    $gameengine_lock_style_printed = true;
 }
 ?>
-<?php if ($ge_locked_style_printed) : ?>
+<?php if ($gameengine_lock_style_printed) : ?>
 	<style>
 		.academy-gameengine-unlock{display:flex;gap:12px;align-items:flex-start;padding:16px;border:1px solid #e2e2e8;border-radius:10px;background:#faf9ff}
 		.academy-gameengine-unlock__icon{font-size:20px;line-height:1.2}
@@ -50,44 +50,44 @@ if ($is_enable_academy_login && ! is_user_logged_in()) :
 	<?php
 else :
     global $wpdb;
-    $requires_all = \GameEngine\Addons\AcademyLMS\Course_Unlock::requires_all_rules($course_id);
-    $chips        = array();
+    $gameengine_requires_all = \GameEngine\Addons\AcademyLMS\Course_Unlock::requires_all_rules($course_id);
+    $gameengine_chips        = array();
 
-    foreach ((array) $rules as $rule) {
-        if (empty($rule['type'])) {
+    foreach ((array) $rules as $gameengine_rule) {
+        if (empty($gameengine_rule['type'])) {
             continue;
         }
-        if ('points' === $rule['type']) {
-            $chips[] = array(
+        if ('points' === $gameengine_rule['type']) {
+            $gameengine_chips[] = array(
                 'icon'  => '🪙',
                 /* translators: %s: required point amount */
-                'label' => sprintf(esc_html__('%s points', 'gameengine'), number_format_i18n((int) $rule['value'])),
+                'label' => sprintf(esc_html__('%s points', 'gameengine'), number_format_i18n((int) $gameengine_rule['value'])),
             );
-        } elseif ('achievement' === $rule['type']) {
+        } elseif ('achievement' === $gameengine_rule['type']) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $title = $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d", (int) $rule['value']));
-            if ($title) {
-                $chips[] = array(
+            $gameengine_title = $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}gameengine_achievements WHERE id = %d", (int) $gameengine_rule['value']));
+            if ($gameengine_title) {
+                $gameengine_chips[] = array(
                     'icon'  => '🏅',
-                    'label' => $title,
+                    'label' => $gameengine_title,
                 );
             }
-        } elseif ('level' === $rule['type']) {
+        } elseif ('level' === $gameengine_rule['type']) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $title = $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}gameengine_levels WHERE id = %d", (int) $rule['value']));
-            if ($title) {
-                $chips[] = array(
+            $gameengine_title = $wpdb->get_var($wpdb->prepare("SELECT title FROM {$wpdb->prefix}gameengine_levels WHERE id = %d", (int) $gameengine_rule['value']));
+            if ($gameengine_title) {
+                $gameengine_chips[] = array(
                     'icon'  => '🏆',
                     /* translators: %s: level title */
-                    'label' => sprintf(esc_html__('Level: %s', 'gameengine'), $title),
+                    'label' => sprintf(esc_html__('Level: %s', 'gameengine'), $gameengine_title),
                 );
             }
         }
     }
 
-    if (! empty($chips)) :
-        $joiner = $requires_all ? esc_html__('AND', 'gameengine') : esc_html__('OR', 'gameengine');
-        $total  = count($chips);
+    if (! empty($gameengine_chips)) :
+        $gameengine_joiner = $gameengine_requires_all ? esc_html__('AND', 'gameengine') : esc_html__('OR', 'gameengine');
+        $gameengine_total  = count($gameengine_chips);
         ?>
 		<div class="academy-widget-enroll__continue">
 			<div class="academy-widget-enroll__get-membership academy-widget-enroll__get-membership--gameengine">
@@ -95,13 +95,13 @@ else :
 					<span class="academy-gameengine-unlock__icon" aria-hidden="true">🔒</span>
 					<ul class="academy-gameengine-unlock__chips">
 						<li class="academy-gameengine-unlock__label"><?php esc_html_e('Unlock this course:', 'gameengine'); ?></li>
-						<?php foreach ($chips as $index => $chip) : ?>
+						<?php foreach ($gameengine_chips as $gameengine_index => $gameengine_chip) : ?>
 							<li class="academy-gameengine-unlock__chip">
-								<span aria-hidden="true"><?php echo esc_html($chip['icon']); ?></span>
-								<?php echo esc_html($chip['label']); ?>
+								<span aria-hidden="true"><?php echo esc_html($gameengine_chip['icon']); ?></span>
+								<?php echo esc_html($gameengine_chip['label']); ?>
 							</li>
-							<?php if ($index < $total - 1) : ?>
-								<li class="academy-gameengine-unlock__joiner" aria-hidden="true"><?php echo esc_html($joiner); ?></li>
+							<?php if ($gameengine_index < $gameengine_total - 1) : ?>
+								<li class="academy-gameengine-unlock__joiner" aria-hidden="true"><?php echo esc_html($gameengine_joiner); ?></li>
 							<?php endif; ?>
 						<?php endforeach; ?>
 					</ul>

@@ -198,7 +198,7 @@ class LeaderboardManager
                 ) lvl ON u.ID = lvl.user_id
                 ORDER BY p.total_points DESC, u.ID ASC
                 LIMIT %d OFFSET %d",
-                $values
+                ...$values
             ),
             ARRAY_A
         ) ?: array();
@@ -243,7 +243,7 @@ class LeaderboardManager
                     GROUP BY l.user_id
                     HAVING SUM(l.points) > 0
                 ) ranked",
-                $values
+                ...$values
             )
         );
     }
@@ -278,7 +278,7 @@ class LeaderboardManager
             $wpdb->prepare(
                 "SELECT SUM(l.points) FROM {$wpdb->prefix}gameengine_points_log l
                  WHERE l.user_id = %d AND ( l.point_type_id = %d OR 0 = %d ){$window['sql']}",
-                $own_values
+                ...$own_values
             )
         );
 
@@ -298,7 +298,7 @@ class LeaderboardManager
                     GROUP BY l.user_id
                     HAVING SUM(l.points) > %d
                 ) ahead",
-                $ahead_values
+                ...$ahead_values
             )
         );
 
