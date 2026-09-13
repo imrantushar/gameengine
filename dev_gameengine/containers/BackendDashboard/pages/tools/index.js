@@ -5,11 +5,12 @@ import React from 'react';
 import ShortCode from './Shortcode';
 import ExportImport from './ExportImport';
 import AvailableHooks from './AvailableHooks';
+import HowItWorksTab from './HowItWorks';
 import { admin_url, route_path, useQuery } from '@GFUtils/helper';
 import { Link } from 'react-router-dom';
 import { TfiShortcode } from "react-icons/tfi";
 import { FcDataConfiguration } from "react-icons/fc";
-import { FiDownload, FiAnchor } from 'react-icons/fi';
+import { FiDownload, FiAnchor, FiCompass } from 'react-icons/fi';
 import GetHelp from '@GFComponents/GetHelp';
 import WhatsNew from '@GFComponents/WhatsNew';
 
@@ -18,6 +19,13 @@ const Tools = () => {
   const path = query.get('path') || 'shortcodes';
 
   const tabs = [
+    {
+      icon: FiCompass,
+      title: __('How it works', 'gameengine'),
+      name: 'how-it-works',
+      slug: 'how-it-works',
+      route: `&path=how-it-works`
+    },
     {
       icon: TfiShortcode,
       title: __('Shortcodes', 'gameengine'),
@@ -56,6 +64,8 @@ const Tools = () => {
         return <ExportImport />;
       case 'available-hooks':
         return <AvailableHooks />;
+      case 'how-it-works':
+        return <HowItWorksTab />;
       default:
         return <ShortCode />;
     }
