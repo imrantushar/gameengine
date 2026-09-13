@@ -57,8 +57,11 @@ export const initRewards = () => {
                     return;
                 }
 
-                // Stays disabled: the page reloads with the member's new standing.
+                // The server checks balance, stock and per-member limits on every
+                // redemption, so the button comes back for the next one unless
+                // the reward just sold out.
                 button.textContent = getText('redeemed', 'Redeemed');
+                let soldOut = false;
 
                 const balance = catalog.querySelector('[data-gameengine-balance]');
                 if (balance && typeof body.remaining_points !== 'undefined') {
@@ -70,9 +73,17 @@ export const initRewards = () => {
                     if (0 === Number(body.remaining_stock)) {
                         stock.remove();
                         button.textContent = getText('outOfStock', 'Out of Stock');
+                        soldOut = true;
                     } else {
                         stock.textContent = fill(getText('stockLeft', '%d left'), body.remaining_stock);
                     }
+                }
+
+                if (!soldOut) {
+                    window.setTimeout(() => {
+                        button.disabled = false;
+                        button.textContent = label;
+                    }, 2000);
                 }
             })
             .catch(() => {
