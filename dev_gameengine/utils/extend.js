@@ -86,6 +86,19 @@ export const getDashboardNotices = (notices) =>
 	applyFilters('gameengine.dashboard.notices', notices);
 
 /**
+ * Steps of the Dashboard's "Get started" checklist.
+ *
+ * A step is `{ key, title, done, render }`, where `render` returns the step's
+ * body. The server decides `done` for the steps it knows about; the
+ * `gameengine_onboarding_steps` PHP filter can add state for new ones.
+ *
+ * @param {Array} steps Steps contributed by this plugin.
+ * @return {Array} The full step list.
+ */
+export const getOnboardingSteps = (steps) =>
+	applyFilters('gameengine.onboarding.steps', steps);
+
+/**
  * Admin screens keyed by their `page` query-string value.
  *
  * An extension adds the pages for the features it ships; this plugin routes
