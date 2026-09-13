@@ -4,7 +4,7 @@ Tags: gamification, points, achievements, levels, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.3.3
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -23,8 +23,9 @@ Whether you run a blog, an e-learning platform, or an e-commerce store, GameEngi
 *   **Achievements & Badges:** Define achievements that users can unlock by completing specific tasks.
 *   **Level System:** Create levels (e.g., Bronze, Silver, Gold) that users earn from a points threshold or from any trigger.
 *   **Integrations:** Award points for activity in WooCommerce, StoreEngine, Academy LMS and Tutor LMS.
-*   **Add-ons:** Restrict Unlock, Progress Map and Content Restriction, all included and enabled from the Add-ons screen.
-*   **Shortcodes:** Drop points balances, achievement lists, level roadmaps, progress maps and profile dashboards anywhere on your site.
+*   **Activity:** The points, achievement and level-up notifications sent to members, on one screen, searchable and filterable by type.
+*   **Add-ons:** Restrict Unlock, Progress Map, Restrict Content and a Rewards Store where members spend their points, all included and enabled from the Add-ons screen.
+*   **Shortcodes:** Drop points balances, achievement lists, level roadmaps, progress maps, leaderboards, a rewards catalog and profile dashboards anywhere on your site.
 
 Every feature listed above is included and fully functional. Nothing in this plugin is limited by a key, a trial, a quota or a time limit.
 
@@ -49,7 +50,7 @@ The full, uncompiled source for this plugin is public at https://github.com/imra
 
 `dev_gameengine/` is this plugin's source directory — the equivalent of `src/` in most projects, under an older name this project has always used. `assets/scss/` holds the Sass.
 
-The only generated files are in `assets/build/`, plus the translation template in `languages/`. Each build file is named after the source file it is built from, and each carries a comment at the top of the file naming that source and the command that rebuilds it:
+The only generated files are in `assets/build/`, plus the translation template in `languages/`. Each bundle and stylesheet below is named after the source file it is built from and begins with a comment naming that source and the command that rebuilds it; the other generated files are listed with what generates them:
 
 *   `assets/build/backend.js`  — built from `dev_gameengine/backend.js` (the admin app)
 *   `assets/build/frontend.js` — built from `dev_gameengine/frontend.js` (the frontend script)
@@ -88,11 +89,15 @@ PHP dependencies are declared in `composer.json`, with `composer.lock` pinning e
 
 = What kind of activities can I award points for? =
 
-You can award points for actions like user registration, daily logins, publishing posts, and leaving comments. Activating an integration from the Add-ons screen adds triggers for that platform, such as completing a course or placing an order.
+You can award points for actions like user registration, daily logins, publishing posts, and leaving comments. Turning on an integration from the Add-ons screen adds triggers for that platform, such as completing a course or placing an order; integrations without an Add-ons card add theirs whenever their plugin is active.
 
 = Does the plugin send any data to an external server? =
 
 No. The plugin makes no external requests at all. See the "External services" section above.
+
+= Does deleting GameEngine remove my data? =
+
+Only if you ask it to. By default, deleting the plugin leaves every point type, achievement, level and log in place, so reinstalling loses nothing. To remove it all when the plugin is deleted, turn on "Delete all data when GameEngine is deleted" in GameEngine's Settings. That removes GameEngine Pro's data as well, but not the WooCommerce coupons Pro has issued to members, which keep working.
 
 = Can I extend the plugin from my own code? =
 
@@ -100,14 +105,38 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 
 == Changelog ==
 
-= 1.3.3 - 2026-09-07 =
-* Added - New "Assignment Submitted" trigger for the Academy LMS integration (fires when a student submits an assignment, independent of the existing "Assignment Evaluated" trigger).
-* Added - The Restrict Content addon's points/achievement/level lock now also covers Academy course landing pages (previously `post`/`page` only), with an admin-facing note clarifying it restricts the description only, not enrollment.
-* Fixed - The `academy_courses` category filters on Academy LMS triggers used a taxonomy slug (`course_category`) that doesn't match Academy's actual course-category taxonomy (`academy_courses_category`), so Pro's include/exclude-category rules on Academy triggers never matched. Corrected to the real taxonomy slug.
-* Added - Every generated file in `assets/build/` now begins with a comment naming the source file it was built from, that `dev_gameengine/` is this plugin's source directory, and the command that rebuilds it.
-* Added - A `README.md` in the plugin directory listing which source file produces which generated file, how to build, and how the directories are laid out.
-* Changed - The readme now says outright that `dev_gameengine/` is this plugin's source directory, since the name does not say so on its own.
-* Added - The readme now links the public source repository at https://github.com/imrantushar/gameengine
+= 1.4.0 - 2026-09-13 =
+* Added - An activity bell and an Activity screen listing the points, achievement and level-up notifications sent to members, paged, searchable and filterable by type. The screen starts empty after the update, and holds only notification types that are turned on, for as long as notifications are kept.
+* Added - A Rewards Store add-on. Members spend their points on rewards you set up, with optional stock and per-member limits, through the `[gameengine_rewards]` shortcode.
+* Added - A Badge Editor for designing badges — shape, colours and an icon or uploaded image — with a live preview, and a badge choice on each achievement. `[gameengine_achievements]` shows a badge's icon or image, not its shape or colours.
+* Added - Streak options on points awards: count the consecutive days or weeks a trigger awards a member points, and pay bonus points each time the streak reaches a multiple of the milestone.
+* Added - A level's built-in icon can be given a colour, which also colours the level's name in `[gameengine_profile]`.
+* Added - A level can count all point types, and is then reached from a member's total across every point type.
+* Added - Integrations with LearnDash, LifterLMS, BuddyPress, bbPress and GemBoards.
+* Added - An "Assignment Submitted" trigger for Academy LMS, which fires when a student submits an assignment, independent of the existing "Assignment Evaluated" trigger. With GameEngine Pro it can include or exclude course categories.
+* Added - The Restrict Content add-on's points, achievement and level lock now also covers Academy course landing pages. It restricts the course description, not enrollment, and the admin screen says so.
+* Added - An Export / Import tab under Tools. It exports achievements, levels, point types, members' points history, achievements and levels, and the logs as CSV or JSON, and imports achievements, levels and point types. Award rules are not included.
+* Added - CSV export of the dashboard's top members and of the logs.
+* Added - A dark mode for the admin screens.
+* Added - Notifications and Buy Points tabs in Settings, and an Available Hooks tab under Tools.
+* Added - Share links on the achievements members have earned in `[gameengine_achievements]`, on by default, with a switch in Settings.
+* Added - With GameEngine Pro's Leaderboard Seasons, an achievement can be limited to a season.
+* Added - A "Delete all data when GameEngine is deleted" setting, off by default. When it is on, deleting the plugin removes GameEngine's tables, options, badges and meta, and GameEngine Pro's.
+* Added - Every bundle and stylesheet in `assets/build/` begins with a comment naming its source file and the command that rebuilds it. A `README.md`, now shipped with the plugin, lists which source produces which generated file, and the readme states that `dev_gameengine/` is the source directory and links the public repository at https://github.com/imrantushar/gameengine.
+* Changed - The `[gameengine_leaderboard]` shortcode now subtracts deductions, matching the admin leaderboard, so a member's total there can be lower than before. Both rank members with the same query.
+* Changed - The Shortcodes tab under Tools lists every shortcode, including `[gameengine_leaderboard]`, with its attributes and an example.
+* Changed - A level's logo can be one of the built-in icons as well as an image from the Media Library.
+* Fixed - Deduction rules took away no points. Any you have set up start deducting after this update.
+* Fixed - The daily inactivity check stopped with a fatal error at the first inactive member it found.
+* Fixed - Saving a level erased its plural name and its priority.
+* Fixed - The list of user roles in trigger options failed to load.
+* Fixed - A hook dragged into a rule always landed at the end, and hooks could not be reordered.
+* Fixed - Integration tabs read "Gameengine" and "Wordpress".
+* Fixed - The rich-text editors logged errors on every load for editor modules that were never installed.
+* Fixed - The setup wizard's first screen showed no icons on its two options and described the plugin as an e-commerce platform.
+* Fixed - Switching an add-on off announced "successfully Deactivate".
+* Fixed - The admin screens and setup wizard could not be translated: the string extractor WordPress.org uses cannot read the admin bundle, the setup wizard never loaded its translations, and nine strings were filed under other plugins' text domains. `assets/build/i18n-strings.js` now lists the strings in a form the extractor can read, and `npm run makepot` regenerates it with the translation template.
+* Fixed - Deactivating the plugin left some of its scheduled events running.
 
 = 1.3.2 - 2026-08-28 =
 * Fixed - Data did not load on sites using plain permalinks. The REST root is `index.php?rest_route=/` there, so a request that carried its own query string produced a second `?` and came back as "no route was found". Query strings are now joined correctly whatever the permalink setting.
@@ -165,8 +194,8 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 
 == Upgrade Notice ==
 
-= 1.3.3 =
-Documentation only. No functional change.
+= 1.4.0 =
+Adds an Activity screen, a Rewards Store, a Badge Editor, streaks and five integrations, and makes the admin translatable. Deduction rules now take points away, and levels saved without a point type now count every point type: review both before updating.
 
 = 1.3.2 =
 Fixes data not loading on sites that use plain permalinks.
