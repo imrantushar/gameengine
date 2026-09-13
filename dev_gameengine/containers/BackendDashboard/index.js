@@ -14,7 +14,6 @@ import Addons from './pages/addon';
 import { getDashboardNotices, getDashboardRoutes } from '@GFUtils/extend';
 import Notification from '@GFComponents/Notification';
 import Tools from './pages/tools';
-import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 import Badges from './pages/badges';
 import BadgeEditor from './pages/badges/BadgeEditor';
 import RewardsStore from './pages/rewards-store';
@@ -112,9 +111,6 @@ export default function BackendDashboard() {
 			{getDashboardNotices([]).map((Notice, index) => (
 				<Notice key={index} />
 			))}
-			<div style={{ position: 'fixed', top: '58px', right: '16px', zIndex: 4000 }}>
-				<AdminActivityFeed />
-			</div>
 			<div className="gameengine-page-transition" key={transitionKey}>
 				{ renderSwitch( page, id, action, path ) }
 			</div>

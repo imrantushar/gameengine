@@ -6,9 +6,11 @@ import TopBar from "@GFComponents/TopBar";
 import TopUsers from "./TopUsers";
 import Distribution from "./Distribution";
 import Overview from "./Overview";
+import GetStarted from "./GetStarted";
 import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
 import GetHelp from '@GFComponents/GetHelp';
 import WhatsNew from '@GFComponents/WhatsNew';
+import { getDashboardSections } from '@GFUtils/extend';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -54,11 +56,17 @@ const Dashboard = () => {
     />
 
     <div className="gameengine-page-content flex flex-col gap-6">
+      <GetStarted />
+
       <Overview data={overview} onFilterChange={handleFilterChange} startDate={startDate} setStartDate={setStartDate} endDate={endDate} setEndDate={setEndDate} />
 
       <Distribution chartData={chart} />
 
       <TopUsers users={topUsers} startDate={startDate} endDate={endDate} />
+
+      {getDashboardSections([]).map((Section, index) => (
+        <Section key={index} startDate={startDate} endDate={endDate} />
+      ))}
     </div>
   </>;
 };

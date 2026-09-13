@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SettingsHeader from '../../components/SettingsHeader';
 import { __ } from '@wordpress/i18n';
 import Checkbox from '@GFComponents/Checkbox/Checkbox';
@@ -11,21 +11,21 @@ const AddonsCard = [
   {
     label: __('Progress Map', 'gameengine'),
     name: 'progress_map',
-    description: __('Keep users loyal to your brand', 'gameengine'),
+    description: __('Show members their progress as a map of steps', 'gameengine'),
     icon: false,
     image: plugin_root_url + 'assets/images/progress_map.svg'
   },
   {
     label: __('Restrict Content', 'gameengine'),
     name: 'restrict_content',
-    description: __('Boost interactions with content', 'gameengine'),
+    description: __('Lock content until a member has the points, achievement or level', 'gameengine'),
     icon: false,
     image: plugin_root_url + 'assets/images/restrict_content.svg'
   },
   {
     label: __('Restrict Unlock', 'gameengine'),
     name: 'restrict_unlock',
-    description: __('Boost interactions with content', 'gameengine'),
+    description: __('Make an achievement or level require another one first', 'gameengine'),
     icon: false,
     image: plugin_root_url + 'assets/images/restrict_unlock.svg',
     plugin_required: false
@@ -33,21 +33,21 @@ const AddonsCard = [
   {
     label: __('Academy LMS Integration', 'gameengine'),
     name: 'academylms',
-    description: __('Boost interactions with content', 'gameengine'),
+    description: __('Award points for course activity', 'gameengine'),
     icon: academyLms,
     plugin_required: true
   },
   {
     label: __('StoreEngine Integration', 'gameengine'),
     name: 'storeengine',
-    description: __('Boost interactions with content', 'gameengine'),
+    description: __('Award points for purchases in your store', 'gameengine'),
     icon: storeEngine,
     plugin_required: true
   },
     {
     label: __('WooCommerce Integration', 'gameengine'),
     name: 'woocommerce',
-    description: __('Boost interactions with content', 'gameengine'),
+    description: __('Award points for purchases in your store', 'gameengine'),
     icon: wooCommerce,
     plugin_required: true
   },
@@ -68,6 +68,13 @@ const AddonsCard = [
 const Addons = () => {
   const { values, setFieldValue } = useFormikContext();
 
+  // A preset whose rule belongs to an integration only fires with that add-on on.
+  useEffect(() => {
+    if (values.preset === 'shop' && is_woocommerce_active && !values.addons.includes('woocommerce')) {
+      setFieldValue('addons', [...values.addons.filter(a => a !== 'decide_later'), 'woocommerce']);
+    }
+  }, [values.preset]);
+
   const handleToggle = (itemName) => {
     const isDeciodeLater = itemName === 'decide_later';
     if (!values.addons.includes(itemName)) {
@@ -84,13 +91,13 @@ const Addons = () => {
   return (
     <>
       <SettingsHeader
-        title={__('Gamification Category', 'gameengine')}
-        subTitle={__('What best describes your Needs?', 'gameengine')}
+        title={__('Connect your plugins', 'gameengine')}
+        subTitle={__('Switch on what your site uses. You can change this later under Add-ons.', 'gameengine')}
       />
 
       <div className="w-full h-px" style={{ "background": "#E0E4E8" }} />
 
-      <div className="flex flex-wrap gap-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {AddonsCard.map((item, idx) => {
           const isChecked = item?.name === 'academylms' && values.addons.includes('academylms') && is_academylms_active || item?.name === 'tutorlms' && values.addons.includes('tutorlms') && is_tutorlms_active || item?.name === 'woocommerce' && values.addons.includes('woocommerce') && is_woocommerce_active || item?.name === 'storeengine' && values.addons.includes('storeengine') && is_storeengine_active || values.addons.includes(item?.name);
           const isDisabled = item?.name === 'academylms' && !is_academylms_active || item?.name === 'tutorlms' && !is_tutorlms_active || item?.name === 'woocommerce' && !is_woocommerce_active || item?.name === 'storeengine' && !is_storeengine_active;
@@ -99,9 +106,7 @@ const Addons = () => {
             <div
               className="flex items-center cursor-pointer gap-3 p-4 rounded text-center"
               style={{
-                "maxWidth": "280px",
                 "border": "1px solid #CBD1D7",
-                "width": "calc(100% / 2)",
                 "opacity": isDisabled ? 0.6 : 1,
                 "pointerEvents": isDisabled ? 'none' : 'auto'
               }}
@@ -109,7 +114,7 @@ const Addons = () => {
               onClick={() => handleToggle(item?.name)}
             >
               {item?.icon ? (
-                <>{item?.icon}</>
+                <item.icon />
               ) : (
                 <img className="h-auto" style={{ "maxWidth": "36px" }} src={item?.image} />
               )}

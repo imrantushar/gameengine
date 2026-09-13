@@ -194,7 +194,7 @@ const FormInner = ({ hooksLoading }) => {
     const config = hookCategoryIconMap[slug] || UNKNOWN_INTEGRATION_ICON;
 
     return (
-      <DraggableItem key={`${type}_${item?.id}`} id={`${type}_${item?.id}`}>
+      <DraggableItem key={`${type}_${item?.id}`} id={`${type}_${item?.id}`} onActivate={() => handleDragEnd({ active: { id: `${type}_${item?.id}` }, over: { id: `${type}s-sidebar` } })}>
         <div className="flex flex-col gap-1.5">
           <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
             "padding": "10px 16px"

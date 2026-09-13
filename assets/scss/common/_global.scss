@@ -404,12 +404,13 @@ body:has(#gameengine-admin-app) :is(h1, h2, h3, h4, h5, h6) {
 }
 
 // Top-bar sun/moon button.
-.gameengine-theme-toggle {
+.gameengine-theme-toggle,
+.gameengine-activity-feed__button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     flex-shrink: 0;
     border: 1px solid var(--gameengine-border-color);
     border-radius: 4px;

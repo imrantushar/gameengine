@@ -86,6 +86,32 @@ export const getDashboardNotices = (notices) =>
 	applyFilters('gameengine.dashboard.notices', notices);
 
 /**
+ * Sections added to the Dashboard, below its own.
+ *
+ * A section is a component. It receives the Dashboard's date range as
+ * `startDate` and `endDate` (`YYYY-MM-DD`, or null until a range is picked), so
+ * it can follow the same filter as the Dashboard's own cards.
+ *
+ * @param {Array} sections Sections contributed by this plugin.
+ * @return {Array} The full section list.
+ */
+export const getDashboardSections = (sections) =>
+	applyFilters('gameengine.dashboard.sections', sections);
+
+/**
+ * Steps of the Dashboard's "Get started" checklist.
+ *
+ * A step is `{ key, title, done, render }`, where `render` returns the step's
+ * body. The server decides `done` for the steps it knows about; the
+ * `gameengine_onboarding_steps` PHP filter can add state for new ones.
+ *
+ * @param {Array} steps Steps contributed by this plugin.
+ * @return {Array} The full step list.
+ */
+export const getOnboardingSteps = (steps) =>
+	applyFilters('gameengine.onboarding.steps', steps);
+
+/**
  * Admin screens keyed by their `page` query-string value.
  *
  * An extension adds the pages for the features it ships; this plugin routes

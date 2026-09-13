@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { MdPlayArrow } from 'react-icons/md';
 import { plugin_root_url } from '@GFUtils/helper';
 import ThemeToggle from '@GFComponents/ThemeToggle';
+import AdminActivityFeed from '@GFComponents/AdminActivityFeed';
 
 const TopBar = ({
   rightContent,
@@ -100,6 +101,7 @@ const TopBar = ({
         {rightContent ? rightContent : null}
 
         <ThemeToggle />
+        <AdminActivityFeed />
       </div>
     </div>
   );

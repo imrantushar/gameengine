@@ -25,6 +25,7 @@ use GameEngine\API\Controllers\NotificationsController;
 use GameEngine\API\Controllers\ToolsExportController;
 use GameEngine\API\Controllers\ToolsImportController;
 use GameEngine\API\Controllers\ToolsHooksController;
+use GameEngine\API\Controllers\OnboardingController;
 
 final class Manager
 {
@@ -62,6 +63,7 @@ final class Manager
             ToolsExportController::class,
             ToolsImportController::class,
             ToolsHooksController::class,
+            OnboardingController::class,
         ];
     }
 

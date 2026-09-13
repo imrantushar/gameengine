@@ -16,3 +16,16 @@
 body {
     font-family: var(--gameengine-font);
 }
+
+// Space above every setup screen. A short window gets less, so the tallest
+// step (the starter data preview) fits a laptop-height window without
+// scrolling; a taller one keeps the roomier 120px.
+.gameengine-setup-screen {
+    padding-top: 56px;
+}
+
+@media (min-height: 860px) {
+    .gameengine-setup-screen {
+        padding-top: 120px;
+    }
+}

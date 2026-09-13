@@ -8,10 +8,21 @@
 ( function () {
 	var __ = wp.i18n.__, _x = wp.i18n._x, _n = wp.i18n._n, _nx = wp.i18n._nx;
 	__( "-1 for unlimited.", "gameengine" );
+	__( "(already there)", "gameengine" );
+	__( "(done)", "gameengine" );
+	__( "(not done yet)", "gameengine" );
+	/* translators: 1: steps done, 2: total steps */
+	__( "%1$d of %2$d done", "gameengine" );
+	/* translators: 1: lowest points, 2: highest points */
+	__( "%1$s–%2$s points", "gameengine" );
+	/* translators: 1: point type name, 2: number of points, 3: an action such as "publishes a post" */
+	__( "%1$s: +%2$d each time someone %3$s", "gameengine" );
 	/* translators: %s: the add-on's name. */
 	__( "%s activated successfully.", "gameengine" );
 	/* translators: %s: the add-on's name. */
 	__( "%s deactivated successfully.", "gameengine" );
+	/* translators: 1: number of points, 2: an action such as "publishes a post" */
+	__( "+%1$d each time someone %2$s", "gameengine" );
 	__( "0 for unlimited.", "gameengine" );
 	__( "10", "gameengine" );
 	__( "15", "gameengine" );
@@ -22,6 +33,10 @@
 	__( "7 Days", "gameengine" );
 	__( "90 Days", "gameengine" );
 	__( "A grid of every achievement, earned and still locked.", "gameengine" );
+	__( "A member publishes a post, leaves a comment, buys something or finishes a course.", "gameengine" );
+	__( "A member who reaches enough points, or meets an achievement’s own rules, unlocks it automatically.", "gameengine" );
+	__( "A page with a profile, leaderboard or rewards shortcode lets members follow their progress.", "gameengine" );
+	__( "A rule reacts", "gameengine" );
 	__( "A season-limited achievement can only be earned while that season is running.", "gameengine" );
 	__( "A visual path of the milestones a member has reached and what comes next.", "gameengine" );
 	__( "Academy LMS", "gameengine" );
@@ -35,8 +50,12 @@
 	__( "Achievement Unlocked", "gameengine" );
 	__( "Achievement Unlocked Email", "gameengine" );
 	__( "Achievements", "gameengine" );
+	__( "Achievements and levels unlock", "gameengine" );
+	__( "Achievements are badges members unlock by collecting points or by doing something specific. Import four starter achievements, or create your own.", "gameengine" );
 	__( "Achievements Given", "gameengine" );
 	__( "Achievements List", "gameengine" );
+	/* translators: %s: achievement names, comma separated */
+	__( "Achievements: %s", "gameengine" );
 	__( "Achivement deleted successfully.", "gameengine" );
 	__( "Achivement Type", "gameengine" );
 	__( "Achivement updated successfully.", "gameengine" );
@@ -73,11 +92,14 @@
 	__( "Allow users to share their achievements and levels via the Web Share API or clipboard link copy.", "gameengine" );
 	__( "Always available", "gameengine" );
 	__( "Amount", "gameengine" );
+	__( "Anything you create will be listed here.", "gameengine" );
 	__( "Appearance", "gameengine" );
 	__( "Approve", "gameengine" );
 	__( "Approved", "gameengine" );
 	__( "Are you sure?", "gameengine" );
 	__( "Artwork you can attach to an achievement or a level.", "gameengine" );
+	/* translators: %s: number of points */
+	__( "at %s points", "gameengine" );
 	__( "Attributes", "gameengine" );
 	__( "Author", "gameengine" );
 	__( "Auto Cleanup", "gameengine" );
@@ -92,6 +114,7 @@
 	__( "Award Log Description", "gameengine" );
 	__( "Award Points (+)", "gameengine" );
 	__( "Award points for course activity", "gameengine" );
+	__( "Award points for purchases in your store", "gameengine" );
 	__( "Award this level automatically once a member's balance reaches the range below.", "gameengine" );
 	__( "Back", "gameengine" );
 	__( "Background Color", "gameengine" );
@@ -105,7 +128,6 @@
 	__( "Badges", "gameengine" );
 	__( "Benefits Description", "gameengine" );
 	__( "Blogger", "gameengine" );
-	__( "Boost interactions with content", "gameengine" );
 	__( "Border Color", "gameengine" );
 	__( "Border drawn around the badge.", "gameengine" );
 	__( "Buy Points", "gameengine" );
@@ -113,12 +135,13 @@
 	__( "Cancel", "gameengine" );
 	__( "Catalog of rewards members can redeem with their points.", "gameengine" );
 	__( "Category", "gameengine" );
+	__( "Choose a starter set that fits your site. You can change all of it later.", "gameengine" );
 	__( "Choose from Media Library", "gameengine" );
 	__( "Choose how activity logs are processed. Select \"Immediate\" to record and display log entries as soon as they occur.", "gameengine" );
 	__( "Choose icon", "gameengine" );
 	__( "Choose the Points Type", "gameengine" );
-	__( "Choose your preferred gamification setup", "gameengine" );
 	__( "Circle", "gameengine" );
+	__( "Click a hook, or drag it to Active Hooks, to add it. Drag it back to remove it and its settings.", "gameengine" );
 	__( "Click to copy", "gameengine" );
 	__( "Close notification", "gameengine" );
 	__( "Close setup wizard", "gameengine" );
@@ -130,6 +153,7 @@
 	__( "Congratulations", "gameengine" );
 	__( "Congratulations Message", "gameengine" );
 	__( "Congratulations! You have reached a new level. Keep going to unlock the next one.", "gameengine" );
+	__( "Connect your plugins", "gameengine" );
 	__( "Content Restriction add-on", "gameengine" );
 	__( "Continue", "gameengine" );
 	__( "Continue without setup?", "gameengine" );
@@ -141,11 +165,15 @@
 	__( "Cost (points)", "gameengine" );
 	__( "Coupon generate", "gameengine" );
 	__( "Create", "gameengine" );
+	__( "Create a point type and a rule that awards it, or let the setup wizard create a starter set.", "gameengine" );
+	__( "Create a point type first.", "gameengine" );
+	__( "Create a Rewards page", "gameengine" );
 	__( "Create Badge", "gameengine" );
 	__( "Create Log", "gameengine" );
 	__( "Create Point System", "gameengine" );
 	__( "Create Reward", "gameengine" );
 	__( "Create your own gamification setup from scratch with full control", "gameengine" );
+	__( "Creates a starter point type, a rule, 4 achievements and 4 levels. They are real, and you can edit or delete them.", "gameengine" );
 	__( "Creating a new point system in gameengine", "gameengine" );
 	__( "CSV", "gameengine" );
 	__( "current user", "gameengine" );
@@ -178,6 +206,7 @@
 	__( "E-Mail Address", "gameengine" );
 	__( "e.g. Free T-Shirt", "gameengine" );
 	__( "e.g. Star Contributor", "gameengine" );
+	__( "Each point type has rules, called hooks, that decide which activity earns points and how many.", "gameengine" );
 	__( "eCommerce", "gameengine" );
 	__( "Economy", "gameengine" );
 	__( "Edit", "gameengine" );
@@ -209,6 +238,7 @@
 	__( "Enter slug", "gameengine" );
 	__( "Errors:", "gameengine" );
 	__( "Event", "gameengine" );
+	__( "Every award is logged, so each member keeps a running balance for each point type.", "gameengine" );
 	__( "Every points change, achievement and level-up sent to your members.", "gameengine" );
 	__( "Example", "gameengine" );
 	__( "Exp: 50", "gameengine" );
@@ -233,20 +263,28 @@
 	__( "Full screen", "gameengine" );
 	__( "GameEngine", "gameengine" );
 	__( "Gameengine academy lms integration", "gameengine" );
+	__( "GameEngine created this for you:", "gameengine" );
 	__( "Gameengine restrict content add on", "gameengine" );
-	__( "Gamification Category", "gameengine" );
+	__( "GameEngine turns activity on your site into rewards in five steps. Each step links to the screen that controls it.", "gameengine" );
 	__( "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement", "gameengine" );
 	__( "General", "gameengine" );
 	__( "Get Pro", "gameengine" );
+	__( "Get started progress", "gameengine" );
+	__( "Get started with GameEngine", "gameengine" );
+	__( "Give me 10 test points", "gameengine" );
+	__( "Give yourself 10 test points. They take the same path as a real award, so you see exactly what a member would get.", "gameengine" );
 	__( "Go to dashboard", "gameengine" );
-	__( "Go To Dashboard", "gameengine" );
+	__( "Go to the Dashboard", "gameengine" );
 	__( "Good in a profile sidebar or on a page that explains how levelling works.", "gameengine" );
 	__( "Got Stuck! ", "gameengine" );
 	__( "Growth", "gameengine" );
 	__( "h ago", "gameengine" );
 	__( "Help", "gameengine" );
+	__( "Hide", "gameengine" );
 	__( "Hides whatever it wraps until the member qualifies.", "gameengine" );
 	__( "Highest Level", "gameengine" );
+	__( "How GameEngine works", "gameengine" );
+	__( "How it works", "gameengine" );
 	__( "How many members to list.", "gameengine" );
 	__( "How the gameengine leaderboard works", "gameengine" );
 	__( "How to active a hook?", "gameengine" );
@@ -264,18 +302,18 @@
 	__( "Import", "gameengine" );
 	__( "Import complete.", "gameengine" );
 	__( "Import Data", "gameengine" );
-	__( "Import Default Data", "gameengine" );
 	__( "Import failed. Please check your file and try again.", "gameengine" );
+	__( "Import starter data", "gameengine" );
 	__( "Imported:", "gameengine" );
 	__( "Improved", "gameengine" );
 	__( "Inactive", "gameengine" );
 	__( "Inactivity Days", "gameengine" );
 	__( "Inactivity Nudge Email", "gameengine" );
+	__( "It stays a draft until you publish it. Once published, the leaderboard shows members’ names to visitors.", "gameengine" );
 	__( "Items selected", "gameengine" );
 	__( "JSON", "gameengine" );
 	__( "Jumpstart with Demo Data", "gameengine" );
 	__( "Just now", "gameengine" );
-	__( "Keep users loyal to your brand", "gameengine" );
 	__( "Leaderboard", "gameengine" );
 	__( "Leaderboards", "gameengine" );
 	__( "Leave time_range off for an all-time board. Point it at a season to show that season's standings instead — live while the season runs, frozen once it completes.", "gameengine" );
@@ -295,8 +333,10 @@
 	__( "Level Up Email", "gameengine" );
 	__( "Level update successfully.", "gameengine" );
 	__( "Levels", "gameengine" );
-	__( "Levels & Achievements Preview", "gameengine" );
+	__( "Levels are ranks members move up through as their points grow. Import four starter levels, from 0 to 5,000 points, or create your own.", "gameengine" );
 	__( "Levels Given", "gameengine" );
+	/* translators: %s: level names with their point ranges, comma separated */
+	__( "Levels: %s", "gameengine" );
 	__( "Limit / User", "gameengine" );
 	__( "Limit Per User", "gameengine" );
 	__( "Limit to one currency. 0 shows every level, whatever its currency.", "gameengine" );
@@ -305,7 +345,9 @@
 	__( "Loading badge…", "gameengine" );
 	__( "Loading badges…", "gameengine" );
 	__( "Loading hooks…", "gameengine" );
+	__( "Loading the preview…", "gameengine" );
 	__( "Loading…", "gameengine" );
+	__( "Lock content until a member has the points, achievement or level", "gameengine" );
 	__( "Log", "gameengine" );
 	__( "Log created successfully!", "gameengine" );
 	__( "Log Display", "gameengine" );
@@ -313,6 +355,7 @@
 	__( "Log updated successfully!", "gameengine" );
 	__( "Logs", "gameengine" );
 	__( "m ago", "gameengine" );
+	__( "Make an achievement or level require another one first", "gameengine" );
 	__( "Manual Trigger", "gameengine" );
 	__( "Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer.", "gameengine" );
 	__( "Master toggle for the in-admin notification center.", "gameengine" );
@@ -322,7 +365,14 @@
 	__( "Medium screen", "gameengine" );
 	__( "Member", "gameengine" );
 	__( "Members", "gameengine" );
+	/* translators: %s: page title */
+	__( "Members can follow their progress on “%s”.", "gameengine" );
+	/* translators: 1: number of points, 2: point type name, 3: the trigger, e.g. "Publish Post" */
+	__( "Members earn %1$s %2$s when this happens: %3$s.", "gameengine" );
+	/* translators: 1: point type name, 2: the trigger, e.g. "Publish Post" */
+	__( "Members earn %1$s when this happens: %2$s.", "gameengine" );
 	__( "Members must earn the chosen achievement or level before this one unlocks.", "gameengine" );
+	__( "Members see it", "gameengine" );
 	__( "Message / Details", "gameengine" );
 	__( "Minimum Balance", "gameengine" );
 	__( "Move selected items to trash?", "gameengine" );
@@ -332,32 +382,38 @@
 	__( "Name is required!", "gameengine" );
 	__( "Need Help?", "gameengine" );
 	__( "Needs the Restrict Unlock add-on.", "gameengine" );
+	__( "Needs WooCommerce", "gameengine" );
 	__( "Never", "gameengine" );
 	__( "New Badge", "gameengine" );
-	__( "No achievements found.", "gameengine" );
+	__( "Next, the Dashboard’s Get started card gives you test points to see it work and a page to show your members.", "gameengine" );
+	__( "No achievements yet.", "gameengine" );
 	__( "No active hooks yet", "gameengine" );
 	__( "No activity yet.", "gameengine" );
 	__( "No Addons Found!", "gameengine" );
 	__( "No badge", "gameengine" );
 	__( "No badges yet. Create your first badge!", "gameengine" );
 	__( "No data available yet.", "gameengine" );
-	__( "No Data Available!!!", "gameengine" );
 	__( "No data found", "gameengine" );
 	/* translators: %s. Table data type name. */
 	__( "No data found for %s types", "gameengine" );
 	__( "No data found for Achievements", "gameengine" );
 	__( "No data found for levels", "gameengine" );
+	__( "No emails are sent for the test, and you can undo it.", "gameengine" );
 	__( "No hooks found.", "gameengine" );
-	__( "No levels found.", "gameengine" );
+	__( "No levels yet.", "gameengine" );
 	__( "No logs found", "gameengine" );
-	__( "No point system found.", "gameengine" );
+	__( "No point types yet.", "gameengine" );
+	__( "No point types yet. Create one", "gameengine" );
 	__( "No recent activity", "gameengine" );
 	__( "No Related docs available", "gameengine" );
 	__( "No results found!", "gameengine" );
 	__( "No rewards yet. Add your first reward for users to redeem.", "gameengine" );
-	__( "No, Thanks!", "gameengine" );
+	__( "No, thanks", "gameengine" );
 	__( "none", "gameengine" );
 	__( "None", "gameengine" );
+	__( "Nothing here yet", "gameengine" );
+	__( "Nothing shows on your site until a page includes GameEngine. Create a draft “My Rewards” page with each member’s profile and a leaderboard.", "gameengine" );
+	__( "Nothing unlocked at this balance. Achievements and levels unlock once a member has enough points.", "gameengine" );
 	__( "Notification Center", "gameengine" );
 	__( "Notification settings", "gameengine" );
 	__( "Notifications", "gameengine" );
@@ -369,6 +425,7 @@
 	__( "Notify users when they unlock an achievement.", "gameengine" );
 	__( "Number of times a user can earn this badge (0 = unlimited).", "gameengine" );
 	__( "One page where a member sees everything they have earned. Shows a prompt to log in for visitors.", "gameengine" );
+	__( "Open Points System", "gameengine" );
 	__( "Overview", "gameengine" );
 	__( "Overwrite existing records with matching slugs/IDs", "gameengine" );
 	__( "Parent", "gameengine" );
@@ -380,7 +437,6 @@
 	__( "Platform Activity", "gameengine" );
 	__( "Platform Activity Feed", "gameengine" );
 	__( "Please select a file to import.", "gameengine" );
-	__( "Please, create data to see the available list here.", "gameengine" );
 	__( "Point Distribution Chart", "gameengine" );
 	__( "Point Logs", "gameengine" );
 	__( "Point Name", "gameengine" );
@@ -388,7 +444,9 @@
 	__( "Point Type", "gameengine" );
 	__( "Point Types", "gameengine" );
 	__( "Points", "gameengine" );
+	__( "Points add up", "gameengine" );
 	__( "Points Amount", "gameengine" );
+	__( "Points are what members earn for activity on your site. Import Author Points, which awards 10 points each time someone publishes a post, or create your own.", "gameengine" );
 	__( "Points Awarded", "gameengine" );
 	__( "Points Balance", "gameengine" );
 	__( "Points Deducted", "gameengine" );
@@ -398,6 +456,7 @@
 	__( "Points System", "gameengine" );
 	__( "Points to Award", "gameengine" );
 	__( "Points to Deduct", "gameengine" );
+	__( "Points, a first award and a page for your members are all in place.", "gameengine" );
 	__( "Preview", "gameengine" );
 	__( "Private", "gameengine" );
 	__( "Processing", "gameengine" );
@@ -411,12 +470,15 @@
 	__( "Published", "gameengine" );
 	__( "Rank", "gameengine" );
 	__( "Ranks members by points earned, with their level and achievement count.", "gameengine" );
+	/* translators: %s: level names, comma separated */
+	__( "Reached: %s", "gameengine" );
 	__( "Reason for adjustment...", "gameengine" );
 	__( "Refresh", "gameengine" );
 	__( "Rejected", "gameengine" );
 	__( "Related Docs", "gameengine" );
 	__( "Remove", "gameengine" );
 	__( "Remove row", "gameengine" );
+	__( "Removing…", "gameengine" );
 	__( "Replace image", "gameengine" );
 	__( "Request failed.", "gameengine" );
 	__( "Require an achievement or level first", "gameengine" );
@@ -432,6 +494,7 @@
 	__( "Restrict Unlock", "gameengine" );
 	__( "Restriction message", "gameengine" );
 	__( "Restriction Message", "gameengine" );
+	__( "Review and publish", "gameengine" );
 	__( "Reward", "gameengine" );
 	__( "Reward learners with points, badges, and levels for course completions, lessons, and quizzes.", "gameengine" );
 	__( "Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!", "gameengine" );
@@ -440,6 +503,7 @@
 	__( "Rewards Store", "gameengine" );
 	__( "Rewards Store add-on", "gameengine" );
 	__( "Rows per page", "gameengine" );
+	__( "Run the setup wizard", "gameengine" );
 	__( "Save Changes", "gameengine" );
 	__( "Schedule", "gameengine" );
 	__( "Schedule(Optional)", "gameengine" );
@@ -452,6 +516,7 @@
 	__( "Search rewards", "gameengine" );
 	__( "Search...", "gameengine" );
 	__( "Season", "gameengine" );
+	__( "See it work", "gameengine" );
 	__( "Select a badge image", "gameengine" );
 	__( "Select an image", "gameengine" );
 	__( "Select Level Logo", "gameengine" );
@@ -463,7 +528,9 @@
 	__( "Sent when a user has been inactive.", "gameengine" );
 	__( "Sent when a user reaches a new level.", "gameengine" );
 	__( "Sent when a user unlocks a new achievement.", "gameengine" );
+	__( "Set up points and a rule", "gameengine" );
 	__( "Settings", "gameengine" );
+	__( "Setup could not finish. Please try again.", "gameengine" );
 	__( "Setup Wizard", "gameengine" );
 	__( "Setup Your GameEngine", "gameengine" );
 	__( "Shape", "gameengine" );
@@ -471,6 +538,8 @@
 	__( "Shield", "gameengine" );
 	__( "Shortcodes", "gameengine" );
 	__( "Show a season's standings instead of the live board. Requires Pro.", "gameengine" );
+	__( "Show it to your members", "gameengine" );
+	__( "Show members their progress as a map of steps", "gameengine" );
 	/* translators: %1$s: Item showing, %2$s: totalItems */
 	__( "Showing result %1$s out of %2$s", "gameengine" );
 	__( "Shown to members who do not qualify yet.", "gameengine" );
@@ -487,26 +556,35 @@
 	__( "Smart banners", "gameengine" );
 	__( "Smart dashboard", "gameengine" );
 	__( "Social Sharing", "gameengine" );
+	__( "Something happens", "gameengine" );
 	__( "Square", "gameengine" );
 	__( "Status", "gameengine" );
+	/* translators: %d: step number */
+	__( "Step %d", "gameengine" );
 	__( "Stock", "gameengine" );
 	__( "StoreEngine", "gameengine" );
 	__( "StoreEngine Integration", "gameengine" );
 	__( "Subject:", "gameengine" );
+	__( "Switch on what your site uses. You can change this later under Add-ons.", "gameengine" );
 	__( "Switch to dark mode", "gameengine" );
 	__( "Switch to light mode", "gameengine" );
 	__( "Template Preview", "gameengine" );
+	__( "The award is in Logs like any other. Undo removes it and anything it unlocked.", "gameengine" );
+	__( "The card could not be hidden.", "gameengine" );
 	__( "The common name for all outgoing emails.", "gameengine" );
 	__( "The following hooks are used for all users", "gameengine" );
 	__( "The full member dashboard: points, level, achievements and streaks.", "gameengine" );
 	__( "The level roadmap, with the member's current position marked.", "gameengine" );
+	__( "The page could not be created.", "gameengine" );
 	__( "The points needed, or the ID of the achievement or level.", "gameengine" );
+	__( "The preview could not be loaded, but setup will still work.", "gameengine" );
 	__( "The Shield shape is clipped to its outline, so it has no border.", "gameengine" );
+	__( "The test points could not be added.", "gameengine" );
+	__( "The test points could not be removed.", "gameengine" );
 	__( "These are all WordPress action hooks that GameEngine listens to. Developers can copy a hook key and use it as a trigger in Points, Achievements, or Levels rules to award points when that action fires.", "gameengine" );
-	__( "This demo gamification is for preview only no real rewards applied", "gameengine" );
+	__( "Three steps to see how GameEngine works on your own site.", "gameengine" );
 	__( "Time restricted rewards", "gameengine" );
 	__( "Tints the icon.", "gameengine" );
-	__( "To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine" );
 	__( "Tools", "gameengine" );
 	__( "Top 5 Users", "gameengine" );
 	__( "Trash", "gameengine" );
@@ -516,10 +594,13 @@
 	__( "Tutor LMS Integration", "gameengine" );
 	__( "Type", "gameengine" );
 	__( "Types", "gameengine" );
+	__( "Undo test points", "gameengine" );
 	__( "Unknown", "gameengine" );
 	__( "Unlimited", "gameengine" );
 	__( "Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!", "gameengine" );
 	__( "Unlock Criteria", "gameengine" );
+	/* translators: %s: achievement names, comma separated */
+	__( "Unlocked: %s", "gameengine" );
 	__( "Untitled", "gameengine" );
 	__( "Update", "gameengine" );
 	__( "Update Badge", "gameengine" );
@@ -540,14 +621,11 @@
 	__( "User Points", "gameengine" );
 	__( "User:", "gameengine" );
 	__( "View All", "gameengine" );
-	__( "Visit Website", "gameengine" );
+	__( "View page", "gameengine" );
 	__( "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!", "gameengine" );
-	__( "Want to quickly get started by importing a default achievements currency and login rewards?", "gameengine" );
-	__( "Want to quickly get started by importing a default levels currency and login rewards?", "gameengine" );
-	__( "Want to quickly get started by importing a default XP currency and login rewards?", "gameengine" );
 	__( "Wc points gateway", "gameengine" );
 	__( "Welcome to GameEngine 👋", "gameengine" );
-	__( "What best describes your Needs?", "gameengine" );
+	__( "What this creates", "gameengine" );
 	__( "What to check: points, achievement or level.", "gameengine" );
 	__( "When", "gameengine" );
 	__( "When GameEngine is deleted from the Plugins screen, permanently remove its point types, achievements, levels, member progress, logs and settings, and GameEngine Pro's data as well. Leave this off to keep everything for a reinstall.", "gameengine" );
@@ -558,5 +636,12 @@
 	__( "Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead.", "gameengine" );
 	__( "You are just a few clicks away from turning activity on your site into points, achievements and levels.", "gameengine" );
 	__( "You can always run the setup wizard again later from the GameEngine Tools.", "gameengine" );
-	__( "Your GameEngine is ready to launch", "gameengine" );
+	/* translators: 1: number of points, 2: point type name, 3: the new balance */
+	__( "You got %1$s %2$s. Your balance is now %3$s.", "gameengine" );
+	/* translators: %s: point type name */
+	__( "You have %s, but no rule awards it yet. Open it and add a hook under Automatic Point Awards.", "gameengine" );
+	__( "You’re all set", "gameengine" );
+	/* translators: %s: page title */
+	__( "Your draft “%s” is ready. Publish it when you are happy with it.", "gameengine" );
+	__( "Your GameEngine is ready.", "gameengine" );
 } );

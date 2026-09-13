@@ -442,8 +442,8 @@ const AchievementsTable = () => {
         banners?.achievements !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner
-            title={__("No achievements found.", 'gameengine')}
-            subtitle={__("Want to quickly get started by importing a default achievements currency and login rewards?", 'gameengine')}
+            title={__("No achievements yet.", 'gameengine')}
+            subtitle={__("Achievements are badges members unlock by collecting points or by doing something specific. Import four starter achievements, or create your own.", 'gameengine')}
             handleImport={importHandler}
             handleClose={closeHandler}
           />

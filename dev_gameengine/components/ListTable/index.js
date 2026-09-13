@@ -21,7 +21,7 @@ const ListTable = (props) => {
 		onChangePage,
 		onChangeItemsPerPage,
 		suffix = '',
-		noDataText = __('Please, create data to see the available list here.', 'gameengine'),
+		noDataText = __('Anything you create will be listed here.', 'gameengine'),
 		totalItems = 0,
 		dataFetchingStatus = false,
 		resetSelected = false,
@@ -266,7 +266,7 @@ const ListTable = (props) => {
 
 							<div ref={bodyRef}>
 								<CustomTableMessage
-									title={__('No Data Available!!!', 'gameengine')}
+									title={__('Nothing here yet', 'gameengine')}
 									subText={noDataText}
 								/>
 							</div>
