@@ -13,13 +13,8 @@ $gameengine_user_id = isset($user_id) ? absint($user_id) : get_current_user_id()
 $gameengine_pt_id = isset($point_type_id) ? absint($point_type_id) : 0;
 
 // "Next milestone" progress is per-currency, so it still needs one point type;
-// fall back to the first defined one instead of assuming ID 1.
-$gameengine_next_pt_id = $gameengine_pt_id;
-if (! $gameengine_next_pt_id) {
-    global $wpdb;
-    // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
-    $gameengine_next_pt_id = (int) $wpdb->get_var("SELECT id FROM {$wpdb->prefix}gameengine_point_types ORDER BY id ASC LIMIT 1");
-}
+// fall back to the first published one instead of assuming ID 1.
+$gameengine_next_pt_id = $gameengine_pt_id ? $gameengine_pt_id : \GameEngine\Classes\PointsManager::resolve_point_type_id(0);
 
 $gameengine_next_lvl_data = $gameengine_next_pt_id
     ? $gameengine_levels_manager->get_next_level($gameengine_user_id, $gameengine_next_pt_id)
@@ -60,9 +55,10 @@ $gameengine_date_format    = get_option('date_format');
                 <p class="gameengine-level-progress__hint">
                     <?php
                     printf(
-                        /* translators: 1: points needed, 2: level name */
-                        esc_html__('Collect %1$s more points to unlock %2$s', 'gameengine'),
+                        /* translators: 1: points needed, 2: what the points are called, e.g. "Community Points", 3: level name */
+                        esc_html__('Collect %1$s more %2$s to unlock %3$s', 'gameengine'),
                         '<strong>' . esc_html(number_format_i18n($gameengine_next_lvl_data['points_needed'])) . '</strong>',
+                        esc_html(\GameEngine\Classes\PointsManager::get_point_type_label($gameengine_next_pt_id)),
                         '<strong>' . esc_html($gameengine_next_lvl_name) . '</strong>'
                     );
                     ?>
@@ -123,8 +119,12 @@ $gameengine_date_format    = get_option('date_format');
                             <p class="gameengine-level-card__meta">
                                 <?php \GameEngine\Icons::render('flag'); ?>
                                 <?php
-                                /* translators: %s: required point amount */
-                                echo esc_html(sprintf(__('%s points', 'gameengine'), number_format_i18n((int) $gameengine_lvl->min_points)));
+                                echo esc_html(sprintf(
+                                    /* translators: 1: required point amount, 2: what the points are called, e.g. "Community Points" */
+                                    __('%1$s %2$s', 'gameengine'),
+                                    number_format_i18n((int) $gameengine_lvl->min_points),
+                                    \GameEngine\Classes\PointsManager::get_point_type_label((int) ($gameengine_lvl->point_type_id ?? 0))
+                                ));
                                 ?>
                             </p>
                         <?php endif; ?>

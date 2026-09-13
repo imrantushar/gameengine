@@ -28,7 +28,7 @@ class Progress_Map_Logic
 		// Fetch all Levels.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$levels = $wpdb->get_results(
-			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority
+			"SELECT id, title, icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'level' as type, priority, unlock_with_points_enabled, point_type_id, min_points
 			 FROM {$wpdb->prefix}gameengine_levels
 			 ORDER BY priority ASC",
 			ARRAY_A
@@ -37,7 +37,7 @@ class Progress_Map_Logic
 		// Fetch all Achievements.
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
 		$achievements = $wpdb->get_results(
-			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at
+			"SELECT id, title, badge_image as icon, congratulations_message as congrats, restriction_message, required_achievement_id, required_level_id, 'achievement' as type, created_at, unlock_with_points_enabled, required_point_type_id as point_type_id, required_points_amount as min_points
 			 FROM {$wpdb->prefix}gameengine_achievements
 			 ORDER BY created_at ASC",
 			ARRAY_A
@@ -229,7 +229,7 @@ class Progress_Map_Logic
 						<?php elseif (! $gameengine_is_completed) : ?>
 							<div class="gameengine-progress-map__text">
 								<?php
-								$gameengine_lock_msg = ! empty($gameengine_node['restriction_message']) ? $gameengine_node['restriction_message'] : __('Complete pre-requisites to unlock.', 'gameengine');
+								$gameengine_lock_msg = ! empty($gameengine_node['restriction_message']) ? $gameengine_node['restriction_message'] : self::get_lock_message($gameengine_node);
 								echo wp_kses_post((string) $gameengine_lock_msg);
 								?>
 							</div>
@@ -239,5 +239,30 @@ class Progress_Map_Logic
 			</li>
 			<?php
 		endforeach;
+	}
+
+	/**
+	 * What unlocks a step that has no restriction message of its own.
+	 *
+	 * A step unlocked by points names the amount and the point type, which
+	 * "Complete pre-requisites to unlock." never told the member.
+	 *
+	 * @param array $node Journey item.
+	 * @return string
+	 */
+	private static function get_lock_message($node)
+	{
+		$points = (int) ($node['min_points'] ?? 0);
+
+		if (! empty($node['unlock_with_points_enabled']) && $points > 0) {
+			return sprintf(
+				/* translators: 1: points needed, 2: what the points are called, e.g. "Community Points" */
+				__('Collect %1$s %2$s to unlock.', 'gameengine'),
+				number_format_i18n($points),
+				\GameEngine\Classes\PointsManager::get_point_type_label((int) ($node['point_type_id'] ?? 0))
+			);
+		}
+
+		return __('Complete pre-requisites to unlock.', 'gameengine');
 	}
 }
