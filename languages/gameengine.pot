@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T13:41:27+00:00\n"
+"POT-Creation-Date: 2026-09-13T14:53:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -89,11 +89,17 @@ msgstr ""
 
 #: includes/addons/progress-map/class-progress-map-logic.php:221
 #: templates/shortcode/achievements.php:98
-#: templates/shortcode/levels.php:113
+#: templates/shortcode/levels.php:109
 msgid "Locked"
 msgstr ""
 
-#: includes/addons/progress-map/class-progress-map-logic.php:232
+#. translators: 1: points needed, 2: what the points are called, e.g. "Community Points"
+#: includes/addons/progress-map/class-progress-map-logic.php:260
+#, php-format
+msgid "Collect %1$s %2$s to unlock."
+msgstr ""
+
+#: includes/addons/progress-map/class-progress-map-logic.php:266
 msgid "Complete pre-requisites to unlock."
 msgstr ""
 
@@ -799,7 +805,7 @@ msgid "Imported Starter Reward"
 msgstr ""
 
 #. translators: %s: achievement title
-#: includes/api/controllers/setup-controller.php:400
+#: includes/api/controllers/setup-controller.php:401
 #, php-format
 msgid "Congratulations! You have unlocked the %s badge!"
 msgstr ""
@@ -941,7 +947,6 @@ msgstr ""
 #. translators: %s: required point amount
 #: includes/assets.php:221
 #: templates/academy/course-locked.php:47
-#: templates/shortcode/levels.php:127
 #: templates/shortcode/rewards.php:43
 #: templates/shortcode/rewards.php:110
 #, php-format
@@ -984,19 +989,19 @@ msgstr ""
 msgid "Points purchased via StoreEngine order #%s"
 msgstr ""
 
-#: includes/classes/email-manager.php:102
+#: includes/classes/email-manager.php:104
 msgid "Congratulations! You reached {level_name}"
 msgstr ""
 
-#: includes/classes/email-manager.php:142
+#: includes/classes/email-manager.php:144
 msgid "New Achievement Unlocked: {achievement_name}"
 msgstr ""
 
-#: includes/classes/email-manager.php:161
+#: includes/classes/email-manager.php:163
 msgid "We miss you! You have {points_balance} points waiting."
 msgstr ""
 
-#: includes/classes/email-manager.php:195
+#: includes/classes/email-manager.php:197
 msgid "You reached a milestone! {points_balance} Points!"
 msgstr ""
 
@@ -1054,6 +1059,11 @@ msgstr ""
 #: includes/classes/notification-manager.php:195
 #, php-format
 msgid "You reached a new level: %s"
+msgstr ""
+
+#: includes/classes/points-manager.php:184
+#: templates/shortcode/leaderboard.php:77
+msgid "points"
 msgstr ""
 
 #: includes/classes/taxonomy-manager.php:92
@@ -1836,7 +1846,7 @@ msgid "Achievements unlocked"
 msgstr ""
 
 #: templates/shortcode/achievements.php:96
-#: templates/shortcode/levels.php:111
+#: templates/shortcode/levels.php:107
 msgid "Unlocked"
 msgstr ""
 
@@ -1858,10 +1868,6 @@ msgstr ""
 msgid "You"
 msgstr ""
 
-#: templates/shortcode/leaderboard.php:77
-msgid "points"
-msgstr ""
-
 #: templates/shortcode/leaderboard.php:86
 msgid "No data found."
 msgstr ""
@@ -1870,24 +1876,30 @@ msgstr ""
 msgid "Members show up here once they earn points."
 msgstr ""
 
-#: templates/shortcode/levels.php:45
+#: templates/shortcode/levels.php:40
 msgid "Next Milestone"
 msgstr ""
 
 #. translators: %s: level name
-#: templates/shortcode/levels.php:56
+#: templates/shortcode/levels.php:51
 #, php-format
 msgid "Progress to %s"
 msgstr ""
 
-#. translators: 1: points needed, 2: level name
-#: templates/shortcode/levels.php:64
+#. translators: 1: points needed, 2: what the points are called, e.g. "Community Points", 3: level name
+#: templates/shortcode/levels.php:59
 #, php-format
-msgid "Collect %1$s more points to unlock %2$s"
+msgid "Collect %1$s more %2$s to unlock %3$s"
 msgstr ""
 
-#: templates/shortcode/levels.php:109
+#: templates/shortcode/levels.php:105
 msgid "Current level"
+msgstr ""
+
+#. translators: 1: required point amount, 2: what the points are called, e.g. "Community Points"
+#: templates/shortcode/levels.php:124
+#, php-format
+msgid "%1$s %2$s"
 msgstr ""
 
 #: templates/shortcode/levels.php:142
