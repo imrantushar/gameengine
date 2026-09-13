@@ -74,9 +74,9 @@ const Congratulation = () => {
         <img className="h-auto" style={{
           "maxWidth": "80px"
         }} src={plugin_root_url + 'assets/images/blue_check.svg'} alt="" />
-        <div className="flex flex-col text-center gap-1">
+        <div className="flex flex-col items-center text-center gap-1">
           <GFLabel type="simpleHeading" margin={0} padding={0} label={__('Congratulations', 'gameengine')} fontSize={'38px'} lineHeight={'38px'} color={'#006BFF'} />
-          <GFLabel type="simple" margin={0} padding={0} label={lines.length ? __('GameEngine created this for you:', 'gameengine') : __('Your GameEngine is ready.', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
+          <GFLabel type="simple" margin={0} padding={0} label={lines.length ? __('GameEngine created this for you:', 'gameengine') : __('Your GameEngine is ready.', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} textAlign={'center'} />
         </div>
 
         {lines.length > 0 && (

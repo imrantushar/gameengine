@@ -64,7 +64,7 @@ const HowItWorks = ({ compact = false }) => {
       <ol className="list-none m-0 p-0 flex flex-wrap items-start justify-center gap-y-3" aria-label={__('How GameEngine works', 'gameengine')}>
         {items.map((item, index) => (
           <li key={item.key} className="flex items-start m-0">
-            <span className="flex flex-col items-center gap-1.5 w-[92px] text-center">
+            <span className="flex flex-col items-center gap-1.5 w-[120px] text-center">
               <span className="flex items-center justify-center w-9 h-9 rounded-full bg-[var(--gameengine-secondary-color)] text-[var(--gameengine-primary)]">
                 <item.icon size={18} aria-hidden="true" />
               </span>

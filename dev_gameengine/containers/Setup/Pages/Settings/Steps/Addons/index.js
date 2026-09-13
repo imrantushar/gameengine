@@ -97,7 +97,7 @@ const Addons = () => {
 
       <div className="w-full h-px" style={{ "background": "#E0E4E8" }} />
 
-      <div className="flex flex-wrap gap-4">
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {AddonsCard.map((item, idx) => {
           const isChecked = item?.name === 'academylms' && values.addons.includes('academylms') && is_academylms_active || item?.name === 'tutorlms' && values.addons.includes('tutorlms') && is_tutorlms_active || item?.name === 'woocommerce' && values.addons.includes('woocommerce') && is_woocommerce_active || item?.name === 'storeengine' && values.addons.includes('storeengine') && is_storeengine_active || values.addons.includes(item?.name);
           const isDisabled = item?.name === 'academylms' && !is_academylms_active || item?.name === 'tutorlms' && !is_tutorlms_active || item?.name === 'woocommerce' && !is_woocommerce_active || item?.name === 'storeengine' && !is_storeengine_active;
@@ -106,9 +106,7 @@ const Addons = () => {
             <div
               className="flex items-center cursor-pointer gap-3 p-4 rounded text-center"
               style={{
-                "maxWidth": "280px",
                 "border": "1px solid #CBD1D7",
-                "width": "calc(100% / 2)",
                 "opacity": isDisabled ? 0.6 : 1,
                 "pointerEvents": isDisabled ? 'none' : 'auto'
               }}
