@@ -129,6 +129,39 @@ class Installer
     }
 
     /**
+     * Set once achievements and levels saved without a slug have been given one.
+     */
+    const SLUG_BACKFILL_OPTION = 'gameengine_slugs_backfilled';
+
+    /**
+     * Give a slug to achievements and levels that were saved without one.
+     *
+     * The setup wizard's presets inserted their starter achievements and levels
+     * with no slug, and an achievement without a slug has no Share button.
+     */
+    public static function maybe_backfill_slugs()
+    {
+        if (get_option(self::SLUG_BACKFILL_OPTION)) {
+            return;
+        }
+
+        global $wpdb;
+
+        $installer = new self();
+
+        foreach (array('achievements' => 'achievement', 'levels' => 'level') as $name => $prefix) {
+            $table = $wpdb->prefix . 'gameengine_' . $name;
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            if ($wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table)))) {
+                $installer->backfill_slugs($table, $prefix);
+            }
+        }
+
+        update_option(self::SLUG_BACKFILL_OPTION, 1, true);
+    }
+
+    /**
      * Re-runs the installer when the table definitions change.
      *
      * Hooked early on `init`; cheap because it only reads one autoloaded option

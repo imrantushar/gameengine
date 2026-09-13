@@ -106,6 +106,7 @@ final class GameEngine
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_sync_schema'), 4);
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_repair_blanked_point_types'), 5);
         add_action('init', array('\GameEngine\Core\Installer', 'maybe_drop_retired_tables'), 6);
+        add_action('init', array('\GameEngine\Core\Installer', 'maybe_backfill_slugs'), 7);
         add_action('init', array($this, 'init_modules'), 10);
     }
 
