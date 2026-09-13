@@ -571,7 +571,7 @@ class SetupController extends BaseController
 
         $slug = $base;
         $i    = 1;
-        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- One-off lookup during the setup wizard.
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- One-off lookup during the setup wizard; $table is one of the two literal table names this class passes.
         while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}{$table} WHERE slug = %s", $slug))) {
             $slug = $base . '-' . $i++;
         }
