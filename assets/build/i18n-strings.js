@@ -21,6 +21,8 @@
 	__( "%s activated successfully.", "gameengine" );
 	/* translators: %s: the add-on's name. */
 	__( "%s deactivated successfully.", "gameengine" );
+	/* translators: %s: the add-on's name. */
+	__( "%s is a GameEngine Pro feature. Upgrade to Pro to unlock it.", "gameengine" );
 	/* translators: 1: number of points, 2: an action such as "publishes a post" */
 	__( "+%1$d each time someone %2$s", "gameengine" );
 	__( "0 for unlimited.", "gameengine" );
@@ -78,6 +80,7 @@
 	__( "Add-ons", "gameengine" );
 	__( "Added", "gameengine" );
 	__( "Additional Content", "gameengine" );
+	__( "Adds achievement unlocks, the spread of members across levels and active streaks to the Dashboard.", "gameengine" );
 	__( "Admin:", "gameengine" );
 	__( "After 24 Hours", "gameengine" );
 	__( "After 7 Days", "gameengine" );
@@ -90,8 +93,10 @@
 	__( "all_time, today, this_week, this_month, this_year or last_30_days.", "gameengine" );
 	__( "Allow unlock with points", "gameengine" );
 	__( "Allow users to share their achievements and levels via the Web Share API or clipboard link copy.", "gameengine" );
+	__( "Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.", "gameengine" );
 	__( "Always available", "gameengine" );
 	__( "Amount", "gameengine" );
+	__( "Analytics", "gameengine" );
 	__( "Anything you create will be listed here.", "gameengine" );
 	__( "Appearance", "gameengine" );
 	__( "Approve", "gameengine" );
@@ -128,6 +133,7 @@
 	__( "Badges", "gameengine" );
 	__( "Benefits Description", "gameengine" );
 	__( "Blogger", "gameengine" );
+	__( "Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.", "gameengine" );
 	__( "Border Color", "gameengine" );
 	__( "Border drawn around the badge.", "gameengine" );
 	__( "Buy Points", "gameengine" );
@@ -170,6 +176,7 @@
 	__( "Create a Rewards page", "gameengine" );
 	__( "Create Badge", "gameengine" );
 	__( "Create Log", "gameengine" );
+	__( "Create one", "gameengine" );
 	__( "Create Point System", "gameengine" );
 	__( "Create Reward", "gameengine" );
 	__( "Create your own gamification setup from scratch with full control", "gameengine" );
@@ -315,6 +322,7 @@
 	__( "Jumpstart with Demo Data", "gameengine" );
 	__( "Just now", "gameengine" );
 	__( "Leaderboard", "gameengine" );
+	__( "Leaderboard Seasons", "gameengine" );
 	__( "Leaderboards", "gameengine" );
 	__( "Leave time_range off for an all-time board. Point it at a season to show that season's standings instead — live while the season runs, frozen once it completes.", "gameengine" );
 	__( "Let users redeem their earned points for rewards from a catalog you manage.", "gameengine" );
@@ -356,6 +364,7 @@
 	__( "Logs", "gameengine" );
 	__( "m ago", "gameengine" );
 	__( "Make an achievement or level require another one first", "gameengine" );
+	__( "Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history.", "gameengine" );
 	__( "Manual Trigger", "gameengine" );
 	__( "Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer.", "gameengine" );
 	__( "Master toggle for the in-admin notification center.", "gameengine" );
@@ -391,6 +400,7 @@
 	__( "No activity yet.", "gameengine" );
 	__( "No Addons Found!", "gameengine" );
 	__( "No badge", "gameengine" );
+	__( "No badges yet.", "gameengine" );
 	__( "No badges yet. Create your first badge!", "gameengine" );
 	__( "No data available yet.", "gameengine" );
 	__( "No data found", "gameengine" );
@@ -457,8 +467,10 @@
 	__( "Points to Award", "gameengine" );
 	__( "Points to Deduct", "gameengine" );
 	__( "Points, a first award and a page for your members are all in place.", "gameengine" );
+	__( "Post signed JSON to your own endpoints when points, levels, achievements, streaks or seasons change.", "gameengine" );
 	__( "Preview", "gameengine" );
 	__( "Private", "gameengine" );
+	__( "PRO", "gameengine" );
 	__( "Processing", "gameengine" );
 	__( "Product ID", "gameengine" );
 	__( "Profile Dashboard", "gameengine" );
@@ -473,6 +485,7 @@
 	/* translators: %s: level names, comma separated */
 	__( "Reached: %s", "gameengine" );
 	__( "Reason for adjustment...", "gameengine" );
+	__( "Referrals & Affiliates", "gameengine" );
 	__( "Refresh", "gameengine" );
 	__( "Rejected", "gameengine" );
 	__( "Related Docs", "gameengine" );
@@ -485,6 +498,7 @@
 	__( "required", "gameengine" );
 	__( "Required Achievements", "gameengine" );
 	__( "Required Levels", "gameengine" );
+	__( "Requires GameEngine Pro", "gameengine" );
 	__( "Requires:", "gameengine" );
 	__( "Restore", "gameengine" );
 	__( "Restore selected items?", "gameengine" );
@@ -503,6 +517,7 @@
 	__( "Rewards Store", "gameengine" );
 	__( "Rewards Store add-on", "gameengine" );
 	__( "Rows per page", "gameengine" );
+	__( "Run competitions over a date range, freeze the standings when they end, and limit achievements to a season.", "gameengine" );
 	__( "Run the setup wizard", "gameengine" );
 	__( "Save Changes", "gameengine" );
 	__( "Schedule", "gameengine" );
@@ -557,6 +572,7 @@
 	__( "Smart dashboard", "gameengine" );
 	__( "Social Sharing", "gameengine" );
 	__( "Something happens", "gameengine" );
+	__( "Spin the Wheel", "gameengine" );
 	__( "Square", "gameengine" );
 	__( "Status", "gameengine" );
 	/* translators: %d: step number */
@@ -623,7 +639,9 @@
 	__( "View All", "gameengine" );
 	__( "View page", "gameengine" );
 	__( "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!", "gameengine" );
+	__( "Wallet", "gameengine" );
 	__( "Wc points gateway", "gameengine" );
+	__( "Webhooks", "gameengine" );
 	__( "Welcome to GameEngine 👋", "gameengine" );
 	__( "What this creates", "gameengine" );
 	__( "What to check: points, achievement or level.", "gameengine" );
