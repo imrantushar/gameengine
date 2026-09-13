@@ -4,8 +4,11 @@ global $wpdb;
 
 $gameengine_rw_current_user_id = get_current_user_id();
 $gameengine_rw_is_logged_in    = is_user_logged_in();
-$gameengine_rw_point_type_id   = 1;
+// Each reward is priced in its own point type, resolved exactly as redemption
+// resolves it. The header shows the balance in the site's default type.
+$gameengine_rw_point_type_id   = \GameEngine\Addons\RewardsStore\Rewards_Manager::resolve_point_type_id(0);
 $gameengine_rw_balance         = $gameengine_rw_is_logged_in ? (int) gameengine_get_total_points($gameengine_rw_current_user_id, $gameengine_rw_point_type_id) : 0;
+$gameengine_rw_balances        = array($gameengine_rw_point_type_id => $gameengine_rw_balance);
 
 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 $gameengine_rw_rewards = $wpdb->get_results(
@@ -50,7 +53,11 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
 
                 $gameengine_rw_out_of_stock   = 0 === $gameengine_rw_stock;
                 $gameengine_rw_limit_reached  = $gameengine_rw_limit > 0 && $gameengine_rw_redeemed_count >= $gameengine_rw_limit;
-                $gameengine_rw_cant_afford    = $gameengine_rw_is_logged_in && $gameengine_rw_balance < $gameengine_rw_cost;
+                $gameengine_rw_type           = \GameEngine\Addons\RewardsStore\Rewards_Manager::resolve_point_type_id((int) $gameengine_rw_reward['point_type_id']);
+                if ($gameengine_rw_is_logged_in && ! isset($gameengine_rw_balances[$gameengine_rw_type])) {
+                    $gameengine_rw_balances[$gameengine_rw_type] = (int) gameengine_get_total_points($gameengine_rw_current_user_id, $gameengine_rw_type);
+                }
+                $gameengine_rw_cant_afford    = $gameengine_rw_is_logged_in && ($gameengine_rw_balances[$gameengine_rw_type] ?? 0) < $gameengine_rw_cost;
 
                 $gameengine_rw_disabled = ! $gameengine_rw_is_logged_in || $gameengine_rw_out_of_stock || $gameengine_rw_limit_reached || $gameengine_rw_cant_afford;
 

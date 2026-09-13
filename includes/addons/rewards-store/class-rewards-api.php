@@ -207,11 +207,17 @@ class Rewards_API extends BaseController
             'description'    => sanitize_textarea_field($params['description'] ?? ''),
             'image'          => isset($params['image']) ? esc_url_raw($params['image']) : null,
             'cost_points'    => isset($params['cost_points']) ? absint($params['cost_points']) : 0,
-            'point_type_id'  => isset($params['point_type_id']) ? absint($params['point_type_id']) : 1,
+            'point_type_id'  => Rewards_Manager::resolve_point_type_id(isset($params['point_type_id']) ? absint($params['point_type_id']) : 0),
             'stock'          => isset($params['stock']) ? intval($params['stock']) : -1,
             'limit_per_user' => isset($params['limit_per_user']) ? absint($params['limit_per_user']) : 0,
             'status'         => ! empty($params['status']) ? sanitize_text_field($params['status']) : 'publish',
         );
+
+        // The admin form sends no point type. On an update, keep whatever is
+        // stored rather than overwriting it with the default.
+        if ($id && ! isset($params['point_type_id'])) {
+            unset($data['point_type_id']);
+        }
 
         if ($id) {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

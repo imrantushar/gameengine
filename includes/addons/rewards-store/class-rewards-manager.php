@@ -16,6 +16,29 @@ class Rewards_Manager
 {
 
     /**
+     * The point type a reward is priced in.
+     *
+     * The reward form has no point type field, and the API used to store 1 for
+     * every reward — an id that only exists on a site whose first points system
+     * was never deleted. A stored type that is not a published point type
+     * therefore falls back to the first one that is. Returns 0 when the site has
+     * no points system at all.
+     *
+     * @param int $point_type_id Stored point type id, or 0 for the default.
+     * @return int
+     */
+    public static function resolve_point_type_id(int $point_type_id): int
+    {
+        $published = array_map('intval', array_column(\GameEngine\Classes\PointsManager::get_point_types(), 'id'));
+
+        if ($point_type_id > 0 && in_array($point_type_id, $published, true)) {
+            return $point_type_id;
+        }
+
+        return $published[0] ?? 0;
+    }
+
+    /**
      * Attempt to redeem a reward on behalf of a user.
      *
      * @param int $user_id
@@ -58,8 +81,12 @@ class Rewards_Manager
             }
         }
 
-        $point_type_id = (int) $reward['point_type_id'] ?: 1;
+        $point_type_id = self::resolve_point_type_id((int) $reward['point_type_id']);
         $cost_points   = (int) $reward['cost_points'];
+
+        if (! $point_type_id) {
+            return array('success' => false, 'code' => 'no_point_type', 'message' => __('Rewards cannot be redeemed until a points system is set up.', 'gameengine'));
+        }
 
         $balance = gameengine_get_total_points($user_id, $point_type_id);
         if ($balance < $cost_points) {
@@ -68,23 +95,18 @@ class Rewards_Manager
 
         $log_id = gameengine_deduct_points($user_id, $cost_points, 'reward_redeem', array(
             'point_type_id' => $point_type_id,
-            'description'   => sprintf(__('Redeemed reward: %s', 'gameengine'), $reward['title']),
+            'description'   => sprintf(/* translators: %s: the reward's title. */ __('Redeemed reward: %s', 'gameengine'), $reward['title']),
         ));
 
         if (! $log_id) {
             return array('success' => false, 'code' => 'deduction_failed', 'message' => __('Could not deduct points for this redemption. Please try again.', 'gameengine'));
         }
 
-        if ($stock > 0) {
-            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-            $wpdb->query($wpdb->prepare(
-                "UPDATE {$wpdb->prefix}gameengine_rewards SET stock = stock - 1 WHERE id = %d",
-                $reward_id
-            ));
-        }
-
+        // Record the redemption before touching stock, and give the points back
+        // if it cannot be recorded: a failed write used to keep the member's
+        // points and leave nothing to show for them.
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
-        $wpdb->insert(
+        $recorded = $wpdb->insert(
             "{$wpdb->prefix}gameengine_reward_redemptions",
             array(
                 'user_id'      => $user_id,
@@ -95,6 +117,23 @@ class Rewards_Manager
             )
         );
 
+        if (false === $recorded) {
+            gameengine_add_points($user_id, $cost_points, 'reward_refund', array(
+                'point_type_id' => $point_type_id,
+                'description'   => sprintf(/* translators: %s: the reward's title. */ __('Refund for reward: %s', 'gameengine'), $reward['title']),
+            ));
+
+            return array('success' => false, 'code' => 'save_failed', 'message' => __('Could not record this redemption, so your points were returned. Please try again.', 'gameengine'));
+        }
+
+        if ($stock > 0) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            $wpdb->query($wpdb->prepare(
+                "UPDATE {$wpdb->prefix}gameengine_rewards SET stock = stock - 1 WHERE id = %d",
+                $reward_id
+            ));
+        }
+
         wp_cache_delete('gameengine_rewards_list', 'gameengine_rewards');
 
         do_action('gameengine_reward_redeemed', $user_id, $reward_id, $cost_points);
@@ -102,7 +141,7 @@ class Rewards_Manager
         return array(
             'success'          => true,
             'code'             => 'redeemed',
-            'message'          => sprintf(__('You redeemed "%s" for %d points.', 'gameengine'), $reward['title'], $cost_points),
+            'message'          => sprintf(/* translators: 1: the reward's title, 2: points spent. */ __('You redeemed "%1$s" for %2$d points.', 'gameengine'), $reward['title'], $cost_points),
             'remaining_points' => gameengine_get_total_points($user_id, $point_type_id),
             'remaining_stock'  => $stock > 0 ? $stock - 1 : $stock,
         );
