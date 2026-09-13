@@ -86,6 +86,19 @@ export const getDashboardNotices = (notices) =>
 	applyFilters('gameengine.dashboard.notices', notices);
 
 /**
+ * Sections added to the Dashboard, below its own.
+ *
+ * A section is a component. It receives the Dashboard's date range as
+ * `startDate` and `endDate` (`YYYY-MM-DD`, or null until a range is picked), so
+ * it can follow the same filter as the Dashboard's own cards.
+ *
+ * @param {Array} sections Sections contributed by this plugin.
+ * @return {Array} The full section list.
+ */
+export const getDashboardSections = (sections) =>
+	applyFilters('gameengine.dashboard.sections', sections);
+
+/**
  * Steps of the Dashboard's "Get started" checklist.
  *
  * A step is `{ key, title, done, render }`, where `render` returns the step's

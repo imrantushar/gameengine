@@ -10,6 +10,7 @@ import GetStarted from "./GetStarted";
 import { fetchDashboardData } from '@GFRedux/Slices/dashboardSlice/dashboardSlice';
 import GetHelp from '@GFComponents/GetHelp';
 import WhatsNew from '@GFComponents/WhatsNew';
+import { getDashboardSections } from '@GFUtils/extend';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,10 @@ const Dashboard = () => {
       <Distribution chartData={chart} />
 
       <TopUsers users={topUsers} startDate={startDate} endDate={endDate} />
+
+      {getDashboardSections([]).map((Section, index) => (
+        <Section key={index} startDate={startDate} endDate={endDate} />
+      ))}
     </div>
   </>;
 };
