@@ -308,6 +308,7 @@ class Helper
             return '';
         }
 
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- In-memory stream for fputcsv(); nothing is written to disk.
         $output = fopen('php://temp', 'r+');
 
         fputcsv($output, array_map(array(__CLASS__, 'escape_csv_cell'), array_keys($rows[0])));
@@ -318,6 +319,7 @@ class Helper
 
         rewind($output);
         $csv = stream_get_contents($output);
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
         fclose($output);
 
         return $csv;

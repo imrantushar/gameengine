@@ -48,6 +48,12 @@ class Init
      */
     private static function maybe_self_heal_restrict_content()
     {
+        // Once. After that, switching Restrict Content off is the admin's call.
+        if (get_option('gameengine_academylms_restrict_content_healed')) {
+            return;
+        }
+        update_option('gameengine_academylms_restrict_content_healed', 1, false);
+
         $active_addons = (array) get_option('gameengine_active_addons', array());
         if (! in_array('restrict_content', $active_addons, true)) {
             $active_addons[] = 'restrict_content';

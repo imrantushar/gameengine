@@ -15,6 +15,11 @@ const exportTypeOptions = [
     { value: 'logs', label: __('Point Logs', 'gameengine') },
 ];
 
+// ImportManager accepts only these; the rest are export-only.
+const importTypeOptions = exportTypeOptions.filter((option) =>
+    ['achievements', 'levels', 'point_types'].includes(option.value)
+);
+
 const formatOptions = [
     { value: 'csv', label: __('CSV', 'gameengine') },
     { value: 'json', label: __('JSON', 'gameengine') },
@@ -27,7 +32,7 @@ const ExportImport = () => {
     const [exportFormat, setExportFormat] = useState(formatOptions[0]);
     const [exporting, setExporting] = useState(false);
 
-    const [importType, setImportType] = useState(exportTypeOptions[0]);
+    const [importType, setImportType] = useState(importTypeOptions[0]);
     const [overwrite, setOverwrite] = useState(false);
     const [importing, setImporting] = useState(false);
     const [importResult, setImportResult] = useState(null);
@@ -140,7 +145,7 @@ const ExportImport = () => {
                             <Select
                                 className="gameengine-select"
                                 classNamePrefix="gameengine-select"
-                                options={exportTypeOptions}
+                                options={importTypeOptions}
                                 value={importType}
                                 onChange={(opt) => setImportType(opt)}
                             />

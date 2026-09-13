@@ -87,6 +87,48 @@ class Installer
     }
 
     /**
+     * Set once the retired Ranks and Streaks tables have been dealt with.
+     */
+    const RETIRED_TABLES_OPTION = 'gameengine_retired_tables_dropped';
+
+    /**
+     * Drops the tables Ranks and Streaks used before they were folded into
+     * Levels and the trigger rules.
+     *
+     * Nothing reads or writes them, and a fresh install never creates them, but
+     * dbDelta never removes a table, so an upgraded site keeps them. Only an
+     * empty table is dropped: rows in one mean this site ran a build that
+     * stored data there, and that data is not this routine's to destroy.
+     */
+    public static function maybe_drop_retired_tables()
+    {
+        if (get_option(self::RETIRED_TABLES_OPTION)) {
+            return;
+        }
+
+        global $wpdb;
+
+        foreach (array('ranks', 'user_ranks', 'streaks', 'user_streaks') as $name) {
+            $table = $wpdb->prefix . 'gameengine_' . $name;
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+            if (! $wpdb->get_var($wpdb->prepare('SHOW TABLES LIKE %s', $wpdb->esc_like($table)))) {
+                continue;
+            }
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            if ((int) $wpdb->get_var("SELECT COUNT(*) FROM `{$table}`") > 0) {
+                continue;
+            }
+
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+            $wpdb->query("DROP TABLE IF EXISTS `{$table}`");
+        }
+
+        update_option(self::RETIRED_TABLES_OPTION, 1, true);
+    }
+
+    /**
      * Re-runs the installer when the table definitions change.
      *
      * Hooked early on `init`; cheap because it only reads one autoloaded option
@@ -234,7 +276,7 @@ class Installer
      */
     public function uninstall()
     {
-        foreach ( array( 'gameengine_cleanup_logs_cron', 'gameengine_daily_inactivity_cron' ) as $hook ) {
+        foreach ( array( 'gameengine_cleanup_logs_cron', 'gameengine_daily_inactivity_cron', 'gameengine_cleanup_notifications_cron', 'gameengine_reset_streaks_cron' ) as $hook ) {
             wp_clear_scheduled_hook( $hook );
         }
     }

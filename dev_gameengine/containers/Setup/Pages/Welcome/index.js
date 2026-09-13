@@ -31,7 +31,7 @@ const Welcome = () => {
           <img className="h-auto max-w-[36px]" src={plugin_root_url + 'assets/images/logo.svg'} alt="Logo" />
           <div className="flex flex-col items-center gap-2">
             <GFLabel type="heading" margin={0} padding={0} fontSize={'38px'} lineHeight={'38px'} label={__('Welcome to GameEngine 👋', 'gameengine')} borderBottom={'none'} />
-            <GFLabel type="simple" margin={0} padding={0} lineHeight={'28px'} textAlign={'center'} label={__('You are just a few clicks away from transforming your website into a powerful e-commerce platform.', 'gameengine')} />
+            <GFLabel type="simple" margin={0} padding={0} lineHeight={'28px'} textAlign={'center'} label={__('You are just a few clicks away from turning activity on your site into points, achievements and levels.', 'gameengine')} />
           </div>
         </div>
 
@@ -46,7 +46,7 @@ const Welcome = () => {
                 key={idx}
                 onClick={() => setSelectedCard(item.value)}
               >
-                {item.icon}
+                <item.icon size={32} className="text-[var(--gameengine-primary)]" />
                 <GFLabel type="simpleHeading" margin={0} padding={0} label={item.label} fontSize={'16px'} lineHeight={'24px'} />
                 <GFLabel type="simple" margin={0} padding={0} label={item.description} lineHeight={'24px'} />
                 {isSelected && (
@@ -58,7 +58,7 @@ const Welcome = () => {
         </div>
 
         <Button
-          label={__("Process to Next", "gameengine")}
+          label={__("Continue", "gameengine")}
           icon={<FaAngleRight />}
           iconPosition="right"
           onClick={() => {

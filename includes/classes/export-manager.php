@@ -82,6 +82,7 @@ class ExportManager
             return '';
         }
 
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- In-memory stream for fputcsv(); nothing is written to disk.
         $output = fopen('php://temp', 'r+');
 
         fputcsv($output, array_keys($rows[0]));
@@ -92,6 +93,7 @@ class ExportManager
 
         rewind($output);
         $csv = stream_get_contents($output);
+        // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
         fclose($output);
 
         return $csv;

@@ -179,20 +179,6 @@ class CustomImage extends Image {
                 clipboard: {
                     matchVisual: false,
                 },
-                blotFormatter: {},
-                htmlEditButton: {
-                    syntax: false,
-                },
-                'better-table': {
-                    operationMenu: {
-                        items: {
-                            unmergeCells: {
-                                text: 'Unmerge Cells',
-                            },
-                        },
-                    },
-                    table: true, // Enable table support
-                },
             },
             theme: 'snow',
         });

@@ -122,6 +122,29 @@ const GeneralSettings = () => {
 
       <GameEngineBox
         dynamicClasses="gameengine-settings mt-6"
+      >
+        <p className="gameengine-settings-heading">
+          {__('Data', 'gameengine')}
+        </p>
+
+        <div className="flex flex-col gap-4">
+          <SettingsInput
+            label={__('Delete all data when GameEngine is deleted', 'gameengine')}
+            subtitle={__(
+              "When GameEngine is deleted from the Plugins screen, permanently remove its point types, achievements, levels, member progress, logs and settings, and GameEngine Pro's data as well. Leave this off to keep everything for a reinstall.",
+              'gameengine'
+            )}
+          >
+            <Switch
+              checked={!!general.delete_data_on_uninstall}
+              onChange={(val) => setFieldValue('general.delete_data_on_uninstall', val)}
+            />
+          </SettingsInput>
+        </div>
+      </GameEngineBox>
+
+      <GameEngineBox
+        dynamicClasses="gameengine-settings mt-6"
         boxShadow="var(--gameengine-shadow)"
       >
         <p

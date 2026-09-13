@@ -56,7 +56,8 @@ class SettingsController extends BaseController
                 'inactivity_body'   => '',
             )),
             'general' => get_option('gameengine_general_settings', array(
-                'social_sharing' => true,
+                'social_sharing'           => true,
+                'delete_data_on_uninstall' => false,
             )),
             'notifications' => get_option('gameengine_notification_settings', array(
                 'enabled'              => true,
@@ -109,7 +110,9 @@ class SettingsController extends BaseController
         if (isset($params['general'])) {
             $general = (array) $params['general'];
             update_option('gameengine_general_settings', array(
-                'social_sharing' => ! empty($general['social_sharing']),
+                'social_sharing'           => ! empty($general['social_sharing']),
+                // Read by uninstall.php. Off unless the site owner turns it on.
+                'delete_data_on_uninstall' => ! empty($general['delete_data_on_uninstall']),
             ));
         }
 
