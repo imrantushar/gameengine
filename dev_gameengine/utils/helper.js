@@ -19,6 +19,7 @@ export const {
 	is_academylms_active,
 	is_tutorlms_active,
 	is_storeengine_active,
+	is_pro,
 	banners,
 	site_url,
 	notification_position = null,

@@ -15,10 +15,11 @@ import {
   wooCommerce,
   tutorLms,
 } from '@GFUtils/icons';
-import { plugin_root_url } from '@GFUtils/helper';
+import { plugin_root_url, is_pro } from '@GFUtils/helper';
 import Button from '@GFComponents/Button';
 import GetHelp from '@GFComponents/GetHelp';
 import { GoGift } from 'react-icons/go';
+import { FiUsers, FiAward, FiBarChart2, FiLink } from 'react-icons/fi';
 import { getAddonCards } from '@GFUtils/extend';
 import './addon-tabs.css';
 import WhatsNew from '@GFComponents/WhatsNew';
@@ -161,6 +162,105 @@ const infoCardsData = [
     route: 'admin.php?page=gameengine-rewards-store',
   },];
 
+// Teasers for the addons GameEngine Pro ships. Shown only while Pro is
+// inactive so people know these exist; once Pro is active it registers the
+// real, working versions of these same cards through the `gameengine.addons.cards`
+// filter, so these static entries would only duplicate them.
+const proAddonCardsData = [
+  {
+    label: __('Wallet', 'gameengine'),
+    name: 'wallet',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#10B981',
+    details: __(
+      'Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: false,
+    image: plugin_root_url + 'assets/images/wallet.svg',
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine-wallet',
+  },
+  {
+    label: __('Referrals & Affiliates', 'gameengine'),
+    name: 'referrals',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#10B981',
+    details: __(
+      'Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <FiUsers size={20} color="#10B981" />,
+    docsUrl: 'https://gameengine.pro/docs/referrals/',
+    route: 'admin.php?page=gameengine-referrals',
+  },
+  {
+    label: __('Leaderboard Seasons', 'gameengine'),
+    name: 'seasons',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#F59E0B',
+    details: __(
+      'Run competitions over a date range, freeze the standings when they end, and limit achievements to a season.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <FiAward size={20} color="#F59E0B" />,
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine-seasons',
+  },
+  {
+    label: __('Analytics', 'gameengine'),
+    name: 'analytics',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#6366F1',
+    details: __(
+      'Adds achievement unlocks, the spread of members across levels and active streaks to the Dashboard.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <FiBarChart2 size={20} color="#6366F1" />,
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine',
+  },
+  {
+    label: __('Webhooks', 'gameengine'),
+    name: 'webhooks',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#0EA5E9',
+    details: __(
+      'Post signed JSON to your own endpoints when points, levels, achievements, streaks or seasons change.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: <FiLink size={20} color="#0EA5E9" />,
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine-webhooks',
+  },
+  {
+    label: __('Spin the Wheel', 'gameengine'),
+    name: 'lucky-wheels',
+    is_pro: true,
+    is_coming_soon: false,
+    iconColor: '#F97316',
+    details: __(
+      'Allow users to spin a lucky wheel to win points and rewards. Fully customizable slices and probabilities.',
+      'gameengine'
+    ),
+    required_plugin: false,
+    icon: false,
+    image: plugin_root_url + 'assets/images/wheel.svg',
+    docsUrl: 'https://gameengine.pro/docs/',
+    route: 'admin.php?page=gameengine-lucky-wheels',
+  },
+];
+
 const TABS = [
   { value: 'all',      label: __('All',      'gameengine') },
   { value: 'active',   label: __('Active',   'gameengine') },
@@ -190,7 +290,11 @@ const Addons = () => {
   }, []);
 
   const getAddonLists = (values) => {
-    return getAddonCards(infoCardsData).filter((item) => {
+    const baseCards = is_pro
+      ? infoCardsData
+      : [...infoCardsData, ...proAddonCardsData];
+
+    return getAddonCards(baseCards).filter((item) => {
       if (
         item.label
           .toLowerCase()
