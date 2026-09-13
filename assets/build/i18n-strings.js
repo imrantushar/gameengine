@@ -144,6 +144,7 @@
 	__( "Click a hook, or drag it to Active Hooks, to add it. Drag it back to remove it and its settings.", "gameengine" );
 	__( "Click to copy", "gameengine" );
 	__( "Close notification", "gameengine" );
+	__( "Close setup wizard", "gameengine" );
 	__( "Columns", "gameengine" );
 	__( "Coming Soon", "gameengine" );
 	__( "Common Docs", "gameengine" );
@@ -155,6 +156,7 @@
 	__( "Connect your plugins", "gameengine" );
 	__( "Content Restriction add-on", "gameengine" );
 	__( "Continue", "gameengine" );
+	__( "Continue without setup?", "gameengine" );
 	__( "Control access by restricting posts, pages, or sections based on points, levels, or badges. controlled", "gameengine" );
 	__( "Copied", "gameengine" );
 	__( "Copied!", "gameengine" );
@@ -271,6 +273,7 @@
 	__( "Get started with GameEngine", "gameengine" );
 	__( "Give me 10 test points", "gameengine" );
 	__( "Give yourself 10 test points. They take the same path as a real award, so you see exactly what a member would get.", "gameengine" );
+	__( "Go to dashboard", "gameengine" );
 	__( "Go to the Dashboard", "gameengine" );
 	__( "Good in a profile sidebar or on a page that explains how levelling works.", "gameengine" );
 	__( "Got Stuck! ", "gameengine" );
@@ -632,6 +635,7 @@
 	__( "WooCommerce Integration", "gameengine" );
 	__( "Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead.", "gameengine" );
 	__( "You are just a few clicks away from turning activity on your site into points, achievements and levels.", "gameengine" );
+	__( "You can always run the setup wizard again later from the GameEngine Tools.", "gameengine" );
 	/* translators: 1: number of points, 2: point type name, 3: the new balance */
 	__( "You got %1$s %2$s. Your balance is now %3$s.", "gameengine" );
 	/* translators: %s: point type name */

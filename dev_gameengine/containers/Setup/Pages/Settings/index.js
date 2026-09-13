@@ -31,7 +31,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="flex w-full justify-center px-6 pb-12 pt-[120px]">
+    <div className="gameengine-setup-screen flex w-full justify-center px-6 pb-6">
       <Formik 
         enableReinitialize={true} 
         initialValues={{
@@ -43,7 +43,7 @@ const Settings = () => {
       >
         {() => {
           return (
-            <div className="w-full max-w-[960px] flex-col justify-center items-center flex gap-8 bg-white rounded-xl p-10 shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]">
+            <div className="w-full max-w-[960px] flex-col justify-center items-center flex gap-6 bg-white rounded-xl p-8 shadow-[0_6px_12px_0_rgba(20,26,36,0.06)] border border-[#F6F7F8]">
               {step === 'datapreview' && <DataPreview />}
               {step === 'addons' && <Addons />}
               {error && (
@@ -51,7 +51,7 @@ const Settings = () => {
                   {error}
                 </p>
               )}
-              <div className="w-full mt-4">
+              <div className="w-full">
                 <SettingsFooter step={step} setStep={setStep} />
               </div>
             </div>

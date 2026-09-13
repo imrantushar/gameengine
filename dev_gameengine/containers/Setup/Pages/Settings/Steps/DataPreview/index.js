@@ -61,7 +61,7 @@ const DataPreview = () => {
     <>
       <SettingsHeader title={__('Setup Your GameEngine', 'gameengine')} subTitle={__('Choose a starter set that fits your site. You can change all of it later.', 'gameengine')} />
       <div className="w-full">
-        <div className="grid grid-cols-3 gap-4 max-w-[900px] mx-auto">
+        <div className="grid grid-cols-3 gap-3 max-w-[900px] mx-auto">
           {previewCards.map((item) => {
             const preset = presetFor(item.slug);
             const unavailable = preset ? !preset.available : false;
@@ -70,7 +70,7 @@ const DataPreview = () => {
 
             return (
               <div
-                className={`flex items-center gap-3 p-4 rounded-lg transition-all border-[1px] border-solid
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all border-[1px] border-solid
   ${isSelected
                     ? 'border-blue-500 bg-blue-50 shadow-sm'
                     : 'border-gray-200 bg-white hover:border-gray-300'
@@ -98,7 +98,7 @@ const DataPreview = () => {
           })}
         </div>
 
-        <div className="flex flex-col p-6 gap-4 rounded-lg mt-8 bg-[#F3F5FF]">
+        <div className="flex flex-col p-4 gap-3 rounded-lg mt-4 bg-[#F3F5FF]">
           <GFLabel type="simple" margin={0} padding={0} label={__('What this creates', 'gameengine')} fontSize="14px" color="#64748B" />
 
           {!presets && (
@@ -111,8 +111,9 @@ const DataPreview = () => {
 
           {selected && (
             <>
-              <div className="flex flex-col gap-1 bg-white rounded-lg p-4 shadow-sm">
+              <div className="flex flex-wrap items-baseline gap-x-2 -mt-1">
                 <GFLabel type="simpleHeading" margin={0} padding={0} label={selected.point} fontSize={'16px'} lineHeight={'24px'} />
+                <span className="text-[#94A3B8]" aria-hidden="true">·</span>
                 <p className="m-0 text-sm text-[#475569]">
                   {sprintf(
                     /* translators: 1: number of points, 2: an action such as "publishes a post" */
@@ -123,8 +124,8 @@ const DataPreview = () => {
                 </p>
               </div>
 
-              <div className="flex gap-6 w-full">
-                <div className="flex flex-col gap-3 bg-white rounded-lg w-1/2 p-6 shadow-sm">
+              <div className="flex gap-4 w-full">
+                <div className="flex flex-col gap-2 bg-white rounded-lg w-1/2 px-4 py-3 shadow-sm">
                   <GFLabel type="simpleHeading" margin={0} padding={0} label={__('Achievements', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
                   {(selected.achievements || []).map((achievement) => {
                     const title = typeof achievement === 'string' ? achievement : achievement.title;
@@ -147,7 +148,7 @@ const DataPreview = () => {
                   })}
                 </div>
 
-                <div className="flex flex-col gap-3 bg-white rounded-lg w-1/2 p-6 shadow-sm">
+                <div className="flex flex-col gap-2 bg-white rounded-lg w-1/2 px-4 py-3 shadow-sm">
                   <GFLabel type="simpleHeading" margin={0} padding={0} label={__('Levels', 'gameengine')} fontSize={'16px'} lineHeight={'24px'} />
                   {(selected.levels || []).map((level) => (
                     <p key={level.title} className="m-0 text-sm text-[#475569] flex justify-between gap-2">

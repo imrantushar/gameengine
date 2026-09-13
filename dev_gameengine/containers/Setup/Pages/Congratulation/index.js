@@ -64,7 +64,7 @@ const Congratulation = () => {
   const lines = summary(location?.state?.created);
 
   return (
-    <div className="w-full flex-col justify-center items-center h-full flex gap-6 px-6 pt-[120px]">
+    <div className="gameengine-setup-screen w-full flex-col justify-center items-center h-full flex gap-6 px-6">
       <div className="flex w-full flex-col items-center rounded-xl gap-6 bg-white" style={{
         "maxWidth": "960px",
         "padding": "64px 40px",

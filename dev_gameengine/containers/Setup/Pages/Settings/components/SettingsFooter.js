@@ -11,7 +11,7 @@ const SettingsFooter = ({ step, setStep }) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex w-full justify-between items-center mt-2">
+    <div className="flex w-full justify-between items-center">
       <button
         className="flex items-center gap-2 cursor-pointer"
         style={outlineBtn}
