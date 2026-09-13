@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: GameEngine - Gamification for Website 1.3.3\n"
+"Project-Id-Version: GameEngine - Gamification for Website 1.4.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gameengine\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T05:10:13+00:00\n"
+"POT-Creation-Date: 2026-09-13T05:34:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -75,7 +75,7 @@ msgid "Restriction Type:"
 msgstr ""
 
 #: includes/addons/restrict-content/class-meta-box.php:89
-#: assets/build/i18n-strings.js:358
+#: assets/build/i18n-strings.js:360
 msgid "None"
 msgstr ""
 
@@ -232,7 +232,7 @@ msgstr ""
 
 #: includes/admin/user-profile.php:81
 #: templates/shortcode/leaderboard.php:29
-#: assets/build/i18n-strings.js:281
+#: assets/build/i18n-strings.js:283
 msgid "Level"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 #: templates/shortcode/leaderboard.php:31
 #: templates/shortcode/points.php:10
 #: templates/shortcode/profile.php:31
-#: assets/build/i18n-strings.js:388
+#: assets/build/i18n-strings.js:390
 msgid "Points"
 msgstr ""
 
@@ -334,7 +334,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:98
 #: includes/integrations/tutor-lms.php:29
-#: assets/build/i18n-strings.js:514
+#: assets/build/i18n-strings.js:515
 msgid "Tutor LMS"
 msgstr ""
 
@@ -344,7 +344,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:105
 #: includes/integrations/woo-commerce.php:17
-#: assets/build/i18n-strings.js:553
+#: assets/build/i18n-strings.js:555
 msgid "WooCommerce"
 msgstr ""
 
@@ -354,7 +354,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:112
 #: includes/integrations/store-engine.php:21
-#: assets/build/i18n-strings.js:492
+#: assets/build/i18n-strings.js:493
 msgid "StoreEngine"
 msgstr ""
 
@@ -363,7 +363,7 @@ msgid "Advanced WooCommerce features and rewards integration."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:119
-#: assets/build/i18n-strings.js:431
+#: assets/build/i18n-strings.js:432
 msgid "Restrict Unlock"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:126
 #: templates/shortcode/profile.php:62
-#: assets/build/i18n-strings.js:406
+#: assets/build/i18n-strings.js:407
 msgid "Progress Map"
 msgstr ""
 
@@ -382,7 +382,7 @@ msgid "Display a visual roadmap of user progress on frontend."
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:133
-#: assets/build/i18n-strings.js:428
+#: assets/build/i18n-strings.js:429
 msgid "Restrict Content"
 msgstr ""
 
@@ -392,12 +392,12 @@ msgstr ""
 
 #: includes/api/controllers/addons-controller.php:140
 #: includes/helper.php:189
-#: assets/build/i18n-strings.js:439
+#: assets/build/i18n-strings.js:440
 msgid "Rewards Store"
 msgstr ""
 
 #: includes/api/controllers/addons-controller.php:141
-#: assets/build/i18n-strings.js:280
+#: assets/build/i18n-strings.js:282
 msgid "Let users redeem their earned points for rewards from a catalog you manage."
 msgstr ""
 
@@ -433,7 +433,7 @@ msgid "Could not create badge."
 msgstr ""
 
 #: includes/api/controllers/levels-controller.php:193
-#: assets/build/i18n-strings.js:286
+#: assets/build/i18n-strings.js:288
 msgid "Level Name is required."
 msgstr ""
 
@@ -469,7 +469,7 @@ msgstr ""
 msgid "You must be logged in."
 msgstr ""
 
-#: includes/api/controllers/settings-controller.php:150
+#: includes/api/controllers/settings-controller.php:153
 msgid "Settings saved successfully."
 msgstr ""
 
@@ -550,7 +550,7 @@ msgid "Use this if you want to show the map without the full dashboard."
 msgstr ""
 
 #: includes/api/controllers/tools-controller.php:86
-#: assets/build/i18n-strings.js:391
+#: assets/build/i18n-strings.js:393
 msgid "Points Balance"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgid "Ideal for menus, headers, or sidebar widgets."
 msgstr ""
 
 #: includes/api/controllers/tools-controller.php:94
-#: assets/build/i18n-strings.js:247
+#: assets/build/i18n-strings.js:249
 msgid "Highest Level"
 msgstr ""
 
@@ -712,7 +712,7 @@ msgid "Dashboard"
 msgstr ""
 
 #: includes/helper.php:131
-#: assets/build/i18n-strings.js:396
+#: assets/build/i18n-strings.js:398
 msgid "Points System"
 msgstr ""
 
@@ -722,13 +722,13 @@ msgstr ""
 
 #: includes/helper.php:142
 #: includes/helper.php:153
-#: assets/build/i18n-strings.js:517
+#: assets/build/i18n-strings.js:518
 msgid "Types"
 msgstr ""
 
 #: includes/helper.php:149
 #: templates/shortcode/profile.php:69
-#: assets/build/i18n-strings.js:295
+#: assets/build/i18n-strings.js:297
 msgid "Levels"
 msgstr ""
 
@@ -747,12 +747,12 @@ msgid "Activity"
 msgstr ""
 
 #: includes/helper.php:174
-#: assets/build/i18n-strings.js:312
+#: assets/build/i18n-strings.js:314
 msgid "Logs"
 msgstr ""
 
 #: includes/helper.php:181
-#: assets/build/i18n-strings.js:278
+#: assets/build/i18n-strings.js:280
 msgid "Leaderboards"
 msgstr ""
 
@@ -761,12 +761,12 @@ msgid "Addons"
 msgstr ""
 
 #: includes/helper.php:203
-#: assets/build/i18n-strings.js:509
+#: assets/build/i18n-strings.js:510
 msgid "Tools"
 msgstr ""
 
 #: includes/helper.php:210
-#: assets/build/i18n-strings.js:465
+#: assets/build/i18n-strings.js:466
 msgid "Settings"
 msgstr ""
 
@@ -868,12 +868,12 @@ msgid "Awarded when a student joins a new course."
 msgstr ""
 
 #: includes/integrations/base-integration.php:49
-#: assets/build/i18n-strings.js:397
+#: assets/build/i18n-strings.js:399
 msgid "Points to Award"
 msgstr ""
 
 #: includes/integrations/base-integration.php:49
-#: assets/build/i18n-strings.js:398
+#: assets/build/i18n-strings.js:400
 msgid "Points to Deduct"
 msgstr ""
 
@@ -894,7 +894,7 @@ msgid "Repeatable Limit"
 msgstr ""
 
 #: includes/integrations/base-integration.php:69
-#: assets/build/i18n-strings.js:519
+#: assets/build/i18n-strings.js:520
 msgid "Unlimited"
 msgstr ""
 
@@ -1031,7 +1031,7 @@ msgid "User sends a private message."
 msgstr ""
 
 #: includes/integrations/game-engine.php:17
-#: assets/build/i18n-strings.js:232
+#: assets/build/i18n-strings.js:234
 msgid "GameEngine"
 msgstr ""
 
@@ -1471,7 +1471,7 @@ msgid "How to unlock"
 msgstr ""
 
 #: templates/shortcode/achievements.php:74
-#: assets/build/i18n-strings.js:469
+#: assets/build/i18n-strings.js:470
 msgid "Share"
 msgstr ""
 
@@ -1480,12 +1480,12 @@ msgid "Top Performers"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:27
-#: assets/build/i18n-strings.js:411
+#: assets/build/i18n-strings.js:412
 msgid "Rank"
 msgstr ""
 
 #: templates/shortcode/leaderboard.php:28
-#: assets/build/i18n-strings.js:534
+#: assets/build/i18n-strings.js:535
 msgid "User"
 msgstr ""
 
@@ -1553,12 +1553,12 @@ msgid "Enter username or email"
 msgstr ""
 
 #: templates/shortcode/profile.php:151
-#: assets/build/i18n-strings.js:386
+#: assets/build/i18n-strings.js:388
 msgid "Point Type"
 msgstr ""
 
 #: templates/shortcode/profile.php:167
-#: assets/build/i18n-strings.js:389
+#: assets/build/i18n-strings.js:391
 msgid "Points Amount"
 msgstr ""
 
@@ -2199,1493 +2199,1501 @@ msgid "Daily Digest"
 msgstr ""
 
 #: assets/build/i18n-strings.js:156
-msgid "Data Type"
+msgid "Data"
 msgstr ""
 
 #: assets/build/i18n-strings.js:157
-msgid "Date"
+msgid "Data Type"
 msgstr ""
 
 #: assets/build/i18n-strings.js:158
-msgid "Deduct Actions"
+msgid "Date"
 msgstr ""
 
 #: assets/build/i18n-strings.js:159
-msgid "Deduct Points (-)"
+msgid "Deduct Actions"
 msgstr ""
 
 #: assets/build/i18n-strings.js:160
-msgid "Deduct: "
+msgid "Deduct Points (-)"
 msgstr ""
 
 #: assets/build/i18n-strings.js:161
-msgid "Deduction Log Description"
+msgid "Deduct: "
 msgstr ""
 
 #: assets/build/i18n-strings.js:162
-msgid "Default Email Content"
+msgid "Deduction Log Description"
 msgstr ""
 
 #: assets/build/i18n-strings.js:163
-msgid "Delete"
+msgid "Default Email Content"
 msgstr ""
 
 #: assets/build/i18n-strings.js:164
-msgid "Delete badge"
+msgid "Delete"
 msgstr ""
 
 #: assets/build/i18n-strings.js:165
-msgid "Delete Permanently"
+msgid "Delete all data when GameEngine is deleted"
 msgstr ""
 
 #: assets/build/i18n-strings.js:166
-msgid "Delete permanently? This cannot be undone."
+msgid "Delete badge"
 msgstr ""
 
 #: assets/build/i18n-strings.js:167
-msgid "Delete this reward?"
+msgid "Delete Permanently"
 msgstr ""
 
 #: assets/build/i18n-strings.js:168
-msgid "Describe what members get at this level and what they need to do to reach it."
+msgid "Delete permanently? This cannot be undone."
 msgstr ""
 
 #: assets/build/i18n-strings.js:169
-msgid "Description"
+msgid "Delete this reward?"
 msgstr ""
 
 #: assets/build/i18n-strings.js:170
-msgid "Description(Optional)"
+msgid "Describe what members get at this level and what they need to do to reach it."
 msgstr ""
 
 #: assets/build/i18n-strings.js:171
-msgid "Disabled"
+msgid "Description"
 msgstr ""
 
 #: assets/build/i18n-strings.js:172
-msgid "Dismiss this notice"
+msgid "Description(Optional)"
 msgstr ""
 
 #: assets/build/i18n-strings.js:173
-msgid "Download your data as CSV or JSON. Exports are capped at 10,000 rows."
+msgid "Disabled"
 msgstr ""
 
 #: assets/build/i18n-strings.js:174
-msgid "Draft"
+msgid "Dismiss this notice"
 msgstr ""
 
 #: assets/build/i18n-strings.js:175
-msgid "Drag and drop an item from Available Hooks to activate it"
+msgid "Download your data as CSV or JSON. Exports are capped at 10,000 rows."
 msgstr ""
 
 #: assets/build/i18n-strings.js:176
-msgid "E-Mail Address"
+msgid "Draft"
 msgstr ""
 
 #: assets/build/i18n-strings.js:177
-msgid "e.g. Free T-Shirt"
+msgid "Drag and drop an item from Available Hooks to activate it"
 msgstr ""
 
 #: assets/build/i18n-strings.js:178
-msgid "e.g. Star Contributor"
+msgid "E-Mail Address"
 msgstr ""
 
 #: assets/build/i18n-strings.js:179
-msgid "eCommerce"
+msgid "e.g. Free T-Shirt"
 msgstr ""
 
 #: assets/build/i18n-strings.js:180
-msgid "Economy"
+msgid "e.g. Star Contributor"
 msgstr ""
 
 #: assets/build/i18n-strings.js:181
-msgid "Edit"
+msgid "eCommerce"
 msgstr ""
 
 #: assets/build/i18n-strings.js:182
-msgid "Edit badge"
+msgid "Economy"
 msgstr ""
 
 #: assets/build/i18n-strings.js:183
-msgid "Edit Badge"
+msgid "Edit"
 msgstr ""
 
 #: assets/build/i18n-strings.js:184
-msgid "Edit Log"
+msgid "Edit badge"
 msgstr ""
 
 #: assets/build/i18n-strings.js:185
-msgid "Edit Reward"
+msgid "Edit Badge"
 msgstr ""
 
 #: assets/build/i18n-strings.js:186
-msgid "Edit Template"
+msgid "Edit Log"
 msgstr ""
 
 #: assets/build/i18n-strings.js:187
-msgid "Email Notification"
+msgid "Edit Reward"
 msgstr ""
 
 #: assets/build/i18n-strings.js:188
-msgid "Email Template"
+msgid "Edit Template"
 msgstr ""
 
 #: assets/build/i18n-strings.js:189
-msgid "Email Templates"
+msgid "Email Notification"
 msgstr ""
 
 #: assets/build/i18n-strings.js:190
-msgid "Enable Notifications"
+msgid "Email Template"
 msgstr ""
 
 #: assets/build/i18n-strings.js:191
-msgid "Enable successful rewards"
+msgid "Email Templates"
 msgstr ""
 
 #: assets/build/i18n-strings.js:192
-msgid "Enable System Errors"
+msgid "Enable Notifications"
 msgstr ""
 
 #: assets/build/i18n-strings.js:193
-msgid "Enable this to record a log entry every time a user successfully earns points, achievements, or levels."
+msgid "Enable successful rewards"
 msgstr ""
 
 #: assets/build/i18n-strings.js:194
-msgid "Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues."
+msgid "Enable System Errors"
 msgstr ""
 
 #: assets/build/i18n-strings.js:195
-msgid "Enabled"
+msgid "Enable this to record a log entry every time a user successfully earns points, achievements, or levels."
 msgstr ""
 
 #: assets/build/i18n-strings.js:196
-msgid "Enter a short description"
+msgid "Enable this to track and record failed reward attempts or system-level errors to help diagnose potential issues."
 msgstr ""
 
 #: assets/build/i18n-strings.js:197
-msgid "Enter description"
+msgid "Enabled"
 msgstr ""
 
 #: assets/build/i18n-strings.js:198
-msgid "Enter email content"
+msgid "Enter a short description"
 msgstr ""
 
 #: assets/build/i18n-strings.js:199
-msgid "Enter from address"
+msgid "Enter description"
 msgstr ""
 
 #: assets/build/i18n-strings.js:200
-msgid "Enter from name"
+msgid "Enter email content"
 msgstr ""
 
 #: assets/build/i18n-strings.js:201
-msgid "Enter level name"
+msgid "Enter from address"
 msgstr ""
 
 #: assets/build/i18n-strings.js:202
-msgid "Enter maximum balance"
+msgid "Enter from name"
 msgstr ""
 
 #: assets/build/i18n-strings.js:203
-msgid "Enter minimum balance"
+msgid "Enter level name"
 msgstr ""
 
 #: assets/build/i18n-strings.js:204
-msgid "Enter name"
+msgid "Enter maximum balance"
 msgstr ""
 
 #: assets/build/i18n-strings.js:205
-msgid "Enter point"
+msgid "Enter minimum balance"
 msgstr ""
 
 #: assets/build/i18n-strings.js:206
-msgid "Enter point name"
+msgid "Enter name"
 msgstr ""
 
 #: assets/build/i18n-strings.js:207
-msgid "Enter slug"
+msgid "Enter point"
 msgstr ""
 
 #: assets/build/i18n-strings.js:208
-msgid "Errors:"
+msgid "Enter point name"
 msgstr ""
 
 #: assets/build/i18n-strings.js:209
-msgid "Event"
+msgid "Enter slug"
 msgstr ""
 
 #: assets/build/i18n-strings.js:210
-msgid "Every points change, achievement and level-up sent to your members."
+msgid "Errors:"
 msgstr ""
 
 #: assets/build/i18n-strings.js:211
-msgid "Example"
+msgid "Event"
 msgstr ""
 
 #: assets/build/i18n-strings.js:212
-msgid "Exp: 50"
+msgid "Every points change, achievement and level-up sent to your members."
 msgstr ""
 
 #: assets/build/i18n-strings.js:213
-msgid "Export"
+msgid "Example"
 msgstr ""
 
 #: assets/build/i18n-strings.js:214
-msgid "Export / Import"
+msgid "Exp: 50"
 msgstr ""
 
 #: assets/build/i18n-strings.js:215
-msgid "Export CSV"
+msgid "Export"
 msgstr ""
 
 #: assets/build/i18n-strings.js:216
-msgid "Export Data"
+msgid "Export / Import"
 msgstr ""
 
 #: assets/build/i18n-strings.js:217
-msgid "Export failed. Please try again."
+msgid "Export CSV"
 msgstr ""
 
 #: assets/build/i18n-strings.js:218
-msgid "File"
+msgid "Export Data"
 msgstr ""
 
 #: assets/build/i18n-strings.js:219
-msgid "File was truncated to 1,000 rows."
+msgid "Export failed. Please try again."
 msgstr ""
 
 #: assets/build/i18n-strings.js:220
-msgid "Find instant answer."
+msgid "File"
 msgstr ""
 
 #: assets/build/i18n-strings.js:221
-msgid "Fixed"
+msgid "File was truncated to 1,000 rows."
 msgstr ""
 
 #: assets/build/i18n-strings.js:222
-msgid "For authors active"
+msgid "Find instant answer."
 msgstr ""
 
 #: assets/build/i18n-strings.js:223
-msgid "For blog activity"
+msgid "Fixed"
 msgstr ""
 
 #: assets/build/i18n-strings.js:224
-msgid "For community help"
+msgid "For authors active"
 msgstr ""
 
 #: assets/build/i18n-strings.js:225
-msgid "For growth actions"
+msgid "For blog activity"
 msgstr ""
 
 #: assets/build/i18n-strings.js:226
-msgid "For shop customers"
+msgid "For community help"
 msgstr ""
 
 #: assets/build/i18n-strings.js:227
-msgid "For task results"
+msgid "For growth actions"
 msgstr ""
 
 #: assets/build/i18n-strings.js:228
-msgid "Format"
+msgid "For shop customers"
 msgstr ""
 
 #: assets/build/i18n-strings.js:229
-msgid "From Address"
+msgid "For task results"
 msgstr ""
 
 #: assets/build/i18n-strings.js:230
-msgid "From Name"
+msgid "Format"
 msgstr ""
 
 #: assets/build/i18n-strings.js:231
-msgid "Full screen"
+msgid "From Address"
+msgstr ""
+
+#: assets/build/i18n-strings.js:232
+msgid "From Name"
 msgstr ""
 
 #: assets/build/i18n-strings.js:233
-msgid "Gameengine academy lms integration"
-msgstr ""
-
-#: assets/build/i18n-strings.js:234
-msgid "Gameengine restrict content add on"
+msgid "Full screen"
 msgstr ""
 
 #: assets/build/i18n-strings.js:235
-msgid "Gamification Category"
+msgid "Gameengine academy lms integration"
 msgstr ""
 
 #: assets/build/i18n-strings.js:236
-msgid "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement"
+msgid "Gameengine restrict content add on"
 msgstr ""
 
 #: assets/build/i18n-strings.js:237
-msgid "General"
+msgid "Gamification Category"
 msgstr ""
 
 #: assets/build/i18n-strings.js:238
-msgid "Get Pro"
+msgid "Gamify purchases by rewarding customers for orders, spending, reviews, and store actions engagement"
 msgstr ""
 
 #: assets/build/i18n-strings.js:239
-msgid "Go to dashboard"
+msgid "General"
 msgstr ""
 
 #: assets/build/i18n-strings.js:240
-msgid "Go To Dashboard"
+msgid "Get Pro"
 msgstr ""
 
 #: assets/build/i18n-strings.js:241
-msgid "Good in a profile sidebar or on a page that explains how levelling works."
+msgid "Go to dashboard"
 msgstr ""
 
 #: assets/build/i18n-strings.js:242
-msgid "Got Stuck! "
+msgid "Go To Dashboard"
 msgstr ""
 
 #: assets/build/i18n-strings.js:243
-msgid "Growth"
+msgid "Good in a profile sidebar or on a page that explains how levelling works."
 msgstr ""
 
 #: assets/build/i18n-strings.js:244
-msgid "h ago"
+msgid "Got Stuck! "
 msgstr ""
 
 #: assets/build/i18n-strings.js:245
-msgid "Help"
+msgid "Growth"
 msgstr ""
 
 #: assets/build/i18n-strings.js:246
-msgid "Hides whatever it wraps until the member qualifies."
+msgid "h ago"
+msgstr ""
+
+#: assets/build/i18n-strings.js:247
+msgid "Help"
 msgstr ""
 
 #: assets/build/i18n-strings.js:248
-msgid "How many members to list."
-msgstr ""
-
-#: assets/build/i18n-strings.js:249
-msgid "How the gameengine leaderboard works"
+msgid "Hides whatever it wraps until the member qualifies."
 msgstr ""
 
 #: assets/build/i18n-strings.js:250
-msgid "How to active a hook?"
+msgid "How many members to list."
 msgstr ""
 
 #: assets/build/i18n-strings.js:251
-msgid "How to use logs into gameengine"
+msgid "How the gameengine leaderboard works"
 msgstr ""
 
 #: assets/build/i18n-strings.js:252
-msgid "How to work gameengine levels"
+msgid "How to active a hook?"
 msgstr ""
 
 #: assets/build/i18n-strings.js:253
-msgid "How to work gameengine progress map addon"
+msgid "How to use logs into gameengine"
 msgstr ""
 
 #: assets/build/i18n-strings.js:254
-msgid "HTML"
+msgid "How to work gameengine levels"
 msgstr ""
 
 #: assets/build/i18n-strings.js:255
-msgid "I'll Configure Manually"
+msgid "How to work gameengine progress map addon"
 msgstr ""
 
 #: assets/build/i18n-strings.js:256
-msgid "I’ll decide later"
+msgid "HTML"
 msgstr ""
 
 #: assets/build/i18n-strings.js:257
-msgid "Icon"
+msgid "I'll Configure Manually"
 msgstr ""
 
 #: assets/build/i18n-strings.js:258
-msgid "Icon / Text Color"
+msgid "I’ll decide later"
 msgstr ""
 
 #: assets/build/i18n-strings.js:259
-msgid "Icon Color"
+msgid "Icon"
 msgstr ""
 
 #: assets/build/i18n-strings.js:260
-msgid "Ideal for menus, headers, or anywhere you want their balance on show. Renders 0 for logged-out visitors."
+msgid "Icon / Text Color"
 msgstr ""
 
 #: assets/build/i18n-strings.js:261
-msgid "Immediate"
+msgid "Icon Color"
 msgstr ""
 
 #: assets/build/i18n-strings.js:262
-msgid "Import"
+msgid "Ideal for menus, headers, or anywhere you want their balance on show. Renders 0 for logged-out visitors."
 msgstr ""
 
 #: assets/build/i18n-strings.js:263
-msgid "Import complete."
+msgid "Immediate"
 msgstr ""
 
 #: assets/build/i18n-strings.js:264
-msgid "Import Data"
+msgid "Import"
 msgstr ""
 
 #: assets/build/i18n-strings.js:265
-msgid "Import Default Data"
+msgid "Import complete."
 msgstr ""
 
 #: assets/build/i18n-strings.js:266
-msgid "Import failed. Please check your file and try again."
+msgid "Import Data"
 msgstr ""
 
 #: assets/build/i18n-strings.js:267
-msgid "Imported:"
+msgid "Import Default Data"
 msgstr ""
 
 #: assets/build/i18n-strings.js:268
-msgid "Improved"
+msgid "Import failed. Please check your file and try again."
 msgstr ""
 
 #: assets/build/i18n-strings.js:269
-msgid "Inactive"
+msgid "Imported:"
 msgstr ""
 
 #: assets/build/i18n-strings.js:270
-msgid "Inactivity Days"
+msgid "Improved"
 msgstr ""
 
 #: assets/build/i18n-strings.js:271
-msgid "Inactivity Nudge Email"
+msgid "Inactive"
 msgstr ""
 
 #: assets/build/i18n-strings.js:272
-msgid "Items selected"
+msgid "Inactivity Days"
 msgstr ""
 
 #: assets/build/i18n-strings.js:273
-msgid "JSON"
+msgid "Inactivity Nudge Email"
 msgstr ""
 
 #: assets/build/i18n-strings.js:274
-msgid "Jumpstart with Demo Data"
+msgid "Items selected"
 msgstr ""
 
 #: assets/build/i18n-strings.js:275
-msgid "Just now"
+msgid "JSON"
 msgstr ""
 
 #: assets/build/i18n-strings.js:276
-msgid "Keep users loyal to your brand"
+msgid "Jumpstart with Demo Data"
 msgstr ""
 
 #: assets/build/i18n-strings.js:277
-msgid "Leaderboard"
+msgid "Just now"
+msgstr ""
+
+#: assets/build/i18n-strings.js:278
+msgid "Keep users loyal to your brand"
 msgstr ""
 
 #: assets/build/i18n-strings.js:279
+msgid "Leaderboard"
+msgstr ""
+
+#: assets/build/i18n-strings.js:281
 msgid "Leave time_range off for an all-time board. Point it at a season to show that season's standings instead — live while the season runs, frozen once it completes."
 msgstr ""
 
-#: assets/build/i18n-strings.js:282
+#: assets/build/i18n-strings.js:284
 msgid "Level create successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:283
+#: assets/build/i18n-strings.js:285
 msgid "Level deleted successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:284
+#: assets/build/i18n-strings.js:286
 msgid "Level Logo"
 msgstr ""
 
-#: assets/build/i18n-strings.js:285
+#: assets/build/i18n-strings.js:287
 msgid "Level Name"
 msgstr ""
 
-#: assets/build/i18n-strings.js:287
+#: assets/build/i18n-strings.js:289
 msgid "Level Requirements"
 msgstr ""
 
-#: assets/build/i18n-strings.js:288
+#: assets/build/i18n-strings.js:290
 msgid "Level Type"
 msgstr ""
 
-#: assets/build/i18n-strings.js:289
+#: assets/build/i18n-strings.js:291
 msgid "Level type created successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:290
+#: assets/build/i18n-strings.js:292
 msgid "Level type deleted successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:291
+#: assets/build/i18n-strings.js:293
 msgid "Level type updated successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:292
+#: assets/build/i18n-strings.js:294
 msgid "Level Up"
 msgstr ""
 
-#: assets/build/i18n-strings.js:293
+#: assets/build/i18n-strings.js:295
 msgid "Level Up Email"
 msgstr ""
 
-#: assets/build/i18n-strings.js:294
+#: assets/build/i18n-strings.js:296
 msgid "Level update successfully."
 msgstr ""
 
-#: assets/build/i18n-strings.js:296
+#: assets/build/i18n-strings.js:298
 msgid "Levels & Achievements Preview"
 msgstr ""
 
-#: assets/build/i18n-strings.js:297
+#: assets/build/i18n-strings.js:299
 msgid "Levels Given"
 msgstr ""
 
-#: assets/build/i18n-strings.js:298
+#: assets/build/i18n-strings.js:300
 msgid "Limit / User"
 msgstr ""
 
-#: assets/build/i18n-strings.js:299
+#: assets/build/i18n-strings.js:301
 msgid "Limit Per User"
 msgstr ""
 
-#: assets/build/i18n-strings.js:300
+#: assets/build/i18n-strings.js:302
 msgid "Limit to one currency. 0 shows every level, whatever its currency."
 msgstr ""
 
-#: assets/build/i18n-strings.js:301
+#: assets/build/i18n-strings.js:303
 msgid "Limit to one currency. 0 totals every currency together."
 msgstr ""
 
-#: assets/build/i18n-strings.js:302
+#: assets/build/i18n-strings.js:304
 msgid "Link copied!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:303
+#: assets/build/i18n-strings.js:305
 msgid "Loading badge…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:304
+#: assets/build/i18n-strings.js:306
 msgid "Loading badges…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:305
+#: assets/build/i18n-strings.js:307
 msgid "Loading hooks…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:306
+#: assets/build/i18n-strings.js:308
 msgid "Loading…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:307
+#: assets/build/i18n-strings.js:309
 msgid "Log"
 msgstr ""
 
-#: assets/build/i18n-strings.js:308
+#: assets/build/i18n-strings.js:310
 msgid "Log created successfully!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:309
+#: assets/build/i18n-strings.js:311
 msgid "Log Display"
 msgstr ""
 
-#: assets/build/i18n-strings.js:310
+#: assets/build/i18n-strings.js:312
 msgid "Log settings"
 msgstr ""
 
-#: assets/build/i18n-strings.js:311
+#: assets/build/i18n-strings.js:313
 msgid "Log updated successfully!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:313
+#: assets/build/i18n-strings.js:315
 msgid "m ago"
 msgstr ""
 
-#: assets/build/i18n-strings.js:314
+#: assets/build/i18n-strings.js:316
 msgid "Manual Trigger"
 msgstr ""
 
-#: assets/build/i18n-strings.js:315
+#: assets/build/i18n-strings.js:317
 msgid "Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer."
 msgstr ""
 
-#: assets/build/i18n-strings.js:316
+#: assets/build/i18n-strings.js:318
 msgid "Master toggle for the in-admin notification center."
 msgstr ""
 
-#: assets/build/i18n-strings.js:317
+#: assets/build/i18n-strings.js:319
 msgid "Maximum Balance"
 msgstr ""
 
-#: assets/build/i18n-strings.js:318
+#: assets/build/i18n-strings.js:320
 msgid "Maximum earnings per user"
 msgstr ""
 
-#: assets/build/i18n-strings.js:319
+#: assets/build/i18n-strings.js:321
 msgid "Maximum Earnings Per User:"
 msgstr ""
 
-#: assets/build/i18n-strings.js:320
+#: assets/build/i18n-strings.js:322
 msgid "Medium screen"
 msgstr ""
 
-#: assets/build/i18n-strings.js:321
+#: assets/build/i18n-strings.js:323
 msgid "Member"
 msgstr ""
 
-#: assets/build/i18n-strings.js:322
+#: assets/build/i18n-strings.js:324
 msgid "Members"
 msgstr ""
 
-#: assets/build/i18n-strings.js:323
+#: assets/build/i18n-strings.js:325
 msgid "Members must earn the chosen achievement or level before this one unlocks."
 msgstr ""
 
-#: assets/build/i18n-strings.js:324
+#: assets/build/i18n-strings.js:326
 msgid "Message / Details"
 msgstr ""
 
-#: assets/build/i18n-strings.js:325
+#: assets/build/i18n-strings.js:327
 msgid "Minimum Balance"
 msgstr ""
 
-#: assets/build/i18n-strings.js:326
+#: assets/build/i18n-strings.js:328
 msgid "Move selected items to trash?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:327
+#: assets/build/i18n-strings.js:329
 msgid "Move to Trash"
 msgstr ""
 
-#: assets/build/i18n-strings.js:328
+#: assets/build/i18n-strings.js:330
 msgid "N/A"
 msgstr ""
 
-#: assets/build/i18n-strings.js:329
+#: assets/build/i18n-strings.js:331
 msgid "Name"
 msgstr ""
 
-#: assets/build/i18n-strings.js:330
+#: assets/build/i18n-strings.js:332
 msgid "Name is required!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:331
+#: assets/build/i18n-strings.js:333
 msgid "Need Help?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:332
+#: assets/build/i18n-strings.js:334
 msgid "Needs the Restrict Unlock add-on."
 msgstr ""
 
-#: assets/build/i18n-strings.js:333
+#: assets/build/i18n-strings.js:335
 msgid "Never"
 msgstr ""
 
-#: assets/build/i18n-strings.js:334
+#: assets/build/i18n-strings.js:336
 msgid "New Badge"
 msgstr ""
 
-#: assets/build/i18n-strings.js:335
+#: assets/build/i18n-strings.js:337
 msgid "No achievements found."
 msgstr ""
 
-#: assets/build/i18n-strings.js:336
+#: assets/build/i18n-strings.js:338
 msgid "No active hooks yet"
 msgstr ""
 
-#: assets/build/i18n-strings.js:337
+#: assets/build/i18n-strings.js:339
 msgid "No activity yet."
 msgstr ""
 
-#: assets/build/i18n-strings.js:338
+#: assets/build/i18n-strings.js:340
 msgid "No Addons Found!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:339
+#: assets/build/i18n-strings.js:341
 msgid "No badge"
 msgstr ""
 
-#: assets/build/i18n-strings.js:340
+#: assets/build/i18n-strings.js:342
 msgid "No badges yet. Create your first badge!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:341
+#: assets/build/i18n-strings.js:343
 msgid "No data available yet."
 msgstr ""
 
-#: assets/build/i18n-strings.js:342
+#: assets/build/i18n-strings.js:344
 msgid "No Data Available!!!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:343
+#: assets/build/i18n-strings.js:345
 msgid "No data found"
 msgstr ""
 
 #. translators: %s. Table data type name.
-#: assets/build/i18n-strings.js:345
+#: assets/build/i18n-strings.js:347
 #, js-format
 msgid "No data found for %s types"
 msgstr ""
 
-#: assets/build/i18n-strings.js:346
+#: assets/build/i18n-strings.js:348
 msgid "No data found for Achievements"
 msgstr ""
 
-#: assets/build/i18n-strings.js:347
+#: assets/build/i18n-strings.js:349
 msgid "No data found for levels"
 msgstr ""
 
-#: assets/build/i18n-strings.js:348
+#: assets/build/i18n-strings.js:350
 msgid "No hooks found."
 msgstr ""
 
-#: assets/build/i18n-strings.js:349
+#: assets/build/i18n-strings.js:351
 msgid "No levels found."
 msgstr ""
 
-#: assets/build/i18n-strings.js:350
+#: assets/build/i18n-strings.js:352
 msgid "No logs found"
 msgstr ""
 
-#: assets/build/i18n-strings.js:351
+#: assets/build/i18n-strings.js:353
 msgid "No point system found."
 msgstr ""
 
-#: assets/build/i18n-strings.js:352
+#: assets/build/i18n-strings.js:354
 msgid "No recent activity"
 msgstr ""
 
-#: assets/build/i18n-strings.js:353
+#: assets/build/i18n-strings.js:355
 msgid "No Related docs available"
 msgstr ""
 
-#: assets/build/i18n-strings.js:354
+#: assets/build/i18n-strings.js:356
 msgid "No results found!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:355
+#: assets/build/i18n-strings.js:357
 msgid "No rewards yet. Add your first reward for users to redeem."
 msgstr ""
 
-#: assets/build/i18n-strings.js:356
+#: assets/build/i18n-strings.js:358
 msgid "No, Thanks!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:357
+#: assets/build/i18n-strings.js:359
 msgid "none"
 msgstr ""
 
-#: assets/build/i18n-strings.js:359
+#: assets/build/i18n-strings.js:361
 msgid "Notification Center"
 msgstr ""
 
-#: assets/build/i18n-strings.js:360
+#: assets/build/i18n-strings.js:362
 msgid "Notification settings"
 msgstr ""
 
-#: assets/build/i18n-strings.js:361
+#: assets/build/i18n-strings.js:363
 msgid "Notifications"
 msgstr ""
 
-#: assets/build/i18n-strings.js:362
+#: assets/build/i18n-strings.js:364
 msgid "Notify Admin"
 msgstr ""
 
-#: assets/build/i18n-strings.js:363
+#: assets/build/i18n-strings.js:365
 msgid "Notify User"
 msgstr ""
 
-#: assets/build/i18n-strings.js:364
+#: assets/build/i18n-strings.js:366
 msgid "Notify users when points are deducted from their balance."
 msgstr ""
 
-#: assets/build/i18n-strings.js:365
+#: assets/build/i18n-strings.js:367
 msgid "Notify users when they advance to a new level."
 msgstr ""
 
-#: assets/build/i18n-strings.js:366
+#: assets/build/i18n-strings.js:368
 msgid "Notify users when they earn points."
 msgstr ""
 
-#: assets/build/i18n-strings.js:367
+#: assets/build/i18n-strings.js:369
 msgid "Notify users when they unlock an achievement."
 msgstr ""
 
-#: assets/build/i18n-strings.js:368
+#: assets/build/i18n-strings.js:370
 msgid "Number of times a user can earn this badge (0 = unlimited)."
 msgstr ""
 
-#: assets/build/i18n-strings.js:369
+#: assets/build/i18n-strings.js:371
 msgid "One page where a member sees everything they have earned. Shows a prompt to log in for visitors."
 msgstr ""
 
-#: assets/build/i18n-strings.js:370
+#: assets/build/i18n-strings.js:372
 msgid "Overview"
 msgstr ""
 
-#: assets/build/i18n-strings.js:371
+#: assets/build/i18n-strings.js:373
 msgid "Overwrite existing records with matching slugs/IDs"
 msgstr ""
 
-#: assets/build/i18n-strings.js:372
+#: assets/build/i18n-strings.js:374
 msgid "Parent"
 msgstr ""
 
-#: assets/build/i18n-strings.js:373
+#: assets/build/i18n-strings.js:375
 msgid "Partial payments"
 msgstr ""
 
-#: assets/build/i18n-strings.js:374
+#: assets/build/i18n-strings.js:376
 msgid "Pending"
 msgstr ""
 
-#: assets/build/i18n-strings.js:375
+#: assets/build/i18n-strings.js:377
 msgid "Performance"
 msgstr ""
 
-#: assets/build/i18n-strings.js:376
+#: assets/build/i18n-strings.js:378
 msgid "Pick a colour"
 msgstr ""
 
-#: assets/build/i18n-strings.js:377
+#: assets/build/i18n-strings.js:379
 msgid "Plain Text"
 msgstr ""
 
-#: assets/build/i18n-strings.js:378
+#: assets/build/i18n-strings.js:380
 msgid "Platform Activity"
 msgstr ""
 
-#: assets/build/i18n-strings.js:379
+#: assets/build/i18n-strings.js:381
 msgid "Platform Activity Feed"
 msgstr ""
 
-#: assets/build/i18n-strings.js:380
+#: assets/build/i18n-strings.js:382
 msgid "Please select a file to import."
 msgstr ""
 
-#: assets/build/i18n-strings.js:381
+#: assets/build/i18n-strings.js:383
 msgid "Please, create data to see the available list here."
 msgstr ""
 
-#: assets/build/i18n-strings.js:382
+#: assets/build/i18n-strings.js:384
 msgid "Point Distribution Chart"
 msgstr ""
 
-#: assets/build/i18n-strings.js:383
+#: assets/build/i18n-strings.js:385
 msgid "Point Logs"
 msgstr ""
 
-#: assets/build/i18n-strings.js:384
+#: assets/build/i18n-strings.js:386
 msgid "Point Name"
 msgstr ""
 
-#: assets/build/i18n-strings.js:385
+#: assets/build/i18n-strings.js:387
 msgid "Point System"
 msgstr ""
 
-#: assets/build/i18n-strings.js:387
+#: assets/build/i18n-strings.js:389
 msgid "Point Types"
 msgstr ""
 
-#: assets/build/i18n-strings.js:390
+#: assets/build/i18n-strings.js:392
 msgid "Points Awarded"
 msgstr ""
 
-#: assets/build/i18n-strings.js:392
+#: assets/build/i18n-strings.js:394
 msgid "Points Deducted"
 msgstr ""
 
-#: assets/build/i18n-strings.js:393
+#: assets/build/i18n-strings.js:395
 msgid "Points Given"
 msgstr ""
 
-#: assets/build/i18n-strings.js:394
+#: assets/build/i18n-strings.js:396
 msgid "Points Milestone Alert"
 msgstr ""
 
-#: assets/build/i18n-strings.js:395
+#: assets/build/i18n-strings.js:397
 msgid "Points payouts"
 msgstr ""
 
-#: assets/build/i18n-strings.js:399
+#: assets/build/i18n-strings.js:401
 msgid "Preview"
 msgstr ""
 
-#: assets/build/i18n-strings.js:400
+#: assets/build/i18n-strings.js:402
 msgid "Private"
 msgstr ""
 
-#: assets/build/i18n-strings.js:401
-msgid "Process to Next"
-msgstr ""
-
-#: assets/build/i18n-strings.js:402
+#: assets/build/i18n-strings.js:403
 msgid "Processing"
 msgstr ""
 
-#: assets/build/i18n-strings.js:403
+#: assets/build/i18n-strings.js:404
 msgid "Product ID"
 msgstr ""
 
-#: assets/build/i18n-strings.js:404
+#: assets/build/i18n-strings.js:405
 msgid "Profile Dashboard"
 msgstr ""
 
-#: assets/build/i18n-strings.js:405
+#: assets/build/i18n-strings.js:406
 msgid "Progress map"
 msgstr ""
 
-#: assets/build/i18n-strings.js:407
+#: assets/build/i18n-strings.js:408
 msgid "Progress Map add-on"
 msgstr ""
 
-#: assets/build/i18n-strings.js:408
+#: assets/build/i18n-strings.js:409
 msgid "pts"
 msgstr ""
 
-#: assets/build/i18n-strings.js:409
+#: assets/build/i18n-strings.js:410
 msgid "Publish"
 msgstr ""
 
-#: assets/build/i18n-strings.js:410
+#: assets/build/i18n-strings.js:411
 msgid "Published"
 msgstr ""
 
-#: assets/build/i18n-strings.js:412
+#: assets/build/i18n-strings.js:413
 msgid "Ranks members by points earned, with their level and achievement count."
 msgstr ""
 
-#: assets/build/i18n-strings.js:413
+#: assets/build/i18n-strings.js:414
 msgid "Reason for adjustment..."
 msgstr ""
 
-#: assets/build/i18n-strings.js:414
+#: assets/build/i18n-strings.js:415
 msgid "Refresh"
 msgstr ""
 
-#: assets/build/i18n-strings.js:415
+#: assets/build/i18n-strings.js:416
 msgid "Rejected"
 msgstr ""
 
-#: assets/build/i18n-strings.js:416
+#: assets/build/i18n-strings.js:417
 msgid "Related Docs"
 msgstr ""
 
-#: assets/build/i18n-strings.js:417
+#: assets/build/i18n-strings.js:418
 msgid "Remove"
 msgstr ""
 
-#: assets/build/i18n-strings.js:418
+#: assets/build/i18n-strings.js:419
 msgid "Remove row"
 msgstr ""
 
-#: assets/build/i18n-strings.js:419
+#: assets/build/i18n-strings.js:420
 msgid "Replace image"
 msgstr ""
 
-#: assets/build/i18n-strings.js:420
+#: assets/build/i18n-strings.js:421
 msgid "Request failed."
 msgstr ""
 
-#: assets/build/i18n-strings.js:421
+#: assets/build/i18n-strings.js:422
 msgid "Require an achievement or level first"
 msgstr ""
 
-#: assets/build/i18n-strings.js:422
+#: assets/build/i18n-strings.js:423
 msgid "required"
 msgstr ""
 
-#: assets/build/i18n-strings.js:423
+#: assets/build/i18n-strings.js:424
 msgid "Required Achievements"
 msgstr ""
 
-#: assets/build/i18n-strings.js:424
+#: assets/build/i18n-strings.js:425
 msgid "Required Levels"
 msgstr ""
 
-#: assets/build/i18n-strings.js:425
+#: assets/build/i18n-strings.js:426
 msgid "Requires:"
 msgstr ""
 
-#: assets/build/i18n-strings.js:426
+#: assets/build/i18n-strings.js:427
 msgid "Restore"
 msgstr ""
 
-#: assets/build/i18n-strings.js:427
+#: assets/build/i18n-strings.js:428
 msgid "Restore selected items?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:429
+#: assets/build/i18n-strings.js:430
 msgid "Restrict content using points gameengine"
 msgstr ""
 
-#: assets/build/i18n-strings.js:430
+#: assets/build/i18n-strings.js:431
 msgid "Restrict unlock"
 msgstr ""
 
-#: assets/build/i18n-strings.js:432
+#: assets/build/i18n-strings.js:433
 msgid "Restriction message"
 msgstr ""
 
-#: assets/build/i18n-strings.js:433
+#: assets/build/i18n-strings.js:434
 msgid "Restriction Message"
 msgstr ""
 
-#: assets/build/i18n-strings.js:434
+#: assets/build/i18n-strings.js:435
 msgid "Reward"
 msgstr ""
 
-#: assets/build/i18n-strings.js:435
+#: assets/build/i18n-strings.js:436
 msgid "Reward learners with points, badges, and levels for course completions, lessons, and quizzes."
 msgstr ""
 
-#: assets/build/i18n-strings.js:436
+#: assets/build/i18n-strings.js:437
 msgid "Reward learners with points, badges, and levels for course progress, quizzes, and engagement. boost!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:437
+#: assets/build/i18n-strings.js:438
 msgid "Reward Title"
 msgstr ""
 
-#: assets/build/i18n-strings.js:438
+#: assets/build/i18n-strings.js:439
 msgid "Rewards Catalog"
 msgstr ""
 
-#: assets/build/i18n-strings.js:440
+#: assets/build/i18n-strings.js:441
 msgid "Rewards Store add-on"
 msgstr ""
 
-#: assets/build/i18n-strings.js:441
+#: assets/build/i18n-strings.js:442
 msgid "Rows per page"
 msgstr ""
 
-#: assets/build/i18n-strings.js:442
+#: assets/build/i18n-strings.js:443
 msgid "Save Changes"
 msgstr ""
 
-#: assets/build/i18n-strings.js:443
+#: assets/build/i18n-strings.js:444
 msgid "Schedule"
 msgstr ""
 
-#: assets/build/i18n-strings.js:444
+#: assets/build/i18n-strings.js:445
 msgid "Schedule(Optional)"
 msgstr ""
 
-#: assets/build/i18n-strings.js:445
+#: assets/build/i18n-strings.js:446
 msgid "Scheduled"
 msgstr ""
 
-#: assets/build/i18n-strings.js:446
+#: assets/build/i18n-strings.js:447
 msgid "Search by label or hook key…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:447
+#: assets/build/i18n-strings.js:448
 msgid "Search Docs"
 msgstr ""
 
-#: assets/build/i18n-strings.js:448
+#: assets/build/i18n-strings.js:449
 msgid "Search Items"
 msgstr ""
 
-#: assets/build/i18n-strings.js:449
+#: assets/build/i18n-strings.js:450
 msgid "Search member or message"
 msgstr ""
 
-#: assets/build/i18n-strings.js:450
+#: assets/build/i18n-strings.js:451
 msgid "Search Results"
 msgstr ""
 
-#: assets/build/i18n-strings.js:451
+#: assets/build/i18n-strings.js:452
 msgid "Search rewards"
 msgstr ""
 
-#: assets/build/i18n-strings.js:452
+#: assets/build/i18n-strings.js:453
 msgid "Search..."
 msgstr ""
 
-#: assets/build/i18n-strings.js:453
+#: assets/build/i18n-strings.js:454
 msgid "Season"
 msgstr ""
 
-#: assets/build/i18n-strings.js:454
+#: assets/build/i18n-strings.js:455
 msgid "Select a badge image"
 msgstr ""
 
-#: assets/build/i18n-strings.js:455
+#: assets/build/i18n-strings.js:456
 msgid "Select an image"
 msgstr ""
 
-#: assets/build/i18n-strings.js:456
+#: assets/build/i18n-strings.js:457
 msgid "Select Level Logo"
 msgstr ""
 
-#: assets/build/i18n-strings.js:457
+#: assets/build/i18n-strings.js:458
 msgid "Select point type…"
 msgstr ""
 
-#: assets/build/i18n-strings.js:458
+#: assets/build/i18n-strings.js:459
 msgid "Select your created types for achivement."
 msgstr ""
 
-#: assets/build/i18n-strings.js:459
+#: assets/build/i18n-strings.js:460
 msgid "Select your created types for Level."
 msgstr ""
 
-#: assets/build/i18n-strings.js:460
+#: assets/build/i18n-strings.js:461
 msgid "Select..."
 msgstr ""
 
-#: assets/build/i18n-strings.js:461
+#: assets/build/i18n-strings.js:462
 msgid "Sent every multiple of 500 points."
 msgstr ""
 
-#: assets/build/i18n-strings.js:462
+#: assets/build/i18n-strings.js:463
 msgid "Sent when a user has been inactive."
 msgstr ""
 
-#: assets/build/i18n-strings.js:463
+#: assets/build/i18n-strings.js:464
 msgid "Sent when a user reaches a new level."
 msgstr ""
 
-#: assets/build/i18n-strings.js:464
+#: assets/build/i18n-strings.js:465
 msgid "Sent when a user unlocks a new achievement."
 msgstr ""
 
-#: assets/build/i18n-strings.js:466
+#: assets/build/i18n-strings.js:467
 msgid "Setup Wizard"
 msgstr ""
 
-#: assets/build/i18n-strings.js:467
+#: assets/build/i18n-strings.js:468
 msgid "Setup Your GameEngine"
 msgstr ""
 
-#: assets/build/i18n-strings.js:468
+#: assets/build/i18n-strings.js:469
 msgid "Shape"
 msgstr ""
 
-#: assets/build/i18n-strings.js:470
+#: assets/build/i18n-strings.js:471
 msgid "Shield"
 msgstr ""
 
-#: assets/build/i18n-strings.js:471
+#: assets/build/i18n-strings.js:472
 msgid "Shortcodes"
 msgstr ""
 
-#: assets/build/i18n-strings.js:472
+#: assets/build/i18n-strings.js:473
 msgid "Show a season's standings instead of the live board. Requires Pro."
 msgstr ""
 
 #. translators: %1$s: Item showing, %2$s: totalItems
-#: assets/build/i18n-strings.js:474
+#: assets/build/i18n-strings.js:475
 #, js-format
 msgid "Showing result %1$s out of %2$s"
 msgstr ""
 
-#: assets/build/i18n-strings.js:475
+#: assets/build/i18n-strings.js:476
 msgid "Shown to members who do not qualify yet."
 msgstr ""
 
-#: assets/build/i18n-strings.js:476
+#: assets/build/i18n-strings.js:477
 msgid "Shown to users in the store."
 msgstr ""
 
-#: assets/build/i18n-strings.js:477
+#: assets/build/i18n-strings.js:478
 msgid "Shown when this achievement is shared (social preview text)."
 msgstr ""
 
-#: assets/build/i18n-strings.js:478
+#: assets/build/i18n-strings.js:479
 msgid "Shows badges, titles and the unlock hint for anything not yet earned. Renders nothing for logged-out visitors."
 msgstr ""
 
-#: assets/build/i18n-strings.js:479
+#: assets/build/i18n-strings.js:480
 msgid "Shows each reward's cost, stock and a Redeem button. Takes no attributes — the catalog is managed under Rewards Store."
 msgstr ""
 
-#: assets/build/i18n-strings.js:480
+#: assets/build/i18n-strings.js:481
 msgid "Shows the logged-in member's total points balance."
 msgstr ""
 
-#: assets/build/i18n-strings.js:481
+#: assets/build/i18n-strings.js:482
 msgid "Simply drag a hook from the list on the left and drop it here. You can reorder the hooks by dragging them up or down."
 msgstr ""
 
-#: assets/build/i18n-strings.js:482
+#: assets/build/i18n-strings.js:483
 msgid "Skip This Step"
 msgstr ""
 
-#: assets/build/i18n-strings.js:483
+#: assets/build/i18n-strings.js:484
 msgid "Skipped:"
 msgstr ""
 
-#: assets/build/i18n-strings.js:484
+#: assets/build/i18n-strings.js:485
 msgid "Slug"
 msgstr ""
 
-#: assets/build/i18n-strings.js:485
+#: assets/build/i18n-strings.js:486
 msgid "Small screen"
 msgstr ""
 
-#: assets/build/i18n-strings.js:486
+#: assets/build/i18n-strings.js:487
 msgid "Smart banners"
 msgstr ""
 
-#: assets/build/i18n-strings.js:487
+#: assets/build/i18n-strings.js:488
 msgid "Smart dashboard"
 msgstr ""
 
-#: assets/build/i18n-strings.js:488
+#: assets/build/i18n-strings.js:489
 msgid "Social Sharing"
 msgstr ""
 
-#: assets/build/i18n-strings.js:489
+#: assets/build/i18n-strings.js:490
 msgid "Square"
 msgstr ""
 
-#: assets/build/i18n-strings.js:490
+#: assets/build/i18n-strings.js:491
 msgid "Status"
 msgstr ""
 
-#: assets/build/i18n-strings.js:491
+#: assets/build/i18n-strings.js:492
 msgid "Stock"
 msgstr ""
 
-#: assets/build/i18n-strings.js:493
+#: assets/build/i18n-strings.js:494
 msgid "StoreEngine Integration"
 msgstr ""
 
-#: assets/build/i18n-strings.js:494
+#: assets/build/i18n-strings.js:495
 msgid "Subject:"
 msgstr ""
 
-#: assets/build/i18n-strings.js:495
+#: assets/build/i18n-strings.js:496
 msgid "Switch to dark mode"
 msgstr ""
 
-#: assets/build/i18n-strings.js:496
+#: assets/build/i18n-strings.js:497
 msgid "Switch to light mode"
 msgstr ""
 
-#: assets/build/i18n-strings.js:497
+#: assets/build/i18n-strings.js:498
 msgid "Template Preview"
 msgstr ""
 
-#: assets/build/i18n-strings.js:498
+#: assets/build/i18n-strings.js:499
 msgid "The common name for all outgoing emails."
 msgstr ""
 
-#: assets/build/i18n-strings.js:499
+#: assets/build/i18n-strings.js:500
 msgid "The following hooks are used for all users"
 msgstr ""
 
-#: assets/build/i18n-strings.js:500
+#: assets/build/i18n-strings.js:501
 msgid "The full member dashboard: points, level, achievements and streaks."
 msgstr ""
 
-#: assets/build/i18n-strings.js:501
+#: assets/build/i18n-strings.js:502
 msgid "The level roadmap, with the member's current position marked."
 msgstr ""
 
-#: assets/build/i18n-strings.js:502
+#: assets/build/i18n-strings.js:503
 msgid "The points needed, or the ID of the achievement or level."
 msgstr ""
 
-#: assets/build/i18n-strings.js:503
+#: assets/build/i18n-strings.js:504
 msgid "The Shield shape is clipped to its outline, so it has no border."
 msgstr ""
 
-#: assets/build/i18n-strings.js:504
+#: assets/build/i18n-strings.js:505
 msgid "These are all WordPress action hooks that GameEngine listens to. Developers can copy a hook key and use it as a trigger in Points, Achievements, or Levels rules to award points when that action fires."
 msgstr ""
 
-#: assets/build/i18n-strings.js:505
+#: assets/build/i18n-strings.js:506
 msgid "This demo gamification is for preview only no real rewards applied"
 msgstr ""
 
-#: assets/build/i18n-strings.js:506
+#: assets/build/i18n-strings.js:507
 msgid "Time restricted rewards"
 msgstr ""
 
-#: assets/build/i18n-strings.js:507
+#: assets/build/i18n-strings.js:508
 msgid "Tints the icon."
 msgstr ""
 
-#: assets/build/i18n-strings.js:508
+#: assets/build/i18n-strings.js:509
 msgid "To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back."
 msgstr ""
 
-#: assets/build/i18n-strings.js:510
+#: assets/build/i18n-strings.js:511
 msgid "Top 5 Users"
 msgstr ""
 
-#: assets/build/i18n-strings.js:511
+#: assets/build/i18n-strings.js:512
 msgid "Trash"
 msgstr ""
 
-#: assets/build/i18n-strings.js:512
+#: assets/build/i18n-strings.js:513
 msgid "Turn it on"
 msgstr ""
 
-#: assets/build/i18n-strings.js:513
+#: assets/build/i18n-strings.js:514
 msgid "Turn the Progress Map add-on on first, or the shortcode says so instead of rendering."
 msgstr ""
 
-#: assets/build/i18n-strings.js:515
+#: assets/build/i18n-strings.js:516
 msgid "Tutor LMS Integration"
 msgstr ""
 
-#: assets/build/i18n-strings.js:516
+#: assets/build/i18n-strings.js:517
 msgid "Type"
 msgstr ""
 
-#: assets/build/i18n-strings.js:518
+#: assets/build/i18n-strings.js:519
 msgid "Unknown"
 msgstr ""
 
-#: assets/build/i18n-strings.js:520
+#: assets/build/i18n-strings.js:521
 msgid "Unlock content, levels, or rewards only when users complete goals or achievements earned progress!!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:521
+#: assets/build/i18n-strings.js:522
 msgid "Unlock Criteria"
 msgstr ""
 
-#: assets/build/i18n-strings.js:522
+#: assets/build/i18n-strings.js:523
 msgid "Untitled"
 msgstr ""
 
-#: assets/build/i18n-strings.js:523
+#: assets/build/i18n-strings.js:524
 msgid "Update"
 msgstr ""
 
-#: assets/build/i18n-strings.js:524
+#: assets/build/i18n-strings.js:525
 msgid "Update Badge"
 msgstr ""
 
-#: assets/build/i18n-strings.js:525
+#: assets/build/i18n-strings.js:526
 msgid "Update Log"
 msgstr ""
 
-#: assets/build/i18n-strings.js:526
+#: assets/build/i18n-strings.js:527
 msgid "Update Point System"
 msgstr ""
 
-#: assets/build/i18n-strings.js:527
+#: assets/build/i18n-strings.js:528
 msgid "Update Reward"
 msgstr ""
 
-#: assets/build/i18n-strings.js:528
+#: assets/build/i18n-strings.js:529
 msgid "Upload a CSV or JSON file exported from GameEngine. Limited to 1,000 rows per import."
 msgstr ""
 
-#: assets/build/i18n-strings.js:529
+#: assets/build/i18n-strings.js:530
 msgid "Upload an image or pick a built-in icon. With neither, the badge shows the first letter of its title."
 msgstr ""
 
-#: assets/build/i18n-strings.js:530
+#: assets/build/i18n-strings.js:531
 msgid "Upload an image, or pick one of the built-in icons."
 msgstr ""
 
-#: assets/build/i18n-strings.js:531
+#: assets/build/i18n-strings.js:532
 msgid "Upload image"
 msgstr ""
 
-#: assets/build/i18n-strings.js:532
+#: assets/build/i18n-strings.js:533
 msgid "Use a hex value"
 msgstr ""
 
-#: assets/build/i18n-strings.js:533
+#: assets/build/i18n-strings.js:534
 msgid "Use this image"
 msgstr ""
 
-#: assets/build/i18n-strings.js:535
+#: assets/build/i18n-strings.js:536
 msgid "User Achievements"
 msgstr ""
 
-#: assets/build/i18n-strings.js:536
+#: assets/build/i18n-strings.js:537
 msgid "User ID is required!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:537
+#: assets/build/i18n-strings.js:538
 msgid "User Levels"
 msgstr ""
 
-#: assets/build/i18n-strings.js:538
+#: assets/build/i18n-strings.js:539
 msgid "User Name"
 msgstr ""
 
-#: assets/build/i18n-strings.js:539
+#: assets/build/i18n-strings.js:540
 msgid "User Points"
 msgstr ""
 
-#: assets/build/i18n-strings.js:540
+#: assets/build/i18n-strings.js:541
 msgid "User:"
 msgstr ""
 
-#: assets/build/i18n-strings.js:541
+#: assets/build/i18n-strings.js:542
 msgid "View All"
 msgstr ""
 
-#: assets/build/i18n-strings.js:542
+#: assets/build/i18n-strings.js:543
 msgid "Visit Website"
 msgstr ""
 
-#: assets/build/i18n-strings.js:543
+#: assets/build/i18n-strings.js:544
 msgid "Visualize user progress with maps showing completed tasks, paths, milestones, and rewards. gamified!"
 msgstr ""
 
-#: assets/build/i18n-strings.js:544
+#: assets/build/i18n-strings.js:545
 msgid "Want to quickly get started by importing a default achievements currency and login rewards?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:545
+#: assets/build/i18n-strings.js:546
 msgid "Want to quickly get started by importing a default levels currency and login rewards?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:546
+#: assets/build/i18n-strings.js:547
 msgid "Want to quickly get started by importing a default XP currency and login rewards?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:547
+#: assets/build/i18n-strings.js:548
 msgid "Wc points gateway"
 msgstr ""
 
-#: assets/build/i18n-strings.js:548
+#: assets/build/i18n-strings.js:549
 msgid "Welcome to GameEngine 👋"
 msgstr ""
 
-#: assets/build/i18n-strings.js:549
+#: assets/build/i18n-strings.js:550
 msgid "What best describes your Needs?"
 msgstr ""
 
-#: assets/build/i18n-strings.js:550
+#: assets/build/i18n-strings.js:551
 msgid "What to check: points, achievement or level."
 msgstr ""
 
-#: assets/build/i18n-strings.js:551
+#: assets/build/i18n-strings.js:552
 msgid "When"
 msgstr ""
 
-#: assets/build/i18n-strings.js:552
-msgid "Whose progress to show."
+#: assets/build/i18n-strings.js:553
+msgid "When GameEngine is deleted from the Plugins screen, permanently remove its point types, achievements, levels, member progress, logs and settings, and GameEngine Pro's data as well. Leave this off to keep everything for a reinstall."
 msgstr ""
 
 #: assets/build/i18n-strings.js:554
-msgid "Woocommerce integration"
-msgstr ""
-
-#: assets/build/i18n-strings.js:555
-msgid "WooCommerce Integration"
+msgid "Whose progress to show."
 msgstr ""
 
 #: assets/build/i18n-strings.js:556
-msgid "Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead."
+msgid "Woocommerce integration"
 msgstr ""
 
 #: assets/build/i18n-strings.js:557
-msgid "You are just a few clicks away from transforming your website into a powerful e-commerce platform."
+msgid "WooCommerce Integration"
 msgstr ""
 
 #: assets/build/i18n-strings.js:558
-msgid "You can always run the setup wizard again later from the GameEngine Tools."
+msgid "Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead."
 msgstr ""
 
 #: assets/build/i18n-strings.js:559
+msgid "You are just a few clicks away from turning activity on your site into points, achievements and levels."
+msgstr ""
+
+#: assets/build/i18n-strings.js:560
+msgid "You can always run the setup wizard again later from the GameEngine Tools."
+msgstr ""
+
+#: assets/build/i18n-strings.js:561
 msgid "Your GameEngine is ready to launch"
 msgstr ""

@@ -153,6 +153,7 @@
 	__( "d ago", "gameengine" );
 	__( "Daily Digest", "gameengine" );
 	__( "Dashboard", "gameengine" );
+	__( "Data", "gameengine" );
 	__( "Data Type", "gameengine" );
 	__( "Date", "gameengine" );
 	__( "Deduct Actions", "gameengine" );
@@ -161,6 +162,7 @@
 	__( "Deduction Log Description", "gameengine" );
 	__( "Default Email Content", "gameengine" );
 	__( "Delete", "gameengine" );
+	__( "Delete all data when GameEngine is deleted", "gameengine" );
 	__( "Delete badge", "gameengine" );
 	__( "Delete Permanently", "gameengine" );
 	__( "Delete permanently? This cannot be undone.", "gameengine" );
@@ -398,7 +400,6 @@
 	__( "Points to Deduct", "gameengine" );
 	__( "Preview", "gameengine" );
 	__( "Private", "gameengine" );
-	__( "Process to Next", "gameengine" );
 	__( "Processing", "gameengine" );
 	__( "Product ID", "gameengine" );
 	__( "Profile Dashboard", "gameengine" );
@@ -549,12 +550,13 @@
 	__( "What best describes your Needs?", "gameengine" );
 	__( "What to check: points, achievement or level.", "gameengine" );
 	__( "When", "gameengine" );
+	__( "When GameEngine is deleted from the Plugins screen, permanently remove its point types, achievements, levels, member progress, logs and settings, and GameEngine Pro's data as well. Leave this off to keep everything for a reinstall.", "gameengine" );
 	__( "Whose progress to show.", "gameengine" );
 	__( "WooCommerce", "gameengine" );
 	__( "Woocommerce integration", "gameengine" );
 	__( "WooCommerce Integration", "gameengine" );
 	__( "Wraps content, so it needs a closing tag. Anyone who does not qualify sees your message instead.", "gameengine" );
-	__( "You are just a few clicks away from transforming your website into a powerful e-commerce platform.", "gameengine" );
+	__( "You are just a few clicks away from turning activity on your site into points, achievements and levels.", "gameengine" );
 	__( "You can always run the setup wizard again later from the GameEngine Tools.", "gameengine" );
 	__( "Your GameEngine is ready to launch", "gameengine" );
 } );
