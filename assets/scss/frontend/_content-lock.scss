@@ -70,6 +70,18 @@
     margin-top: 10px;
 }
 
+// Unlocked [gameengine_restrict] content is the site's own, so it takes no
+// GameEngine styles. A snippet without paragraphs comes as a <span>: a block
+// when it stands alone, so a block theme lines it up with the content column,
+// and inline inside a sentence.
+span.gameengine-restricted-content {
+    display: block;
+}
+
+:is(p, li, dt, dd, td, th, h1, h2, h3, h4, h5, h6, figcaption, label, a, span, strong, em, b, i, small) > span.gameengine-restricted-content {
+    display: inline;
+}
+
 .gameengine-ui.gameengine-link-lock {
     align-items: center;
     background: var(--gameengine-ui-surface-muted);
