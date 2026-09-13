@@ -192,7 +192,7 @@ const FormInner = () => {
     const config = hookCategoryIconMap[slug] || UNKNOWN_INTEGRATION_ICON;
 
     return (
-      <DraggableItem key={item.id} id={item.id}>
+      <DraggableItem key={item.id} id={item.id} onActivate={() => handleDragEnd({ active: { id: item.id }, over: { id: 'awards-sidebar' } })}>
         <div className="flex flex-col gap-1.5">
           <div className="flex justify-between items-center rounded [border:1px_solid_var(--gameengine-border-color)]" style={{
             "padding": "10px 16px"
@@ -455,6 +455,11 @@ const FormInner = () => {
 
           <GameEngineInput label={__("Choose the Points Type", "gameengine")} width="calc((100% / 3) - 6px)">
             <Select className="gameengine-select" classNamePrefix="gameengine-select" placeholder="Choose one" options={pointTypeOptions} value={pointTypeOptions?.find(opt => opt.value == values.point_type_id)} onChange={sel => setFieldValue('point_type_id', sel.value)} menuPlacement="top" />
+            {!pointTypeOptions?.length && (
+              <a className="inline-block mt-1 text-xs text-[var(--gameengine-primary)]" href={admin_url + 'admin.php?page=gameengine-points&path=points-types'}>
+                {__('No point types yet. Create one', 'gameengine')}
+              </a>
+            )}
           </GameEngineInput>
         </div>
       ) : (

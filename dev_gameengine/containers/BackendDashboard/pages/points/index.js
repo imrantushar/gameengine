@@ -48,7 +48,7 @@ const Points = () => {
       />
 
       <div className='gameengine-page-content'>
-        {listLoaded && pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point system found.", 'gameengine')} subtitle={__("Want to quickly get started by importing a default XP currency and login rewards?", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
+        {listLoaded && pointTypes.length === 0 && banners?.points !== 'yes' && <ImportDemoBanner title={__("No point types yet.", 'gameengine')} subtitle={__("Points are what members earn for activity on your site. Import Author Points, which awards 10 points each time someone publishes a post, or create your own.", 'gameengine')} handleImport={importHandler} handleClose={closeHandler} />}
         <div className="flex justify-between items-center py-6 px-1">
           <h2 className="gameengine-page-heading">
             {__("Point System", "gameengine")}

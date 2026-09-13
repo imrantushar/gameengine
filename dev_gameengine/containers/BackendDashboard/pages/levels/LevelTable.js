@@ -448,8 +448,8 @@ const LevelTable = () => {
         banners?.levels !== 'yes' &&
         tableStats === 'all' && (
           <ImportDemoBanner
-            title={__("No levels found.", 'gameengine')}
-            subtitle={__("Want to quickly get started by importing a default levels currency and login rewards?", 'gameengine')}
+            title={__("No levels yet.", 'gameengine')}
+            subtitle={__("Levels are ranks members move up through as their points grow. Import four starter levels, from 0 to 5,000 points, or create your own.", 'gameengine')}
             handleImport={importHandler}
             handleClose={closeHandler}
           />

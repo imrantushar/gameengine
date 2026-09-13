@@ -13,8 +13,12 @@ import { pointerWithin, rectIntersection, useDraggable } from '@dnd-kit/core';
  *
  * `children` rides along in the drag data so the overlay can render the exact
  * card being dragged without the caller having to plumb it through.
+ *
+ * `onActivate` adds the card without dragging it, on a click or Enter/Space: a
+ * drag moves further than the pointer sensor's activation distance, so it never
+ * counts as a click.
  */
-export const DraggableItem = ({ id, children }) => {
+export const DraggableItem = ({ id, children, onActivate }) => {
 	const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
 		id,
 		data: { preview: children },
@@ -26,6 +30,17 @@ export const DraggableItem = ({ id, children }) => {
 			className={`gameengine-draggable-hook${isDragging ? ' is-dragging' : ''}`}
 			{...listeners}
 			{...attributes}
+			onClick={onActivate}
+			onKeyDown={
+				onActivate
+					? (event) => {
+						if (event.key === 'Enter' || event.key === ' ') {
+							event.preventDefault();
+							onActivate();
+						}
+					}
+					: undefined
+			}
 		>
 			{children}
 		</div>

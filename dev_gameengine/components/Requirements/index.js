@@ -104,7 +104,7 @@ const Requirements = props => {
           <div className={`${`${childLeft + " " + "flex flex-col"} w-1/2 rounded gap-6 [padding:24px_24px_0_24px]`} [box-shadow:var(--gameengine-shadow)]`}>
             <div className="flex flex-col gap-1">
               <GFLabel type="plainHeading" margin={0} label={__("Available Hooks", "gameengine")} />
-              <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("To active a hook drag it to a sidebar or click on it. To deactivate a hook and delete its settings, drag it back.", "gameengine")} />
+              <GFLabel type="subtitle" color="var(--gameengine-font-color)" label={__("Click a hook, or drag it to Active Hooks, to add it. Drag it back to remove it and its settings.", "gameengine")} />
             </div>
 
             <div className="flex items-center relative gameengine-border-bottom">

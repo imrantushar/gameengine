@@ -16,9 +16,9 @@ const ImportDemoBanner = ({
       <GFLabel type='simpleHeading' label={title} margin={'0 0 6px 0'} fontSize={'20px'} lineHeight={'30px'} />
       <GFLabel type='simple' label={subtitle} margin={'0 0 16px 0'} fontSize={'16px'} lineHeight={'24px'} />
       <div className="flex gap-3">
-        <Button label={__("Import Default Data", 'gameengine')} onClick={handleImport} />
+        <Button label={__("Import starter data", 'gameengine')} onClick={handleImport} />
         <button className="py-2 px-4 [border:1px_solid_#CBD1D7]" style={outlineBtn} onClick={handleClose}>
-          {__("No, Thanks!", 'gameengine')}
+          {__("No, thanks", 'gameengine')}
         </button>
       </div>
     </div>;
