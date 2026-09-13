@@ -1,8 +1,17 @@
-
 import './../assets/scss/frontend.scss';
 
-import { initGameEngineTabs } from './frontend/tabs';
+import { initTabs } from './frontend/tabs';
+import { initRewards } from './frontend/rewards';
+import { initShare } from './frontend/share';
 
-document.addEventListener('DOMContentLoaded', () => {
-    initGameEngineTabs();
-});
+const init = () => {
+    initTabs();
+    initRewards();
+    initShare();
+};
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}

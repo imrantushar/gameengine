@@ -15,6 +15,7 @@ import ToggleField from "@GFComponents/ToggleField";
 import { useFormikContext } from "formik";
 import { admin_url, API, getAddonActiveStatus, integrationLabel, namespace } from "@GFUtils/helper";
 import { fetchBadges } from '@GFRedux/Slices/badgesSlice/badgesSlice';
+import { BadgeGlyph } from '../../badges/helper';
 import Requirements from "@GFComponents/Requirements";
 import { DraggableItem, hookCollisionDetection, insertAt } from "@GFComponents/Requirements/helper";
 import DragPreview from "@GFComponents/Requirements/DragPreview";
@@ -45,7 +46,7 @@ const FormInner = () => {
   const {
     availablePointTypes
   } = useSelector(state => state.achievements);
-  const { items: badges } = useSelector(state => state.badges || { items: [] });
+  const { items: badges, status: badgesStatus } = useSelector(state => state.badges || { items: [], status: 'idle' });
   const isRestrictContentActive = getAddonActiveStatus(addons, 'restrict_unlock');
   const isWoocommerceActive = getAddonActiveStatus(addons, 'woocommerce');
   const isAcademyActive = getAddonActiveStatus(addons, 'academylms');
@@ -122,9 +123,7 @@ const FormInner = () => {
       fetchLevels();
     }
     fetchAcheivementTypes();
-    if (dispatch && badges.length === 0) {
-      dispatch(fetchBadges());
-    }
+    dispatch(fetchBadges());
   }, [isRestrictContentActive]);
 
   // Seasons are a Pro feature. An empty list — because Pro is inactive or
@@ -428,9 +427,15 @@ const FormInner = () => {
         </GameEngineInput>
       )}
 
-      {badges.length > 0 && (
+      {(badges.length > 0 || badgesStatus === 'loading') && (
         <div className="flex flex-col gap-2">
           <GFLabel type="input" label={__("Badge (optional)", "gameengine")} />
+
+          {badgesStatus === 'loading' ? (
+            <span className="text-sm" style={{ color: 'var(--gameengine-warn-muted)' }}>
+              {__('Loading badges…', 'gameengine')}
+            </span>
+          ) : (
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             <div
               onClick={() => setFieldValue('badge_id', null)}
@@ -465,22 +470,34 @@ const FormInner = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: badge.color || '#6c5ce7',
-                  overflow: 'hidden',
+                  boxSizing: 'border-box',
                   boxShadow: Number(values.badge_id) === Number(badge.id) ? '0 0 0 3px rgba(108,92,231,0.25)' : 'none',
                   transition: 'box-shadow 0.15s',
                 }}
               >
-                {badge.icon ? (
-                  <img src={badge.icon} alt={badge.title} style={{ width: '32px', height: '32px', objectFit: 'contain' }} />
-                ) : (
-                  <span style={{ color: '#fff', fontWeight: '700', fontSize: '18px' }}>
-                    {(badge.title || '?').charAt(0).toUpperCase()}
-                  </span>
-                )}
+                <BadgeGlyph badge={badge} size={44} />
               </div>
             ))}
           </div>
+          )}
+        </div>
+      )}
+
+      {badgesStatus !== 'loading' && badges.length === 0 && (
+        <div className="flex flex-col gap-2">
+          <GFLabel type="input" label={__("Badge (optional)", "gameengine")} />
+          <span className="text-sm" style={{ color: 'var(--gameengine-warn-muted)' }}>
+            {__("No badges yet.", "gameengine")}{' '}
+            <Link
+              to={admin_url + 'admin.php?page=gameengine-badge-editor&action=new'}
+              target="_blank"
+              className="inline-flex items-center gap-1"
+              style={{ color: 'var(--gameengine-primary)' }}
+            >
+              {__("Create one", "gameengine")}
+              <LuExternalLink size="12px" />
+            </Link>
+          </span>
         </div>
       )}
 

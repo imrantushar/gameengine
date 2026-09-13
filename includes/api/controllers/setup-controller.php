@@ -393,6 +393,7 @@ class SetupController extends BaseController
                         "{$wpdb->prefix}gameengine_achievements",
                         array(
                             'title'                      => $ach_title,
+                            'slug'                       => $this->unique_slug('gameengine_achievements', $ach_title, 'achievement'),
                             'plural_name'                => $ach_title . 's',
                             'category'                   => absint($tid),
                             'status'                     => 'publish',
@@ -452,6 +453,7 @@ class SetupController extends BaseController
                     "{$wpdb->prefix}gameengine_levels",
                     array(
                         'title'                      => $lvl_title,
+                        'slug'                       => $this->unique_slug('gameengine_levels', $lvl_title, 'level'),
                         'plural_name'                => $lvl_title . 's',
                         'category'                   => absint($tid),
                         'min_points'                 => $range[0],
@@ -545,6 +547,36 @@ class SetupController extends BaseController
                 'created_at'  => current_time('mysql'),
             )
         );
+    }
+
+    /**
+     * A slug from the title that no other row in the table uses.
+     *
+     * Share links point at an achievement's slug, so a starter achievement
+     * saved without one had no Share button.
+     *
+     * @param string $table  Table name without the prefix.
+     * @param string $title  Row title.
+     * @param string $prefix Slug stem for a title that gives none.
+     * @return string
+     */
+    private function unique_slug($table, $title, $prefix)
+    {
+        global $wpdb;
+
+        $base = sanitize_title($title);
+        if ('' === $base) {
+            $base = $prefix;
+        }
+
+        $slug = $base;
+        $i    = 1;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- One-off lookup during the setup wizard.
+        while ($wpdb->get_var($wpdb->prepare("SELECT id FROM {$wpdb->prefix}{$table} WHERE slug = %s", $slug))) {
+            $slug = $base . '-' . $i++;
+        }
+
+        return $slug;
     }
 
     /**

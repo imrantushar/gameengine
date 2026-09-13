@@ -29,6 +29,7 @@ class Leaderboard
      */
     public function render_view($atts)
     {
+        \GameEngine\Assets::enqueue_frontend();
 
         $args = shortcode_atts(
             array(

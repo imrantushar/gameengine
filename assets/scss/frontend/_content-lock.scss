@@ -1,0 +1,164 @@
+// Inline points balance ([gameengine_points]), the Restrict Content lock
+// box and hidden-link chip, and the Academy "GameEngine Unlock" course card.
+
+// Inline balance
+.gameengine-ui.gameengine-points {
+    align-items: center;
+    background: var(--gameengine-ui-points-soft);
+    border-radius: 999px;
+    color: var(--gameengine-ui-points);
+    display: inline-flex;
+    font-size: 0.875em;
+    font-weight: 600;
+    gap: 0.35em;
+    line-height: 1.4;
+    padding: 0.15em 0.6em;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.gameengine-ui.gameengine-points .gameengine-points__value {
+    font-variant-numeric: tabular-nums;
+}
+
+// Locked content
+.gameengine-ui.gameengine-restriction {
+    align-items: flex-start;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    box-shadow: var(--gameengine-ui-shadow);
+    display: flex;
+    gap: 14px;
+    margin-block: 1.5rem;
+    padding: 18px 20px;
+}
+
+.gameengine-ui .gameengine-restriction__icon {
+    align-items: center;
+    background: var(--gameengine-ui-surface-muted);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: 10px;
+    color: var(--gameengine-ui-heading);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.25rem;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.gameengine-ui .gameengine-restriction__body {
+    display: grid;
+    flex: 1;
+    gap: 2px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-restriction__title {
+    color: var(--gameengine-ui-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.gameengine-ui .gameengine-restriction__message {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.875rem;
+}
+
+.gameengine-ui .gameengine-restriction__actions {
+    margin-top: 10px;
+}
+
+// Unlocked [gameengine_restrict] content is the site's own, so it takes no
+// GameEngine styles. A snippet without paragraphs comes as a <span>: a block
+// when it stands alone, so a block theme lines it up with the content column,
+// and inline inside a sentence.
+span.gameengine-restricted-content {
+    display: block;
+}
+
+:is(p, li, dt, dd, td, th, h1, h2, h3, h4, h5, h6, figcaption, label, a, span, strong, em, b, i, small) > span.gameengine-restricted-content {
+    display: inline;
+}
+
+.gameengine-ui.gameengine-link-lock {
+    align-items: center;
+    background: var(--gameengine-ui-surface-muted);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: 999px;
+    color: var(--gameengine-ui-muted);
+    display: inline-flex;
+    font-size: 0.8125em;
+    font-weight: 500;
+    gap: 0.35em;
+    line-height: 1.4;
+    padding: 0.1em 0.55em;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+// Academy course unlock card
+.gameengine-ui.gameengine-course-lock {
+    align-items: flex-start;
+    background: var(--gameengine-ui-surface-muted);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius-sm);
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+}
+
+.gameengine-ui .gameengine-course-lock__icon {
+    color: var(--gameengine-ui-heading);
+    flex: none;
+    font-size: 1.25rem;
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.gameengine-ui .gameengine-course-lock__body {
+    display: grid;
+    flex: 1;
+    gap: 10px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-course-lock__title {
+    color: var(--gameengine-ui-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+}
+
+.gameengine-ui .gameengine-course-lock__rules {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gameengine-ui .gameengine-course-lock__rule {
+    align-items: center;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: 999px;
+    color: var(--gameengine-ui-heading);
+    display: inline-flex;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    gap: 6px;
+    line-height: 1.4;
+    padding: 4px 10px;
+}
+
+.gameengine-ui .gameengine-course-lock__rule .gameengine-icon {
+    color: var(--gameengine-ui-muted);
+}
+
+.gameengine-ui .gameengine-course-lock__joiner {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}

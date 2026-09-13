@@ -408,7 +408,7 @@ const FormInner = () => {
         <div className="flex flex-wrap items-start gap-6">
           <GameEngineInput
             label={__("Icon", "gameengine")}
-            width="auto"
+            width="100%"
             desc={__("Upload an image, or pick one of the built-in icons.", "gameengine")}
           >
             <DashiconPicker

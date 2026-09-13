@@ -1,0 +1,119 @@
+// [gameengine_leaderboard]: ranked member rows.
+
+.gameengine-ui .gameengine-leaderboard__list {
+    display: grid;
+    gap: 2px;
+    padding: 8px;
+}
+
+.gameengine-ui .gameengine-leaderboard__row {
+    align-items: center;
+    border-radius: var(--gameengine-ui-radius-sm);
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 28px 40px minmax(0, 1fr) auto;
+    padding: 10px 12px;
+    transition: background-color 0.15s ease;
+}
+
+.gameengine-ui .gameengine-leaderboard__row:hover {
+    background: var(--gameengine-ui-surface-muted);
+}
+
+.gameengine-ui .gameengine-leaderboard__row--you,
+.gameengine-ui .gameengine-leaderboard__row--you:hover {
+    background: var(--gameengine-ui-primary-soft);
+}
+
+.gameengine-ui .gameengine-leaderboard__rank {
+    align-items: center;
+    background: var(--gameengine-ui-surface-muted);
+    border-radius: 999px;
+    color: var(--gameengine-ui-muted);
+    display: inline-flex;
+    font-size: 0.8125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    height: 28px;
+    justify-content: center;
+    width: 28px;
+}
+
+.gameengine-ui .gameengine-leaderboard__row--first .gameengine-leaderboard__rank {
+    background: #fdf1c9;
+    color: #8a5d00;
+}
+
+.gameengine-ui .gameengine-leaderboard__row--second .gameengine-leaderboard__rank {
+    background: #e9edf2;
+    color: #4d5866;
+}
+
+.gameengine-ui .gameengine-leaderboard__row--third .gameengine-leaderboard__rank {
+    background: #f6e5d6;
+    color: #87461a;
+}
+
+.gameengine-ui .gameengine-leaderboard__member {
+    display: grid;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-leaderboard__name {
+    align-items: center;
+    color: var(--gameengine-ui-heading);
+    display: flex;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    gap: 6px;
+    line-height: 1.4;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-leaderboard__name-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-leaderboard__level {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-leaderboard__points {
+    color: var(--gameengine-ui-heading);
+    font-size: 0.9375rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    text-align: end;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-leaderboard__points-unit {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-inline-start: 3px;
+}
+
+@media (max-width: 480px) {
+    .gameengine-ui .gameengine-leaderboard__list {
+        padding: 6px;
+    }
+
+    .gameengine-ui .gameengine-leaderboard__row {
+        gap: 10px;
+        grid-template-columns: 28px 32px minmax(0, 1fr) auto;
+        padding: 10px 8px;
+    }
+
+    .gameengine-ui .gameengine-leaderboard__row .gameengine-avatar {
+        height: 32px;
+        width: 32px;
+    }
+}

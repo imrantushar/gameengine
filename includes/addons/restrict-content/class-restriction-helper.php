@@ -168,11 +168,20 @@ class Restriction_Helper
     public static function get_locked_ui($message, $type = '', $value = '')
     {
         $msg = ! empty($message) ? $message : self::get_default_lock_message($type, $value);
+        \GameEngine\Assets::enqueue_frontend();
         ob_start();
 ?>
-        <div class="gameengine-restriction-box">
-            <div class="gf-lock-icon" aria-hidden="true">🔒</div>
-            <p class="gf-lock-msg"><?php echo esc_html($msg); ?></p>
+        <div class="gameengine-ui gameengine-restriction" role="note">
+            <span class="gameengine-restriction__icon"><?php \GameEngine\Icons::render('lock'); ?></span>
+            <div class="gameengine-restriction__body">
+                <p class="gameengine-restriction__title"><?php esc_html_e('This content is locked', 'gameengine'); ?></p>
+                <p class="gameengine-restriction__message"><?php echo esc_html($msg); ?></p>
+                <?php if (! is_user_logged_in()) : ?>
+                    <p class="gameengine-restriction__actions">
+                        <a class="gameengine-button gameengine-button--primary gameengine-button--sm" href="<?php echo esc_url(wp_login_url((string) get_permalink())); ?>"><?php esc_html_e('Log in', 'gameengine'); ?></a>
+                    </p>
+                <?php endif; ?>
+            </div>
         </div>
 <?php
         return ob_get_clean();

@@ -1,0 +1,147 @@
+// [gameengine_profile]: member summary, tabs and streaks.
+
+.gameengine-ui.gameengine-profile {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+}
+
+.gameengine-ui .gameengine-profile__summary {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 32px;
+    justify-content: space-between;
+    padding: 20px 24px;
+}
+
+.gameengine-ui .gameengine-profile__identity {
+    align-items: center;
+    display: flex;
+    gap: 16px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-profile__name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-profile__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.gameengine-ui .gameengine-profile__level img {
+    height: 14px;
+    object-fit: contain;
+    width: 14px;
+}
+
+.gameengine-ui .gameengine-profile__level .dashicons {
+    font-size: 14px;
+    height: 14px;
+    line-height: 1;
+    width: 14px;
+}
+
+.gameengine-ui .gameengine-profile__stats {
+    display: grid;
+    gap: 8px;
+    grid-template-columns: repeat(3, minmax(104px, auto));
+    margin: 0;
+}
+
+.gameengine-ui .gameengine-profile__stat {
+    background: var(--gameengine-ui-surface-muted);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius-sm);
+    min-width: 0;
+    padding: 10px 14px;
+}
+
+.gameengine-ui .gameengine-profile__stat dt {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.gameengine-ui .gameengine-profile__stat dd {
+    color: var(--gameengine-ui-heading);
+    font-size: 1.125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    line-height: 1.35;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.gameengine-ui .gameengine-profile__stat-total {
+    color: var(--gameengine-ui-subtle);
+    font-size: 0.8125rem;
+    font-weight: 500;
+}
+
+@media (max-width: 640px) {
+    .gameengine-ui .gameengine-profile__summary {
+        padding: 16px;
+    }
+
+    .gameengine-ui .gameengine-profile__stats {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        width: 100%;
+    }
+}
+
+// Streaks tab
+.gameengine-ui .gameengine-streaks {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+}
+
+.gameengine-ui .gameengine-streak {
+    align-items: center;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    display: flex;
+    gap: 12px;
+    padding: 14px 16px;
+}
+
+.gameengine-ui .gameengine-streak__icon {
+    align-items: center;
+    background: #fff1e7;
+    border-radius: 10px;
+    color: #d9480f;
+    display: inline-flex;
+    flex: none;
+    font-size: 1.25rem;
+    height: 40px;
+    justify-content: center;
+    width: 40px;
+}
+
+.gameengine-ui .gameengine-streak__body {
+    display: grid;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-streak__label {
+    color: var(--gameengine-ui-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-streak__count {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.8125rem;
+}

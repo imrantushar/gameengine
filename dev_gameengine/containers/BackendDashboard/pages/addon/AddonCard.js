@@ -73,7 +73,22 @@ const AddonCard = ({ item, value }) => {
   const showSettings =
     item?.route &&
     !item.is_coming_soon &&
+    !item.is_pro &&
     values[item.name] === true;
+
+  const handleProClick = () => {
+    dispatch(
+      showNotification({
+        message: sprintf(
+          /* translators: %s: the add-on's name. */
+          __('%s is a GameEngine Pro feature. Upgrade to Pro to unlock it.', 'gameengine'),
+          item.label
+        ),
+        isShow: true,
+        type: 'warning',
+      })
+    );
+  };
 
   // Colours for the addons this plugin ships. An addon registered elsewhere
   // carries its own `iconColor`, so this list only names what lives here.
@@ -131,6 +146,27 @@ const AddonCard = ({ item, value }) => {
             >
               {__('Coming Soon', 'gameengine')}
             </span>
+          ) : item.is_pro ? (
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={handleProClick}
+              title={__('Requires GameEngine Pro', 'gameengine')}
+            >
+              <span
+                style={{
+                  padding: '3px 8px',
+                  borderRadius: '10px',
+                  fontSize: '11px',
+                  fontWeight: 600,
+                  color: '#fff',
+                  background: 'var(--gameengine-primary, #6366F1)',
+                }}
+              >
+                {__('PRO', 'gameengine')}
+              </span>
+
+              <CustomSwitch value={false} disabled onChange={() => {}} />
+            </div>
           ) : (
             <div
               style={{

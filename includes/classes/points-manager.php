@@ -134,7 +134,7 @@ class PointsManager
      * Static because the front-end templates that need a currency list have no
      * manager instance to hand.
      *
-     * @return array List of rows with id, name and slug.
+     * @return array List of rows with id, name, plural_name and slug.
      */
     public static function get_point_types(): array
     {
@@ -148,13 +148,40 @@ class PointsManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.PreparedSQL.InterpolatedNotPrepared
         $rows = $wpdb->get_results(
-            "SELECT id, name, slug FROM {$wpdb->prefix}gameengine_point_types WHERE status = 'publish' ORDER BY id ASC",
+            "SELECT id, name, plural_name, slug FROM {$wpdb->prefix}gameengine_point_types WHERE status = 'publish' ORDER BY id ASC",
             ARRAY_A
         ) ?: array();
 
         wp_cache_set('gameengine_published_point_types', $rows, 'gameengine', 5 * MINUTE_IN_SECONDS);
 
         return $rows;
+    }
+
+    /**
+     * What a point type's points are called, for labels like "100 Community Points".
+     *
+     * @param int $point_type_id Point type ID.
+     * @return string Its plural name, else its name, else "points".
+     */
+    public static function get_point_type_label(int $point_type_id): string
+    {
+        foreach (self::get_point_types() as $row) {
+            $row = (array) $row;
+
+            if ((int) $row['id'] !== $point_type_id) {
+                continue;
+            }
+
+            if (! empty($row['plural_name'])) {
+                return (string) $row['plural_name'];
+            }
+
+            if (! empty($row['name'])) {
+                return (string) $row['name'];
+            }
+        }
+
+        return __('points', 'gameengine');
     }
 
     /**

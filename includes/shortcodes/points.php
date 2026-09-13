@@ -18,6 +18,9 @@ class Points
         if (! is_user_logged_in()) {
             return '0';
         }
+
+        \GameEngine\Assets::enqueue_frontend();
+
         ob_start();
         \GameEngine\Helper::get_template('shortcode/points.php');
         return apply_filters('gameengine/templates/shortcode/points', ob_get_clean());

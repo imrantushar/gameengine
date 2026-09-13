@@ -208,12 +208,18 @@ class UserProfile
             $current_points = $this->get_user_points($user_id);
             $diff           = $new_points - $current_points;
 
-            if ($diff !== 0) {
+            // The field shows the total across every point type, so a change
+            // goes to the site's first published one. Without a type it was
+            // logged against point type #1, which a site need not have.
+            $point_type_id = PointsManager::resolve_point_type_id(0);
+
+            if ($diff !== 0 && $point_type_id) {
                 $manager = new PointsManager();
+                $args    = ['point_type_id' => $point_type_id, 'description' => 'Updated via User Profile'];
                 if ($diff > 0) {
-                    $manager->add($user_id, $diff, 'manual_profile_update', ['description' => 'Updated via User Profile']);
+                    $manager->add($user_id, $diff, 'manual_profile_update', $args);
                 } else {
-                    $manager->deduct($user_id, abs($diff), 'manual_profile_update', ['description' => 'Updated via User Profile']);
+                    $manager->deduct($user_id, abs($diff), 'manual_profile_update', $args);
                 }
             }
         }

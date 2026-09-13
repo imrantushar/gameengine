@@ -1,0 +1,171 @@
+// [gameengine_level]: next-level progress and the level grid.
+
+.gameengine-ui.gameengine-levels {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+.gameengine-ui .gameengine-level-progress {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+}
+
+.gameengine-ui .gameengine-level-progress__icon {
+    align-items: center;
+    background: var(--gameengine-ui-primary-soft);
+    border-radius: 10px;
+    color: var(--gameengine-ui-primary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.375rem;
+    height: 44px;
+    justify-content: center;
+    width: 44px;
+}
+
+.gameengine-ui .gameengine-level-progress__body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    flex: 1;
+    gap: 10px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-level-progress__head {
+    align-items: flex-end;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.gameengine-ui .gameengine-level-progress__eyebrow {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+    text-transform: uppercase;
+}
+
+.gameengine-ui .gameengine-level-progress__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-top: 2px;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-level-progress__percent {
+    color: var(--gameengine-ui-primary);
+    flex: none;
+    font-size: 1.125rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.gameengine-ui .gameengine-level-progress__hint {
+    color: var(--gameengine-ui-muted);
+    font-size: 0.875rem;
+}
+
+.gameengine-ui .gameengine-level-grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
+}
+
+.gameengine-ui .gameengine-level-card {
+    align-items: flex-start;
+    background: var(--gameengine-ui-surface);
+    border: 1px solid var(--gameengine-ui-border);
+    border-radius: var(--gameengine-ui-radius);
+    display: flex;
+    gap: 14px;
+    min-width: 0;
+    padding: 16px;
+}
+
+.gameengine-ui .gameengine-level-card--current {
+    border-color: var(--gameengine-ui-primary);
+    box-shadow: inset 0 0 0 1px var(--gameengine-ui-primary);
+}
+
+.gameengine-ui .gameengine-level-card__media {
+    align-items: center;
+    background: var(--gameengine-ui-primary-soft);
+    border-radius: 10px;
+    color: var(--gameengine-ui-primary);
+    display: inline-flex;
+    flex: none;
+    font-size: 1.375rem;
+    height: 48px;
+    justify-content: center;
+    overflow: hidden;
+    width: 48px;
+}
+
+.gameengine-ui .gameengine-level-card__media img {
+    height: 32px;
+    object-fit: contain;
+    width: 32px;
+}
+
+.gameengine-ui .gameengine-level-card__body {
+    display: grid;
+    flex: 1;
+    gap: 4px;
+    min-width: 0;
+}
+
+.gameengine-ui .gameengine-level-card__top {
+    align-items: flex-start;
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+}
+
+.gameengine-ui .gameengine-level-card__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.gameengine-ui .gameengine-level-card__meta {
+    align-items: center;
+    color: var(--gameengine-ui-muted);
+    display: flex;
+    font-size: 0.8125rem;
+    gap: 6px;
+}
+
+.gameengine-ui .gameengine-level-card__desc {
+    -webkit-box-orient: vertical;
+    color: var(--gameengine-ui-muted);
+    display: -webkit-box;
+    font-size: 0.8125rem;
+    -webkit-line-clamp: 2;
+    line-height: 1.45;
+    overflow: hidden;
+}
+
+.gameengine-ui .gameengine-level-card__desc > * {
+    margin: 0;
+}
+
+.gameengine-ui .gameengine-level-card--locked .gameengine-level-card__media {
+    background: var(--gameengine-ui-surface-muted);
+    color: var(--gameengine-ui-subtle);
+}
+
+.gameengine-ui .gameengine-level-card--locked .gameengine-level-card__media img {
+    filter: grayscale(1);
+    opacity: 0.55;
+}
+
+.gameengine-ui .gameengine-level-card--locked .gameengine-level-card__title {
+    color: var(--gameengine-ui-text);
+}

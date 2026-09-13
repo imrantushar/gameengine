@@ -14,6 +14,20 @@ class Assets
 {
 
     /**
+     * Whether markup asked for the frontend assets before wp_enqueue_scripts.
+     *
+     * @var bool
+     */
+    private static $requested = false;
+
+    /**
+     * Whether that markup also needs the frontend script.
+     *
+     * @var bool
+     */
+    private static $requested_script = false;
+
+    /**
      * Initialize the Assets class.
      */
     public static function init()
@@ -183,43 +197,140 @@ class Assets
     }
 
     /**
-     * Enqueue Frontend Assets from the Build directory.
+     * Data for the frontend script.
+     *
+     * Only what member-facing code reads: the REST base, a nonce and the
+     * strings the script shows. Menus, admin URLs and server paths from the
+     * admin data do not belong on a public page.
+     *
+     * @return array
+     */
+    private static function frontend_script_data()
+    {
+        return array(
+            'nonce'     => wp_create_nonce('wp_rest'),
+            'rest_url'  => rest_url(),
+            'namespace' => 'gameengine/v1/',
+            'i18n'      => array(
+                'redeeming'  => __('Redeeming…', 'gameengine'),
+                'redeemed'   => __('Redeemed', 'gameengine'),
+                'outOfStock' => __('Out of Stock', 'gameengine'),
+                /* translators: %d: how many of the reward are left in stock. */
+                'stockLeft'  => __('%d left', 'gameengine'),
+                /* translators: %s: required point amount */
+                'points'     => __('%s points', 'gameengine'),
+                'error'      => __('Something went wrong. Please try again.', 'gameengine'),
+                'linkCopied' => __('Link copied', 'gameengine'),
+            ),
+        );
+    }
+
+    /**
+     * Register the frontend assets, and enqueue them early on a singular page
+     * whose content already calls a GameEngine shortcode.
+     *
+     * Nothing loads here otherwise: every shortcode, and every other place that
+     * prints member-facing markup, calls enqueue_frontend() as it renders, so a
+     * page without GameEngine UI loads none of its CSS or JS. Requests made while
+     * a block theme rendered the page, before this hook, are enqueued here. The
+     * early check is for classic themes, which render content after wp_head and
+     * would print a late stylesheet in the footer.
      */
     public function enqueue_frontend_assets()
     {
-        // Registered here and enqueued by the shortcode that needs it, so the
-        // stylesheet only loads on pages that actually render the markup.
-        wp_register_style(
-            'gameengine-shortcode-levels',
-            GAMEENGINE_URL . 'assets/css/shortcode-levels.css',
-            array(),
-            GAMEENGINE_VERSION
-        );
+        self::register_frontend_assets();
 
+        if (self::$requested || self::content_has_shortcode()) {
+            self::enqueue_frontend(self::$requested_script);
+        }
+    }
+
+    /**
+     * Register the frontend stylesheets and script without enqueuing them.
+     * Safe to call more than once.
+     */
+    public static function register_frontend_assets()
+    {
+        if (wp_style_is('gameengine-frontend-style', 'registered')) {
+            return;
+        }
 
         $script_asset_path = GAMEENGINE_PATH . 'assets/build/frontend.asset.php';
 
-        if (file_exists($script_asset_path)) {
-            $script_asset = require $script_asset_path;
-
-            wp_enqueue_style(
-                'gameengine-frontend-style',
-                GAMEENGINE_URL . 'assets/build/frontend.css',
-                array(),
-                $script_asset['version']
-            );
-
-            // build js
-            wp_enqueue_script(
-                'gameengine-frontend-script',
-                GAMEENGINE_URL . 'assets/build/frontend.js',
-                $script_asset['dependencies'],
-                $script_asset['version'],
-                true
-            );
-
-            // global data (GameEngineGlobal)
-            wp_localize_script('gameengine-frontend-script', 'GameEngineGlobal', $this->get_scripts_data());
+        if (! file_exists($script_asset_path)) {
+            return;
         }
+
+        $script_asset = require $script_asset_path;
+
+        wp_register_style(
+            'gameengine-frontend-style',
+            GAMEENGINE_URL . 'assets/build/frontend.css',
+            array(),
+            $script_asset['version']
+        );
+
+        wp_register_script(
+            'gameengine-frontend-script',
+            GAMEENGINE_URL . 'assets/build/frontend.js',
+            $script_asset['dependencies'],
+            $script_asset['version'],
+            true
+        );
+    }
+
+    /**
+     * Enqueue the member-facing stylesheet, and the frontend script with its
+     * data when the markup needs it. Safe to call any number of times.
+     *
+     * @param bool $with_script Also enqueue the frontend script.
+     */
+    public static function enqueue_frontend($with_script = false)
+    {
+        // A block theme renders the page, and so its shortcodes, before
+        // wp_enqueue_scripts. Enqueuing then would print this stylesheet ahead
+        // of the theme's and let the theme's layout rules win, so the request
+        // waits for the hook instead.
+        if (! did_action('wp_enqueue_scripts')) {
+            self::$requested        = true;
+            self::$requested_script = self::$requested_script || $with_script;
+            return;
+        }
+
+        self::register_frontend_assets();
+        wp_enqueue_style('gameengine-frontend-style');
+
+        if (! $with_script || wp_script_is('gameengine-frontend-script', 'enqueued')) {
+            return;
+        }
+
+        wp_enqueue_script('gameengine-frontend-script');
+        wp_localize_script('gameengine-frontend-script', 'GameEngineGlobal', self::frontend_script_data());
+    }
+
+    /**
+     * Whether the current singular post's content calls a GameEngine shortcode.
+     *
+     * @return bool
+     */
+    private static function content_has_shortcode()
+    {
+        if (! is_singular()) {
+            return false;
+        }
+
+        $post = get_post();
+
+        if (! $post || false === strpos($post->post_content, '[gameengine_')) {
+            return false;
+        }
+
+        foreach (array_keys($GLOBALS['shortcode_tags']) as $tag) {
+            if (0 === strpos($tag, 'gameengine_') && has_shortcode($post->post_content, $tag)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
