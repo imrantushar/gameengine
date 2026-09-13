@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T05:34:05+00:00\n"
+"POT-Creation-Date: 2026-09-13T06:32:07+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -465,7 +465,7 @@ msgstr ""
 msgid "Log updated successfully."
 msgstr ""
 
-#: includes/api/controllers/notifications-controller.php:158
+#: includes/api/controllers/notifications-controller.php:152
 msgid "You must be logged in."
 msgstr ""
 
@@ -643,22 +643,22 @@ msgstr ""
 msgid "Invalid JSON file."
 msgstr ""
 
-#: includes/classes/import-manager.php:64
+#: includes/classes/import-manager.php:65
 msgid "Cannot read file."
 msgstr ""
 
-#: includes/classes/import-manager.php:70
+#: includes/classes/import-manager.php:72
 msgid "Empty or invalid CSV file."
 msgstr ""
 
 #. translators: %s: field name
-#: includes/classes/import-manager.php:150
+#: includes/classes/import-manager.php:153
 #, php-format
 msgid "Missing required field: %s"
 msgstr ""
 
 #. translators: %s: row slug
-#: includes/classes/import-manager.php:194
+#: includes/classes/import-manager.php:197
 #, php-format
 msgid "Could not save row: %s"
 msgstr ""
@@ -1540,7 +1540,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: templates/shortcode/profile.php:142
-#: templates/shortcode/profile.php:175
+#: templates/shortcode/profile.php:182
 msgid "Send Points"
 msgstr ""
 
@@ -1557,25 +1557,21 @@ msgstr ""
 msgid "Point Type"
 msgstr ""
 
-#: templates/shortcode/profile.php:167
+#: templates/shortcode/profile.php:174
 #: assets/build/i18n-strings.js:391
 msgid "Points Amount"
 msgstr ""
 
-#: templates/shortcode/profile.php:168
+#: templates/shortcode/profile.php:175
 msgid "e.g. 100"
 msgstr ""
 
-#: templates/shortcode/profile.php:171
+#: templates/shortcode/profile.php:178
 msgid "Message (optional)"
 msgstr ""
 
-#: templates/shortcode/profile.php:172
+#: templates/shortcode/profile.php:179
 msgid "A note to the recipient"
-msgstr ""
-
-#: templates/shortcode/profile.php:200
-msgid "Recipient not found."
 msgstr ""
 
 #: templates/shortcode/profile.php:211
