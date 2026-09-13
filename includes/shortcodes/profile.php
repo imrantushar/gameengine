@@ -15,9 +15,16 @@ class Profile
 
     public function render_view($atts)
     {
+        \GameEngine\Assets::enqueue_frontend();
+
         if (! is_user_logged_in()) {
             return sprintf('<p class="gf-login-msg">%s</p>', esc_html__('Please log in to view your progress.', 'gameengine'));
         }
+
+        // The tabs need the frontend script, and the Levels tab renders the
+        // level template, which has its own stylesheet.
+        \GameEngine\Assets::enqueue_frontend(true);
+        wp_enqueue_style('gameengine-shortcode-levels');
 
         ob_start();
         \GameEngine\Helper::get_template('shortcode/profile.php');

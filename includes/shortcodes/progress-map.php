@@ -18,6 +18,9 @@ class ProgressMap
         if (! is_user_logged_in()) {
             return '';
         }
+
+        \GameEngine\Assets::enqueue_frontend();
+
         if (class_exists('\GameEngine\Addons\ProgressMap\Progress_Map_Logic')) {
             return \GameEngine\Addons\ProgressMap\Progress_Map_Logic::render_html(get_current_user_id());
         }

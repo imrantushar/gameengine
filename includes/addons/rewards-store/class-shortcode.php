@@ -26,6 +26,9 @@ class Shortcode
      */
     public function render_view()
     {
+        // The redeem buttons call the REST API with GameEngineGlobal's nonce.
+        \GameEngine\Assets::enqueue_frontend(true);
+
         ob_start();
         \GameEngine\Helper::get_template('shortcode/rewards.php');
         return apply_filters('gameengine/templates/shortcode/rewards', ob_get_clean());

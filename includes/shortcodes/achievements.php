@@ -19,6 +19,8 @@ class Achievements
             return '';
         }
 
+        \GameEngine\Assets::enqueue_frontend();
+
         ob_start();
         \GameEngine\Helper::get_template('shortcode/achievements.php');
         return apply_filters('gameengine/templates/shortcode/achievements', ob_get_clean());

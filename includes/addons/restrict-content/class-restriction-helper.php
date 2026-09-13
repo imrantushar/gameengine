@@ -168,6 +168,7 @@ class Restriction_Helper
     public static function get_locked_ui($message, $type = '', $value = '')
     {
         $msg = ! empty($message) ? $message : self::get_default_lock_message($type, $value);
+        \GameEngine\Assets::enqueue_frontend();
         ob_start();
 ?>
         <div class="gameengine-restriction-box">

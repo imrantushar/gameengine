@@ -56,6 +56,7 @@ class Content_Filter
         if (false === $has_access) {
             // Logic for "Lock Media Only"
             if ('1' === (string) $only_media) {
+                \GameEngine\Assets::enqueue_frontend();
                 // Placeholder for Locked Images (using the main UI helper)
                 $locked_img_ui = Restriction_Helper::get_locked_ui(__('Image Locked', 'gameengine'));
                 $content = preg_replace('/<img[^>]+>/i', $locked_img_ui, $content);
