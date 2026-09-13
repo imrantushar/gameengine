@@ -49,7 +49,9 @@ class EmailManager
 
         if (class_exists('\GameEngine\Classes\PointsManager')) {
             $pm = new \GameEngine\Classes\PointsManager();
-            $vars['{points_balance}'] = $pm->get_total($user_id);
+            // Every point type together, as the member profile shows it.
+            // get_total() alone reads point type #1, which a site need not have.
+            $vars['{points_balance}'] = $pm->get_grand_total($user_id);
         }
 
         $vars = array_merge($vars, $extra_vars);
@@ -198,7 +200,8 @@ class EmailManager
             $subject = str_replace('{points_balance}', $total_points, $subject);
             
             // Note: {next_level} logic would need LevelManager to calculate
-            $extra_vars = [];
+            // The body shows the same balance as the subject: this point type's.
+            $extra_vars = ['{points_balance}' => $total_points];
             
             $body = $this->parse_email_html($body_template, $user_id, $extra_vars);
 
