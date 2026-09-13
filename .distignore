@@ -39,7 +39,6 @@ skills-lock.json
 build_log.txt
 
 # The release packager and what it leaves behind (npm run dist).
-build-tools/build.mjs
 build.config.json
 .build-cache
 /dist
@@ -49,19 +48,24 @@ build.config.json
 vendor/bin/
 vendor/php-stubs/
 
-# NOTE: the uncompiled sources and the files needed to rebuild them ship with
-# the plugin on purpose, so the compiled assets in assets/build/ can be
-# regenerated and audited. Do not exclude any of the following:
-#   dev_gameengine/          React source for the admin app and the frontend
-#   build-tools/             make-i18n-strings.mjs, which writes assets/build/i18n-strings.js
-#                            (build.mjs only packages the release zip, so it stays out)
-#   assets/scss/             Sass source for the compiled stylesheets
-#   README.md                where the source lives and how to rebuild it
-#   package.json             npm dependencies and build scripts
-#   package-lock.json        exact dependency tree for a reproducible build
-#   webpack.config.js        bundler configuration
-#   tailwind.config.js       Tailwind configuration
-#   postcss.config.js        PostCSS configuration
-#   jsconfig.json            path aliases used by the bundler config
-#   composer.json            PHP dependency manifest
-#   composer.lock            exact PHP dependency versions
+# Source code and build tooling. The zip carries only what WordPress runs. The
+# uncompiled source and build setup live in the public repository readme.txt
+# links to (https://github.com/imrantushar/gameengine), which meets WordPress.org's
+# human-readable source rule, and each file in assets/build/ names its source.
+# composer.json still ships: WordPress.org expects it wherever vendor/ does.
+/dev_gameengine/
+/assets/scss/
+/build-tools/
+/package.json
+/package-lock.json
+/webpack.config.js
+/tailwind.config.js
+/postcss.config.js
+/jsconfig.json
+/composer.lock
+/README.md
+
+# Images nothing in the plugin uses.
+/assets/images/logo_full.svg
+/assets/images/logo-text.svg
+/assets/images/black_white_logo_full.svg
