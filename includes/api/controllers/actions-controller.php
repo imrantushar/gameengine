@@ -127,7 +127,9 @@ class ActionsController extends BaseController
 
         $meta_args = array(
             'description'   => $message,
-            'point_type_id' => 1,
+            // A site need not have point type #1: use the one asked for if it is
+            // published, otherwise the first published type.
+            'point_type_id' => PointsManager::resolve_point_type_id(isset($params['point_type_id']) ? absint($params['point_type_id']) : 0),
         );
 
         // Schedule Logic (using Action Scheduler).

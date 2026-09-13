@@ -157,6 +157,29 @@ class PointsManager
         return $rows;
     }
 
+    /**
+     * The point type to use when a caller doesn't name a published one.
+     *
+     * Returns `$preferred` when it is a published point type, otherwise the
+     * first published type, or 0 when there is none. A site need not have #1.
+     *
+     * @param int $preferred Point type id to prefer.
+     * @return int
+     */
+    public static function resolve_point_type_id(int $preferred = 0): int
+    {
+        $published = array();
+        foreach (self::get_point_types() as $row) {
+            $published[] = (int) ((array) $row)['id'];
+        }
+
+        if ($preferred > 0 && in_array($preferred, $published, true)) {
+            return $preferred;
+        }
+
+        return $published[0] ?? 0;
+    }
+
     public function get_grand_total(int $user_id): int
     {
         $safe_user_id = (int) $user_id;

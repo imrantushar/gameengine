@@ -29,13 +29,7 @@ class Rewards_Manager
      */
     public static function resolve_point_type_id(int $point_type_id): int
     {
-        $published = array_map('intval', array_column(\GameEngine\Classes\PointsManager::get_point_types(), 'id'));
-
-        if ($point_type_id > 0 && in_array($point_type_id, $published, true)) {
-            return $point_type_id;
-        }
-
-        return $published[0] ?? 0;
+        return \GameEngine\Classes\PointsManager::resolve_point_type_id($point_type_id);
     }
 
     /**
