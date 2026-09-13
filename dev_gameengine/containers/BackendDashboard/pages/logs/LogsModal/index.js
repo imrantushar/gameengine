@@ -41,7 +41,7 @@ const LogsModal = ({formData, isModalOpen, onRequestClose}) => {
   return (
     <ReactModalFormik
       suffix='logs'
-      title={id ? __(`Edit Log`, 'gameengine') + " " + id : __("Manual Trigger", 'gameengine')}
+      title={id ? __('Edit Log', 'gameengine') + " " + id : __("Manual Trigger", 'gameengine')}
       isOpen={isModalOpen}
       isEnabledFooter={true}
       onRequestClose={onRequestClose}

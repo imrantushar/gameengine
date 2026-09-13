@@ -103,7 +103,7 @@ const AchievementTypesEditor = () => {
                 }
               />
 
-              <GameEngineBox dynamicClasses="gameengine-achievements" heading={__(`Achievement`, "gameengine")}>
+              <GameEngineBox dynamicClasses="gameengine-achievements" heading={__("Achievement", "gameengine")}>
                 <FormInner />
               </GameEngineBox>
             </>

@@ -14,7 +14,7 @@ const TopBar = ({
   hasBreadCrumb = false,
   items = []
 }) => {
-  const pathName = path ? path : __("Gameengine", "gemBooking");
+  const pathName = path ? path : __("GameEngine", "gameengine");
   const isExternal = (url) => /^https?:\/\//.test(url);
   const classes = [
     "flex flex-col md:flex-row justify-between items-start md:items-center bg-[var(--gameengine-background)] [border-bottom:1px_solid_var(--gameengine-border-color)] sticky top-[32px] p-5 px-6 z-[999] mb-6 gameengine-topbar",

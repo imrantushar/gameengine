@@ -31,7 +31,7 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
 <div class="gameengine-rewards-catalog">
     <?php if ($gameengine_rw_is_logged_in) : ?>
         <div class="gameengine-rewards-balance">
-            <?php echo esc_html(sprintf(__('Your balance: %d points', 'gameengine'), $gameengine_rw_balance)); ?>
+            <?php echo esc_html(sprintf(/* translators: %d: the member's points balance. */ __('Your balance: %d points', 'gameengine'), $gameengine_rw_balance)); ?>
         </div>
     <?php endif; ?>
 
@@ -82,11 +82,11 @@ if ($gameengine_rw_is_logged_in && ! empty($gameengine_rw_rewards)) {
                             <p class="gameengine-reward-desc"><?php echo esc_html($gameengine_rw_reward['description']); ?></p>
                         <?php endif; ?>
 
-                        <span class="gameengine-reward-cost"><?php echo esc_html(sprintf(__('%d points', 'gameengine'), $gameengine_rw_cost)); ?></span>
+                        <span class="gameengine-reward-cost"><?php echo esc_html(sprintf(/* translators: %d: how many points the reward costs. */ __('%d points', 'gameengine'), $gameengine_rw_cost)); ?></span>
 
                         <?php if ($gameengine_rw_stock >= 0) : ?>
                             <span class="gameengine-reward-stock" data-stock-label>
-                                <?php echo esc_html(sprintf(__('%d left', 'gameengine'), $gameengine_rw_stock)); ?>
+                                <?php echo esc_html(sprintf(/* translators: %d: how many of the reward are left in stock. */ __('%d left', 'gameengine'), $gameengine_rw_stock)); ?>
                             </span>
                         <?php endif; ?>
 

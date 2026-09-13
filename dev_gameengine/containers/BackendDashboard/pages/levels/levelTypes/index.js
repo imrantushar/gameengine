@@ -106,7 +106,7 @@ const LevelType = () => {
             />
           </div>} />
 
-          <GameEngineBox dynamicClasses="gameengine-levels" heading={__(`Level Type`, "gameengine")}>
+          <GameEngineBox dynamicClasses="gameengine-levels" heading={__("Level Type", "gameengine")}>
             <FormInner />
           </GameEngineBox>
         </>;

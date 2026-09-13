@@ -338,7 +338,7 @@ const FormInner = () => {
         <GameEngineEditor name={'congratulations_message'} defaultValue={values.congratulations_message} saveValueHandler={setFieldValue} suffix={'levels-message'} />
       </GameEngineInput>
 
-      <GFLabel type="heading" margin="0" label={__(`Level Requirements`, "gameengine")} />
+      <GFLabel type="heading" margin="0" label={__("Level Requirements", "gameengine")} />
 
       <ToggleField
         checked={values.is_restricted}
@@ -404,7 +404,7 @@ const FormInner = () => {
         </div>
       )}
 
-      <BoxView title={__(`Level Logo`, "gameengine")} width="100%">
+      <BoxView title={__("Level Logo", "gameengine")} width="100%">
         <div className="flex flex-wrap items-start gap-6">
           <GameEngineInput
             label={__("Icon", "gameengine")}

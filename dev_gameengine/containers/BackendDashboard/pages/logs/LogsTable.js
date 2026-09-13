@@ -163,7 +163,7 @@ const LogsTable = ({
   const subHeaderComponentMemo = useMemo(() => {
     return <>
       <div className='flex items-center gap-2'>
-        <GFLabel color="var(--gameengine-font-color)" fontWeight="700" fontSize='16px' label={__(`Logs`, 'gameengine')} />
+        <GFLabel color="var(--gameengine-font-color)" fontWeight="700" fontSize='16px' label={__('Logs', 'gameengine')} />
 
         <button
           onClick={handleRefresh}
