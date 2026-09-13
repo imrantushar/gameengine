@@ -162,6 +162,13 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
                     <?php endforeach; ?>
                 </select>
             </label>
+            <?php elseif (! empty($gameengine_point_types)) : ?>
+            <?php
+            // One type, so no picker, but the form must still send its real id.
+            $gameengine_type_list = (array) $gameengine_point_types;
+            $gameengine_only_type = (array) reset($gameengine_type_list);
+            ?>
+            <input type="hidden" id="ge-transfer-type" value="<?php echo esc_attr($gameengine_only_type['id'] ?? 1); ?>">
             <?php endif; ?>
             <label style="font-size:13px;font-weight:500;">
                 <?php esc_html_e('Points Amount', 'gameengine'); ?>
@@ -191,19 +198,12 @@ $gameengine_default_tab      = $gameengine_has_progress_map ? 'progress-map' : '
             var btn       = form.querySelector('button[type="submit"]');
             btn.disabled  = true;
 
-            var lookup = fetch('<?php echo esc_url(rest_url('wp/v2/users')); ?>?search=' + encodeURIComponent(recipient) + '&context=edit', {
-                headers: { 'X-WP-Nonce': '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>' }
-            }).then(function(r) { return r.json(); });
-
-            lookup.then(function(users) {
-                var userId = (users && users.length) ? users[0].id : 0;
-                if (!userId) throw new Error('<?php echo esc_js(__('Recipient not found.', 'gameengine')); ?>');
-                return fetch('<?php echo esc_url(rest_url('gameengine/v1/pro/transfers')); ?>', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>' },
-                    body: JSON.stringify({ to_user_id: userId, point_type_id: typeId, points: points, message: message })
-                }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); });
-            }).then(function(res) {
+            // The server resolves the username or email: members cannot search users.
+            fetch('<?php echo esc_url(rest_url('gameengine/v1/pro/transfers')); ?>', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>' },
+                body: JSON.stringify({ recipient: recipient, point_type_id: typeId, points: points, message: message })
+            }).then(function(r) { return r.json().then(function(d) { return { ok: r.ok, data: d }; }); }).then(function(res) {
                 msgEl.style.display = 'block';
                 if (res.ok) {
                     msgEl.style.background = '#f0fdf4';
