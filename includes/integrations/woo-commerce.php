@@ -48,7 +48,7 @@ class WooCommerce extends BaseIntegration
                     return $o ? $o->get_user_id() : 0;
                 },
                 'schema' => self::merge_schema([
-                    ['key' => 'product_id', 'label' => __('Select Product', 'gameengine'), 'type' => 'select', 'width' => '50%', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products']],
+                    ['key' => 'product_id', 'label' => __('Select Product', 'gameengine'), 'type' => 'select', 'width' => '50%', 'dynamic' => ['integration' => 'woocommerce', 'query' => 'products'], 'placeholder' => __('Any product', 'gameengine'), 'clearable' => true],
                 ])
             ],
             'woocommerce_publish_product' => [
@@ -96,10 +96,19 @@ class WooCommerce extends BaseIntegration
     {
         return [
             'products' => function () {
-                if (!function_exists('wc_get_products'))
-                    return [];
-                $products = wc_get_products(['limit' => 20]);
-                return array_map(fn($p) => ['label' => $p->get_name(), 'value' => $p->get_id()], $products);
+                // Every published product, by name. The newest twenty left most
+                // of a real catalogue impossible to choose.
+                $posts = get_posts([
+                    'post_type' => 'product',
+                    'post_status' => 'publish',
+                    'posts_per_page' => -1,
+                    'orderby' => 'title',
+                    'order' => 'ASC',
+                    'no_found_rows' => true,
+                    'update_post_meta_cache' => false,
+                    'update_post_term_cache' => false,
+                ]);
+                return array_map(fn($p) => ['label' => $p->post_title, 'value' => $p->ID], $posts);
             },
             'product_cats' => function () {
                 $terms = get_terms(['taxonomy' => 'product_cat', 'hide_empty' => true]);

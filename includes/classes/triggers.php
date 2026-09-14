@@ -288,13 +288,18 @@ class Triggers
         }
 
         // WooCommerce: Specific Product Purchased or Refunded
+        // Leaving product_id blank (0) makes the trigger fire for any product,
+        // as the StoreEngine and LMS triggers do. A blank product used to fail
+        // every order, so the rule silently paid nothing.
         if ($key === 'woocommerce_purchase_specific_product' || $key === 'woocommerce_refund_specific_product') {
             if (!function_exists('wc_get_order'))
                 return false;
             $order = wc_get_order($args[0]);
             $target_id = isset($params['product_id']) ? (int) $params['product_id'] : 0;
-            if (!$order || $target_id <= 0)
+            if (!$order)
                 return false;
+            if ($target_id <= 0)
+                return true;
             foreach ($order->get_items() as $item) {
                 if ((int) $item->get_product_id() === $target_id || (int) $item->get_variation_id() === $target_id)
                     return true;
