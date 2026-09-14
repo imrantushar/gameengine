@@ -49,7 +49,7 @@ const DynamicField = ({
     }}>
       {labelElement}
 
-      <Select isMulti={config?.is_multi} isLoading={loading} placeholder={__('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
+      <Select isMulti={config?.is_multi} isClearable={Boolean(config?.clearable) && !config?.is_multi} isLoading={loading} placeholder={config?.placeholder || __('Select...', 'gameengine')} className="gameengine-select gameengine-select--width-full" classNamePrefix="gameengine-select" options={optionsSource} value={config?.is_multi ? optionsSource.filter(opt => Array.isArray(parameters[fieldKey]) && parameters[fieldKey].includes(opt.value)) : optionsSource.find(opt => opt.value == parameters[fieldKey]) || null} onChange={val => {
         if (config?.is_multi) {
           onChange(val ? val.map(v => v.value) : []);
         } else {

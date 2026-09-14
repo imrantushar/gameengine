@@ -100,6 +100,8 @@ class StoreEngine extends BaseIntegration
                         'type' => 'select',
                         'width' => '50%',
                         'dynamic' => array('integration' => 'storeengine', 'query' => 'products'),
+                        'placeholder' => __('Any product', 'gameengine'),
+                        'clearable' => true,
                     ),
                 )),
             ),
@@ -140,7 +142,9 @@ class StoreEngine extends BaseIntegration
                 'hook' => 'storeengine/order/order_refunded',
                 'args_count' => 2,
                 'description' => __('Deducts points when a StoreEngine order is refunded.', 'gameengine'),
-                'supports' => array('point_type', 'achievement', 'level'),
+                // A refund only ever takes points away.
+                'actions' => array('deduct'),
+                'supports' => array('point_type'),
                 'get_user_id' => function ($order_id, $refund_id) {
                     $order = \StoreEngine\Utils\Helper::get_order(absint($order_id));
                     return (!is_wp_error($order) && method_exists($order, 'get_user_id'))
@@ -204,6 +208,8 @@ class StoreEngine extends BaseIntegration
                         'type' => 'select',
                         'width' => '50%',
                         'dynamic' => array('integration' => 'storeengine', 'query' => 'products'),
+                        'placeholder' => __('Any product', 'gameengine'),
+                        'clearable' => true,
                     ),
                 )),
             ),

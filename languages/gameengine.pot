@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-13T16:13:29+00:00\n"
+"POT-Creation-Date: 2026-09-14T09:12:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: gameengine\n"
@@ -1075,7 +1075,7 @@ msgid "Level Types"
 msgstr ""
 
 #. translators: 1: trigger label, 2: streak count
-#: includes/classes/triggers.php:612
+#: includes/classes/triggers.php:638
 #, php-format
 msgid "%1$s streak milestone: %2$d in a row"
 msgstr ""
@@ -1556,71 +1556,77 @@ msgstr ""
 msgid "Select Product"
 msgstr ""
 
-#: includes/integrations/store-engine.php:110
+#: includes/integrations/store-engine.php:103
+#: includes/integrations/store-engine.php:211
+#: includes/integrations/woo-commerce.php:51
+msgid "Any product"
+msgstr ""
+
+#: includes/integrations/store-engine.php:112
 msgid "Order Completed (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:113
+#: includes/integrations/store-engine.php:115
 msgid "Awarded when a StoreEngine order status changes to Completed."
 msgstr ""
 
-#: includes/integrations/store-engine.php:124
+#: includes/integrations/store-engine.php:126
 msgid "Order Paid Re-attempt (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:127
+#: includes/integrations/store-engine.php:129
 msgid "Awarded when a user successfully pays for a previously failed or pending StoreEngine order."
 msgstr ""
 
-#: includes/integrations/store-engine.php:139
+#: includes/integrations/store-engine.php:141
 msgid "Order Refunded (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:142
+#: includes/integrations/store-engine.php:144
 msgid "Deducts points when a StoreEngine order is refunded."
 msgstr ""
 
-#: includes/integrations/store-engine.php:158
+#: includes/integrations/store-engine.php:162
 msgid "New Customer Registered (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:161
+#: includes/integrations/store-engine.php:165
 msgid "Awarded when a new customer account is created during StoreEngine checkout."
 msgstr ""
 
-#: includes/integrations/store-engine.php:173
+#: includes/integrations/store-engine.php:177
 msgid "Customer Login (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:176
+#: includes/integrations/store-engine.php:180
 msgid "Awarded when a customer logs in via the StoreEngine login form."
 msgstr ""
 
-#: includes/integrations/store-engine.php:191
+#: includes/integrations/store-engine.php:195
 msgid "Product Review Submitted (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:194
+#: includes/integrations/store-engine.php:198
 msgid "Awarded when a customer submits a product review on a StoreEngine product."
 msgstr ""
 
-#: includes/integrations/store-engine.php:203
+#: includes/integrations/store-engine.php:207
 msgid "Specific Product (optional)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:217
+#: includes/integrations/store-engine.php:223
 msgid "Coupon Applied (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:220
+#: includes/integrations/store-engine.php:226
 msgid "Awarded when a customer successfully applies a coupon to their StoreEngine cart."
 msgstr ""
 
-#: includes/integrations/store-engine.php:232
+#: includes/integrations/store-engine.php:238
 msgid "Subscription Changed (StoreEngine)"
 msgstr ""
 
-#: includes/integrations/store-engine.php:235
+#: includes/integrations/store-engine.php:241
 msgid "Fired when a customer cancels, upgrades, or downgrades a StoreEngine subscription."
 msgstr ""
 
@@ -1681,7 +1687,7 @@ msgid "Refund Order"
 msgstr ""
 
 #: includes/integrations/woo-commerce.php:80
-msgid "Refund purchase successfully into your website."
+msgid "Deducts points when a completed order is refunded."
 msgstr ""
 
 #: includes/integrations/word-press.php:17

@@ -84,6 +84,24 @@ final class TriggerRegistry
         return isset($all[$key]) ? $all[$key] : null;
     }
 
+    /**
+     * The actions a trigger's rules may take: award, deduct, or both.
+     *
+     * A trigger that undoes an earlier event, such as a refund, declares
+     * `'actions' => array('deduct')`, so its rules can only take points away.
+     *
+     * @param array|null $config Trigger configuration.
+     * @return string[]
+     */
+    public static function get_actions($config): array
+    {
+        $actions = is_array($config) && isset($config['actions'])
+            ? array_values(array_intersect((array) $config['actions'], array('award', 'deduct')))
+            : array();
+
+        return $actions ? $actions : array('award', 'deduct');
+    }
+
     public static function get_all_integrations(): array
     {
         self::init();
