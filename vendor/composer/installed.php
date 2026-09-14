@@ -3,7 +3,7 @@
         'name' => 'kodezen/gameengine',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '658dba5df4f668c3057061890fb9d76ec946cd52',
+        'reference' => '674de701c8f087d69339cf1b9512549d3368c157',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'kodezen/gameengine' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '658dba5df4f668c3057061890fb9d76ec946cd52',
+            'reference' => '674de701c8f087d69339cf1b9512549d3368c157',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
