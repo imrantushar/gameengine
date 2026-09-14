@@ -1,6 +1,6 @@
 {
     "name": "gameengine-plugin-dev",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Development environment for GameEngine WordPress Plugin.",
     "private": true,
     "scripts": {

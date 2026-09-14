@@ -4,7 +4,7 @@ Tags: gamification, points, badges, leaderboard, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,6 +15,8 @@ Gamify your site with points, badges, levels, leaderboards and a rewards store. 
 **GameEngine is a complete gamification plugin for WordPress.** Reward the things members already do on your site, such as signing up, logging in, commenting, finishing a course or placing an order, with points, badges, levels and a place on the leaderboard. Engaged members come back more often, finish more courses and buy again.
 
 Use GameEngine to run an online academy, a membership or community site, an online store or a blog. It connects to the plugins you already use, and a setup wizard gets your first points system, badges and levels running in minutes.
+
+[GameEngine](https://gameengine.pro/) | [Docs](https://gameengine.pro/docs/) | [GameEngine Pro](https://gameengine.pro/pricing/) | [Community](https://community.kodezen.com/) | [Public Roadmap](https://gameengine.pro/roadmap/)
 
 Every feature below is included and fully functional, apart from the separate GameEngine Pro plugin described at the end. Nothing in GameEngine is limited by a license key, a trial, a quota or a time limit.
 
@@ -119,11 +121,29 @@ The Shortcodes tab under Tools lists every option with an example.
 
 GameEngine Pro is a separate plugin that adds leaderboard seasons, a spin-the-wheel game, referrals and affiliates, a points wallet with withdrawals, paying with points in WooCommerce and StoreEngine, a coupon marketplace, points transfers and expiry, analytics and webhooks. Everything in GameEngine keeps working without it. Learn more at [gameengine.pro](https://gameengine.pro/).
 
+= The Kodezen Ecosystem =
+
+GameEngine is part of the Kodezen family of WordPress plugins:
+
+* [Academy LMS](https://academylms.net/) – create, sell and manage online courses
+* [StoreEngine](https://storeengine.pro/) – sell digital and physical products, subscriptions and memberships
+* [ZenCommunity](https://zencommunity.pro/) – communities, real-time chat, support tickets and live chat
+* [GemCRM](https://gemcrm.net/) – CRM, email and SMS campaigns, and marketing automation
+* [aBlocks](https://ablocks.pro/) – design fast pages with 100+ Gutenberg blocks, no code
+* [QuizPress](https://quizpress.pro/) – quizzes, polls, surveys and exams
+* [GemBooking](https://gembooking.net/) – appointment, event and resource bookings with payments
+* [GemBoards](https://gemboards.com/) – projects, tasks and sprints on Kanban boards
+* [Easy Content Manager (ECM)](https://easycontentmanager.pro/) – custom post types, custom fields and taxonomies, no code
+* [Zaplane](https://zaplane.app/) – automate WordPress workflows across your apps, no code
+* [ZenAppBuilder](https://academylms.net/zenappbuilder/) – turn your Academy LMS site into a native mobile app
+
+GameEngine's integrations reward activity in Academy LMS, StoreEngine and GemBoards. Explore the whole family at [kodezen.com](https://kodezen.com/kodezen-ecosystem/).
+
 == External services ==
 
 GameEngine does not connect to any external service. It makes no HTTP requests, loads no remote fonts, scripts, stylesheets or images, and sends no data about you, your site or your visitors anywhere.
 
-The only external addresses in the plugin are ordinary links in the admin screens: the documentation site gameengine.pro, linked from the "?" buttons beside each shortcode, the Add-ons screen and the "Get Pro" menu item, and the author's site kodezen.com, linked from the plugin header. Nothing is requested from either address unless you click one of those links. Both sites are operated by Kodezen Limited: see their [terms of service](https://kodezen.com/terms/) and [privacy policy](https://kodezen.com/privacy-policy/).
+The admin screens link to three external sites. The documentation site gameengine.pro is linked from the "?" buttons beside each shortcode, the Add-ons screen, the "Get Pro" menu item and the plugin header. The author's site kodezen.com is linked from the plugin header. The Tutor LMS card on the Add-ons screen links to Tutor LMS's documentation at themeum.com. Nothing is requested from these sites unless you click one of those links. gameengine.pro and kodezen.com are operated by Kodezen Limited: see their [terms and conditions](https://kodezen.com/terms-and-conditions/) and [privacy policy](https://kodezen.com/privacy-policy/).
 
 == Installation ==
 
@@ -205,6 +225,12 @@ Yes. Integrations, add-on cards, admin menu entries and trigger fields are all r
 Yes. GameEngine is free software licensed under the GPL, and its complete source code is developed in public on GitHub at https://github.com/imrantushar/gameengine.
 
 == Changelog ==
+
+= 1.4.1 - 2026-09-14 =
+* Fixed - The WooCommerce "Refund Order" and StoreEngine "Order Refunded" triggers could be added under Awards, where every refund gave the member points, and to achievements and levels. Both are now offered under Deductions only. A rule already saved under Awards takes the points away instead, and an achievement or level rule on either trigger does nothing.
+* Fixed - WooCommerce "Refund Order" took points back for orders refunded before they were completed. The WooCommerce purchase triggers award points only when an order is completed, so those orders had earned nothing.
+* Fixed - WooCommerce "Purchase Specific Product" awarded nothing when no product was chosen. It now counts any product, as the StoreEngine trigger of the same name does, and product fields in trigger options read "Any product" when empty and can be cleared.
+* Fixed - The product list in WooCommerce trigger options held only the 20 newest products. It now lists every published product, by name.
 
 = 1.4.0 - 2026-09-13 =
 * Added - An activity bell and an Activity screen listing the points, achievement and level-up notifications sent to members, paged, searchable and filterable by type. The screen starts empty after the update, and holds only notification types that are turned on, for as long as notifications are kept.
@@ -295,6 +321,9 @@ Yes. GameEngine is free software licensed under the GPL, and its complete source
 * Fixed - Coding standards and security issues for the WordPress.org submission.
 
 == Upgrade Notice ==
+
+= 1.4.1 =
+Refund triggers saved under Awards now take points away instead of giving them. WooCommerce "Purchase Specific Product" rules with no product chosen now award points for any product.
 
 = 1.4.0 =
 Adds an Activity screen, a Rewards Store, a Badge Editor, streaks and five integrations, and makes the admin translatable. Deduction rules now take points away, and levels saved without a point type now count every point type: review both before updating.
