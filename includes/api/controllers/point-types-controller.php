@@ -3,6 +3,7 @@
 namespace GameEngine\API\Controllers;
 
 use GameEngine\API\BaseController;
+use GameEngine\Classes\TriggerRegistry;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -153,7 +154,7 @@ class PointTypesController extends BaseController
                 foreach ($reqs as &$r) {
                     $r['parameters'] = json_decode($r['parameters'], true);
                 }
-                $pt['requirements'] = $reqs;
+                $pt['requirements'] = $this->normalize_action_types($reqs);
             }
         }
 
@@ -273,7 +274,7 @@ class PointTypesController extends BaseController
         $wpdb->delete($table_req, array('reward_type' => 'point_type', 'reward_id' => absint($id)), array('%s', '%d'));
 
         if (! empty($requirements) && is_array($requirements)) {
-            foreach ($requirements as $req) {
+            foreach ($this->normalize_action_types($requirements) as $req) {
                 // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
                 $wpdb->insert($table_req, array(
                     'reward_type' => 'point_type',
@@ -287,6 +288,44 @@ class PointTypesController extends BaseController
                 ));
             }
         }
+    }
+
+    /**
+     * Keep each rule under an action its trigger allows.
+     *
+     * A trigger such as Refund Order can only take points away, but the editor
+     * used to let it be dropped under Awards, where it paid out on every refund.
+     * Such a rule moves to Deductions, unless the trigger already has one there.
+     *
+     * @param array $requirements Rules, each with a trigger_key and action_type.
+     * @return array
+     */
+    private function normalize_action_types($requirements)
+    {
+        $kept  = array();
+        $moved = array();
+
+        foreach ((array) $requirements as $req) {
+            $allowed = TriggerRegistry::get_actions(TriggerRegistry::get(sanitize_key($req['trigger_key'] ?? '')));
+
+            if (in_array($req['action_type'] ?? 'award', $allowed, true)) {
+                $kept[] = $req;
+            } else {
+                $req['action_type'] = $allowed[0];
+                $moved[]            = $req;
+            }
+        }
+
+        foreach ($moved as $req) {
+            foreach ($kept as $existing) {
+                if ($existing['trigger_key'] === $req['trigger_key'] && $existing['action_type'] === $req['action_type']) {
+                    continue 2;
+                }
+            }
+            $kept[] = $req;
+        }
+
+        return $kept;
     }
 
     /**
@@ -309,7 +348,7 @@ class PointTypesController extends BaseController
                 foreach ($reqs as &$r) {
                     $r['parameters'] = json_decode($r['parameters'], true);
                 }
-                $point_type['requirements'] = $reqs;
+                $point_type['requirements'] = $this->normalize_action_types($reqs);
             }
             wp_cache_set($cache_key, $point_type, 'gameengine_point_types', 300);
         }

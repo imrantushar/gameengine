@@ -114,6 +114,17 @@ class Triggers
         foreach ($rules as $rule) {
             $params = json_decode($rule->parameters, true);
 
+            // A trigger that can only take points away, such as a refund, never
+            // awards: a rule saved under Awards deducts its points instead, and
+            // an achievement or level rule on it does nothing.
+            $allowed_actions = TriggerRegistry::get_actions($config);
+            if (!in_array($rule->action_type, $allowed_actions, true)) {
+                if ('point_type' !== $rule->reward_type) {
+                    continue;
+                }
+                $rule->action_type = $allowed_actions[0];
+            }
+
             // Validate Time-Based restrictions (Pro Logic)
             if (!$this->check_timing_validity($params)) {
                 continue;
@@ -289,6 +300,16 @@ class Triggers
                     return true;
             }
             return false;
+        }
+
+        // WooCommerce: Refund Order takes back what a purchase earned. The
+        // purchase triggers fire when an order is completed, so an order refunded
+        // before that earned nothing and has nothing to take back.
+        if ($key === 'woocommerce_refund_purchase') {
+            if (!function_exists('wc_get_order'))
+                return false;
+            $order = wc_get_order($args[0]);
+            return $order && null !== $order->get_date_completed();
         }
 
         // WooCommerce: Specific Product Review Check

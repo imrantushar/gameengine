@@ -35,6 +35,11 @@ const DroppableArea = ({ id, children, ownedIds = [] }) => {
   );
 };
 
+// A hook that can only take points away, such as a refund, declares
+// `actions: ['deduct']` and is offered only where that action is configured.
+const canTakeAction = (hook, action) =>
+  !Array.isArray(hook?.actions) || hook.actions.length === 0 || hook.actions.includes(action);
+
 const Requirements = props => {
   const {
     label,
@@ -132,7 +137,7 @@ const Requirements = props => {
 
             <DroppableArea id={`${actionName}s-available`}>
               <div className="gameengine-fade-in" key={selectedFilterType}>
-                {allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all').map(h => <div key={h.id}>
+                {allHooks.filter(item => !selectedHookIds?.includes(item?.id)).filter(item => canTakeAction(item, actionName)).filter(item => selectedFilterType.length === 0 || selectedFilterType === item.integrationSlug || selectedFilterType === 'all').map(h => <div key={h.id}>
                   {renderHookCard(h, actionName)}
                   <p className="mt-1 text-xs text-[var(--gameengine-warn-muted)]">{h.subTitle}</p>
                 </div>)}

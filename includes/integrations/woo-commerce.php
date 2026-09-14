@@ -77,9 +77,12 @@ class WooCommerce extends BaseIntegration
             'woocommerce_refund_purchase' => [
                 'label' => __('Refund Order', 'gameengine'),
                 'hook' => 'woocommerce_order_status_refunded',
-                'description' => __('Refund purchase successfully into your website.', 'gameengine'),
+                'description' => __('Deducts points when a completed order is refunded.', 'gameengine'),
                 'args_count' => 1,
-                'supports' => ['point_type', 'achievement', 'level'],
+                // A refund only ever takes points away, so the editor offers it
+                // under Deductions alone.
+                'actions' => ['deduct'],
+                'supports' => ['point_type'],
                 'get_user_id' => function ($id) {
                     $o = wc_get_order($id);
                     return $o ? $o->get_user_id() : 0;
