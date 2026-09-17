@@ -37,6 +37,7 @@ final class Schema
             self::get_notifications_table_schema($prefix, $charset_collate),
             self::get_rewards_table_schema($prefix, $charset_collate),
             self::get_reward_redemptions_table_schema($prefix, $charset_collate),
+            self::get_gift_claims_table_schema($prefix, $charset_collate),
         );
     }
 
@@ -258,6 +259,31 @@ final class Schema
             PRIMARY KEY (id),
             KEY user_id (user_id),
             KEY reward_id (reward_id)
+        ) $charset_collate;";
+    }
+
+    private static function get_gift_claims_table_schema($prefix, $charset_collate)
+    {
+        return "CREATE TABLE {$prefix}gameengine_gift_claims (
+            id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+            claim_token VARCHAR(64) NOT NULL,
+            order_id BIGINT(20) UNSIGNED NOT NULL,
+            order_item_id BIGINT(20) UNSIGNED NOT NULL,
+            buyer_user_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 0,
+            recipient_email VARCHAR(255) NOT NULL,
+            recipient_name VARCHAR(255) DEFAULT '',
+            point_type_id BIGINT(20) UNSIGNED NOT NULL DEFAULT 1,
+            points INT(11) NOT NULL DEFAULT 0,
+            message TEXT DEFAULT NULL,
+            status VARCHAR(20) NOT NULL DEFAULT 'pending',
+            claimed_by_user_id BIGINT(20) UNSIGNED DEFAULT NULL,
+            claimed_at DATETIME DEFAULT NULL,
+            created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id),
+            UNIQUE KEY claim_token (claim_token),
+            KEY recipient_email (recipient_email),
+            KEY order_id (order_id),
+            KEY status (status)
         ) $charset_collate;";
     }
 }
