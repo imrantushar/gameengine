@@ -72,7 +72,7 @@ class WooCommerce extends BaseIntegration
                     $c = get_comment($id);
                     return $c ? $c->user_id : 0;
                 },
-                'schema' => self::merge_schema([])
+                'schema' => self::merge_schema([], 'award', 'woocommerce_review_product')
             ],
             'woocommerce_refund_purchase' => [
                 'label' => __('Refund Order', 'gameengine'),
