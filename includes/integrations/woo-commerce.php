@@ -35,7 +35,7 @@ class WooCommerce extends BaseIntegration
                     $o = wc_get_order($id);
                     return $o ? $o->get_user_id() : 0;
                 },
-                'schema' => self::merge_schema([])
+                'schema' => self::merge_schema([], 'award', 'woocommerce_new_purchase')
             ],
             'woocommerce_purchase_specific_product' => [
                 'label' => __('Purchase Specific Product', 'gameengine'),
