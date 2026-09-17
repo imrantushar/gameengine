@@ -141,6 +141,8 @@ final class GameEngine
             '\GameEngine\Classes\BadgeManager',
             '\GameEngine\Classes\NotificationManager',
             '\GameEngine\Classes\BuyPointsManager',
+            '\GameEngine\Classes\GiftClaimManager',
+            '\GameEngine\Classes\GiftPointsProduct',
             '\GameEngine\Classes\SocialSharing',
         );
 
