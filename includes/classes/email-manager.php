@@ -280,4 +280,143 @@ class EmailManager
         $format = get_option('gameengine_email_format', 'html'); // Default to html
         return ($format === 'html') ? 'text/html' : 'text/plain';
     }
+
+    /**
+     * Send gift points notification to an existing registered user.
+     */
+    public function send_gift_points_received_email(string $to_email, string $recipient_name, string $sender_name, int $amount, string $point_type_name, string $message = ''): bool
+    {
+        if (!is_email($to_email)) {
+            return false;
+        }
+
+        $site_name = get_bloginfo('name');
+        $greeting_name = $recipient_name ?: $to_email;
+
+        $subject = sprintf(
+            /* translators: 1: Sender name, 2: Points amount, 3: Point type name */
+            __('%1$s sent you %2$s %3$s!', 'gameengine'),
+            $sender_name,
+            number_format_i18n($amount),
+            $point_type_name
+        );
+
+        $body  = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; color: #1e293b;">';
+        $body .= '<div style="text-align: center; margin-bottom: 24px;">';
+        $body .= '<span style="font-size: 42px;">🎁</span>';
+        $body .= '<h2 style="margin: 12px 0 0 0; color: #0f172a; font-size: 22px;">' . esc_html__('You Received a Gift of Points!', 'gameengine') . '</h2>';
+        $body .= '</div>';
+
+        $body .= '<p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">' . sprintf(
+            /* translators: %s: Recipient name */
+            esc_html__('Hi %s,', 'gameengine'),
+            '<strong>' . esc_html($greeting_name) . '</strong>'
+        ) . '</p>';
+
+        $body .= '<p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">' . sprintf(
+            /* translators: 1: Sender name, 2: Amount, 3: Point type name, 4: Site name */
+            esc_html__('Great news! %1$s has just gifted you %2$s %3$s on %4$s.', 'gameengine'),
+            '<strong>' . esc_html($sender_name) . '</strong>',
+            '<strong>' . esc_html(number_format_i18n($amount)) . '</strong>',
+            esc_html($point_type_name),
+            esc_html($site_name)
+        ) . '</p>';
+
+        if (!empty($message)) {
+            $body .= '<div style="background: #f8fafc; border-left: 4px solid #6366f1; padding: 14px 18px; margin: 20px 0; border-radius: 4px;">';
+            $body .= '<p style="margin: 0 0 6px 0; font-size: 12px; font-weight: bold; text-transform: uppercase; color: #64748b;">' . esc_html__('Personal Note from Sender:', 'gameengine') . '</p>';
+            $body .= '<p style="margin: 0; font-size: 14px; font-style: italic; color: #334155;">"' . esc_html($message) . '"</p>';
+            $body .= '</div>';
+        }
+
+        $body .= '<div style="background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 8px; padding: 14px; text-align: center; margin: 24px 0;">';
+        $body .= '<p style="margin: 0; color: #065f46; font-size: 14px; font-weight: 600;">' . esc_html__('✨ The points have been automatically deposited into your account balance.', 'gameengine') . '</p>';
+        $body .= '</div>';
+
+        $account_url = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : home_url('/');
+        $body .= '<div style="text-align: center; margin: 28px 0 16px 0;">';
+        $body .= '<a href="' . esc_url($account_url) . '" style="background: #6366f1; color: #ffffff; padding: 12px 28px; font-size: 15px; font-weight: 600; text-decoration: none; border-radius: 6px; display: inline-block;">' . esc_html__('View Your Points Balance', 'gameengine') . '</a>';
+        $body .= '</div>';
+
+        $body .= '<p style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 24px;">' . sprintf(
+            /* translators: %s: Site name */
+            esc_html__('Thank you for being part of %s!', 'gameengine'),
+            esc_html($site_name)
+        ) . '</p>';
+        $body .= '</div>';
+
+        $email_settings = get_option('gameengine_email_settings', array());
+        $this->send_wp_mail($to_email, $subject, $body, $email_settings);
+        return true;
+    }
+
+    /**
+     * Send gift claim invitation email to an unregistered recipient.
+     */
+    public function send_gift_points_claim_email(string $to_email, string $recipient_name, string $sender_name, int $amount, string $point_type_name, string $message = '', string $claim_url = ''): bool
+    {
+        if (!is_email($to_email)) {
+            return false;
+        }
+
+        $site_name = get_bloginfo('name');
+        $greeting_name = $recipient_name ?: $to_email;
+
+        $subject = sprintf(
+            /* translators: 1: Sender name, 2: Points amount, 3: Point type name, 4: Site name */
+            __('%1$s sent you %2$s %3$s on %4$s!', 'gameengine'),
+            $sender_name,
+            number_format_i18n($amount),
+            $point_type_name,
+            $site_name
+        );
+
+        $body  = '<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background: #ffffff; color: #1e293b;">';
+        $body .= '<div style="text-align: center; margin-bottom: 24px;">';
+        $body .= '<span style="font-size: 42px;">🎁</span>';
+        $body .= '<h2 style="margin: 12px 0 0 0; color: #0f172a; font-size: 22px;">' . esc_html__('You Have a Gift Waiting!', 'gameengine') . '</h2>';
+        $body .= '</div>';
+
+        $body .= '<p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">' . sprintf(
+            /* translators: %s: Recipient name */
+            esc_html__('Hi %s,', 'gameengine'),
+            '<strong>' . esc_html($greeting_name) . '</strong>'
+        ) . '</p>';
+
+        $body .= '<p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px 0;">' . sprintf(
+            /* translators: 1: Sender name, 2: Amount, 3: Point type name, 4: Site name */
+            esc_html__('%1$s has sent you a special gift of %2$s %3$s on %4$s!', 'gameengine'),
+            '<strong>' . esc_html($sender_name) . '</strong>',
+            '<strong>' . esc_html(number_format_i18n($amount)) . '</strong>',
+            esc_html($point_type_name),
+            esc_html($site_name)
+        ) . '</p>';
+
+        if (!empty($message)) {
+            $body .= '<div style="background: #f8fafc; border-left: 4px solid #6366f1; padding: 14px 18px; margin: 20px 0; border-radius: 4px;">';
+            $body .= '<p style="margin: 0 0 6px 0; font-size: 12px; font-weight: bold; text-transform: uppercase; color: #64748b;">' . esc_html__('Personal Note from Sender:', 'gameengine') . '</p>';
+            $body .= '<p style="margin: 0; font-size: 14px; font-style: italic; color: #334155;">"' . esc_html($message) . '"</p>';
+            $body .= '</div>';
+        }
+
+        $body .= '<p style="font-size: 15px; line-height: 1.6; margin: 20px 0;">' . esc_html__('To claim your points, click the button below to sign in or create an account with this email address. The points will be instantly added to your new balance!', 'gameengine') . '</p>';
+
+        if (!empty($claim_url)) {
+            $body .= '<div style="text-align: center; margin: 28px 0 16px 0;">';
+            $body .= '<a href="' . esc_url($claim_url) . '" style="background: #6366f1; color: #ffffff; padding: 14px 32px; font-size: 16px; font-weight: bold; text-decoration: none; border-radius: 6px; display: inline-block;">' . esc_html__('Claim Your Gift Points Now', 'gameengine') . '</a>';
+            $body .= '</div>';
+            $body .= '<p style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 12px;">' . esc_html__('Or copy and paste this URL into your browser:', 'gameengine') . '<br><span style="color: #6366f1; word-break: break-all;">' . esc_url($claim_url) . '</span></p>';
+        }
+
+        $body .= '<p style="font-size: 12px; color: #94a3b8; text-align: center; margin-top: 24px;">' . sprintf(
+            /* translators: %s: Site name */
+            esc_html__('We look forward to seeing you on %s!', 'gameengine'),
+            esc_html($site_name)
+        ) . '</p>';
+        $body .= '</div>';
+
+        $email_settings = get_option('gameengine_email_settings', array());
+        $this->send_wp_mail($to_email, $subject, $body, $email_settings);
+        return true;
+    }
 }

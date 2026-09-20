@@ -78,6 +78,7 @@ $gameengine_tab_id      = wp_unique_id('gameengine-profile-');
                         </span>
                     </div>
                 <?php endif; ?>
+                <?php do_action('gameengine_profile_after_level', $gameengine_user_id); ?>
             </div>
         </div>
 
