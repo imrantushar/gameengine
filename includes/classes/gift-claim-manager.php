@@ -18,9 +18,11 @@ class GiftClaimManager
         $self = new self();
 
         add_action('init', array($self, 'handle_claim_url_request'));
+        add_action('template_redirect', array($self, 'handle_claim_url_request'), 1);
         add_action('user_register', array($self, 'handle_user_registration'), 20, 1);
         add_action('wp_login', array($self, 'handle_user_login'), 20, 2);
         add_action('template_redirect', array($self, 'display_frontend_notices'));
+        add_action('template_redirect', array($self, 'display_frontend_notices'), 10);
     }
 
     /**
