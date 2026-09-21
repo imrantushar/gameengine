@@ -22,8 +22,9 @@ if (! defined('ABSPATH')) {
  */
 class Course_Unlock
 {
-    const RULES_META_KEY       = Course_Meta::RULES_META_KEY;
-    const REQUIRE_ALL_META_KEY = Course_Meta::REQUIRE_ALL_META_KEY;
+    const RULES_META_KEY          = Course_Meta::RULES_META_KEY;
+    const REQUIRE_ALL_META_KEY    = Course_Meta::REQUIRE_ALL_META_KEY;
+    const ALLOW_PURCHASE_META_KEY = Course_Meta::ALLOW_PURCHASE_META_KEY;
 
     public static function init()
     {
@@ -48,27 +49,67 @@ class Course_Unlock
     /**
      * Once the unlock condition is met, present the course as a normal free
      * enrollment everywhere Academy checks the course type — same pattern the
-     * MemberPress / Paid Memberships Pro integrations use.
+     * MemberPress / Paid Memberships Pro integrations use. When the admin has
+     * also allowed buying the course outright (`allows_purchase()`) and a
+     * real price/product is attached, report it as `'paid'` instead once the
+     * rule *isn't* met — Academy's own paid-enrollment/checkout machinery
+     * then handles the purchase path unmodified, including GameEngine Pro's
+     * points-payment gateway if that's active too.
      */
     public static function modify_course_type($type, $course_id)
     {
-        if ('gameengine_membership' === $type && self::has_course_access($course_id)) {
-            return 'free';
+        if ('gameengine_membership' === $type) {
+            if (self::has_course_access($course_id)) {
+                return 'free';
+            }
+            if (self::allows_purchase($course_id) && self::has_price($course_id)) {
+                return 'paid';
+            }
         }
         return $type;
     }
 
     public static function change_course_type_before_enrollment($course_type, $course_id)
     {
-        if ('gameengine_membership' === $course_type && self::has_course_access($course_id)) {
-            return 'free';
+        if ('gameengine_membership' === $course_type) {
+            if (self::has_course_access($course_id)) {
+                return 'free';
+            }
+            if (self::allows_purchase($course_id) && self::has_price($course_id)) {
+                return 'paid';
+            }
         }
         return $course_type;
     }
 
+    /**
+     * Both display filters below used to check the raw
+     * `academy_course_type` meta alone and unconditionally show
+     * "GameEngine Unlock" whenever it was `gameengine_membership` — even
+     * for a viewer `modify_course_type()` (above) had *already* resolved
+     * to `'paid'` (rule not met, but a real price is attached and
+     * purchasable) or `'free'` (rule met). That discarded whatever real
+     * price/"Free" Academy's own pricing functions had just correctly
+     * computed a few lines earlier in the same request, so a course that
+     * combines GameEngine rules with a real price never actually showed
+     * its price or a "buy this" path anywhere on the frontend — only ever
+     * this locked-looking label, even to a visitor who could simply pay.
+     * Only fall back to the GameEngine label in the one case it's
+     * actually true: this viewer doesn't meet the rule and there's no
+     * price to buy either.
+     */
+    protected static function should_override_display($course_id)
+    {
+        if ('gameengine_membership' !== get_post_meta($course_id, 'academy_course_type', true)) {
+            return false;
+        }
+        return ! self::has_course_access($course_id)
+            && ! (self::allows_purchase($course_id) && self::has_price($course_id));
+    }
+
     public static function modify_loop_price_args($course_type_label, $course_id)
     {
-        if ('gameengine_membership' === get_post_meta($course_id, 'academy_course_type', true)) {
+        if (self::should_override_display($course_id)) {
             $course_type_label = esc_html__('GameEngine Unlock', 'gameengine');
         }
         return $course_type_label;
@@ -76,9 +117,9 @@ class Course_Unlock
 
     public static function modify_enroll_form_content_args($args, $course_id)
     {
-        if ('gameengine_membership' === get_post_meta($course_id, 'academy_course_type', true)) {
+        if (self::should_override_display($course_id)) {
             $args['is_paid'] = true;
-            $args['price']   = '<div class="academy-course-type">' . esc_html__('GameEngine Unlock', 'gameengine') . '</div>';
+            $args['price']   = esc_html__('GameEngine Unlock', 'gameengine');
         }
         return $args;
     }
@@ -93,7 +134,11 @@ class Course_Unlock
         $user_id     = get_current_user_id();
         $is_enrolled = \Academy\Helper::is_enrolled($course_id, $user_id);
 
-        if ($is_enrolled || self::has_course_access($course_id)) {
+        if (
+            $is_enrolled
+            || self::has_course_access($course_id)
+            || (self::allows_purchase($course_id) && self::has_price($course_id))
+        ) {
             return $html;
         }
 
@@ -153,6 +198,46 @@ class Course_Unlock
         }
 
         return $require_all ? ! in_array(false, $results, true) : in_array(true, $results, true);
+    }
+
+    /* ------------------------------------------------------------------ *
+     * "Also buy this course" (hybrid unlock)
+     * ------------------------------------------------------------------ */
+
+    public static function allows_purchase($course_id)
+    {
+        return '1' === (string) get_post_meta($course_id, self::ALLOW_PURCHASE_META_KEY, true);
+    }
+
+    /**
+     * Whether a real, purchasable price is attached to the course — doesn't
+     * need the exact amount, just "is there something to buy", since once
+     * `modify_course_type()` reports `'paid'` Academy's own core handles
+     * displaying/charging whichever of these is actually configured.
+     */
+    public static function has_price($course_id)
+    {
+        if ((float) get_post_meta($course_id, 'academy_course_price', true) > 0) {
+            return true;
+        }
+
+        if ((int) get_post_meta($course_id, 'academy_course_product_id', true) > 0) {
+            return true;
+        }
+
+        if ((int) get_post_meta($course_id, 'academy_course_download_id', true) > 0) {
+            return true;
+        }
+
+        global $wpdb;
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+        $linked = $wpdb->get_var($wpdb->prepare(
+            "SELECT product_id FROM {$wpdb->prefix}storeengine_integrations WHERE provider = %s AND integration_id = %d",
+            'storeengine/academylms',
+            $course_id
+        ));
+
+        return ! empty($linked);
     }
 
     protected static function user_meets_rule($type, $value, $user_id)
