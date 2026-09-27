@@ -7,19 +7,26 @@ import Select from 'react-select';
 import GameEngineBox from '@GFComponents/GameEngineBox';
 import Button from '@GFComponents/Button';
 
-const emptyRow = () => ({ product_id: '', point_type_id: '', amount: '' });
+const emptyRow = () => ({ product_id: '', point_type_id: '', amount: '', gift_mode: 'disabled' });
 
 const BuyPointsSettings = () => {
     const { values, setFieldValue } = useFormikContext();
     const [pointTypeOptions, setPointTypeOptions] = useState([]);
+
+    const giftModeOptions = [
+        { value: 'disabled', label: __('Disabled (Self Only)', 'gameengine') },
+        { value: 'optional', label: __('Optional (Self or Gift)', 'gameengine') },
+        { value: 'gift_only', label: __('Gift Only', 'gameengine') },
+    ];
 
     const rawMappings = values?.buy_points?.mappings || {};
     const rows = Array.isArray(rawMappings)
         ? rawMappings
         : Object.entries(rawMappings).map(([product_id, val]) => ({
             product_id,
-            point_type_id: val[0] || '',
-            amount: val[1] || '',
+            point_type_id: Array.isArray(val) ? (val[0] || '') : (val?.point_type_id || ''),
+            amount: Array.isArray(val) ? (val[1] || '') : (val?.amount || ''),
+            gift_mode: Array.isArray(val) ? (val[2] || 'disabled') : (val?.gift_mode || 'disabled'),
         }));
 
     const [localRows, setLocalRows] = useState(rows.length > 0 ? rows : [emptyRow()]);
@@ -55,16 +62,17 @@ const BuyPointsSettings = () => {
 
     return (
         <GameEngineBox dynamicClasses="gameengine-settings overflow-visible" boxShadow="var(--gameengine-shadow)">
-            <p className="gameengine-settings-heading">{__('Buy Points', 'gameengine')}</p>
+            <p className="gameengine-settings-heading">{__('Buy & Gift Points', 'gameengine')}</p>
             <p className="text-sm text-[var(--gameengine-warn-muted)] mb-4">
-                {__('Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer.', 'gameengine')}
+                {__('Map WooCommerce or StoreEngine products to point awards. Enable gifting to allow buyers to send points to friends via WooCommerce checkout.', 'gameengine')}
             </p>
 
             <div className="flex flex-col gap-2">
                 <div className="flex gap-3 items-center text-xs font-semibold text-[var(--gameengine-warn-muted)] px-2">
-                    <span style={{ flex: '0 0 140px' }}>{__('Product ID', 'gameengine')}</span>
+                    <span style={{ flex: '0 0 120px' }}>{__('Product ID', 'gameengine')}</span>
                     <span style={{ flex: 1 }}>{__('Point Type', 'gameengine')}</span>
-                    <span style={{ flex: '0 0 100px' }}>{__('Amount', 'gameengine')}</span>
+                    <span style={{ flex: '0 0 90px' }}>{__('Amount', 'gameengine')}</span>
+                    <span style={{ flex: '0 0 180px' }}>{__('Gift Mode', 'gameengine')}</span>
                     <span style={{ flex: '0 0 40px' }}></span>
                 </div>
 
@@ -73,7 +81,7 @@ const BuyPointsSettings = () => {
                         <input
                             type="number"
                             className="gameengine-input"
-                            style={{ flex: '0 0 140px' }}
+                            style={{ flex: '0 0 120px' }}
                             value={row.product_id}
                             onChange={(e) => updateRow(index, 'product_id', e.target.value)}
                             placeholder={__('Product ID', 'gameengine')}
@@ -94,12 +102,22 @@ const BuyPointsSettings = () => {
                         <input
                             type="number"
                             className="gameengine-input"
-                            style={{ flex: '0 0 100px' }}
+                            style={{ flex: '0 0 90px' }}
                             value={row.amount}
                             onChange={(e) => updateRow(index, 'amount', e.target.value)}
                             placeholder="100"
                             min="1"
                         />
+
+                        <div style={{ flex: '0 0 180px' }}>
+                            <Select
+                                className="gameengine-select"
+                                classNamePrefix="gameengine-select"
+                                options={giftModeOptions}
+                                value={giftModeOptions.find(o => o.value === (row.gift_mode || 'disabled')) || giftModeOptions[0]}
+                                onChange={(opt) => updateRow(index, 'gift_mode', opt ? opt.value : 'disabled')}
+                            />
+                        </div>
 
                         <button
                             type="button"
@@ -112,7 +130,7 @@ const BuyPointsSettings = () => {
                                 color: 'var(--gameengine-placing)',
                                 display: 'flex',
                                 alignItems: 'center',
-                                justifyContent: 'center',
+                                justifySelf: 'center',
                                 padding: '4px',
                             }}
                             title={__('Remove row', 'gameengine')}

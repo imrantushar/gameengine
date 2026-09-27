@@ -135,8 +135,16 @@ class SettingsController extends BaseController
                 $product_id    = absint($row['product_id'] ?? 0);
                 $point_type_id = absint($row['point_type_id'] ?? 0);
                 $amount        = absint($row['amount'] ?? 0);
+                $gift_mode     = sanitize_key($row['gift_mode'] ?? 'disabled');
+                if (!in_array($gift_mode, array('disabled', 'optional', 'gift_only'), true)) {
+                    $gift_mode = 'disabled';
+                }
                 if ($product_id && $point_type_id && $amount) {
-                    $mappings[$product_id] = array($point_type_id, $amount);
+                    $mappings[$product_id] = array(
+                        'point_type_id' => $point_type_id,
+                        'amount'        => $amount,
+                        'gift_mode'     => $gift_mode,
+                    );
                 }
             }
             update_option('gameengine_buy_points_mappings', $mappings);

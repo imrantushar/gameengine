@@ -18,9 +18,10 @@ abstract class BaseIntegration implements IntegrationInterface
      * 
      * @param array  $specific_fields Fields unique to a trigger.
      * @param string $type            Action type: 'award' or 'deduct'.
+     * @param string $trigger_key     The trigger this schema belongs to, when the caller passes one.
      * @return array Combined schema.
      */
-    protected static function merge_schema(array $specific_fields = array(), $type = 'award'): array
+    protected static function merge_schema(array $specific_fields = array(), $type = 'award', $trigger_key = ''): array
     {
         $all_fields = array_merge(self::get_common_free_schema($type), $specific_fields);
 
@@ -30,10 +31,11 @@ abstract class BaseIntegration implements IntegrationInterface
          * Extensions append the fields for the behaviour they implement, so
          * this plugin only ever describes the options it acts on itself.
          *
-         * @param array  $all_fields Field definitions.
-         * @param string $type       Action type: 'award' or 'deduct'.
+         * @param array  $all_fields  Field definitions.
+         * @param string $type        Action type: 'award' or 'deduct'.
+         * @param string $trigger_key The trigger this schema belongs to, when the caller passes one.
          */
-        $all_fields = apply_filters('gameengine_trigger_schema_fields', $all_fields, $type);
+        $all_fields = apply_filters('gameengine_trigger_schema_fields', $all_fields, $type, $trigger_key);
 
         return array_values($all_fields);
     }
