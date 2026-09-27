@@ -17,8 +17,11 @@ if (! defined('ABSPATH')) {
  */
 class Course_Meta
 {
-    const RULES_META_KEY       = 'academy_courses_gameengine_rules';
-    const REQUIRE_ALL_META_KEY = 'academy_courses_gameengine_require_all';
+    const RULES_META_KEY          = 'academy_courses_gameengine_rules';
+    const REQUIRE_ALL_META_KEY    = 'academy_courses_gameengine_require_all';
+    const ALLOW_PURCHASE_META_KEY = 'academy_courses_gameengine_allow_purchase';
+    const NUDGE_ENABLED_META_KEY  = 'academy_courses_gameengine_nudge_enabled';
+    const NUDGE_THRESHOLD_META_KEY = 'academy_courses_gameengine_nudge_threshold';
 
     public static function init()
     {
@@ -70,6 +73,31 @@ class Course_Meta
         $fields[self::REQUIRE_ALL_META_KEY] = array(
             'type'         => 'boolean',
             'show_in_rest' => true,
+        );
+
+        // Lets a `gameengine_membership` course *also* be bought outright —
+        // whichever of the rule or a real purchase happens first unlocks it.
+        // See Course_Unlock::allows_purchase()/has_price().
+        $fields[self::ALLOW_PURCHASE_META_KEY] = array(
+            'type'         => 'boolean',
+            'show_in_rest' => true,
+        );
+
+        // Pro-gated "nudge students as they get close to unlocking" email —
+        // the toggle/threshold are Academy-side UI, GameEngine Pro just
+        // reads these at send time; registered here regardless of Pro so a
+        // value set while Pro was active still round-trips if Pro lapses.
+        $fields[self::NUDGE_ENABLED_META_KEY] = array(
+            'type'         => 'boolean',
+            'show_in_rest' => true,
+        );
+
+        $fields[self::NUDGE_THRESHOLD_META_KEY] = array(
+            'type'              => 'integer',
+            'sanitize_callback' => function ($value) {
+                return min(99, max(1, intval($value)));
+            },
+            'show_in_rest'      => true,
         );
 
         // --- Free "Content Restriction" (description lock) --------------
