@@ -136,6 +136,7 @@
 	__( "Boost growth by rewarding users for referring friends, tracked clicks, signups, and affiliate commissions.", "gameengine" );
 	__( "Border Color", "gameengine" );
 	__( "Border drawn around the badge.", "gameengine" );
+	__( "Buy & Gift Points", "gameengine" );
 	__( "Buy Points", "gameengine" );
 	__( "Buy Points settings", "gameengine" );
 	__( "Cancel", "gameengine" );
@@ -206,6 +207,7 @@
 	__( "Description", "gameengine" );
 	__( "Description(Optional)", "gameengine" );
 	__( "Disabled", "gameengine" );
+	__( "Disabled (Self Only)", "gameengine" );
 	__( "Dismiss this notice", "gameengine" );
 	__( "Download your data as CSV or JSON. Exports are capped at 10,000 rows.", "gameengine" );
 	__( "Draft", "gameengine" );
@@ -278,6 +280,8 @@
 	__( "Get Pro", "gameengine" );
 	__( "Get started progress", "gameengine" );
 	__( "Get started with GameEngine", "gameengine" );
+	__( "Gift Mode", "gameengine" );
+	__( "Gift Only", "gameengine" );
 	__( "Give me 10 test points", "gameengine" );
 	__( "Give yourself 10 test points. They take the same path as a real award, so you see exactly what a member would get.", "gameengine" );
 	__( "Go to dashboard", "gameengine" );
@@ -366,7 +370,7 @@
 	__( "Make an achievement or level require another one first", "gameengine" );
 	__( "Manage and view your wallet transactions with a clear list of balances, earnings, expenses, and payment history.", "gameengine" );
 	__( "Manual Trigger", "gameengine" );
-	__( "Map WooCommerce or StoreEngine products to point awards. When an order completes, the mapped points are automatically credited to the buyer.", "gameengine" );
+	__( "Map WooCommerce or StoreEngine products to point awards. Enable gifting to allow buyers to send points to friends via WooCommerce checkout.", "gameengine" );
 	__( "Master toggle for the in-admin notification center.", "gameengine" );
 	__( "Maximum Balance", "gameengine" );
 	__( "Maximum earnings per user", "gameengine" );
@@ -436,6 +440,7 @@
 	__( "Number of times a user can earn this badge (0 = unlimited).", "gameengine" );
 	__( "One page where a member sees everything they have earned. Shows a prompt to log in for visitors.", "gameengine" );
 	__( "Open Points System", "gameengine" );
+	__( "Optional (Self or Gift)", "gameengine" );
 	__( "Overview", "gameengine" );
 	__( "Overwrite existing records with matching slugs/IDs", "gameengine" );
 	__( "Parent", "gameengine" );
