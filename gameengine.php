@@ -4,7 +4,7 @@
  * Plugin Name:       GameEngine - Gamification, Points, Badges & Leaderboards
  * Plugin URI:        https://gameengine.pro/
  * Description:       Gamify your site with points, badges, levels, leaderboards and a rewards store to motivate members and build a loyal community.
- * Version:           1.4.1
+ * Version:           1.4.2
  * Author:            kodezen
  * Author URI:        https://kodezen.com
  * License:           GPLv2 or later
@@ -62,7 +62,7 @@ final class GameEngine
      */
     private function define_constants()
     {
-        define('GAMEENGINE_VERSION', '1.4.1');
+        define('GAMEENGINE_VERSION', '1.4.2');
         define('GAMEENGINE_PLUGIN_SLUG', 'gameengine');
         define('GAMEENGINE_FILE', __FILE__);
         define('GAMEENGINE_BASENAME', plugin_basename(GAMEENGINE_FILE));

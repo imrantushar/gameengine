@@ -4,7 +4,7 @@ Tags: gamification, points, badges, leaderboard, rewards
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -226,6 +226,13 @@ Yes. GameEngine is free software licensed under the GPL, and its complete source
 
 == Changelog ==
 
+= 1.4.2 - 2026-09-28 =
+* Added - Gift points. Each product in Settings → Buy Points has a Gift Mode: Disabled (the buyer gets the points), Optional (the buyer can send them to someone else) or Gift Only. On the WooCommerce product page the buyer enters the recipient's email, name and an optional message. A recipient who has an account gets the points when the order completes. Anyone else gets an email with a claim link, and receives the points after signing in or registering with that email address.
+* Added - Refunding a gift order takes the points back from the recipient, or cancels the gift if it has not been claimed yet. The order screen shows each gift's status, with a button to resend the gift email.
+* Added - An Academy LMS course set to GameEngine Unlock can also be bought, when the course has a price and allows buying. Members who meet the unlock rules still enroll for free; everyone else sees the price and can check out.
+* Added - A `gameengine_profile_after_level` action in the `[gameengine_profile]` template, and a third `$trigger_key` argument on the `gameengine_trigger_schema_fields` filter.
+* Fixed - Buy Points products set up in Settings awarded no points when the order completed. The settings screen saved each product in a format the order handler could not read. Products saved before this update work without being saved again.
+
 = 1.4.1 - 2026-09-14 =
 * Fixed - The WooCommerce "Refund Order" and StoreEngine "Order Refunded" triggers could be added under Awards, where every refund gave the member points, and to achievements and levels. Both are now offered under Deductions only. A rule already saved under Awards takes the points away instead, and an achievement or level rule on either trigger does nothing.
 * Fixed - WooCommerce "Refund Order" took points back for orders refunded before they were completed. The WooCommerce purchase triggers award points only when an order is completed, so those orders had earned nothing.
@@ -321,6 +328,9 @@ Yes. GameEngine is free software licensed under the GPL, and its complete source
 * Fixed - Coding standards and security issues for the WordPress.org submission.
 
 == Upgrade Notice ==
+
+= 1.4.2 =
+Adds gift points to Buy Points products, and fixes Buy Points products that awarded no points.
 
 = 1.4.1 =
 Refund triggers saved under Awards now take points away instead of giving them. WooCommerce "Purchase Specific Product" rules with no product chosen now award points for any product.
